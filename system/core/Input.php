@@ -575,9 +575,9 @@ class CI_Input {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Fetch User Agent string
+	 * Fetch User_model Agent string
 	 *
-	 * @return	string|null	User Agent string or NULL if it doesn't exist
+	 * @return	string|null	User_model Agent string or NULL if it doesn't exist
 	 */
 	public function user_agent($xss_clean = NULL)
 	{

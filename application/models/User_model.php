@@ -1,12 +1,12 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: saul
+ * User_model: saul
  * Date: 10/26/2017
  * Time: 10:14 AM
  */
 
-class User
+class User_model extends CI_Model
 {
     public function is_logged_in()
     {

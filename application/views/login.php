@@ -7,6 +7,7 @@
  */
 echo link_tag("resources/css/Styles.css")
 ?>
+<app-root>
 <section id="login">
     <div class="container">
     	<div class="row">
@@ -30,3 +31,9 @@ echo link_tag("resources/css/Styles.css")
     	</div> <!-- /.row -->
     </div> <!-- /.container -->
 </section>
+</app-root>
+<script type="text/javascript" src="dist/inline.bundle.js"></script>
+<script type="text/javascript" src="dist/polyfills.bundle.js"></script>
+<script type="text/javascript" src="dist/styles.bundle.js"></script>
+<script type="text/javascript" src="dist/vendor.bundle.js"></script>
+<script type="text/javascript" src="dist/main.bundle.js"></script>
