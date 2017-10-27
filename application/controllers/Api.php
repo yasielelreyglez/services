@@ -23,11 +23,14 @@ class Api extends REST_Controller
         }
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }
-    public function peticion(){
+    public function peticion_get(){
         $output["result"]="ejemplo de respuesta";
         $headers = $this->input->request_headers();
+
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+
             if ($decodedToken != false) {
                 $this->set_response($decodedToken, REST_Controller::HTTP_OK);
                 return;

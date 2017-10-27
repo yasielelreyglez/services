@@ -76,4 +76,39 @@ class Auth extends REST_Controller
         }
         $this->set_response($headers);
     }
+    public function login_post()
+    {
+        $values = json_decode($this->post()[0]);
+
+        $email = $values->email;
+        $password = $values->password;
+        $password = crypt($password, config_item('encryption_key'));
+
+//        $login = $this->User->login( $email , $password );
+//
+//        if ( !$login )
+//        {
+//            $output['error'] = 'Wrong mail or password';
+//        }
+//        else
+//        {
+//            $tokenData = array(
+//                'userId' => $login->id,
+//                'name' => $login->name,
+//                'email' => $login->email,
+//                'role' => $login->role
+//            );
+//    }
+
+        $tokenData = array(
+            'username' => $email,
+            'role' => "admin"
+        );
+        $token = AUTHORIZATION::generateToken($tokenData);
+        $output["token"]=$token;
+        $output["username"]=$email;
+
+        echo json_encode( $output );
+
+    }
 }

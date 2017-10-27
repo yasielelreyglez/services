@@ -5,35 +5,28 @@
  * Date: 10/25/2017
  * Time: 3:18 PM
  */
-echo link_tag("resources/css/Styles.css")
+echo link_tag("resources/css/Styles.css");
+base_url()
 ?>
-<app-root>
-<section id="login">
-    <div class="container">
-    	<div class="row">
-    	    <div class="col-xs-12">
-        	    <div class="form-wrap">
-                <h1>Log in with your email account</h1>
-                    <form role="form" name="loginForm" id="login-form" ng-submit="login(user)" autocomplete="off">
-                        <div class="form-group">
-                            <label for="email" class="sr-only">Email</label>
-                            <input type="email" name="email" ng-model="user.email" id="email" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="key" class="sr-only">Password</label>
-                            <input type="password" ng-model="user.password" name="password" id="password" class="form-control">
-                        </div>
-                        <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Log in">
-                    </form>
-                    <hr>
-        	    </div>
-     </div> <!-- /.col-xs-12 -->
-    	</div> <!-- /.row -->
-    </div> <!-- /.container -->
-</section>
-</app-root>
-<script type="text/javascript" src="dist/inline.bundle.js"></script>
-<script type="text/javascript" src="dist/polyfills.bundle.js"></script>
-<script type="text/javascript" src="dist/styles.bundle.js"></script>
-<script type="text/javascript" src="dist/vendor.bundle.js"></script>
-<script type="text/javascript" src="dist/main.bundle.js"></script>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Angular App</title>
+    <base href="/">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <?php echo link_tag("/dist/assets/bootstrap.min.css") ?>
+</head>
+
+<body>
+<app-root></app-root>
+
+<script type="text/javascript" src="<?php echo base_url()?>/dist/inline.bundle.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>/dist/polyfills.bundle.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>/dist/styles.bundle.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>/dist/vendor.bundle.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>/dist/main.bundle.js"></script></body>
+
+</html>

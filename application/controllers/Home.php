@@ -27,27 +27,34 @@ class Home extends CI_Controller {
     }
     public function login()
     {
-        $email = $this->input->post( 'email' );
-        $password = $this->input->post( 'password' );
-        $password = crypt( $password , config_item( 'encryption_key' ) );
+        $email = $this->input->post('email');
+        $password = $this->input->post('password');
+        $password = crypt($password, config_item('encryption_key'));
 
-        $login = $this->User->login( $email , $password );
+//        $login = $this->User->login( $email , $password );
+//
+//        if ( !$login )
+//        {
+//            $output['error'] = 'Wrong mail or password';
+//        }
+//        else
+//        {
+//            $tokenData = array(
+//                'userId' => $login->id,
+//                'name' => $login->name,
+//                'email' => $login->email,
+//                'role' => $login->role
+//            );
+//    }
 
-        if ( !$login )
-        {
-            $output['error'] = 'Wrong mail or password';
-        }
-        else
-        {
-            $tokenData = array(
-                'userId' => $login->id,
-                'name' => $login->name,
-                'email' => $login->email,
-                'role' => $login->role
+        $tokenData = array(
+                'username' => $email,
+                'role' => "admin"
             );
             $token = AUTHORIZATION::generateToken($tokenData);
             $output["token"]=$token;
-        }
+            $output["username"]=$email;
+
 
         echo json_encode( $output );
 
