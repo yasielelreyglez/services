@@ -1,24 +1,24 @@
-import { User } from './../_models/user';
-import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
-import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map'
+import {User} from './../_models/user';
+import {Injectable} from '@angular/core';
+import {Http, Headers, Response} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 
 @Injectable()
 export class AuthService {
     public token: string;
-    private apiUrl = '/login/';
+    // private apiUrl = '/api/';
 
     constructor(private http: Http) {
         // set token if saved in local storage
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser && currentUser.token;
     }
 
     login(user: User): Observable<boolean> {
-        let body = JSON.stringify({ email: user.username, password: user.password })
-        return this.http.post(this.getUrl('auth/login'), body).map(this.getData);
+        let body = JSON.stringify({email: user.username, password: user.password})
+        return this.http.post('/login/auth/login', body).map(this.getData);
     }
 
     logout(): void {
@@ -32,9 +32,9 @@ export class AuthService {
         if (token) {
             // set token property
             this.token = token;
-console.log(response.json())
+            console.log(response.json());
             // store username and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify({ username: response.json().username, token: token }));
+            localStorage.setItem('currentUser', JSON.stringify({username: response.json().username, token: token}));
 
             // return true to indicate successful login
             return true;
@@ -50,8 +50,8 @@ console.log(response.json())
         Observable.throw(msg);
     }
 
-    private getUrl(url: string) {
-        return this.apiUrl + url;
-    }
+    // private getUrl(url: string) {
+    //     return this.apiUrl + url;
+    // }
 
 }
