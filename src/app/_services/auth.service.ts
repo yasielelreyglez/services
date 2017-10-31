@@ -17,7 +17,7 @@ export class AuthService {
     }
 
     login(user: User): Observable<boolean> {
-        let body = JSON.stringify({email: user.username, password: user.password})
+        let body = JSON.stringify({email: user.email, password: user.password})
         return this.http.post('/login/auth/login', body).map(this.getData);
     }
 
@@ -34,7 +34,7 @@ export class AuthService {
             this.token = token;
             console.log(response.json());
             // store username and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify({username: response.json().username, token: token}));
+            localStorage.setItem('currentUser', JSON.stringify({email: response.json().email, token: token}));
 
             // return true to indicate successful login
             return true;

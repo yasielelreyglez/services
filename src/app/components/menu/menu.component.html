@@ -1,0 +1,35 @@
+<div ngbDropdown class="d-inline-block pull-right">
+    <a class="" id="menu" ngbDropdownToggle>
+        <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+    </a>
+    <div ngbDropdownMenu aria-labelledby="menu">
+        <div *ngIf="isAuntenticate; then login else unlogin"></div>
+    </div>
+</div>
+
+<ng-template #unlogin>
+    <button class="dropdown-item">
+        <i class="fa fa-unlock-alt fa-flip-horizontal" aria-hidden="true"></i> Autenticarse
+    </button>
+    <button class="dropdown-item">
+        <i class="fa fa-list-alt" aria-hidden="true"></i> Registrarse
+    </button>
+</ng-template>
+
+<ng-template #login>
+    <button class="dropdown-item">
+        <i class="fa fa-unlock-alt fa-flip-horizontal" aria-hidden="true"></i> Mis favoritos
+    </button>
+    <button class="dropdown-item">
+        <i class="fa fa-plus" aria-hidden="true"></i> Crear anuncio
+    </button>
+    <button class="dropdown-item">
+        <i class="fa fa-bullhorn" aria-hidden="true"></i> Mis anuncios
+    </button>
+    <button class="dropdown-item">
+        <i class="fa fa-search" aria-hidden="true"></i> Mis búsquedas
+    </button>
+    <button class="dropdown-item">
+        <i class="fa fa-lock" aria-hidden="true"></i> Cerrar sesión
+    </button>
+</ng-template>

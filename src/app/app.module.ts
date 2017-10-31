@@ -11,13 +11,19 @@ import {LoginComponent} from './components/login/login.component';
 import {HomeComponent} from './components/home/home.component';
 import {UserService} from './_services/user.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {MenuComponent} from './components/menu/menu.component';
+import {RegisterComponent} from './components/register/register.component';
+import {EqualValidator} from './_directives/validate-password.directive';
 
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
-        LoginComponent
+        LoginComponent,
+        MenuComponent,
+        RegisterComponent,
+        EqualValidator
     ],
     imports: [
         BrowserModule,

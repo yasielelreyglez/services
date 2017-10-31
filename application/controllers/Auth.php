@@ -106,12 +106,12 @@ class Auth extends REST_Controller
 //    }
 
         $tokenData = array(
-            'username' => $email,
+            'email' => $email,
             'role' => "admin"
         );
         $token = AUTHORIZATION::generateToken($tokenData);
         $output["token"] = $token;
-        $output["username"] = $email;
+        $output["email"] = $email;
 //        $output["user_agent"] = $user_agent;
 //        $output['error'] = 'Wrong mail or password';
         echo json_encode($output);
