@@ -55,6 +55,23 @@ class Service
      * @var string
      **/
     protected $url;
+    /**
+     * @Column(type="string")
+     * @var string
+     **/
+    protected $week_days;
+
+    /**
+     * @Column(type="string")
+     * @var string
+     **/
+    protected $start_time;
+
+    /**
+     * @Column(type="string")
+     * @var string
+     **/
+    protected $end_time;
 
     /**
      * @Column(type="datetime")
