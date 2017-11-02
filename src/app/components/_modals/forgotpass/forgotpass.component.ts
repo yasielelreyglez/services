@@ -20,7 +20,6 @@ export class ForgotpassComponent {
 
     enviar() {
         this.loading = true;
-        this.activeModal.close();
         this.authService.forgotPassword(this.model.email).subscribe(result => {
             if (result === true) {
                 this.activeModal.close();

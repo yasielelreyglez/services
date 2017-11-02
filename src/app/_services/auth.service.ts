@@ -29,12 +29,12 @@ export class AuthService {
     }
 
     forgotPassword(email: string): Observable<any> {
-        return this.http.post('/login/auth/forgotPassword', email).map((response: Response) => {
-                if (response.json().success === true) {
+        console.log(email);
+        return this.http.post('/login/api/forgotpassword', email).map((response: Response) => {
+                if (response.json().result === true) {
                     return true;
-                }
-                else {
-                    return {error: response.json().success.error};
+                } else {
+                    return {error: response.json().result};
                 }
             }
         );
