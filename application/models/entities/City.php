@@ -19,7 +19,12 @@ class City
      **/
     protected $title;
 
-
+    // ...
+    /**
+     * Many Groups have Many Users.
+     * @ManyToMany(targetEntity="Service", mappedBy="cities")
+     */
+    private $services;
     public function __construct()
     {
 

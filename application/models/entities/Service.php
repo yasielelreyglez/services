@@ -78,6 +78,31 @@ class Service
      **/
     protected $created;
 
+
+    //// relaciones
+    /**
+     * @ManyToOne(targetEntity="User", inversedBy="services")
+     */
+    private $author;
+
+    /**
+     * Many services have Many cities.
+     * @ManyToMany(targetEntity="City", inversedBy="services")
+     * @JoinTable(name="service_city")
+     */
+    private $cities;
+
+//    /**
+//     * Many services have Many Users.
+//     * @ManyToMany(targetEntity="User", mappedBy="services")
+//     */
+//    private $users;
+
+    /**
+     * One User has Many UserService.
+     * @OneToMany(targetEntity="UserService", mappedBy="service")
+     */
+    private $serviceusers;
     public function __construct()
     {
         $this->created = new \DateTime("now");
@@ -117,7 +142,15 @@ class Service
     {
         $this->password = $password;
     }
+    public function getAuthor()
+    {
+        return $this->author;
+    }
 
+    public function setAthor($author)
+    {
+        $this->author = $author;
+    }
     public function getCreated()
     {
         return $this->created;

@@ -22,10 +22,17 @@ class Api extends REST_Controller
     }
     //LISTADO DE LAS CATEGORIAS (TODAS LAS CATEGORIAS ?)
     public function categories_get(){
-        $categories[]=array("title"=>"pepe","id"=>1,"icon"=>"pepe.png");
-        $categories[]=array("title"=>"pablo","id"=>2,"icon"=>"pepe.png");
-        $categories[]=array("title"=>"carlo","id"=>3,"icon"=>"pepe.png");
-        $this->set_response($categories, REST_Controller::HTTP_UNAUTHORIZED);
+//        $categories[]=array("title"=>"pepe","id"=>1,"icon"=>"pepe.png");
+//        $categories[]=array("title"=>"pablo","id"=>2,"icon"=>"pepe.png");
+//        $categories[]=array("title"=>"carlo","id"=>3,"icon"=>"pepe.png");
+
+        $em= $this->doctrine->em;
+
+        $categoriesRepo = $em->getRepository('Entities\Category');
+        $categories = $categoriesRepo->findAll();
+//
+        $this->set_response($categories,REST_Controller::HTTP_OK);
+//        $this->set_response($categories, REST_Controller::HTTP_UNAUTHORIZED);
     }
     //LISTADO DE LAS SUBCATEGORIAS DADA UNA CATEGORIA <params category:string>
     public function subcategories_get(){
@@ -187,11 +194,13 @@ class Api extends REST_Controller
         $this->set_response($headers);
     }
     public function doctrine_get(){
-//        phpinfo();
-        $headers = $this->input->request_headers();
-        echo "<pre>";
-        print_r($this->doctrine->em);
-        $this->set_response($headers);
+
+        $em= $this->doctrine->em;
+
+        $categoriesRepo = $em->getRepository('Entities\Category');
+        $categories = $categoriesRepo->findAll();
+//
+        $this->set_response($categories,REST_Controller::HTTP_OK);
     }
 
 }

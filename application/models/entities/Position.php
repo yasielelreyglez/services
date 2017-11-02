@@ -20,13 +20,13 @@ class Position
     protected $title;
 
     /**
-     * @Column(type="double")
+     * @Column(type="float")
      * @var string
      **/
     protected $latitude;
 
     /**
-     * @Column(type="double")
+     * @Column(type="float")
      * @var string
      **/
     protected $longitude;

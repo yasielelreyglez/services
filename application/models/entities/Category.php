@@ -11,19 +11,19 @@ class Category
      * @Id @GeneratedValue @Column(type="integer")
      * @var int
      **/
-    protected $id;
+    public $id;
 
     /**
      * @Column(type="string")
      * @var string
      **/
-    protected $title;
+    public $title;
 
     /**
      * @Column(type="string")
      * @var string
      **/
-    protected $icon;
+    public $icon;
 
     /**
      * Bidirectional - One-To-Many (INVERSE SIDE)
@@ -60,6 +60,10 @@ class Category
     public function setIcon($icon)
     {
         $this->icon = $icon;
+    }
+    public function __toString()
+    {
+        return $this->getTitle();
     }
 
 }
