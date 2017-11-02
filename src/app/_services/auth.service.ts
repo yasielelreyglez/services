@@ -8,16 +8,17 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthService {
     public token: string;
+
     // private apiUrl = '/api/';
 
     constructor(private http: Http) {
         // set token if saved in local storage
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser && currentUser.token;
     }
 
     login(user: User): Observable<boolean> {
-        let body = JSON.stringify({email: user.email, password: user.password})
+        const body = JSON.stringify({email: user.email, password: user.password});
         return this.http.post('/login/auth/login', body).map(this.getData);
     }
 
@@ -27,8 +28,22 @@ export class AuthService {
         localStorage.removeItem('currentUser');
     }
 
+    forgotPassword(email: string): Observable<any> {
+        return this.http.post('/login/auth/forgotPassword', email).map((response: Response) => {
+                if (response.json().success === true) {
+                    return true;
+                }
+                else {
+                    return {error: response.json().success.error};
+                }
+            }
+        );
+
+    }
+
+
     private getData(response: Response) {
-        let token = response.json() && response.json().token;
+        const token = response.json() && response.json().token;
         if (token) {
             // set token property
             this.token = token;
@@ -45,9 +60,9 @@ export class AuthService {
     }
 
     private error(error: any) {
-        let msg = (error.message) ? error.message : 'Error desconocido';
+        const msg = (error.message) ? error.message : 'Error desconocido';
         console.log(msg);
-        Observable.throw(msg);
+        return Observable.throw(msg);
     }
 
     // private getUrl(url: string) {

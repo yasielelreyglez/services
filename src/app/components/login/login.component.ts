@@ -2,6 +2,8 @@ import {User} from './../../_models/user';
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../../_services/auth.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ForgotpassComponent} from '../_modals/forgotpass/forgotpass.component';
 
 @Component({
     selector: 'app-login',
@@ -13,7 +15,7 @@ export class LoginComponent implements OnInit {
     loading: boolean;
     error: string;
 
-    constructor(private router: Router, private authService: AuthService) {
+    constructor(private router: Router, private authService: AuthService, private modalService: NgbModal) {
         this.user = new User();
         this.loading = false;
         this.error = '';
@@ -35,6 +37,10 @@ export class LoginComponent implements OnInit {
                     this.loading = false;
                 }
             });
+    }
+
+    open() {
+        const modalRef = this.modalService.open(ForgotpassComponent);
     }
 
 }
