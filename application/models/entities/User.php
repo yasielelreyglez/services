@@ -36,6 +36,30 @@ class User
      **/
     protected $created;
 
+    /**
+     * @Column(type="integer")
+     * @var integer
+     **/
+    protected $role;
+
+    /**
+     * One User has Many UserService.
+     * @OneToMany(targetEntity="UserService", mappedBy="user")
+     */
+    private $userservices;
+    /**
+     * Bidirectional - One-To-Many (INVERSE SIDE)
+     *
+     * @OneToMany(targetEntity="Service", mappedBy="author")
+     */
+    protected $service;
+//    /**
+//     * Many users have Many services.
+//     * @ManyToMany(targetEntity="Service", inversedBy="users")
+////     * @JoinTable(name="service_user")
+//     */
+//    protected $services;
+
     public function __construct()
     {
         $this->created = new \DateTime("now");
@@ -76,6 +100,14 @@ class User
         $this->password = $password;
     }
 
+    public function getRole()
+    {
+        return $this->role;
+    }
+    public function setRole($role)
+    {
+        $this->role = $role;
+    }
     public function getCreated()
     {
         return $this->created;
