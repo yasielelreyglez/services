@@ -13,12 +13,12 @@ class Api extends REST_Controller
 {
 
         // LISTADO DE LAS SUBCATEGORIAS MAS VISITADAS O RANKIADAS(VISTA DEL HOME)
-    public function topSupcategories_get(){
+    public function topSubcategories_get(){
         $subcategories[]=array("title"=>"pepe","id"=>1,"icon"=>"pepe.png");
         $subcategories[]=array("title"=>"pablo","id"=>2,"icon"=>"pepe.png");
         $subcategories[]=array("title"=>"carlo","id"=>3,"icon"=>"pepe.png");
 
-        $this->set_response($subcategories, REST_Controller::HTTP_UNAUTHORIZED);
+        $this->set_response($subcategories, REST_Controller::HTTP_OK);
     }
     //LISTADO DE LAS CATEGORIAS (TODAS LAS CATEGORIAS ?)
     public function categories_get(){
@@ -186,4 +186,12 @@ class Api extends REST_Controller
         }
         $this->set_response($headers);
     }
+    public function doctrine_get(){
+//        phpinfo();
+        $headers = $this->input->request_headers();
+        echo "<pre>";
+        print_r($this->doctrine->em);
+        $this->set_response($headers);
+    }
+
 }
