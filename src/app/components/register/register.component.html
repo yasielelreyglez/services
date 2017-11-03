@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<div class="col-12">
     <h4 class="text-center tc-blue">Registrarse</h4>
     <hr class="bc-grei">
     <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate class="">
@@ -34,7 +34,7 @@
 
         <br>
         <div class="form-group text-center">
-            <button [disabled]="loading" class="btn btn-primary col-md-12">
+            <button [disabled]="loading" class="btn btn-primary col-12">
                 <i class="fa fa-list-alt" aria-hidden="true"></i> Registrarse
             </button>
             <img *ngIf="loading"
@@ -43,7 +43,7 @@
         </div>
         <div class="form-group text-center">
             <span class="tc-blue"><b>Si quieres puedes registrarte también con:</b></span>
-            <button class="btn btn-primary col-md-12 bc-facebook">
+            <button class="btn btn-primary col-12 bc-facebook">
                 <i class="fa fa-facebook-official" aria-hidden="true"></i>
                 facebook
             </button>

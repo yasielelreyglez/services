@@ -3,7 +3,7 @@ import {AuthService} from './_services/auth.service';
 import {AuthGuard} from './_guards/auth.guard';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule, NgModel} from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 import {HttpModule, JsonpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
@@ -15,7 +15,7 @@ import {MenuComponent} from './components/menu/menu.component';
 import {RegisterComponent} from './components/register/register.component';
 import {EqualValidator} from './_directives/validate-password.directive';
 import {ForgotpassComponent} from './components/_modals/forgotpass/forgotpass.component';
-
+import {ApiService} from './_services/api.service';
 
 
 @NgModule({
@@ -42,7 +42,8 @@ import {ForgotpassComponent} from './components/_modals/forgotpass/forgotpass.co
     providers: [
         AuthGuard,
         AuthService,
-        UserService
+        UserService,
+        ApiService
     ],
     bootstrap: [AppComponent]
 })

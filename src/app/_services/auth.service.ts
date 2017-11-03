@@ -28,7 +28,7 @@ export class AuthService {
         localStorage.removeItem('currentUser');
     }
 
-    public isAutenticate(): boolean {
+    isAutenticate(): boolean {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser && currentUser.token)
             return true;

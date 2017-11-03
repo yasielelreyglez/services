@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from '../../_services/user.service';
+import {ApiService} from '../../_services/api.service';
+import {Subcategory} from '../../_models/subcategory';
 
 @Component({
     selector: 'app-home',
@@ -7,22 +8,16 @@ import {UserService} from '../../_services/user.service';
     styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-    result_test = 'primerdato';
+    subcategories: Subcategory[]
 
-    constructor(private user: UserService) {
-
+    constructor(private apiServices: ApiService) {
     }
 
     ngOnInit() {
-
+        this.topSubcategories();
     }
 
-    clickTest() {
-        const test = this.user.getTest().subscribe(dato => {
-            console.log(dato);
-            this.result_test = dato.username;
-            return dato;
-        });
+    topSubcategories() {
+        return this.apiServices.topSubcategories().subscribe(result => this.subcategories = result);
     }
-
 }
