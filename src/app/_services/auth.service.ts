@@ -28,8 +28,14 @@ export class AuthService {
         localStorage.removeItem('currentUser');
     }
 
+    public isAutenticate(): boolean {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser && currentUser.token)
+            return true;
+        return false;
+    }
+
     forgotPassword(email: string): Observable<any> {
-        console.log(email);
         return this.http.post('/login/api/forgotpassword', email).map((response: Response) => {
                 if (response.json().result === true) {
                     return true;

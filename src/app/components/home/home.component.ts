@@ -13,7 +13,9 @@ export class HomeComponent implements OnInit {
 
     }
 
-    ngOnInit(){}
+    ngOnInit() {
+
+    }
 
     clickTest() {
         const test = this.user.getTest().subscribe(dato => {

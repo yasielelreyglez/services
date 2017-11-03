@@ -3,7 +3,7 @@
         <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
     </a>
     <div ngbDropdownMenu aria-labelledby="menu">
-        <div *ngIf="isAuntenticate; then login else unlogin"></div>
+        <div *ngIf="isAuntenticate(); then login else unlogin"></div>
     </div>
 </div>
 
@@ -29,7 +29,7 @@
     <button class="dropdown-item">
         <i class="fa fa-search" aria-hidden="true"></i> Mis búsquedas
     </button>
-    <button class="dropdown-item">
+    <button class="dropdown-item" (click)="logout()">
         <i class="fa fa-lock" aria-hidden="true"></i> Cerrar sesión
     </button>
 </ng-template>
