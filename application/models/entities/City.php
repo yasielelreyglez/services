@@ -27,7 +27,7 @@ class City
     private $services;
     public function __construct()
     {
-
+        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getId()
@@ -43,6 +43,39 @@ class City
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+    /**
+     * Add service
+     *
+     * @param \Entities\Service $service
+     *
+     * @return City
+     */
+    public function addService(\Entities\Service $service)
+    {
+        $this->services[] = $service;
+
+        return $this;
+    }
+
+    /**
+     * Remove service
+     *
+     * @param \Entities\Service $service
+     */
+    public function removeService(\Entities\Service $service)
+    {
+        $this->services->removeElement($service);
+    }
+
+    /**
+     * Get services
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getServices()
+    {
+        return $this->services;
     }
 
 }

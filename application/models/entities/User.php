@@ -47,12 +47,18 @@ class User
      * @OneToMany(targetEntity="UserService", mappedBy="user")
      */
     private $userservices;
+
+    /**
+     * One User has Many UserService.
+     * @OneToMany(targetEntity="Comments", mappedBy="user")
+     */
+    private $usercomments;
     /**
      * Bidirectional - One-To-Many (INVERSE SIDE)
      *
      * @OneToMany(targetEntity="Service", mappedBy="author")
      */
-    protected $service;
+    protected $services;
 //    /**
 //     * Many users have Many services.
 //     * @ManyToMany(targetEntity="Service", inversedBy="users")
@@ -63,6 +69,9 @@ class User
     public function __construct()
     {
         $this->created = new \DateTime("now");
+        $this->userservices = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->usercomments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getId()
@@ -111,5 +120,106 @@ class User
     public function getCreated()
     {
         return $this->created;
+    }
+    /**
+     * Add userservice
+     *
+     * @param \Entities\UserService $userservice
+     *
+     * @return User
+     */
+    public function addUserservice(\Entities\UserService $userservice)
+    {
+        $this->userservices[] = $userservice;
+
+        return $this;
+    }
+
+    /**
+     * Remove userservice
+     *
+     * @param \Entities\UserService $userservice
+     */
+    public function removeUserservice(\Entities\UserService $userservice)
+    {
+        $this->userservices->removeElement($userservice);
+    }
+
+    /**
+     * Get userservices
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUserservices()
+    {
+        return $this->userservices;
+    }
+
+    /**
+     * Add usercomment
+     *
+     * @param \Entities\Comments $usercomment
+     *
+     * @return User
+     */
+    public function addUsercomment(\Entities\Comments $usercomment)
+    {
+        $this->usercomments[] = $usercomment;
+
+        return $this;
+    }
+
+    /**
+     * Remove usercomment
+     *
+     * @param \Entities\Comments $usercomment
+     */
+    public function removeUsercomment(\Entities\Comments $usercomment)
+    {
+        $this->usercomments->removeElement($usercomment);
+    }
+
+    /**
+     * Get usercomments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsercomments()
+    {
+        return $this->usercomments;
+    }
+
+    /**
+     * Add service
+     *
+     * @param \Entities\Service $service
+     *
+     * @return User
+     */
+    public function addService(\Entities\Service $service)
+    {
+        $this->services[] = $service;
+
+        return $this;
+    }
+
+    /**
+     * Remove service
+     *
+     * @param \Entities\Service $service
+     */
+    public function removeService(\Entities\Service $service)
+    {
+        $this->services->removeElement($service);
+    }
+
+    /**
+     * Get services
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getServices()
+    {
+        return $this->services;
     }
 }

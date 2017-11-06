@@ -62,7 +62,7 @@ if ( ! function_exists('xml_convert'))
 	{
 		$temp = '__TEMP_AMPERSANDS__';
 
-		// Replace entities to temporary markers so that
+		// Replace Entities to temporary markers so that
 		// ampersands won't get messed up
 		$str = preg_replace('/&#(\d+);/', $temp.'\\1;', $str);
 
@@ -77,7 +77,7 @@ if ( ! function_exists('xml_convert'))
 			$str
 		);
 
-		// Decode the temp markers back to entities
+		// Decode the temp markers back to Entities
 		$str = preg_replace('/'.$temp.'(\d+);/', '&#\\1;', $str);
 
 		if ($protect_all === TRUE)

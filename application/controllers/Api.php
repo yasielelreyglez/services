@@ -14,11 +14,12 @@ class Api extends REST_Controller
 
         // LISTADO DE LAS SUBCATEGORIAS MAS VISITADAS O RANKIADAS(VISTA DEL HOME)
     public function topSubcategories_get(){
-        $subcategories[]=array("title"=>"pepe","id"=>1,"icon"=>"pepe.png");
-        $subcategories[]=array("title"=>"pablo","id"=>2,"icon"=>"pepe.png");
-        $subcategories[]=array("title"=>"carlo","id"=>3,"icon"=>"pepe.png");
 
+        $em= $this->doctrine->em;
+        $subcategoriesRepo = $em->getRepository('Entities\Subcategory');
+        $subcategories = $subcategoriesRepo->findBy(array(),array('visits' => 'DESC'),10);
         $this->set_response($subcategories, REST_Controller::HTTP_OK);
+
     }
     //LISTADO DE LAS CATEGORIAS (TODAS LAS CATEGORIAS ?)
     public function categories_get(){
@@ -27,7 +28,6 @@ class Api extends REST_Controller
 //        $categories[]=array("title"=>"carlo","id"=>3,"icon"=>"pepe.png");
 
         $em= $this->doctrine->em;
-
         $categoriesRepo = $em->getRepository('Entities\Category');
         $categories = $categoriesRepo->findAll();
 //
@@ -36,9 +36,11 @@ class Api extends REST_Controller
     }
     //LISTADO DE LAS SUBCATEGORIAS DADA UNA CATEGORIA <params category:string>
     public function subcategories_get(){
-        $subcategories[]=array("title"=>"pepe","id"=>1,"icon"=>"pepe.png");
-        $subcategories[]=array("title"=>"pablo","id"=>2,"icon"=>"pepe.png");
-        $subcategories[]=array("title"=>"carlo","id"=>3,"icon"=>"pepe.png");
+        $values = $this->get();
+        $category_id =  $values["category"];
+        $em= $this->doctrine->em;
+        $subcategoriesRepo = $em->getRepository('Entities\Subcategory');
+        $subcategories = $subcategoriesRepo->findBy(array('category'=>$category_id));
         $this->set_response($subcategories, REST_Controller::HTTP_UNAUTHORIZED);
     }
 //LISTADO DE LOS SERVICIOS DADA UNA CATEGORIA <params category:string>
@@ -197,8 +199,9 @@ class Api extends REST_Controller
 
         $em= $this->doctrine->em;
 
-        $categoriesRepo = $em->getRepository('Entities\Category');
-        $categories = $categoriesRepo->findAll();
+        $categoriesRepo = $em->getRepository('Entities\Subcategory');
+        $categories = $categoriesRepo->findBy(array(),array('visits' => 'DESC'),10);
+
 //
         $this->set_response($categories,REST_Controller::HTTP_OK);
     }

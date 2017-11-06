@@ -387,10 +387,10 @@ class CI_Security {
 		}
 
 		/*
-		 * Convert character entities to ASCII
+		 * Convert character Entities to ASCII
 		 *
 		 * This permits our tests below to work reliably.
-		 * We only convert entities that are within tags since
+		 * We only convert Entities that are within tags since
 		 * these are the ones that will pose security problems.
 		 */
 		$str = preg_replace_callback("/[^a-z0-9>]+[a-z0-9]+=([\'\"]).*?\\1/si", array($this, '_convert_attribute'), $str);
@@ -495,7 +495,7 @@ class CI_Security {
 		 * Sanitize naughty HTML elements
 		 *
 		 * If a tag containing any of the words in the list
-		 * below is found, the tag gets converted to entities.
+		 * below is found, the tag gets converted to Entities.
 		 *
 		 * So this: <blink>
 		 * Becomes: &lt;blink&gt;
@@ -530,7 +530,7 @@ class CI_Security {
 		 * Similar to above, only instead of looking for
 		 * tags it looks for PHP and JavaScript commands
 		 * that are disallowed. Rather than removing the
-		 * code, it simply converts the parenthesis to entities
+		 * code, it simply converts the parenthesis to Entities
 		 * rendering the code un-executable.
 		 *
 		 * For example:	eval('some code')
@@ -655,7 +655,7 @@ class CI_Security {
 	 * The reason we are not using html_entity_decode() by itself is because
 	 * while it is not technically correct to leave out the semicolon
 	 * at the end of an entity most browsers will still interpret the entity
-	 * correctly. html_entity_decode() does not convert entities without
+	 * correctly. html_entity_decode() does not convert Entities without
 	 * semicolons, so we are left with our own little solution here. Bummer.
 	 *
 	 * @link	http://php.net/html-entity-decode
@@ -683,7 +683,7 @@ class CI_Security {
 			$_entities = array_map('strtolower', get_html_translation_table(HTML_ENTITIES, $flag, $charset));
 
 			// If we're not on PHP 5.4+, add the possibly dangerous HTML 5
-			// entities to the array manually
+			// Entities to the array manually
 			if ($flag === ENT_COMPAT)
 			{
 				$_entities[':'] = '&colon;';
@@ -698,7 +698,7 @@ class CI_Security {
 		{
 			$str_compare = $str;
 
-			// Decode standard entities, avoiding false positives
+			// Decode standard Entities, avoiding false positives
 			if (preg_match_all('/&[a-z]{2,}(?![a-z;])/i', $str, $matches))
 			{
 				$replace = array();
@@ -714,7 +714,7 @@ class CI_Security {
 				$str = str_replace(array_keys($replace), array_values($replace), $str);
 			}
 
-			// Decode numeric & UTF16 two byte entities
+			// Decode numeric & UTF16 two byte Entities
 			$str = html_entity_decode(
 				preg_replace('/(&#(?:x0*[0-9a-f]{2,5}(?![0-9a-f;])|(?:0*\d{2,4}(?![0-9;]))))/iS', '$1;', $str),
 				$flag,

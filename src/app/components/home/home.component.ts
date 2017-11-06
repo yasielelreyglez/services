@@ -15,6 +15,11 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
+  loadUsers(){
+      this.user.getUsers().subscribe(usuarios=>{
+          this.usuarios
+      })
+  }
   clickTest(){
    let test =  this.user.getTest().subscribe(dato => {
       console.log(dato);
@@ -22,7 +27,6 @@ export class HomeComponent implements OnInit {
        return dato;
       });
    console.log(test)
-
   }
 
 }

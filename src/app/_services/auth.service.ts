@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map'
 @Injectable()
 export class AuthService {
     public token: string;
-    private apiUrl = '/login/';
+    private apiUrl = 'http://localhost/login/';
 
     constructor(private http: Http) {
         // set token if saved in local storage

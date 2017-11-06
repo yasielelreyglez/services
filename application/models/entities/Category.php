@@ -34,7 +34,7 @@ class Category
 
     public function __construct()
     {
-
+        $this->subcategories = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getId()
@@ -64,6 +64,40 @@ class Category
     public function __toString()
     {
         return $this->getTitle();
+    }
+
+    /**
+     * Add subcategory
+     *
+     * @param \Entities\Subcategory $subcategory
+     *
+     * @return Category
+     */
+    public function addSubcategory(\Entities\Subcategory $subcategory)
+    {
+        $this->subcategories[] = $subcategory;
+
+        return $this;
+    }
+
+    /**
+     * Remove subcategory
+     *
+     * @param \Entities\Subcategory $subcategory
+     */
+    public function removeSubcategory(\Entities\Subcategory $subcategory)
+    {
+        $this->subcategories->removeElement($subcategory);
+    }
+
+    /**
+     * Get subcategories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSubcategories()
+    {
+        return $this->subcategories;
     }
 
 }
