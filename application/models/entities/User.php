@@ -32,15 +32,47 @@ class User
     protected $password;
 
     /**
+     * @Column(type="string")
+     * @var string
+     **/
+    protected $ip_address;
+
+    /**
+     * @Column(type="string")
+     * @var string
+     **/
+    protected $remember_code;
+    /**
+     * @Column(type="string")
+     * @var string
+     **/
+    protected $salt;
+
+    /**
      * @Column(type="datetime")
      **/
-    protected $created;
+    protected $created_on;
+
+    /**
+     * @Column(type="datetime")
+     **/
+    protected $last_login;
+
+    /**
+     * @Column(type="integer")
+     * @var integer
+     **/
+    protected $active;
+
+
 
     /**
      * @Column(type="integer")
      * @var integer
      **/
     protected $role;
+
+
 
     /**
      * One User has Many UserService.
