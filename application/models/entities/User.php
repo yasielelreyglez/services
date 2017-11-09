@@ -11,19 +11,19 @@ class User
      * @Id @GeneratedValue @Column(type="integer")
      * @var int
      **/
-    protected $id;
+    public $id;
 
     /**
      * @Column(type="string")
      * @var string
      **/
-    protected $username;
+    public $username;
 
     /**
      * @Column(type="string")
      * @var string
      **/
-    protected $email;
+    public $email;
 
     /**
      * @Column(type="string")

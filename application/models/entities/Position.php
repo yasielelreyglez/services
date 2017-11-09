@@ -32,6 +32,15 @@ class Position
     protected $longitude;
 
     /**
+     * @Column(type="datetime")
+     **/
+    protected $created_at;
+    /**
+     * @Column(type="datetime")
+     **/
+    protected $updated_at;
+
+    /**
      * @ManyToOne(targetEntity="Service", inversedBy="positions")
      */
     private $service;

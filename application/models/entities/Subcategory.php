@@ -40,14 +40,14 @@ class Subcategory
     protected $category;
 
     /**
-     * Many Groups have Many Users.
+     * Many Subcategory have Many Services.
      * @ManyToMany(targetEntity="Service", mappedBy="subcategories")
      */
-    private $services;
+    public $services;
 
     public function __construct()
     {
-        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
+//        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getId()

@@ -17,44 +17,44 @@ class Service
      * @Column(type="string")
      * @var string
      **/
-    protected $title;
+    public $title;
 
     /**
      * @Column(type="string")
      * @var string
      **/
-    protected $subtitle;
+    public $subtitle;
 
     /**
      * @Column(type="string")
      * @var string
      **/
-    protected $phone;
+    public $phone;
 
 
     /**
      * @Column(type="string")
      * @var string
      **/
-    protected $address;
+    public $address;
 
     /**
      * @Column(type="string")
      * @var string
      **/
-    protected $other_phone;
+    public $other_phone;
 
     /**
      * @Column(type="string")
      * @var string
      **/
-    protected $email;
+    public $email;
 
     /**
      * @Column(type="string")
      * @var string
      **/
-    protected $url;
+    public $url;
     /**
      * @Column(type="string")
      * @var string
@@ -65,51 +65,62 @@ class Service
      * @Column(type="string")
      * @var string
      **/
-    protected $start_time;
+    public $start_time;
 
     /**
      * @Column(type="string")
      * @var string
      **/
-    protected $end_time;
+    public $end_time;
 
     /**
      * @Column(type="integer")
      * @var integer
      **/
-    protected $visits;
+    public $visits;
     /**
      * @Column(type="datetime")
      **/
     protected $created;
+
+    /**
+     * @Column(type="datetime")
+     **/
+    protected $created_at;
+
+    /**
+     * @Column(type="datetime")
+     **/
+    protected $updated_at;
+
 
 
     //// relaciones
     /**
      * @ManyToOne(targetEntity="User", inversedBy="services")
      */
-    private $author;
+    public $author;
 
     /**
      * Bidirectional - One-To-Many (INVERSE SIDE)
      *
      * @OneToMany(targetEntity="Position", mappedBy="service")
      */
-    private $positions;
+    public $positions;
 
     /**
      * Many services have Many cities.
      * @ManyToMany(targetEntity="City", inversedBy="services")
      * @JoinTable(name="service_city")
      */
-    private $cities;
+    public $cities;
 
     /**
      * Many services have Many cities.
      * @ManyToMany(targetEntity="Subcategory", inversedBy="services")
      * @JoinTable(name="subcategory_service")
      */
-    private $subcategories;
+    public $subcategories;
 
 //    /**
 //     * Many services have Many Users.
@@ -121,13 +132,13 @@ class Service
      * One User has Many UserService.
      * @OneToMany(targetEntity="UserService", mappedBy="service")
      */
-    private $serviceusers;
+    public $serviceusers;
 
     /**
      * One User has Many UserService.
      * @OneToMany(targetEntity="Comments", mappedBy="service")
      */
-    private $servicecomments;
+    public $servicecomments;
     public function __construct()
     {
         $this->created = new \DateTime("now");
@@ -472,6 +483,10 @@ class Service
     public function removeServiceuser(\Entities\UserService $serviceuser)
     {
         $this->serviceusers->removeElement($serviceuser);
+    }
+
+    public function getSubcategories(){
+        return $this->subcategories;
     }
 
     /**

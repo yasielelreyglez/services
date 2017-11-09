@@ -36,7 +36,7 @@ class User extends \Entities\User implements \Doctrine\ORM\Proxy\Proxy
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = [];
+    public static $lazyPropertiesDefaults = ['username' => NULL, 'email' => NULL];
 
 
 
@@ -46,16 +46,60 @@ class User extends \Entities\User implements \Doctrine\ORM\Proxy\Proxy
      */
     public function __construct($initializer = null, $cloner = null)
     {
+        unset($this->username, $this->email);
 
         $this->__initializer__ = $initializer;
         $this->__cloner__      = $cloner;
     }
 
+    /**
+     * 
+     * @param string $name
+     */
+    public function __get($name)
+    {
+        if (array_key_exists($name, $this->__getLazyProperties())) {
+            $this->__initializer__ && $this->__initializer__->__invoke($this, '__get', [$name]);
 
+            return $this->$name;
+        }
 
+        trigger_error(sprintf('Undefined property: %s::$%s', __CLASS__, $name), E_USER_NOTICE);
+    }
 
+    /**
+     * 
+     * @param string $name
+     * @param mixed  $value
+     */
+    public function __set($name, $value)
+    {
+        if (array_key_exists($name, $this->__getLazyProperties())) {
+            $this->__initializer__ && $this->__initializer__->__invoke($this, '__set', [$name, $value]);
 
+            $this->$name = $value;
 
+            return;
+        }
+
+        $this->$name = $value;
+    }
+
+    /**
+     * 
+     * @param  string $name
+     * @return boolean
+     */
+    public function __isset($name)
+    {
+        if (array_key_exists($name, $this->__getLazyProperties())) {
+            $this->__initializer__ && $this->__initializer__->__invoke($this, '__isset', [$name]);
+
+            return isset($this->$name);
+        }
+
+        return false;
+    }
 
     /**
      * 
@@ -64,10 +108,10 @@ class User extends \Entities\User implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'username', 'email', 'password', 'created', 'role', '' . "\0" . 'Entities\\User' . "\0" . 'userservices', 'service'];
+            return ['__isInitialized__', 'id', 'username', 'email', 'password', 'ip_address', 'remember_code', 'salt', 'created_on', 'last_login', 'active', 'role', '' . "\0" . 'Entities\\User' . "\0" . 'userservices', '' . "\0" . 'Entities\\User' . "\0" . 'usercomments', 'services'];
         }
 
-        return ['__isInitialized__', 'id', 'username', 'email', 'password', 'created', 'role', '' . "\0" . 'Entities\\User' . "\0" . 'userservices', 'service'];
+        return ['__isInitialized__', 'id', 'password', 'ip_address', 'remember_code', 'salt', 'created_on', 'last_login', 'active', 'role', '' . "\0" . 'Entities\\User' . "\0" . 'userservices', '' . "\0" . 'Entities\\User' . "\0" . 'usercomments', 'services'];
     }
 
     /**
@@ -89,6 +133,7 @@ class User extends \Entities\User implements \Doctrine\ORM\Proxy\Proxy
                 }
             };
 
+            unset($this->username, $this->email);
         }
     }
 
@@ -285,6 +330,105 @@ class User extends \Entities\User implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreated', []);
 
         return parent::getCreated();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addUserservice(\Entities\UserService $userservice)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addUserservice', [$userservice]);
+
+        return parent::addUserservice($userservice);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeUserservice(\Entities\UserService $userservice)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeUserservice', [$userservice]);
+
+        return parent::removeUserservice($userservice);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUserservices()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUserservices', []);
+
+        return parent::getUserservices();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addUsercomment(\Entities\Comments $usercomment)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addUsercomment', [$usercomment]);
+
+        return parent::addUsercomment($usercomment);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeUsercomment(\Entities\Comments $usercomment)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeUsercomment', [$usercomment]);
+
+        return parent::removeUsercomment($usercomment);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUsercomments()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUsercomments', []);
+
+        return parent::getUsercomments();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addService(\Entities\Service $service)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addService', [$service]);
+
+        return parent::addService($service);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeService(\Entities\Service $service)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeService', [$service]);
+
+        return parent::removeService($service);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getServices()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getServices', []);
+
+        return parent::getServices();
     }
 
 }
