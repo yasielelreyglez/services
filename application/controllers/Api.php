@@ -224,15 +224,15 @@ class Api extends REST_Controller
         return;
     }
 
-    public function doctrine_get()
+    public function report_post()
     {
-
-        $em = $this->doctrine->em;
-
-        $categoriesRepo = $em->getRepository('Entities\Category');
-        $categories = $categoriesRepo->findAll();
-//
-        $this->set_response($categories, REST_Controller::HTTP_OK);
+        $report = $this->post()[0];
+        $output["result"] = true;
+        if ($report != 'report')
+            $output["result"] = 'Error en el servidor';
+        $this->set_response($output, REST_Controller::HTTP_OK);
+        return;
     }
+
 
 }

@@ -1,3 +1,35 @@
+<div class="row">
+    <div class="input-group subscribir-btn">
+        <input name="email" type="text" data-toggle="popover" data-placement="bottom"
+               class="form-control" placeholder="Selecciona la ciudad...">
+        <span class="input-group-addon btn btn-primary bc-blue-ligth" style="color: white; border: none">
+            <i class="fa fa-arrow-down fa-2x"></i>
+        </span>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="input-group subscribir-btn">
+        <input name="email" type="text" data-toggle="popover" data-placement="bottom"
+               class="form-control" placeholder="Selecciona la categoría...">
+        <span class="input-group-addon btn btn-primary bc-blue-ligth" style="color: white; border: none">
+            <i class="fa fa-arrow-down fa-2x"></i>
+        </span>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="input-group subscribir-btn">
+        <input name="email" type="text" data-toggle="popover" data-placement="bottom"
+               class="form-control" placeholder="Escriba la distancia en Kms">
+        <span class="input-group-addon btn btn-primary bc-blue-ligth" style="color: white; border: none">
+            <i class="fa fa-arrow-down fa-2x"></i>
+        </span>
+    </div>
+</div>
+<br>
+
+
 <div *ngFor="let service of services" class="media" style="border-bottom: 1px solid #bcbcbc;
     margin-bottom: 15px; padding-bottom: 10px;">
     <img class="d-flex align-self-center mr-3" width="115" src="../../../assets/service_img.png" alt="" style="border: 1px solid #bcbcbc;
@@ -29,7 +61,8 @@
                 </div>
             </div>
             <div class="col-6" style="padding-left: 5px;">
-                <div class="text-center fw-600" style="color: white; font-size: 16px; background-color: #DF040B; cursor: pointer;a">
+                <div class="text-center fw-600" (click)="open()"
+                     style="color: white; font-size: 16px; background-color: #DF040B; cursor: pointer;a">
                     <i class="fa fa-microphone d-none d-sm-inline"></i>
                     Denunciar
                 </div>

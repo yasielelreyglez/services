@@ -49,4 +49,15 @@ export class ApiService {
             }
         });
     }
+
+    report(report: string): Observable<any> {
+        return this.http.post('/login/api/report', report).map((response: Response) => {
+                if (response.json().result === true) {
+                    return true;
+                } else {
+                    return {error: response.json().result};
+                }
+            }
+        );
+    }
 }
