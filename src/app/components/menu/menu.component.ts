@@ -9,17 +9,16 @@ import {Router} from '@angular/router';
     styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
+    loggedIn = false;
 
     constructor(public authServices: AuthService, private router: Router) {
 
     }
 
     ngOnInit() {
-
-    }
-
-    isAuntenticate() {
-        return this.authServices.isAutenticate();
+        this.authServices.currentUser.subscribe(user => {
+            this.loggedIn = !!user;
+        });
     }
 
     logout(): void {

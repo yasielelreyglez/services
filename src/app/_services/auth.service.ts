@@ -2,30 +2,35 @@ import {User} from './../_models/user';
 import {Injectable} from '@angular/core';
 import {Http, Headers, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 
 
 @Injectable()
 export class AuthService {
     public token: string;
-
-    // private apiUrl = '/api/';
+    currentUser: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     constructor(private http: Http) {
         // set token if saved in local storage
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.token = currentUser && currentUser.token;
+        this.currentUser.next(this.isAutenticate());
     }
 
     login(user: User): Observable<boolean> {
         const body = JSON.stringify({email: user.email, password: user.password});
-        return this.http.post('/login/auth/login', body).map(this.getData);
+        return this.http.post('/login/auth/login', body).map(response => response.json()).map(result => {
+            if (result) {
+                localStorage.setItem('currentUser', JSON.stringify(result));
+                this.currentUser.next(result);
+            }
+            return !!result;
+        });
     }
 
     logout(): void {
         // clear token remove user from local storage to log user out
-        this.token = null;
         localStorage.removeItem('currentUser');
+        this.currentUser.next(false);
     }
 
     isAutenticate(): boolean {
@@ -47,32 +52,10 @@ export class AuthService {
 
     }
 
-
-    private getData(response: Response) {
-        const token = response.json() && response.json().token;
-        if (token) {
-            // set token property
-            this.token = token;
-            console.log(response.json());
-            // store username and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify({email: response.json().email, token: token}));
-
-            // return true to indicate successful login
-            return true;
-        } else {
-            // return false to indicate failed login
-            return false;
-        }
-    }
-
     private error(error: any) {
         const msg = (error.message) ? error.message : 'Error desconocido';
         console.log(msg);
         return Observable.throw(msg);
     }
-
-    // private getUrl(url: string) {
-    //     return this.apiUrl + url;
-    // }
 
 }

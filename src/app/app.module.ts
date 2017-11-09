@@ -16,6 +16,12 @@ import {RegisterComponent} from './components/register/register.component';
 import {EqualValidator} from './_directives/validate-password.directive';
 import {ForgotpassComponent} from './components/_modals/forgotpass/forgotpass.component';
 import {ApiService} from './_services/api.service';
+import { CategoriesComponent } from './components/categories/categories.component';
+import { SubcategoriesComponent } from './components/subcategories/subcategories.component';
+import { ShowsubcateroriesComponent } from './components/showsubcaterories/showsubcaterories.component';
+import {Data} from './_services/data.service';
+import { ShowservicesComponent } from './components/showservices/showservices.component';
+import { ServicesComponent } from './components/services/services.component';
 
 
 @NgModule({
@@ -27,6 +33,11 @@ import {ApiService} from './_services/api.service';
         RegisterComponent,
         EqualValidator,
         ForgotpassComponent,
+        CategoriesComponent,
+        SubcategoriesComponent,
+        ShowsubcateroriesComponent,
+        ShowservicesComponent,
+        ServicesComponent,
     ],
     entryComponents: [
         ForgotpassComponent
@@ -43,7 +54,8 @@ import {ApiService} from './_services/api.service';
         AuthGuard,
         AuthService,
         UserService,
-        ApiService
+        ApiService,
+        Data
     ],
     bootstrap: [AppComponent]
 })

@@ -1,0 +1,12 @@
+<div class="col-12">
+  <h4 class="text-center tc-blue">Categorías</h4>
+  <hr class="bc-grei">
+  <li *ngFor="let category of categories" class="list-btn">
+    <button class="btn btn-primary col-12" (click)="dataTitle(category.title)" [routerLink]="['/categories', category.id]">
+      <!--<img src="{{subcategory.icon}}" alt="">-->
+      <!--<i class="fa fa-star"></i>-->
+      {{category.title}}
+    </button>
+  </li>
+
+</div>

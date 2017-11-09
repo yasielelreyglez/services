@@ -24,17 +24,18 @@ class Api extends REST_Controller
     }
 
     //LISTADO DE LAS CATEGORIAS (TODAS LAS CATEGORIAS ?)
-    public function categories_get(){
+    public function categories_get()
+    {
 //        $categories[]=array("title"=>"pepe","id"=>1,"icon"=>"pepe.png");
 //        $categories[]=array("title"=>"pablo","id"=>2,"icon"=>"pepe.png");
 //        $categories[]=array("title"=>"carlo","id"=>3,"icon"=>"pepe.png");
 
-        $em= $this->doctrine->em;
+        $em = $this->doctrine->em;
 
         $categoriesRepo = $em->getRepository('Entities\Category');
         $categories = $categoriesRepo->findAll();
 //
-        $this->set_response($categories,REST_Controller::HTTP_OK);
+        $this->set_response($categories, REST_Controller::HTTP_OK);
 //        $this->set_response($categories, REST_Controller::HTTP_UNAUTHORIZED);
     }
 
@@ -44,7 +45,7 @@ class Api extends REST_Controller
         $subcategories[] = array("title" => "pepe", "id" => 1, "icon" => "pepe.png");
         $subcategories[] = array("title" => "pablo", "id" => 2, "icon" => "pepe.png");
         $subcategories[] = array("title" => "carlo", "id" => 3, "icon" => "pepe.png");
-        $this->set_response($subcategories, REST_Controller::HTTP_UNAUTHORIZED);
+        $this->set_response($subcategories, REST_Controller::HTTP_OK);
     }
 
 //LISTADO DE LOS SERVICIOS DADA UNA CATEGORIA <params category:string>
@@ -83,7 +84,7 @@ class Api extends REST_Controller
                 array("title" => "posicion2", "latitude" => 23.0329193, "longitude" => -84.323432),
             ));
 
-        $this->set_response($services, REST_Controller::HTTP_UNAUTHORIZED);
+        $this->set_response($services, REST_Controller::HTTP_OK);
     }
 
     //LISTADO DE LOS SERVICIOS  DADA UNA SUBCATEGORIA <params subcategory:string>
@@ -122,7 +123,7 @@ class Api extends REST_Controller
                 array("title" => "posicion2", "latitude" => 23.0329193, "longitude" => -84.323432),
             ));
 
-        $this->set_response("funciona", REST_Controller::HTTP_UNAUTHORIZED);
+        $this->set_response($services, REST_Controller::HTTP_OK);
     }
 
     //DATOS DE UN SERVICIO DADO EL ID DEL MISMO <params serviceid:string>
@@ -143,7 +144,7 @@ class Api extends REST_Controller
                 array("title" => "posicion1", "latitude" => 23.4329193, "longitude" => -84.323432),
                 array("title" => "posicion2", "latitude" => 23.0329193, "longitude" => -84.323432),
             ));
-        $this->set_response($service, REST_Controller::HTTP_UNAUTHORIZED);
+        $this->set_response($service, REST_Controller::HTTP_OK);
     }
 
     public function users_get()

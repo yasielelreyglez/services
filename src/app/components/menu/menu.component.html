@@ -3,7 +3,7 @@
         <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
     </a>
     <div ngbDropdownMenu aria-labelledby="menu">
-        <div *ngIf="isAuntenticate(); then login else unlogin"></div>
+        <div *ngIf="loggedIn; then login else unlogin"></div>
     </div>
 </div>
 

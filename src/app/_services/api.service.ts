@@ -19,4 +19,34 @@ export class ApiService {
             }
         });
     }
+
+    categories(): Observable<any> {
+        return this.http.get('/login/api/categories').map((response) => {
+            if (response)
+                return response.json();
+            else {
+                return new Array();
+            }
+        });
+    }
+
+    subCategories(id: number): Observable<Subcategory[]> {
+        return this.http.get('/login/api/subcategories?category=' + id).map((response) => {
+            if (response)
+                return response.json() as Subcategory[];
+            else {
+                return new Subcategory[0];
+            }
+        });
+    }
+
+    servicesSub(): Observable<any[]> {
+        return this.http.get('/login/api/servicessub').map((response) => {
+            if (response)
+                return response.json();
+            else {
+                return new Array();
+            }
+        });
+    }
 }

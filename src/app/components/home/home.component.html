@@ -9,13 +9,16 @@
     <div class="mb-20">
         <h5 class="text-center tc-blue">Principales Tendencias</h5>
     </div>
-    <li *ngFor="let subcategory of subcategories" class="list-btn">
-        <button class="btn btn-primary col-12">
-            {{subcategory.title}}
-        </button>
-    </li>
+    <!--<li *ngFor="let subcategory of subcategories" class="list-btn">-->
+    <!--<button class="btn btn-primary col-12">-->
+    <!--&lt;!&ndash;<img src="{{subcategory.icon}}" alt="">&ndash;&gt;-->
+    <!--<i class="fa fa-star"></i>-->
+    <!--{{subcategory.title}}-->
+    <!--</button>-->
+    <!--</li>-->
+    <app-subcategories [subcategories]=subcategories></app-subcategories>
     <div class="form-group text-center">
-        <button class="btn btn-primary col-10 bc-blue-dark">
+        <button class="btn btn-primary col-10 bc-blue-dark" routerLink="/categories">
             <i class="fa fa-search" aria-hidden="true"></i>
             Buscar por categoría
         </button>

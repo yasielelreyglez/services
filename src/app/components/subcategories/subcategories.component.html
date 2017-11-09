@@ -1,0 +1,9 @@
+<li *ngFor="let subcategory of subcategories" class="list-btn">
+    <button class="btn btn-primary col-12" [routerLink]="['./subcategories', subcategory.id]">
+        <!--<img src="{{subcategory.icon}}" alt="">-->
+        <i class="fa fa-star"></i>
+        {{subcategory.title}}
+    </button>
+</li>
+
+
