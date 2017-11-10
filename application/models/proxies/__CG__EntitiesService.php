@@ -36,7 +36,7 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = ['visitas' => NULL, 'title' => NULL, 'subtitle' => NULL, 'phone' => NULL, 'address' => NULL, 'other_phone' => NULL, 'email' => NULL, 'url' => NULL];
+    public static $lazyPropertiesDefaults = ['title' => NULL, 'subtitle' => NULL, 'phone' => NULL, 'address' => NULL, 'other_phone' => NULL, 'email' => NULL, 'url' => NULL, 'start_time' => NULL, 'end_time' => NULL, 'visits' => NULL, 'author' => NULL, 'positions' => NULL, 'cities' => NULL, 'subcategories' => NULL, 'serviceusers' => NULL, 'servicecomments' => NULL];
 
 
 
@@ -46,7 +46,7 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
      */
     public function __construct($initializer = null, $cloner = null)
     {
-        unset($this->visitas, $this->title, $this->subtitle, $this->phone, $this->address, $this->other_phone, $this->email, $this->url);
+        unset($this->title, $this->subtitle, $this->phone, $this->address, $this->other_phone, $this->email, $this->url, $this->start_time, $this->end_time, $this->visits, $this->author, $this->positions, $this->cities, $this->subcategories, $this->serviceusers, $this->servicecomments);
 
         $this->__initializer__ = $initializer;
         $this->__cloner__      = $cloner;
@@ -108,10 +108,10 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'visitas', 'title', 'subtitle', 'phone', 'address', 'other_phone', 'email', 'url', 'week_days', 'start_time', 'end_time', 'created', '' . "\0" . 'Entities\\Service' . "\0" . 'author', '' . "\0" . 'Entities\\Service' . "\0" . 'cities', '' . "\0" . 'Entities\\Service' . "\0" . 'serviceusers'];
+            return ['__isInitialized__', 'id', 'title', 'subtitle', 'phone', 'address', 'other_phone', 'email', 'url', 'week_days', 'start_time', 'end_time', 'visits', 'created', 'created_at', 'updated_at', 'author', 'positions', 'cities', 'subcategories', 'serviceusers', 'servicecomments', 'visited', 'contacted', 'complain', 'favorite', 'rated'];
         }
 
-        return ['__isInitialized__', 'id', 'week_days', 'start_time', 'end_time', 'created', '' . "\0" . 'Entities\\Service' . "\0" . 'author', '' . "\0" . 'Entities\\Service' . "\0" . 'cities', '' . "\0" . 'Entities\\Service' . "\0" . 'serviceusers'];
+        return ['__isInitialized__', 'id', 'week_days', 'created', 'created_at', 'updated_at', 'visited', 'contacted', 'complain', 'favorite', 'rated'];
     }
 
     /**
@@ -133,7 +133,7 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
                 }
             };
 
-            unset($this->visitas, $this->title, $this->subtitle, $this->phone, $this->address, $this->other_phone, $this->email, $this->url);
+            unset($this->title, $this->subtitle, $this->phone, $this->address, $this->other_phone, $this->email, $this->url, $this->start_time, $this->end_time, $this->visits, $this->author, $this->positions, $this->cities, $this->subcategories, $this->serviceusers, $this->servicecomments);
         }
     }
 
@@ -236,6 +236,17 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function getTitle()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTitle', []);
+
+        return parent::getTitle();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getUsername()
     {
 
@@ -330,6 +341,303 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreated', []);
 
         return parent::getCreated();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setPhone($phone)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPhone', [$phone]);
+
+        return parent::setPhone($phone);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getPhone()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPhone', []);
+
+        return parent::getPhone();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setAddress($address)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAddress', [$address]);
+
+        return parent::setAddress($address);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAddress()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAddress', []);
+
+        return parent::getAddress();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setOtherPhone($otherPhone)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setOtherPhone', [$otherPhone]);
+
+        return parent::setOtherPhone($otherPhone);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getOtherPhone()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getOtherPhone', []);
+
+        return parent::getOtherPhone();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUrl($url)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUrl', [$url]);
+
+        return parent::setUrl($url);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUrl()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUrl', []);
+
+        return parent::getUrl();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setWeekDays($weekDays)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setWeekDays', [$weekDays]);
+
+        return parent::setWeekDays($weekDays);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getWeekDays()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getWeekDays', []);
+
+        return parent::getWeekDays();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setStartTime($startTime)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStartTime', [$startTime]);
+
+        return parent::setStartTime($startTime);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStartTime()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStartTime', []);
+
+        return parent::getStartTime();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setEndTime($endTime)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEndTime', [$endTime]);
+
+        return parent::setEndTime($endTime);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getEndTime()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEndTime', []);
+
+        return parent::getEndTime();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCreated($created)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreated', [$created]);
+
+        return parent::setCreated($created);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setAuthor(\Entities\User $author = NULL)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAuthor', [$author]);
+
+        return parent::setAuthor($author);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addPosition(\Entities\Service $position)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addPosition', [$position]);
+
+        return parent::addPosition($position);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removePosition(\Entities\Service $position)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removePosition', [$position]);
+
+        return parent::removePosition($position);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getPositions()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPositions', []);
+
+        return parent::getPositions();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addCity(\Entities\City $city)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addCity', [$city]);
+
+        return parent::addCity($city);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeCity(\Entities\City $city)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeCity', [$city]);
+
+        return parent::removeCity($city);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCities()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCities', []);
+
+        return parent::getCities();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addServiceuser(\Entities\UserService $serviceuser)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addServiceuser', [$serviceuser]);
+
+        return parent::addServiceuser($serviceuser);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeServiceuser(\Entities\UserService $serviceuser)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeServiceuser', [$serviceuser]);
+
+        return parent::removeServiceuser($serviceuser);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSubcategories()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSubcategories', []);
+
+        return parent::getSubcategories();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function loadRelatedUserData($user)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'loadRelatedUserData', [$user]);
+
+        return parent::loadRelatedUserData($user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getServiceusers()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getServiceusers', []);
+
+        return parent::getServiceusers();
     }
 
 }

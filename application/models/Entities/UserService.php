@@ -43,6 +43,11 @@ class UserService
      * @var int
      **/
     public $contacted;
+    /**
+     * @Column(type="integer")
+     * @var int
+     **/
+    public $visited;
 
     /**
      * @Column(type="string")
@@ -136,6 +141,31 @@ class UserService
     public function setComplaint($complaint)
     {
         $this->complaint = $complaint;
+
+        return $this;
+    }
+
+
+    /**
+     * Get visited
+     *
+     * @return integer
+     */
+    public function getVisited()
+    {
+        return $this->visited;
+    }
+
+    /**
+     * Set visited
+     *
+     * @param integer $visited
+     *
+     * @return UserService
+     */
+    public function setVisited($visited)
+    {
+        $this->visited = $visited;
 
         return $this;
     }

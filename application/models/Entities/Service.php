@@ -139,6 +139,17 @@ class Service
      * @OneToMany(targetEntity="Comments", mappedBy="service")
      */
     public $servicecomments;
+
+
+    /////DATOS RELACIONADOS CON EL USUARIO
+    ///
+    public $visited;
+    public $contacted;
+    public $complain;
+    public $favorite;
+    public $rated;
+
+
     public function __construct()
     {
         $this->created = new \DateTime("now");
@@ -152,6 +163,10 @@ class Service
     public function getId()
     {
         return $this->id;
+    }
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     public function getUsername()
@@ -487,6 +502,25 @@ class Service
 
     public function getSubcategories(){
         return $this->subcategories;
+    }
+
+    public function loadRelatedUserData($user){
+        $criteria = new \Doctrine\Common\Collections\Criteria();
+        //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
+        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user",\Doctrine\Common\Collections\Expr\Comparison::EQ,$user);
+        $criteria->where($expresion);
+        $relacion = $this->getServiceusers()->matching($criteria)->toArray();
+        if(count($relacion)>0){
+            $relacion = $relacion[0];
+            $this->visited = $relacion->getVisited();
+            $this->rated = $relacion->getRate();
+            $this->complain = $relacion->getComplaint();
+            $this->contacted = $relacion->getContacted();
+            $this->favorite = $relacion->getFavorite();
+
+        }
+
+        return $relacion;
     }
 
     /**

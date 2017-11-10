@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2017 at 03:46 PM
+-- Generation Time: Nov 10, 2017 at 05:46 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -211,15 +211,16 @@ CREATE TABLE `service_user` (
   `rate` int(11) NOT NULL,
   `contacted` int(11) NOT NULL,
   `complaint` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `complaint_created` datetime NOT NULL
+  `complaint_created` datetime NOT NULL,
+  `visited` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `service_user`
 --
 
-INSERT INTO `service_user` (`user_id`, `service_id`, `favorite`, `rate`, `contacted`, `complaint`, `complaint_created`) VALUES
-(3, 1, 1, 9, 1, 'prueba de una queja', '2017-11-10 04:15:16');
+INSERT INTO `service_user` (`user_id`, `service_id`, `favorite`, `rate`, `contacted`, `complaint`, `complaint_created`, `visited`) VALUES
+(3, 1, 1, 9, 1, 'prueba de una queja', '2017-11-10 04:15:16', 1);
 
 -- --------------------------------------------------------
 

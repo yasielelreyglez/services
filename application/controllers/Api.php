@@ -216,11 +216,7 @@ class Api extends REST_Controller
         $service = $em->find("Entities\Service",$id);
         $usuario = 3 ;
         $user = $em->find("Entities\User",$usuario);
-        $criteria = new \Doctrine\Common\Collections\Criteria();
-        //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
-        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user",\Doctrine\Common\Collections\Expr\Comparison::EQ,$user);
-        $criteria->where($expresion);
-        $relacion = $service->getServiceusers()->matching($criteria)->toArray();
+        $relacion = $service->loadRelatedUserData($user);
         if(count($relacion)>0){
             $obj = $relacion[0];
         }else{
@@ -232,6 +228,62 @@ class Api extends REST_Controller
         $em->persist($obj);
         $em->flush();
     }
+
+    public function myfavorites_get(){
+        $usuario = 3 ;//TODO PONER EL ID DEL USUARIO DEL TOKEN
+        $em= $this->doctrine->em;
+        $user = $em->find("Entities\User",$usuario);
+        $criteria = new \Doctrine\Common\Collections\Criteria();
+        //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
+        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("favorite",\Doctrine\Common\Collections\Expr\Comparison::EQ,1);
+        $criteria->where($expresion);
+        $relacion = $user->getUserservices()->matching($criteria)->toArray();
+        $result["desc"]="Listado de los servicios marcados como favoritos por el usuario";
+        $result["data"] = array();
+        foreach ($relacion as $servicerel) {
+            $service_obj = $servicerel->getService();
+            $result["test"]=$service_obj->loadRelatedUserData($user);
+            $result["data"][] = $service_obj;
+        }
+        $this->set_response($result, REST_Controller::HTTP_OK);
+
+    }
+    public function myservices_get(){
+        $usuario = 3 ;//TODO PONER EL ID DEL USUARIO DEL TOKEN
+        $em= $this->doctrine->em;
+        $usuario = 3 ;
+        $user = $em->find("Entities\User",$usuario);
+        $relacion = $user->getServices()->toArray();
+        $result["desc"]="Listado de los servicios creados por el usuario";
+        $result["data"]=array();
+        foreach ($relacion as $service){
+           $service->loadRelatedUserData($user);
+            $result["data"][]=$service;
+        }
+        $result["data"]=$relacion;
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
+    public function myvisits_get(){
+        $usuario = 3 ;//TODO PONER EL ID DEL USUARIO DEL TOKEN
+        $em= $this->doctrine->em;
+        $usuario = 3 ;
+        $user = $em->find("Entities\User",$usuario);
+        $criteria = new \Doctrine\Common\Collections\Criteria();
+        //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
+        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("visited",\Doctrine\Common\Collections\Expr\Comparison::EQ,1);
+        $criteria->where($expresion);
+        $relacion = $user->getUserservices()->matching($criteria)->toArray();
+        $result["desc"]="Listado de los servicios marcados como favoritos por el usuario";
+        $result["data"] = array();
+        foreach ($relacion as $servicerel) {
+            $service_obj = $servicerel->getService();
+            $service_obj->loadRelatedUserData($user);
+            $result["data"][] = $service_obj;
+        }
+
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
+
 
 
 
