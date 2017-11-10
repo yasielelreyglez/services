@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2017 at 11:49 PM
+-- Generation Time: Nov 10, 2017 at 03:46 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -53,8 +53,19 @@ INSERT INTO `categories` (`id`, `title`, `icon`) VALUES
 
 CREATE TABLE `cities` (
   `id` int(11) NOT NULL,
-  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `cities`
+--
+
+INSERT INTO `cities` (`id`, `title`, `created_at`, `updated_at`) VALUES
+(1, 'Quito', '2017-11-08 05:11:40', '0000-00-00 00:00:00'),
+(2, 'Lima', '2017-11-08 05:13:28', '0000-00-00 00:00:00'),
+(3, 'La paz', '2017-11-08 05:13:37', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -124,8 +135,17 @@ CREATE TABLE `positions` (
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
-  `service_id` int(11) DEFAULT NULL
+  `service_id` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `positions`
+--
+
+INSERT INTO `positions` (`id`, `title`, `latitude`, `longitude`, `service_id`, `created_at`, `updated_at`) VALUES
+(1, 'Posicion 1', 23.90876, -74.82123, NULL, '2017-11-08 05:30:14', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -147,8 +167,17 @@ CREATE TABLE `services` (
   `start_time` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `end_time` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created` datetime NOT NULL,
-  `visits` int(11) NOT NULL
+  `visits` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `services`
+--
+
+INSERT INTO `services` (`id`, `author_id`, `title`, `subtitle`, `phone`, `address`, `other_phone`, `email`, `url`, `week_days`, `start_time`, `end_time`, `created`, `visits`, `created_at`, `updated_at`) VALUES
+(1, 3, 'Servicio1', 'subtitulo servicio1', '231450', 'calle stret entre left and right numero #', '989796', 'correo@gmail.com', 'http://url.com', '1,3,5', '08:00', '15:30', '0000-00-00 00:00:00', 1, '2017-11-08 06:16:24', '2017-11-08 06:04:10');
 
 -- --------------------------------------------------------
 
@@ -160,6 +189,14 @@ CREATE TABLE `service_city` (
   `service_id` int(11) NOT NULL,
   `city_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `service_city`
+--
+
+INSERT INTO `service_city` (`service_id`, `city_id`) VALUES
+(1, 2),
+(1, 3);
 
 -- --------------------------------------------------------
 
@@ -176,6 +213,13 @@ CREATE TABLE `service_user` (
   `complaint` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `complaint_created` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `service_user`
+--
+
+INSERT INTO `service_user` (`user_id`, `service_id`, `favorite`, `rate`, `contacted`, `complaint`, `complaint_created`) VALUES
+(3, 1, 1, 9, 1, 'prueba de una queja', '2017-11-10 04:15:16');
 
 -- --------------------------------------------------------
 
@@ -211,6 +255,14 @@ CREATE TABLE `subcategory_service` (
   `service_id` int(11) NOT NULL,
   `subcategory_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `subcategory_service`
+--
+
+INSERT INTO `subcategory_service` (`service_id`, `subcategory_id`) VALUES
+(1, 1),
+(1, 3);
 
 -- --------------------------------------------------------
 
@@ -367,7 +419,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `cities`
 --
 ALTER TABLE `cities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `comments`
 --
@@ -382,17 +434,17 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `positions`
 --
 ALTER TABLE `positions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `subcategories`
 --
