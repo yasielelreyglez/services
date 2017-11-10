@@ -1,1 +1,121 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* GENERALES */
+.tc-blue {
+    color: #0092B5;
+}
+
+.tc-grei {
+    color: #88868B;
+}
+
+.bc-grei {
+    background-color: #88868B;
+}
+
+.bc-blue-ligth {
+    background-color: #0092B5;
+}
+
+.bc-blue-dark {
+    background-color: #005878;
+}
+
+.bc-facebook {
+    background-color: #2C72B5;
+}
+
+.help-block {
+    color: #FF3C2F;
+}
+
+label {
+    margin-left: 1rem;
+    margin-bottom: 0;
+}
+
+.form-control {
+    border-radius: 1.25rem;
+    padding: 0.375rem 1rem;
+}
+
+.list-btn {
+    list-style: none;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.list-btn .btn{
+    text-align: left;
+}
+
+input.form-control {
+    border-color: #0092B5;
+}
+
+.form-group label {
+    color: #88868B;
+    font-weight: 600;
+}
+
+.navbar {
+    margin-bottom: 2.5rem;
+    color: white;
+}
+
+.navbar-light .navbar-brand {
+    font-weight: 600;
+    color: white;
+}
+
+.help-block {
+    padding-left: 1rem;
+}
+
+.text-capitalize{
+    text-transform: capitalize;
+}
+
+button:focus{
+    outline: none;
+}
+
+button:hover, a{
+    cursor: pointer;
+}
+
+/*Margin Bottom*/
+.mb-10 {
+    margin-bottom: 10px;
+}
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+/*Font Weight*/
+.fw-600{
+    font-weight: 600;
+}
+
+/* MODALS */
+.modal-header {
+    padding: 0 0 0 2.5rem;
+    color: white;
+}
+
+.close {
+    font-size: 1.8rem;
+    color: white;
+    text-shadow: none;
+}
+
+.close span {
+    margin-right: 10px;
+}
+
+/*.modal-dialog{*/
+/*margin-top: 12rem;*/
+/*}*/
+
+
+

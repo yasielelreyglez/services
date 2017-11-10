@@ -52,8 +52,10 @@ class Auth extends REST_Controller
 
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }
-    public function validando_get(){
-        $output["result"]="ejemplo de respuesta";
+
+    public function validando_get()
+    {
+        $output["result"] = "ejemplo de respuesta";
         $headers = $this->input->request_headers();
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
@@ -64,8 +66,10 @@ class Auth extends REST_Controller
         }
         $this->set_response($headers);
     }
-    public function validando_post(){
-        $output["result"]="ejemplo de respuesta";
+
+    public function validando_post()
+    {
+        $output["result"] = "ejemplo de respuesta";
         $headers = $this->input->request_headers();
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
@@ -76,10 +80,11 @@ class Auth extends REST_Controller
         }
         $this->set_response($headers);
     }
+
     public function login_post()
     {
         $values = json_decode($this->post()[0]);
-
+//        $user_agent = $this->input->get_request_header('User-Agent', FALSE);
         $email = $values->email;
         $password = $values->password;
         $password = crypt($password, config_item('encryption_key'));
@@ -101,14 +106,15 @@ class Auth extends REST_Controller
 //    }
 
         $tokenData = array(
-            'username' => $email,
+            'email' => $email,
             'role' => "admin"
         );
         $token = AUTHORIZATION::generateToken($tokenData);
-        $output["token"]=$token;
-        $output["username"]=$email;
-
-        echo json_encode( $output );
+        $output["token"] = $token;
+        $output["email"] = $email;
+//        $output["user_agent"] = $user_agent;
+//        $output['error'] = 'Wrong mail or password';
+        echo json_encode($output);
 
     }
 }

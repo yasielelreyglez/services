@@ -17,7 +17,6 @@ base_url()
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <?php echo link_tag("/dist/assets/bootstrap.min.css") ?>
 </head>
 
 <body>

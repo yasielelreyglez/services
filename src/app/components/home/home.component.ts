@@ -1,32 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from "../../_services/user.service";
+import {Component, OnInit} from '@angular/core';
+import {ApiService} from '../../_services/api.service';
+import {Subcategory} from '../../_models/subcategory';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-    result_test:string = "primerdato";
-  constructor(private user:UserService) {
+    subcategories: Subcategory[];
 
-  }
+    constructor(private apiServices: ApiService) {
+        this.subcategories = new Subcategory()[0];
+    }
 
-  ngOnInit() {
-  }
-
-  loadUsers(){
-      this.user.getUsers().subscribe(usuarios=>{
-          this.usuarios
-      })
-  }
-  clickTest(){
-   let test =  this.user.getTest().subscribe(dato => {
-      console.log(dato);
-       this.result_test = dato.username;
-       return dato;
-      });
-   console.log(test)
-  }
-
+    ngOnInit() {
+        return this.apiServices.topSubcategories().subscribe(result => this.subcategories = result);
+    }
 }

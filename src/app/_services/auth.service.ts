@@ -1,57 +1,61 @@
-import { User } from './../_models/user';
-import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
-import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map'
+import {User} from './../_models/user';
+import {Injectable} from '@angular/core';
+import {Http, Headers, Response} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import 'rxjs/add/operator/map';
 
 
 @Injectable()
 export class AuthService {
     public token: string;
-    private apiUrl = 'http://localhost/login/';
+    currentUser: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     constructor(private http: Http) {
         // set token if saved in local storage
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.token = currentUser && currentUser.token;
+        this.currentUser.next(this.isAutenticate());
     }
 
     login(user: User): Observable<boolean> {
-        let body = JSON.stringify({ email: user.username, password: user.password })
-        return this.http.post(this.getUrl('auth/login'), body).map(this.getData);
+        const body = JSON.stringify({email: user.email, password: user.password});
+        return this.http.post('/login/auth/login', body).map(response => response.json()).map(result => {
+            if (result) {
+                localStorage.setItem('currentUser', JSON.stringify(result));
+                this.currentUser.next(result);
+            }
+            return !!result;
+        });
     }
 
     logout(): void {
         // clear token remove user from local storage to log user out
-        this.token = null;
         localStorage.removeItem('currentUser');
+        this.currentUser.next(false);
     }
 
-    private getData(response: Response) {
-        let token = response.json() && response.json().token;
-        if (token) {
-            // set token property
-            this.token = token;
-console.log(response.json())
-            // store username and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify({ username: response.json().username, token: token }));
-
-            // return true to indicate successful login
+    isAutenticate(): boolean {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser && currentUser.token)
             return true;
-        } else {
-            // return false to indicate failed login
-            return false;
-        }
+        return false;
+    }
+
+    forgotPassword(email: string): Observable<any> {
+        return this.http.post('/login/api/forgotpassword', email).map((response: Response) => {
+                if (response.json().result === true) {
+                    return true;
+                } else {
+                    return {error: response.json().result};
+                }
+            }
+        );
+
     }
 
     private error(error: any) {
-        let msg = (error.message) ? error.message : 'Error desconocido';
+        const msg = (error.message) ? error.message : 'Error desconocido';
         console.log(msg);
-        Observable.throw(msg);
-    }
-
-    private getUrl(url: string) {
-        return this.apiUrl + url;
+        return Observable.throw(msg);
     }
 
 }

@@ -1,9 +1,33 @@
-<h1>Autenticado correctamente</h1>
-<p>
-  <a [routerLink]="['/login']">Logout</a>
-  &nbsp;
-  <a (click)="clickTest()" >testing api</a>
+<div class="col-12">
+    <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+            <input type="text" class="form-control text-center fw-600" name="email"
+                   placeholder="¿Que buscas?" required/>
+            <!--<div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>-->
+        </div>
+    </form>
+    <div class="mb-20">
+        <h5 class="text-center tc-blue">Principales Tendencias</h5>
+    </div>
+    <!--<li *ngFor="let subcategory of subcategories" class="list-btn">-->
+    <!--<button class="btn btn-primary col-12">-->
+    <!--&lt;!&ndash;<img src="{{subcategory.icon}}" alt="">&ndash;&gt;-->
+    <!--<i class="fa fa-star"></i>-->
+    <!--{{subcategory.title}}-->
+    <!--</button>-->
+    <!--</li>-->
+    <app-subcategories [subcategories]=subcategories></app-subcategories>
+    <div class="form-group text-center">
+        <button class="btn btn-primary col-10 bc-blue-dark" routerLink="/categories">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            Buscar por categoría
+        </button>
+    </div>
+</div>
 
-</p>
 
-<p>Usuario:{{result_test}}</p>
+
+
+
+
+

@@ -9,256 +9,164 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 require APPPATH . '/libraries/REST_Controller.php';
+
 class Api extends REST_Controller
 {
 
     // LISTADO DE LAS SUBCATEGORIAS MAS VISITADAS O RANKIADAS(VISTA DEL HOME)
-    public function topSubcategories_get(){
+    public function topSubcategories_get()
+    {
+        $subcategories[] = array("title" => "pepe", "id" => 1, "icon" => "pepe.png");
+        $subcategories[] = array("title" => "pablo", "id" => 2, "icon" => "pepe.png");
+        $subcategories[] = array("title" => "carlo", "id" => 3, "icon" => "pepe.png");
 
-        $em= $this->doctrine->em;
-        $subcategoriesRepo = $em->getRepository('Entities\Subcategory');
-        $subcategories = $subcategoriesRepo->findBy(array(),array('visits' => 'DESC'),10);
-        $response["desc"]="Subcategorias mas visitadas ";
-        $response["count"]=count($subcategories);
-        $response["data"]=$subcategories;
-
-        $this->set_response($response, REST_Controller::HTTP_OK);
-
+        $this->set_response($subcategories, REST_Controller::HTTP_OK);
     }
+
     //LISTADO DE LAS CATEGORIAS (TODAS LAS CATEGORIAS ?)
-    public function categories_get(){
-        $em= $this->doctrine->em;
+    public function categories_get()
+    {
+//        $showcategories[]=array("title"=>"pepe","id"=>1,"icon"=>"pepe.png");
+//        $showcategories[]=array("title"=>"pablo","id"=>2,"icon"=>"pepe.png");
+//        $showcategories[]=array("title"=>"carlo","id"=>3,"icon"=>"pepe.png");
+
+        $em = $this->doctrine->em;
+
         $categoriesRepo = $em->getRepository('Entities\Category');
         $categories = $categoriesRepo->findAll();
-        $response["data"]=$categories;
-        $response["count"]=count($categories);
-        $this->set_response($response,REST_Controller::HTTP_OK);
-//        $this->set_response($categories, REST_Controller::HTTP_UNAUTHORIZED);
+//
+        $this->set_response($categories, REST_Controller::HTTP_OK);
+//        $this->set_response($showcategories, REST_Controller::HTTP_UNAUTHORIZED);
     }
+
     //LISTADO DE LAS SUBCATEGORIAS DADA UNA CATEGORIA <params category:string>
-    public function subcategories_get($category_id){
-
-        $em= $this->doctrine->em;
-        $subcategoriesRepo = $em->getRepository('Entities\Subcategory');
-        $subcategories = $subcategoriesRepo->findBy(array('category'=>$category_id));
-        $category = $em->find('Entities\Category',$category_id);
-        if ($category){
-        $response["desc"]='Subcategorias de la categoria:'.$category->getTitle();
-        $response["parent"]=$category;
-        $response["count"]=count($subcategories);
-        $response["data"]=$subcategories;
-        }else{
-            $response["desc"]='Categoria no encontrada:';
-            $response["parent"]=null;
-            $response["count"]=0;
-            $response["data"]=array();
-
-        }
-        $this->set_response($response, REST_Controller::HTTP_UNAUTHORIZED);
-    }
-//LISTADO DE LOS SERVICIOS DADA UNA subCATEGORIA <params category:string>
-    public function servicescat_get($id){
-        $em = $this->doctrine->em;
-        $category = $em->find('Entities\Category',$id);
-        if($category){
-            $subcategories = $category->getSubcategories()->toArray();
-            $result["desc"] = "Listado de servicios por la categoria:$id";
-            $result["parent"] = $category;
-            $result["count"] = 0;
-            $result["data"] = array();
-            foreach ($subcategories as $subcategory) {
-                $services = $subcategory->getServices()->toArray();
-                $result["data"] = array_merge($result["data"], $services);
-            }
-            $result["count"] = count($result["data"]);
-        }else{
-            $result["desc"] = "Listado de servicios por la categoria:$id";
-            $result["parent"] = array() ;
-            $result["count"] = 0;
-            $result["data"] = array();
-        }
-        $this->set_response($result, REST_Controller::HTTP_UNAUTHORIZED);
-    }
-//LISTADO DE SERVICIOS QUE COINCIDEN CON LA BUSQUEDA POR TEXTO
-    public function searchService_get($query){
-        $em= $this->doctrine->em;
-        $serviceRepo = $em->getRepository('Entities\Service');
-        $criteria = new \Doctrine\Common\Collections\Criteria();
-        //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
-        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("title",\Doctrine\Common\Collections\Expr\Comparison::CONTAINS,$query);
-        $expresion2 = new \Doctrine\Common\Collections\Expr\Comparison("subtitle",\Doctrine\Common\Collections\Expr\Comparison::CONTAINS,$query);
-        $criteria->where($expresion);
-        $criteria->orWhere($expresion2);
-
-        $respuesta = $serviceRepo->matching($criteria);
-        $response["desc"]="Resultados de la busqueda";
-        $response["query"]=$query;
-        $response["count"]=0;
-        $response["data"]=$respuesta->toArray();
-        $response["count"]=count($response["data"]);
-        $this->set_response($response, REST_Controller::HTTP_OK);
+    public function subcategories_get()
+    {
+        $subcategories[] = array("title" => "pepe", "id" => 1, "icon" => "pepe.png");
+        $subcategories[] = array("title" => "pablo", "id" => 2, "icon" => "pepe.png");
+        $subcategories[] = array("title" => "carlo", "id" => 3, "icon" => "pepe.png");
+        $this->set_response($subcategories, REST_Controller::HTTP_OK);
     }
 
+//LISTADO DE LOS SERVICIOS DADA UNA CATEGORIA <params category:string>
+    public function servicesCat_get()
+    {
+        $services[] = array("title" => "pepe", "id" => 1, "icon" => "pepe.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "showcategories" => array(
+            array("id" => 1, "title" => "hogar"),
+            array("id" => 2, "title" => "Trabajos Manuales")
+        ), "email" => "tuservicio@gmail.com", "url" => "http://tuservicio.com",
+            "start_time" => "08:00", "end_time" => "18:00", "positions" => array(
+                array("title" => "posicion1", "latitude" => 23.4329193, "longitude" => -84.323432),
+                array("title" => "posicion2", "latitude" => 23.0329193, "longitude" => -84.323432),
+            ));
+        $services[] = array("title" => "servicio 2", "id" => 2, "icon" => "pepe1.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "showcategories" => array(
+            array("id" => 1, "title" => "hogar"),
+            array("id" => 2, "title" => "Trabajos Manuales")
+        ), "email" => "tuservicio@gmail.com", "url" => "http://tuservicio.com",
+            "start_time" => "08:00", "end_time" => "18:00", "positions" => array(
+                array("title" => "posicion1", "latitude" => 23.4329193, "longitude" => -84.323432),
+                array("title" => "posicion2", "latitude" => 23.0329193, "longitude" => -84.323432),
+            ));
+        $services[] = array("title" => "servicio 3", "id" => 3, "icon" => "pepe2.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "showcategories" => array(
+            array("id" => 1, "title" => "hogar"),
+            array("id" => 2, "title" => "Trabajos Manuales")
+        ), "email" => "tuservicio@gmail.com", "url" => "http://tuservicio.com",
+            "start_time" => "08:00", "end_time" => "18:00", "positions" => array(
+                array("title" => "posicion1", "latitude" => 23.4329193, "longitude" => -84.323432),
+                array("title" => "posicion2", "latitude" => 23.0329193, "longitude" => -84.323432),
+            ));
+        $services[] = array("title" => "pepe4", "id" => 4, "icon" => "pepe.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "showcategories" => array(
+            array("id" => 1, "title" => "hogar"),
+            array("id" => 2, "title" => "Trabajos Manuales")
+        ), "email" => "tuservicio@gmail.com", "url" => "http://tuservicio.com",
+            "start_time" => "08:00", "end_time" => "18:00", "positions" => array(
+                array("title" => "posicion1", "latitude" => 23.4329193, "longitude" => -84.323432),
+                array("title" => "posicion2", "latitude" => 23.0329193, "longitude" => -84.323432),
+            ));
+
+        $this->set_response($services, REST_Controller::HTTP_OK);
+    }
 
     //LISTADO DE LOS SERVICIOS  DADA UNA SUBCATEGORIA <params subcategory:string>
-    public function servicessub_get($id){
-//
-        $em= $this->doctrine->em;
-//        $subcategory = $em->find('Entities\Sub',$id);
-        $subcategoriesRepo = $em->getRepository('Entities\Subcategory');
-        $subcategory = $subcategoriesRepo->find($id);
-//        $subcategory->services->doInitialize();
-        if($subcategory){
-            $response["desc"]="Servicios pertenecientes a la subcategoria:$subcategory->title";
-            $services = $subcategory->getServices()->toArray();
-            $response["data"]= $services;
+    public function servicesSub_get()
+    {
+        $services[] = array("title" => "pepe", "id" => 1, "icon" => "pepe.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "showcategories" => array(
+            array("id" => 1, "title" => "hogar"),
+            array("id" => 2, "title" => "Trabajos Manuales")
+        ), "email" => "tuservicio@gmail.com", "url" => "http://tuservicio.com",
+            "start_time" => "08:00", "end_time" => "18:00", "positions" => array(
+                array("title" => "posicion1", "latitude" => 23.4329193, "longitude" => -84.323432),
+                array("title" => "posicion2", "latitude" => 23.0329193, "longitude" => -84.323432),
+            ));
+        $services[] = array("title" => "servicio 2", "id" => 2, "icon" => "pepe1.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "showcategories" => array(
+            array("id" => 1, "title" => "hogar"),
+            array("id" => 2, "title" => "Trabajos Manuales")
+        ), "email" => "tuservicio@gmail.com", "url" => "http://tuservicio.com",
+            "start_time" => "08:00", "end_time" => "18:00", "positions" => array(
+                array("title" => "posicion1", "latitude" => 23.4329193, "longitude" => -84.323432),
+                array("title" => "posicion2", "latitude" => 23.0329193, "longitude" => -84.323432),
+            ));
+        $services[] = array("title" => "servicio 3", "id" => 3, "icon" => "pepe2.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "showcategories" => array(
+            array("id" => 1, "title" => "hogar"),
+            array("id" => 2, "title" => "Trabajos Manuales")
+        ), "email" => "tuservicio@gmail.com", "url" => "http://tuservicio.com",
+            "start_time" => "08:00", "end_time" => "18:00", "positions" => array(
+                array("title" => "posicion1", "latitude" => 23.4329193, "longitude" => -84.323432),
+                array("title" => "posicion2", "latitude" => 23.0329193, "longitude" => -84.323432),
+            ));
+        $services[] = array("title" => "pepe4", "id" => 4, "icon" => "pepe.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "showcategories" => array(
+            array("id" => 1, "title" => "hogar"),
+            array("id" => 2, "title" => "Trabajos Manuales")
+        ), "email" => "tuservicio@gmail.com", "url" => "http://tuservicio.com",
+            "start_time" => "08:00", "end_time" => "18:00", "positions" => array(
+                array("title" => "posicion1", "latitude" => 23.4329193, "longitude" => -84.323432),
+                array("title" => "posicion2", "latitude" => 23.0329193, "longitude" => -84.323432),
+            ));
 
-        }else{
-            $response["desc"]="Subcategoria no encontrada";
-        }
-        $this->set_response($response, REST_Controller::HTTP_UNAUTHORIZED);
+        $this->set_response($services, REST_Controller::HTTP_OK);
     }
 
     //DATOS DE UN SERVICIO DADO EL ID DEL MISMO <params serviceid:string>
-    public function service_get($id){
-        $em= $this->doctrine->em;
-        $service = $em->find('Entities\Service',$id);
-        $service->getAuthor()->getUsername();
-        $service->getPositions()->toArray();
-        $data["data"]=$service;
-        $data["cities"]=$service->getCities()->toArray();
-        $data["positions"]=$service->getPositions()->toArray();
-        $data["subcategories"]=$service->getSubcategories()->toArray();
-        $this->set_response($data, REST_Controller::HTTP_OK);
+    public function service_get()
+    {
+        $service = array("title" => "nombre del servicio", "id" => 1, "icon" => "pepe.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "cities" => array(
+            array("id" => 1, "title" => "quito"),
+            array("id" => 2, "title" => "guayaquil"),
+            array("id" => 3, "title" => "cuenca")
+        ), "showcategories" => array(
+            array("id" => 1, "title" => "hogar"),
+            array("id" => 2, "title" => "Trabajos Manuales")
+        ), "photos" => array(
+            array("id" => 1, "title" => "hogar.png"),
+            array("id" => 2, "title" => "trabajos.png")
+        ), "otherphone" => 87457896, "email" => "tuservicio@gmail.com", "url" => "http://tuservicio.com",
+            "days" => array(1, 2, 3, 4, 5), "start_time" => "08:00", "end_time" => "18:00", "positions" => array(
+                array("title" => "posicion1", "latitude" => 23.4329193, "longitude" => -84.323432),
+                array("title" => "posicion2", "latitude" => 23.0329193, "longitude" => -84.323432),
+            ));
+        $this->set_response($service, REST_Controller::HTTP_OK);
     }
 
-    //LISTADO DE SERVICIOS POR FILTROS
-    public function filter_get(){
-        //obteniendo parametros filtro
-        $ciudades = $this->input->get("cities",true);
-        $categorias = $this->input->get("categories",true);
-        $distance = $this->input->get("distnace",true);
-        $em= $this->doctrine->em;
-        $citiesRepo = $em->getRepository('Entities\City');
-        $serviceRepo = $em->getRepository('Entities\Service');
-
-        $criteria = new \Doctrine\Common\Collections\Criteria();
-        //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
-        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("title",\Doctrine\Common\Collections\Expr\Comparison::IN,$ciudades);
-        $criteria->where($expresion);
-        $cities =  $citiesRepo->matching($criteria)->toArray();
-        $result["data"] = array();
-        foreach($cities as $city){
-            $service = $city->getServices();
-            $result["data"] = array_merge($result["data"],$service->toArray());
-
-            //TODO AGREGAR EL FILTRO POR LOS OTROS ELEMENTOS
-            //TODO CACHEAR LAS BUSQUEDA DE LOS FILTROS
-        }
-
-
-//        $data["services"] = $service;
-        $this->set_response($result, REST_Controller::HTTP_OK);
-    }
-
-    //denunciar un servicio
-    public function complaint_get($id){
-        $queja = $this->input->get("complaint",true);
-        $em= $this->doctrine->em;
-        $service = $em->find("Entities\Service",$id);
-        $usuario = 3 ;//TODO OBTENER DEL TOKEN
-        $user = $em->find("Entities\User",$usuario);
-        $criteria = new \Doctrine\Common\Collections\Criteria();
-        //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
-        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user",\Doctrine\Common\Collections\Expr\Comparison::EQ,$user);
-        $criteria->where($expresion);
-        $relacion = $service->getServiceusers()->matching($criteria)->toArray();
-        if(count($relacion)>0){
-            $obj = $relacion[0];
-        }else{
-            $obj = new \Entities\UserService();
-            $obj->setService($service);
-            $obj->setUser($user);
-
-        }
-        $obj->setComplaint($queja);
-        $obj->setComplaintCreated(new DateTime("now"));
-        $em->persist($obj);
-        $em->flush();
-        $this->set_response($obj, REST_Controller::HTTP_OK);
-    }
-
-    public function markfavorite_get($id){
-        $em= $this->doctrine->em;
-        $service = $em->find("Entities\Service",$id);
-        $usuario = 3 ;
-        $user = $em->find("Entities\User",$usuario);
-        $criteria = new \Doctrine\Common\Collections\Criteria();
-        //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
-        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user",\Doctrine\Common\Collections\Expr\Comparison::EQ,$user);
-        $criteria->where($expresion);
-        $relacion = $service->getServiceusers()->matching($criteria)->toArray();
-        if(count($relacion)>0){
-            $obj = $relacion[0];
-        }else{
-            $obj = new \Entities\UserService();
-            $obj->setService($service);
-            $obj->setUser($user);
-        }
-        $obj->setFavorite(1);
-        $em->persist($obj);
-        $em->flush();
-    }
-
-    public function dismarkfavorite_get($id){
-        $em= $this->doctrine->em;
-        $service = $em->find("Entities\Service",$id);
-        $usuario = 3 ;
-        $user = $em->find("Entities\User",$usuario);
-        $criteria = new \Doctrine\Common\Collections\Criteria();
-        //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
-        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user",\Doctrine\Common\Collections\Expr\Comparison::EQ,$user);
-        $criteria->where($expresion);
-        $relacion = $service->getServiceusers()->matching($criteria)->toArray();
-        if(count($relacion)>0){
-            $obj = $relacion[0];
-        }else{
-            $obj = new \Entities\UserService();
-            $obj->setService($service);
-            $obj->setUser($user);
-        }
-        $obj->setFavorite(0);
-        $em->persist($obj);
-        $em->flush();
-    }
-
-
-
-
-
-
-
-
-
-
-
-    public function users_get(){
-        $output["result"]="ejemplo de respuesta";
+    public function users_get()
+    {
+        $output["result"] = "ejemplo de respuesta";
         $headers = $this->input->request_headers();
         if (array_key_exists('authorization', $headers) && !empty($headers['authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['authorization']);
             if ($decodedToken != false) {
-                $users[]=array("username"=>"pepe","usuario");
-                $users[]=array("username"=>"pablo","usuario");
-                $users[]=array("username"=>"carlo","admin");
+                $users[] = array("username" => "pepe", "usuario");
+                $users[] = array("username" => "pablo", "usuario");
+                $users[] = array("username" => "carlo", "admin");
                 $this->set_response($users, REST_Controller::HTTP_OK);
                 return;
             }
         }
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }
-    public function validando_get(){
-        $output["result"]="ejemplo de respuesta";
+
+    public function validando_get()
+    {
+        $output["result"] = "ejemplo de respuesta";
         $headers = $this->input->request_headers();
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
@@ -269,8 +177,10 @@ class Api extends REST_Controller
         }
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }
-    public function peticion_get(){
-        $output["result"]="ejemplo de respuesta";
+
+    public function peticion_get()
+    {
+        $output["result"] = "ejemplo de respuesta";
         $headers = $this->input->request_headers();
 
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
@@ -289,8 +199,10 @@ class Api extends REST_Controller
         }
         $this->set_response($headers);
     }
-    public function validando_post(){
-        $output["result"]="ejemplo de respuesta";
+
+    public function validando_post()
+    {
+        $output["result"] = "ejemplo de respuesta";
         $headers = $this->input->request_headers();
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
@@ -301,14 +213,26 @@ class Api extends REST_Controller
         }
         $this->set_response($headers);
     }
-    public function doctrine_get(){
 
-        $em= $this->doctrine->em;
-
-        $categoriesRepo = $em->getRepository('Entities\Subcategory');
-        $categories = $categoriesRepo->findBy(array(),array('visits' => 'DESC'),10);
-//
-        $this->set_response($categories,REST_Controller::HTTP_OK);
+    public function forgotpassword_post()
+    {
+        $email = $this->post()[0];
+        $output["result"] = true;
+        if ($email != 'admin@uci.cu')
+            $output["result"] = 'Error en el servidor';
+        $this->set_response($output, REST_Controller::HTTP_OK);
+        return;
     }
+
+    public function report_post()
+    {
+        $report = $this->post()[0];
+        $output["result"] = true;
+        if ($report != 'report')
+            $output["result"] = 'Error en el servidor';
+        $this->set_response($output, REST_Controller::HTTP_OK);
+        return;
+    }
+
 
 }

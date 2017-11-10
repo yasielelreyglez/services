@@ -1,10 +1,10 @@
 {
-  "name": "prueba",
+  "name": "angularApp",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json ",
+    "start": "ng serve --proxy-config proxy.config.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -21,7 +21,10 @@
     "@angular/platform-browser": "^4.2.4",
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.5",
+    "bootstrap-4": "^4.0.0",
     "core-js": "^2.4.1",
+    "font-awesome": "^4.7.0",
     "rxjs": "^5.4.2",
     "zone.js": "^0.8.14"
   },
