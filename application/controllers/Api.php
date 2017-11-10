@@ -210,6 +210,27 @@ class Api extends REST_Controller
         $em->flush();
     }
 
+    public function dismarkfavorite_get($id){
+        $em= $this->doctrine->em;
+        $service = $em->find("Entities\Service",$id);
+        $usuario = 3 ;
+        $user = $em->find("Entities\User",$usuario);
+        $criteria = new \Doctrine\Common\Collections\Criteria();
+        //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
+        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user",\Doctrine\Common\Collections\Expr\Comparison::EQ,$user);
+        $criteria->where($expresion);
+        $relacion = $service->getServiceusers()->matching($criteria)->toArray();
+        if(count($relacion)>0){
+            $obj = $relacion[0];
+        }else{
+            $obj = new \Entities\UserService();
+            $obj->setService($service);
+            $obj->setUser($user);
+        }
+        $obj->setFavorite(0);
+        $em->persist($obj);
+        $em->flush();
+    }
 
 
 

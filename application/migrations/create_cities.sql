@@ -1,0 +1,7 @@
+CREATE TABLE `cities` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(255) DEFAULT NULL, 
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
