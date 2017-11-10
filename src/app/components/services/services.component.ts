@@ -10,7 +10,8 @@ import {ReportComponent} from '../_modals/report/report.component';
 export class ServicesComponent implements OnInit {
     @Input() services: any;
     @Input() favorites?: boolean;
-
+    @Input() myservices?: boolean;
+    valor = 2;
     constructor(private modalService: NgbModal) {
     }
 

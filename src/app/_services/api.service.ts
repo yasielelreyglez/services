@@ -60,6 +60,16 @@ export class ApiService {
         });
     }
 
+    myServices(): Observable<any[]> {
+        return this.http.get('/login/api/servicessub').map((response) => {
+            if (response)
+                return response.json();
+            else {
+                return new Array();
+            }
+        });
+    }
+
     report(report: string): Observable<any> {
         return this.http.post('/login/api/report', report).map((response: Response) => {
                 if (response.json().result === true) {
