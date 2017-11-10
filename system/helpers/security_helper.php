@@ -125,7 +125,7 @@ if ( ! function_exists('strip_image_tags'))
 if ( ! function_exists('encode_php_tags'))
 {
 	/**
-	 * Convert PHP tags to entities
+	 * Convert PHP tags to Entities
 	 *
 	 * @param	string
 	 * @return	string

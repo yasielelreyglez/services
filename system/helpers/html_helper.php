@@ -397,7 +397,7 @@ if ( ! function_exists('br'))
 if ( ! function_exists('nbs'))
 {
 	/**
-	 * Generates non-breaking space entities based on number supplied
+	 * Generates non-breaking space Entities based on number supplied
 	 *
 	 * @deprecated	3.0.0	Use str_repeat() instead
 	 * @param	int

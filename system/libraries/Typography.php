@@ -96,10 +96,10 @@ class CI_Typography {
 	 * This function converts text, making it typographically correct:
 	 *	- Converts double spaces into paragraphs.
 	 *	- Converts single line breaks into <br /> tags
-	 *	- Converts single and double quotes into correctly facing curly quote entities.
+	 *	- Converts single and double quotes into correctly facing curly quote Entities.
 	 *	- Converts three dots into ellipsis.
 	 *	- Converts double dashes into em-dashes.
-	 *  - Converts two spaces into entities
+	 *  - Converts two spaces into Entities
 	 *
 	 * @param	string
 	 * @param	bool	whether to reduce more then two consecutive newlines to two
@@ -284,7 +284,7 @@ class CI_Typography {
 	 * Format Characters
 	 *
 	 * This function mainly converts double and single quotes
-	 * to curly entities, but it also converts em-dashes,
+	 * to curly Entities, but it also converts em-dashes,
 	 * double spaces, and ampersands
 	 *
 	 * @param	string
@@ -387,7 +387,7 @@ class CI_Typography {
 	 *
 	 * Protects special characters from being formatted later
 	 * We don't want quotes converted within tags so we'll temporarily convert them to {@DQ} and {@SQ}
-	 * and we don't want double dashes converted to emdash entities, so they are marked with {@DD}
+	 * and we don't want double dashes converted to emdash Entities, so they are marked with {@DD}
 	 * likewise double spaces are converted to {@NBS} to prevent entity conversion
 	 *
 	 * @param	array

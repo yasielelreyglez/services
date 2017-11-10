@@ -130,7 +130,7 @@ if ( ! function_exists('ascii_to_entities'))
 	/**
 	 * High ASCII to Entities
 	 *
-	 * Converts high ASCII text and MS Word special characters to character entities
+	 * Converts high ASCII text and MS Word special characters to character Entities
 	 *
 	 * @param	string	$str
 	 * @return	string
@@ -197,7 +197,7 @@ if ( ! function_exists('entities_to_ascii'))
 	/**
 	 * Entities to ASCII
 	 *
-	 * Converts character entities back to ASCII
+	 * Converts character Entities back to ASCII
 	 *
 	 * @param	string
 	 * @param	bool

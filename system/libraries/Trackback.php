@@ -74,7 +74,7 @@ class CI_Trackback {
 	 * Convert ASCII flag
 	 *
 	 * Whether to convert high-ASCII and MS Word
-	 * characters to HTML entities.
+	 * characters to HTML Entities.
 	 *
 	 * @var	bool
 	 */
@@ -481,7 +481,7 @@ class CI_Trackback {
 	 * High ASCII to Entities
 	 *
 	 * Converts Hight ascii text and MS Word special chars
-	 * to character entities
+	 * to character Entities
 	 *
 	 * @param	string
 	 * @return	string
