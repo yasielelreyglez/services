@@ -5,7 +5,7 @@
  * Date: 10/25/2017
  * Time: 3:18 PM
  */
-echo link_tag("resources/css/Styles.css");
+//echo link_tag("resources/css/Styles.css");
 base_url()
 ?>
 <html lang="en">
