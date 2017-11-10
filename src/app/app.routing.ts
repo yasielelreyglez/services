@@ -16,11 +16,12 @@ const routes: Routes = [
     {path: 'categories', component: ShowcategoriesComponent},
     {path: 'categories/:id', component: ShowsubcateroriesComponent},
     {path: 'categories/:id/subcategories/:id', component: ShowservicesComponent},
+    {path: 'subcategories/:id', component: ShowservicesComponent},
     {path: 'myfavorites', component: ShowfavoritesComponent, canActivate: [AuthGuard]},
     {path: 'myservices', component: ShowmyservicesComponent, canActivate: [AuthGuard]},
 
     // otherwise redirect to home
-    {path: '**', component: HomeComponent}
+    {path: '**', redirectTo: ''}
 ];
 
 export const AppRoutes = RouterModule.forRoot(routes);

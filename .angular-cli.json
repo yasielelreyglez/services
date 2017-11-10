@@ -29,11 +29,9 @@
       "environments": {
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
-      },
-      "proxy":"proxy.config.json"
+      }
     }
   ],
-  "proxy":"src/proxy.config.json",
   "e2e": {
     "protractor": {
       "config": "./protractor.conf.js"
@@ -63,7 +61,6 @@
     "class": {
       "spec": false
     },
-    "component": {},
-    "proxy":"src/proxy.config.json"
+    "component": {}
   }
 }

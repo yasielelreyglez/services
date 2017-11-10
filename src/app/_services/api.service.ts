@@ -13,7 +13,7 @@ export class ApiService {
     topSubcategories(): Observable<Subcategory[]> {
         return this.http.get('/login/api/topsubcategories').map((response) => {
             if (response)
-                return response.json().data as Subcategory[];
+                return response.json().data;
             else {
                 return new Subcategory[0];
             }

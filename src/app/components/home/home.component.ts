@@ -8,10 +8,9 @@ import {Subcategory} from '../../_models/subcategory';
     styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-    subcategories: Subcategory[];
+    subcategories: any;
 
     constructor(private apiServices: ApiService) {
-        this.subcategories = new Subcategory()[0];
     }
 
     ngOnInit() {
