@@ -18,42 +18,42 @@ class UserService
     * Many Features have One Product.
     * @Id @ManyToOne(targetEntity="User", inversedBy="userservices")
      */
-    private $user;
+    public $user;
 
     /**
      * Many Features have One Product.
      * @Id @ManyToOne(targetEntity="Service", inversedBy="serviceusers")
      */
-    private $service;
+    public $service;
 
     /**
      * @Column(type="integer")
      * @var int
      **/
-    protected $favorite;
+    public $favorite;
 
     /**
      * @Column(type="integer")
      * @var int
      **/
-    protected $rate;
+    public $rate;
 
     /**
      * @Column(type="integer")
      * @var int
      **/
-    protected $contacted;
+    public $contacted;
 
     /**
      * @Column(type="string")
      * @var string
      **/
-    protected $complaint;
+    public $complaint;
 
     /**
      * @Column(type="datetime")
      **/
-    protected $complaint_created;
+    public $complaint_created;
     /**
      * Set favorite
      *
