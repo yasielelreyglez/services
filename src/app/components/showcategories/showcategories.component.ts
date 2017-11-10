@@ -8,7 +8,7 @@ import {Data} from '../../_services/data.service';
     styleUrls: ['./showcategories.component.css']
 })
 export class ShowcategoriesComponent implements OnInit {
-    categories = [{id: 1, title: 'cuba'}, {id: 2, title: 'bien'}]
+    categories: any;
 
     constructor(private apiServices: ApiService, private data: Data) {
     }
