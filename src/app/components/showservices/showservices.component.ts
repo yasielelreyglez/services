@@ -16,7 +16,7 @@ export class ShowservicesComponent implements OnInit {
     ngOnInit() {
         this.route.params.subscribe((params: Params) => {
             const id = params['id'];
-            this.apiServices.servicesSub().subscribe(result => this.services = result);
+            this.apiServices.servicesSub(id).subscribe(result => this.services = result);
         });
     }
 

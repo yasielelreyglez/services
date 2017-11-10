@@ -117,7 +117,7 @@ class Api extends REST_Controller
         }else{
             $response["desc"]="Subcategoria no encontrada";
         }
-        $this->set_response($response, REST_Controller::HTTP_UNAUTHORIZED);
+        $this->set_response($response, REST_Controller::HTTP_OK);
     }
 
     //DATOS DE UN SERVICIO DADO EL ID DEL MISMO <params serviceid:string>
