@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../_services/api.service';
-import {Data} from "../../_services/data.service";
+import {Data} from '../../_services/data.service';
 
 @Component({
-    selector: 'app-categories',
-    templateUrl: './categories.component.html',
-    styleUrls: ['./categories.component.css']
+    selector: 'app-showcategories',
+    templateUrl: './showcategories.component.html',
+    styleUrls: ['./showcategories.component.css']
 })
-export class CategoriesComponent implements OnInit {
+export class ShowcategoriesComponent implements OnInit {
     categories = [{id: 1, title: 'cuba'}, {id: 2, title: 'bien'}]
 
     constructor(private apiServices: ApiService, private data: Data) {

@@ -21,7 +21,7 @@ export class ApiService {
     }
 
     categories(): Observable<any> {
-        return this.http.get('/login/api/categories').map((response) => {
+        return this.http.get('/login/api/showcategories').map((response) => {
             if (response)
                 return response.json();
             else {
@@ -41,6 +41,16 @@ export class ApiService {
     }
 
     servicesSub(): Observable<any[]> {
+        return this.http.get('/login/api/servicessub').map((response) => {
+            if (response)
+                return response.json();
+            else {
+                return new Array();
+            }
+        });
+    }
+
+    favorites(): Observable<any[]> {
         return this.http.get('/login/api/servicessub').map((response) => {
             if (response)
                 return response.json();

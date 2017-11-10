@@ -26,9 +26,9 @@ class Api extends REST_Controller
     //LISTADO DE LAS CATEGORIAS (TODAS LAS CATEGORIAS ?)
     public function categories_get()
     {
-//        $categories[]=array("title"=>"pepe","id"=>1,"icon"=>"pepe.png");
-//        $categories[]=array("title"=>"pablo","id"=>2,"icon"=>"pepe.png");
-//        $categories[]=array("title"=>"carlo","id"=>3,"icon"=>"pepe.png");
+//        $showcategories[]=array("title"=>"pepe","id"=>1,"icon"=>"pepe.png");
+//        $showcategories[]=array("title"=>"pablo","id"=>2,"icon"=>"pepe.png");
+//        $showcategories[]=array("title"=>"carlo","id"=>3,"icon"=>"pepe.png");
 
         $em = $this->doctrine->em;
 
@@ -36,7 +36,7 @@ class Api extends REST_Controller
         $categories = $categoriesRepo->findAll();
 //
         $this->set_response($categories, REST_Controller::HTTP_OK);
-//        $this->set_response($categories, REST_Controller::HTTP_UNAUTHORIZED);
+//        $this->set_response($showcategories, REST_Controller::HTTP_UNAUTHORIZED);
     }
 
     //LISTADO DE LAS SUBCATEGORIAS DADA UNA CATEGORIA <params category:string>
@@ -51,7 +51,7 @@ class Api extends REST_Controller
 //LISTADO DE LOS SERVICIOS DADA UNA CATEGORIA <params category:string>
     public function servicesCat_get()
     {
-        $services[] = array("title" => "pepe", "id" => 1, "icon" => "pepe.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "categories" => array(
+        $services[] = array("title" => "pepe", "id" => 1, "icon" => "pepe.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "showcategories" => array(
             array("id" => 1, "title" => "hogar"),
             array("id" => 2, "title" => "Trabajos Manuales")
         ), "email" => "tuservicio@gmail.com", "url" => "http://tuservicio.com",
@@ -59,7 +59,7 @@ class Api extends REST_Controller
                 array("title" => "posicion1", "latitude" => 23.4329193, "longitude" => -84.323432),
                 array("title" => "posicion2", "latitude" => 23.0329193, "longitude" => -84.323432),
             ));
-        $services[] = array("title" => "servicio 2", "id" => 2, "icon" => "pepe1.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "categories" => array(
+        $services[] = array("title" => "servicio 2", "id" => 2, "icon" => "pepe1.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "showcategories" => array(
             array("id" => 1, "title" => "hogar"),
             array("id" => 2, "title" => "Trabajos Manuales")
         ), "email" => "tuservicio@gmail.com", "url" => "http://tuservicio.com",
@@ -67,7 +67,7 @@ class Api extends REST_Controller
                 array("title" => "posicion1", "latitude" => 23.4329193, "longitude" => -84.323432),
                 array("title" => "posicion2", "latitude" => 23.0329193, "longitude" => -84.323432),
             ));
-        $services[] = array("title" => "servicio 3", "id" => 3, "icon" => "pepe2.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "categories" => array(
+        $services[] = array("title" => "servicio 3", "id" => 3, "icon" => "pepe2.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "showcategories" => array(
             array("id" => 1, "title" => "hogar"),
             array("id" => 2, "title" => "Trabajos Manuales")
         ), "email" => "tuservicio@gmail.com", "url" => "http://tuservicio.com",
@@ -75,7 +75,7 @@ class Api extends REST_Controller
                 array("title" => "posicion1", "latitude" => 23.4329193, "longitude" => -84.323432),
                 array("title" => "posicion2", "latitude" => 23.0329193, "longitude" => -84.323432),
             ));
-        $services[] = array("title" => "pepe4", "id" => 4, "icon" => "pepe.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "categories" => array(
+        $services[] = array("title" => "pepe4", "id" => 4, "icon" => "pepe.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "showcategories" => array(
             array("id" => 1, "title" => "hogar"),
             array("id" => 2, "title" => "Trabajos Manuales")
         ), "email" => "tuservicio@gmail.com", "url" => "http://tuservicio.com",
@@ -90,7 +90,7 @@ class Api extends REST_Controller
     //LISTADO DE LOS SERVICIOS  DADA UNA SUBCATEGORIA <params subcategory:string>
     public function servicesSub_get()
     {
-        $services[] = array("title" => "pepe", "id" => 1, "icon" => "pepe.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "categories" => array(
+        $services[] = array("title" => "pepe", "id" => 1, "icon" => "pepe.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "showcategories" => array(
             array("id" => 1, "title" => "hogar"),
             array("id" => 2, "title" => "Trabajos Manuales")
         ), "email" => "tuservicio@gmail.com", "url" => "http://tuservicio.com",
@@ -98,7 +98,7 @@ class Api extends REST_Controller
                 array("title" => "posicion1", "latitude" => 23.4329193, "longitude" => -84.323432),
                 array("title" => "posicion2", "latitude" => 23.0329193, "longitude" => -84.323432),
             ));
-        $services[] = array("title" => "servicio 2", "id" => 2, "icon" => "pepe1.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "categories" => array(
+        $services[] = array("title" => "servicio 2", "id" => 2, "icon" => "pepe1.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "showcategories" => array(
             array("id" => 1, "title" => "hogar"),
             array("id" => 2, "title" => "Trabajos Manuales")
         ), "email" => "tuservicio@gmail.com", "url" => "http://tuservicio.com",
@@ -106,7 +106,7 @@ class Api extends REST_Controller
                 array("title" => "posicion1", "latitude" => 23.4329193, "longitude" => -84.323432),
                 array("title" => "posicion2", "latitude" => 23.0329193, "longitude" => -84.323432),
             ));
-        $services[] = array("title" => "servicio 3", "id" => 3, "icon" => "pepe2.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "categories" => array(
+        $services[] = array("title" => "servicio 3", "id" => 3, "icon" => "pepe2.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "showcategories" => array(
             array("id" => 1, "title" => "hogar"),
             array("id" => 2, "title" => "Trabajos Manuales")
         ), "email" => "tuservicio@gmail.com", "url" => "http://tuservicio.com",
@@ -114,7 +114,7 @@ class Api extends REST_Controller
                 array("title" => "posicion1", "latitude" => 23.4329193, "longitude" => -84.323432),
                 array("title" => "posicion2", "latitude" => 23.0329193, "longitude" => -84.323432),
             ));
-        $services[] = array("title" => "pepe4", "id" => 4, "icon" => "pepe.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "categories" => array(
+        $services[] = array("title" => "pepe4", "id" => 4, "icon" => "pepe.png", "subtitle" => "rodriguez", "phone" => 784789, "address" => "Street 45th", "showcategories" => array(
             array("id" => 1, "title" => "hogar"),
             array("id" => 2, "title" => "Trabajos Manuales")
         ), "email" => "tuservicio@gmail.com", "url" => "http://tuservicio.com",
@@ -133,7 +133,7 @@ class Api extends REST_Controller
             array("id" => 1, "title" => "quito"),
             array("id" => 2, "title" => "guayaquil"),
             array("id" => 3, "title" => "cuenca")
-        ), "categories" => array(
+        ), "showcategories" => array(
             array("id" => 1, "title" => "hogar"),
             array("id" => 2, "title" => "Trabajos Manuales")
         ), "photos" => array(

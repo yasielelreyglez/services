@@ -76,6 +76,14 @@ input.form-control {
     text-transform: capitalize;
 }
 
+button:focus{
+    outline: none;
+}
+
+button:hover, a{
+    cursor: pointer;
+}
+
 /*Margin Bottom*/
 .mb-10 {
     margin-bottom: 10px;

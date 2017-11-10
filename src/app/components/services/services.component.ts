@@ -8,7 +8,8 @@ import {ReportComponent} from '../_modals/report/report.component';
     styleUrls: ['./services.component.css']
 })
 export class ServicesComponent implements OnInit {
-    @Input() services: any[];
+    @Input() services: any;
+    @Input() favorites?: boolean;
 
     constructor(private modalService: NgbModal) {
     }
