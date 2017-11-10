@@ -3,7 +3,7 @@ namespace Entities;
 
 /**
  * @Entity
- * @Table(name="showcategories")
+ * @Table(name="categories")
  */
 class Category
 {
