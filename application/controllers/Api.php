@@ -55,7 +55,7 @@ class Api extends REST_Controller
             $response["data"]=array();
 
         }
-        $this->set_response($response, REST_Controller::HTTP_UNAUTHORIZED);
+        $this->set_response($response, REST_Controller::HTTP_OK);
     }
 //LISTADO DE LOS SERVICIOS DADA UNA subCATEGORIA <params category:string>
     public function servicescat_get($id){

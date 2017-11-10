@@ -1,11 +1,11 @@
 <div *ngFor="let service of services" class="media" style="border-bottom: 1px solid #bcbcbc;
     margin-bottom: 15px; padding-bottom: 10px;">
     <div>
-        <span style="color: #e0040b; font-size: 13px; margin-left: 27px;" class="fw-600">{{valor < service.id ? "En revisión" : "Bloqueado"}}</span>
+        <span *ngIf="myservices" style="color: #e0040b; font-size: 13px; margin-left: 27px;" class="fw-600">{{valor < service.id ? "En revisión" : "Bloqueado"}}</span>
         <img class="d-flex align-self-center mr-3" width="115" src="../../../assets/service_img.png" alt="" style="border: 1px solid #bcbcbc;
     padding: 5px;">
     </div>
-    <div class="media-body" style="margin-top: 25px;">
+    <div class="media-body" [ngStyle]="{'margin-top': myservices ? '25px' : '0'}">
         <h5 class="mt-0 tc-blue">{{service.title}}</h5>
         <div class="text-center fw-600" style="width: 35px;
     height: 16px;

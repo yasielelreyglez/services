@@ -13,7 +13,7 @@ export class ShowfavoritesComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.apiServices.servicesSub().subscribe(result => this.services = result);
+        this.apiServices.myfavorites().subscribe(result => this.services = result);
     }
 
 }

@@ -10,7 +10,7 @@ import {Data} from '../../_services/data.service';
     styleUrls: ['./showsubcaterories.component.css']
 })
 export class ShowsubcateroriesComponent implements OnInit {
-    subcategories: Subcategory[];
+    subcategories: any;
     name: string;
 
     constructor(private route: ActivatedRoute, private apiServices: ApiService, private data: Data) {

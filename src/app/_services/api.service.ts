@@ -13,7 +13,7 @@ export class ApiService {
     topSubcategories(): Observable<Subcategory[]> {
         return this.http.get('/login/api/topsubcategories').map((response) => {
             if (response)
-                return response.json() as Subcategory[];
+                return response.json().data as Subcategory[];
             else {
                 return new Subcategory[0];
             }
@@ -21,9 +21,9 @@ export class ApiService {
     }
 
     categories(): Observable<any> {
-        return this.http.get('/login/api/showcategories').map((response) => {
+        return this.http.get('/login/api/categories').map((response) => {
             if (response)
-                return response.json();
+                return response.json().data;
             else {
                 return new Array();
             }
@@ -31,11 +31,11 @@ export class ApiService {
     }
 
     subCategories(id: number): Observable<Subcategory[]> {
-        return this.http.get('/login/api/subcategories?category=' + id).map((response) => {
+        return this.http.get('/login/api/subcategories/' + id).map((response) => {
             if (response)
-                return response.json() as Subcategory[];
+                return response.json().data;
             else {
-                return new Subcategory[0];
+                return new Array();
             }
         });
     }
@@ -43,17 +43,17 @@ export class ApiService {
     servicesSub(): Observable<any[]> {
         return this.http.get('/login/api/servicessub').map((response) => {
             if (response)
-                return response.json();
+                return response.json().data;
             else {
                 return new Array();
             }
         });
     }
 
-    favorites(): Observable<any[]> {
-        return this.http.get('/login/api/servicessub').map((response) => {
+    myfavorites(): Observable<any[]> {
+        return this.http.get('/login/api/myfavorites').map((response) => {
             if (response)
-                return response.json();
+                return response.json().data;
             else {
                 return new Array();
             }
@@ -61,9 +61,9 @@ export class ApiService {
     }
 
     myServices(): Observable<any[]> {
-        return this.http.get('/login/api/servicessub').map((response) => {
+        return this.http.get('/login/api/myservices').map((response) => {
             if (response)
-                return response.json();
+                return response.json().data;
             else {
                 return new Array();
             }

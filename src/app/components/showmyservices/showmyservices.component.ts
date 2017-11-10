@@ -13,7 +13,7 @@ export class ShowmyservicesComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.apiServices.servicesSub().subscribe(result => this.services = result);
+        this.apiServices.myServices().subscribe(result => this.services = result);
     }
 
 }
