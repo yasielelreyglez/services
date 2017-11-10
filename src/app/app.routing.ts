@@ -20,7 +20,7 @@ const routes: Routes = [
     {path: 'myservices', component: ShowmyservicesComponent, canActivate: [AuthGuard]},
 
     // otherwise redirect to home
-    {path: '**', redirectTo: ''}
+    {path: '**', component: HomeComponent}
 ];
 
 export const AppRoutes = RouterModule.forRoot(routes);

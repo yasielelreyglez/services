@@ -40,8 +40,8 @@ export class ApiService {
         });
     }
 
-    servicesSub(): Observable<any[]> {
-        return this.http.get('/login/api/servicessub').map((response) => {
+    servicesSub(id: number): Observable<any[]> {
+        return this.http.get('/login/api/servicessub/' + id).map((response) => {
             if (response)
                 return response.json().data;
             else {
