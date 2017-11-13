@@ -185,7 +185,7 @@ class CI_DB_oci8_driver extends CI_DB {
 			 * empty, then the hostname field is most likely indeed
 			 * just a hostname. Therefore we'll try and build an
 			 * Easy Connect string from these 3 settings, assuming
-			 * that the database field is a service name.
+			 * that the database field is a showservice name.
 			 */
 			$this->dsn = $this->hostname
 				.(( ! empty($this->port) && ctype_digit($this->port)) ? ':'.$this->port : '')

@@ -58,7 +58,7 @@ class CI_DB_ibase_utility extends CI_DB_utility {
 		{
 			$res = ibase_backup($service, $this->db->database, $filename.'.fbk');
 
-			// Close the service connection
+			// Close the showservice connection
 			ibase_service_detach($service);
 			return $res;
 		}

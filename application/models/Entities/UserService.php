@@ -229,7 +229,7 @@ class UserService
     }
 
     /**
-     * Set service
+     * Set showservice
      *
      * @param \Entities\Service $service
      *
@@ -243,7 +243,7 @@ class UserService
     }
 
     /**
-     * Get service
+     * Get showservice
      *
      * @return \Entities\Service
      */

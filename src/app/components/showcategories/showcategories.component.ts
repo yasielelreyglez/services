@@ -14,10 +14,6 @@ export class ShowcategoriesComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.allCategories();
-    }
-
-    allCategories() {
         return this.apiServices.categories().subscribe(result => this.categories = result);
     }
 

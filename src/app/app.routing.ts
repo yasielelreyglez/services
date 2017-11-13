@@ -8,6 +8,7 @@ import {ShowsubcateroriesComponent} from './components/showsubcaterories/showsub
 import {ShowservicesComponent} from './components/showservices/showservices.component';
 import {ShowfavoritesComponent} from './components/showfavorites/showfavorites.component';
 import {ShowmyservicesComponent} from './components/showmyservices/showmyservices.component';
+import {ShowserviceComponent} from './components/showservice/showservice.component';
 
 const routes: Routes = [
     {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -16,7 +17,9 @@ const routes: Routes = [
     {path: 'categories', component: ShowcategoriesComponent},
     {path: 'categories/:id', component: ShowsubcateroriesComponent},
     {path: 'categories/:id/subcategories/:id', component: ShowservicesComponent},
+    {path: 'categories/:id/subcategories/:id/service/:id', component: ShowserviceComponent},
     {path: 'subcategories/:id', component: ShowservicesComponent},
+    {path: 'subcategories/:id/service/:id', component: ShowserviceComponent},
     {path: 'myfavorites', component: ShowfavoritesComponent, canActivate: [AuthGuard]},
     {path: 'myservices', component: ShowmyservicesComponent, canActivate: [AuthGuard]},
 

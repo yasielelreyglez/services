@@ -23,8 +23,9 @@ import {Data} from './_services/data.service';
 import {ShowservicesComponent} from './components/showservices/showservices.component';
 import {ServicesComponent} from './components/services/services.component';
 import {ReportComponent} from './components/_modals/report/report.component';
-import { ShowfavoritesComponent } from './components/showfavorites/showfavorites.component';
-import { ShowmyservicesComponent } from './components/showmyservices/showmyservices.component';
+import {ShowfavoritesComponent} from './components/showfavorites/showfavorites.component';
+import {ShowmyservicesComponent} from './components/showmyservices/showmyservices.component';
+import {ShowserviceComponent} from './components/showservice/showservice.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { ShowmyservicesComponent } from './components/showmyservices/showmyservi
         ServicesComponent,
         ReportComponent,
         ShowfavoritesComponent,
-        ShowmyservicesComponent
+        ShowmyservicesComponent,
+        ShowserviceComponent
     ],
     entryComponents: [
         ForgotpassComponent,

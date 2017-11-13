@@ -11,7 +11,7 @@ class Service
      * @Id @GeneratedValue @Column(type="integer")
      * @var int
      **/
-    protected $id;
+    public $id;
 
     /**
      * @Column(type="string")
@@ -104,7 +104,7 @@ class Service
     /**
      * Bidirectional - One-To-Many (INVERSE SIDE)
      *
-     * @OneToMany(targetEntity="Position", mappedBy="service")
+     * @OneToMany(targetEntity="Position", mappedBy="showservice")
      */
     public $positions;
 
@@ -130,13 +130,13 @@ class Service
 
     /**
      * One User has Many UserService.
-     * @OneToMany(targetEntity="UserService", mappedBy="service")
+     * @OneToMany(targetEntity="UserService", mappedBy="showservice")
      */
     public $serviceusers;
 
     /**
      * One User has Many UserService.
-     * @OneToMany(targetEntity="Comments", mappedBy="service")
+     * @OneToMany(targetEntity="Comments", mappedBy="showservice")
      */
     public $servicecomments;
 

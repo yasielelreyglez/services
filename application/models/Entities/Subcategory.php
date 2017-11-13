@@ -99,7 +99,7 @@ class Subcategory
     }
 
     /**
-     * Add service
+     * Add showservice
      *
      * @param \Entities\Service $service
      *
@@ -113,7 +113,7 @@ class Subcategory
     }
 
     /**
-     * Remove service
+     * Remove showservice
      *
      * @param \Entities\Service $service
      */

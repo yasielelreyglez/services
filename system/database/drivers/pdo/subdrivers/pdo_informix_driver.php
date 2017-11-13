@@ -112,11 +112,11 @@ class CI_DB_pdo_informix_driver extends CI_DB_pdo_driver {
 
 			if (isset($this->service))
 			{
-				$this->dsn .= '; service='.$this->service;
+				$this->dsn .= '; showservice='.$this->service;
 			}
 			elseif ( ! empty($this->port))
 			{
-				$this->dsn .= '; service='.$this->port;
+				$this->dsn .= '; showservice='.$this->port;
 			}
 
 			empty($this->database) OR $this->dsn .= '; database='.$this->database;

@@ -64,10 +64,10 @@ class UserService extends \Entities\UserService implements \Doctrine\ORM\Proxy\P
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'Entities\\UserService' . "\0" . 'user', '' . "\0" . 'Entities\\UserService' . "\0" . 'service', 'favorite', 'rate', 'contacted', 'complaint', 'complaint_created'];
+            return ['__isInitialized__', '' . "\0" . 'Entities\\UserService' . "\0" . 'user', '' . "\0" . 'Entities\\UserService' . "\0" . 'showservice', 'favorite', 'rate', 'contacted', 'complaint', 'complaint_created'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'Entities\\UserService' . "\0" . 'user', '' . "\0" . 'Entities\\UserService' . "\0" . 'service', 'favorite', 'rate', 'contacted', 'complaint', 'complaint_created'];
+        return ['__isInitialized__', '' . "\0" . 'Entities\\UserService' . "\0" . 'user', '' . "\0" . 'Entities\\UserService' . "\0" . 'showservice', 'favorite', 'rate', 'contacted', 'complaint', 'complaint_created'];
     }
 
     /**

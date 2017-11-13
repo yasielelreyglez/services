@@ -14,54 +14,61 @@ class Api extends REST_Controller
 {
 
     // LISTADO DE LAS SUBCATEGORIAS MAS VISITADAS O RANKIADAS(VISTA DEL HOME)
-    public function topSubcategories_get(){
+    public function topSubcategories_get()
+    {
 
-        $em= $this->doctrine->em;
+        $em = $this->doctrine->em;
         $subcategoriesRepo = $em->getRepository('Entities\Subcategory');
-        $subcategories = $subcategoriesRepo->findBy(array(),array('visits' => 'DESC'),10);
-        $response["desc"]="Subcategorias mas visitadas ";
-        $response["count"]=count($subcategories);
-        $response["data"]=$subcategories;
+        $subcategories = $subcategoriesRepo->findBy(array(), array('visits' => 'DESC'), 10);
+        $response["desc"] = "Subcategorias mas visitadas ";
+        $response["count"] = count($subcategories);
+        $response["data"] = $subcategories;
 
         $this->set_response($response, REST_Controller::HTTP_OK);
 
     }
+
     //LISTADO DE LAS CATEGORIAS (TODAS LAS CATEGORIAS ?)
-    public function categories_get(){
-        $em= $this->doctrine->em;
+    public function categories_get()
+    {
+        $em = $this->doctrine->em;
         $categoriesRepo = $em->getRepository('Entities\Category');
         $categories = $categoriesRepo->findAll();
-        $response["data"]=$categories;
-        $response["count"]=count($categories);
-        $this->set_response($response,REST_Controller::HTTP_OK);
+        $response["data"] = $categories;
+        $response["count"] = count($categories);
+        $this->set_response($response, REST_Controller::HTTP_OK);
 //        $this->set_response($categories, REST_Controller::HTTP_UNAUTHORIZED);
     }
-    //LISTADO DE LAS SUBCATEGORIAS DADA UNA CATEGORIA <params category:string>
-    public function subcategories_get($category_id){
 
-        $em= $this->doctrine->em;
+    //LISTADO DE LAS SUBCATEGORIAS DADA UNA CATEGORIA <params category:string>
+    public function subcategories_get($category_id)
+    {
+
+        $em = $this->doctrine->em;
         $subcategoriesRepo = $em->getRepository('Entities\Subcategory');
-        $subcategories = $subcategoriesRepo->findBy(array('category'=>$category_id));
-        $category = $em->find('Entities\Category',$category_id);
-        if ($category){
-        $response["desc"]='Subcategorias de la categoria:'.$category->getTitle();
-        $response["parent"]=$category;
-        $response["count"]=count($subcategories);
-        $response["data"]=$subcategories;
-        }else{
-            $response["desc"]='Categoria no encontrada:';
-            $response["parent"]=null;
-            $response["count"]=0;
-            $response["data"]=array();
+        $subcategories = $subcategoriesRepo->findBy(array('category' => $category_id));
+        $category = $em->find('Entities\Category', $category_id);
+        if ($category) {
+            $response["desc"] = 'Subcategorias de la categoria:' . $category->getTitle();
+            $response["parent"] = $category;
+            $response["count"] = count($subcategories);
+            $response["data"] = $subcategories;
+        } else {
+            $response["desc"] = 'Categoria no encontrada:';
+            $response["parent"] = null;
+            $response["count"] = 0;
+            $response["data"] = array();
 
         }
         $this->set_response($response, REST_Controller::HTTP_OK);
     }
+
 //LISTADO DE LOS SERVICIOS DADA UNA subCATEGORIA <params category:string>
-    public function servicescat_get($id){
+    public function servicescat_get($id)
+    {
         $em = $this->doctrine->em;
-        $category = $em->find('Entities\Category',$id);
-        if($category){
+        $category = $em->find('Entities\Category', $id);
+        if ($category) {
             $subcategories = $category->getSubcategories()->toArray();
             $result["desc"] = "Listado de servicios por la categoria:$id";
             $result["parent"] = $category;
@@ -72,111 +79,117 @@ class Api extends REST_Controller
                 $result["data"] = array_merge($result["data"], $services);
             }
             $result["count"] = count($result["data"]);
-        }else{
+        } else {
             $result["desc"] = "Listado de servicios por la categoria:$id";
-            $result["parent"] = array() ;
+            $result["parent"] = array();
             $result["count"] = 0;
             $result["data"] = array();
         }
         $this->set_response($result, REST_Controller::HTTP_UNAUTHORIZED);
     }
+
 //LISTADO DE SERVICIOS QUE COINCIDEN CON LA BUSQUEDA POR TEXTO
-    public function searchService_get($query){
-        $em= $this->doctrine->em;
+    public function searchService_get($query)
+    {
+        $em = $this->doctrine->em;
         $serviceRepo = $em->getRepository('Entities\Service');
         $criteria = new \Doctrine\Common\Collections\Criteria();
         //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
-        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("title",\Doctrine\Common\Collections\Expr\Comparison::CONTAINS,$query);
-        $expresion2 = new \Doctrine\Common\Collections\Expr\Comparison("subtitle",\Doctrine\Common\Collections\Expr\Comparison::CONTAINS,$query);
+        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("title", \Doctrine\Common\Collections\Expr\Comparison::CONTAINS, $query);
+        $expresion2 = new \Doctrine\Common\Collections\Expr\Comparison("subtitle", \Doctrine\Common\Collections\Expr\Comparison::CONTAINS, $query);
         $criteria->where($expresion);
         $criteria->orWhere($expresion2);
 
         $respuesta = $serviceRepo->matching($criteria);
-        $response["desc"]="Resultados de la busqueda";
-        $response["query"]=$query;
-        $response["count"]=0;
-        $response["data"]=$respuesta->toArray();
-        $response["count"]=count($response["data"]);
+        $response["desc"] = "Resultados de la busqueda";
+        $response["query"] = $query;
+        $response["count"] = 0;
+        $response["data"] = $respuesta->toArray();
+        $response["count"] = count($response["data"]);
         $this->set_response($response, REST_Controller::HTTP_OK);
     }
 
 
     //LISTADO DE LOS SERVICIOS  DADA UNA SUBCATEGORIA <params subcategory:string>
-    public function servicessub_get($id){
+    public function servicessub_get($id)
+    {
 //
-        $em= $this->doctrine->em;
+        $em = $this->doctrine->em;
 //        $subcategory = $em->find('Entities\Sub',$id);
         $subcategoriesRepo = $em->getRepository('Entities\Subcategory');
         $subcategory = $subcategoriesRepo->find($id);
 //        $subcategory->services->doInitialize();
-        if($subcategory){
-            $response["desc"]="Servicios pertenecientes a la subcategoria:$subcategory->title";
+        if ($subcategory) {
+            $response["desc"] = "Servicios pertenecientes a la subcategoria: $subcategory->title";
             $services = $subcategory->getServices()->toArray();
-            $response["data"]= $services;
+            $response["data"] = $services;
 
-        }else{
-            $response["desc"]="Subcategoria no encontrada";
+        } else {
+            $response["desc"] = "Subcategoria no encontrada";
         }
         $this->set_response($response, REST_Controller::HTTP_OK);
     }
 
     //DATOS DE UN SERVICIO DADO EL ID DEL MISMO <params serviceid:string>
-    public function service_get($id){
-        $em= $this->doctrine->em;
-        $service = $em->find('Entities\Service',$id);
+    public function service_get($id)
+    {
+        $em = $this->doctrine->em;
+        $service = $em->find('Entities\Service', $id);
         $service->getAuthor()->getUsername();
         $service->getPositions()->toArray();
-        $data["data"]=$service;
-        $data["cities"]=$service->getCities()->toArray();
-        $data["positions"]=$service->getPositions()->toArray();
-        $data["subcategories"]=$service->getSubcategories()->toArray();
+        $data["data"] = $service;
+        $data["cities"] = $service->getCities()->toArray();
+        $data["positions"] = $service->getPositions()->toArray();
+        $data["subcategories"] = $service->getSubcategories()->toArray();
         $this->set_response($data, REST_Controller::HTTP_OK);
     }
 
     //LISTADO DE SERVICIOS POR FILTROS
-    public function filter_get(){
+    public function filter_get()
+    {
         //obteniendo parametros filtro
-        $ciudades = $this->input->get("cities",true);
-        $categorias = $this->input->get("categories",true);
-        $distance = $this->input->get("distnace",true);
-        $em= $this->doctrine->em;
+        $ciudades = $this->input->get("cities", true);
+        $categorias = $this->input->get("categories", true);
+        $distance = $this->input->get("distnace", true);
+        $em = $this->doctrine->em;
         $citiesRepo = $em->getRepository('Entities\City');
         $serviceRepo = $em->getRepository('Entities\Service');
 
         $criteria = new \Doctrine\Common\Collections\Criteria();
         //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
-        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("title",\Doctrine\Common\Collections\Expr\Comparison::IN,$ciudades);
+        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("title", \Doctrine\Common\Collections\Expr\Comparison::IN, $ciudades);
         $criteria->where($expresion);
-        $cities =  $citiesRepo->matching($criteria)->toArray();
+        $cities = $citiesRepo->matching($criteria)->toArray();
         $result["data"] = array();
-        foreach($cities as $city){
+        foreach ($cities as $city) {
             $service = $city->getServices();
-            $result["data"] = array_merge($result["data"],$service->toArray());
+            $result["data"] = array_merge($result["data"], $service->toArray());
 
             //TODO AGREGAR EL FILTRO POR LOS OTROS ELEMENTOS
             //TODO CACHEAR LAS BUSQUEDA DE LOS FILTROS
         }
 
 
-//        $data["services"] = $service;
+//        $data["services"] = $showservice;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
     //denunciar un servicio
-    public function complaint_get($id){
-        $queja = $this->input->get("complaint",true);
-        $em= $this->doctrine->em;
-        $service = $em->find("Entities\Service",$id);
-        $usuario = 3 ;//TODO OBTENER DEL TOKEN
-        $user = $em->find("Entities\User",$usuario);
+    public function complaint_get($id)
+    {
+        $queja = $this->input->get("complaint", true);
+        $em = $this->doctrine->em;
+        $service = $em->find("Entities\Service", $id);
+        $usuario = 3;//TODO OBTENER DEL TOKEN
+        $user = $em->find("Entities\User", $usuario);
         $criteria = new \Doctrine\Common\Collections\Criteria();
         //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
-        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user",\Doctrine\Common\Collections\Expr\Comparison::EQ,$user);
+        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user", \Doctrine\Common\Collections\Expr\Comparison::EQ, $user);
         $criteria->where($expresion);
         $relacion = $service->getServiceusers()->matching($criteria)->toArray();
-        if(count($relacion)>0){
+        if (count($relacion) > 0) {
             $obj = $relacion[0];
-        }else{
+        } else {
             $obj = new \Entities\UserService();
             $obj->setService($service);
             $obj->setUser($user);
@@ -189,19 +202,20 @@ class Api extends REST_Controller
         $this->set_response($obj, REST_Controller::HTTP_OK);
     }
 
-    public function markfavorite_get($id){
-        $em= $this->doctrine->em;
-        $service = $em->find("Entities\Service",$id);
-        $usuario = 3 ;
-        $user = $em->find("Entities\User",$usuario);
+    public function markfavorite_get($id)
+    {
+        $em = $this->doctrine->em;
+        $service = $em->find("Entities\Service", $id);
+        $usuario = 3;
+        $user = $em->find("Entities\User", $usuario);
         $criteria = new \Doctrine\Common\Collections\Criteria();
         //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
-        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user",\Doctrine\Common\Collections\Expr\Comparison::EQ,$user);
+        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user", \Doctrine\Common\Collections\Expr\Comparison::EQ, $user);
         $criteria->where($expresion);
         $relacion = $service->getServiceusers()->matching($criteria)->toArray();
-        if(count($relacion)>0){
+        if (count($relacion) > 0) {
             $obj = $relacion[0];
-        }else{
+        } else {
             $obj = new \Entities\UserService();
             $obj->setService($service);
             $obj->setUser($user);
@@ -211,15 +225,16 @@ class Api extends REST_Controller
         $em->flush();
     }
 
-    public function dismarkfavorite_get($id){
-        $em= $this->doctrine->em;
-        $service = $em->find("Entities\Service",$id);
-        $usuario = 3 ;
-        $user = $em->find("Entities\User",$usuario);
+    public function dismarkfavorite_get($id)
+    {
+        $em = $this->doctrine->em;
+        $service = $em->find("Entities\Service", $id);
+        $usuario = 3;
+        $user = $em->find("Entities\User", $usuario);
         $relacion = $service->loadRelatedUserData($user);
-        if(count($relacion)>0){
+        if (count($relacion) > 0) {
             $obj = $relacion[0];
-        }else{
+        } else {
             $obj = new \Entities\UserService();
             $obj->setService($service);
             $obj->setUser($user);
@@ -229,51 +244,56 @@ class Api extends REST_Controller
         $em->flush();
     }
 
-    public function myfavorites_get(){
-        $usuario = 3 ;//TODO PONER EL ID DEL USUARIO DEL TOKEN
-        $em= $this->doctrine->em;
-        $user = $em->find("Entities\User",$usuario);
+    public function myfavorites_get()
+    {
+        $usuario = 3;//TODO PONER EL ID DEL USUARIO DEL TOKEN
+        $em = $this->doctrine->em;
+        $user = $em->find("Entities\User", $usuario);
         $criteria = new \Doctrine\Common\Collections\Criteria();
         //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
-        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("favorite",\Doctrine\Common\Collections\Expr\Comparison::EQ,1);
+        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("favorite", \Doctrine\Common\Collections\Expr\Comparison::EQ, 1);
         $criteria->where($expresion);
         $relacion = $user->getUserservices()->matching($criteria)->toArray();
-        $result["desc"]="Listado de los servicios marcados como favoritos por el usuario";
+        $result["desc"] = "Listado de los servicios marcados como favoritos por el usuario";
         $result["data"] = array();
         foreach ($relacion as $servicerel) {
             $service_obj = $servicerel->getService();
-            $result["test"]=$service_obj->loadRelatedUserData($user);
+            $result["test"] = $service_obj->loadRelatedUserData($user);
             $result["data"][] = $service_obj;
         }
         $this->set_response($result, REST_Controller::HTTP_OK);
 
     }
-    public function myservices_get(){
-        $usuario = 3 ;//TODO PONER EL ID DEL USUARIO DEL TOKEN
-        $em= $this->doctrine->em;
-        $usuario = 3 ;
-        $user = $em->find("Entities\User",$usuario);
+
+    public function myservices_get()
+    {
+        $usuario = 3;//TODO PONER EL ID DEL USUARIO DEL TOKEN
+        $em = $this->doctrine->em;
+        $usuario = 3;
+        $user = $em->find("Entities\User", $usuario);
         $relacion = $user->getServices()->toArray();
-        $result["desc"]="Listado de los servicios creados por el usuario";
-        $result["data"]=array();
-        foreach ($relacion as $service){
-           $service->loadRelatedUserData($user);
-            $result["data"][]=$service;
+        $result["desc"] = "Listado de los servicios creados por el usuario";
+        $result["data"] = array();
+        foreach ($relacion as $service) {
+            $service->loadRelatedUserData($user);
+            $result["data"][] = $service;
         }
-        $result["data"]=$relacion;
+        $result["data"] = $relacion;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
-    public function myvisits_get(){
-        $usuario = 3 ;//TODO PONER EL ID DEL USUARIO DEL TOKEN
-        $em= $this->doctrine->em;
-        $usuario = 3 ;
-        $user = $em->find("Entities\User",$usuario);
+
+    public function myvisits_get()
+    {
+        $usuario = 3;//TODO PONER EL ID DEL USUARIO DEL TOKEN
+        $em = $this->doctrine->em;
+        $usuario = 3;
+        $user = $em->find("Entities\User", $usuario);
         $criteria = new \Doctrine\Common\Collections\Criteria();
         //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
-        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("visited",\Doctrine\Common\Collections\Expr\Comparison::EQ,1);
+        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("visited", \Doctrine\Common\Collections\Expr\Comparison::EQ, 1);
         $criteria->where($expresion);
         $relacion = $user->getUserservices()->matching($criteria)->toArray();
-        $result["desc"]="Listado de los servicios marcados como favoritos por el usuario";
+        $result["desc"] = "Listado de los servicios marcados como favoritos por el usuario";
         $result["data"] = array();
         foreach ($relacion as $servicerel) {
             $service_obj = $servicerel->getService();
@@ -285,18 +305,9 @@ class Api extends REST_Controller
     }
 
 
-
-
-
-
-
-
-
-
-
-
-    public function users_get(){
-        $output["result"]="ejemplo de respuesta";
+    public function users_get()
+    {
+        $output["result"] = "ejemplo de respuesta";
         $headers = $this->input->request_headers();
         if (array_key_exists('authorization', $headers) && !empty($headers['authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['authorization']);

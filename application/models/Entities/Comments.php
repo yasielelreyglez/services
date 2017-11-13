@@ -74,7 +74,7 @@ class Comments
     }
 
     /**
-     * Set service
+     * Set showservice
      *
      * @param \Entities\Service $service
      *
@@ -88,7 +88,7 @@ class Comments
     }
 
     /**
-     * Get service
+     * Get showservice
      *
      * @return \Entities\Service
      */

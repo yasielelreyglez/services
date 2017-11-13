@@ -40,7 +40,7 @@ export class ApiService {
         });
     }
 
-    servicesSub(id: number): Observable<any[]> {
+    servicesSub(id: number): Observable<any> {
         return this.http.get('/login/api/servicessub/' + id).map((response) => {
             if (response)
                 return response.json().data;
@@ -50,7 +50,7 @@ export class ApiService {
         });
     }
 
-    myfavorites(): Observable<any[]> {
+    myfavorites(): Observable<any> {
         return this.http.get('/login/api/myfavorites').map((response) => {
             if (response)
                 return response.json().data;
@@ -60,8 +60,18 @@ export class ApiService {
         });
     }
 
-    myServices(): Observable<any[]> {
+    myServices(): Observable<any> {
         return this.http.get('/login/api/myservices').map((response) => {
+            if (response)
+                return response.json().data;
+            else {
+                return new Array();
+            }
+        });
+    }
+
+    service(id: string): Observable<any> {
+        return this.http.get('/login/api/service/' + id).map((response) => {
             if (response)
                 return response.json().data;
             else {

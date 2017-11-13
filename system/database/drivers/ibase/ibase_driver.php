@@ -108,7 +108,7 @@ class CI_DB_ibase_driver extends CI_DB {
 		{
 			$this->data_cache['version'] = ibase_server_info($service, IBASE_SVC_SERVER_VERSION);
 
-			// Don't keep the service open
+			// Don't keep the showservice open
 			ibase_service_detach($service);
 			return $this->data_cache['version'];
 		}
