@@ -104,12 +104,12 @@ class Auth extends REST_Controller
                 $tokenData = array(
                     'userid'=>$user->getId(),
                     'email' => $user->getEmail(),
-                    'role' => $user->getRol()
+                    'role' => $user->getRole()
                 );
                 $token = AUTHORIZATION::generateToken($tokenData);
                 $output["token"] = $token;
                 $output["email"] = $email;
-                $output["role"] =  $user->getRol();
+                $output["role"] =  $user->getRole();
                 echo json_encode($output);
                 return;
             }else{
@@ -127,7 +127,7 @@ class Auth extends REST_Controller
     }
     public function login_get()
     {
-        $values = json_decode($this->post()[0]);
+        $values = json_decode($this->get()[0]);
 //        $user_agent = $this->input->get_request_header('User-Agent', FALSE);
         $email = $values->email;
         $password = $values->password;

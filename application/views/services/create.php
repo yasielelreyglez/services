@@ -1,5 +1,5 @@
 	<h1>Create</h1>
-	<?= form_open('admin/services/save','role="form"'); ?><?php if(validation_errors() != NULL && validation_errors() != '') { ?>
+	<?= form_open_multipart('api/createservice','role="form"'); ?><?php if(validation_errors() != NULL && validation_errors() != '') { ?>
 		<div class="alert alert-danger"><?= validation_errors(); ?></div><?php } ?>
 		<input type="hidden" name="id" value="<?= isset($services)?$services->id:''?>"/>
 		
@@ -78,6 +78,10 @@
 			<input type="text" class="form-control" name="subcategories" placeholder="Enter Subcategories" value="<?= isset($services)?$services->subcategories:''?>"/>
 			
 		</div>
+    <div class="form-group">
+        <label for="icon">Icon:</label><br/>
+        <input type="file" name="userfile" size="20" />
+    </div>
 		<input type="submit" value="Save" class="btn btn-primary"/>
 		<?= anchor('admin/services/index','Back','class="btn btn-link"'); ?>
 	</form>

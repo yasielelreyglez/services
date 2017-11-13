@@ -337,56 +337,98 @@ class Api extends REST_Controller
     }
 
 
+    public function testimg_post(){
+        echo "FALSE";
+        $result=  $this->input->post();
+        $filename = $this->input->post("filename");
+        $string = $this->input->post("data");
+        $img = imagecreatefromstring(base64_decode($string));
+        $img2 = imagecreatefromstring(base64_decode($result));
+        if($img != false)
+        {
+            imagejpeg($img, "/resources/image/prueba1.jpg");
+            echo "prueba1";
+        }
+        if($img2 != false)
+        {
+            echo "prueba2";
+            imagejpeg($img2, "/resources/image/prueba2.jpg");
+        }
+        $config['upload_path']          = './resources/image/service';
+        $config['allowed_types']        = 'gif|jpg|png';
+        $config['max_size']             = 10000;
+        $config['max_width']            = 9024;
+        $config['max_height']           = 2768;
+        $this->load->library('upload', $config);
+        if ( ! $this->upload->do_upload())
+        {
+            $error = array('error' => $this->upload->display_errors());
+            $this->load->view('upload_form', $error);
+            print_r($error);
+        }else{
+            $data["upload_data"] =$this->upload->data();
+        }
+//        $img = $this->input->post("image");
+//        $imgarr = explode(',', $this->image_string);
+//        $image = base64_decode($imgarr[1]);
+//        $results["data"] = $result;
+//        $results["parsed"]= $result;
+//        $temp_file_path = tempnam(sys_get_temp_dir(), 'androidtempimage'); // might not work on some systems, specify your temp path if system temp dir is not writeable
+//        file_put_contents($temp_file_path, base64_decode($_POST['imageString']));
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
 
-//
-//    function createservice_post(){
-//            $id =  $this->input->post('id', TRUE);
-//            $em = $this->doctrine->em;
-//            if(!$id) {
-//                $category = new \Entities\Category();
-//            }else{
-//                $userRepo = $em->getRepository('Entities\Category');
-//                $categories = $userRepo->findBy(array("id"=>$id));
-//                if(count($categories)>0){
-//                    $category= $categories[0];
-//                }else{
-//                    $category = new \Entities\Category();
-//                }
-//            }
-//            $config['upload_path']          = './resources/image/service';
-//            $config['allowed_types']        = 'gif|jpg|png';
-//            $config['max_size']             = 1000;
-//            $config['max_width']            = 9024;
-//            $config['max_height']           = 2768;
-//            $this->load->library('upload', $config);
-//            if ( ! $this->upload->do_upload('userfile'))
-//            {
-//                $error = array('error' => $this->upload->display_errors());
-//                $this->load->view('upload_form', $error);
-//                print_r($error);
-//            }
-//            else
-//            {
-//
-//                $data["upload_data"] =$this->upload->data();
-//                $category->setTitle($this->input->post('title', TRUE));
-//                $category->setIcon('resources/image/categories/'.$data["upload_data"]["file_name"]);
-//                $em->persist($category);
-//                $em->flush();
-////                $this->load->view('upload_success', $data);
-//            }
+
+
+
+    function createservice_post(){
+            $id =  $this->input->post('id', TRUE);
+            $em = $this->doctrine->em;
+            if(!$id) {
+                $service = new \Entities\Service();
+            }else{
+                $userRepo = $em->getRepository('Entities\Service');
+                $services = $userRepo->findBy(array("id"=>$id));
+                if(count($services)>0){
+                    $service= $services[0];
+                }else{
+                    $service = new \Entities\Service();
+                }
+            }
+            $config['upload_path']          = './resources/image/service';
+            $config['allowed_types']        = 'gif|jpg|png';
+            $config['max_size']             = 10000;
+            $config['max_width']            = 9024;
+            $config['max_height']           = 2768;
+            $this->load->library('upload', $config);
+            if ( ! $this->upload->do_upload('userfile'))
+            {
+                $error = array('error' => $this->upload->display_errors());
+                $this->load->view('upload_form', $error);
+                print_r($error);
+            }
+            else
+            {
+                $service = new \Entities\Service();
+                $data["upload_data"] =$this->upload->data();
+                $service->title = $this->input->post('title', TRUE);
+                $service->subtitle = $this->input->post('subtitle', TRUE);
+                $service->phone = $this->input->post('phone', TRUE);
+                $service->address = $this->input->post('address', TRUE);
+                $service->other_phone = $this->input->post('other_phone', TRUE);
+                $service->email = $this->input->post('email', TRUE);
+                $service->url = $this->input->post('url', TRUE);
+                $service->start_time = $this->input->post('start_time', TRUE);
+                $service->end_time = $this->input->post('end_time', TRUE);
+                $service->setIcon('resources/image/service/'.$data["upload_data"]["file_name"]);
+                $service->
+                $em->persist($service);
+                $em->flush();
+//                $this->load->view('upload_success', $data);
+            }
+        $this->set_response($service, REST_Controller::HTTP_OK);
 //            redirect('admin/categories/index', 'refresh');
-//        }else{
-//            $data['categories'] =	$this->rebuild();
-//            $data['content'] = '/categories/create';
-//            $data["tab"]="category";
-//            $this->load->view('includes/template', $data);
-//        }
-//
-//    }
-
-
-
+        }
 
 
 

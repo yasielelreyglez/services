@@ -23,6 +23,12 @@ class Service
      * @Column(type="string")
      * @var string
      **/
+    public $icon;
+
+    /**
+     * @Column(type="string")
+     * @var string
+     **/
     public $subtitle;
 
     /**
