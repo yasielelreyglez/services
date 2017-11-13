@@ -113,7 +113,7 @@ class Position
     }
 
     /**
-     * Set showservice
+     * Set service
      *
      * @param \Entities\Service $service
      *
@@ -127,7 +127,7 @@ class Position
     }
 
     /**
-     * Get showservice
+     * Get service
      *
      * @return \Entities\Service
      */

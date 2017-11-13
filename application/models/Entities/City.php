@@ -55,7 +55,7 @@ class City
         $this->title = $title;
     }
     /**
-     * Add showservice
+     * Add service
      *
      * @param \Entities\Service $service
      *
@@ -69,7 +69,7 @@ class City
     }
 
     /**
-     * Remove showservice
+     * Remove service
      *
      * @param \Entities\Service $service
      */

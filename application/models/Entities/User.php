@@ -222,7 +222,7 @@ class User
     }
 
     /**
-     * Add showservice
+     * Add service
      *
      * @param \Entities\Service $service
      *
@@ -236,7 +236,7 @@ class User
     }
 
     /**
-     * Remove showservice
+     * Remove service
      *
      * @param \Entities\Service $service
      */

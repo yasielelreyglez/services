@@ -5,7 +5,7 @@
  */
 class Service_model extends CI_Model {
 
-	# save $data on 'showservice'
+	# save $data on 'service'
 	function save($data) {
 		
 		$this->db->set('title', $data['title']);
@@ -22,30 +22,30 @@ class Service_model extends CI_Model {
 
 		if($data['id'] == NULL) {
 			$this->db->set('created_at', date('Y-m-d h:i:s',time()));
-			$this->db->insert('showservice');
+			$this->db->insert('service');
 		} else {
 			$this->db->where('id', $data['id']);
 			$this->db->set('updated_at', date('Y-m-d h:i:s',time()));
-			$this->db->update('showservice');
+			$this->db->update('service');
 		}
 
 		return $this->db->affected_rows();
 	}
 
-	# retrives $data from 'showservice'
+	# retrives $data from 'service'
 	function find($id = NULL) {
 		if($id != NULL) {
 			$this->db->where('id', $id);
-			return $this->db->get('showservice')->row();
+			return $this->db->get('service')->row();
 		} else {
-			return $this->db->get('showservice')->result();
+			return $this->db->get('service')->result();
 		}
 	}
 
-	# destroy $data from  'showservice'
+	# destroy $data from  'service'
 	function destroy($id) {
 		$this->db->where('id', $id);
-		$this->db->delete('showservice');
+		$this->db->delete('service');
 
 		return $this->db->affected_rows();
 	}

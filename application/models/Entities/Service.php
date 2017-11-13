@@ -104,7 +104,7 @@ class Service
     /**
      * Bidirectional - One-To-Many (INVERSE SIDE)
      *
-     * @OneToMany(targetEntity="Position", mappedBy="showservice")
+     * @OneToMany(targetEntity="Position", mappedBy="service")
      */
     public $positions;
 
@@ -130,13 +130,13 @@ class Service
 
     /**
      * One User has Many UserService.
-     * @OneToMany(targetEntity="UserService", mappedBy="showservice")
+     * @OneToMany(targetEntity="UserService", mappedBy="service")
      */
     public $serviceusers;
 
     /**
      * One User has Many UserService.
-     * @OneToMany(targetEntity="Comments", mappedBy="showservice")
+     * @OneToMany(targetEntity="Comments", mappedBy="service")
      */
     public $servicecomments;
 
