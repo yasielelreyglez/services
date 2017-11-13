@@ -23,6 +23,12 @@ class Auth extends REST_Controller
      * URL: http://localhost/CodeIgniter-JWT-Sample/auth/token
      * Method: GET
      */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->database();
+        $this->load->library(array('ion_auth', 'form_validation'));
+    }
     public function token_get()
     {
         $tokenData = array();
@@ -87,34 +93,37 @@ class Auth extends REST_Controller
 //        $user_agent = $this->input->get_request_header('User-Agent', FALSE);
         $email = $values->email;
         $password = $values->password;
-        $password = crypt($password, config_item('encryption_key'));
+        $remember = true;
+        $em= $this->doctrine->em;
+        $userRepo = $em->getRepository('Entities\User');
+        $email = $this->input->post('email');
+        $users = $userRepo->findBy("email",$email);
+        if(count($users)>0){
+            $user = $users[0];
+            if ($this->ion_auth->login($email, $this->input->post('password'), $remember))
+            {
+                $tokenData = array(
+                    'userid'=>$user->getId(),
+                    'email' => $user->getEmail(),
+                    'role' => $user->getRol()
+                );
+                $token = AUTHORIZATION::generateToken($tokenData);
+                $output["token"] = $token;
+                $output["email"] = $email;
+                $output["role"] =  $user->getRol();
+                echo json_encode($output);
+                return;
+            }else{
+                $output["error"] = "Error en password";
+                echo json_encode($output);
+                return;
+            }
+        }else{
+            $output["error"] = "Usuario no encontrado";
+            echo json_encode($output);
+            return;
+        }
 
-//        $login = $this->User->login( $email , $password );
-//
-//        if ( !$login )
-//        {
-//            $output['error'] = 'Wrong mail or password';
-//        }
-//        else
-//        {
-//            $tokenData = array(
-//                'userId' => $login->id,
-//                'name' => $login->name,
-//                'email' => $login->email,
-//                'role' => $login->role
-//            );
-//    }
-
-        $tokenData = array(
-            'email' => $email,
-            'role' => "admin"
-        );
-        $token = AUTHORIZATION::generateToken($tokenData);
-        $output["token"] = $token;
-        $output["email"] = $email;
-//        $output["user_agent"] = $user_agent;
-//        $output['error'] = 'Wrong mail or password';
-        echo json_encode($output);
 
     }
 }

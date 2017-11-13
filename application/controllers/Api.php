@@ -124,8 +124,10 @@ class Api extends REST_Controller
     public function service_get($id){
         $em= $this->doctrine->em;
         $service = $em->find('Entities\Service',$id);
+        $user = getCurrentUser();
         $service->getAuthor()->getUsername();
         $service->getPositions()->toArray();
+        $relacion = $service->loadRelatedUserData($user);
         $data["data"]=$service;
         $data["cities"]=$service->getCities()->toArray();
         $data["positions"]=$service->getPositions()->toArray();
@@ -288,6 +290,7 @@ class Api extends REST_Controller
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
+
     public function myvisits_get(){
         $usuario = 3 ;//TODO PONER EL ID DEL USUARIO DEL TOKEN
         $em= $this->doctrine->em;
@@ -310,10 +313,78 @@ class Api extends REST_Controller
     }
 
 
+    private function getCurrentUser(){
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+                $em = $this->doctrine->em;
+                $usuario = $decodedToken["userid"];
+                $user = $em->find("Entities\User",$usuario);
+                return $user;
+
+            }
+        }
+        if (array_key_exists('authorization', $headers) && !empty($headers['authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['authorization']);
+            if ($decodedToken != false) {
+                $em = $this->doctrine->em;
+                $usuario = $decodedToken["userid"];
+                $user = $em->find("Entities\User",$usuario);
+                return $user;
+            }
+        }
+    }
 
 
 
-
+//
+//    function createservice_post(){
+//            $id =  $this->input->post('id', TRUE);
+//            $em = $this->doctrine->em;
+//            if(!$id) {
+//                $category = new \Entities\Category();
+//            }else{
+//                $userRepo = $em->getRepository('Entities\Category');
+//                $categories = $userRepo->findBy(array("id"=>$id));
+//                if(count($categories)>0){
+//                    $category= $categories[0];
+//                }else{
+//                    $category = new \Entities\Category();
+//                }
+//            }
+//            $config['upload_path']          = './resources/image/service';
+//            $config['allowed_types']        = 'gif|jpg|png';
+//            $config['max_size']             = 1000;
+//            $config['max_width']            = 9024;
+//            $config['max_height']           = 2768;
+//            $this->load->library('upload', $config);
+//            if ( ! $this->upload->do_upload('userfile'))
+//            {
+//                $error = array('error' => $this->upload->display_errors());
+//                $this->load->view('upload_form', $error);
+//                print_r($error);
+//            }
+//            else
+//            {
+//
+//                $data["upload_data"] =$this->upload->data();
+//                $category->setTitle($this->input->post('title', TRUE));
+//                $category->setIcon('resources/image/categories/'.$data["upload_data"]["file_name"]);
+//                $em->persist($category);
+//                $em->flush();
+////                $this->load->view('upload_success', $data);
+//            }
+//            redirect('admin/categories/index', 'refresh');
+//        }else{
+//            $data['categories'] =	$this->rebuild();
+//            $data['content'] = '/categories/create';
+//            $data["tab"]="category";
+//            $this->load->view('includes/template', $data);
+//        }
+//
+//    }
 
 
 
