@@ -263,6 +263,31 @@ class Api extends REST_Controller
         $result["data"]=$relacion;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
+    public function rateservice_get($id,$rate){
+        $em= $this->doctrine->em;
+        $service = $em->find("Entities\Service",$id);
+        if($service) {
+            $usuario = 3;
+            $user = $em->find("Entities\User", $usuario);
+            $relacion = $service->loadRelatedUserData($user);
+            if (count($relacion) > 0) {
+                $obj = $relacion[0];
+            } else {
+                $obj = new \Entities\UserService();
+                $obj->setService($service);
+                $obj->setUser($user);
+            }
+            $obj->setRate($rate);
+            $em->persist($obj);
+            $em->flush();
+            $result["desc"] = "Evaluando al anuncio $id con $rate puntos";
+        }else{
+            $result["desc"] = "El servicio no existe";
+            $result["error"] = "No existe ningun servicio con id:$id";
+        }
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
+
     public function myvisits_get(){
         $usuario = 3 ;//TODO PONER EL ID DEL USUARIO DEL TOKEN
         $em= $this->doctrine->em;

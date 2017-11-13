@@ -11,7 +11,7 @@ class Service
      * @Id @GeneratedValue @Column(type="integer")
      * @var int
      **/
-    protected $id;
+    public $id;
 
     /**
      * @Column(type="string")

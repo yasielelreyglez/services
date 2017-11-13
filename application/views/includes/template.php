@@ -29,21 +29,16 @@
     </li>
     <li class="nav-item">
         <?= anchor('admin/users', 'Usuarios', $tab=="user"?"class='active nav-link'":"class='nav-link'");?>
-
     </li>
     <li class="nav-item">
         <?= anchor('admin/services', 'Servicios', $tab=="services"?"class='active nav-link'":"class='nav-link'");?>
-
     </li>
     <li class="nav-item">
         <?= anchor('admin/cities', 'Ciudades', $tab=="cities"?"class='active nav-link'":"class='nav-link'");?>
-
     </li>
     <li class="nav-item">
         <?= anchor('admin/positions', 'Posiciones', $tab=="position"?"class='active nav-link'":"class='nav-link'");?>
-
     </li>
-
 </ul>
 </nav>
   <!-- Brand and toggle get grouped for better mobile display -->
