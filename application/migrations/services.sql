@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2017 at 05:46 PM
+-- Generation Time: Nov 13, 2017 at 03:13 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -120,9 +120,8 @@ CREATE TABLE `login_attempts` (
 --
 
 INSERT INTO `login_attempts` (`id`, `ip_address`, `login`, `time`) VALUES
-(1, '::1', 'pepe', 1510083341),
-(2, '::1', 'pepe', 1510083362),
-(3, '::1', 'pepe', 1510083477);
+(4, '::1', 'pepe', 1510346123),
+(5, '::1', 'pepe', 1510346128);
 
 -- --------------------------------------------------------
 
@@ -435,7 +434,7 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `positions`
 --
