@@ -320,7 +320,7 @@ class Api extends REST_Controller
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
                 $em = $this->doctrine->em;
-                $usuario = $decodedToken["userid"];
+                $usuario = $decodedToken->userid;
                 $user = $em->find("Entities\User",$usuario);
                 return $user;
 
@@ -330,7 +330,7 @@ class Api extends REST_Controller
             $decodedToken = AUTHORIZATION::validateToken($headers['authorization']);
             if ($decodedToken != false) {
                 $em = $this->doctrine->em;
-                $usuario = $decodedToken["userid"];
+                $usuario = $decodedToken->userid;
                 $user = $em->find("Entities\User",$usuario);
                 return $user;
             }

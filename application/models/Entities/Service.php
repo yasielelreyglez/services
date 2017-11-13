@@ -59,7 +59,7 @@ class Service
      * @Column(type="string")
      * @var string
      **/
-    protected $week_days;
+    public $week_days;
 
     /**
      * @Column(type="string")

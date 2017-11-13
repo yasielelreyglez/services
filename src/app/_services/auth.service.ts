@@ -19,11 +19,12 @@ export class AuthService {
     login(user: User): Observable<boolean> {
         const body = JSON.stringify({email: user.email, password: user.password});
         return this.http.post('/login/auth/login', body).map(response => response.json()).map(result => {
-            if (result) {
+            if (!result.error) {
                 localStorage.setItem('currentUser', JSON.stringify(result));
                 this.currentUser.next(result);
+                return true;
             }
-            return !!result;
+            return false;
         });
     }
 

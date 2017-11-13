@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {Http, Response, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {Subcategory} from '../_models/subcategory';
@@ -71,13 +71,28 @@ export class ApiService {
     }
 
     service(id: string): Observable<any> {
-        return this.http.get('/login/api/service/' + id).map((response: Response) => {
-            if (response)
-                return response.json().data;
-            else {
-                return new Array();
-            }
-        });
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            const headers = new Headers();
+            headers.append('Authorization', JSON.parse(currentUser).token);
+
+            return this.http.get('/login/api/service/' + id, {headers: headers}).map((response: Response) => {
+                if (response)
+                    return response.json().data;
+                else {
+                    return new Array();
+                }
+            });
+        }
+        else {
+            return this.http.get('/login/api/service/' + id).map((response: Response) => {
+                if (response)
+                    return response.json().data;
+                else {
+                    return new Array();
+                }
+            });
+        }
     }
 
     report(report: string): Observable<any> {

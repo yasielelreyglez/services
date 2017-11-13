@@ -96,7 +96,7 @@ class Auth extends REST_Controller
         $em= $this->doctrine->em;
         $userRepo = $em->getRepository('Entities\User');
 
-        $users = $userRepo->findBy("email",$email);
+        $users = $userRepo->findBy(array("email"=>$email));
         if(count($users)>0){
             $user = $users[0];
             if ($this->ion_auth->login($email, $password, $remember))
@@ -104,12 +104,12 @@ class Auth extends REST_Controller
                 $tokenData = array(
                     'userid'=>$user->getId(),
                     'email' => $user->getEmail(),
-                    'role' => $user->getRol()
+                    'role' => $user->getRole()
                 );
                 $token = AUTHORIZATION::generateToken($tokenData);
                 $output["token"] = $token;
                 $output["email"] = $email;
-                $output["role"] =  $user->getRol();
+                $output["role"] =  $user->getRole();
                 echo json_encode($output);
                 return;
             }else{
