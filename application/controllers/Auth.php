@@ -135,7 +135,7 @@ class Auth extends REST_Controller
         $em= $this->doctrine->em;
         $userRepo = $em->getRepository('Entities\User');
         $email = $this->input->post('email');
-        $users = $userRepo->findBy("email",$email);
+        $users = $userRepo->findBy(array("email"=>$email));
         if(count($users)>0){
             $user = $users[0];
             if ($this->ion_auth->login($email, $this->input->post('password'), $remember))
@@ -161,7 +161,5 @@ class Auth extends REST_Controller
             echo json_encode($output);
             return;
         }
-
-
     }
 }
