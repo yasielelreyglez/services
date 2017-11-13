@@ -86,8 +86,46 @@ class Auth extends REST_Controller
         }
         $this->set_response($headers);
     }
-
     public function login_post()
+    {
+        $values = json_decode($this->post()[0]);
+//        $user_agent = $this->input->get_request_header('User-Agent', FALSE);
+        $email = $values->email;
+        $password = $values->password;
+        $remember = true;
+        $em= $this->doctrine->em;
+        $userRepo = $em->getRepository('Entities\User');
+
+        $users = $userRepo->findBy("email",$email);
+        if(count($users)>0){
+            $user = $users[0];
+            if ($this->ion_auth->login($email, $password, $remember))
+            {
+                $tokenData = array(
+                    'userid'=>$user->getId(),
+                    'email' => $user->getEmail(),
+                    'role' => $user->getRol()
+                );
+                $token = AUTHORIZATION::generateToken($tokenData);
+                $output["token"] = $token;
+                $output["email"] = $email;
+                $output["role"] =  $user->getRol();
+                echo json_encode($output);
+                return;
+            }else{
+                $output["error"] = "Error en password";
+                echo json_encode($output);
+                return;
+            }
+        }else{
+            $output["error"] = "Usuario no encontrado";
+            echo json_encode($output);
+            return;
+        }
+
+
+    }
+    public function login_get()
     {
         $values = json_decode($this->post()[0]);
 //        $user_agent = $this->input->get_request_header('User-Agent', FALSE);
