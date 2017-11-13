@@ -141,6 +141,13 @@ class Service
     public $servicecomments;
 
 
+    /**
+     * Bidirectional - One-To-Many (INVERSE SIDE)
+     *
+     * @OneToMany(targetEntity="Image", mappedBy="service")
+     */
+    private $images;
+
     /////DATOS RELACIONADOS CON EL USUARIO
     ///
     public $visited;
@@ -158,6 +165,7 @@ class Service
         $this->subcategories = new \Doctrine\Common\Collections\ArrayCollection();
         $this->serviceusers = new \Doctrine\Common\Collections\ArrayCollection();
         $this->servicecomments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getId()
@@ -498,6 +506,42 @@ class Service
     public function removeServiceuser(\Entities\UserService $serviceuser)
     {
         $this->serviceusers->removeElement($serviceuser);
+    }
+
+
+
+    /**
+     * Add Image
+     *
+     * @param \Entities\Image $image
+     *
+     * @return Service
+     */
+    public function addImage(Image $image)
+    {
+        $this->images[] = $image;
+
+        return $this;
+    }
+
+    /**
+     * Remove image
+     *
+     * @param \Entities\Image $image
+     */
+    public function removeImage(Image $image)
+    {
+        $this->images->removeElement($image);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getImages()
+    {
+        return $this->images;
     }
 
     public function getSubcategories(){

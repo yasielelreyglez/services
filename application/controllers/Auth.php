@@ -143,12 +143,12 @@ class Auth extends REST_Controller
                 $tokenData = array(
                     'userid'=>$user->getId(),
                     'email' => $user->getEmail(),
-                    'role' => $user->getRol()
+                    'role' => $user->getRole()
                 );
                 $token = AUTHORIZATION::generateToken($tokenData);
                 $output["token"] = $token;
                 $output["email"] = $email;
-                $output["role"] =  $user->getRol();
+                $output["role"] =  $user->getRole();
                 echo json_encode($output);
                 return;
             }else{

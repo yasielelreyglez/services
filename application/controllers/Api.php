@@ -169,8 +169,8 @@ class Api extends REST_Controller
         $queja = $this->input->get("complaint",true);
         $em= $this->doctrine->em;
         $service = $em->find("Entities\Service",$id);
-        $usuario = 3 ;//TODO OBTENER DEL TOKEN
-        $user = $em->find("Entities\User",$usuario);
+        $user = $this->getCurrentUser();
+        if($user){
         $criteria = new \Doctrine\Common\Collections\Criteria();
         //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
         $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user",\Doctrine\Common\Collections\Expr\Comparison::EQ,$user);
@@ -182,13 +182,13 @@ class Api extends REST_Controller
             $obj = new \Entities\UserService();
             $obj->setService($service);
             $obj->setUser($user);
-
         }
         $obj->setComplaint($queja);
         $obj->setComplaintCreated(new DateTime("now"));
         $em->persist($obj);
         $em->flush();
         $this->set_response($obj, REST_Controller::HTTP_OK);
+        }
     }
 
     public function markfavorite_get($id){
@@ -320,17 +320,16 @@ class Api extends REST_Controller
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
                 $em = $this->doctrine->em;
-                $usuario = $decodedToken["userid"];
+                $usuario = $decodedToken->userid;
                 $user = $em->find("Entities\User",$usuario);
                 return $user;
-
             }
         }
         if (array_key_exists('authorization', $headers) && !empty($headers['authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['authorization']);
             if ($decodedToken != false) {
                 $em = $this->doctrine->em;
-                $usuario = $decodedToken["userid"];
+                $usuario = $decodedToken->userid;
                 $user = $em->find("Entities\User",$usuario);
                 return $user;
             }
