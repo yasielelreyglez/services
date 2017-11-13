@@ -313,7 +313,7 @@ class Api extends REST_Controller
     }
 
 
-    private function getCurrentUser(){
+    function getCurrentUser(){
         $headers = $this->input->request_headers();
 
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
