@@ -420,8 +420,23 @@ class Api extends REST_Controller
                 $service->url = $this->input->post('url', TRUE);
                 $service->start_time = $this->input->post('start_time', TRUE);
                 $service->end_time = $this->input->post('end_time', TRUE);
+                $subcategories = $this->input->post('subcategories',TRUE);
+                if (is_array($subcategories)){
+                    foreach ( $subcategories as $subcategory  ){
+                        $subcategory_obj = $em->find('\Entities\Subcategory',$subcategory);
+                        if($subcategory_obj){
+                            $service->addSubCategory($subcategory_obj);
+                        }
+                    }
+                }else{
+                    $subcategory_obj = $em->find('\Entities\Subcategory',$subcategories);
+                    if($subcategory_obj){
+                        $service->addSubCategory($subcategory_obj);
+                    }
+                }
+                $service->visits = 0;
+                $service->setWeekDays($this->input->post('end_time', TRUE));
                 $service->setIcon('resources/image/service/'.$data["upload_data"]["file_name"]);
-                $service->
                 $em->persist($service);
                 $em->flush();
 //                $this->load->view('upload_success', $data);

@@ -17,7 +17,7 @@ class Services extends CI_Controller {
 		$data['content'] = '/services/index';
         $data["tab"]="services";
 
-        $this->load->view('/includes/template', $data);
+        $this->load->view('/includes/contentpage', $data);
 	}
 
 	# GET /services/create
@@ -25,7 +25,7 @@ class Services extends CI_Controller {
 		$data['content'] = '/services/create';
         $data["tab"]="services";
 
-        $this->load->view('/includes/template', $data);
+        $this->load->view('/includes/contentpage', $data);
 	}
 
 	# GET /services/edit/1
@@ -35,7 +35,7 @@ class Services extends CI_Controller {
 		$data['content'] = '/services/create';
         $data["tab"]="services";
 
-        $this->load->view('/includes/template', $data);
+        $this->load->view('/includes/contentpage', $data);
 	}
 
 	# GET /services/destroy/1
@@ -75,7 +75,7 @@ class Services extends CI_Controller {
 		$data['content'] = '/services/create';
         $data["tab"]="services";
 
-        $this->load->view('/includes/template', $data);
+        $this->load->view('/includes/contentpage', $data);
 	}
 
 	function rebuild() {

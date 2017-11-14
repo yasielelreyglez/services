@@ -16,14 +16,14 @@ class Cities extends CI_Controller {
 		$data['cities'] = $this->Cities_model->find();
 		$data['content'] = '/cities/index';
         $data["tab"]="cities";
-		$this->load->view('/includes/template', $data);
+        $this->load->view('/includes/contentpage', $data);
 	}
 
 	# GET /cities/create
 	function create() {
 		$data['content'] = '/cities/create';
         $data["tab"]="cities";
-		$this->load->view('/includes/template', $data);
+        $this->load->view('/includes/contentpage', $data);
 	}
 
 	# GET /cities/edit/1
@@ -33,7 +33,7 @@ class Cities extends CI_Controller {
 		$data['content'] = '/cities/create';
         $data["tab"]="cities";
 
-        $this->load->view('/includes/template', $data);
+        $this->load->view('/includes/contentpage', $data);
 	}
 
 	# GET /cities/destroy/1
@@ -60,7 +60,7 @@ class Cities extends CI_Controller {
 		$data['content'] = '/cities/create';
         $data["tab"]="cities";
 
-        $this->load->view('/includes/template', $data);
+        $this->load->view('/includes/contentpage', $data);
 	}
 
 	function rebuild() {

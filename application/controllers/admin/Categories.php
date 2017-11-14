@@ -22,14 +22,14 @@ class Categories extends CI_Controller {
 		$data['categories'] = $this->Categories_model->find();
 		$data['content'] = '/categories/index';
         $data["tab"]="category";
-		$this->load->view('/includes/template', $data);
+		$this->load->view('/includes/contentpage', $data);
 	}
 
 	# GET /categories/create
 	function create() {
 		$data['content'] = '/categories/create';
         $data["tab"]="category";
-		$this->load->view('/includes/template', $data);
+        $this->load->view('/includes/contentpage', $data);
 	}
 
 	# GET /categories/edit/1
@@ -37,7 +37,7 @@ class Categories extends CI_Controller {
 		$data['categories'] = $this->Categories_model->find($id);
 		$data['content'] = '/categories/create';
         $data["tab"]="category";
-		$this->load->view('/includes/template', $data);
+        $this->load->view('/includes/contentpage', $data);
 	}
 
 	# GET /categories/destroy/1
@@ -57,14 +57,14 @@ class Categories extends CI_Controller {
                 $data["errors"]= array("Subcategorias asociadas"=>"No se puede eliminar esta categoria porque existen categorias asociadas <a href='".$url_subs."' class=\"alert-link\">ver</a>");
                 $data['categories'] = $this->Categories_model->find();
                 $data['content'] = '/categories/index';
-                $this->load->view('/includes/template', $data);
+                $this->load->view('/includes/contentpage', $data);
             }
 
         }else{
             $data["errors"]= array("Error eliminando el elemento"=>"No se encontro la categoria a eliminar");
             $data['categories'] = $this->Categories_model->find();
             $data['content'] = '/categories/index';
-            $this->load->view('/includes/template', $data);
+            $this->load->view('/includes/contentpage', $data);
         }
 
 	}
@@ -113,7 +113,7 @@ class Categories extends CI_Controller {
             $data['categories'] =	$this->rebuild();
             $data['content'] = '/categories/create';
             $data["tab"]="category";
-            $this->load->view('includes/template', $data);
+            $this->load->view('/includes/contentpage', $data);
         }
 
 	}

@@ -13,7 +13,7 @@ class Auth extends CI_Controller
 		parent::__construct();
 		$this->load->database();
 		$this->load->library(array('ion_auth', 'form_validation'));
-		$this->load->helper(array('url', 'language'));
+		$this->load->helper(array('url', 'language','html'));
 
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
@@ -33,7 +33,9 @@ class Auth extends CI_Controller
 		}
 		else if (!$this->ion_auth->is_admin()) // remove this elseif if you want to enable this for non-admins
 		{
+		    $this->data["mensaje"] = "";
 			// redirect them to the home page because they must be an administrator to view this
+//            $this->_render_page('includes/backend', $this->data);
 			return show_error('You must be an administrator to view this page.');
 		}
 		else
@@ -52,6 +54,10 @@ class Auth extends CI_Controller
 		}
 	}
 
+
+	public function login2(){
+        $this->_render_page('auth/index', $this->data);
+    }
 	/**
 	 * Log the user in
 	 */
@@ -81,9 +87,8 @@ class Auth extends CI_Controller
 				// if the login was un-successful
 				// redirect them back to the login page
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				echo "111<pre>";
-				print_r($this->ion_auth->errors());
-//				redirect('admin/auth/login', 'refresh'); // use redirects instead of loading views for compatibility with MY_Controller libraries
+
+				redirect('admin/auth/login', 'refresh'); // use redirects instead of loading views for compatibility with MY_Controller libraries
 			}
 		}
 		else
@@ -101,8 +106,10 @@ class Auth extends CI_Controller
 				'id' => 'password',
 				'type' => 'password',
 			);
-
-			$this->_render_page('auth/login', $this->data);
+			$data["data"] = $this->data;
+            $data['content'] = '/auth/login';
+            $this->load->view('/includes/login', $data);
+//			$this->_render_page('auth/login', $this->data);
 		}
 	}
 
@@ -118,7 +125,7 @@ class Auth extends CI_Controller
 
 		// redirect them to the login page
 		$this->session->set_flashdata('message', $this->ion_auth->messages());
-		redirect('auth/login', 'refresh');
+		redirect('admin/auth/login', 'refresh');
 	}
 
 	/**

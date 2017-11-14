@@ -166,6 +166,8 @@ class Service
     public function __construct()
     {
         $this->created = new \DateTime("now");
+        $this->created_at = new \DateTime("now");
+        $this->updated_at = new \DateTime("now");
         $this->positions = new \Doctrine\Common\Collections\ArrayCollection();
         $this->cities = new \Doctrine\Common\Collections\ArrayCollection();
         $this->subcategories = new \Doctrine\Common\Collections\ArrayCollection();
@@ -181,6 +183,10 @@ class Service
     public function getTitle()
     {
         return $this->title;
+    }
+
+    public function setIcon($icon){
+        $this->icon = $icon;
     }
 
     public function getUsername()
@@ -415,7 +421,7 @@ class Service
      *
      * @return Service
      */
-    public function setAuthor(\Entities\User $author = null)
+    public function setAuthor(User $author = null)
     {
         $this->author = $author;
 
@@ -425,11 +431,11 @@ class Service
     /**
      * Add position
      *
-     * @param \Entities\Service $position
+     * @param \Entities\Position $position
      *
      * @return Service
      */
-    public function addPosition(\Entities\Service $position)
+    public function addPosition(Position $position)
     {
         $this->positions[] = $position;
 
@@ -439,9 +445,9 @@ class Service
     /**
      * Remove position
      *
-     * @param \Entities\Service $position
+     * @param \Entities\Position $position
      */
-    public function removePosition(\Entities\Service $position)
+    public function removePosition(Position $position)
     {
         $this->positions->removeElement($position);
     }
@@ -456,6 +462,38 @@ class Service
         return $this->positions;
     }
 
+    /**
+     * Add position
+     *
+     * @param \Entities\Subcategory $subcategory
+     *
+     * @return Service
+     */
+    public function addSubCategory(Subcategory $subcategory)
+    {
+        $this->subcategories[] = $subcategory;
+        return $this;
+    }
+
+    /**
+     * Remove position
+     *
+     * @param \Entities\Subcategory $subcategory
+     */
+    public function removeSubcategory(Subcategory $subcategory)
+    {
+        $this->subcategories->removeElement($subcategory);
+    }
+
+    /**
+     * Get subcategories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSubcategories()
+    {
+        return $this->subcategories;
+    }
     /**
      * Add city
      *
@@ -550,9 +588,7 @@ class Service
         return $this->images;
     }
 
-    public function getSubcategories(){
-        return $this->subcategories;
-    }
+
 
     public function loadRelatedUserData($user){
         $criteria = new \Doctrine\Common\Collections\Criteria();

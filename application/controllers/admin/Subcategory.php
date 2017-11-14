@@ -17,13 +17,13 @@ class Subcategory extends CI_Controller {
 		$data['subcategory'] = $this->Subcategory_model->find();
 		$data['content'] = '/subcategory/index';
         $data["tab"]="subcategory";
-		$this->load->view('/includes/template', $data);
+        $this->load->view('/includes/contentpage', $data);
 	}
 
 	# GET /subcategory/create
 	function create() {
 		$data['content'] = '/subcategory/create';
-		$this->load->view('/includes/template', $data);
+        $this->load->view('/includes/contentpage', $data);
 	}
 
 	# GET /subcategory/edit/1
@@ -32,7 +32,7 @@ class Subcategory extends CI_Controller {
 		$data['categories'] = $this->Category_model->find();
 		$data['subcategory'] = $this->Subcategory_model->find($id);
 		$data['content'] = '/subcategory/create';
-		$this->load->view('/includes/template', $data);
+        $this->load->view('/includes/contentpage', $data);
 	}
 
 	# GET /subcategory/destroy/1
@@ -59,7 +59,7 @@ class Subcategory extends CI_Controller {
 		}
 		$data['subcategory'] =	$this->rebuild();
 		$data['content'] = '/subcategory/create';
-		$this->load->view('/includes/template', $data);
+        $this->load->view('/includes/contentpage', $data);
 	}
 
 	function category($id){
@@ -69,7 +69,7 @@ class Subcategory extends CI_Controller {
         $data["subcategory"]= $subcategories;
 //        $this->load->view('templates/header',$data);
         $data['content'] = '/subcategory/index';
-        $this->load->view('/includes/template', $data);
+        $this->load->view('/includes/contentpage', $data);
 //        $this->load->view('templates/footer');
 	}
 	function rebuild() {
