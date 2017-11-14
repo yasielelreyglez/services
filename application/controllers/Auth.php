@@ -96,7 +96,7 @@ class Auth extends REST_Controller
         $em= $this->doctrine->em;
         $userRepo = $em->getRepository('Entities\User');
 
-        $users = $userRepo->findBy("email",$email);
+        $users = $userRepo->findBy(array("email"=>$email));
         if(count($users)>0){
             $user = $users[0];
             if ($this->ion_auth->login($email, $password, $remember))

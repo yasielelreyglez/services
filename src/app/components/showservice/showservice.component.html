@@ -10,20 +10,16 @@
                  style="font-size: 13px; border-right: 1px solid #bcbcbc">
                 <span>Slogan</span><br>
                 <span>{{service.address}}</span><br>
-                <span>1.5 KM de tu posición</span>
+                <span>1.5 KM de tu posición</span><br>
+                <span>{{service.phone}}</span>
             </div>
-            <div class="col-4 col-sm-3 col-md-3 col-lg-2">
-
+            <div class="col-4 col-sm-3 col-md-3 col-lg-2 text-center">
+                <span class="tc-blue fw-600" style="font-size: 30px;">9/10</span>
+                <button class="btn btn-primary col-12 bc-blue-dark" (click)="evaluar()">
+                    Evaluar
+                </button>
             </div>
         </div>
-    </div>
-</div>
-<div class="col-12">
-    <div class="form-group text-center">
-        <button class="btn btn-primary col-12 bc-blue-dark">
-            <i class="fa fa-phone"></i>
-            Llamar ahora
-        </button>
     </div>
 </div>
 <div class="col-12">
@@ -33,20 +29,96 @@
     </p>
 </div>
 
-<div class="row" style="margin-bottom:15px;">
-    <div class="col-6">
-        <img class="pull-right" src="../../../assets/informacion.png" alt="" width="120px" style="cursor: pointer;"
-        routerLink="./information">
-    </div>
-    <div class="col-6">
-        <img class="pull-left" src="../../../assets/mapa.png" alt="" width="120px" style="cursor: pointer;">
-    </div>
-</div>
-<div class="row">
-    <div class="col-6">
-        <img class="pull-right" src="../../../assets/imagenes.png" alt="" width="120px" style="cursor: pointer;">
-    </div>
-    <div class="col-6">
-        <img class="pull-left" src="../../../assets/comentarios.png" alt="" width="120px" style="cursor: pointer;">
-    </div>
-</div>
+<!--<div class="row" style="margin-bottom:15px;">-->
+<!--<div class="col-6">-->
+<!--<img class="pull-right" src="../../../assets/informacion.png" alt="" width="120px" style="cursor: pointer;"-->
+<!--routerLink="./information">-->
+<!--</div>-->
+<!--<div class="col-6">-->
+<!--<img class="pull-left" src="../../../assets/mapa.png" alt="" width="120px" style="cursor: pointer;">-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="row">-->
+<!--<div class="col-6">-->
+<!--<img class="pull-right" src="../../../assets/imagenes.png" alt="" width="120px" style="cursor: pointer;">-->
+<!--</div>-->
+<!--<div class="col-6">-->
+<!--<img class="pull-left" src="../../../assets/comentarios.png" alt="" width="120px" style="cursor: pointer;">-->
+<!--</div>-->
+<!--</div>-->
+
+
+<ngb-tabset>
+    <ngb-tab title="Informacion">
+        <ng-template ngbTabContent>
+            <br>
+            <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
+                <i class="fa fa-calendar fa-2x" style="margin-right: 10px;"></i>
+                <h5 class="mt-0">{{week_days}}</h5>
+            </div>
+            <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
+                <i class="fa fa-clock-o fa-2x" style="margin-right: 10px;"></i>
+                <h5 class="mt-0">Desde {{service.start_time}} hasta
+                    {{service.end_time}}</h5>
+            </div>
+            <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
+                <i class="fa fa-at fa-2x" style="margin-right: 10px;"></i>
+                <h5 class="mt-0">{{service.email}}</h5>
+            </div>
+            <div class="tc-blue" style="display: flex">
+                <i class="fa fa-link fa-2x" style="margin-right: 10px;"></i>
+                <h5 class="mt-0">{{service.url}}</h5>
+            </div>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Mapa">
+        <ng-template ngbTabContent>
+            <br>
+            Tab del mapa
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Imágenes">
+        <ng-template ngbTabContent>
+            <br>
+            <div class="row">
+                <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
+                     alt=""
+                     style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
+                <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
+                     alt=""
+                     style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
+                <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
+                     alt=""
+                     style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
+                <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
+                     alt=""
+                     style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
+                <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
+                     alt=""
+                     style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
+                <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
+                     alt=""
+                     style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
+                <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
+                     alt=""
+                     style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
+                <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
+                     alt=""
+                     style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
+                <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
+                     alt=""
+                     style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
+                <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
+                     alt=""
+                     style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
+            </div>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Comentarios">
+        <ng-template ngbTabContent>
+            <br>
+            Tab de comentarios
+        </ng-template>
+    </ngb-tab>
+</ngb-tabset>
+

@@ -26,6 +26,7 @@ import {ReportComponent} from './components/_modals/report/report.component';
 import {ShowfavoritesComponent} from './components/showfavorites/showfavorites.component';
 import {ShowmyservicesComponent} from './components/showmyservices/showmyservices.component';
 import {ShowserviceComponent} from './components/showservice/showservice.component';
+import {RatingComponent} from './components/_modals/rating/rating.component';
 
 
 @NgModule({
@@ -45,11 +46,13 @@ import {ShowserviceComponent} from './components/showservice/showservice.compone
         ReportComponent,
         ShowfavoritesComponent,
         ShowmyservicesComponent,
-        ShowserviceComponent
+        ShowserviceComponent,
+        RatingComponent
     ],
     entryComponents: [
         ForgotpassComponent,
-        ReportComponent
+        ReportComponent,
+        RatingComponent
     ],
     imports: [
         BrowserModule,
