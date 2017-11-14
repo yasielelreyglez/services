@@ -22,6 +22,9 @@ class Home extends CI_Controller {
 		$data['categories'] = $this->Categories_model->find();
 		$data['content'] = '/categories/index';
         $data["tab"]="home";
+        if (!$this->ion_auth->logged_in()){
+            $data["showlogin"]=true;
+        }
 		$this->load->view('/includes/backend', $data);
 	}
 

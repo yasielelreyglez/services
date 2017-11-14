@@ -37,8 +37,12 @@
                 </ul>
 
                 <ul class="authentication">
+                   <?php if(isset($showlogin)==true){?>
                     <li><a href="<?=site_url("admin/auth/login") ?>">Login</a></li>
-                    <li><a href="<?=site_url("admin/auth/register") ?>">Register</a></li>
+                       <li><a href="<?=site_url("admin/auth/register") ?>">Register</a></li>
+                    <?php }else{?>
+                    <li><a href="<?=site_url("admin/auth/logout") ?>">Logout</a></li>
+                    <?php } ?>
                 </ul>
 
                 <div class="language">
@@ -64,42 +68,34 @@
 
                     <nav class="nav">
                         <ul class="sf-menu">
-                            <li class="active"><a href="<?=site_url("admin/home") ?>"><i class="fa fa-home"></i> Home</a>
+                            <li class="<?=$tab=="home"?"active":""?>"><a href="<?=site_url("admin/home") ?>"><i class="fa fa-home"></i> Home</a>
 
                             </li>
-                            <li>
+                            <li class="<?=$tab=="category"?"active":""?>">
                                 <a href="<?=site_url("admin/categories") ?>"><i class="fa fa-search-plus"></i> Categorias</a>
                                 <ul class="demo-menu">
                                     <li><a href="<?=site_url("admin/categories") ?>">Mostrar Categorias Existentes</a></li>
                                     <li><a href="<?=site_url("admin/categories/create") ?>">Crear Categorias</a></li>
-                                    <li><a href="profile_company.html">Company Profile</a></li>
-                                    <li><a href="profile_company2.html">Company Profile (2)</a></li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="index_business1.html"><i class="fa fa-suitcase"></i> Businesses</a>
+                            <li class="<?=$tab=="subcategory"?"active":""?>">
+                                <a href="<?=site_url("admin/subcategory") ?>"><i class="fa fa-search-plus"></i> Sub-Categorias</a>
                                 <ul class="demo-menu">
-                                    <li><a href="index_business1.html">Business Index(Default)</a></li>
-                                    <li><a href="index_business2.html">Business Index(2)</a></li>
-                                    <li><a href="index_business3.html">Business Index(3)</a></li>
-                                    <li><a href="index_business4.html">Business Index(4)</a></li>
-                                    <li><a href="index_business5.html">Business Index(5)</a></li>
-                                    <li><a href="single_business.html">Business Single</a></li>
+                                    <li><a href="<?=site_url("admin/subcategory") ?>">Mostrar Sub-Categorias Existentes</a></li>
+                                    <li><a href="<?=site_url("admin/subcategory/create") ?>">Crear Sub-Categorias</a></li>
                                 </ul>
-                            <li>
-                                <a href="index_restaurant.html"><i class="fa fa-cutlery"></i>  Restaurants</a>
+                            <li class="<?=$tab=="services"?"active":""?>">
+                                <a href="<?=site_url("admin/services") ?>"><i class="fa fa-search-plus"></i> Servicios </a>
                                 <ul class="demo-menu">
-                                    <li><a href="index_restaurant.html">Restaurant Index</a></li>
-                                    <li><a href="single_restaurant.html">Restaurant Single</a></li>
+                                    <li><a href="<?=site_url("admin/services") ?>">Mostrar Sub-Categorias Existentes</a></li>
+                                    <li><a href="<?=site_url("admin/services/create") ?>">Crear Sub-Categorias</a></li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="#"><i class="fa fa-cogs"></i> Features</a>
+                            <li  class="<?=$tab=="cities"?"active":""?>">
+                                <a href="<?=site_url("admin/cities") ?>"><i class="fa fa-search-plus"></i> Ciudades </a>
                                 <ul class="demo-menu">
-                                    <li><a href="box-variation1.html">Box Variation 1</a></li>
-                                    <li><a href="box-variation2.html">Box Variation 2</a></li>
-                                    <li><a href="box-variation3.html">Box Variation 3</a></li>
-                                    <li><a href="gui-kit.html">GUI kit</a></li>
+                                    <li><a href="<?=site_url("admin/cities") ?>">Mostrar Ciudades</a></li>
+                                    <li><a href="<?=site_url("admin/cities/create") ?>">Agregar Ciudad</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -966,7 +962,8 @@
 </div>
 
 <!-- Scripts -->
-<script src="<?=site_url("/resources/js/googlemaplocal.js") ?>"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxooB5CXv3oWSzKldWJzStShRvWE8X1MA&callback=initMap"></script>
+<!--<script src="--><?//=site_url("/resources/js/googlemaplocal.js") ?><!--"></script>-->
 <script src="<?=site_url("/resources/js/jquery-2.1.3.min.js") ?>"></script>
 <script src="<?=site_url("/resources/js/plugins/superfish.min.js") ?>"></script>
 <script src="<?=site_url("/resources/js/jquery.ui.min.js") ?>"></script>
@@ -980,8 +977,9 @@
 <script src="<?=site_url("/resources/js/plugins/select2.min.js") ?>"></script>
 <script src="<?=site_url("/resources/js/owl.carousel.min.js") ?>"></script>
 <script src="<?=site_url("/resources/js/gmap3.min.js") ?>"></script>
-<script src="<?=site_url("/resources/js/bootstrap.js") ?>"></script>
 <script src="<?=site_url("/resources/js/scripts.js") ?>"></script>
+<script src="<?=site_url("/resources/js/bootstrap.js") ?>"></script>
+<!--<script src="--><?//=site_url("/resources/js/scripts.js") ?><!--"></script>-->
 
 </body>
 

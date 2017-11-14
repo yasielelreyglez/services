@@ -44,8 +44,12 @@
                 </ul>
 
                 <ul class="authentication">
-                    <li><a href="<?=site_url("admin/auth/logout") ?>">LOGOUT</a></li>
-
+                    <?php if(isset($showlogin)==true){?>
+                        <li><a href="<?=site_url("admin/auth/login") ?>">Login</a></li>
+                        <li><a href="<?=site_url("admin/auth/register") ?>">Register</a></li>
+                    <?php }else{?>
+                        <li><a href="<?=site_url("admin/auth/logout") ?>">Logout</a></li>
+                    <?php } ?>
                 </ul>
 
                 <div class="language">

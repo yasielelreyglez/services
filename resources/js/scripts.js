@@ -112,7 +112,9 @@ $("#map-top").gmap3({
   },
   marker:{
     values:[
-      {address:"St james St New York, USA", data:"Office 1", data:"<h3>Simple Builder</h3><ul><li><i class='fa fa-home'></i><span>21 Dedman Ct San Francisco CA 94124 United States</span>   </li></ul><ul><li><i class='fa fa-phone'></i><span>(01) 213 432 5432</span></li><li><i class='fa fa-envelope'></i><span><a href='#'>example@example.com</a> </span></li></ul>", options:{icon: "http://piotr.stare.pro/qf/img/marker.png"}},
+        {address:"St james St New York, USA", data:"Office 0", data:"<h3>Simple BuilderMio</h3><ul><li><i class='fa fa-home'></i><span>21 Dedman Ct San Francisco CA 94124 United States</span>   </li></ul><ul><li><i class='fa fa-phone'></i><span>(01) 213 432 5432</span></li><li><i class='fa fa-envelope'></i><span><a href='#'>example@example.com</a> </span></li></ul>", options:{icon: "http://piotr.stare.pro/qf/img/marker.png"}},
+
+        {address:"St james St New York, USA", data:"Office 1", data:"<h3>Simple Builder</h3><ul><li><i class='fa fa-home'></i><span>21 Dedman Ct San Francisco CA 94124 United States</span>   </li></ul><ul><li><i class='fa fa-phone'></i><span>(01) 213 432 5432</span></li><li><i class='fa fa-envelope'></i><span><a href='#'>example@example.com</a> </span></li></ul>", options:{icon: "http://piotr.stare.pro/qf/img/marker.png"}},
       {address:"elk St New York, USA", data:"Office 2", data:"<h3>Simple Builder</h3><ul><li><i class='fa fa-home'></i><span>21 Dedman Ct San Francisco CA 94124 United States</span>   </li></ul><ul><li><i class='fa fa-phone'></i><span>(01) 213 432 5432</span></li><li><i class='fa fa-envelope'></i><span><a href='#'>example@example.com</a> </span></li></ul>", options:{icon: "http://piotr.stare.pro/qf/img/marker.png"}},
       {address:"Vesey ST New York, USA", data:"Office 3", data:"<h3>Simple Builder</h3><ul><li><i class='fa fa-home'></i><span>21 Dedman Ct San Francisco CA 94124 United States</span>   </li></ul><ul><li><i class='fa fa-phone'></i><span>(01) 213 432 5432</span></li><li><i class='fa fa-envelope'></i><span><a href='#'>example@example.com</a> </span></li></ul>", options:{icon: "http://piotr.stare.pro/qf/img/marker.png"}},
       {address:"park pl New York, USA", data:"Office 4", data:"<h3>Simple Builder</h3><ul><li><i class='fa fa-home'></i><span>21 Dedman Ct San Francisco CA 94124 United States</span>   </li></ul><ul><li><i class='fa fa-phone'></i><span>(01) 213 432 5432</span></li><li><i class='fa fa-envelope'></i><span><a href='#'>example@example.com</a> </span></li></ul>", options:{icon: "http://piotr.stare.pro/qf/img/marker.png"}},
@@ -257,23 +259,28 @@ var markers = [
     lat: 37.780823,
     lng: -122.4231,
     title: 'Marker 1'
-  }, {
+  },
+    {
     lat: 37.768068680454725,
     lng: -122.430739402771,
     title: 'Marker 2'
-  }, {
+  },
+    {
     lat: 37.7791272169824,
     lng: -122.4296236038208,
     title: 'Marker 3'
-  }, {
+  },
+    {
     lat: 37.770715,
     lng: -122.392631,
     title: 'Marker 4'
-  }, {
+  },
+    {
     lat: 37.78197638783258,
     lng: -122.45829105377197,
     title: 'Marker 5'
-  }, {
+  },
+    {
     lat: 37.769629187677,
     lng: -122.46798992156982,
     title: 'Marker 6'
