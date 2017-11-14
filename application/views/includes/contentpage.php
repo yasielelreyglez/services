@@ -44,8 +44,8 @@
                 </ul>
 
                 <ul class="authentication">
-                    <li><a href="#">Login</a></li>
-                    <li><a href="#">Register</a></li>
+                    <li><a href="<?=site_url("admin/auth/logout") ?>">LOGOUT</a></li>
+
                 </ul>
 
                 <div class="language">

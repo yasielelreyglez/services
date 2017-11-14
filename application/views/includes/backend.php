@@ -37,8 +37,8 @@
                 </ul>
 
                 <ul class="authentication">
-                    <li><a href="#">Login</a></li>
-                    <li><a href="#">Register</a></li>
+                    <li><a href="<?=site_url("admin/auth/login") ?>">Login</a></li>
+                    <li><a href="<?=site_url("admin/auth/register") ?>">Register</a></li>
                 </ul>
 
                 <div class="language">
