@@ -1,6 +1,6 @@
 /*jshint browser:true, devel:true, unused:false */
 /*global google */
-;(function($) {
+(function($) {
 
 "use strict";
 
@@ -78,121 +78,74 @@ $('.slider-range-container').each(function(){
 
 $('.custom-select').select2();
 
-$(".map-listing-04").gmap3({
-  map:{
-    address:"POURRIERES, FRANCE",
-    options:{
-      zoom:17,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      mapTypeControl: false,
-      mapTypeControlOptions: {
-        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-      },
-      navigationControl: true,
-      scrollwheel: false,
-      streetViewControl: true
-    }
-  }
-});
-
-$("#map-top").gmap3({
-  map:{
-    address:"New York, USA",
-    options:{
-      zoom:17,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      mapTypeControl: false,
-      mapTypeControlOptions: {
-        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-      },
-      navigationControl: false,
-      scrollwheel: false,
-      streetViewControl: false
-    }
-  },
-  marker:{
-    values:[
-        {address:"St james St New York, USA", data:"Office 0", data:"<h3>Simple BuilderMio</h3><ul><li><i class='fa fa-home'></i><span>21 Dedman Ct San Francisco CA 94124 United States</span>   </li></ul><ul><li><i class='fa fa-phone'></i><span>(01) 213 432 5432</span></li><li><i class='fa fa-envelope'></i><span><a href='#'>example@example.com</a> </span></li></ul>", options:{icon: "http://piotr.stare.pro/qf/img/marker.png"}},
-
-        {address:"St james St New York, USA", data:"Office 1", data:"<h3>Simple Builder</h3><ul><li><i class='fa fa-home'></i><span>21 Dedman Ct San Francisco CA 94124 United States</span>   </li></ul><ul><li><i class='fa fa-phone'></i><span>(01) 213 432 5432</span></li><li><i class='fa fa-envelope'></i><span><a href='#'>example@example.com</a> </span></li></ul>", options:{icon: "http://piotr.stare.pro/qf/img/marker.png"}},
-      {address:"elk St New York, USA", data:"Office 2", data:"<h3>Simple Builder</h3><ul><li><i class='fa fa-home'></i><span>21 Dedman Ct San Francisco CA 94124 United States</span>   </li></ul><ul><li><i class='fa fa-phone'></i><span>(01) 213 432 5432</span></li><li><i class='fa fa-envelope'></i><span><a href='#'>example@example.com</a> </span></li></ul>", options:{icon: "http://piotr.stare.pro/qf/img/marker.png"}},
-      {address:"Vesey ST New York, USA", data:"Office 3", data:"<h3>Simple Builder</h3><ul><li><i class='fa fa-home'></i><span>21 Dedman Ct San Francisco CA 94124 United States</span>   </li></ul><ul><li><i class='fa fa-phone'></i><span>(01) 213 432 5432</span></li><li><i class='fa fa-envelope'></i><span><a href='#'>example@example.com</a> </span></li></ul>", options:{icon: "http://piotr.stare.pro/qf/img/marker.png"}},
-      {address:"park pl New York, USA", data:"Office 4", data:"<h3>Simple Builder</h3><ul><li><i class='fa fa-home'></i><span>21 Dedman Ct San Francisco CA 94124 United States</span>   </li></ul><ul><li><i class='fa fa-phone'></i><span>(01) 213 432 5432</span></li><li><i class='fa fa-envelope'></i><span><a href='#'>example@example.com</a> </span></li></ul>", options:{icon: "http://piotr.stare.pro/qf/img/marker.png"}},
-      {address:"park row New York, USA", data:"Office 5", data:"<h3>Simple Builder</h3><ul><li><i class='fa fa-home'></i><span>21 Dedman Ct San Francisco CA 94124 United States</span>   </li></ul><ul><li><i class='fa fa-phone'></i><span>(01) 213 432 5432</span></li><li><i class='fa fa-envelope'></i><span><a href='#'>example@example.com</a> </span></li></ul>", options:{icon: "http://piotr.stare.pro/qf/img/marker.png"}}
-    ],
-    options:{
-      draggable: false
-    },
-    events:{
-      click: function(marker, event, context){
-        var map = $(this).gmap3("get"),
-          infowindow = $(this).gmap3({get:{name:"infowindow"}});
-        if (infowindow){
-          infowindow.open(map, marker);
-          infowindow.setContent(context.data);
-        } else {
-          $(this).gmap3({
-            infowindow:{
-              anchor:marker, 
-              options:{content: context.data}
-            }
-          });
-        }
-      }
-    }
-  }
-});
-
-
-
-    $('#map-top').each(function () {
-        var $block = $(this),
-            $map = $block.find('.map-container .map');
-
-        // Map
-        var map,
-            height = $map.data('height'),
-            centerLat = $map.data('center-lat'),
-            centerLng = $map.data('center-lng');
-
-        $map.css('height', height + 'px');
-
-        function initialize () {
-            var mapOptions = {
-                scrollwheel: false,
-                zoom: 14,
-                center: new google.maps.LatLng(centerLat, centerLng)
-            };
-
-            map = new google.maps.Map($map[0], mapOptions);
-
-            for (var i = 0; i < markers.length; i++) {
-                var marker = markers[i];
-
-                new google.maps.Marker({
-                    position: new google.maps.LatLng(marker.lat, marker.lng),
-                    map: map,
-                    title: marker.title
-                });
-            }
-        }
-
-        google.maps.event.addDomListener(window, 'load', initialize);
-
-        google.maps.event.addDomListener(window, 'resize', function () {
-            var center = map.getCenter();
-            google.maps.event.trigger(map, 'resize');
-            map.setCenter(center);
+    function placeMarker(location,map,title) {
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map,
+            title:title
         });
+    }
+
+var map = $("#map-top").gmap3({
+    center:[48.8620722, 2.352047],
+    zoom:4
+}).on('click',function(p,e){
+  console.log(p);
+    console.log(e);
+    placeMarker(e.latLng,p,"title");
+}).marker(markers2)
+    .on('click', function (marker) {
+        marker.setIcon('http://maps.google.com/mapfiles/marker_green.png');
+        console.log(marker);
     });
 
-
-
-
-
-
-
-
+// gmap3({
+//   map:{
+//     address:"New York, USA",
+//     options:{
+//       zoom:17,
+//       mapTypeId: google.maps.MapTypeId.ROADMAP,
+//       mapTypeControl: false,
+//       mapTypeControlOptions: {
+//         style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+//       },
+//       navigationControl: false,
+//       scrollwheel: false,
+//       streetViewControl: false
+//     }
+//   },
+//   marker:{
+//     values:[
+//         {address:"St james St New York, USA", data:"<h3>Simple BuilderMio</h3><ul><li><i class='fa fa-home'></i><span>21 Dedman Ct San Francisco CA 94124 United States</span>   </li></ul><ul><li><i class='fa fa-phone'></i><span>(01) 213 432 5432</span></li><li><i class='fa fa-envelope'></i><span><a href='#'>example@example.com</a> </span></li></ul>", options:{icon: "http://piotr.stare.pro/qf/img/marker.png"}},
+//
+//         {address:"St james St New York, USA", data:"<h3>Simple Builder</h3><ul><li><i class='fa fa-home'></i><span>21 Dedman Ct San Francisco CA 94124 United States</span>   </li></ul><ul><li><i class='fa fa-phone'></i><span>(01) 213 432 5432</span></li><li><i class='fa fa-envelope'></i><span><a href='#'>example@example.com</a> </span></li></ul>", options:{icon: "http://piotr.stare.pro/qf/img/marker.png"}},
+//       {address:"elk St New York, USA", data:"<h3>Simple Builder</h3><ul><li><i class='fa fa-home'></i><span>21 Dedman Ct San Francisco CA 94124 United States</span>   </li></ul><ul><li><i class='fa fa-phone'></i><span>(01) 213 432 5432</span></li><li><i class='fa fa-envelope'></i><span><a href='#'>example@example.com</a> </span></li></ul>", options:{icon: "http://piotr.stare.pro/qf/img/marker.png"}},
+//       {address:"Vesey ST New York, USA", data:"<h3>Simple Builder</h3><ul><li><i class='fa fa-home'></i><span>21 Dedman Ct San Francisco CA 94124 United States</span>   </li></ul><ul><li><i class='fa fa-phone'></i><span>(01) 213 432 5432</span></li><li><i class='fa fa-envelope'></i><span><a href='#'>example@example.com</a> </span></li></ul>", options:{icon: "http://piotr.stare.pro/qf/img/marker.png"}},
+//       {address:"park pl New York, USA", data:"<h3>Simple Builder</h3><ul><li><i class='fa fa-home'></i><span>21 Dedman Ct San Francisco CA 94124 United States</span>   </li></ul><ul><li><i class='fa fa-phone'></i><span>(01) 213 432 5432</span></li><li><i class='fa fa-envelope'></i><span><a href='#'>example@example.com</a> </span></li></ul>", options:{icon: "http://piotr.stare.pro/qf/img/marker.png"}},
+//       {address:"park row New York, USA", data:"<h3>Simple Builder</h3><ul><li><i class='fa fa-home'></i><span>21 Dedman Ct San Francisco CA 94124 United States</span>   </li></ul><ul><li><i class='fa fa-phone'></i><span>(01) 213 432 5432</span></li><li><i class='fa fa-envelope'></i><span><a href='#'>example@example.com</a> </span></li></ul>", options:{icon: "http://piotr.stare.pro/qf/img/marker.png"}}
+//     ],
+//     options:{
+//       draggable: false
+//     },
+//     events:{
+//       click: function(marker, event, context){
+//         var map = $(this).gmap3("get"),
+//           infowindow = $(this).gmap3({get:{name:"infowindow"}});
+//         if (infowindow){
+//           infowindow.open(map, marker);
+//           infowindow.setContent(context.data);
+//         } else {
+//           $(this).gmap3({
+//             infowindow:{
+//               anchor:marker,
+//               options:{content: context.data}
+//             }
+//           });
+//         }
+//       }
+//     }
+//   }
+// });
 var subtleOptions = {
   id: "subtle",
   options:{
@@ -200,96 +153,96 @@ var subtleOptions = {
   },
   styles: [{"featureType":"landscape","stylers":[{"saturation":-100},{"lightness":65},{"visibility":"on"}]},{"featureType":"poi","stylers":[{"saturation":-100},{"lightness":51},{"visibility":"simplified"}]},{"featureType":"road.highway","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"road.arterial","stylers":[{"saturation":-100},{"lightness":30},{"visibility":"on"}]},{"featureType":"road.local","stylers":[{"saturation":-100},{"lightness":40},{"visibility":"on"}]},{"featureType":"transit","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"administrative.province","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":-25},{"saturation":-100}]},{"featureType":"water","elementType":"geometry","stylers":[{"hue":"#ffff00"},{"lightness":-25},{"saturation":-97}]}]
 };
-
-$(".contact-map").gmap3({
-  map:{
-    address:"St james St New York, USA",
-    options:{
-      zoom:17,
-      mapTypeId: "subtle",
-      mapTypeControl: false,
-      mapTypeControlOptions: {
-        mapTypeIds: ["subtle"]
-      },
-      navigationControl: false,
-      scrollwheel: false,
-      draggable: false,
-      streetViewControl: false,
-      disableDefaultUI: true,
-    },
-  },
-  styledmaptype: subtleOptions,
-  marker:{
-    values:[
-      {address:"St james St New York, USA", data:"<h3>Simple Builder</h3><ul><li><i class='fa fa-home'></i><span>21 Dedman Ct San Francisco CA 94124 United States</span>   </li></ul><ul><li><i class='fa fa-phone'></i><span>(01) 213 432 5432</span></li><li><i class='fa fa-envelope'></i><span><a href='#'>example@example.com</a> </span></li></ul>", options:{icon: "http://piotr.stare.pro/qf/img/marker.png"}}
-    ],
-    options:{
-      draggable: false
-    },
-    events:{
-      click: function(marker, event, context){
-        var map = $(this).gmap3("get"),
-          infowindow = $(this).gmap3({get:{name:"infowindow"}});
-        if (infowindow){
-          infowindow.open(map, marker);
-          infowindow.setContent(context.data);
-        } else {
-          $(this).gmap3({
-            infowindow:{
-              anchor:marker, 
-              options:{content: context.data}
-            }
-          });
-        }
-      }
-    }
-  }
-});
-
-$("#single-company-map").gmap3({
-  map:{
-    address:"St james St New York, USA",
-    options:{
-      zoom:14,
-      mapTypeId: "subtle",
-      mapTypeControl: false,
-      mapTypeControlOptions: {
-        mapTypeIds: ["subtle"]
-      },
-      navigationControl: false,
-      scrollwheel: false,
-      draggable: false,
-      streetViewControl: false,
-      disableDefaultUI: true,
-    },
-  },
-  styledmaptype: subtleOptions
-});
-
-$("#map-listing-05").gmap3({
-  map:{
-    address:"POURRIERES, FRANCE",
-    options:{
-      zoom:17,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      mapTypeControl: false,
-      mapTypeControlOptions: {
-        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-      },
-      navigationControl: false,
-      scrollwheel: false,
-      streetViewControl: false
-    }
-  }
-});
-
-$('a[href="#contact"]').on('shown.bs.tab', function () {
-  $("#map-listing-04").gmap3({trigger:"resize"});
-});
-
-$('a[href="#contact"]').on('shown.bs.tab', function () {
-  $("#map-listing-05").gmap3({trigger:"resize"});
-});
+//
+// $(".contact-map").gmap3({
+//   map:{
+//     address:"St james St New York, USA",
+//     options:{
+//       zoom:17,
+//       mapTypeId: "subtle",
+//       mapTypeControl: false,
+//       mapTypeControlOptions: {
+//         mapTypeIds: ["subtle"]
+//       },
+//       navigationControl: false,
+//       scrollwheel: false,
+//       draggable: false,
+//       streetViewControl: false,
+//       disableDefaultUI: true,
+//     },
+//   },
+//   styledmaptype: subtleOptions,
+//   marker:{
+//     values:[
+//       {address:"St james St New York, USA", data:"<h3>Simple Builder</h3><ul><li><i class='fa fa-home'></i><span>21 Dedman Ct San Francisco CA 94124 United States</span>   </li></ul><ul><li><i class='fa fa-phone'></i><span>(01) 213 432 5432</span></li><li><i class='fa fa-envelope'></i><span><a href='#'>example@example.com</a> </span></li></ul>", options:{icon: "http://piotr.stare.pro/qf/img/marker.png"}}
+//     ],
+//     options:{
+//       draggable: false
+//     },
+//     events:{
+//       click: function(marker, event, context){
+//         var map = $(this).gmap3("get"),
+//           infowindow = $(this).gmap3({get:{name:"infowindow"}});
+//         if (infowindow){
+//           infowindow.open(map, marker);
+//           infowindow.setContent(context.data);
+//         } else {
+//           $(this).gmap3({
+//             infowindow:{
+//               anchor:marker,
+//               options:{content: context.data}
+//             }
+//           });
+//         }
+//       }
+//     }
+//   }
+// });
+//
+// $("#single-company-map").gmap3({
+//   map:{
+//     address:"St james St New York, USA",
+//     options:{
+//       zoom:14,
+//       mapTypeId: "subtle",
+//       mapTypeControl: false,
+//       mapTypeControlOptions: {
+//         mapTypeIds: ["subtle"]
+//       },
+//       navigationControl: false,
+//       scrollwheel: false,
+//       draggable: false,
+//       streetViewControl: false,
+//       disableDefaultUI: true,
+//     },
+//   },
+//   styledmaptype: subtleOptions
+// });
+//
+// $("#map-listing-05").gmap3({
+//   map:{
+//     address:"POURRIERES, FRANCE",
+//     options:{
+//       zoom:17,
+//       mapTypeId: google.maps.MapTypeId.ROADMAP,
+//       mapTypeControl: false,
+//       mapTypeControlOptions: {
+//         style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+//       },
+//       navigationControl: false,
+//       scrollwheel: false,
+//       streetViewControl: false
+//     }
+//   }
+// });
+//
+// $('a[href="#contact"]').on('shown.bs.tab', function () {
+//   $("#map-listing-04").gmap3({trigger:"resize"});
+// });
+//
+// $('a[href="#contact"]').on('shown.bs.tab', function () {
+//   $("#map-listing-05").gmap3({trigger:"resize"});
+// });
 
 // Mediaqueries
 // ---------------------------------------------------------

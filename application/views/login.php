@@ -21,6 +21,7 @@ base_url()
 
 <body>
 <app-root></app-root>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxooB5CXv3oWSzKldWJzStShRvWE8X1MA"></script>
 
 <script type="text/javascript" src="<?php echo base_url()?>/dist/inline.bundle.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>/dist/polyfills.bundle.js"></script>

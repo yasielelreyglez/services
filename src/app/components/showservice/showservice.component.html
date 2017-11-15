@@ -48,7 +48,7 @@
 <!--</div>-->
 
 
-<ngb-tabset>
+<ngb-tabset [destroyOnHide]="false" [activeId]="1" (tabChange)="initMap()"  >
     <ngb-tab title="Informacion">
         <ng-template ngbTabContent>
             <br>
@@ -75,6 +75,7 @@
         <ng-template ngbTabContent>
             <br>
             Tab del mapa
+            <div #map2 id="map2" style="width: 100%;height: 400px"></div>
         </ng-template>
     </ngb-tab>
     <ngb-tab title="Imágenes">
