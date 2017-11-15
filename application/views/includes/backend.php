@@ -256,7 +256,13 @@
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="map">
-                                                <div id="map-top"></div>
+                                                <div id="map-top">
+                                                    <div class="map-container .">
+                                                        <div class="map">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

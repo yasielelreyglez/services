@@ -36,7 +36,7 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = ['title' => NULL, 'subtitle' => NULL, 'phone' => NULL, 'address' => NULL, 'other_phone' => NULL, 'email' => NULL, 'url' => NULL, 'start_time' => NULL, 'end_time' => NULL, 'visits' => NULL, 'author' => NULL, 'positions' => NULL, 'cities' => NULL, 'subcategories' => NULL, 'serviceusers' => NULL, 'servicecomments' => NULL];
+    public static $lazyPropertiesDefaults = ['title' => NULL, 'icon' => NULL, 'subtitle' => NULL, 'phone' => NULL, 'address' => NULL, 'other_phone' => NULL, 'email' => NULL, 'url' => NULL, 'week_days' => NULL, 'start_time' => NULL, 'end_time' => NULL, 'visits' => NULL, 'author' => NULL, 'positions' => NULL, 'cities' => NULL, 'subcategories' => NULL, 'serviceusers' => NULL, 'servicecomments' => NULL];
 
 
 
@@ -46,7 +46,7 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
      */
     public function __construct($initializer = null, $cloner = null)
     {
-        unset($this->title, $this->subtitle, $this->phone, $this->address, $this->other_phone, $this->email, $this->url, $this->start_time, $this->end_time, $this->visits, $this->author, $this->positions, $this->cities, $this->subcategories, $this->serviceusers, $this->servicecomments);
+        unset($this->title, $this->icon, $this->subtitle, $this->phone, $this->address, $this->other_phone, $this->email, $this->url, $this->week_days, $this->start_time, $this->end_time, $this->visits, $this->author, $this->positions, $this->cities, $this->subcategories, $this->serviceusers, $this->servicecomments);
 
         $this->__initializer__ = $initializer;
         $this->__cloner__      = $cloner;
@@ -108,10 +108,10 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'title', 'subtitle', 'phone', 'address', 'other_phone', 'email', 'url', 'week_days', 'start_time', 'end_time', 'visits', 'created', 'created_at', 'updated_at', 'author', 'positions', 'cities', 'subcategories', 'serviceusers', 'servicecomments', 'visited', 'contacted', 'complain', 'favorite', 'rated'];
+            return ['__isInitialized__', 'id', 'title', 'icon', 'subtitle', 'phone', 'address', 'other_phone', 'email', 'url', 'week_days', 'start_time', 'end_time', 'visits', 'created', 'created_at', 'updated_at', 'author', 'positions', 'cities', 'subcategories', 'serviceusers', 'servicecomments', '' . "\0" . 'Entities\\Service' . "\0" . 'images', 'visited', 'contacted', 'complain', 'favorite', 'rated'];
         }
 
-        return ['__isInitialized__', 'id', 'week_days', 'created', 'created_at', 'updated_at', 'visited', 'contacted', 'complain', 'favorite', 'rated'];
+        return ['__isInitialized__', 'id', 'created', 'created_at', 'updated_at', '' . "\0" . 'Entities\\Service' . "\0" . 'images', 'visited', 'contacted', 'complain', 'favorite', 'rated'];
     }
 
     /**
@@ -133,7 +133,7 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
                 }
             };
 
-            unset($this->title, $this->subtitle, $this->phone, $this->address, $this->other_phone, $this->email, $this->url, $this->start_time, $this->end_time, $this->visits, $this->author, $this->positions, $this->cities, $this->subcategories, $this->serviceusers, $this->servicecomments);
+            unset($this->title, $this->icon, $this->subtitle, $this->phone, $this->address, $this->other_phone, $this->email, $this->url, $this->week_days, $this->start_time, $this->end_time, $this->visits, $this->author, $this->positions, $this->cities, $this->subcategories, $this->serviceusers, $this->servicecomments);
         }
     }
 
@@ -242,6 +242,17 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTitle', []);
 
         return parent::getTitle();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setIcon($icon)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setIcon', [$icon]);
+
+        return parent::setIcon($icon);
     }
 
     /**
@@ -522,7 +533,7 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function addPosition(\Entities\Service $position)
+    public function addPosition(\Entities\Position $position)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'addPosition', [$position]);
@@ -533,7 +544,7 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function removePosition(\Entities\Service $position)
+    public function removePosition(\Entities\Position $position)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'removePosition', [$position]);
@@ -550,6 +561,39 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPositions', []);
 
         return parent::getPositions();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addSubCategory(\Entities\Subcategory $subcategory)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addSubCategory', [$subcategory]);
+
+        return parent::addSubCategory($subcategory);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeSubcategory(\Entities\Subcategory $subcategory)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeSubcategory', [$subcategory]);
+
+        return parent::removeSubcategory($subcategory);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSubcategories()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSubcategories', []);
+
+        return parent::getSubcategories();
     }
 
     /**
@@ -610,12 +654,34 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getSubcategories()
+    public function addImage(\Entities\Image $image)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSubcategories', []);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addImage', [$image]);
 
-        return parent::getSubcategories();
+        return parent::addImage($image);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeImage(\Entities\Image $image)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeImage', [$image]);
+
+        return parent::removeImage($image);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getImages()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getImages', []);
+
+        return parent::getImages();
     }
 
     /**
