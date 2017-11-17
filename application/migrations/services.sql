@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2017 at 02:31 PM
+-- Generation Time: Nov 17, 2017 at 09:43 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -160,20 +160,20 @@ CREATE TABLE `services` (
   `id` int(11) NOT NULL,
   `author_id` int(11) DEFAULT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `subtitle` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `subtitle` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `phone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `other_phone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `url` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `week_days` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `start_time` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `end_time` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `other_phone` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `week_days` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `start_time` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `end_time` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created` datetime NOT NULL,
   `visits` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `icon` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `icon` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -182,7 +182,20 @@ CREATE TABLE `services` (
 
 INSERT INTO `services` (`id`, `author_id`, `title`, `subtitle`, `phone`, `address`, `other_phone`, `email`, `url`, `week_days`, `start_time`, `end_time`, `created`, `visits`, `created_at`, `updated_at`, `icon`) VALUES
 (1, 3, 'Servicio1', 'subtitulo servicio1', '231450', 'calle stret entre left and right numero #', '989796', 'correo@gmail.com', 'http://url.com', '1,3,5', '08:00', '15:30', '0000-00-00 00:00:00', 1, '2017-11-08 06:16:24', '2017-11-08 06:04:10', ''),
-(2, NULL, 'dd', 'subtitulo servicio1', '12345', 'calle stret entre left and right numero #', '32432', 'email@server.com', 'http://url.com', '15:30', '08:00', '15:30', '2017-11-14 14:51:50', 0, '2017-11-14 14:51:50', '2017-11-14 14:51:50', 'resources/image/service/error_store7.png');
+(2, NULL, 'dd', 'subtitulo servicio1', '12345', 'calle stret entre left and right numero #', '32432', 'email@server.com', 'http://url.com', '15:30', '08:00', '15:30', '2017-11-14 14:51:50', 0, '2017-11-14 14:51:50', '2017-11-14 14:51:50', 'resources/image/service/error_store7.png'),
+(3, NULL, 'primero', 'segundo', '45362718', 'direccion', NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-17 18:21:06', 0, '2017-11-17 18:21:06', '2017-11-17 18:21:06', NULL),
+(4, NULL, 'primero1', 'segundo1', '45362718', 'direccion1', NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-17 18:39:19', 0, '2017-11-17 18:39:19', '2017-11-17 18:39:19', NULL),
+(5, 3, 'primer paso', '22', '3234123', 'direcc', NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-17 18:46:30', 0, '2017-11-17 18:46:30', '2017-11-17 18:46:30', NULL),
+(6, 3, 'primer paso', '22', 'validado2', 'direcc', NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-17 18:47:06', 0, '2017-11-17 18:47:06', '2017-11-17 18:47:06', NULL),
+(7, 3, 'otro mas', 'd', 'dfds', 'direccion1', NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-17 18:55:36', 0, '2017-11-17 18:55:36', '2017-11-17 18:55:36', NULL),
+(8, 3, 'www', 'www', 'www2', 'www', NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-17 19:59:22', 0, '2017-11-17 19:59:22', '2017-11-17 19:59:22', NULL),
+(9, 3, 'qw', 'qw', 'qw', 'qw', NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-17 20:01:18', 0, '2017-11-17 20:01:18', '2017-11-17 20:01:18', NULL),
+(10, 3, '12', '21', '123', '321', NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-17 20:10:27', 0, '2017-11-17 20:10:27', '2017-11-17 20:10:27', NULL),
+(11, 3, 'qwqw', 'qwqw', 'qwqw', 'qwqw', NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-17 20:18:46', 0, '2017-11-17 20:18:46', '2017-11-17 20:18:46', NULL),
+(12, 3, 'sss', 'sss', 'sss', 'ssss', NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-17 20:46:43', 0, '2017-11-17 20:46:43', '2017-11-17 20:46:43', NULL),
+(13, 3, '1', '4', '3', '2', NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-17 20:59:05', 0, '2017-11-17 20:59:05', '2017-11-17 20:59:05', NULL),
+(14, 3, '1', '4', '3', '2', NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-17 21:07:56', 0, '2017-11-17 21:07:56', '2017-11-17 21:07:56', './resources/compras.png'),
+(15, 3, 'fda', 'asd', 'asdf', 'fdsa', NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-17 21:29:26', 0, '2017-11-17 21:29:26', '2017-11-17 21:29:26', './resources/compras.png');
 
 -- --------------------------------------------------------
 
@@ -201,7 +214,23 @@ CREATE TABLE `service_city` (
 
 INSERT INTO `service_city` (`service_id`, `city_id`) VALUES
 (1, 2),
-(1, 3);
+(1, 3),
+(4, 1),
+(4, 2),
+(5, 3),
+(6, 3),
+(7, 1),
+(7, 2),
+(8, 2),
+(9, 2),
+(9, 3),
+(10, 2),
+(11, 2),
+(12, 1),
+(13, 2),
+(14, 2),
+(15, 2),
+(15, 3);
 
 -- --------------------------------------------------------
 
@@ -268,7 +297,25 @@ CREATE TABLE `subcategory_service` (
 
 INSERT INTO `subcategory_service` (`service_id`, `subcategory_id`) VALUES
 (1, 1),
-(1, 3);
+(1, 3),
+(4, 1),
+(4, 2),
+(4, 3),
+(4, 4),
+(5, 3),
+(6, 3),
+(7, 2),
+(7, 4),
+(8, 2),
+(9, 3),
+(9, 4),
+(10, 2),
+(11, 1),
+(12, 2),
+(13, 1),
+(14, 1),
+(15, 2),
+(15, 4);
 
 -- --------------------------------------------------------
 
@@ -295,7 +342,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `created_on`, `role`, `active`, `last_login`, `ip_address`, `salt`, `remember_code`) VALUES
-(3, 'admin@gmail.com', 'admin@gmail.com', '$2y$08$/JOwPbrPJgJ344FmUMvFye7ZCgyMv9zmL4mRlSAZrZva/z2hqtcWa', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '::1', '', 'rXLKbD3uNetACmHOqsMH3.');
+(3, 'admin@gmail.com', 'admin@gmail.com', '$2y$08$/JOwPbrPJgJ344FmUMvFye7ZCgyMv9zmL4mRlSAZrZva/z2hqtcWa', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '::1', '', 'NjXe3dE02vTezyKHUC7/Lu');
 
 -- --------------------------------------------------------
 
@@ -462,7 +509,7 @@ ALTER TABLE `positions`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `subcategories`
 --
