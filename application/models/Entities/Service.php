@@ -20,13 +20,13 @@ class Service
     public $title;
 
     /**
-     * @Column(type="string")
+     * @Column(type="string", nullable=true)
      * @var string
      **/
     public $icon;
 
     /**
-     * @Column(type="string")
+     * @Column(type="string", nullable=true)
      * @var string
      **/
     public $subtitle;
@@ -39,42 +39,42 @@ class Service
 
 
     /**
-     * @Column(type="string")
+     * @Column(type="string",nullable=true)
      * @var string
      **/
     public $address;
 
     /**
-     * @Column(type="string")
+     * @Column(type="string",nullable=true)
      * @var string
      **/
     public $other_phone;
 
     /**
-     * @Column(type="string")
+     * @Column(type="string",nullable=true)
      * @var string
      **/
     public $email;
 
     /**
-     * @Column(type="string")
+     * @Column(type="string",nullable=true)
      * @var string
      **/
     public $url;
     /**
-     * @Column(type="string")
+     * @Column(type="string",nullable=true)
      * @var string
      **/
     public $week_days;
 
     /**
-     * @Column(type="string")
+     * @Column(type="string",nullable=true)
      * @var string
      **/
     public $start_time;
 
     /**
-     * @Column(type="string")
+     * @Column(type="string",nullable=true)
      * @var string
      **/
     public $end_time;
@@ -165,6 +165,7 @@ class Service
 
     public function __construct()
     {
+        $this->visits = 0;
         $this->created = new \DateTime("now");
         $this->created_at = new \DateTime("now");
         $this->updated_at = new \DateTime("now");
@@ -495,6 +496,45 @@ class Service
         return $this->subcategories;
     }
     /**
+     * Add cities by ids
+     *
+     * @param array
+     * @param Doctrine\ORM\EntityManager
+     *
+     * @return Service
+     */
+    public function addCities(array $cities, $em)
+    {
+       foreach ($cities as $city_id){
+           $city = $em->find('\Entities\City',$city_id);
+           if($city){
+               $this->addCity($city);
+           }
+       }
+        return $this;
+    }
+
+    /**
+     * Add subcategories by ids
+     *
+     * @param array
+     * @param Doctrine\ORM\EntityManager
+     *
+     * @return Service
+     */
+    public function addSubCategories(array $subcategories,$em)
+    {
+        foreach ($subcategories as $subcategory_id){
+            $subcategory = $em->find('\Entities\Subcategory',$subcategory_id);
+            if($subcategory){
+                $this->addSubCategory($subcategory);
+
+            }
+        }
+        return $this;
+    }
+
+    /**
      * Add city
      *
      * @param \Entities\City $city
@@ -507,6 +547,7 @@ class Service
 
         return $this;
     }
+
 
     /**
      * Remove city

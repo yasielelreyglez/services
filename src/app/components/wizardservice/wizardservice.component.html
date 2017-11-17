@@ -1,0 +1,101 @@
+<div class="row"><h4 class="tc-blue ">CREAR ANUNCIO:</h4><div class="tc-blue col-6">{{step_title}}</div></div>
+<wizard navBarLayout="large-empty-symbols" #WizardComponent name="WizardComponent">
+  <wizard-step stepTitle="" navigationSymbol="1" >
+    <form name="form"  (ngSubmit)="f.form.valid&&create()" #f="ngForm" novalidate class="">
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid }">
+        <label for="title">Titulo</label>
+        <input type="text" class="form-control" name="title" [(ngModel)]="service.title" #title="ngModel"
+               placeholder="Escriba el titulo" required/>
+        <div *ngIf="f.submitted && !title.valid" class="help-block">Name is required</div>
+      </div>
+      <div class="form-group" >
+        <label for="subtitle">Subtitulo</label>
+        <input type="text" class="form-control" name="subtitle" [(ngModel)]="service.subtitle" #subtitle="ngModel"
+               placeholder="Escriba el subtitulo" required/>
+        <div *ngIf="f.submitted && subtitle.hasError('required')" class="help-block">Subtitle is required</div>
+
+      </div>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !address.valid }">
+        <label for="address">Dirección</label>
+        <input type="text" class="form-control" name="address" [(ngModel)]="service.address" #address="ngModel"
+               placeholder="Escriba la direccion"/>
+      </div>
+      <div class="form-group">
+        <label for="phone">Telefono</label>
+        <input placeholder="Escriba el telefono" type="text" class="form-control" name="phone" [(ngModel)]="service.phone"
+               required #phone="ngModel"/>
+        <div *ngIf="f.submitted && !phone.valid" class="help-block">Phone is required</div>
+      </div>
+
+
+      <br>
+      <div class="form-group">
+        <mat-form-field class="form-group ">
+          <mat-select placeholder="Ciudades" class="form-control" multiple="true" [(ngModel)]="service.cities" name="cities">
+            <mat-option *ngFor="let city of cities" [value]="city.id">
+              {{ city.title }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field class="form-group ">
+          <mat-select placeholder="Categorias" class="form-control" multiple="true" [(ngModel)]="service.categories" name="categories">
+            <mat-option *ngFor="let category of categories" [value]="category.id">
+              {{ category.title }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <img name="preview" src="{{previewvalue}}" height="60" width="70" />
+        <label class="fileContainer">
+          <div class="btn btn-primary">
+          Subir Foto
+          </div>
+          <input type="file"  class="btn btn-primary col-6" name="icon" size="20" (change)="onFileChange($event)" #fileInput  />
+
+        </label>
+           </div>
+      <div class="form-group text-center">
+        <!--nextStep-->
+        <button type="submit" class="btn btn-primary col-6" >
+          <i class="fa fa-next" aria-hidden="true"></i>
+          Siguiente paso
+        </button>
+      </div>
+    </form>
+
+
+    <!--<button type="button" goToStep="2">Go directly to third Step</button>-->
+  </wizard-step>
+
+
+  <wizard-step stepTitle=""  (stepEnter)="step_title='Galeria de Fotos'" navigationSymbol="2">
+    Content of Step 2
+    <button type="button" previousStep>Go to previous step</button>
+    <button type="button" nextStep>Go to next step</button>
+  </wizard-step>
+
+  <wizard-step stepTitle="" (stepEnter)="step_title='cambiate2'"  navigationSymbol="&#xf2dd;" navigationSymbolFontFamily="FontAwesome">
+    Content of Step 3
+    <button type="button" previousStep>Previous Step</button>
+    <button type="button" nextStep>Go to next step</button>
+  </wizard-step>
+  <wizard-step stepTitle="" wizardCompletionStep navigationSymbol="4">
+    Content of Step 3
+    <button type="button" previousStep>Previous Step</button>
+    <button type="button" (click)="finishFunction()">Finish</button>
+  </wizard-step>
+
+</wizard>
+<style>
+  .horizontal ul.steps-indicator  li.current div:after{
+    background-color: #1e6bb8!important;
+    color: #ffffff;
+  }
+  .horizontal[_nghost-c5]   ul.steps-indicator[_ngcontent-c5]   li[_ngcontent-c5]   div[_ngcontent-c5]   a[_ngcontent-c5]{
+    background-color: #1e6bb8!important;
+    color: #ffffff;
+  }
+</style>

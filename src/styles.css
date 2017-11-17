@@ -1,5 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+.mat-form-field {
+    display: block!important;
+    position: relative;
+    text-align: left;
+}
 
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 /* GENERALES */
 .tc-blue {
     color: #0092B5;
@@ -116,6 +122,24 @@ button:hover, a{
 /*.modal-dialog{*/
 /*margin-top: 12rem;*/
 /*}*/
+
+/*wizard create service*/
+
+.horizontal.large-empty-symbols[_nghost-c5] ul.steps-indicator[_ngcontent-c5] li.current[_ngcontent-c5]:after {
+    border-width: 2px;
+    border-style: solid;
+    border-color: #808080;
+    color: white;
+    font-weight: bold;
+    background-color: #005878;
+}
+
+.horizontal.large-empty-symbols[_nghost-c5] ul.steps-indicator[_ngcontent-c5] li.current[_ngcontent-c5]:after {
+    border-width: 2px;
+    border-style: solid;
+    border-color: #005878!important;
+    color: white!important;
+}
 
 
 

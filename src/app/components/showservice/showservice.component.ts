@@ -14,8 +14,9 @@ export class ShowserviceComponent implements OnInit {
     map: any;
     start = 'chicago, il';
     end = 'chicago, il';
-    directionsService = new google.maps.DirectionsService;
-    directionsDisplay = new google.maps.DirectionsRenderer;
+    // directionsService = new google.maps.DirectionsService;
+
+    // directionsDisplay = new google.maps.DirectionsRenderer;
     service: any = {};
     days: string[] = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     week_days: any = '';
@@ -49,7 +50,7 @@ export class ShowserviceComponent implements OnInit {
             center: cuba
         });
 
-        this.directionsDisplay.setMap(this.map);
+        // this.directionsDisplay.setMap(this.map);
     }
     result_week_days() {
         const days = this.service.week_days.split(',');

@@ -34,7 +34,26 @@ class Api extends REST_Controller
         $response["data"]=$categories;
         $response["count"]=count($categories);
         $this->set_response($response,REST_Controller::HTTP_OK);
-//        $this->set_response($categories, REST_Controller::HTTP_UNAUTHORIZED);
+    }
+//LISTADO DE LAS SUBCATEGORIAS (TODAS LAS SUBCATEGORIAS ?)
+    public function allsubcateogries_get(){
+        $em= $this->doctrine->em;
+        $subcategoriesRepo = $em->getRepository('Entities\Subcategory');
+        $subcategories = $subcategoriesRepo->findAll();
+        $response["data"]=$subcategories;
+        $response["count"]=count($subcategories);
+        $this->set_response($response,REST_Controller::HTTP_OK);
+
+    }
+//LISTADO DE LAS CIUDADES
+    public function cities_get(){
+        $em= $this->doctrine->em;
+        $citiesRepo = $em->getRepository('Entities\City');
+        $cities = $citiesRepo->findAll();
+        $response["data"]=$cities;
+        $response["count"]=count($cities);
+        $this->set_response($response,REST_Controller::HTTP_OK);
+
     }
     //LISTADO DE LAS SUBCATEGORIAS DADA UNA CATEGORIA <params category:string>
     public function subcategories_get($category_id){
@@ -99,8 +118,6 @@ class Api extends REST_Controller
         $response["count"]=count($response["data"]);
         $this->set_response($response, REST_Controller::HTTP_OK);
     }
-
-
     //LISTADO DE LOS SERVICIOS  DADA UNA SUBCATEGORIA <params subcategory:string>
     public function servicessub_get($id){
 //
@@ -119,7 +136,6 @@ class Api extends REST_Controller
         }
         $this->set_response($response, REST_Controller::HTTP_OK);
     }
-
     //DATOS DE UN SERVICIO DADO EL ID DEL MISMO <params serviceid:string>
     public function service_get($id){
         $em= $this->doctrine->em;
@@ -134,7 +150,6 @@ class Api extends REST_Controller
         $data["subcategories"]=$service->getSubcategories()->toArray();
         $this->set_response($data, REST_Controller::HTTP_OK);
     }
-
     //LISTADO DE SERVICIOS POR FILTROS
     public function filter_get(){
         //obteniendo parametros filtro
@@ -163,7 +178,6 @@ class Api extends REST_Controller
 //        $data["services"] = $service;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
-
     //denunciar un servicio
     public function complaint_get($id){
         $queja = $this->input->get("complaint",true);
@@ -190,12 +204,11 @@ class Api extends REST_Controller
         $this->set_response($obj, REST_Controller::HTTP_OK);
         }
     }
-
+   //marcar como favorito
     public function markfavorite_get($id){
         $em= $this->doctrine->em;
         $service = $em->find("Entities\Service",$id);
-        $usuario = 3 ;
-        $user = $em->find("Entities\User",$usuario);
+        $user= $this->getCurrentUser();
         $criteria = new \Doctrine\Common\Collections\Criteria();
         //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
         $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user",\Doctrine\Common\Collections\Expr\Comparison::EQ,$user);
@@ -212,12 +225,11 @@ class Api extends REST_Controller
         $em->persist($obj);
         $em->flush();
     }
-
+   //desmarcar como favorito
     public function dismarkfavorite_get($id){
         $em= $this->doctrine->em;
         $service = $em->find("Entities\Service",$id);
-        $usuario = 3 ;
-        $user = $em->find("Entities\User",$usuario);
+        $user= $this->getCurrentUser();
         $relacion = $service->loadRelatedUserData($user);
         if(count($relacion)>0){
             $obj = $relacion[0];
@@ -230,11 +242,9 @@ class Api extends REST_Controller
         $em->persist($obj);
         $em->flush();
     }
-
+   //listar servicios favoritos del usuario
     public function myfavorites_get(){
-        $usuario = 3 ;//TODO PONER EL ID DEL USUARIO DEL TOKEN
-        $em= $this->doctrine->em;
-        $user = $em->find("Entities\User",$usuario);
+        $user= $this->getCurrentUser();
         $criteria = new \Doctrine\Common\Collections\Criteria();
         //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
         $expresion = new \Doctrine\Common\Collections\Expr\Comparison("favorite",\Doctrine\Common\Collections\Expr\Comparison::EQ,1);
@@ -250,6 +260,7 @@ class Api extends REST_Controller
         $this->set_response($result, REST_Controller::HTTP_OK);
 
     }
+  //listado de servicios creados por el usuario
     public function myservices_get(){
         $usuario = 3 ;//TODO PONER EL ID DEL USUARIO DEL TOKEN
         $em= $this->doctrine->em;
@@ -265,6 +276,7 @@ class Api extends REST_Controller
         $result["data"]=$relacion;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
+  //calificar un servicio
     public function rateservice_get($id,$rate){
         $em= $this->doctrine->em;
         $service = $em->find("Entities\Service",$id);
@@ -289,8 +301,7 @@ class Api extends REST_Controller
         }
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
-
-
+   //obtener servicios visitados
     public function myvisits_get(){
         $usuario = 3 ;//TODO PONER EL ID DEL USUARIO DEL TOKEN
         $em= $this->doctrine->em;
@@ -379,7 +390,26 @@ class Api extends REST_Controller
     }
 
 
+    function createservicestep1_post(){
+        $em = $this->doctrine->em;
+        $service = new \Entities\Service();
+        $service->setAthor($this->getCurrentUser());
 
+
+        $service->title = $this->post('title', TRUE);
+        $service->subtitle = $this->post('subtitle', TRUE);
+        $service->phone = $this->post('phone', TRUE);
+        $service->address = $this->post('address', TRUE);
+        $service->addSubCategories($this->post('categories', TRUE),$em);
+        $service->addCities($this->post('cities', TRUE),$em);
+        $icon = $this->post('icon');
+        $path= "./resources/".$icon['filename'];
+        file_put_contents($path, base64_decode($icon['value']));
+        $service->setIcon($path);
+        $em->persist($service);
+        $em->flush();
+        $this->set_response($service, REST_Controller::HTTP_OK);
+    }
 
     function createservice_post(){
             $id =  $this->input->post('id', TRUE);

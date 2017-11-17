@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User } from '../../_models/user';
 
+
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',

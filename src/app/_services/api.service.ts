@@ -3,6 +3,10 @@ import {Http, Response, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {Subcategory} from '../_models/subcategory';
+import {City} from '../_models/city';
+import {Service} from '../_models/service';
+
+
 
 @Injectable()
 export class ApiService {
@@ -11,7 +15,7 @@ export class ApiService {
     }
 
     topSubcategories(): Observable<Subcategory[]> {
-        return this.http.get('/login/api/topsubcategories').map((response: Response) => {
+        return this.http.get('http://localhost/login/api/topsubcategories').map((response: Response) => {
             if (response)
                 return response.json().data;
             else {
@@ -20,8 +24,17 @@ export class ApiService {
         });
     }
 
+    cities(): Observable<City[]> {
+        return this.http.get('http://localhost/login/api/cities').map((response: Response) => {
+            if (response)
+                return response.json().data;
+            else {
+                return new Subcategory[0];
+            }
+        });
+    }
     categories(): Observable<any> {
-        return this.http.get('/login/api/categories').map((response: Response) => {
+        return this.http.get('http://localhost/login/api/categories').map((response: Response) => {
             if (response)
                 return response.json().data;
             else {
@@ -29,9 +42,17 @@ export class ApiService {
             }
         });
     }
-
+    allSubCategories(): Observable<any> {
+        return this.http.get('http://localhost/login/api/allsubcateogries').map((response: Response) => {
+            if (response)
+                return response.json().data;
+            else {
+                return new Array();
+            }
+        });
+    }
     subCategories(id: number): Observable<Subcategory[]> {
-        return this.http.get('/login/api/subcategories/' + id).map((response: Response) => {
+        return this.http.get('http://localhost/login/api/subcategories/' + id).map((response: Response) => {
             if (response)
                 return response.json().data;
             else {
@@ -41,7 +62,7 @@ export class ApiService {
     }
 
     servicesSub(id: number): Observable<any> {
-        return this.http.get('/login/api/servicessub/' + id).map((response: Response) => {
+        return this.http.get('http://localhost/login/api/servicessub/' + id).map((response: Response) => {
             if (response)
                 return response.json().data;
             else {
@@ -51,7 +72,7 @@ export class ApiService {
     }
 
     myfavorites(): Observable<any> {
-        return this.http.get('/login/api/myfavorites').map((response: Response) => {
+        return this.http.get('http://localhost/login/api/myfavorites').map((response: Response) => {
             if (response)
                 return response.json().data;
             else {
@@ -61,13 +82,16 @@ export class ApiService {
     }
 
     myServices(): Observable<any> {
-        return this.http.get('/login/api/myservices').map((response: Response) => {
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+        return this.http.get('http://localhost/login/api/myservices').map((response: Response) => {
             if (response)
                 return response.json().data;
             else {
                 return new Array();
             }
         });
+        }
     }
 
     service(id: string): Observable<any> {
@@ -76,7 +100,7 @@ export class ApiService {
             const headers = new Headers();
             headers.append('Authorization', JSON.parse(currentUser).token);
 
-            return this.http.get('/login/api/service/' + id, {headers: headers}).map((response: Response) => {
+            return this.http.get('http://localhost/login/api/service/' + id, {headers: headers}).map((response: Response) => {
                 if (response)
                     return response.json().data;
                 else {
@@ -85,7 +109,7 @@ export class ApiService {
             });
         }
         else {
-            return this.http.get('/login/api/service/' + id).map((response: Response) => {
+            return this.http.get('http://localhost/login/api/service/' + id).map((response: Response) => {
                 if (response)
                     return response.json().data;
                 else {
@@ -96,7 +120,11 @@ export class ApiService {
     }
 
     report(report: string): Observable<any> {
-        return this.http.post('/login/api/report', report).map((response: Response) => {
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            const headers = new Headers();
+            headers.append('Authorization', JSON.parse(currentUser).token);
+        return this.http.post('http://localhost/login/api/report', report,headers).map((response: Response) => {
                 if (response.json().result === true) {
                     return true;
                 } else {
@@ -104,5 +132,24 @@ export class ApiService {
                 }
             }
         );
+        }
+    }
+
+    createService(service: Service): Observable<any> {
+        // const body = JSON.stringify(service);
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            const headers = new Headers();
+            headers.append('Authorization', JSON.parse(currentUser).token);
+            console.log(service);
+            return this.http.post('http://localhost/login/api/createservicestep1', service,{headers: headers}).map(response => response.json()).map(result => {
+                if (!result.error) {
+                    return result;
+                }
+                return result;
+            });
+        }else{
+            return new Observable();
+        }
     }
 }

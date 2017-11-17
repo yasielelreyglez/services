@@ -9,6 +9,7 @@ import {ShowservicesComponent} from './components/showservices/showservices.comp
 import {ShowfavoritesComponent} from './components/showfavorites/showfavorites.component';
 import {ShowmyservicesComponent} from './components/showmyservices/showmyservices.component';
 import {ShowserviceComponent} from './components/showservice/showservice.component';
+import {WizardserviceComponent} from './components/wizardservice/wizardservice.component';
 
 const routes: Routes = [
     {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -22,6 +23,8 @@ const routes: Routes = [
     {path: 'subcategories/:id/service/:id', component: ShowserviceComponent},
     {path: 'myfavorites', component: ShowfavoritesComponent, canActivate: [AuthGuard]},
     {path: 'myservices', component: ShowmyservicesComponent, canActivate: [AuthGuard]},
+    {path: 'createservice', component: WizardserviceComponent, canActivate: [AuthGuard]},
+
 
     // otherwise redirect to home
     {path: '**', redirectTo: ''}

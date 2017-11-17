@@ -27,6 +27,10 @@ import {ShowfavoritesComponent} from './components/showfavorites/showfavorites.c
 import {ShowmyservicesComponent} from './components/showmyservices/showmyservices.component';
 import {ShowserviceComponent} from './components/showservice/showservice.component';
 import {RatingComponent} from './components/_modals/rating/rating.component';
+import { ArchwizardModule } from 'ng2-archwizard';
+import { WizardserviceComponent } from './components/wizardservice/wizardservice.component';
+import {MatSelectModule} from '@angular/material/select'
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 @NgModule({
@@ -47,7 +51,8 @@ import {RatingComponent} from './components/_modals/rating/rating.component';
         ShowfavoritesComponent,
         ShowmyservicesComponent,
         ShowserviceComponent,
-        RatingComponent
+        RatingComponent,
+        WizardserviceComponent
     ],
     entryComponents: [
         ForgotpassComponent,
@@ -55,12 +60,16 @@ import {RatingComponent} from './components/_modals/rating/rating.component';
         RatingComponent
     ],
     imports: [
+        BrowserAnimationsModule,
         BrowserModule,
         FormsModule,
         HttpModule,
         JsonpModule,
+        ArchwizardModule,
         AppRoutes,
+        MatSelectModule,
         NgbModule.forRoot()
+
     ],
     providers: [
         AuthGuard,
