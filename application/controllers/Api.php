@@ -155,7 +155,7 @@ class Api extends REST_Controller
         //obteniendo parametros filtro
         $ciudades = $this->input->get("cities",true);
         $categorias = $this->input->get("categories",true);
-        $distance = $this->input->get("distnace",true);
+        $distance = $this->input->get("distance",true);
         $em= $this->doctrine->em;
         $citiesRepo = $em->getRepository('Entities\City');
         $serviceRepo = $em->getRepository('Entities\Service');
@@ -262,10 +262,10 @@ class Api extends REST_Controller
     }
   //listado de servicios creados por el usuario
     public function myservices_get(){
-        $usuario = 3 ;//TODO PONER EL ID DEL USUARIO DEL TOKEN
+
         $em= $this->doctrine->em;
-        $usuario = 3 ;
-        $user = $em->find("Entities\User",$usuario);
+
+        $user = $this->getCurrentUser();
         $relacion = $user->getServices()->toArray();
         $result["desc"]="Listado de los servicios creados por el usuario";
         $result["data"]=array();
@@ -281,8 +281,7 @@ class Api extends REST_Controller
         $em= $this->doctrine->em;
         $service = $em->find("Entities\Service",$id);
         if($service) {
-            $usuario = 3;
-            $user = $em->find("Entities\User", $usuario);
+           $user = $this->getCurrentUser();
             $relacion = $service->loadRelatedUserData($user);
             if (count($relacion) > 0) {
                 $obj = $relacion[0];
@@ -303,10 +302,7 @@ class Api extends REST_Controller
     }
    //obtener servicios visitados
     public function myvisits_get(){
-        $usuario = 3 ;//TODO PONER EL ID DEL USUARIO DEL TOKEN
-        $em= $this->doctrine->em;
-        $usuario = 3 ;
-        $user = $em->find("Entities\User",$usuario);
+        $user = $this->getCurrentUser();
         $criteria = new \Doctrine\Common\Collections\Criteria();
         //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
         $expresion = new \Doctrine\Common\Collections\Expr\Comparison("visited",\Doctrine\Common\Collections\Expr\Comparison::EQ,1);
@@ -400,14 +396,32 @@ class Api extends REST_Controller
         $service->subtitle = $this->post('subtitle', TRUE);
         $service->phone = $this->post('phone', TRUE);
         $service->address = $this->post('address', TRUE);
-        $service->addSubCategories($this->post('categories', TRUE),$em);
-        $service->addCities($this->post('cities', TRUE),$em);
-        $icon = $this->post('icon');
-        $path= "./resources/".$icon['filename'];
-        file_put_contents($path, base64_decode($icon['value']));
-        $service->setIcon($path);
+//        $service->addSubCategories($this->post('categories', TRUE),$em);
+//        $service->addCities($this->post('cities', TRUE),$em);
+//        $icon = $this->post('icon');
+//        $path= "./resources/".$icon['filename'];
+//        file_put_contents($path, base64_decode($icon['value']));
+//        $service->setIcon($path);
+//        $em->persist($service);
+//        $em->flush();
+        $this->set_response($service, REST_Controller::HTTP_OK);
+    }
+
+    function createservicestep2_post(){
+        $em = $this->doctrine->em;
+        $service = $em->find("\Entities\Service",$this->post('id', TRUE));
+        $fotos =  $this->post('galery', TRUE);
+        $service->addFotos($fotos);
         $em->persist($service);
         $em->flush();
+//        $service->addSubCategories($this->post('categories', TRUE),$em);
+//        $service->addCities($this->post('cities', TRUE),$em);
+//        $icon = $this->post('icon');
+//        $path= "./resources/".$icon['filename'];
+//        file_put_contents($path, base64_decode($icon['value']));
+//        $service->setIcon($path);
+//        $em->persist($service);
+//        $em->flush();
         $this->set_response($service, REST_Controller::HTTP_OK);
     }
 

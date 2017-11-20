@@ -7,5 +7,6 @@ export class Service {
     icon: string|any;
     cities: any[];
     categories: any[];
+    galery:any[];
 
 }

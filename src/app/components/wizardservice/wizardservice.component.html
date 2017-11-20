@@ -1,5 +1,5 @@
 <div class="row"><h4 class="tc-blue ">CREAR ANUNCIO:</h4><div class="tc-blue col-6">{{step_title}}</div></div>
-<wizard navBarLayout="large-empty-symbols" #WizardComponent name="WizardComponent">
+<wizard navBarLayout="large-empty-symbols" #WizardComponent name="WizardComponent" data-step="2">
   <wizard-step stepTitle="" navigationSymbol="1" >
     <form name="form"  (ngSubmit)="f.form.valid&&create()" #f="ngForm" novalidate class="">
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid }">
@@ -9,6 +9,7 @@
         <div *ngIf="f.submitted && !title.valid" class="help-block">Name is required</div>
       </div>
       <div class="form-group" >
+
         <label for="subtitle">Subtitulo</label>
         <input type="text" class="form-control" name="subtitle" [(ngModel)]="service.subtitle" #subtitle="ngModel"
                placeholder="Escriba el subtitulo" required/>
@@ -72,17 +73,55 @@
 
 
   <wizard-step stepTitle=""  (stepEnter)="step_title='Galeria de Fotos'" navigationSymbol="2">
-    Content of Step 2
-    <button type="button" previousStep>Go to previous step</button>
-    <button type="button" nextStep>Go to next step</button>
+    <form name="form2"  (ngSubmit)="galery()" #f="ngForm" novalidate class="">
+    <label class="fileContainer">
+      <div class="btn btn-primary">
+        Subir Foto
+      </div>
+      <input type="file"  class="btn btn-primary col-6" name="icon" size="20" (change)="onFotoChange($event)" #fileInput  />
+
+    </label>
+    <br/>
+    <div class="row">
+    <div class="col-4" *ngFor="let prev of previews[0]" ><img [src]="prev" height="60" width="60"/></div>
+  </div>
+    <br/>
+    <div class="row">
+      <div class="col-4" *ngFor="let prev of previews[1]"><img [src]="prev" height="60" width="60"/></div>
+    </div>
+    <br/>
+    <div class="row">
+      <div *ngFor="let prev of previews[2]" class="col-4"><img  [src]="prev" height="60" width="60"/></div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-4" *ngFor="let prev of previews[3]" ><img [src]="prev" height="60" width="60"/></div>
+    </div>
+    <br/>
+    <div class="form-group text-center">
+
+      <!--nextStep-->
+<div class="row">
+      <button type="submit" class="btn btn-primary col-5"  previousStep>
+        <i class="fa fa-back" aria-hidden="true"></i>
+         Paso anterior
+      </button>
+      <div class="col-1"></div>
+      <button type="submit" class="btn btn-primary col-5" nextStep>
+        <i class="fa fa-next" aria-hidden="true"></i>
+        Siguiente paso
+      </button>
+    </div>
+    </div>
+    </form>
   </wizard-step>
 
-  <wizard-step stepTitle="" (stepEnter)="step_title='cambiate2'"  navigationSymbol="&#xf2dd;" navigationSymbolFontFamily="FontAwesome">
+  <wizard-step stepTitle="" (stepEnter)="step_title='Info adicional'" navigationSymbol="3">
     Content of Step 3
     <button type="button" previousStep>Previous Step</button>
     <button type="button" nextStep>Go to next step</button>
   </wizard-step>
-  <wizard-step stepTitle="" wizardCompletionStep navigationSymbol="4">
+  <wizard-step stepTitle="" (stepEnter)="step_title='Ubicaciones'" wizardCompletionStep navigationSymbol="4">
     Content of Step 3
     <button type="button" previousStep>Previous Step</button>
     <button type="button" (click)="finishFunction()">Finish</button>

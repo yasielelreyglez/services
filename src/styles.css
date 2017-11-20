@@ -134,11 +134,28 @@ button:hover, a{
     background-color: #005878;
 }
 
-.horizontal.large-empty-symbols[_nghost-c5] ul.steps-indicator[_ngcontent-c5] li.current[_ngcontent-c5]:after {
+.horizontal[_nghost-c5] ul.steps-indicator[_ngcontent-c5] li.current[_ngcontent-c5]:after {
     border-width: 2px;
     border-style: solid;
     border-color: #005878!important;
     color: white!important;
+}
+
+.horizontal ul.steps-indicator  li.current div:after{
+    background-color: #1e6bb8!important;
+    color: #ffffff!important;
+    border-color: #1e6bb8!important;
+}
+.horizontal ul.steps-indicator  li.current:after{
+    background-color: #1e6bb8!important;
+    color: #ffffff!important;
+    border-color: #1e6bb8!important;
+}
+.horizontal[_nghost-c5]   ul.steps-indicator[_ngcontent-c5]   li[_ngcontent-c5]   div[_ngcontent-c5]   a[_ngcontent-c5]{
+    background-color: #1e6bb8!important;
+    color: #ffffff!important;
+    border-color: #1e6bb8!important;
+
 }
 
 
