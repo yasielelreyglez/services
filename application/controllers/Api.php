@@ -129,8 +129,13 @@ class Api extends REST_Controller
         if($subcategory){
             $response["desc"]="Servicios pertenecientes a la subcategoria:$subcategory->title";
             $services = $subcategory->getServices()->toArray();
+            $user = $this->getCurrentUser();
+            if($user){
+                foreach ($services as $service) {
+                    $service->loadRelatedUserData($user);
+                }
+            }
             $response["data"]= $services;
-
         }else{
             $response["desc"]="Subcategoria no encontrada";
         }
@@ -143,7 +148,7 @@ class Api extends REST_Controller
         $user = $this->getCurrentUser();
         $service->getAuthor()->getUsername();
         $service->getPositions()->toArray();
-        $service->setVisits($service->getVisitis() + 1);
+        $service->setVisits($service->getVisits() + 1);
         $em->persist($service);
         $em->flush();
         $service->loadRelatedUserData($user);
@@ -208,6 +213,30 @@ class Api extends REST_Controller
         $this->set_response($obj, REST_Controller::HTTP_OK);
         }
     }
+    //denunciar un servicio
+    public function contactservice_get($id){
+        $em= $this->doctrine->em;
+        $service = $em->find("Entities\Service",$id);
+        $user = $this->getCurrentUser();
+        if($user){
+            $criteria = new \Doctrine\Common\Collections\Criteria();
+            //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
+            $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user",\Doctrine\Common\Collections\Expr\Comparison::EQ,$user);
+            $criteria->where($expresion);
+            $relacion = $service->getServiceusers()->matching($criteria)->toArray();
+            if(count($relacion)>0){
+                $obj = $relacion[0];
+            }else{
+                $obj = new \Entities\UserService();
+                $obj->setService($service);
+                $obj->setUser($user);
+            }
+            $obj->setContacted(1);
+            $em->persist($obj);
+            $em->flush();
+            $this->set_response($obj, REST_Controller::HTTP_OK);
+        }
+    }
    //marcar como favorito
     public function markfavorite_get($id){
         $em= $this->doctrine->em;
@@ -228,6 +257,9 @@ class Api extends REST_Controller
         $obj->setFavorite(1);
         $em->persist($obj);
         $em->flush();
+        $result["desc"]= "Marcado como favorito el servicio $service->getTitle()";
+        $result["data"]=$service;
+        $this->set_response($result, REST_Controller::HTTP_OK);
     }
    //desmarcar como favorito
     public function dismarkfavorite_get($id){
@@ -245,6 +277,9 @@ class Api extends REST_Controller
         $obj->setFavorite(0);
         $em->persist($obj);
         $em->flush();
+        $result["desc"]= "Desmarcado como favorito el servicio $service->getTitle()";
+        $result["data"]=$service;
+        $this->set_response($result, REST_Controller::HTTP_OK);
     }
    //listar servicios favoritos del usuario
     public function myfavorites_get(){

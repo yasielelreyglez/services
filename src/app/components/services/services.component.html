@@ -2,7 +2,7 @@
     margin-bottom: 15px; padding-bottom: 10px;">
     <div>
         <span *ngIf="myservices" style="color: #e0040b; font-size: 13px; margin-left: 27px;" class="fw-600">{{valor < service.id ? "En revisión" : "Bloqueado"}}</span>
-        <img class="d-flex align-self-center mr-3" width="115" src="../../../assets/service_img.png" alt="" style="border: 1px solid #bcbcbc;
+        <img class="d-flex align-self-center mr-3" width="115" [src]="service.icon?'login/'+service.icon:'../../../assets/service_img.png'"  alt="" style="border: 1px solid #bcbcbc;
     padding: 5px;">
     </div>
     <div class="media-body" [ngStyle]="{'margin-top': myservices ? '25px' : '0'}">
@@ -27,8 +27,8 @@
                 <span>Ciudad: Quito</span><br>
                 <span>Calificación: 8/10</span>
             </div>
-            <div class="col-3 col-sm-2 col-md-2 col-lg-1">
-                <i class="fa fa-bullhorn fa-2x tc-grei" style="margin-top: 10px"></i>
+            <div class="col-3 col-sm-2 col-md-2 col-lg-1 favorite-{{service.favorite}}">
+                <i class="fa fa-heart fa-2x tc-grei "  style="margin-top: 10px;" (click)="markFavorite(service.id)"></i>
             </div>
         </div>
         <div class="row" style="margin-top: 3px;">

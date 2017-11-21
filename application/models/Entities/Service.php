@@ -141,8 +141,8 @@ class Service
     public $serviceusers;
 
     /**
-     * @Column(type="double")
-     * @var double
+     * @Column(type="float")
+     * @var float
      **/
     public $globalrate;
 
@@ -646,8 +646,6 @@ class Service
         //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
         $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user",\Doctrine\Common\Collections\Expr\Comparison::EQ,$user);
         $criteria->where($expresion);
-
-
         $relacion = $this->getServiceusers()->matching($criteria)->toArray();
         if(count($relacion)>0){
             $relacion = $relacion[0];
@@ -656,9 +654,7 @@ class Service
             $this->complain = $relacion->getComplaint();
             $this->contacted = $relacion->getContacted();
             $this->favorite = $relacion->getFavorite();
-
         }
-
         return $relacion;
     }
 

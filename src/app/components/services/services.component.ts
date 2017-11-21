@@ -22,4 +22,8 @@ export class ServicesComponent implements OnInit {
         const modalRef = this.modalService.open(ReportComponent);
     }
 
+    markFavorite(id){
+
+    }
+
 }

@@ -132,4 +132,20 @@ class Subcategory
         return $this->services;
     }
 
+    /**
+     * @return int
+     */
+    public function getVisits()
+    {
+        return $this->visits;
+    }
+
+    /**
+     * @param int $visits
+     */
+    public function setVisits($visits)
+    {
+        $this->visits = $visits;
+    }
+
 }
