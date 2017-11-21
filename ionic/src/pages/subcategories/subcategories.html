@@ -1,0 +1,18 @@
+<ion-header>
+    <app-header> </app-header>
+</ion-header>
+
+<ion-content padding>
+    <ion-label text-center color="azul-claro">Subcategorias</ion-label>
+    <ion-label text-center>{{parentTitle}}</ion-label>
+
+    <hr style="background-color: #88868B;" margin-bottom="3">
+
+    <ion-list>
+        <button *ngFor="let sub of subCategories" class="btn-text-left" text-left color="azul-claro" ion-button block margin-bottom="1" (click)='openServicesPage(sub.id)'>
+            <img src="{{baseUrl + sub.icon}}" alt="" height="36">
+            &nbsp;{{sub.title}}
+          </button>
+    </ion-list>
+
+</ion-content>

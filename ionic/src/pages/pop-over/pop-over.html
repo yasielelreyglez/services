@@ -1,0 +1,17 @@
+<ion-list *ngIf="!loggedIn">
+    <button ion-item (click)="openLoginPage()">
+          <i style="font-size: 20px;" class="fa fa-unlock-alt fa-flip-horizontal" aria-hidden="true"></i>&nbsp;
+          Autenticarse</button>
+    <button ion-item (click)="openSignUpPage()">
+        <i style="font-size: 20px;" class="fa fa-list-alt" aria-hidden="true"></i>
+        &nbsp; Registrarse
+      </button>
+</ion-list>
+
+<ion-list *ngIf="loggedIn">
+    <button ion-item (click)="openFavoritesPage()"><ion-icon style="font-size: 20px;" color="azul-claro"  name="heart"></ion-icon >&nbsp;Mis favoritos</button>
+    <button ion-item (click)="openCreatePage()"><i class="fa fa-plus" aria-hidden="true" style="font-size: 20px;"></i>&nbsp;Crear anuncio</button>
+    <button ion-item (click)="openMyServicesPage()"><i class="fa fa-bullhorn" style="font-size: 20px;" aria-hidden="true"></i>&nbsp;Mis anuncios</button>
+    <button ion-item (click)="openBusquedaPage()"><ion-icon style="font-size: 20px;" name="search"></ion-icon >&nbsp; Mis búsquedas</button>
+    <button ion-item (click)="logout()"><i style="font-size: 20px;" class="fa fa-lock" aria-hidden="true"></i> &nbsp;Cerrar sesión</button>
+</ion-list>

@@ -1,0 +1,74 @@
+<ion-header>
+    <app-header> </app-header>
+</ion-header>
+
+
+
+<ion-content padding>
+    <ion-label text-center color="azul-claro">Registrarse</ion-label>
+
+    <hr style="background-color: #88868B;">
+
+    <form #f="ngForm">
+        <ion-list>
+
+            <ion-item>
+                <ion-label stacked>Título</ion-label>
+                <ion-input type="text" name="name" class="form-control" placeholder="Escribe el título..." required></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label stacked>Subtítulo</ion-label>
+                <ion-input type="text" name="name" class="form-control" placeholder="Escribe el subtítulo..." required></ion-input>
+
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>Dirección</ion-label>
+                <ion-input type="text" name="name" class="form-control" placeholder="Escribe tu dirección..." required></ion-input>
+
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>Teléfono</ion-label>
+                <ion-input type="text" name="name" class="form-control" placeholder="Escribe tu Teléfono..." required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Ciudades</ion-label>
+                <ion-select multiple="true" cancelText="Cancel" okText="Ok">
+                    <ion-option value="bacon">Bacon</ion-option>
+                    <ion-option value="olives">Black Olives</ion-option>
+                    <ion-option value="xcheese">Extra Cheese</ion-option>
+                    <ion-option value="peppers">Green Peppers</ion-option>
+                    <ion-option value="mushrooms">Mushrooms</ion-option>
+                    <ion-option value="onions">Onions</ion-option>
+                    <ion-option value="pepperoni">Pepperoni</ion-option>
+                    <ion-option value="pineapple">Pineapple</ion-option>
+                    <ion-option value="sausage">Sausage</ion-option>
+                    <ion-option value="Spinach">Spinach</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label>Categorias</ion-label>
+                <ion-select multiple="true" cancelText="Cancel" okText="Ok">
+                    <ion-option value="bacon">Bacon</ion-option>
+                    <ion-option value="olives">Black Olives</ion-option>
+                    <ion-option value="xcheese">Extra Cheese</ion-option>
+                    <ion-option value="peppers">Green Peppers</ion-option>
+                    <ion-option value="mushrooms">Mushrooms</ion-option>
+                    <ion-option value="onions">Onions</ion-option>
+                    <ion-option value="pepperoni">Pepperoni</ion-option>
+                    <ion-option value="pineapple">Pineapple</ion-option>
+                    <ion-option value="sausage">Sausage</ion-option>
+                    <ion-option value="Spinach">Spinach</ion-option>
+                </ion-select>
+            </ion-item>
+
+
+            <ion-item>
+                <img style="max-width: 50%;" src="{{preview}}" (click)="presentActionSheet()" alt="Ionic File" />
+                <button ion-button (click)="uploadFile()">Subir Foto</button>
+            </ion-item>
+
+            {{resbuesta}}
+        </ion-list>
+    </form>
+</ion-content>

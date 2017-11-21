@@ -1,0 +1,80 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Info</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-9>
+                <ion-list>
+                    <ion-item style="padding-left: 0;">
+                        <ion-thumbnail item-start>
+                            <ng-container *ngIf="service.icon; else imgTemplate">
+                                <img src="{{baseUrl}}/service/{{service.icon}}">
+                            </ng-container>
+                            <ng-template #imgTemplate>
+                                <img src="assets/imgs/service_img.png">
+                            </ng-template>
+                        </ion-thumbnail>
+                        <h1>{{service.title}}</h1>
+                        <p>{{service.subtitle}}</p>
+                    </ion-item>
+                    <p>{{service.address}}</p>
+                    <p>1.5km de tu posición</p>
+                </ion-list>
+            </ion-col>
+            <ion-col col-3>
+                <strong><ion-label text-center style="font-size: 28px; margin: 13px 0;" color="azul-claro">{{service.rated}}/10</ion-label></strong>
+                <button (click)="openRate()" style="font-size: 10px;" color="azul-claro" ion-button>
+              Evaluar
+              </button>
+                <hr style="border-bottom: 2px solid #dedede;">
+                <strong>
+                <ion-label text-center style="font-size: 17px; margin: 13px 0;" color="azul-claro">
+                  <i class="fa fa-comment-o" aria-hidden="true"></i> 9999
+                </ion-label>
+              </strong>
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
+
+    <button (click)="Llamar(service.phone)" class="btn-text-left" text-left color="azul-claro" ion-button block margin-bottom="1">
+      <ion-icon name="call" style="font-size: 30px;"></ion-icon>
+      &nbsp;Llamar ahora
+    </button>
+
+    <ion-label text-center color="azul-claro">
+        Descripción General
+    </ion-label>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel maiores eligendi, quibusdam nisi labore amet exercitationem accusantium inventore accusamus quas velit nulla ipsa voluptatibus voluptatum possimus assumenda vitae adipisci. Accusamus?</p>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12>
+                <ion-icon name="calendar" color="azul-claro" style="font-size: 35px;"></ion-icon>
+                <ion-label text-center style="font-size: 15px; margin: 0 5px;display: inline-block" color="azul-claro">{{serviceDays}}</ion-label>
+            </ion-col>
+
+
+            <ion-col col-12>
+                <ion-icon name="time" color="azul-claro" style="font-size: 35px;"></ion-icon>
+                <ion-label text-center style="font-size: 15px; margin: 0 5px;display: inline-block" color="azul-claro">Desde {{service.start_time}} hasta {{service.end_time}}</ion-label>
+            </ion-col>
+
+            <ion-col col-12>
+                <ion-icon name="at" color="azul-claro" style="font-size: 35px;"></ion-icon>
+                <ion-label text-center style="font-size: 15px; margin: 0 5px;display: inline-block" color="azul-claro">{{service.email}}</ion-label>
+            </ion-col>
+
+            <ion-col col-12>
+                <ion-icon name="globe" color="azul-claro" style="font-size: 35px;"></ion-icon>
+                <ion-label text-center style="font-size: 15px; margin: 0 5px;display: inline-block" color="azul-claro">{{service.url}}</ion-label>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

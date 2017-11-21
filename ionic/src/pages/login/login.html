@@ -1,0 +1,54 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title text-center>
+            LOGO
+        </ion-title>
+
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+
+    <ion-label text-center color="azul-claro">Autenticarse</ion-label>
+
+    <hr style="background-color: #88868B;">
+
+    <!-- <form (submit)="doLogin()"> -->
+    <form (submit)="f.form.valid ? doLogin() : llenarCampos()" #f="ngForm">
+        <ion-list>
+
+            <ion-item>
+                <ion-label stacked>Correo electrónico</ion-label>
+                <ion-input type="email" class="form-control" name="email" [(ngModel)]="user.email" #email="ngModel" placeholder="Escriba su correo..." email></ion-input>
+
+            </ion-item>
+
+            <ion-item>
+                <ion-label stacked>Contraseña</ion-label>
+                <ion-input type="password" class="form-control" name="password" [(ngModel)]="user.password" placeholder="Escriba su contraseña..." required></ion-input>
+
+            </ion-item>
+
+            <div padding>
+                <button class="btn-text-left" text-left color="azul-claro" ion-button block margin-bottom="1" margin-top="2">
+                    <i class="fa fa-unlock-alt fa-flip-horizontal" aria-hidden="true"></i>&nbsp; Autenticarse
+                </button>
+            </div>
+
+
+        </ion-list>
+    </form>
+
+    <ion-label text-center><b>Si quieres puedes autenticarte también con:</b></ion-label>
+    <button class="btn-text-left" text-left color="azul-facebook" ion-button block margin-bottom="1">
+        <i class="fa fa-facebook-official" aria-hidden="true"></i>&nbsp;
+        facebook
+    </button>
+
+    <button (click)="openForgot()" class="btn-text-left" text-left color="azul-oscuro" ion-button block margin-bottom="1">
+        Olvidé mi contraseña
+    </button>
+
+</ion-content>

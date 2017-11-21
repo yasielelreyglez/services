@@ -1,0 +1,63 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title text-center>
+            LOGO
+        </ion-title>
+
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+
+    <ion-label text-center color="azul-claro">Registrarse</ion-label>
+
+    <hr style="background-color: #88868B;">
+
+    <!-- <form (submit)="doLogin()"> -->
+    <form (submit)="f.form.valid ? doSignUp() : llenarCampos()" #f="ngForm">
+        <ion-list>
+
+            <ion-item>
+                <ion-label stacked>Nombres y apellidos</ion-label>
+                <ion-input type="text" name="name" class="form-control" [(ngModel)]="user.name" placeholder="Escriba su nombre y apellidos..." required></ion-input>
+
+            </ion-item>
+
+            <ion-item>
+                <ion-label stacked>Correo electrónico</ion-label>
+                <ion-input type="email" name="email" class="form-control" [(ngModel)]="user.email" placeholder="Escriba su correo..." required email></ion-input>
+
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>Contraseña</ion-label>
+                <ion-input type="password" name="password" class="form-control" [ngModel]="user.password" placeholder="Escriba su contraseña..." required></ion-input>
+
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>Repetir contraseña</ion-label>
+                <ion-input type="password" name="confirmpassword" class="form-control" [ngModel]="user.confirmpassword" placeholder="Escriba su contraseña..." required></ion-input>
+            </ion-item>
+
+            {{f.form.error}}
+
+            <div padding>
+                <button class="btn-text-left" text-left color="azul-claro" ion-button block margin-bottom="1" margin-top="2">
+                    <i class="fa fa-list-alt" aria-hidden="true"></i>
+                    &nbsp;  Registrarse
+
+                </button>
+            </div>
+
+        </ion-list>
+    </form>
+
+    <ion-label text-center><b>Si quieres puedes registrarte también con::</b></ion-label>
+    <button class="btn-text-left" text-left color="azul-facebook" ion-button block margin-bottom="1">
+        <i class="fa fa-facebook-official" aria-hidden="true"></i>&nbsp;
+        facebook
+    </button>
+
+
+</ion-content>

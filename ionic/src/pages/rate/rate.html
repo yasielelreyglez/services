@@ -1,0 +1,26 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title text-center>Evalua este servicio</ion-title>
+
+        <ion-buttons end>
+            <button (click)="close()" ion-button icon-only style="padding: 16px 8px;">
+                <i style="font-size: 30px;" class="fa fa-times" aria-hidden="true"></i>
+              </button>
+        </ion-buttons>
+
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-label style="font-size: 18px;" margin-bottom="10" color="azul-claro" stacked>¿ Cómo calificarías este servicio ?</ion-label>
+    <ion-rating [readOnly]="false" (clicked)="starClicked($event)">
+    </ion-rating>
+
+    <button color="azul-oscuro" style="width:90%;margin-left:5%" class="btn-text-left" ion-button block margin-bottom="2" (click)="sendRate()">
+      Calificar servicio
+      </button>
+</ion-content>

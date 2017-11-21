@@ -1,0 +1,55 @@
+<ion-header>
+    <app-header> </app-header>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-label text-center color="azul-claro">Mis busquedas realizadas</ion-label>
+
+    <hr style="background-color: #88868B;">
+    <ion-list>
+        <ion-item *ngFor="let serv of services">
+            <ion-thumbnail item-start>
+                <ng-container *ngIf="serv.icon; else imgTemplate">
+                    <img src="{{baseUrl + serv.icon}}">
+                </ng-container>
+                <ng-template #imgTemplate>
+                    <img src="assets/imgs/service_img.png">
+                </ng-template>
+            </ion-thumbnail>
+            <h2 class="serv-title ">{{serv.title}}</h2>
+            <hr style="border-bottom: 1px solid #dedede;">
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-12>
+                        <p>Calificación: {{serv.rated}}/10</p>
+                        <p>Distancia: 5 km</p>
+                        <p>Categoria: Hogar</p>
+                        <p>Visualización: 2017-04-24</p>
+
+                        <ng-container *ngIf="serv.contacted; else contactSetion">
+                            <div class="text-center fw-600" style="width: 100px;
+                            height: 20px;
+                            background-color: #44AB6C;
+                            font-weight: 600;
+                            font-size: 11px;padding: 2px;">
+                                <p style=" color: white; text-align: center;">Contactado</p>
+                            </div>
+                        </ng-container>
+                        <ng-template #contactSetion>
+                            <div class="text-center fw-600" style="width:100px;
+                            height: 20px;
+                            background-color: red;
+                            font-weight: 600;
+                            font-size: 11px;padding: 2px;">
+                                <p style=" color: white; text-align: center;">Sin contactar</p>
+                            </div>
+                        </ng-template>
+
+                    </ion-col>
+
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+    </ion-list>
+</ion-content>

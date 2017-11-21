@@ -1,0 +1,45 @@
+<ion-header>
+    <app-header> </app-header>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-label text-center color="azul-claro">Mis anuncios creados</ion-label>
+
+    <hr style="background-color: #88868B;">
+    <ion-list>
+
+
+        <ion-item *ngFor="let serv of services">
+            <ion-thumbnail item-start>
+                <p style="color:red; text-align: center;">Bloqueado</p>
+                <ng-container *ngIf="serv.icon; else imgTemplate">
+                    <img src="{{baseUrl + serv.icon}}">
+                </ng-container>
+                <ng-template #imgTemplate>
+                    <img src="assets/imgs/service_img.png">
+                </ng-template>
+            </ion-thumbnail>
+            <h2 class="serv-title">{{serv.title}}</h2>
+            <hr style="border-bottom: 1px solid #dedede;">
+            <p>Categoria: Hogar</p>
+            <p>Ciudad: Quito</p>
+            <p>Evaluación: {{serv.rated}}/10</p>
+            <button color="secondary" ion-button icon-only style="padding: 16px 10px;">
+              <i style="font-size: 30px;" class="fa fa-usd" aria-hidden="true"></i>
+            </button>
+            <button ion-button icon-only style="padding: 16px 5px;">
+              <i style="font-size: 30px;" class="fa fa-check" aria-hidden="true"></i>
+            </button>
+            <button color="warning" ion-button icon-only style="padding: 16px 5px;">
+              <i style="font-size: 30px;" class="fa fa-file-text-o" aria-hidden="true"></i>
+            </button>
+            <button color="danger" ion-button icon-only style="padding: 16px 8px;">
+              <i style="font-size: 30px;" class="fa fa-times" aria-hidden="true"></i>
+            </button>
+
+        </ion-item>
+
+    </ion-list>
+
+</ion-content>
