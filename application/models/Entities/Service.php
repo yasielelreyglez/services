@@ -141,6 +141,12 @@ class Service
     public $serviceusers;
 
     /**
+     * @Column(type="double")
+     * @var double
+     **/
+    public $globalrate;
+
+    /**
      * One User has Many UserService.
      * @OneToMany(targetEntity="Comments", mappedBy="service")
      */
@@ -163,6 +169,9 @@ class Service
     public $rated;
 
 
+    /**
+     * Service constructor.
+     */
     public function __construct()
     {
         $this->visits = 0;
@@ -175,6 +184,7 @@ class Service
         $this->serviceusers = new \Doctrine\Common\Collections\ArrayCollection();
         $this->servicecomments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->images = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->globalrate=0;
     }
 
     public function getId()
@@ -636,6 +646,8 @@ class Service
         //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
         $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user",\Doctrine\Common\Collections\Expr\Comparison::EQ,$user);
         $criteria->where($expresion);
+
+
         $relacion = $this->getServiceusers()->matching($criteria)->toArray();
         if(count($relacion)>0){
             $relacion = $relacion[0];
@@ -658,5 +670,63 @@ class Service
     public function getServiceusers()
     {
         return $this->serviceusers;
+    }
+
+    /**
+     * @param mixed $serviceusers
+     * @return Service
+     */
+    public function setServiceusers($serviceusers)
+    {
+        $this->serviceusers = $serviceusers;
+        return $this;
+    }
+
+    /**
+     * @param float $globalrate
+     * @return Service
+     */
+    public function setGlobalrate($globalrate)
+    {
+        $this->globalrate = $globalrate;
+        return $this;
+    }
+
+    /**
+     * @param int $visits
+     * @return Service
+     */
+    public function setVisits($visits)
+    {
+        $this->visits = $visits;
+        $subcategories = $this->getSubcategories();
+        foreach ($subcategories as $subcategory) {
+            $subcategory->setVisits($subcategory->getVisits()+1);
+        }
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getVisits()
+    {
+        return $this->visits;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getServicecomments()
+    {
+        return $this->servicecomments;
+    }
+
+    /**
+     * @param mixed $servicecomments
+     */
+    public function setServicecomments($servicecomments)
+    {
+        $this->servicecomments = $servicecomments;
     }
 }

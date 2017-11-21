@@ -27,36 +27,36 @@ class UserService
     public $service;
 
     /**
-     * @Column(type="integer")
+     * @Column(type="integer", nullable=true)
      * @var int
      **/
     public $favorite;
 
     /**
-     * @Column(type="integer")
+     * @Column(type="integer", nullable=true)
      * @var int
      **/
     public $rate;
 
     /**
-     * @Column(type="integer")
+     * @Column(type="integer", nullable=true)
      * @var int
      **/
     public $contacted;
     /**
-     * @Column(type="integer")
+     * @Column(type="integer", nullable=true)
      * @var int
      **/
     public $visited;
 
     /**
-     * @Column(type="string")
+     * @Column(type="string", nullable=true)
      * @var string
      **/
     public $complaint;
 
     /**
-     * @Column(type="datetime")
+     * @Column(type="datetime", nullable=true)
      **/
     public $complaint_created;
     /**

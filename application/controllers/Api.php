@@ -143,10 +143,14 @@ class Api extends REST_Controller
         $user = $this->getCurrentUser();
         $service->getAuthor()->getUsername();
         $service->getPositions()->toArray();
-        $relacion = $service->loadRelatedUserData($user);
+        $service->setVisits($service->getVisitis() + 1);
+        $em->persist($service);
+        $em->flush();
+        $service->loadRelatedUserData($user);
         $data["data"]=$service;
         $data["cities"]=$service->getCities()->toArray();
         $data["positions"]=$service->getPositions()->toArray();
+        $data["comments"]=$service->getServicecomments()->toArray();
         $data["subcategories"]=$service->getSubcategories()->toArray();
         $this->set_response($data, REST_Controller::HTTP_OK);
     }
@@ -280,8 +284,15 @@ class Api extends REST_Controller
     public function rateservice_get($id,$rate){
         $em= $this->doctrine->em;
         $service = $em->find("Entities\Service",$id);
+
         if($service) {
            $user = $this->getCurrentUser();
+           if(!$user){
+               $result["desc"] = "El usuario no esta autenticado";
+               $result["error"] = "El usuario no esta autenticado";
+               $this->set_response($result, REST_Controller::HTTP_UNAUTHORIZED);
+               return;
+           }
             $relacion = $service->loadRelatedUserData($user);
             if (count($relacion) > 0) {
                 $obj = $relacion[0];
@@ -293,6 +304,10 @@ class Api extends REST_Controller
             $obj->setRate($rate);
             $em->persist($obj);
             $em->flush();
+
+            $service->setGlobalRate($this->getGlobalRate($id));
+            $em->persist($obj);
+            $em->flush();
             $result["desc"] = "Evaluando al anuncio $id con $rate puntos";
         }else{
             $result["desc"] = "El servicio no existe";
@@ -301,14 +316,15 @@ class Api extends REST_Controller
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
    //obtener servicios visitados
-    public function myvisits_get(){
+    public function myvisits_get()
+    {
         $user = $this->getCurrentUser();
         $criteria = new \Doctrine\Common\Collections\Criteria();
         //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
-        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("visited",\Doctrine\Common\Collections\Expr\Comparison::EQ,1);
+        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("visited", \Doctrine\Common\Collections\Expr\Comparison::EQ, 1);
         $criteria->where($expresion);
         $relacion = $user->getUserservices()->matching($criteria)->toArray();
-        $result["desc"]="Listado de los servicios marcados como favoritos por el usuario";
+        $result["desc"] = "Listado de los servicios marcados como favoritos por el usuario";
         $result["data"] = array();
         foreach ($relacion as $servicerel) {
             $service_obj = $servicerel->getService();
@@ -317,32 +333,30 @@ class Api extends REST_Controller
         }
 
         $this->set_response($result, REST_Controller::HTTP_OK);
+
     }
+    //COMENTAR UN SERVICIO
+    public function addcomment_get($id){
+        $comment = $this->input->get("comment",true);
+        $em= $this->doctrine->em;
+        $service = $em->find("Entities\Service",$id);
+        $user = $this->getCurrentUser();
 
-
-    function getCurrentUser(){
-        $headers = $this->input->request_headers();
-
-        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
-            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-            if ($decodedToken != false) {
-                $em = $this->doctrine->em;
-                $usuario = $decodedToken->userid;
-                $user = $em->find("Entities\User",$usuario);
-                return $user;
-            }
+        if($user&&$service){
+            $result["desc"]= "COMENTANDO EL SERVICIO $service->getTitle()";
+            $comment = new \Entities\Comments();
+            $comment->setUser($user);
+            $comment->setService($service);
+            $comment->setComment($comment);
+            $em->persist($comment);
+            $em->flush();
+        }else{
+            $result["desc"]= "ERROR COMENTANDO EL SERVICIO $service->getTitle()";
+            $result["error"]= "No esta autenticado o no existe el servicio";
         }
-        if (array_key_exists('authorization', $headers) && !empty($headers['authorization'])) {
-            $decodedToken = AUTHORIZATION::validateToken($headers['authorization']);
-            if ($decodedToken != false) {
-                $em = $this->doctrine->em;
-                $usuario = $decodedToken->userid;
-                $user = $em->find("Entities\User",$usuario);
-                return $user;
-            }
-        }
+        $result["data"] = $service->getServicecomments();
+        $this->set_response($result, REST_Controller::HTTP_OK);
     }
-
 
     public function testimg_post(){
         echo "FALSE";
@@ -491,6 +505,51 @@ class Api extends REST_Controller
 
 
 
+
+        //FUNCIONES DE AYUDA
+    function getGlobalRate($id){
+        $em= $this->doctrine->em;
+        $service = $em->find("Entities\Service",$id);
+        $globalRate = 0;
+        $sum = 0;
+        $countRates = 0;
+        $rates = $service->getServiceusers();
+        foreach ($rates as $rel){
+            $rel = new UserService();
+            if($rel->getRate()){
+                $sum+=$rel->getRate();
+                $countRates+=1;
+            }
+        }
+        $globalRate = $sum/$countRates;
+        return $globalRate;
+    }
+
+    function getCurrentUser(){
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+                $em = $this->doctrine->em;
+                $usuario = $decodedToken->userid;
+                $user = $em->find("Entities\User",$usuario);
+                return $user;
+            }
+        }
+        if (array_key_exists('authorization', $headers) && !empty($headers['authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['authorization']);
+            if ($decodedToken != false) {
+                $em = $this->doctrine->em;
+                $usuario = $decodedToken->userid;
+                $user = $em->find("Entities\User",$usuario);
+                return $user;
+            }
+        }
+    }
+
+
+
     public function users_get(){
         $output["result"]="ejemplo de respuesta";
         $headers = $this->input->request_headers();
@@ -557,25 +616,25 @@ class Api extends REST_Controller
         $this->set_response($headers);
     }
 
-    public function forgotpassword_post()
-    {
-        $email = $this->post()[0];
-        $output["result"] = true;
-        if ($email != 'admin@uci.cu')
-            $output["result"] = 'Error en el servidor';
-        $this->set_response($output, REST_Controller::HTTP_OK);
-        return;
-    }
-
-    public function report_post()
-    {
-        $report = $this->post()[0];
-        $output["result"] = true;
-        if ($report != 'report')
-            $output["result"] = 'Error en el servidor';
-        $this->set_response($output, REST_Controller::HTTP_OK);
-        return;
-    }
+//    public function forgotpassword_post()
+//    {
+//        $email = $this->post()[0];
+//        $output["result"] = true;
+//        if ($email != 'admin@uci.cu')
+//            $output["result"] = 'Error en el servidor';
+//        $this->set_response($output, REST_Controller::HTTP_OK);
+//        return;
+//    }
+//
+//    public function report_post()
+//    {
+//        $report = $this->post()[0];
+//        $output["result"] = true;
+//        if ($report != 'report')
+//            $output["result"] = 'Error en el servidor';
+//        $this->set_response($output, REST_Controller::HTTP_OK);
+//        return;
+//    }
 
 
 }
