@@ -60,10 +60,14 @@ export class WizardserviceComponent implements OnInit {
     changeCity2(){
         console.log("cualquier cosa");
     }
-  create(){
-    console.log("MADO A GUARDAR");
-    this.apiServices.createService(this.service).subscribe(result=>this.siguiente(result));
-  }
+      create(){
+        console.log("MADO A GUARDAR");
+        this.apiServices.createService(this.service).subscribe(result=>this.siguiente(result));
+      }
+        step3(){
+        console.log("MADO A GUARDAR");
+        this.apiServices.createService(this.service).subscribe(result=>this.siguiente(result));
+    }
     galery(){
         console.log("MADO A GUARDAR");
         this.apiServices.createGalery(this.service).subscribe(result=>this.siguiente(result))
