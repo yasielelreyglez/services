@@ -18,6 +18,7 @@ export class ShowserviceComponent implements OnInit {
 
     // directionsDisplay = new google.maps.DirectionsRenderer;
     service: any = {};
+    images: any[] = [];
     days: string[] = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     week_days: any = '';
 
@@ -28,7 +29,9 @@ export class ShowserviceComponent implements OnInit {
         this.route.params.subscribe(params => {
             const id = params['id'];
             this.apiServices.service(id).subscribe(result => {
-                this.service = result;
+                this.service = result.data;
+                this.images= result.images;
+                console.log(result);
                 this.result_week_days();
             });
         });

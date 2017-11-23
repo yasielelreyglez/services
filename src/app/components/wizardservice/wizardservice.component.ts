@@ -51,8 +51,14 @@ export class WizardserviceComponent implements OnInit {
         this.apiServices.createGalery(this.service).subscribe(result=>this.siguiente(result))
     }
   siguiente(result){
-      this.service.id = result.id;
-      this.wizards.navigation.goToNextStep();
+        if(result.id) {
+            this.service.id = result.id;
+            this.wizards.navigation.goToNextStep();
+        }else{
+            //TODO SOLO PARA PRUEBAS QUITAR
+            this.service.id = 2;
+            this.wizards.navigation.goToNextStep();
+        }
   }
 
   onFotoChange(event){

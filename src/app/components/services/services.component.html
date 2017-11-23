@@ -1,4 +1,4 @@
-<div *ngFor="let service of services" class="media" style="border-bottom: 1px solid #bcbcbc;
+<div *ngFor="let service of services;let pos = index;" class="media" style="border-bottom: 1px solid #bcbcbc;
     margin-bottom: 15px; padding-bottom: 10px;">
     <div>
         <span *ngIf="myservices" style="color: #e0040b; font-size: 13px; margin-left: 27px;" class="fw-600">{{valor < service.id ? "En revisión" : "Bloqueado"}}</span>
@@ -28,12 +28,11 @@
                 <span>Calificación: 8/10</span>
             </div>
             <div class="col-3 col-sm-2 col-md-2 col-lg-1 favorite-{{service.favorite}}">
-                <i class="fa fa-heart fa-2x tc-grei "  style="margin-top: 10px;" (click)="markFavorite(service.id)"></i>
+                <i class="fa fa-heart fa-2x tc-grei "  style="margin-top: 10px;" (click)="markFavorite(service.id,service.favorite,pos)"></i>
             </div>
         </div>
         <div class="row" style="margin-top: 3px;">
-            <div class="col-6" style="padding-right: 5px;" *ngIf="!favorites && !myservices"
-                 [routerLink]="['./service', service.id]">
+            <div class="col-6" style="padding-right: 5px;" [routerLink]="['./service', service.id]" *ngIf="!favorites && !myservices" >
                 <div class="text-center fw-600 bc-blue-ligth" style="color: white; font-size: 16px; cursor: pointer;">
                     <i class="fa fa-check d-none d-sm-inline"></i>
                     Visualizar
@@ -47,8 +46,7 @@
                 </div>
             </div>
 
-            <div class="col-12" style="padding-left: 5px;" *ngIf="favorites && !myservices"
-                 [routerLink]="['./service', service.id]">
+            <div class="col-12" style="padding-left: 5px;" [routerLink]="['./service', service.id]" *ngIf="favorites && !myservices" >
                 <div class="text-center fw-600 bc-blue-ligth"
                      style="color: white; font-size: 16px; cursor: pointer;">
                     <i class="fa fa-check d-none d-sm-inline"></i>

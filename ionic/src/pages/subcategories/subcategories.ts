@@ -31,7 +31,7 @@ export class SubcategoriesPage {
     public subCat: SubCategoryProvider,) {
     this.parentTitle= navParams.get("title");
     this.parentId= navParams.get("categoryId");
-    this.baseUrl = api.getbaseUrl() + "resources/image/subcategories/";
+    this.baseUrl = api.getbaseUrl();
 
     // obtengo las subcategorias dada una categoria
      this.loading = this.load.create();

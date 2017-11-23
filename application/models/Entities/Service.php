@@ -156,7 +156,7 @@ class Service
     /**
      * Bidirectional - One-To-Many (INVERSE SIDE)
      *
-     * @OneToMany(targetEntity="Image", mappedBy="service")
+     * @OneToMany(targetEntity="Image", mappedBy="service",cascade={"persist"})
      */
     private $images;
 
@@ -614,6 +614,7 @@ class Service
      */
     public function addImage(Image $image)
     {
+        $image->setService($this);
         $this->images[] = $image;
 
         return $this;
@@ -640,6 +641,20 @@ class Service
     }
 
 
+    public function addFotos(Array $fotos){
+        if (!is_dir("./resources/".$this->id."/")){
+         mkdir("./resources/".$this->id."/");
+        }
+
+        foreach ($fotos as $icon) {
+            $path= "./resources/".$this->id."/".$icon['filename'];
+            file_put_contents($path, base64_decode($icon['value']));
+            $image = new Image();
+            $image->setTitle($path);
+            $this->addImage($image);
+        }
+       return $this;
+    }
 
     public function loadRelatedUserData($user){
         $criteria = new \Doctrine\Common\Collections\Criteria();

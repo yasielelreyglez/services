@@ -21,7 +21,7 @@ export class MyservicesPage {
         content: "Cargando..."
       });
       loading.present();
-      this.baseUrl = api.getbaseUrl() + "resources/image/service/";
+      this.baseUrl = api.getbaseUrl();
 
       this.servProv.getMyServices().then(
         (serv) => {

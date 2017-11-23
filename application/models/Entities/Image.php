@@ -24,7 +24,7 @@ class Image
 
     /**
      *
-     * @ManyToOne(targetEntity="Service", inversedBy="images")
+     * @ManyToOne(targetEntity="Service", inversedBy="images",cascade={"persist"})
      */
     protected $service;
 

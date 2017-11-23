@@ -1,7 +1,7 @@
 <div class="row"><h4 class="tc-blue ">CREAR ANUNCIO:</h4><div class="tc-blue col-6">{{step_title}}</div></div>
 <wizard navBarLayout="large-empty-symbols" #WizardComponent name="WizardComponent" data-step="2">
   <wizard-step stepTitle="" navigationSymbol="1" >
-    <form name="form"  (ngSubmit)="f.form.valid&&create()" #f="ngForm" novalidate class="">
+    <form name="form"  (ngSubmit)="f.form.valid&&create()" #f="ngForm"  class="">
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid }">
         <label for="title">Titulo</label>
         <input type="text" class="form-control" name="title" [(ngModel)]="service.title" #title="ngModel"

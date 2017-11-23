@@ -47,8 +47,8 @@
 <!--</div>-->
 <!--</div>-->
 
-
-<ngb-tabset [destroyOnHide]="false" [activeId]="1" (tabChange)="initMap()"  >
+<!--(tabChange)="initMap()" -->
+<ngb-tabset [destroyOnHide]="false" [activeId]="1"  >
     <ngb-tab title="Informacion">
         <ng-template ngbTabContent>
             <br>
@@ -82,7 +82,8 @@
         <ng-template ngbTabContent>
             <br>
             <div class="row">
-                <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
+
+                <img *ngFor="let prev of images"  class="col-2 d-flex align-self-center" width="115" [src]="'/login/'+prev.title"
                      alt=""
                      style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
                 <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
@@ -91,27 +92,7 @@
                 <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
                      alt=""
                      style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
-                <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
-                     alt=""
-                     style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
-                <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
-                     alt=""
-                     style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
-                <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
-                     alt=""
-                     style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
-                <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
-                     alt=""
-                     style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
-                <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
-                     alt=""
-                     style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
-                <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
-                     alt=""
-                     style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
-                <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
-                     alt=""
-                     style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
+
             </div>
         </ng-template>
     </ngb-tab>

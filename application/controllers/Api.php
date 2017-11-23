@@ -155,6 +155,7 @@ class Api extends REST_Controller
         $data["data"]=$service;
         $data["cities"]=$service->getCities()->toArray();
         $data["positions"]=$service->getPositions()->toArray();
+        $data["images"]=$service->getImages()->toArray();
         $data["comments"]=$service->getServicecomments()->toArray();
         $data["subcategories"]=$service->getSubcategories()->toArray();
         $this->set_response($data, REST_Controller::HTTP_OK);
@@ -257,7 +258,7 @@ class Api extends REST_Controller
         $obj->setFavorite(1);
         $em->persist($obj);
         $em->flush();
-        $result["desc"]= "Marcado como favorito el servicio $service->getTitle()";
+        $result["desc"]= "Marcado como favorito el servicio {$service->getTitle()}";
         $result["data"]=$service;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
@@ -267,8 +268,8 @@ class Api extends REST_Controller
         $service = $em->find("Entities\Service",$id);
         $user= $this->getCurrentUser();
         $relacion = $service->loadRelatedUserData($user);
-        if(count($relacion)>0){
-            $obj = $relacion[0];
+        if($relacion){
+            $obj = $relacion;
         }else{
             $obj = new \Entities\UserService();
             $obj->setService($service);
@@ -277,7 +278,7 @@ class Api extends REST_Controller
         $obj->setFavorite(0);
         $em->persist($obj);
         $em->flush();
-        $result["desc"]= "Desmarcado como favorito el servicio $service->getTitle()";
+        $result["desc"]= "Desmarcado como favorito el servicio {$service->getTitle()}";
         $result["data"]=$service;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
