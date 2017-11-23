@@ -117,7 +117,7 @@
   </wizard-step>
 
   <wizard-step stepTitle="" (stepEnter)="step_title='Info adicional'" navigationSymbol="3">
-    <form name="form3"  (ngSubmit)="f3.form.valid&&create()" #f3="ngForm"  class="">
+    <form name="form3"  (ngSubmit)="f3.form.valid&&step3()" #f3="ngForm"  class="">
       <div class="form-group" [ngClass]="{ 'has-error': f3.submitted && !other_phone.valid }">
         <label for="other_phone">Telefono Adicional</label>
         <input type="number" class="form-control" name="other_phone" [(ngModel)]="service.other_phone" #other_phone="ngModel"
@@ -129,7 +129,7 @@
         <label for="email">Correo elecronico</label>
         <input type="email" class="form-control" name="email" [(ngModel)]="service.email" #email="ngModel"
                placeholder="Escriba su email"/>
-        <div *ngIf="f3.submitted && subtitle.hasError('email')" class="help-block">Correo incorrecto</div>
+        <div *ngIf="f3.submitted && email.hasError('email')" class="help-block">Correo incorrecto</div>
 
       </div>
       <div class="form-group" [ngClass]="{ 'has-error': f3.submitted && !url.valid }">
@@ -140,7 +140,23 @@
 
       <!--<br>-->
       <div class="form-group">
-          <mat-checkbox class="example-margin md-4" *ngFor="let day of week_days;let pos = index;" [(ngModel)]="service.week_days[pos]" value="{{pos}}" name="week_days" >{{day.title}}</mat-checkbox>
+          <mat-checkbox class="example-margin col-4" *ngFor="let day of week_days;let pos = index;" [(ngModel)]="service.week_days[pos]" value="{{pos}}" name="week_days" >{{day.title}}</mat-checkbox>
+      </div>
+      <div class="form-group form-inline" >
+
+        <label for="start_time">Desde</label>
+        <input type="text" class="form-control" name="start_time" [(ngModel)]="service.start_time" #start_time="ngModel"
+               placeholder="Desde"/>
+        <div *ngIf="f3.submitted && start_time.hasError('start_time')" class="help-block">Hora incorrecta</div>
+
+      </div>
+      <div class="form-group form-inline" >
+
+        <label for="end_time">Hasta</label>
+        <input type="text" class="form-control" name="end_time" [(ngModel)]="service.end_time" #end_time="ngModel"
+               placeholder="Hasta"/>
+        <div *ngIf="f3.submitted && start_time.hasError('end_time')" class="help-block">Hora incorrecta</div>
+
       </div>
       <div class="form-group">
         <!--<mat-form-field class="form-group ">-->
@@ -173,8 +189,11 @@
     <button type="button" nextStep>Go to next step</button>
   </wizard-step>
   <wizard-step stepTitle="" (stepEnter)="step_title='Ubicaciones'"  navigationSymbol="4">
-    Content of Step 3
-    <button type="button" previousStep>Previous Step</button>
+    <div class="form-group" [ngClass]="{ 'has-error': f3.submitted && !other_phone.valid }">
+      <label for="ubicacion_title">Nombre Ubicacion</label>
+      <input type="number" class="form-control" name="ubicacion"
+             placeholder=""/>
+    </div>
     <button type="button" (click)="finishFunction()">Finish</button>
   </wizard-step>
   <!--wizardCompletionStep-->
