@@ -16,14 +16,25 @@ export class WizardserviceComponent implements OnInit {
     @ViewChild(WizardComponent)
     public wizards: WizardComponent;
 
-  step_title:string
+  step_title:string;
     previews:string[][];
     previewvalue="assets/imagenes.png";
     service:Service;
     cities:City[];
     categories:any;
     currentPos = 0;
-    nextAvailable= false
+
+    week_days = [
+        {title:"Lunes",value:false},
+        {title:"Martes",value:false},
+        {title:"Miercoles",value:false},
+        {title:"Jueves",value:false},
+        {title:"Viernes",value:false},
+        {title:"Sabado",value:false},
+        {title:"Domingo",value:false},
+    ];
+
+
   constructor(private apiServices: ApiService) {
       this.previews = [
           ["assets/imagenes.png","assets/imagenes.png","assets/imagenes.png"],
@@ -34,6 +45,7 @@ export class WizardserviceComponent implements OnInit {
       this.step_title = "Datos iniciales";
       this.service = new Service();
       this.service.galery = new Array();
+      this.service.week_days= [false,false,false,false,false,false,false]
   }
 
   ngOnInit() {

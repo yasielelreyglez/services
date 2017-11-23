@@ -643,9 +643,8 @@ class Service
 
     public function addFotos(Array $fotos){
         if (!is_dir("./resources/".$this->id."/")){
-         mkdir("./resources/".$this->id."/");
+            mkdir("./resources/".$this->id."/");
         }
-
         foreach ($fotos as $icon) {
             $path= "./resources/".$this->id."/".$icon['filename'];
             file_put_contents($path, base64_decode($icon['value']));
@@ -655,7 +654,17 @@ class Service
         }
        return $this;
     }
-
+    public function addPossitions(Array $positions){
+        foreach ($positions as $position) {
+            $poss = new Position();
+            $poss->setTitle($position["title"]);
+            $poss->setLatitude($position["latitude"]);
+            $poss->setLongitude($position["longitude"]);
+            $poss->setService($this);
+            $this->addPosition($poss);
+        }
+        return $this;
+    }
     public function loadRelatedUserData($user){
         $criteria = new \Doctrine\Common\Collections\Criteria();
         //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO

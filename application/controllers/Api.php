@@ -461,20 +461,33 @@ class Api extends REST_Controller
         $em = $this->doctrine->em;
         $service = $em->find("\Entities\Service",$this->post('id', TRUE));
         $fotos =  $this->post('galery', TRUE);
-        $service->addFotos($fotos);
-        $em->persist($service);
-        $em->flush();
-//        $service->addSubCategories($this->post('categories', TRUE),$em);
-//        $service->addCities($this->post('cities', TRUE),$em);
-//        $icon = $this->post('icon');
-//        $path= "./resources/".$icon['filename'];
-//        file_put_contents($path, base64_decode($icon['value']));
-//        $service->setIcon($path);
+//        $service->addFotos($fotos);
 //        $em->persist($service);
 //        $em->flush();
         $this->set_response($service, REST_Controller::HTTP_OK);
     }
-
+    function createservicestep3_post(){
+        $em = $this->doctrine->em;
+        $service = $em->find("\Entities\Service",$this->post('id', TRUE));
+        $service->setOtherPhone($this->post('other_phone', TRUE));
+        $service->setEmail($this->post('email', TRUE));
+        $service->setUrl($this->post('url', TRUE));
+        $service->setWeekDays($this->post('week_days', TRUE));
+        $service->setStartTime($this->post('start_time', TRUE));
+        $service->setEndTime($this->post('end_time', TRUE));
+        $em->persist($service);
+        $em->flush();
+        $this->set_response($service, REST_Controller::HTTP_OK);
+    }
+    function createservicestep4_post(){
+        $em = $this->doctrine->em;
+        $service = $em->find("\Entities\Service",$this->post('id', TRUE));
+        $positions =  $this->post('positions', TRUE);
+        $service->addPositions($positions);
+        $em->persist($service);
+        $em->flush();
+        $this->set_response($service, REST_Controller::HTTP_OK);
+    }
     function createservice_post(){
             $id =  $this->input->post('id', TRUE);
             $em = $this->doctrine->em;
