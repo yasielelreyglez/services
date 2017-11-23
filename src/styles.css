@@ -5,7 +5,7 @@
     text-align: left;
 }
 
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+/*@import "~@angular/material/prebuilt-themes/indigo-pink.css";*/
 /* GENERALES */
 .tc-blue {
     color: #0092B5;
