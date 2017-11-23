@@ -2,8 +2,7 @@ import {Component, OnInit,ViewChild} from '@angular/core';
 import {ApiService} from '../../_services/api.service';
 import {Service } from '../../_models/service';
 import {City } from '../../_models/city';
-import {WizardComponent,WizardState} from "ng2-archwizard/dist";
-import {toInteger} from "@ng-bootstrap/ng-bootstrap/util/util";
+import {WizardComponent} from "ng2-archwizard/dist";
 
 
 
@@ -42,9 +41,16 @@ export class WizardserviceComponent implements OnInit {
       this.apiServices.allSubCategories().subscribe(result =>  this.categories =  result);
   }
 
+    changeCity(city){
+        console.log("cualquier cosa");
+        console.log(city);
+    }
+    changeCity2(){
+        console.log("cualquier cosa");
+    }
   create(){
     console.log("MADO A GUARDAR");
-    this.apiServices.createService(this.service).subscribe(result=>this.siguiente(result))
+    this.apiServices.createService(this.service).subscribe(result=>this.siguiente(result));
   }
     galery(){
         console.log("MADO A GUARDAR");
@@ -92,7 +98,6 @@ export class WizardserviceComponent implements OnInit {
       if(event.target.files && event.target.files.length > 0) {
           let file = event.target.files[0];
           reader.readAsDataURL(file);
-          console.log("cargando el fichero");
           reader.onload = () => {
               this.service.icon = ({
                   filename: file.name,

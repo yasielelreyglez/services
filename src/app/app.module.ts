@@ -29,9 +29,8 @@ import {ShowserviceComponent} from './components/showservice/showservice.compone
 import {RatingComponent} from './components/_modals/rating/rating.component';
 import { ArchwizardModule } from 'ng2-archwizard';
 import { WizardserviceComponent } from './components/wizardservice/wizardservice.component';
-import {MatSelectModule} from '@angular/material/select'
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatSelectModule} from '@angular/material';
 
 @NgModule({
     declarations: [
