@@ -2,6 +2,7 @@ import {Component, OnInit, Input} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ApiService} from '../../_services/api.service';
 import {ReportComponent} from '../_modals/report/report.component';
+import {AuthService} from '../../_services/auth.service';
 
 @Component({
     selector: 'app-services',
@@ -13,24 +14,29 @@ export class ServicesComponent implements OnInit {
     @Input() favorites?: boolean;
     @Input() myservices?: boolean;
     valor = 2;
-    constructor(private modalService: NgbModal,private apiServices: ApiService) {
+    loggedIn = false;
+
+    constructor(private modalService: NgbModal, private apiServices: ApiService, private authServices: AuthService) {
     }
 
     ngOnInit() {
+        this.authServices.currentUser.subscribe(user => {
+            this.loggedIn = !!user;
+        });
     }
 
     open() {
         const modalRef = this.modalService.open(ReportComponent);
     }
 
-    markFavorite(id,state,pos){
+    markFavorite(id, state, pos) {
         console.log(id);
-        var results:any;
-        if(state==1) {
+        var results: any;
+        if (state === 1) {
             this.apiServices.disMarkfavorite(id).subscribe(result => results = result);
             this.services[pos].favorite = 0;
-        }else{
-            this.apiServices.markfavorite(id).subscribe(result =>  results =  result);
+        } else {
+            this.apiServices.markfavorite(id).subscribe(result => results = result);
             this.services[pos].favorite = 1;
         }
 

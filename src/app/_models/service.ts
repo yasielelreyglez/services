@@ -1,18 +1,18 @@
 export class Service {
-    id:number;
+    id: number;
     title: string;
     subtitle: string;
     phone: string;
     address: string;
-    icon: string|any;
+    icon: string | any;
     cities: any[];
     categories: any[];
-    galery:any[];
-    other_phone:string;
-    email:string;
-    url:string;
-    week_days:any[];
-    start_time:string;
-    end_time:string;
+    galery: any[];
+    other_phone: string;
+    email: string;
+    url: string;
+    week_days: any[];
+    start_time: string;
+    end_time: string;
 
 }

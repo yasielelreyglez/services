@@ -11,6 +11,7 @@ export class ShowservicesComponent implements OnInit {
     services: any;
 
     constructor(private route: ActivatedRoute, private apiServices: ApiService) {
+
     }
 
     ngOnInit() {
@@ -18,6 +19,8 @@ export class ShowservicesComponent implements OnInit {
             const id = params['id'];
             this.apiServices.servicesSub(id).subscribe(result => this.services = result);
         });
+
+
     }
 
 }
