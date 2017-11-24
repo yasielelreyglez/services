@@ -28,7 +28,8 @@
                 <span>Ciudad: Quito</span><br>
                 <span>Calificación: 8/10</span>
             </div>
-            <div *ngIf="loggedIn" class="col-3 col-sm-2 col-md-2 col-lg-1 favorite-{{service.favorite}}" style="cursor: pointer;">
+            <div *ngIf="loggedIn" class="col-3 col-sm-2 col-md-2 col-lg-1 favorite-{{service.favorite}}"
+                 style="cursor: pointer;">
                 <i class="fa fa-heart fa-2x tc-grei " style="margin-top: 10px;"
                    (click)="markFavorite(service.id,service.favorite,pos)"></i>
             </div>

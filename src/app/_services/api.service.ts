@@ -205,6 +205,16 @@ export class ApiService {
         }
     }
 
+    searchService(query: any): Observable<any> {
+        return this.http.get('http://localhost/login/api/searchservice/' + query).map(response => {
+            if (response)
+                return response.json().data;
+            else {
+                return new Array();
+            }
+        });
+    }
+
     createGalery(service: Service): Observable<any> {
         // const body = JSON.stringify(service);
         const currentUser = localStorage.getItem('currentUser');

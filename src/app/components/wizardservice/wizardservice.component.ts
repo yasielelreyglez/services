@@ -44,7 +44,7 @@ export class WizardserviceComponent implements OnInit {
         this.step_title = 'Datos iniciales';
         this.service = new Service();
         this.service.galery = new Array();
-        this.service.week_days = [false, false, false, false, false, false, false]
+        this.service.week_days = [false, false, false, false, false, false, false];
     }
 
     ngOnInit() {

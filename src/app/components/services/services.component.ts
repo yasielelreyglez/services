@@ -31,7 +31,7 @@ export class ServicesComponent implements OnInit {
 
     markFavorite(id, state, pos) {
         console.log(id);
-        var results: any;
+        let results: any;
         if (state === 1) {
             this.apiServices.disMarkfavorite(id).subscribe(result => results = result);
             this.services[pos].favorite = 0;
@@ -39,8 +39,6 @@ export class ServicesComponent implements OnInit {
             this.apiServices.markfavorite(id).subscribe(result => results = result);
             this.services[pos].favorite = 1;
         }
-
-        console.log(results);
     }
 
 }
