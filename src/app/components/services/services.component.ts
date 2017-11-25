@@ -11,7 +11,7 @@ import {AuthService} from '../../_services/auth.service';
 })
 export class ServicesComponent implements OnInit {
     @Input() services: any;
-    @Input() favorites?: boolean;
+    @Input() myfavorites?: boolean;
     @Input() myservices?: boolean;
     valor = 2;
     loggedIn = false;
@@ -30,11 +30,13 @@ export class ServicesComponent implements OnInit {
     }
 
     markFavorite(id, state, pos) {
-        console.log(id);
         let results: any;
         if (state === 1) {
-            this.apiServices.disMarkfavorite(id).subscribe(result => results = result);
-            this.services[pos].favorite = 0;
+            this.apiServices.disMarkfavorite(id).subscribe(() => {
+                this.services[pos].favorite = 0;
+                if (this.myfavorites)
+                    this.services = this.services.filter(service => service.id !== id);
+            });
         } else {
             this.apiServices.markfavorite(id).subscribe(result => results = result);
             this.services[pos].favorite = 1;

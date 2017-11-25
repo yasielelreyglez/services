@@ -12,7 +12,7 @@
     height: 16px;
     background-color: #44AB6C;
     color: white;
-    font-size: 11px;" *ngIf="service.id < 2 && !favorites && !myservices">PRO
+    font-size: 11px;" *ngIf="service.id < 2 && !myfavorites && !myservices">PRO
         </div>
         <hr style="background-color: #bcbcbc;">
         <div class="row">
@@ -36,13 +36,13 @@
         </div>
         <div class="row" style="margin-top: 3px;">
             <div class="col-6" style="padding-right: 5px;" [routerLink]="['./service', service.id]"
-                 *ngIf="!favorites && !myservices">
+                 *ngIf="!myfavorites && !myservices">
                 <div class="text-center fw-600 bc-blue-ligth" style="color: white; font-size: 16px; cursor: pointer;">
                     <i class="fa fa-check d-none d-sm-inline"></i>
                     Visualizar
                 </div>
             </div>
-            <div class="col-6" style="padding-left: 5px;" *ngIf="!favorites && !myservices">
+            <div class="col-6" style="padding-left: 5px;" *ngIf="!myfavorites && !myservices">
                 <div class="text-center fw-600" (click)="open()"
                      style="color: white; font-size: 16px; background-color: #DF040B; cursor: pointer;">
                     <i class="fa fa-microphone d-none d-sm-inline"></i>
@@ -51,7 +51,7 @@
             </div>
 
             <div class="col-12" style="padding-left: 5px;" [routerLink]="['./service', service.id]"
-                 *ngIf="favorites && !myservices">
+                 *ngIf="myfavorites && !myservices">
                 <div class="text-center fw-600 bc-blue-ligth"
                      style="color: white; font-size: 16px; cursor: pointer;">
                     <i class="fa fa-check d-none d-sm-inline"></i>

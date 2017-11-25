@@ -9,7 +9,7 @@ import {isNull} from 'util';
     templateUrl: './showservices.component.html',
     styleUrls: ['./showservices.component.css']
 })
-export class ShowservicesComponent implements OnInit, OnDestroy {
+export class ShowservicesComponent implements OnInit {
 
     services: any;
 
@@ -17,19 +17,15 @@ export class ShowservicesComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.data.services.subscribe(result => {
-            if (!isNull(result))
-                this.services = result;
+        this.route.params.subscribe((params: Params) => {
+            const id = params['id'];
+            if (id)
+                this.apiServices.servicesSub(id).subscribe(resultparams => this.services = resultparams);
             else {
-                this.route.params.subscribe((params: Params) => {
-                    const id = params['id'];
-                    this.apiServices.servicesSub(id).subscribe(resultparams => this.services = resultparams);
+                this.data.services.subscribe(result => {
+                    this.services = result;
                 });
             }
         });
-    }
-
-    ngOnDestroy() {
-        this.data.services.next(null);
     }
 }
