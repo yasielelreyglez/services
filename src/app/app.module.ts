@@ -27,10 +27,13 @@ import {ShowfavoritesComponent} from './components/showfavorites/showfavorites.c
 import {ShowmyservicesComponent} from './components/showmyservices/showmyservices.component';
 import {ShowserviceComponent} from './components/showservice/showservice.component';
 import {RatingComponent} from './components/_modals/rating/rating.component';
-import { ArchwizardModule } from 'ng2-archwizard';
-import { WizardserviceComponent } from './components/wizardservice/wizardservice.component';
+import {ArchwizardModule} from 'ng2-archwizard';
+import {WizardserviceComponent} from './components/wizardservice/wizardservice.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatSelectModule,MatCheckboxModule} from '@angular/material';
+import {
+    MatSelectModule, MatCheckboxModule, MatToolbarModule, MatMenuModule, MatIconModule, MatButtonModule,
+    MatFormFieldModule, MatInputModule, MatGridListModule, MatCardModule
+} from '@angular/material';
 
 @NgModule({
     declarations: [
@@ -68,6 +71,14 @@ import {MatSelectModule,MatCheckboxModule} from '@angular/material';
         AppRoutes,
         MatSelectModule,
         MatCheckboxModule,
+        MatToolbarModule,
+        MatMenuModule,
+        MatIconModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatGridListModule,
+        MatCardModule,
         NgbModule.forRoot()
 
     ],

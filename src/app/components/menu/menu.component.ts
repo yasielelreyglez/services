@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from '../../_services/auth.service';
 import {Router} from '@angular/router';
+import {MatMenuTrigger} from '@angular/material';
 
 
 @Component({
@@ -10,6 +11,8 @@ import {Router} from '@angular/router';
 })
 export class MenuComponent implements OnInit {
     loggedIn = false;
+    @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
+
 
     constructor(public authServices: AuthService, private router: Router) {
 
@@ -24,6 +27,10 @@ export class MenuComponent implements OnInit {
     logout(): void {
         this.authServices.logout();
         this.router.navigate(['']);
+    }
+
+    menu() {
+        this.trigger.openMenu();
     }
 
 }

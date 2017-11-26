@@ -1,14 +1,13 @@
-<nav class="navbar navbar-expand-lg navbar-light bc-blue-ligth row">
-    <div class="col-2">
-        <!--<i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>-->
-    </div>
-    <div class="col-8 text-center">
-        <a class="navbar-brand" routerLink="">LOGO</a>
-    </div>
-    <div class="col-2">
+<mat-toolbar color="primary" role="header">
+    <mat-toolbar-row>
+        <span routerLink="" class="tc-white cp">LOGO</span>
+        <span class="center-spacer"></span>
+
         <app-menu></app-menu>
-    </div>
-</nav>
+
+    </mat-toolbar-row>
+</mat-toolbar>
+<br><br>
 
 <div class="container">
     <router-outlet #leftMenu></router-outlet>

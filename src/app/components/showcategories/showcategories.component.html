@@ -1,12 +1,15 @@
 <div class="col-12">
-  <h4 class="text-center tc-blue">Categorías</h4>
-  <hr class="bc-grei">
-  <li *ngFor="let category of categories" class="list-btn">
-    <button class="btn btn-primary col-12" (click)="dataTitle(category.title)" [routerLink]="['/categories', category.id]">
-      <!--<img src="{{subcategory.icon}}" alt="">-->
-      <!--<i class="fa fa-star"></i>-->
-      {{category.title}}
-    </button>
-  </li>
+    <h4 class="text-center tc-blue">Categorías</h4>
+    <hr class="bc-grei">
+
+    <mat-grid-list cols="3" id="mat-categories" rowHeight="160px">
+        <mat-grid-tile *ngFor="let category of categories" class="text-center">
+            <div class="mat-content text-center cp" (click)="dataTitle(category.title)"
+                 [routerLink]="['/categories', category.id]">
+                <img src="/login/{{category.icon}}" alt="">
+                <p class="tc-grei fw-600">{{category.title}}</p>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
 
 </div>
