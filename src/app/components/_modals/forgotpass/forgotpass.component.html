@@ -1,13 +1,10 @@
-<!--<div class="modal-header bc-blue-dark">-->
-    <h4 class="text-center tc-blue">Olvido de cotraseña</h4>
-    <!--<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">-->
-        <!--<span aria-hidden="true">&times;</span>-->
-    <!--</button>-->
-<!--</div>-->
+<h4 class="text-center tc-blue">Olvido de cotraseña</h4>
+
 <div class="modal-body">
     <form [formGroup]="forgotForm" (ngSubmit)="forgotForm.valid && enviar()">
         <mat-form-field>
-            <input matInput placeholder="Correo electrónico" [(ngModel)]="model.email" [formControl]="forgotForm.controls['email']"
+            <input matInput placeholder="Correo electrónico" [(ngModel)]="model.email"
+                   [formControl]="forgotForm.controls['email']"
                    required>
             <mat-error *ngIf="forgotForm.controls['email'].invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>

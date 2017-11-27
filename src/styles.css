@@ -96,6 +96,7 @@
     padding-top: 12px !important;
 }
 
+
 #mat-categories img {
     width: 110px;
     padding-bottom: 5px;
@@ -105,7 +106,7 @@
     font-size: 18px;
 }
 
-#mat-categories div.mat-content:hover img {
+.scale:hover {
     -webkit-transform: scale(1.10);
     -moz-transform: scale(1.10);
     -ms-transform: scale(1.10);
@@ -116,6 +117,66 @@
 
 :focus {
     outline: none;
+}
+
+.services-card {
+    padding: 15px 16px !important;
+    margin-bottom: 15px;
+}
+
+.services-card img {
+    border: 1px solid #bcbcbc;
+    padding: 5px;
+    height: 122.891px;
+}
+
+.services-card hr {
+    background-color: #bcbcbc;
+}
+
+.services-card span {
+    font-size: 13px;
+}
+
+.services-card i.scale {
+    margin-top: 13px;
+}
+
+.services-card .info {
+    line-height: 1.2;
+}
+
+.services-card .mat-raised-button {
+    line-height: 26px;
+}
+
+.services-card .media-body button span {
+    /*height: 24px !important;*/
+    font-size: 16px !important;
+}
+
+.services-card .media-body .pro {
+    width: 35px;
+    height: 16px;
+    background-color: #44AB6C;
+    color: white;
+    font-size: 11px;
+}
+
+.bc-green{
+    background-color: #008F2F !important;
+}
+
+.bc-yellow{
+    background-color: #F09700 !important;
+}
+
+.bc-red{
+    background-color: #E0040B !important;
+}
+
+.services-card mat-grid-list{
+    margin-top: 2px !important;
 }
 
 /*mat-grid-tile {*/
