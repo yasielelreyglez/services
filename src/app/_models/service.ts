@@ -14,5 +14,6 @@ export class Service {
     week_days: any[];
     start_time: string;
     end_time: string;
+    positions: any[];
 
 }

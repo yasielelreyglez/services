@@ -46,13 +46,13 @@
                 </mat-form-field>
             </div>
             <div class="form-group">
-                <!--<mat-form-field class="form-group ">-->
-                <!--<mat-select placeholder="Categorias" class="form-control" multiple="true" [(ngModel)]="service.categories" name="categories">-->
-                <!--<mat-option *ngFor="let category of categories" [value]="category.id">-->
-                <!--{{ category.title }}-->
-                <!--</mat-option>-->
-                <!--</mat-select>-->
-                <!--</mat-form-field>-->
+                <mat-form-field class="form-group ">
+                <mat-select placeholder="Categorias" class="form-control" multiple="true" [(ngModel)]="service.categories" name="categories">
+                <mat-option *ngFor="let category of categories" [value]="category.id">
+                {{ category.title }}
+                </mat-option>
+                </mat-select>
+                </mat-form-field>
             </div>
             <div class="form-group">
                 <img name="preview" src="{{previewvalue}}" height="60" width="70"/>
@@ -186,17 +186,7 @@
                 <!--</mat-select>-->
                 <!--</mat-form-field>-->
             </div>
-            <div class="form-group">
-                <img name="preview" src="{{previewvalue}}" height="60" width="70"/>
-                <label class="fileContainer">
-                    <div class="btn btn-primary">
-                        Subir Foto
-                    </div>
-                    <input type="file" class="btn btn-primary col-6" name="icon" size="20"
-                           (change)="onFileChange($event)" #fileInput/>
 
-                </label>
-            </div>
             <div class="form-group text-center">
                 <!--nextStep-->
                 <button type="submit" class="btn btn-primary col-6">
@@ -209,12 +199,29 @@
         <button type="button" nextStep>Go to next step</button>
     </wizard-step>
     <wizard-step stepTitle="" (stepEnter)="step_title='Ubicaciones'" navigationSymbol="4">
-        <div class="form-group" [ngClass]="{ 'has-error': f3.submitted && !other_phone.valid }">
-            <label for="ubicacion_title">Nombre Ubicacion</label>
-            <input type="number" class="form-control" name="ubicacion"
-                   placeholder=""/>
+        <form name="form4" (ngSubmit)="f4.form.valid&&step3()" #f4="ngForm" class="">
+        <div class="form-group" [ngClass]="{ 'has-error': f4.submitted && !position.valid }">
+            <label for="position_title">Nombre Ubicacion</label>
+            <input type="text" class="form-control" name="positiontitle"
+                   placeholder="Escriba el nombre de la ubicacion" [(ngModel)]="positiontitle"  #position="ngModel"/>
         </div>
-        <button type="button" (click)="finishFunction()">Finish</button>
+            <div class="form-group" [ngClass]="{ 'has-error': f4.submitted && !latitud.valid }">
+                <label for="ubicacion_title">latitude</label>
+                <input type="string" class="form-control" name="latitud"
+                       placeholder="" [(ngModel)]="latitude" #latitud="ngModel"/>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': f4.submitted && !longitud.valid }">
+                <label for="ubicacion_title">Nombre Ubicacion</label>
+                <input type="string" class="form-control" name="ubicacion"
+                       placeholder="" [(ngModel)]="longitude" #longitud="ngModel" />
+            </div>
+
+            <button type="submit" class="btn btn-primary col-6" (click)="addPosition()">Agregar posiciones</button>
+        </form>
+        <div *ngFor="let poss of service.positions">
+            <div class="pill" >{{poss.title}}</div>
+        </div>
+        <button type="button" class="btn btn-primary col-6" (click)="finishFunction()">Terminar</button>
     </wizard-step>
     <!--wizardCompletionStep-->
 </wizard>
