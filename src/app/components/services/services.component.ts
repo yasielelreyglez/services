@@ -1,8 +1,8 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ApiService} from '../../_services/api.service';
 import {ReportComponent} from '../_modals/report/report.component';
 import {AuthService} from '../../_services/auth.service';
+import {MatDialog} from '@angular/material';
 
 @Component({
     selector: 'app-services',
@@ -16,7 +16,7 @@ export class ServicesComponent implements OnInit {
     valor = 2;
     loggedIn = false;
 
-    constructor(private modalService: NgbModal, private apiServices: ApiService, private authServices: AuthService) {
+    constructor(public dialog: MatDialog, private apiServices: ApiService, private authServices: AuthService) {
     }
 
     ngOnInit() {
@@ -25,8 +25,14 @@ export class ServicesComponent implements OnInit {
         });
     }
 
-    open() {
-        const modalRef = this.modalService.open(ReportComponent);
+    openDialog(): void {
+        let dialogRef = this.dialog.open(ReportComponent, {
+            width: '70%',
+        });
+
+        dialogRef.afterClosed().subscribe(() => {
+            console.log('The dialog was closed');
+        });
     }
 
     markFavorite(id, state, pos) {

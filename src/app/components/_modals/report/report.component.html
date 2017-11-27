@@ -1,23 +1,19 @@
-<div class="modal-header bc-blue-dark">
-    <h4 class="modal-title">Denuciar este comentario</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
+<h4 class="text-center tc-blue">Denuciar este comentario</h4>
+
 <div class="modal-body">
-    <h5 class="tc-blue text-center">Escribe la denuncia que deseas hacer</h5>
-    <form name="form" (ngSubmit)="f.form.valid && enviar()" #f="ngForm" novalidate class="">
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !report.valid }">
-      <textarea type="text" class="form-control" name="report" [(ngModel)]="model.report" #report="ngModel"
-                placeholder="" required></textarea>
-            <div *ngIf="f.submitted && !report.valid" class="help-block">Report is required</div>
-        </div>
+    <form [formGroup]="reportForm" (ngSubmit)="reportForm.valid && enviar()">
+        <mat-form-field>
+            <textarea matInput placeholder="Escribe la denuncia que deseas hacer" [(ngModel)]="model.report"
+                   [formControl]="reportForm.controls['report']"
+                   required></textarea>
+            <mat-error *ngIf="reportForm.controls['report'].invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
 
         <div *ngIf="error" class="alert alert-danger">{{error}}</div>
         <br>
         <div class="form-group text-center">
-            <button [disabled]="loading" class="btn btn-primary bc-blue-dark col-md-12">
-                <i class="fa fa-microphone"></i>
+            <button mat-raised-button color="primary" [disabled]="loading" class="col-12 tc-white">
+                <mat-icon>mic</mat-icon>
                 Realizar denuncia
             </button>
             <img *ngIf="loading"

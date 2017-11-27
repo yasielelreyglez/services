@@ -675,15 +675,13 @@ class Api extends REST_Controller
         return;
     }
 
-//    public function report_post()
-//    {
-//        $report = $this->post()[0];
-//        $output["result"] = true;
-//        if ($report != 'report')
-//            $output["result"] = 'Error en el servidor';
-//        $this->set_response($output, REST_Controller::HTTP_OK);
-//        return;
-//    }
-
-
+    public function report_post()
+    {
+        $report = $this->post()[0];
+        $output["result"] = true;
+        if ($report != 'report')
+            $output["result"] = 'Error en el servidor';
+        $this->set_response($output, REST_Controller::HTTP_OK);
+        return;
+    }
 }
