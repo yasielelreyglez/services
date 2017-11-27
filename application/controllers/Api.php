@@ -665,16 +665,16 @@ class Api extends REST_Controller
         $this->set_response($headers);
     }
 
-//    public function forgotpassword_post()
-//    {
-//        $email = $this->post()[0];
-//        $output["result"] = true;
-//        if ($email != 'admin@uci.cu')
-//            $output["result"] = 'Error en el servidor';
-//        $this->set_response($output, REST_Controller::HTTP_OK);
-//        return;
-//    }
-//
+    public function forgotpassword_post()
+    {
+        $email = $this->post()[0];
+        $output["result"] = true;
+        if ($email != 'admin@uci.cu')
+            $output["result"] = 'Error en el servidor';
+        $this->set_response($output, REST_Controller::HTTP_OK);
+        return;
+    }
+
 //    public function report_post()
 //    {
 //        $report = $this->post()[0];

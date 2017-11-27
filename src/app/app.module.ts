@@ -3,7 +3,7 @@ import {AuthService} from './_services/auth.service';
 import {AuthGuard} from './_guards/auth.guard';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule, JsonpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
@@ -32,7 +32,7 @@ import {WizardserviceComponent} from './components/wizardservice/wizardservice.c
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
     MatSelectModule, MatCheckboxModule, MatToolbarModule, MatMenuModule, MatIconModule, MatButtonModule,
-    MatFormFieldModule, MatInputModule, MatGridListModule, MatCardModule
+    MatFormFieldModule, MatInputModule, MatGridListModule, MatCardModule, MatDialogModule
 } from '@angular/material';
 
 @NgModule({
@@ -65,6 +65,7 @@ import {
         BrowserAnimationsModule,
         BrowserModule,
         FormsModule,
+        ReactiveFormsModule,
         HttpModule,
         JsonpModule,
         ArchwizardModule,
@@ -79,6 +80,7 @@ import {
         MatInputModule,
         MatGridListModule,
         MatCardModule,
+        MatDialogModule,
         NgbModule.forRoot()
 
     ],

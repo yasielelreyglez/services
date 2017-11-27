@@ -2,8 +2,9 @@ import {User} from './../../_models/user';
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../../_services/auth.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ForgotpassComponent} from '../_modals/forgotpass/forgotpass.component';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatDialog} from '@angular/material';
 
 @Component({
     selector: 'app-login',
@@ -14,8 +15,10 @@ export class LoginComponent implements OnInit {
     user: User;
     loading: boolean;
     error: string;
+    hide = true;
+    loginForm: FormGroup;
 
-    constructor(private router: Router, private authService: AuthService, private modalService: NgbModal) {
+    constructor(public dialog: MatDialog, private router: Router, private authService: AuthService) {
         this.user = new User();
         this.loading = false;
         this.error = '';
@@ -24,6 +27,21 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
         // reset login status
         this.authService.logout();
+        this.createForm();
+    }
+
+    private createForm() {
+        this.loginForm = new FormGroup({
+            email: new FormControl('', [Validators.required, Validators.email]),
+            password: new FormControl('', Validators.required),
+        });
+    }
+
+    getErrorMessage() {
+        return this.loginForm.controls['email'].hasError('required') ? 'You must enter a value' :
+            this.loginForm.controls['email'].hasError('email') ? 'Not a valid email' :
+                this.loginForm.controls['password'].hasError('required') ? 'You must enter a value' :
+                    '';
     }
 
     login() {
@@ -39,8 +57,14 @@ export class LoginComponent implements OnInit {
             });
     }
 
-    open() {
-        const modalRef = this.modalService.open(ForgotpassComponent);
+    openDialog(): void {
+        let dialogRef = this.dialog.open(ForgotpassComponent, {
+            width: '70%',
+        });
+
+        dialogRef.afterClosed().subscribe(() => {
+            console.log('The dialog was closed');
+        });
     }
 
 }

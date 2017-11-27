@@ -1,26 +1,27 @@
 <div class="col-12">
     <h4 class="text-center tc-blue">Autenticarse</h4>
     <hr class="bc-grei">
-    <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate class="">
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-            <label for="email">Correo electrónico</label>
-            <input type="text" class="form-control" name="email" [(ngModel)]="user.email" #email="ngModel"
-                   placeholder="Escriba su correo..." required email/>
-            <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-            <label for="password">Contraseña</label>
-            <input type="password" class="form-control" name="password" [(ngModel)]="user.password" #password="ngModel"
-                   placeholder="Escriba su contraseña..." required/>
-            <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
-        </div>
+    <form [formGroup]="loginForm" name="form" (ngSubmit)="loginForm.valid && login()">
+        <mat-form-field>
+            <input matInput placeholder="Correo electrónico" name="email" [(ngModel)]="user.email"
+                   [formControl]="loginForm.controls['email']"
+                   required>
+            <mat-error *ngIf="loginForm.controls['email'].invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Contraseña" name="password"
+                   [formControl]="loginForm.controls['password']"
+                   [(ngModel)]="user.password"
+                   required>
+            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+            <mat-error *ngIf="loginForm.controls['password'].invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
 
         <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-
         <br>
         <div class="form-group text-center">
-            <button [disabled]="loading" class="btn btn-primary col-12">
-                <i class="fa fa-unlock-alt fa-flip-horizontal" aria-hidden="true"></i>
+            <button mat-raised-button class="tc-white bc-blue-ligth col-12" [disabled]="loading">
+                <mat-icon>lock_open</mat-icon>
                 Autenticarse
             </button>
             <img *ngIf="loading"
@@ -30,14 +31,14 @@
     </form>
     <div class="form-group text-center">
         <span class="tc-blue"><b>Si quieres puedes autenticarte también con:</b></span>
-        <button class="btn btn-primary col-12 bc-facebook">
+        <button mat-raised-button class="tc-white bc-facebook col-12">
             <i class="fa fa-facebook-official" aria-hidden="true"></i>
-            facebook
+            Facebook
         </button>
     </div>
     <br>
     <div class="form-group text-center">
-        <button class="btn btn-primary col-12 bc-blue-dark" (click)="open()">
+        <button mat-raised-button class="tc-white bc-blue-dark col-12" (click)="openDialog()">
             Olvidé mi contraseña
         </button>
     </div>
