@@ -1,8 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {ApiService} from '../../_services/api.service';
 import {Data} from '../../_services/data.service';
-import {isNull} from 'util';
 
 @Component({
     selector: 'app-showservices',
