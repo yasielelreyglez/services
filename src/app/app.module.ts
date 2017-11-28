@@ -35,6 +35,7 @@ import {
     MatFormFieldModule, MatInputModule, MatGridListModule, MatCardModule, MatDialogModule
 } from '@angular/material';
 import {ImageComponent} from './components/_modals/image/image.component';
+import { ImageZoomDirective } from './_directives/image-zoom.directive';
 
 @NgModule({
     declarations: [
@@ -56,7 +57,8 @@ import {ImageComponent} from './components/_modals/image/image.component';
         ShowserviceComponent,
         RatingComponent,
         WizardserviceComponent,
-        ImageComponent
+        ImageComponent,
+        ImageZoomDirective
     ],
     entryComponents: [
         ForgotpassComponent,
