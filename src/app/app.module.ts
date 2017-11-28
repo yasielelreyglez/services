@@ -34,6 +34,7 @@ import {
     MatSelectModule, MatCheckboxModule, MatToolbarModule, MatMenuModule, MatIconModule, MatButtonModule,
     MatFormFieldModule, MatInputModule, MatGridListModule, MatCardModule, MatDialogModule
 } from '@angular/material';
+import {ImageComponent} from './components/_modals/image/image.component';
 
 @NgModule({
     declarations: [
@@ -54,12 +55,14 @@ import {
         ShowmyservicesComponent,
         ShowserviceComponent,
         RatingComponent,
-        WizardserviceComponent
+        WizardserviceComponent,
+        ImageComponent
     ],
     entryComponents: [
         ForgotpassComponent,
         ReportComponent,
-        RatingComponent
+        RatingComponent,
+        ImageComponent
     ],
     imports: [
         BrowserAnimationsModule,

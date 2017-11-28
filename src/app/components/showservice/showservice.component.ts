@@ -36,7 +36,7 @@ export class ShowserviceComponent implements OnInit {
             this.apiServices.service(id).subscribe(result => {
                 this.service = result.data;
                 this.images = result.images;
-                console.log(result);
+                console.log('dentro', result);
                 this.result_week_days();
             });
         });
@@ -75,8 +75,8 @@ export class ShowserviceComponent implements OnInit {
     }
 
     openDialog(): void {
-        let dialogRef = this.dialog.open(RatingComponent, {
-            width: '70%',
+        const dialogRef = this.dialog.open(RatingComponent, {
+            width: '70%'
         });
 
         dialogRef.afterClosed().subscribe(() => {

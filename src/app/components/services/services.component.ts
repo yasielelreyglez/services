@@ -3,6 +3,7 @@ import {ApiService} from '../../_services/api.service';
 import {ReportComponent} from '../_modals/report/report.component';
 import {AuthService} from '../../_services/auth.service';
 import {MatDialog} from '@angular/material';
+import {ImageComponent} from '../_modals/image/image.component';
 
 @Component({
     selector: 'app-services',
@@ -26,8 +27,20 @@ export class ServicesComponent implements OnInit {
     }
 
     openDialog(): void {
-        let dialogRef = this.dialog.open(ReportComponent, {
-            width: '70%',
+        const dialogRef = this.dialog.open(ReportComponent, {
+            width: '70%'
+        });
+
+        dialogRef.afterClosed().subscribe(() => {
+            console.log('The dialog was closed');
+        });
+    }
+
+    zoomImage(src: string): void {
+        const dialogRef = this.dialog.open(ImageComponent, {
+            width: '80%',
+            height: '80%',
+            data: {src: src}
         });
 
         dialogRef.afterClosed().subscribe(() => {

@@ -3,7 +3,8 @@
         <div>
             <span *ngIf="myservices" style="color: #e0040b; font-size: 13px; margin-left: 24px;" class="fw-600">{{valor < service.id ? "En revisión" : "Bloqueado"}}</span>
             <img class="d-flex align-self-center mr-3" width="115"
-                 [src]="service.icon?'login/'+service.icon : '../../../assets/service_img.png'">
+                 [src]="service.icon?'login/'+service.icon : '../../../assets/service_img.png'"
+            (click)="zoomImage(service.icon)">
         </div>
         <div class="media-body" [ngStyle]="{'margin-top': myservices ? '25px' : '0'}">
             <h5 class="mt-0 tc-blue">{{service.title}}</h5>

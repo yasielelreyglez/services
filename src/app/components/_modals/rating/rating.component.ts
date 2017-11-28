@@ -22,4 +22,8 @@ export class RatingComponent implements OnInit {
     ngOnInit() {
     }
 
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
+
 }

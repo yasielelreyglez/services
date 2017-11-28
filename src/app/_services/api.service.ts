@@ -123,9 +123,9 @@ export class ApiService {
             headers.append('Authorization', JSON.parse(currentUser).token);
 
             return this.http.get('http://localhost/login/api/service/' + id, {headers: headers}).map((response: Response) => {
-                if (response)
+                if (response) {
                     return response.json();
-                else {
+                } else {
                     return new Array();
                 }
             });
@@ -133,7 +133,7 @@ export class ApiService {
         else {
             return this.http.get('http://localhost/login/api/service/' + id).map((response: Response) => {
                 if (response)
-                    return response.json().data;
+                    return response.json();
                 else {
                     return new Array();
                 }
