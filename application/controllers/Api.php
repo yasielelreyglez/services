@@ -394,6 +394,28 @@ class Api extends REST_Controller
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
+    public function addcomment_post($id){
+        $comment = $this->post("comment",true);
+        $em= $this->doctrine->em;
+        $service = $em->find("Entities\Service",$id);
+        $user = $this->getCurrentUser();
+
+        if($user&&$service){
+            $result["desc"]= "COMENTANDO EL SERVICIO $service->getTitle()";
+            $comment = new \Entities\Comments();
+            $comment->setUser($user);
+            $comment->setService($service);
+            $comment->setComment($comment);
+            $em->persist($comment);
+            $em->flush();
+        }else{
+            $result["desc"]= "ERROR COMENTANDO EL SERVICIO $service->getTitle()";
+            $result["error"]= "No esta autenticado o no existe el servicio";
+        }
+        $result["data"] = $service->getServicecomments();
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
+
     public function testimg_post(){
         echo "FALSE";
         $result=  $this->input->post();
