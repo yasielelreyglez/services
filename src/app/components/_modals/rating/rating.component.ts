@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ApiService} from '../../../_services/api.service';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
     selector: 'app-rating',
@@ -12,7 +12,8 @@ export class RatingComponent implements OnInit {
     loading: boolean;
     error: string;
 
-    constructor(public activeModal: NgbActiveModal, private apiServices: ApiService) {
+    constructor(public dialogRef: MatDialogRef<RatingComponent>,
+                @Inject(MAT_DIALOG_DATA) public data: any, private apiServices: ApiService) {
         this.model = {};
         this.loading = false;
         this.error = '';

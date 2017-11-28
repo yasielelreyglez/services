@@ -30,7 +30,7 @@
             </mat-form-field>
 
             <div class="form-group text-center col-12">
-                <button mat-raised-button color="primary" class="tc-white col-12">
+                <button mat-raised-button color="primary" class="tc-white col-12" [disabled]="filterForm.invalid">
                     Filtrar
                 </button>
             </div>

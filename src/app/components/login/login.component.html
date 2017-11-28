@@ -20,7 +20,7 @@
         <div *ngIf="error" class="alert alert-danger">{{error}}</div>
         <br>
         <div class="form-group text-center">
-            <button mat-raised-button class="tc-white bc-blue-ligth col-12" [disabled]="loading">
+            <button mat-raised-button color="primary" class="tc-white col-12" [disabled]="loading || loginForm.invalid">
                 <mat-icon>lock_open</mat-icon>
                 Autenticarse
             </button>

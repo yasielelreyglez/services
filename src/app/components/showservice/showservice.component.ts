@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../../_services/api.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {RatingComponent} from '../_modals/rating/rating.component';
 import {isNull} from 'util';
+import {MatDialog} from '@angular/material';
 
 declare var google: any;
 
@@ -27,7 +27,7 @@ export class ShowserviceComponent implements OnInit {
     week_days: any = '';
 
     constructor(private route: ActivatedRoute, private apiServices: ApiService,
-                private modalService: NgbModal) {
+                public dialog: MatDialog) {
     }
 
     ngOnInit() {
@@ -74,8 +74,14 @@ export class ShowserviceComponent implements OnInit {
         }
     }
 
-    evaluar() {
-        this.modalService.open(RatingComponent);
+    openDialog(): void {
+        let dialogRef = this.dialog.open(RatingComponent, {
+            width: '70%',
+        });
+
+        dialogRef.afterClosed().subscribe(() => {
+            console.log('The dialog was closed');
+        });
     }
 
     tabChange() {
