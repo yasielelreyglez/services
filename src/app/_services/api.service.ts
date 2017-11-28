@@ -233,5 +233,23 @@ export class ApiService {
         }
     }
 
+    createFullService(service: Service): Observable<any> {
+        // const body = JSON.stringify(service);
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            const headers = new Headers();
+            headers.append('Authorization', JSON.parse(currentUser).token);
+            console.log(service);
+            return this.http.post('http://localhost/login/api/createservicefull', service, {headers: headers}).map(response => response.json()).map(result => {
+                if (!result.error) {
+                    return result;
+                }
+                return result;
+            });
+        } else {
+            return new Observable();
+        }
+    }
+
 
 }

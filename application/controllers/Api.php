@@ -461,7 +461,7 @@ class Api extends REST_Controller
         $em = $this->doctrine->em;
         $service = $em->find("\Entities\Service",$this->post('id', TRUE));
         $fotos =  $this->post('galery', TRUE);
-//        $service->addFotos($fotos);
+        $service->addFotos($fotos);
 //        $em->persist($service);
 //        $em->flush();
         $this->set_response($service, REST_Controller::HTTP_OK);
@@ -475,8 +475,8 @@ class Api extends REST_Controller
         $service->setWeekDays($this->post('week_days', TRUE));
         $service->setStartTime($this->post('start_time', TRUE));
         $service->setEndTime($this->post('end_time', TRUE));
-        $em->persist($service);
-        $em->flush();
+//        $em->persist($service);
+//        $em->flush();
         $this->set_response($service, REST_Controller::HTTP_OK);
     }
     function createservicestep4_post(){
@@ -488,6 +488,45 @@ class Api extends REST_Controller
         $em->flush();
         $this->set_response($service, REST_Controller::HTTP_OK);
     }
+    function createservicefull_post(){
+        $em = $this->doctrine->em;
+        $service = new \Entities\Service();
+        //DATOS BASICOS
+        $service->setAthor($this->getCurrentUser());
+        $service->title = $this->post('title', TRUE);
+        $service->subtitle = $this->post('subtitle', TRUE);
+        $service->phone = $this->post('phone', TRUE);
+        $service->address = $this->post('address', TRUE);;
+        //GALERIA DE FOTOS
+        $fotos =  $this->post('galery', TRUE);
+        $service->addFotos($fotos);
+        //OTROS DATOS
+        $service->setOtherPhone($this->post('other_phone', TRUE));
+        $service->setEmail($this->post('email', TRUE));
+        $service->setUrl($this->post('url', TRUE));
+        $weekdays = $this->post('week_days', TRUE);
+        $poss= 0;
+        $string_week= "";
+        foreach ($weekdays as $weekday){
+            $poss++;
+            if($weekday){
+                $string_week= $string_week.",".$poss;
+            }
+            if($poss>7){
+                $poss=0;
+            }
+        }
+        $service->setWeekDays($string_week);
+        $service->setStartTime($this->post('start_time', TRUE));
+        $service->setEndTime($this->post('end_time', TRUE));
+        //UBICACIONES
+        $positions =  $this->post('positions', TRUE);
+        $service->addPositions($positions);
+        $em->persist($service);
+        $em->flush();
+        $this->set_response($service, REST_Controller::HTTP_OK);
+    }
+
     function createservice_post(){
             $id =  $this->input->post('id', TRUE);
             $em = $this->doctrine->em;

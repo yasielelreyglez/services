@@ -110,7 +110,7 @@ class Service
     /**
      * Bidirectional - One-To-Many (INVERSE SIDE)
      *
-     * @OneToMany(targetEntity="Position", mappedBy="service")
+     * @OneToMany(targetEntity="Position", mappedBy="service",cascade={"persist"})
      */
     public $positions;
 
@@ -654,7 +654,7 @@ class Service
         }
        return $this;
     }
-    public function addPossitions(Array $positions){
+    public function addPositions(Array $positions){
         foreach ($positions as $position) {
             $poss = new Position();
             $poss->setTitle($position["title"]);
@@ -665,6 +665,7 @@ class Service
         }
         return $this;
     }
+
     public function loadRelatedUserData($user){
         $criteria = new \Doctrine\Common\Collections\Criteria();
         //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
