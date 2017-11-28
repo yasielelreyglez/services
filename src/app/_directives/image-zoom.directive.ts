@@ -8,6 +8,7 @@ import {ImageComponent} from '../components/_modals/image/image.component';
 export class ImageZoomDirective {
 
     constructor(public dialog: MatDialog, private element: ElementRef) {
+        this.element.nativeElement.style.cursor = 'pointer';
     }
 
     @HostListener('click', ['$event'])
