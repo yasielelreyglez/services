@@ -14,7 +14,7 @@ export class ApiService {
     }
 
     topSubcategories(): Observable<Subcategory[]> {
-        return this.http.get('http://localhost/login/api/topsubcategories').map((response: Response) => {
+        return this.http.get('http://localhost/services/api/topsubcategories').map((response: Response) => {
             if (response)
                 return response.json().data;
             else {
@@ -24,7 +24,7 @@ export class ApiService {
     }
 
     cities(): Observable<City[]> {
-        return this.http.get('http://localhost/login/api/cities').map((response: Response) => {
+        return this.http.get('http://localhost/services/api/cities').map((response: Response) => {
             if (response)
                 return response.json().data;
             else {
@@ -34,7 +34,7 @@ export class ApiService {
     }
 
     categories(): Observable<any> {
-        return this.http.get('http://localhost/login/api/categories').map((response: Response) => {
+        return this.http.get('http://localhost/services/api/categories').map((response: Response) => {
             if (response)
                 return response.json().data;
             else {
@@ -44,7 +44,7 @@ export class ApiService {
     }
 
     allSubCategories(): Observable<any> {
-        return this.http.get('http://localhost/login/api/allsubcateogries').map((response: Response) => {
+        return this.http.get('http://localhost/services/api/allsubcateogries').map((response: Response) => {
             if (response)
                 return response.json().data;
             else {
@@ -54,7 +54,7 @@ export class ApiService {
     }
 
     subCategories(id: number): Observable<Subcategory[]> {
-        return this.http.get('http://localhost/login/api/subcategories/' + id).map((response: Response) => {
+        return this.http.get('http://localhost/services/api/subcategories/' + id).map((response: Response) => {
             if (response)
                 return response.json().data;
             else {
@@ -68,7 +68,7 @@ export class ApiService {
         if (currentUser) {
             const headers = new Headers();
             headers.append('Authorization', JSON.parse(currentUser).token);
-            return this.http.get('http://localhost/login/api/servicessub/' + id, {headers: headers}).map((response: Response) => {
+            return this.http.get('http://localhost/services/api/servicessub/' + id, {headers: headers}).map((response: Response) => {
                 if (response)
                     return response.json().data;
                 else {
@@ -76,7 +76,7 @@ export class ApiService {
                 }
             });
         } else {
-            return this.http.get('http://localhost/login/api/servicessub/' + id).map((response: Response) => {
+            return this.http.get('http://localhost/services/api/servicessub/' + id).map((response: Response) => {
                 if (response)
                     return response.json().data;
                 else {
@@ -91,7 +91,7 @@ export class ApiService {
         if (currentUser) {
             const headers = new Headers();
             headers.append('Authorization', JSON.parse(currentUser).token);
-            return this.http.get('http://localhost/login/api/myfavorites', {headers: headers}).map((response: Response) => {
+            return this.http.get('http://localhost/services/api/myfavorites', {headers: headers}).map((response: Response) => {
                 if (response)
                     return response.json().data;
                 else {
@@ -106,7 +106,7 @@ export class ApiService {
         if (currentUser) {
             const headers = new Headers();
             headers.append('Authorization', JSON.parse(currentUser).token);
-            return this.http.get('http://localhost/login/api/myservices', {headers: headers}).map((response: Response) => {
+            return this.http.get('http://localhost/services/api/myservices', {headers: headers}).map((response: Response) => {
                 if (response)
                     return response.json().data;
                 else {
@@ -122,7 +122,7 @@ export class ApiService {
             const headers = new Headers();
             headers.append('Authorization', JSON.parse(currentUser).token);
 
-            return this.http.get('http://localhost/login/api/service/' + id, {headers: headers}).map((response: Response) => {
+            return this.http.get('http://localhost/services/api/service/' + id, {headers: headers}).map((response: Response) => {
                 if (response) {
                     return response.json();
                 } else {
@@ -131,7 +131,7 @@ export class ApiService {
             });
         }
         else {
-            return this.http.get('http://localhost/login/api/service/' + id).map((response: Response) => {
+            return this.http.get('http://localhost/services/api/service/' + id).map((response: Response) => {
                 if (response)
                     return response.json();
                 else {
@@ -146,7 +146,7 @@ export class ApiService {
         if (currentUser) {
             const headers = new Headers();
             headers.append('Authorization', JSON.parse(currentUser).token);
-            return this.http.get('http://localhost/login/api/markfavorite/' + id, {headers: headers}).map((response: Response) => {
+            return this.http.get('http://localhost/services/api/markfavorite/' + id, {headers: headers}).map((response: Response) => {
                 if (response)
                     return response.json().data;
                 else {
@@ -161,7 +161,7 @@ export class ApiService {
         if (currentUser) {
             const headers = new Headers();
             headers.append('Authorization', JSON.parse(currentUser).token);
-            return this.http.get('http://localhost/login/api/dismarkfavorite/' + id, {headers: headers}).map((response: Response) => {
+            return this.http.get('http://localhost/services/api/dismarkfavorite/' + id, {headers: headers}).map((response: Response) => {
                 if (response)
                     return response.json().data;
                 else {
@@ -176,7 +176,7 @@ export class ApiService {
         if (currentUser) {
             const headers = new Headers();
             headers.append('Authorization', JSON.parse(currentUser).token);
-            return this.http.get('http://localhost/login/api/rateservice/' + id + '/' + rate, {headers: headers}).map((response: Response) => {
+            return this.http.get('http://localhost/services/api/rateservice/' + id + '/' + rate, {headers: headers}).map((response: Response) => {
                 if (response)
                     return response.json().data;
                 else {
@@ -191,7 +191,7 @@ export class ApiService {
         if (currentUser) {
             const headers = new Headers();
             headers.append('Authorization', JSON.parse(currentUser).token);
-            return this.http.post('http://localhost/login/api/report', report, {headers: headers}).map((response: Response) => {
+            return this.http.post('http://localhost/services/api/report', report, {headers: headers}).map((response: Response) => {
                     if (response.json().result === true) {
                         return true;
                     } else {
@@ -209,7 +209,7 @@ export class ApiService {
             const headers = new Headers();
             headers.append('Authorization', JSON.parse(currentUser).token);
             console.log(service);
-            return this.http.post('http://localhost/login/api/createservicestep1', service, {headers: headers}).map(response => response.json()).map(result => {
+            return this.http.post('http://localhost/services/api/createservicestep1', service, {headers: headers}).map(response => response.json()).map(result => {
                 if (!result.error) {
                     return result;
                 }
@@ -221,7 +221,7 @@ export class ApiService {
     }
 
     searchService(query: any): Observable<any> {
-        return this.http.get('http://localhost/login/api/searchservice/' + query).map(response => {
+        return this.http.get('http://localhost/services/api/searchservice/' + query).map(response => {
             if (response)
                 return response.json().data;
             else {
@@ -237,7 +237,7 @@ export class ApiService {
             const headers = new Headers();
             headers.append('Authorization', JSON.parse(currentUser).token);
             console.log(service);
-            return this.http.post('http://localhost/login/api/createservicestep2', service, {headers: headers}).map(response => response.json()).map(result => {
+            return this.http.post('http://localhost/services/api/createservicestep2', service, {headers: headers}).map(response => response.json()).map(result => {
                 if (!result.error) {
                     return result;
                 }
@@ -255,7 +255,7 @@ export class ApiService {
             const headers = new Headers();
             headers.append('Authorization', JSON.parse(currentUser).token);
             console.log(service);
-            return this.http.post('http://localhost/login/api/createservicefull', service, {headers: headers}).map(response => response.json()).map(result => {
+            return this.http.post('http://localhost/services/api/createservicefull', service, {headers: headers}).map(response => response.json()).map(result => {
                 if (!result.error) {
                     return result;
                 }
