@@ -166,20 +166,20 @@ class Auth extends REST_Controller
 
     public function register_post(){
         $em= $this->doctrine->em;
-
+        $values = json_decode($this->post()[0]);
         $userRepo = $em->getRepository('Entities\User');
-        $email = $this->post('email');
+        $email =$values->email;
         $users = $userRepo->findBy(array("email"=>$email));
         if(count($users)>0){
             $output["error"] = "Ya existe un usuario con este email";
             echo json_encode($output);
         }else{
-            $email = strtolower($this->post('email'));
+            $email = strtolower($email);
             $identity = $email ;
-            $password = $this->post('password');
+            $password = $values->password;
 
             $additional_data = array(
-                'first_name' => $this->post('name')
+                'first_name' =>$values->name
 //                'last_name' => $this->input->post('last_name'),
 //                'company' => $this->input->post('company'),
 //                'phone' => $this->input->post('phone'),

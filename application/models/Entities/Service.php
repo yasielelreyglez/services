@@ -167,7 +167,8 @@ namespace Entities {
          * @OneToMany(targetEntity="Image", mappedBy="service",cascade={"persist"})
          */
         private $images;
-        private $imagesList;
+
+        public $imagesList;
         /////DATOS RELACIONADOS CON EL USUARIO
         ///
         public $visited;

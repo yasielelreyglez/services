@@ -5,15 +5,13 @@
     padding: 5px;">
         </div>
         <div class="media-body">
-
-
             <div class="info service">
                 <mat-grid-list cols="12" rowHeight="40px">
                     <mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">
                         <h5 class="mt-0 tc-blue">{{service.title}}</h5>
                     </mat-grid-tile>
                     <mat-grid-tile [colspan]="4" [rowspan]="1">
-                        <span class="tc-blue fw-600" style="font-size: 30px;">{{service.globalrate}}/10</span>
+                        <span class="tc-blue fw-600" style="font-size: 40px;">{{service.globalrate}}/10</span>
                     </mat-grid-tile>
                     <mat-grid-tile [colspan]="8" [rowspan]="2" class="izq">
                         <div class="fw-600 tc-grei" style="font-size: 13px;">
@@ -46,7 +44,6 @@
         </p>
     </div>
 
-
     <mat-tab-group>
         <mat-tab label="Informacion">
             <br>
@@ -72,19 +69,30 @@
             Tab de Mapa
         </mat-tab>
         <mat-tab label="Imágenes">
+
+            <mat-grid-list cols="3" id="mat-categories" rowHeight="100px">
+                <mat-grid-tile *ngFor="let prev of images" class="text-center">
+                    <div class="mat-content text-center cp">
+                        <img class="col-2 d-flex align-self-center" width="115"
+                             [src]="'/services/'+prev.title"
+                             alt=""
+                             style="border: 1px solid #bcbcbc; padding: 5px;" appImageZoom>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
             <br>
-            <div class="row">
-                <img *ngFor="let prev of images" class="col-2 d-flex align-self-center" width="115"
-                     [src]="'/services/'+prev.title"
-                     alt=""
-                     style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
-                <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
-                     alt=""
-                     style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
-                <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
-                     alt=""
-                     style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
-            </div>
+            <!--<div class="row">-->
+            <!--<img *ngFor="let prev of images" class="col-2 d-flex align-self-center" width="115"-->
+            <!--[src]="'/services/'+prev.title"-->
+            <!--alt=""-->
+            <!--style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">-->
+            <!--<img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"-->
+            <!--alt=""-->
+            <!--style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">-->
+            <!--<img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"-->
+            <!--alt=""-->
+            <!--style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">-->
+            <!--</div>-->
         </mat-tab>
         <mat-tab label="Comentarios">
             Tab de Comentarios

@@ -42,7 +42,7 @@ export class ShowserviceComponent implements OnInit {
             const id = params['id'];
             this.apiServices.service(id).subscribe(result => {
                 this.service = result.data;
-                this.images = result.images;
+                this.images = result.data.imagesList;
                 this.result_week_days();
             });
         });
