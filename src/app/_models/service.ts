@@ -1,6 +1,7 @@
 export class Service {
     id: number;
     title: string;
+    description: string;
     subtitle: string;
     phone: string;
     address: string;
