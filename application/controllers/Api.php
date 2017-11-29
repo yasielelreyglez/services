@@ -111,6 +111,9 @@ class Api extends REST_Controller
         $criteria->orWhere($expresion2);
 
         $respuesta = $serviceRepo->matching($criteria);
+        foreach ($respuesta as $service) {
+            $service->loadRelatedData();
+        }
         $response["desc"]="Resultados de la busqueda";
         $response["query"]=$query;
         $response["count"]=0;
@@ -130,8 +133,10 @@ class Api extends REST_Controller
             $response["desc"]="Servicios pertenecientes a la subcategoria:$subcategory->title";
             $services = $subcategory->getServices()->toArray();
             $user = $this->getCurrentUser();
-            if($user){
-                foreach ($services as $service) {
+
+            foreach ($services as $service) {
+                $service->loadRelatedData();
+                if($user){
                     $service->loadRelatedUserData($user);
                 }
             }
@@ -152,17 +157,15 @@ class Api extends REST_Controller
         $em->persist($service);
         $em->flush();
         $service->loadRelatedUserData($user);
+        $service->subcategoriesList = $service->getSubcategories()->toArray();
+        $service->loadRelatedData();
         $data["data"]=$service;
-        $data["cities"]=$service->getCities()->toArray();
-        $data["positions"]=$service->getPositions()->toArray();
-        $data["images"]=$service->getImages()->toArray();
-        $data["comments"]=$service->getServicecomments()->toArray();
-        $data["subcategories"]=$service->getSubcategories()->toArray();
         $this->set_response($data, REST_Controller::HTTP_OK);
     }
     //LISTADO DE SERVICIOS POR FILTROS
     public function filter_get(){
         //obteniendo parametros filtro
+
         $ciudades = $this->input->get("cities",true);
         $categorias = $this->input->get("categories",true);
         $distance = $this->input->get("distance",true);
@@ -176,8 +179,16 @@ class Api extends REST_Controller
         $criteria->where($expresion);
         $cities =  $citiesRepo->matching($criteria)->toArray();
         $result["data"] = array();
+        $user = $this->getCurrentUser();
         foreach($cities as $city){
-            $service = $city->getServices();
+            $services = $city->getServices();
+            foreach ($services as $service){
+                $service->loadRelatedData();
+                if($user) {
+                    $service->loadRelatedUserData($user);
+                }
+                $result["data"][]=$service;
+            }
             $result["data"] = array_merge($result["data"],$service->toArray());
 
             //TODO AGREGAR EL FILTRO POR LOS OTROS ELEMENTOS
@@ -211,7 +222,9 @@ class Api extends REST_Controller
         $obj->setComplaintCreated(new DateTime("now"));
         $em->persist($obj);
         $em->flush();
-        $this->set_response($obj, REST_Controller::HTTP_OK);
+            $obj->loadRelatedData();
+            $result["data"]=$obj;
+        $this->set_response($result, REST_Controller::HTTP_OK);
         }
     }
     //denunciar un servicio
@@ -233,6 +246,7 @@ class Api extends REST_Controller
                 $obj->setUser($user);
             }
             $obj->setContacted(1);
+            $obj->loadRelatedData();
             $em->persist($obj);
             $em->flush();
             $this->set_response($obj, REST_Controller::HTTP_OK);
@@ -259,6 +273,7 @@ class Api extends REST_Controller
         $em->persist($obj);
         $em->flush();
         $result["desc"]= "Marcado como favorito el servicio {$service->getTitle()}";
+        $service->loadRelatedData();
         $result["data"]=$service;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
@@ -279,6 +294,7 @@ class Api extends REST_Controller
         $em->persist($obj);
         $em->flush();
         $result["desc"]= "Desmarcado como favorito el servicio {$service->getTitle()}";
+        $service->loadRelatedData();
         $result["data"]=$service;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
@@ -294,6 +310,7 @@ class Api extends REST_Controller
         $result["data"] = array();
         foreach ($relacion as $servicerel) {
             $service_obj = $servicerel->getService();
+            $service_obj->loadRelatedData();
             $result["test"]=$service_obj->loadRelatedUserData($user);
             $result["data"][] = $service_obj;
         }
@@ -310,6 +327,7 @@ class Api extends REST_Controller
         $result["desc"]="Listado de los servicios creados por el usuario";
         $result["data"]=array();
         foreach ($relacion as $service){
+            $service->loadRelatedData();
            $service->loadRelatedUserData($user);
             $result["data"][]=$service;
         }
@@ -345,12 +363,15 @@ class Api extends REST_Controller
             $em->persist($obj);
             $em->flush();
             $service->loadRelatedUserData($user);
+            $service->loadRelatedData();
             $result["desc"] = "Evaluando al anuncio $id con $rate puntos";
+            $service->loadRelatedData();
             $result["data"]=$service;
         }else{
             $result["desc"] = "El servicio no existe";
             $result["error"] = "No existe ningun servicio con id:$id";
         }
+        $
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
    //obtener servicios visitados
@@ -367,6 +388,7 @@ class Api extends REST_Controller
         foreach ($relacion as $servicerel) {
             $service_obj = $servicerel->getService();
             $service_obj->loadRelatedUserData($user);
+            $service_obj->loadRelatedData();
             $result["data"][] = $service_obj;
         }
 
@@ -392,7 +414,31 @@ class Api extends REST_Controller
             $result["desc"]= "ERROR COMENTANDO EL SERVICIO $service->getTitle()";
             $result["error"]= "No esta autenticado o no existe el servicio";
         }
-        $result["data"] = $service->getServicecomments();
+        $service->loadRelatedData();
+        $result["data"] = $service;
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
+
+    public function addcomment_post($id){
+        $comment = $this->post("comment",true);
+        $em= $this->doctrine->em;
+        $service = $em->find("Entities\Service",$id);
+        $user = $this->getCurrentUser();
+
+        if($user&&$service){
+            $result["desc"]= "COMENTANDO EL SERVICIO $service->getTitle()";
+            $comment = new \Entities\Comments();
+            $comment->setUser($user);
+            $comment->setService($service);
+            $comment->setComment($comment);
+            $em->persist($comment);
+            $em->flush();
+        }else{
+            $result["desc"]= "ERROR COMENTANDO EL SERVICIO $service->getTitle()";
+            $result["error"]= "No esta autenticado o no existe el servicio";
+        }
+        $service->loadRelatedData();
+        $result["data"] = $service;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
@@ -436,7 +482,6 @@ class Api extends REST_Controller
 //        file_put_contents($temp_file_path, base64_decode($_POST['imageString']));
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
-
 
     function createservicestep1_post(){
         $em = $this->doctrine->em;
