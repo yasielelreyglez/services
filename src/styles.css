@@ -144,6 +144,8 @@
 
 .services-card .info {
     line-height: 1.2;
+    text-align: left !important;
+    margin-bottom: 5px;
 }
 
 .services-card .mat-raised-button {
