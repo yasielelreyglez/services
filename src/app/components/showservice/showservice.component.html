@@ -5,21 +5,36 @@
     padding: 5px;">
         </div>
         <div class="media-body">
-            <h5 class="mt-0 tc-blue">{{service.title}}</h5>
-            <div class="row">
-                <div class="col-8 col-sm-9 col-md-9 col-lg-10 fw-600 tc-grei"
-                     style="font-size: 13px; border-right: 1px solid #bcbcbc">
-                    <span>Slogan</span><br>
-                    <span>{{service.address}}</span><br>
-                    <span>1.5 KM de tu posición</span><br>
-                    <span>{{service.phone}}</span>
-                </div>
-                <div class="col-4 col-sm-3 col-md-3 col-lg-2 text-center">
-                    <span class="tc-blue fw-600" style="font-size: 30px;">{{service.globalrate}}/10</span>
-                    <button *ngIf="loggedIn" mat-raised-button color="primary" (click)="ratingDialog(service.id)">
-                        Evaluar
-                    </button>
-                </div>
+
+
+            <div class="info service">
+                <mat-grid-list cols="12" rowHeight="40px">
+                    <mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">
+                        <h5 class="mt-0 tc-blue">{{service.title}}</h5>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="4" [rowspan]="1">
+                        <span class="tc-blue fw-600" style="font-size: 30px;">{{service.globalrate}}/10</span>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="8" [rowspan]="2" class="izq">
+                        <div class="fw-600 tc-grei" style="font-size: 13px;">
+                            <span>Slogan</span><br>
+                            <span>{{service.address}}</span><br>
+                            <span>1.5 KM de tu posición</span><br>
+                            <span>{{service.phone}}</span>
+                        </div>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile [colspan]="4" [rowspan]="1">
+                        <button *ngIf="loggedIn" mat-raised-button color="primary" (click)="ratingDialog(service.id)">
+                            Evaluar
+                        </button>
+                    </mat-grid-tile>
+                    <mat-grid-tile class="tc-blue" [colspan]="4" [rowspan]="1">
+                        <mat-icon style="padding-top: 3px;">comment</mat-icon>
+                        <!--<span style="font-size: 26px; margin-left: 5px;">{{service.servicecommentsList.length}}</span>-->
+                        <span style="font-size: 26px; margin-left: 5px;">30</span>
+                    </mat-grid-tile>
+                </mat-grid-list>
             </div>
         </div>
     </div>

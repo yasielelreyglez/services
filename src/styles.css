@@ -96,7 +96,6 @@
     padding-top: 12px !important;
 }
 
-
 #mat-categories img {
     width: 110px;
     padding-bottom: 5px;
@@ -144,6 +143,8 @@
 
 .services-card .info {
     line-height: 1.2;
+    margin-bottom: 5px;
+    text-align: left !important;
 }
 
 .services-card .mat-raised-button {
@@ -151,7 +152,6 @@
 }
 
 .services-card .media-body button span {
-    /*height: 24px !important;*/
     font-size: 16px !important;
 }
 
@@ -163,31 +163,47 @@
     font-size: 11px;
 }
 
-.bc-green{
+.bc-green {
     background-color: #008F2F !important;
 }
 
-.bc-yellow{
+.bc-yellow {
     background-color: #F09700 !important;
 }
 
-.bc-red{
+.bc-red {
     background-color: #E0040B !important;
 }
 
-.services-card mat-grid-list{
+.services-card mat-grid-list {
     margin-top: 2px !important;
 }
 
-.mat-grid-tile.izq .mat-figure{
+.mat-grid-tile.izq .mat-figure {
     justify-content: flex-start !important;
+}
+
+.service .mat-raised-button {
+    line-height: 26px;
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    .container {
+        max-width: 100% !important;
+    }
+
+    .container {
+        width: 100%;
+        padding-right: 15px !important;
+        padding-left: 15px !important;
+        margin-right: 10px !important;
+        margin-left: 10px !important;
+    }
 }
 
 /*mat-grid-tile {*/
 /*background: lightblue;*/
 /*}*/
-
-
 
 /*.help-block {*/
 /*color: #FF3C2F;*/
