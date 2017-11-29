@@ -17,19 +17,19 @@ class Position
      * @Column(type="string")
      * @var string
      **/
-    protected $title;
+    public $title;
 
     /**
      * @Column(type="float")
      * @var string
      **/
-    protected $latitude;
+    public $latitude;
 
     /**
      * @Column(type="float")
      * @var string
      **/
-    protected $longitude;
+    public $longitude;
 
     /**
      * @Column(type="datetime")

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {User} from '../../_models/user';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../_services/auth.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     hide = true;
 
-    constructor(private authService: AuthService) {
+    constructor(private authService: AuthService, private router: Router) {
         this.user = new User();
         this.loading = false;
         this.error = '';
@@ -45,6 +46,14 @@ export class RegisterComponent implements OnInit {
     }
 
     register() {
-        return true;
+        this.loading = true;
+        this.authService.register(this.user).subscribe(result => {
+            if (result === true) {
+                this.router.navigate(['']);
+            } else {
+                this.error = 'Algo esta mal';
+                this.loading = false;
+            }
+        });
     }
 }

@@ -5,8 +5,6 @@
     padding: 5px;">
         </div>
         <div class="media-body">
-
-
             <div class="info service">
                 <mat-grid-list cols="12" rowHeight="40px">
                     <mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">
@@ -46,7 +44,6 @@
         </p>
     </div>
 
-
     <mat-tab-group>
         <mat-tab label="Informacion">
             <br>
@@ -73,27 +70,28 @@
         </mat-tab>
         <mat-tab label="Imágenes">
 
-            <mat-grid-list cols="3" id="mat-categories" rowHeight="160px">
-                <mat-grid-tile *ngFor="let category of categories" class="text-center">
-                    <div class="mat-content text-center cp" (click)="dataTitle(category.title)"
-                         [routerLink]="['/categories', category.id]">
-                        <img class="scale" src="/services/{{category.icon}}" alt="">
-                        <p class="tc-grei fw-600">{{category.title}}</p>
+            <mat-grid-list cols="3" id="mat-categories" rowHeight="100px">
+                <mat-grid-tile *ngFor="let prev of images" class="text-center">
+                    <div class="mat-content text-center cp">
+                        <img class="col-2 d-flex align-self-center" width="115"
+                             [src]="'/services/'+prev.title"
+                             alt=""
+                             style="border: 1px solid #bcbcbc; padding: 5px;" appImageZoom>
                     </div>
                 </mat-grid-tile>
             </mat-grid-list>
             <br>
             <!--<div class="row">-->
-                <!--<img *ngFor="let prev of images" class="col-2 d-flex align-self-center" width="115"-->
-                     <!--[src]="'/services/'+prev.title"-->
-                     <!--alt=""-->
-                     <!--style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">-->
-                <!--<img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"-->
-                     <!--alt=""-->
-                     <!--style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">-->
-                <!--<img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"-->
-                     <!--alt=""-->
-                     <!--style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">-->
+            <!--<img *ngFor="let prev of images" class="col-2 d-flex align-self-center" width="115"-->
+            <!--[src]="'/services/'+prev.title"-->
+            <!--alt=""-->
+            <!--style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">-->
+            <!--<img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"-->
+            <!--alt=""-->
+            <!--style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">-->
+            <!--<img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"-->
+            <!--alt=""-->
+            <!--style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">-->
             <!--</div>-->
         </mat-tab>
         <mat-tab label="Comentarios">

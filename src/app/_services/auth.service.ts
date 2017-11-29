@@ -18,7 +18,7 @@ export class AuthService {
 
     login(user: User): Observable<boolean> {
         const body = JSON.stringify({email: user.email, password: user.password});
-        return this.http.post('http://localhost/services/auth/services', body).map(response => response.json()).map(result => {
+        return this.http.post('http://localhost/services/auth/login', body).map(response => response.json()).map(result => {
             if (!result.error) {
                 localStorage.setItem('currentUser', JSON.stringify(result));
                 this.currentUser.next(result);
@@ -62,7 +62,6 @@ export class AuthService {
                 }
             }
         );
-
     }
 
     private error(error: any) {

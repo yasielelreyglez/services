@@ -583,12 +583,17 @@ class Api extends REST_Controller
         //DATOS BASICOS
         $service->setAthor($this->getCurrentUser());
         $service->title = $this->post('title', TRUE);
+
         $service->subtitle = $this->post('subtitle', TRUE);
         $service->phone = $this->post('phone', TRUE);
-        $service->address = $this->post('address', TRUE);;
-        //GALERIA DE FOTOS
-        $fotos = $this->post('galery', TRUE);
-        $service->addFotos($fotos);
+        $service->address = $this->post('address', TRUE);
+        $service->addSubCategories($this->post('categories', TRUE),$em);
+        $service->addCities($this->post('cities', TRUE),$em);
+        $icon = $this->post('icon');
+        $path= "./resources/".$icon['filename'];
+        file_put_contents($path, base64_decode($icon['value']));
+        $service->setIcon($path);
+
         //OTROS DATOS
         $service->setOtherPhone($this->post('other_phone', TRUE));
         $service->setEmail($this->post('email', TRUE));
@@ -611,6 +616,11 @@ class Api extends REST_Controller
         //UBICACIONES
         $positions = $this->post('positions', TRUE);
         $service->addPositions($positions);
+        $em->persist($service);
+        $em->flush();
+        //GALERIA DE FOTOS
+        $fotos = $this->post('galery', TRUE);
+        $service->addFotos($fotos,$em);
         $em->persist($service);
         $em->flush();
         $this->set_response($service, REST_Controller::HTTP_OK);
