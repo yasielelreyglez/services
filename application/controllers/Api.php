@@ -371,7 +371,7 @@ class Api extends REST_Controller
             $result["desc"] = "El servicio no existe";
             $result["error"] = "No existe ningun servicio con id:$id";
         }
-        $
+        
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
    //obtener servicios visitados
