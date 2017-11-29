@@ -171,6 +171,21 @@ export class ApiService {
         }
     }
 
+    rateService(id: number, rate: number): Observable<any> {
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            const headers = new Headers();
+            headers.append('Authorization', JSON.parse(currentUser).token);
+            return this.http.get('http://localhost/login/api/rateservice/' + id + '/' + rate, {headers: headers}).map((response: Response) => {
+                if (response)
+                    return response.json().data;
+                else {
+                    return new Array();
+                }
+            });
+        }
+    }
+
     report(report: string): Observable<any> {
         const currentUser = localStorage.getItem('currentUser');
         if (currentUser) {

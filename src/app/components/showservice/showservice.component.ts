@@ -4,6 +4,7 @@ import {ApiService} from '../../_services/api.service';
 import {RatingComponent} from '../_modals/rating/rating.component';
 import {isNull} from 'util';
 import {MatDialog} from '@angular/material';
+import {AuthService} from '../../_services/auth.service';
 
 declare var google: any;
 
@@ -25,21 +26,27 @@ export class ShowserviceComponent implements OnInit {
     images: any[] = [];
     days: string[] = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     week_days: any = '';
+    loggedIn = false;
 
     constructor(private route: ActivatedRoute, private apiServices: ApiService,
-                public dialog: MatDialog) {
+                public dialog: MatDialog, private authServices: AuthService) {
     }
 
     ngOnInit() {
+
+        this.authServices.currentUser.subscribe(user => {
+            this.loggedIn = !!user;
+        });
+
         this.route.params.subscribe(params => {
             const id = params['id'];
             this.apiServices.service(id).subscribe(result => {
                 this.service = result.data;
                 this.images = result.images;
-                console.log('dentro', result);
                 this.result_week_days();
             });
         });
+
         // var mapProp = {
         //     center: new google.maps.LatLng(51.508742, -0.120850),
         //     zoom: 5,
@@ -74,13 +81,14 @@ export class ShowserviceComponent implements OnInit {
         }
     }
 
-    openDialog(): void {
+    ratingDialog(id: number): void {
         const dialogRef = this.dialog.open(RatingComponent, {
-            width: '70%'
+            width: '70%',
+            data: {id: id}
         });
 
-        dialogRef.afterClosed().subscribe(() => {
-            console.log('The dialog was closed');
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed', result);
         });
     }
 

@@ -1,21 +1,19 @@
 <h4 class="text-center tc-blue">Evalúa este servicio</h4>
 
 <div class="modal-body">
-    <form>
-        <mat-grid-list cols="1" rowHeight="25px">
-            <mat-grid-tile>
-                <mat-icon>start</mat-icon>
-                <mat-icon>start</mat-icon>
-                <mat-icon>start</mat-icon>
-                <mat-icon>start</mat-icon>
-                <mat-icon>start</mat-icon>
+    <form (ngSubmit)="rate()">
+        <mat-grid-list cols="10" rowHeight="25px" (mouseleave)="clear()">
+            <mat-grid-tile *ngFor="let star of stars;let pos = index;">
+                <mat-icon style="cursor:pointer;" (mouseenter)="paint(pos)" (click)="click(pos)">{{star ? 'star' :
+                    'star_border'}}
+                </mat-icon>
             </mat-grid-tile>
         </mat-grid-list>
 
         <div *ngIf="error" class="alert alert-danger">{{error}}</div>
         <br>
         <div class="form-group text-center">
-            <button mat-raised-button color="primary" [disabled]="loading" class="col-12 tc-white">
+            <button [disabled]="value === 0" mat-raised-button color="primary" [disabled]="loading" class="col-12 tc-white">
                 <mat-icon>start</mat-icon>
                 Calificar servicio
             </button>
