@@ -123,9 +123,9 @@ export class ApiService {
             headers.append('Authorization', JSON.parse(currentUser).token);
 
             return this.http.get('http://localhost/login/api/service/' + id, {headers: headers}).map((response: Response) => {
-                if (response)
+                if (response) {
                     return response.json();
-                else {
+                } else {
                     return new Array();
                 }
             });
@@ -133,7 +133,7 @@ export class ApiService {
         else {
             return this.http.get('http://localhost/login/api/service/' + id).map((response: Response) => {
                 if (response)
-                    return response.json().data;
+                    return response.json();
                 else {
                     return new Array();
                 }
@@ -162,6 +162,21 @@ export class ApiService {
             const headers = new Headers();
             headers.append('Authorization', JSON.parse(currentUser).token);
             return this.http.get('http://localhost/login/api/dismarkfavorite/' + id, {headers: headers}).map((response: Response) => {
+                if (response)
+                    return response.json().data;
+                else {
+                    return new Array();
+                }
+            });
+        }
+    }
+
+    rateService(id: number, rate: number): Observable<any> {
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            const headers = new Headers();
+            headers.append('Authorization', JSON.parse(currentUser).token);
+            return this.http.get('http://localhost/login/api/rateservice/' + id + '/' + rate, {headers: headers}).map((response: Response) => {
                 if (response)
                     return response.json().data;
                 else {

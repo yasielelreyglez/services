@@ -42,7 +42,7 @@
 
         <br>
         <div class="form-group text-center">
-            <button mat-raised-button class="tc-white bc-blue-ligth col-12" [disabled]="loading">
+            <button mat-raised-button color="primary" class="tc-white col-12" [disabled]="loading || registerForm.invalid">
                 <mat-icon>assignment</mat-icon>
                 Registrarse
             </button>

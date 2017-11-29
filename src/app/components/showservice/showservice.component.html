@@ -1,38 +1,39 @@
-<div class="media" style="margin-bottom: 15px; padding-bottom: 10px;">
-    <div>
-        <img class="d-flex align-self-center mr-3" width="115" src="../../../assets/service_img.png" alt="" style="border: 1px solid #bcbcbc;
+<div class="col-12">
+    <div class="media" style="margin-bottom: 15px; padding-bottom: 10px;">
+        <div>
+            <img class="d-flex align-self-center mr-3" width="115" src="../../../assets/service_img.png" alt="" style="border: 1px solid #bcbcbc;
     padding: 5px;">
-    </div>
-    <div class="media-body">
-        <h5 class="mt-0 tc-blue">{{service.title}}</h5>
-        <div class="row">
-            <div class="col-8 col-sm-9 col-md-9 col-lg-10 fw-600 tc-grei"
-                 style="font-size: 13px; border-right: 1px solid #bcbcbc">
-                <span>Slogan</span><br>
-                <span>{{service.address}}</span><br>
-                <span>1.5 KM de tu posición</span><br>
-                <span>{{service.phone}}</span>
-            </div>
-            <div class="col-4 col-sm-3 col-md-3 col-lg-2 text-center">
-                <span class="tc-blue fw-600" style="font-size: 30px;">9/10</span>
-                <button class="btn btn-primary col-12 bc-blue-dark" (click)="evaluar()">
-                    Evaluar
-                </button>
+        </div>
+        <div class="media-body">
+            <h5 class="mt-0 tc-blue">{{service.title}}</h5>
+            <div class="row">
+                <div class="col-8 col-sm-9 col-md-9 col-lg-10 fw-600 tc-grei"
+                     style="font-size: 13px; border-right: 1px solid #bcbcbc">
+                    <span>Slogan</span><br>
+                    <span>{{service.address}}</span><br>
+                    <span>1.5 KM de tu posición</span><br>
+                    <span>{{service.phone}}</span>
+                </div>
+                <div class="col-4 col-sm-3 col-md-3 col-lg-2 text-center">
+                    <span class="tc-blue fw-600" style="font-size: 30px;">{{service.globalrate}}/10</span>
+                    <button *ngIf="loggedIn" mat-raised-button color="primary" (click)="ratingDialog(service.id)">
+                        Evaluar
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="col-12">
-    <h5 class="tc-blue">Descripción General</h5>
-    <p class="tc-grei">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, ab accusantium at beatae deleniti
-        exercitationem impedit libero magni molestiae mollitia nisi, pariatur quasi quis quo.
-    </p>
-</div>
+    <div class="col-12">
+        <h5 class="tc-blue">Descripción General</h5>
+        <p class="tc-grei">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, ab accusantium at beatae
+            deleniti
+            exercitationem impedit libero magni molestiae mollitia nisi, pariatur quasi quis quo.
+        </p>
+    </div>
 
-<!--(tabChange)="initMap()" -->
-<ngb-tabset [destroyOnHide]="false" [activeId]="1"  >
-    <ngb-tab title="Informacion">
-        <ng-template ngbTabContent>
+
+    <mat-tab-group>
+        <mat-tab label="Informacion">
             <br>
             <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
                 <i class="fa fa-calendar fa-2x" style="margin-right: 10px;"></i>
@@ -51,21 +52,15 @@
                 <i class="fa fa-link fa-2x" style="margin-right: 10px;"></i>
                 <h5 class="mt-0">{{service.url}}</h5>
             </div>
-        </ng-template>
-    </ngb-tab>
-    <ngb-tab title="Mapa">
-        <ng-template ngbTabContent>
-            <br>
-            Tab del mapa
-            <div #map2 id="map2" style="width: 100%;height: 400px"></div>
-        </ng-template>
-    </ngb-tab>
-    <ngb-tab title="Imágenes">
-        <ng-template ngbTabContent>
+        </mat-tab>
+        <mat-tab label="Mapa">
+            Tab de Mapa
+        </mat-tab>
+        <mat-tab label="Imágenes">
             <br>
             <div class="row">
-
-                <img *ngFor="let prev of images"  class="col-2 d-flex align-self-center" width="115" [src]="'/login/'+prev.title"
+                <img *ngFor="let prev of images" class="col-2 d-flex align-self-center" width="115"
+                     [src]="'/login/'+prev.title"
                      alt=""
                      style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
                 <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
@@ -74,15 +69,12 @@
                 <img class="col-2 d-flex align-self-center" width="115" src="../../../assets/service_img.png"
                      alt=""
                      style="border: 1px solid #bcbcbc; padding: 5px; float: left; margin-bottom: 10px; margin-right: 10px;">
-
             </div>
-        </ng-template>
-    </ngb-tab>
-    <ngb-tab title="Comentarios">
-        <ng-template ngbTabContent>
-            <br>
-            Tab de comentarios
-        </ng-template>
-    </ngb-tab>
-</ngb-tabset>
+        </mat-tab>
+        <mat-tab label="Comentarios">
+            Tab de Comentarios
+        </mat-tab>
+    </mat-tab-group>
+</div>
+
 

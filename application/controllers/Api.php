@@ -331,7 +331,7 @@ class Api extends REST_Controller
            }
             $relacion = $service->loadRelatedUserData($user);
             if (count($relacion) > 0) {
-                $obj = $relacion[0];
+                $obj = $relacion;
             } else {
                 $obj = new \Entities\UserService();
                 $obj->setService($service);
@@ -344,7 +344,9 @@ class Api extends REST_Controller
             $service->setGlobalRate($this->getGlobalRate($id));
             $em->persist($obj);
             $em->flush();
+            $service->loadRelatedUserData($user);
             $result["desc"] = "Evaluando al anuncio $id con $rate puntos";
+            $result["data"]=$service;
         }else{
             $result["desc"] = "El servicio no existe";
             $result["error"] = "No existe ningun servicio con id:$id";
@@ -625,7 +627,7 @@ class Api extends REST_Controller
         $countRates = 0;
         $rates = $service->getServiceusers();
         foreach ($rates as $rel){
-            $rel = new UserService();
+//            $rel = new UserService();
             if($rel->getRate()){
                 $sum+=$rel->getRate();
                 $countRates+=1;

@@ -1,36 +1,41 @@
 <div class="col-12">
     <h4 class="text-center tc-blue">Lista de servicios</h4>
     <hr class="bc-grei">
+    <form [formGroup]="filterForm" name="form" (ngSubmit)="filterForm.valid && filter()">
+        <div class="row">
 
-    <div class="row">
-        <div class="input-group subscribir-btn">
-            <input name="email" type="text" data-toggle="popover" data-placement="bottom"
-                   class="form-control" placeholder="Selecciona la ciudad...">
-            <span class="input-group-addon btn btn-primary bc-blue-ligth" style="color: white; border: none">
-            <i class="fa fa-arrow-down fa-2x"></i>
-        </span>
+            <mat-form-field class="col-12">
+                <mat-select placeholder="Ciudades" [(ngModel)]="model.cities"
+                            name="cities" [formControl]="filterForm.controls['cities']">
+                    <mat-option *ngFor="let city of cities" [value]="city.id">
+                        {{ city.title }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="col-12">
+                <mat-select placeholder="Subcategorias" [(ngModel)]="model.subcategory"
+                            name="subcategories" [formControl]="filterForm.controls['subcategory']">
+                    <mat-option *ngFor="let subcategory of subcategories" [value]="subcategory.id">
+                        {{ subcategory.title }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="col-12">
+                <input matInput placeholder="Distancia (km)" name="distance1" [(ngModel)]="model.distance" type="number"
+                       [formControl]="filterForm.controls['distance']"
+                       min="1">
+                <mat-error *ngIf="filterForm.controls['distance'].invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <div class="form-group text-center col-12">
+                <button mat-raised-button color="primary" class="tc-white col-12" [disabled]="filterForm.invalid">
+                    Filtrar
+                </button>
+            </div>
         </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="input-group subscribir-btn">
-            <input name="email" type="text" data-toggle="popover" data-placement="bottom"
-                   class="form-control" placeholder="Selecciona la categoría...">
-            <span class="input-group-addon btn btn-primary bc-blue-ligth" style="color: white; border: none">
-            <i class="fa fa-arrow-down fa-2x"></i>
-        </span>
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="input-group subscribir-btn">
-            <input name="email" type="text" data-toggle="popover" data-placement="bottom"
-                   class="form-control" placeholder="Escriba la distancia en Kms">
-            <span class="input-group-addon btn btn-primary bc-blue-ligth" style="color: white; border: none">
-            <i class="fa fa-arrow-down fa-2x"></i>
-        </span>
-        </div>
-    </div>
+    </form>
     <br>
 
     <app-services [services]=services></app-services>

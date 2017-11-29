@@ -32,8 +32,10 @@ import {WizardserviceComponent} from './components/wizardservice/wizardservice.c
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
     MatSelectModule, MatCheckboxModule, MatToolbarModule, MatMenuModule, MatIconModule, MatButtonModule,
-    MatFormFieldModule, MatInputModule, MatGridListModule, MatCardModule, MatDialogModule
+    MatFormFieldModule, MatInputModule, MatGridListModule, MatCardModule, MatDialogModule, MatTabsModule
 } from '@angular/material';
+import {ImageComponent} from './components/_modals/image/image.component';
+import { ImageZoomDirective } from './_directives/image-zoom.directive';
 
 @NgModule({
     declarations: [
@@ -54,12 +56,15 @@ import {
         ShowmyservicesComponent,
         ShowserviceComponent,
         RatingComponent,
-        WizardserviceComponent
+        WizardserviceComponent,
+        ImageComponent,
+        ImageZoomDirective
     ],
     entryComponents: [
         ForgotpassComponent,
         ReportComponent,
-        RatingComponent
+        RatingComponent,
+        ImageComponent
     ],
     imports: [
         BrowserAnimationsModule,
@@ -81,6 +86,7 @@ import {
         MatGridListModule,
         MatCardModule,
         MatDialogModule,
+        MatTabsModule,
         NgbModule.forRoot()
 
     ],
