@@ -88,11 +88,8 @@ export class ShowserviceComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed', result);
+            this.service = result;
         });
     }
 
-    tabChange() {
-        console.log('TAB CHANGED');
-    }
 }

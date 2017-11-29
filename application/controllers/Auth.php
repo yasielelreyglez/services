@@ -27,6 +27,7 @@ class Auth extends REST_Controller
     {
         parent::__construct();
         $this->load->database();
+
         $this->load->library(array('ion_auth', 'form_validation'));
     }
     public function token_get()
@@ -160,6 +161,45 @@ class Auth extends REST_Controller
             $output["error"] = "Usuario no encontrado";
             echo json_encode($output);
             return;
+        }
+    }
+
+    public function register_post(){
+        $em= $this->doctrine->em;
+
+        $userRepo = $em->getRepository('Entities\User');
+        $email = $this->post('email');
+        $users = $userRepo->findBy(array("email"=>$email));
+        if(count($users)>0){
+            $output["error"] = "Ya existe un usuario con este email";
+            echo json_encode($output);
+        }else{
+            $email = strtolower($this->post('email'));
+            $identity = $email ;
+            $password = $this->post('password');
+
+            $additional_data = array(
+                'first_name' => $this->post('name')
+//                'last_name' => $this->input->post('last_name'),
+//                'company' => $this->input->post('company'),
+//                'phone' => $this->input->post('phone'),
+            );
+            $result = $this->ion_auth->register($identity, $password, $email, $additional_data);
+            if($result){
+                $tokenData = array(
+                    'userid'=>$result,
+                    'email' => $email,
+                    'role' => 1
+                );
+                $token = AUTHORIZATION::generateToken($tokenData);
+                $output["token"] = $token;
+                $output["email"] = $email;
+                $output["role"] =  1;
+                echo json_encode($output);
+            }else{
+                $output["error"] = "Usuario no pudo ser creado";
+                echo json_encode($output);
+            }
         }
     }
 }

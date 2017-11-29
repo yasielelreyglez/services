@@ -33,7 +33,7 @@ export class UserService {
         headers.append('Authorization', JSON.parse(token).token);
         // let options = new RequestOptions({headers: headers});
 
-        let value = this.http.get('/login/api/peticion', {headers: headers})
+        let value = this.http.get('/services/api/peticion', {headers: headers})
             .map((response: Response) => response.json()    );
         return value;
     }
