@@ -29,7 +29,7 @@ export class RatingComponent implements OnInit {
     rate() {
         this.apiServices.rateService(this.data.id, this.value).subscribe(result => {
             if (result) {
-                this.dialogRef.close();
+                this.dialogRef.close(result);
             }
         });
     }
