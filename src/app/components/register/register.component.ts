@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from '../../_models/user';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from '../../_services/auth.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     hide = true;
 
-    constructor() {
+    constructor(private authService: AuthService) {
         this.user = new User();
         this.loading = false;
         this.error = '';

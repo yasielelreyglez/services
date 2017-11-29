@@ -28,6 +28,18 @@ export class AuthService {
         });
     }
 
+    register(user: User): Observable<boolean> {
+        const body = JSON.stringify({name: user.name, email: user.email, password: user.password});
+        return this.http.post('http://localhost/services/auth/register', body).map(response => response.json()).map(result => {
+            if (!result.error) {
+                localStorage.setItem('currentUser', JSON.stringify(result));
+                this.currentUser.next(result);
+                return true;
+            }
+            return false;
+        });
+    }
+
     logout(): void {
         // clear token remove user from local storage to log user out
         localStorage.removeItem('currentUser');
