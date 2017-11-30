@@ -91,17 +91,17 @@
     cursor: pointer !important;
 }
 
-#mat-categories .mat-grid-tile .mat-figure {
+.mat-categories .mat-grid-tile .mat-figure {
     display: block !important;
     padding-top: 12px !important;
 }
 
-#mat-categories img {
+.mat-categories img {
     width: 110px;
     padding-bottom: 5px;
 }
 
-#mat-categories div.mat-content {
+.mat-categories div.mat-content {
     font-size: 18px;
 }
 
@@ -187,6 +187,10 @@
     line-height: 26px;
 }
 
+.mat-images .mat-content {
+    height: 85%;
+}
+
 @media (min-width: 576px) and (max-width: 767px) {
     .container {
         max-width: 100% !important;
@@ -201,9 +205,9 @@
     }
 }
 
-mat-grid-tile {
-background: lightblue;
-}
+/*mat-grid-tile {*/
+/*background: lightblue;*/
+/*}*/
 
 /*.help-block {*/
 /*color: #FF3C2F;*/

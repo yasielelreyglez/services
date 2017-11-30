@@ -19,13 +19,13 @@ export class WizardserviceComponent implements OnInit {
     previews: string[][];
     previewvalue = 'assets/imagenes.png';
     service: Service;
-    positiontitle:string;
+    positiontitle: string;
     cities: City[];
     categories: any;
     currentPos = 0;
     //current positions data
-    latitude:string;
-    longitude:string;
+    latitude: string;
+    longitude: string;
 
     week_days = [
         {title: 'Lunes', value: false},
@@ -38,10 +38,8 @@ export class WizardserviceComponent implements OnInit {
     ];
 
 
-
     constructor(private apiServices: ApiService) {
         this.previews = [
-            ['assets/imagenes.png', 'assets/imagenes.png', 'assets/imagenes.png'],
             ['assets/imagenes.png', 'assets/imagenes.png', 'assets/imagenes.png'],
             ['assets/imagenes.png', 'assets/imagenes.png', 'assets/imagenes.png'],
             ['assets/imagenes.png', 'assets/imagenes.png', 'assets/imagenes.png']
@@ -93,14 +91,14 @@ export class WizardserviceComponent implements OnInit {
         }
     }
 
-    addPosition(){
+    addPosition() {
         this.service.positions.push({
             title: this.positiontitle,
             longitude: this.longitude,
             latitude: this.latitude
         });
         this.positiontitle = "";
-        this.longitude ="0";
+        this.longitude = "0";
         this.latitude = "0";
     }
 
@@ -130,13 +128,16 @@ export class WizardserviceComponent implements OnInit {
             };
         }
     }
-    finishFunction(){
+
+    finishFunction() {
 
         this.apiServices.createFullService(this.service).subscribe(result => this.showService(result));
     }
-    showService(servic){
+
+    showService(servic) {
 
     }
+
     onFileChange(event) {
         let reader = new FileReader();
         if (event.target.files && event.target.files.length > 0) {
