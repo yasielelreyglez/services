@@ -12,7 +12,6 @@ require APPPATH . '/libraries/REST_Controller.php';
 
 class Api extends REST_Controller
 {
-
     // LISTADO DE LAS SUBCATEGORIAS MAS VISITADAS O RANKIADAS(VISTA DEL HOME)
     public function topSubcategories_get()
     {
@@ -610,7 +609,7 @@ class Api extends REST_Controller
                 $poss = 0;
             }
         }
-        $service->setWeekDays($string_week);
+        $service->setWeekDays(substr($string_week,1,strlen($string_week)-1));
         $service->setStartTime($this->post('start_time', TRUE));
         $service->setEndTime($this->post('end_time', TRUE));
         //UBICACIONES

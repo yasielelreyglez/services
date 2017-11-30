@@ -50,13 +50,29 @@ class Subcategory extends CI_Controller {
 
 		if ($this->form_validation->run()) {
 
-			$data[] = array();
-			$data['id'] = $this->input->post('id', TRUE);
-			$data['title'] = $this->input->post('title', TRUE);
-			$data['icon'] = $this->input->post('icon', TRUE);
-			$this->Subcategory_model->save($data);
-			redirect('/subcategory/index', 'refresh');
+            $config['upload_path']          = './resources/image/categories';
+            $config['allowed_types']        = 'gif|jpg|png';
+            $config['max_size']             = 1000;
+            $config['max_width']            = 9024;
+            $config['max_height']           = 2768;
+            $this->load->library('upload', $config);
+            if ( ! $this->upload->do_upload('userfile')) {
+                $error = array('error' => $this->upload->display_errors());
+                $this->load->view('upload_form', $error);
+                print_r($error);
+            }else{
+
+
+                $data["upload_data"] =$this->upload->data();
+				$data[] = array();
+				$data['id'] = $this->input->post('id', TRUE);
+				$data['title'] = $this->input->post('title', TRUE);
+				$data['icon'] ='resources/image/categories/'.$data["upload_data"]["file_name"];
+
+				$this->Subcategory_model->save($data);
+            }
 		}
+			redirect('/subcategory/index', 'refresh');
 		$data['subcategory'] =	$this->rebuild();
 		$data['content'] = '/subcategory/create';
         $this->load->view('/includes/contentpage', $data);
