@@ -333,8 +333,8 @@ CREATE TABLE `subcategories` (
 --
 
 INSERT INTO `subcategories` (`id`, `category_id`, `title`, `icon`, `visits`) VALUES
-(1, 1, 'Subcategoria mas visitadas', 'resources/mage/subcategories/servicios_medicos.png', 45),
-(2, 2, 'subtitle3', 'resources/mage/subcategories/servicios_tecnologicos.png', 14),
+(1, 1, 'Subcategoria mas visitadas', 'resources/image/subcategories/servicios_medicos.png', 45),
+(2, 2, 'subtitle3', 'resources/image/subcategories/servicios_tecnologicos.png', 14),
 (3, 2, 'subcategoria menos visitada', 'resources/image/subcategories/telefonia_celular.png', 33),
 (4, 2, 'Super subcategory mas votadas', 'resources/image/subcategories/transportacion.png', 51);
 

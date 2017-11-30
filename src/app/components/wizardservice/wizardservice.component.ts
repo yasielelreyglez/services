@@ -23,7 +23,7 @@ export class WizardserviceComponent implements OnInit {
     cities: City[];
     categories: any;
     currentPos = 0;
-    //current positions data
+    // current positions data
     latitude: string;
     longitude: string;
 
@@ -85,7 +85,7 @@ export class WizardserviceComponent implements OnInit {
             this.service.id = result.id;
             this.wizards.navigation.goToNextStep();
         } else {
-            //TODO SOLO PARA PRUEBAS QUITAR
+            // TODO SOLO PARA PRUEBAS QUITAR
             this.service.id = 2;
             this.wizards.navigation.goToNextStep();
         }
@@ -97,16 +97,16 @@ export class WizardserviceComponent implements OnInit {
             longitude: this.longitude,
             latitude: this.latitude
         });
-        this.positiontitle = "";
-        this.longitude = "0";
-        this.latitude = "0";
+        this.positiontitle = '';
+        this.longitude = '0';
+        this.latitude = '0';
     }
 
 
     onFotoChange(event) {
-        let reader = new FileReader();
+        const reader = new FileReader();
         if (event.target.files && event.target.files.length > 0) {
-            let file = event.target.files[0];
+            const file = event.target.files[0];
             reader.readAsDataURL(file);
             console.log('cargando el fichero');
             reader.onload = () => {
@@ -115,8 +115,8 @@ export class WizardserviceComponent implements OnInit {
                 //     filetype: file.type,
                 //     value: reader.result.split(',')[1]
                 // });
-                let row = Math.trunc(this.currentPos / 3);
-                let col = this.currentPos % 3;
+                const row = Math.trunc(this.currentPos / 3);
+                const col = this.currentPos % 3;
                 console.log(row, col, this.currentPos);
                 this.previews[row][col] = reader.result;
                 this.service.galery.push({
@@ -139,9 +139,9 @@ export class WizardserviceComponent implements OnInit {
     }
 
     onFileChange(event) {
-        let reader = new FileReader();
+        const reader = new FileReader();
         if (event.target.files && event.target.files.length > 0) {
-            let file = event.target.files[0];
+            const file = event.target.files[0];
             reader.readAsDataURL(file);
             reader.onload = () => {
                 this.service.icon = ({
