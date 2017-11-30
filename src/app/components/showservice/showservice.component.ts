@@ -26,6 +26,7 @@ export class ShowserviceComponent implements OnInit {
     images: any[] = [];
     days: string[] = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     week_days: any = '';
+    comment: number;
     loggedIn = false;
 
     constructor(private route: ActivatedRoute, private apiServices: ApiService,
@@ -43,6 +44,7 @@ export class ShowserviceComponent implements OnInit {
             this.apiServices.service(id).subscribe(result => {
                 this.service = result.data;
                 this.images = result.data.imagesList;
+                this.comment = result.data.servicecommentsList.length;
                 this.result_week_days();
             });
         });
