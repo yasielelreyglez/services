@@ -108,10 +108,10 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'title', 'icon', 'description', 'subtitle', 'phone', 'address', 'other_phone', 'email', 'url', 'week_days', 'start_time', 'end_time', 'visits', 'created', 'created_at', 'updated_at', 'author', 'positions', 'positionsList', 'cities', 'citiesList', 'subcategories', 'subcategoriesList', 'serviceusers', 'globalrate', 'servicecomments', 'servicecommentsList', '' . "\0" . 'Entities\\Service' . "\0" . 'images', '' . "\0" . 'Entities\\Service' . "\0" . 'imagesList', 'visited', 'contacted', 'complain', 'favorite', 'rated'];
+            return ['__isInitialized__', 'id', 'title', 'icon', 'description', 'subtitle', 'phone', 'address', 'other_phone', 'email', 'url', 'week_days', 'start_time', 'end_time', 'visits', 'created', 'created_at', 'updated_at', 'author', 'positions', 'positionsList', 'cities', 'citiesList', 'subcategories', 'subcategoriesList', 'serviceusers', 'globalrate', 'servicecomments', 'servicecommentsList', '' . "\0" . 'Entities\\Service' . "\0" . 'images', 'imagesList', 'visited', 'contacted', 'complain', 'favorite', 'rated'];
         }
 
-        return ['__isInitialized__', 'id', 'created', 'created_at', 'updated_at', 'positions', 'positionsList', 'cities', 'citiesList', 'subcategories', 'subcategoriesList', 'serviceusers', 'servicecomments', 'servicecommentsList', '' . "\0" . 'Entities\\Service' . "\0" . 'images', '' . "\0" . 'Entities\\Service' . "\0" . 'imagesList', 'visited', 'contacted', 'complain', 'favorite', 'rated'];
+        return ['__isInitialized__', 'id', 'created', 'created_at', 'updated_at', 'positions', 'positionsList', 'cities', 'citiesList', 'subcategories', 'subcategoriesList', 'serviceusers', 'servicecomments', 'servicecommentsList', '' . "\0" . 'Entities\\Service' . "\0" . 'images', 'imagesList', 'visited', 'contacted', 'complain', 'favorite', 'rated'];
     }
 
     /**
