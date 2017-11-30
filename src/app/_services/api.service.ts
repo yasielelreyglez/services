@@ -202,6 +202,22 @@ export class ApiService {
         }
     }
 
+    addComment(id: number, comment: string): Observable<any> {
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            const headers = new Headers();
+            headers.append('Authorization', JSON.parse(currentUser).token);
+            return this.http.post('http://localhost/services/api/addcomment/' + id, {comment}, {headers: headers}).map((response: Response) => {
+                    if (response) {
+                        return response.json().data;
+                    } else {
+                        return {error: response.json().result};
+                    }
+                }
+            );
+        }
+    }
+
     createService(service: Service): Observable<any> {
         // const body = JSON.stringify(service);
         const currentUser = localStorage.getItem('currentUser');

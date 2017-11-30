@@ -5,6 +5,7 @@ import {RatingComponent} from '../_modals/rating/rating.component';
 import {isNull} from 'util';
 import {MatDialog} from '@angular/material';
 import {AuthService} from '../../_services/auth.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 declare var google: any;
 
@@ -28,9 +29,15 @@ export class ShowserviceComponent implements OnInit {
     week_days: any = '';
     comment: number;
     loggedIn = false;
+    commentForm: FormGroup;
+    model: any;
+    loading: boolean;
+    error: string;
 
     constructor(private route: ActivatedRoute, private apiServices: ApiService,
                 public dialog: MatDialog, private authServices: AuthService) {
+        this.model = {};
+        this.loading = false;
     }
 
     ngOnInit() {
@@ -48,6 +55,8 @@ export class ShowserviceComponent implements OnInit {
                 this.result_week_days();
             });
         });
+
+        this.createForm();
 
         // var mapProp = {
         //     center: new google.maps.LatLng(51.508742, -0.120850),
@@ -83,6 +92,17 @@ export class ShowserviceComponent implements OnInit {
         }
     }
 
+    createForm() {
+        this.commentForm = new FormGroup({
+            textcomment: new FormControl('', [Validators.required])
+        });
+    }
+
+    getErrorMessage() {
+        return this.commentForm.controls['textcomment'].hasError('required') ? 'You must enter a value' :
+            '';
+    }
+
     ratingDialog(id: number): void {
         const dialogRef = this.dialog.open(RatingComponent, {
             width: '70%',
@@ -91,6 +111,23 @@ export class ShowserviceComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             this.service = result;
+        });
+    }
+
+    sendComment() {
+        this.loading = true;
+        this.apiServices.addComment(this.service.id, this.model.textcomment).subscribe(result => {
+            if (result) {
+                this.service = result;
+                this.loading = false;
+                this.commentForm = new FormGroup({
+                    textcomment: new FormControl('', [Validators.required])
+                });
+            }
+            else {
+                this.error = 'Error en el servidor';
+                this.loading = false;
+            }
         });
     }
 

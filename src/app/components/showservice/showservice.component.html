@@ -36,84 +36,126 @@
             </div>
         </div>
     </div>
-    <div class="col-12">
+    <div>
         <h5 class="tc-blue">Descripción General</h5>
         <p class="tc-grei">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, ab accusantium at beatae
-            deleniti
-            exercitationem impedit libero magni molestiae mollitia nisi, pariatur quasi quis quo.
+            deleniti exercitationem impedit libero.
         </p>
     </div>
 
     <mat-tab-group>
-        <mat-tab label="Informacion">
-            <br>
-            <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
-                <i class="fa fa-calendar fa-2x" style="margin-right: 10px;"></i>
-                <h5 class="mt-0">{{week_days}}</h5>
-            </div>
-            <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
-                <i class="fa fa-clock-o fa-2x" style="margin-right: 10px;"></i>
-                <h5 class="mt-0">Desde {{service.start_time}} hasta
-                    {{service.end_time}}</h5>
-            </div>
-            <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
-                <i class="fa fa-at fa-2x" style="margin-right: 10px;"></i>
-                <h5 class="mt-0">{{service.email}}</h5>
-            </div>
-            <div class="tc-blue" style="display: flex">
-                <i class="fa fa-link fa-2x" style="margin-right: 10px;"></i>
-                <h5 class="mt-0">{{service.url}}</h5>
-            </div>
-        </mat-tab>
-        <mat-tab label="Mapa">
-            Tab de Mapa
-        </mat-tab>
-        <mat-tab label="Imágenes">
-            <br>
-            <mat-grid-list cols="2" class="mat-images d-block d-sm-none" rowHeight="140px">
-                <mat-grid-tile *ngFor="let prev of images" class="text-center">
-                    <div class="mat-content text-center">
-                        <img [src]="'/services/'+prev.title"
-                             alt=""
-                             style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
-                             appImageZoom>
-                    </div>
-                </mat-grid-tile>
-            </mat-grid-list>
-            <mat-grid-list cols="3" class="mat-images d-none d-sm-block d-md-none" rowHeight="140px">
-                <mat-grid-tile *ngFor="let prev of images" class="text-center">
-                    <div class="mat-content text-center">
-                        <img [src]="'/services/'+prev.title"
-                             alt=""
-                             style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
-                             appImageZoom>
-                    </div>
-                </mat-grid-tile>
-            </mat-grid-list>
-            <mat-grid-list cols="4" class="mat-images d-none d-md-block d-lg-none" rowHeight="140px">
-                <mat-grid-tile *ngFor="let prev of images" class="text-center">
-                    <div class="mat-content text-center">
-                        <img [src]="'/services/'+prev.title"
-                             alt=""
-                             style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
-                             appImageZoom>
-                    </div>
-                </mat-grid-tile>
-            </mat-grid-list>
-            <mat-grid-list cols="6" class="mat-images d-none d-lg-block" rowHeight="140px">
-                <mat-grid-tile *ngFor="let prev of images" class="text-center">
-                    <div class="mat-content text-center">
-                        <img [src]="'/services/'+prev.title"
-                             alt=""
-                             style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
-                             appImageZoom>
-                    </div>
-                </mat-grid-tile>
-            </mat-grid-list>
+        <!--<mat-tab label="Informacion">-->
+        <!--<br>-->
+        <!--<div class="tc-blue" style="display: flex; margin-bottom: 10px;">-->
+        <!--<i class="fa fa-calendar fa-2x" style="margin-right: 10px;"></i>-->
+        <!--<h5 class="mt-0">{{week_days}}</h5>-->
+        <!--</div>-->
+        <!--<div class="tc-blue" style="display: flex; margin-bottom: 10px;">-->
+        <!--<i class="fa fa-clock-o fa-2x" style="margin-right: 10px;"></i>-->
+        <!--<h5 class="mt-0">Desde {{service.start_time}} hasta-->
+        <!--{{service.end_time}}</h5>-->
+        <!--</div>-->
+        <!--<div class="tc-blue" style="display: flex; margin-bottom: 10px;">-->
+        <!--<i class="fa fa-at fa-2x" style="margin-right: 10px;"></i>-->
+        <!--<h5 class="mt-0">{{service.email}}</h5>-->
+        <!--</div>-->
+        <!--<div class="tc-blue" style="display: flex">-->
+        <!--<i class="fa fa-link fa-2x" style="margin-right: 10px;"></i>-->
+        <!--<h5 class="mt-0">{{service.url}}</h5>-->
+        <!--</div>-->
+        <!--</mat-tab>-->
+        <!---->
+        <!--<mat-tab label="Mapa">-->
+        <!--<br>-->
+        <!--Tab de Mapa-->
+        <!--</mat-tab>-->
+        <!---->
+        <!--<mat-tab label="Imágenes">-->
+        <!--<br>-->
+        <!--<mat-grid-list cols="2" class="mat-images d-block d-sm-none" rowHeight="140px">-->
+        <!--<mat-grid-tile *ngFor="let prev of images" class="text-center">-->
+        <!--<div class="mat-content text-center">-->
+        <!--<img [src]="'/services/'+prev.title"-->
+        <!--alt=""-->
+        <!--style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"-->
+        <!--appImageZoom>-->
+        <!--</div>-->
+        <!--</mat-grid-tile>-->
+        <!--</mat-grid-list>-->
+        <!--<mat-grid-list cols="3" class="mat-images d-none d-sm-block d-md-none" rowHeight="140px">-->
+        <!--<mat-grid-tile *ngFor="let prev of images" class="text-center">-->
+        <!--<div class="mat-content text-center">-->
+        <!--<img [src]="'/services/'+prev.title"-->
+        <!--alt=""-->
+        <!--style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"-->
+        <!--appImageZoom>-->
+        <!--</div>-->
+        <!--</mat-grid-tile>-->
+        <!--</mat-grid-list>-->
+        <!--<mat-grid-list cols="4" class="mat-images d-none d-md-block d-lg-none" rowHeight="140px">-->
+        <!--<mat-grid-tile *ngFor="let prev of images" class="text-center">-->
+        <!--<div class="mat-content text-center">-->
+        <!--<img [src]="'/services/'+prev.title"-->
+        <!--alt=""-->
+        <!--style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"-->
+        <!--appImageZoom>-->
+        <!--</div>-->
+        <!--</mat-grid-tile>-->
+        <!--</mat-grid-list>-->
+        <!--<mat-grid-list cols="6" class="mat-images d-none d-lg-block" rowHeight="140px">-->
+        <!--<mat-grid-tile *ngFor="let prev of images" class="text-center">-->
+        <!--<div class="mat-content text-center">-->
+        <!--<img [src]="'/services/'+prev.title"-->
+        <!--alt=""-->
+        <!--style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"-->
+        <!--appImageZoom>-->
+        <!--</div>-->
+        <!--</mat-grid-tile>-->
+        <!--</mat-grid-list>-->
+        <!--</mat-tab>-->
 
-        </mat-tab>
         <mat-tab label="Comentarios">
-            Tab de Comentarios
+            <br>
+            <form [formGroup]="commentForm" (ngSubmit)="commentForm.valid && sendComment()">
+                <mat-form-field>
+                    <textarea matInput placeholder="Escribe tu comentario" name="textcomment"
+                              [formControl]="commentForm.controls['textcomment']"
+                              [(ngModel)]="model.textcomment"
+                              required></textarea>
+                    <mat-error *ngIf="commentForm.controls['textcomment'].invalid">{{getErrorMessage()}}</mat-error>
+                </mat-form-field>
+
+                <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+                <br>
+                <div class="form-group text-center">
+                    <button mat-raised-button color="primary" class="tc-white col-12"
+                            [disabled]="loading || commentForm.invalid">
+                        <mat-icon>comment</mat-icon>
+                        Comentar ahora
+                    </button>
+                    <img *ngIf="loading"
+                         src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                    />
+                </div>
+            </form>
+
+            <h5 class="tc-blue">Comentarios anteriores</h5>
+
+            <div *ngFor="let currentcomment of service.servicecommentsList">
+                <hr class="bc-grei">
+                <mat-grid-list cols="12" rowHeight="30px">
+                    <mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">
+                        <h5 class="tc-blue mb-0">{{currentcomment.user.username}}</h5>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="4" [rowspan]="1">
+                        <span class="tc-blue">{{service.globalrate}}/10</span>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <div>{{currentcomment.comment}}
+                </div>
+                <br>
+            </div>
+
         </mat-tab>
     </mat-tab-group>
 </div>
