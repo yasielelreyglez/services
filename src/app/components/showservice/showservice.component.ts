@@ -110,7 +110,7 @@ export class ShowserviceComponent implements OnInit {
     }
 
     getErrorMessage() {
-        return this.commentForm.controls['textcomment'].hasError('minlength') ? '10 characters minimum' :
+        return this.commentForm.controls['textcomment'].hasError('minlength') ? 'Min 10 characters' :
             '';
     }
 
