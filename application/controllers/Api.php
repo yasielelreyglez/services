@@ -455,21 +455,21 @@ class Api extends REST_Controller
 
     public function addcomment_post($id)
     {
-        $comment = $this->post("comment", true);
+        $comment_param = $this->post("comment", true);
         $em = $this->doctrine->em;
         $service = $em->find("Entities\Service", $id);
         $user = $this->getCurrentUser();
 
         if ($user && $service) {
-            $result["desc"] = "COMENTANDO EL SERVICIO $service->getTitle()";
+            $result["desc"] = "COMENTANDO EL SERVICIO {$service->getTitle()}";
             $comment = new \Entities\Comments();
             $comment->setUser($user);
             $comment->setService($service);
-            $comment->setComment($comment);
+            $comment->setComment($comment_param);
             $em->persist($comment);
             $em->flush();
         } else {
-            $result["desc"] = "ERROR COMENTANDO EL SERVICIO $service->getTitle()";
+            $result["desc"] = "ERROR COMENTANDO EL SERVICIO {$service->getTitle()}";
             $result["error"] = "No esta autenticado o no existe el servicio";
         }
         $service->loadRelatedData();
@@ -586,10 +586,10 @@ class Api extends REST_Controller
         $service->subtitle = $this->post('subtitle', TRUE);
         $service->phone = $this->post('phone', TRUE);
         $service->address = $this->post('address', TRUE);
-        $service->addSubCategories($this->post('categories', TRUE),$em);
-        $service->addCities($this->post('cities', TRUE),$em);
+        $service->addSubCategories($this->post('categories', TRUE), $em);
+        $service->addCities($this->post('cities', TRUE), $em);
         $icon = $this->post('icon');
-        $path= "./resources/".$icon['filename'];
+        $path = "./resources/" . $icon['filename'];
         file_put_contents($path, base64_decode($icon['value']));
         $service->setIcon($path);
 
@@ -619,7 +619,7 @@ class Api extends REST_Controller
         $em->flush();
         //GALERIA DE FOTOS
         $fotos = $this->post('galery', TRUE);
-        $service->addFotos($fotos,$em);
+        $service->addFotos($fotos, $em);
         $em->persist($service);
         $em->flush();
         $this->set_response($service, REST_Controller::HTTP_OK);
