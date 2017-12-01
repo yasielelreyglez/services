@@ -45,83 +45,87 @@
     </div>
 
     <mat-tab-group>
-        <!--<mat-tab label="Informacion">-->
-        <!--<br>-->
-        <!--<div class="tc-blue" style="display: flex; margin-bottom: 10px;">-->
-        <!--<i class="fa fa-calendar fa-2x" style="margin-right: 10px;"></i>-->
-        <!--<h5 class="mt-0">{{week_days}}</h5>-->
-        <!--</div>-->
-        <!--<div class="tc-blue" style="display: flex; margin-bottom: 10px;">-->
-        <!--<i class="fa fa-clock-o fa-2x" style="margin-right: 10px;"></i>-->
-        <!--<h5 class="mt-0">Desde {{service.start_time}} hasta-->
-        <!--{{service.end_time}}</h5>-->
-        <!--</div>-->
-        <!--<div class="tc-blue" style="display: flex; margin-bottom: 10px;">-->
-        <!--<i class="fa fa-at fa-2x" style="margin-right: 10px;"></i>-->
-        <!--<h5 class="mt-0">{{service.email}}</h5>-->
-        <!--</div>-->
-        <!--<div class="tc-blue" style="display: flex">-->
-        <!--<i class="fa fa-link fa-2x" style="margin-right: 10px;"></i>-->
-        <!--<h5 class="mt-0">{{service.url}}</h5>-->
-        <!--</div>-->
-        <!--</mat-tab>-->
+        <mat-tab label="Informacion">
+            <br>
+            <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
+                <i class="fa fa-calendar fa-2x" style="margin-right: 10px;"></i>
+                <h5 class="mt-0">{{week_days}}</h5>
+            </div>
+            <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
+                <i class="fa fa-clock-o fa-2x" style="margin-right: 10px;"></i>
+                <h5 class="mt-0">Desde {{service.start_time}} hasta
+                    {{service.end_time}}</h5>
+            </div>
+            <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
+                <i class="fa fa-at fa-2x" style="margin-right: 10px;"></i>
+                <h5 class="mt-0">{{service.email}}</h5>
+            </div>
+            <div class="tc-blue" style="display: flex">
+                <i class="fa fa-link fa-2x" style="margin-right: 10px;"></i>
+                <h5 class="mt-0">{{service.url}}</h5>
+            </div>
+        </mat-tab>
 
-        <!--<mat-tab label="Mapa">-->
-        <!--<br>-->
-        <!--Tab de Mapa-->
-        <!--</mat-tab>-->
+        <mat-tab label="Mapa">
+            <br>
+            Tab de Mapa
+        </mat-tab>
 
-        <!--<mat-tab label="Imágenes">-->
-        <!--<br>-->
-        <!--<mat-grid-list cols="2" class="mat-images d-block d-sm-none" rowHeight="140px">-->
-        <!--<mat-grid-tile *ngFor="let prev of images" class="text-center">-->
-        <!--<div class="mat-content text-center">-->
-        <!--<img [src]="'/services/'+prev.title"-->
-        <!--alt=""-->
-        <!--style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"-->
-        <!--appImageZoom>-->
-        <!--</div>-->
-        <!--</mat-grid-tile>-->
-        <!--</mat-grid-list>-->
-        <!--<mat-grid-list cols="3" class="mat-images d-none d-sm-block d-md-none" rowHeight="140px">-->
-        <!--<mat-grid-tile *ngFor="let prev of images" class="text-center">-->
-        <!--<div class="mat-content text-center">-->
-        <!--<img [src]="'/services/'+prev.title"-->
-        <!--alt=""-->
-        <!--style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"-->
-        <!--appImageZoom>-->
-        <!--</div>-->
-        <!--</mat-grid-tile>-->
-        <!--</mat-grid-list>-->
-        <!--<mat-grid-list cols="4" class="mat-images d-none d-md-block d-lg-none" rowHeight="140px">-->
-        <!--<mat-grid-tile *ngFor="let prev of images" class="text-center">-->
-        <!--<div class="mat-content text-center">-->
-        <!--<img [src]="'/services/'+prev.title"-->
-        <!--alt=""-->
-        <!--style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"-->
-        <!--appImageZoom>-->
-        <!--</div>-->
-        <!--</mat-grid-tile>-->
-        <!--</mat-grid-list>-->
-        <!--<mat-grid-list cols="6" class="mat-images d-none d-lg-block" rowHeight="140px">-->
-        <!--<mat-grid-tile *ngFor="let prev of images" class="text-center">-->
-        <!--<div class="mat-content text-center">-->
-        <!--<img [src]="'/services/'+prev.title"-->
-        <!--alt=""-->
-        <!--style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"-->
-        <!--appImageZoom>-->
-        <!--</div>-->
-        <!--</mat-grid-tile>-->
-        <!--</mat-grid-list>-->
-        <!--</mat-tab>-->
+        <mat-tab label="Imágenes">
+            <br>
+            <mat-grid-list cols="2" class="mat-images d-block d-sm-none" rowHeight="140px">
+                <mat-grid-tile *ngFor="let prev of images" class="text-center">
+                    <div class="mat-content text-center">
+                        <img [src]="'/services/'+prev.title"
+                             alt=""
+                             style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
+                             appImageZoom>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-grid-list cols="3" class="mat-images d-none d-sm-block d-md-none" rowHeight="140px">
+                <mat-grid-tile *ngFor="let prev of images" class="text-center">
+                    <div class="mat-content text-center">
+                        <img [src]="'/services/'+prev.title"
+                             alt=""
+                             style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
+                             appImageZoom>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-grid-list cols="4" class="mat-images d-none d-md-block d-lg-none" rowHeight="140px">
+                <mat-grid-tile *ngFor="let prev of images" class="text-center">
+                    <div class="mat-content text-center">
+                        <img [src]="'/services/'+prev.title"
+                             alt=""
+                             style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
+                             appImageZoom>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-grid-list cols="6" class="mat-images d-none d-lg-block" rowHeight="140px">
+                <mat-grid-tile *ngFor="let prev of images" class="text-center">
+                    <div class="mat-content text-center">
+                        <img [src]="'/services/'+prev.title"
+                             alt=""
+                             style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
+                             appImageZoom>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-tab>
 
         <mat-tab label="Comentarios">
             <br>
             <form *ngIf="loggedIn" [formGroup]="commentForm" (ngSubmit)="commentForm.valid && sendComment()">
-                <mat-form-field hintLabel="Min 10 characters">
+                <mat-form-field hintLabel="Min 10 characters" class="textcomment">
                     <textarea matInput placeholder="Escribe tu comentario" #textcomment name="textcomment"
                               [formControl]="commentForm.controls['textcomment']" [(ngModel)]="model.textcomment"
-                              ></textarea>
+                    ></textarea>
+                    <button mat-button *ngIf="model.textcomment" matSuffix mat-icon-button aria-label="Clear"
+                            (click)="model.textcomment = ''">
+                        <mat-icon>close</mat-icon>
+                    </button>
                     <mat-hint align="end">{{textcomment.value?.length || 0}}</mat-hint>
                     <mat-error *ngIf="commentForm.controls['textcomment'].invalid">{{getErrorMessage()}}</mat-error>
                 </mat-form-field>
@@ -129,11 +133,6 @@
                 <div *ngIf="error" class="alert alert-danger">{{error}}</div>
                 <br>
                 <div class="form-group text-center">
-                    <!--<button mat-raised-button color="primary" class="tc-white col-12"-->
-                            <!--[disabled]="loading || commentForm.controls['textcomment'].pristine || commentForm.invalid ">-->
-                        <!--<mat-icon>comment</mat-icon>-->
-                        <!--Comentar ahora-->
-                    <!--</button>-->
                     <button mat-raised-button color="primary" class="tc-white col-12"
                             [disabled]="loading || !submitAttempt">
                         <mat-icon>comment</mat-icon>
