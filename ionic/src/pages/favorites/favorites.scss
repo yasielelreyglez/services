@@ -6,16 +6,16 @@ page-favorites {
         color: #0092b6;
         // border-bottom: 1px solid #dedede
     }
-    .item {
-        border-bottom: 1px solid #dedede;
-        padding-left: 10px;
-    }
-    .item-md ion-thumbnail[item-start],
-    .item-ios ion-thumbnail[item-start] {
-        margin: -50px 16px 8px 0;
-        & img {
-            width: 90px !important;
-            height: 90px !important;
-        }
-    }
+    // .item {
+    //     border-bottom: 1px solid #dedede;
+    //     padding-left: 10px;
+    // }
+    // .item-md ion-thumbnail[item-start],
+    // .item-ios ion-thumbnail[item-start] {
+    //     margin: -50px 16px 8px 0;
+    //     & img {
+    //         width: 90px !important;
+    //         height: 90px !important;
+    //     }
+    // }
 }

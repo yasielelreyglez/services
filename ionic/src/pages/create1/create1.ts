@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import {
   IonicPage,
   NavController,
@@ -8,6 +8,9 @@ import {
 } from "ionic-angular";
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { ViewChild } from '@angular/core';
+import {Service} from '../../models/service'
+import { ApiProvider } from '../../providers/api/api';
 /**
  * Generated class for the Create1Page page.
  *
@@ -23,20 +26,23 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 export class Create1Page {
   imageURI:any;
   preview:any;
-  resbuesta:any;
-
+  respuesta:any;
+  service: Service;
   imageFileName:any;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private transfer: FileTransfer,
     private camera: Camera,
-    public actionSheetCtrl: ActionSheetController  ,
+    public actionSheetCtrl: ActionSheetController  ,  public api: ApiProvider
       ) {
-     this.imageURI = "http://192.168.137.1/login/resources/image/categories/bares.png"
+     this.imageURI = "http://192.168.137.1/login/resources/image/categories/bares.png";
+     this.service = new Service();
   }
 
+
+
   ionViewDidLoad() {
-    console.log('ionViewDidLoad Create1Page');
+
   }
   public presentActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({
@@ -91,16 +97,20 @@ export class Create1Page {
       headers: {}
     }
 
-    fileTransfer.upload(this.imageURI, 'http://192.168.137.149/login/api/testimg', options)
+    fileTransfer.upload(this.imageURI, this.api.getbaseUrl+'api/testimg', options)
       .then((data) => {
-      this.resbuesta =data;
+      this.respuesta =data;
       // console.log(data+" Uploaded Successfully");
       // this.imageFileName = "http://192.168.0.7:8080/static/images/ionicfile.jpg"
 
     }, (err) => {
       console.log(err);
-      this.resbuesta =err;
+      this.respuesta =err;
     });
+  }
+
+  create(){
+
   }
 
 }

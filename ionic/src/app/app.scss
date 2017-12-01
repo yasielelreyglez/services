@@ -20,3 +20,49 @@ ion-modal ion-backdrop {
     visibility: visible !important;
     z-index: 0;
 }
+
+.serv-pro {
+    width: 35px;
+    height: 16px;
+    background-color: #44AB6C;
+    font-weight: 600;
+    font-size: 11px;
+    & {
+        .texto {
+            color: white;
+            text-align: center;
+        }
+    }
+}
+
+.inline-b {
+    display: inline-block;
+}
+
+.hr-separador {
+    border-bottom: 1px solid #dedede;
+}
+
+.azul-claro {
+    color: color($colors, azul-claro);
+}
+
+.fs-20 {
+    font-size: 20px;
+}
+
+.fs-25 {
+    font-size: 25px;
+}
+
+.fs-30 {
+    font-size: 30px;
+}
+
+.fs-35 {
+    font-size: 35px;
+}
+
+.fs-40 {
+    font-size: 40px;
+}

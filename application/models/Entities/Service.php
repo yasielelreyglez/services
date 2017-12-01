@@ -676,9 +676,13 @@ namespace Entities {
         public function loadRelatedData(){
             $this->subcategoriesList = $this->getSubcategories()->toArray();
             $this->servicecommentsList = $this->getServicecomments()->toArray();
+            foreach ( $this->servicecommentsList as $comment){
+                $comment->getUser()->getUsername();
+            }
             $this->citiesList = $this->getCities()->toArray();
             $this->imagesList = $this->getImages()->toArray();
             $this->positionsList = $this->getPositions()->toArray();
+
         }
 
         public function loadRelatedUserData($user)

@@ -1,9 +1,11 @@
 // componetes angular
+
 import { Component, ViewChild } from "@angular/core";
 // providers
 import  {SubCategoryProvider} from  '../../providers/sub-category/sub-category';
 import  {AuthProvider} from  '../../providers/auth/auth';
 import { ServiceProvider } from "../../providers/service/service.service";
+import { ApiProvider } from "../../providers/api/api";
 
 // Paginas
 import  {PopoverPage} from  '../pop-over/pop-over';
@@ -22,9 +24,11 @@ import {
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ServicePage } from "../service/service";
 import { HttpErrorResponse } from "@angular/common/http";
-import { ApiProvider } from "../../providers/api/api";
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 
-@IonicPage()
+@IonicPage({
+  priority: 'high'
+})
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -39,10 +43,12 @@ export class HomePage {
   baseUrl: any;
   busqueda:boolean;
   loading: any;
+
   @ViewChild('search') search;
 
 
   constructor(
+
      public auth: AuthProvider,
      private popoverCtrl: PopoverController,
      public subCat: SubCategoryProvider,
@@ -50,36 +56,49 @@ export class HomePage {
      public api: ApiProvider,
      public servProv: ServiceProvider,
      private load: LoadingController,
+     private photoViewer: PhotoViewer,
      public keyboard: Keyboard,
      navParams: NavParams,public splashScreen: SplashScreen,public platform: Platform) {
       this.connetionDown = false;
-  }
+      this.platform.ready().then(() => {
+        this.subCat.topSubcategories().then(
+          data => {
+            this.subCategories =data['data'];
+            setTimeout(() => {
+              this.splashScreen.hide();
+            }, 1500);
 
+            this.connetionDown = false;
+          },
+          (err: HttpErrorResponse) => {
+            if (err.error instanceof Error) {
+              this.connetionDown = true;
+              this.splashScreen.hide();
+            } else {
+              this.connetionDown = true;
+              this.splashScreen.hide();
+
+            }
+        });
+      });
+  }
+  viewImg(img){
+    this.photoViewer.show(this.baseUrl+img);
+  }
   ionViewDidLoad() {
     this.platform.ready().then(() => {
+      // this.platform.registerBackButtonAction((readySource) => {
+      //  this.platform.exitApp();
+      // });
       this.busqueda = false;
       this.noFound = false;
-      this.baseUrl = this.api.getbaseUrl() + "resources/image/";
+      this.baseUrl = this.api.getbaseUrl();
       this.auth.currentUser.subscribe(user=>{
         this.loggedIn = !!user;
       });
-       this.subCat.topSubcategories().then(
-        data => {
-          this.subCategories =data['data'];
-          this.splashScreen.hide();
-          this.connetionDown = false;
-        },
-        (err: HttpErrorResponse) => {
-          if (err.error instanceof Error) {
-            this.connetionDown = true;
-            this.splashScreen.hide();
-          } else {
-            this.splashScreen.hide();
-            this.connetionDown = true;
-          }
-        });
+
     });
-      }
+  }
 
   searchServices(query){
 
@@ -87,6 +106,7 @@ export class HomePage {
     this.loading.present();
     this.servProv.getServiceBySearch(query).then(
       data => {
+        console.log(data);
         this.services =data['data'];
         this.noFound = this.services.length == 0 ? true : false;
         this.loading.dismiss();
@@ -95,33 +115,15 @@ export class HomePage {
         if (err.error instanceof Error) {
           this.connetionDown = true;
           this.loading.dismiss();
+          console.log(err,"instace");
         } else {
           this.loading.dismiss();
           this.connetionDown = true;
+          console.log(err,"segundo");
         }
       });
   }
 
-  // ngOnInit() {
-  //   this.auth.currentUser.subscribe(user=>{
-  //     this.loggedIn = !!user;
-  //   });
-  //    this.subCat.topSubcategories().then(
-  //     data => {
-  //       this.subCategories =data['data'];
-  //       this.splashScreen.hide();
-  //       this.connetionDown = false;
-  //     },
-  //     (err: HttpErrorResponse) => {
-  //       if (err.error instanceof Error) {
-  //         this.connetionDown = true;
-  //         this.splashScreen.hide();
-  //       } else {
-  //         this.splashScreen.hide();
-  //         this.connetionDown = true;
-  //       }
-  //     });
-  // }
   goSearch(keyCode) {
     if (keyCode === 13){
      this.busqueda = true;
@@ -137,7 +139,8 @@ export class HomePage {
   }
   openServicePage(id){
     this.navCtrl.push(ServicePage,{
-      serviceId:id
+       serviceId:id
+      // serviceId:this.services[id]
     })
   }
 
@@ -182,6 +185,21 @@ export class HomePage {
         this.connetionDown = true;
       }
     );
+  }
+  toogleFavorite(index,id){
+    if(this.services[index].favorite == 1){
+      this.servProv.diskMarkfavorite(id).then(
+        data => {
+          this.services[index].favorite = 0;
+        } );
+    }
+    else{
+      this.servProv.markfavorite(id).then(
+        data => {
+          this.services[index].favorite = 1;
+        });
+    }
+
   }
 }
 

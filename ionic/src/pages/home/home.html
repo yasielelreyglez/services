@@ -1,76 +1,105 @@
 <ion-header>
-    <app-header> </app-header>
+  <app-header></app-header>
 </ion-header>
 
 <ion-content padding>
-    <ng-container *ngIf="!connetionDown; else elseTemplate">
-        <ion-searchbar id="search" (ionInput)="onInput($event)" (ionClear)="onCancel($event)" (keypress)="goSearch($event.keyCode)" placeholder="         ¿Que buscas?" #search></ion-searchbar>
-        <ng-container *ngIf="busqueda; else topCategories">
-            <p *ngIf="noFound">No hay resultados </p>
-            <ion-list>
-                <ion-item *ngFor="let serv of services">
-                    <ion-thumbnail item-start>
-                        <ng-container *ngIf="serv.icon; else imgTemplate">
-                            <img src="{{baseUrl}}/service/{{serv.icon}}">
-                        </ng-container>
-                        <ng-template #imgTemplate>
-                            <img src="assets/imgs/service_img.png">
-                        </ng-template>
-                    </ion-thumbnail>
-                    <h2 class="serv-title ">{{serv.title }} </h2>
-                    <div class="text-center fw-600" style="width: 35px;
-                    height: 16px;
-                    background-color: #44AB6C;
-                    font-weight: 600;
-                    font-size: 11px;">
-                        <p style=" color: white; text-align: center;">PRO</p>
-                    </div>
-                    <hr style="border-bottom: 1px solid #dedede;">
+  <ng-container *ngIf="!connetionDown; else elseTemplate">
+    <ion-searchbar id="search" (ionInput)="onInput($event)" (ionClear)="onCancel($event)"
+                   (keypress)="goSearch($event.keyCode)" placeholder="¿Que buscas?" #search></ion-searchbar>
+    <ng-container *ngIf="busqueda; else topCategories">
+      <p *ngIf="noFound">No hay resultados </p>
+      <ion-list>
+        <ion-item *ngFor="let serv of services; let i = index">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-4>
+                <!-- <ion-thumbnail item-start> -->
+                <ng-container *ngIf="serv.icon; else imgTemplate">
+                  <img (tap)="viewImg(serv.icon)" src="{{baseUrl + serv.icon}}">
+                </ng-container>
+                <ng-template #imgTemplate>
+                  <img (tap)="viewImg(assets/imgs/service_img.png)" src="assets/imgs/service_img.png">
+                </ng-template>
+                <!-- </ion-thumbnail> -->
+              </ion-col>
 
-                    <ion-grid>
-                        <ion-row>
-                            <ion-col col-6>
-                                <p>Calificación: {{serv.rated}}/10</p>
-                                <p>Distancia: 5 km</p>
-                                <p>Categoria: Hogar</p>
-                            </ion-col>
+              <ion-col col-8>
+                <h2 class="serv-title ">{{serv.title }} </h2>
+                <div class="text-center fw-600 serv-pro">
+                  <p class="texto" style>PRO</p>
+                </div>
+                <hr class="hr-separador">
+                <ion-row>
+                  <ion-col>
 
-                            <ion-col *ngIf="loggedIn" col-6 text-right>
-                                <ion-icon *ngIf="favorite_on" name="heart" color="favorite_on" style="font-size: 35px;"></ion-icon>
-                                <ion-icon *ngIf="!favorite_on" name="heart" color="favorite_off" style="font-size: 35px;"></ion-icon>
-                            </ion-col>
-                        </ion-row>
-                    </ion-grid>
-                    <button ion-button color="azul-claro" (click)='openServicePage(serv.id)'><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Visualizar</button>
-                    <button ion-button color="danger"><i class="fa fa-bullhorn" aria-hidden="true"></i>&nbsp;Denunciar</button>
-                </ion-item>
+                    <p>Calificación: {{serv.globalrate}}/10</p>
+                    <p>Distancia: 5 km</p>
+                    <p>Categoria: Hogar</p>
+                  </ion-col>
 
+                </ion-row>
+              </ion-col>
 
-            </ion-list>
-        </ng-container>
+            </ion-row>
 
+            <ion-row>
+              <ion-col col-12>
+                <button ion-button full color="azul-claro" (tap)='openServicePage(serv.id)'>
+                  <ion-icon name="checkmark"></ion-icon>&nbsp;Visualizar
+                </button>
+              </ion-col>
+
+            </ion-row>
+          </ion-grid>
+
+        </ion-item>
+
+      </ion-list>
     </ng-container>
 
-    <ng-template #elseTemplate>
-        <ion-label text-center color="danger">NO HAY CONEXION CON EL SERVIDOR</ion-label>
+  </ng-container>
 
-        <button color="azul-claro" ion-button block margin-bottom="2" (click)="reConnect()">
-           Reintentar
+  <ng-template #elseTemplate>
+    <ion-label text-center color="danger">NO HAY CONEXION CON EL SERVIDOR</ion-label>
+
+    <button color="azul-claro" ion-button block margin-bottom="2" (tap)="reConnect()">
+      Reintentar
+    </button>
+  </ng-template>
+  <ng-template #topCategories>
+
+    <ion-label text-center color="azul-claro">Principales tendencias</ion-label>
+    <ion-list>
+      <button *ngFor="let sub of subCategories" class="btn-text-left" text-left color="azul-claro" ion-button block
+              margin-bottom="1" (tap)='openServicesPage(sub.id)'>
+        <img src="{{baseUrl + sub.icon}}" alt="" height="36">
+        &nbsp;{{sub.title}}
+      </button>
+
+    </ion-list>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+
+        </ion-col>
+        <ion-col col-10>
+          <button color="azul-oscuro" class="btn-text-left" ion-button block margin-bottom="2"
+                  (tap)="openCategoriesPage()">
+            <ion-icon name="search" class="fs-25"></ion-icon>
+            &nbsp;Buscar por categoria
           </button>
-    </ng-template>
-    <ng-template #topCategories>
-        <ion-label text-center color="azul-claro">Principales tendencias</ion-label>
-        <ion-list>
-            <button *ngFor="let sub of subCategories" class="btn-text-left" text-left color="azul-claro" ion-button block margin-bottom="1" (click)='openServicesPage(sub.id)'>
-              <img src="{{baseUrl}}subcategories/{{sub.icon}}" alt="" height="36">
-              &nbsp;{{sub.title}}
-            </button>
-        </ion-list>
-        <button color="azul-oscuro" style="width:90%;margin-left:5%" class="btn-text-left" ion-button block margin-bottom="2" (click)="openCategoriesPage()">
-          <ion-icon name="search" style="font-size: 25px;"></ion-icon>
-          &nbsp;Buscar por categoria
-        </button>
-        <p *ngIf=loggedIn>esta logueado</p>
-        <p *ngIf=!loggedIn>No esta logueado</p>
-    </ng-template>
+        </ion-col>
+        <ion-col>
+
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+
+    <p *ngIf=loggedIn>esta logueado</p>
+    <p *ngIf=!loggedIn>No esta logueado</p>
+
+  </ng-template>
 </ion-content>

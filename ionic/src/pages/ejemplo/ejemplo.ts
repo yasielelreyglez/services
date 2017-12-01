@@ -18,10 +18,9 @@ export class EjemploPage {
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
-  start = 'chicago, il';
-  end = 'chicago, il';
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
+  distanceMatrix = new google.maps.DistanceMatrixService;
 
   constructor(public navCtrl: NavController,splashScreen: SplashScreen) {
     splashScreen.hide();
@@ -39,8 +38,32 @@ export class EjemploPage {
     });
 
     this.directionsDisplay.setMap(this.map);
+
+
+    // pa la distancia entre 2 puntos
+    var from = new google.maps.LatLng(23.12806, -82.31579);
+    // var from = new google.maps.LatLng(46.5610058, 26.9098054);
+
+    var dest = new google.maps.LatLng(23.13884, -82.30518);
+    var dest2 = new google.maps.LatLng(23.13884, -82.40518);
+    // var dest = new google.maps.LatLng(44.391403, 26.1157184);
+
+
+    var distanceM = new google.maps.DistanceMatrixService();
+    distanceM.getDistanceMatrix(
+        {
+            origins: [from],
+            destinations: [dest,dest2],
+            travelMode: 'DRIVING'
+        }, this.callbakc);
+
   }
 
+callbakc (response, status){
+  console.log(response);
+}
+
+// mostrar ruta entre 2 puntos
   calculateAndDisplayRoute() {
     var start = new google.maps.LatLng(23.11941, -82.32134);
     //var end = new google.maps.LatLng(38.334818, -181.884886);

@@ -23,6 +23,8 @@ import { EjemploPage  } from '../pages/ejemplo/ejemplo';
 import { RatePage } from "../pages/rate/rate";
 import { InfoPage } from "../pages/info/info";
 import { MapaPage } from "../pages/mapa/mapa";
+import { GaleriaPage } from "../pages/galeria/galeria";
+import { ComentariosPage } from "../pages/comentarios/comentarios";
 import { ForgotPage } from "../pages/forgot/forgot";
 import { Create1Page } from "../pages/create1/create1";
 
@@ -44,6 +46,9 @@ import { File } from '@ionic-native/file';
 import { Camera } from '@ionic-native/camera';
 import { CallNumber } from "@ionic-native/call-number";
 import { Geolocation } from '@ionic-native/geolocation';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { DataCenterProvider } from '../providers/data-center/data-center';
+
 // import { FilePath } from '@ionic-native/file-path';
 
 
@@ -67,6 +72,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     IonRating,
     InfoPage,
     MapaPage,
+    GaleriaPage,
+    ComentariosPage,
     Create1Page,
     EjemploPage
 
@@ -97,6 +104,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     IonRating,
     InfoPage,
     MapaPage,
+    GaleriaPage,
+    ComentariosPage,
     Create1Page,
     EjemploPage
 
@@ -110,12 +119,14 @@ import { Geolocation } from '@ionic-native/geolocation';
     Camera,
     CallNumber,
     Geolocation,
+    PhotoViewer,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SubCategoryProvider,
     CategoryProvider,
     ServiceProvider,
     AuthProvider,
-    ApiProvider
+    ApiProvider,
+    DataCenterProvider
     ]
 })
 export class AppModule {}

@@ -191,6 +191,17 @@
     height: 85%;
 }
 
+.mat-grid-tile.comment-date .mat-figure {
+    justify-content: flex-end !important;
+    font-size: 14px;
+}
+
+.textcomment button {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
 @media (min-width: 576px) and (max-width: 767px) {
     .container {
         max-width: 100% !important;
@@ -205,9 +216,9 @@
     }
 }
 
-mat-grid-tile {
-background: lightblue;
-}
+/*mat-grid-tile {*/
+/*background: lightblue;*/
+/*}*/
 
 /*.help-block {*/
 /*color: #FF3C2F;*/

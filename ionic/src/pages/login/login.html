@@ -13,9 +13,8 @@
 
     <ion-label text-center color="azul-claro">Autenticarse</ion-label>
 
-    <hr style="background-color: #88868B;">
+    <hr class="hr-separador">
 
-    <!-- <form (submit)="doLogin()"> -->
     <form (submit)="f.form.valid ? doLogin() : llenarCampos()" #f="ngForm">
         <ion-list>
 
@@ -27,13 +26,17 @@
 
             <ion-item>
                 <ion-label stacked>Contraseña</ion-label>
-                <ion-input type="password" class="form-control" name="password" [(ngModel)]="user.password" placeholder="Escriba su contraseña..." required></ion-input>
+                <ion-input [type]="showPassword ? 'text' : 'password'" class="form-control" name="password" [(ngModel)]="user.password" placeholder="Escriba su contraseña..." required></ion-input>
 
             </ion-item>
-
+            <ion-item no-lines>
+                <ion-label>Mostrar contraseña</ion-label>
+                <ion-checkbox [(ngModel)]="showPassword" name="showPassword"></ion-checkbox>
+            </ion-item>
             <div padding>
+
                 <button class="btn-text-left" text-left color="azul-claro" ion-button block margin-bottom="1" margin-top="2">
-                    <i class="fa fa-unlock-alt fa-flip-horizontal" aria-hidden="true"></i>&nbsp; Autenticarse
+                    <ion-icon name="log-in"></ion-icon>&nbsp; Autenticarse
                 </button>
             </div>
 
@@ -43,12 +46,11 @@
 
     <ion-label text-center><b>Si quieres puedes autenticarte también con:</b></ion-label>
     <button class="btn-text-left" text-left color="azul-facebook" ion-button block margin-bottom="1">
-        <i class="fa fa-facebook-official" aria-hidden="true"></i>&nbsp;
+        <ion-icon name="log-in"></ion-icon>&nbsp;
         facebook
     </button>
 
-    <button (click)="openForgot()" class="btn-text-left" text-left color="azul-oscuro" ion-button block margin-bottom="1">
+    <button (tap)="showPrompt()" class="btn-text-left" text-left color="azul-oscuro" ion-button block margin-bottom="1">
         Olvidé mi contraseña
     </button>
-
 </ion-content>

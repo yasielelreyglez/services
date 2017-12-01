@@ -1,6 +1,6 @@
 <ion-grid no-padding no-margin class="ion-rating-container">
     <ion-row>
-        <ion-col text-center *ngFor="let star of stars; let i = index" tappable (click)="starClicked(i)">
+        <ion-col text-center *ngFor="let star of stars; let i = index" tappable (tap)="starClicked(i)">
             <ion-icon color="azul-claro" [name]="star" style="font-size: 35px;"></ion-icon>
         </ion-col>
     </ion-row>

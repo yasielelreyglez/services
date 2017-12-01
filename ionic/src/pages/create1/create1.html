@@ -4,36 +4,53 @@
 
 
 
-<ion-content padding>
-    <ion-label text-center color="azul-claro">Registrarse</ion-label>
+<ion-content padding fixed-top>
+    <h4 color="azul-claro">Crear Anuncio <small>Datos iniciales</small></h4>
+    <hr class="hr-separador">
+    <div class="progress">
+        <div class="circle active"> <span class="label">1</span>
 
-    <hr style="background-color: #88868B;">
+        </div> <span class="bar  "></span>
 
-    <form #f="ngForm">
-        <ion-list>
+        <div class="circle"> <span class="label">2</span>
 
+        </div> <span class="bar "></span>
+
+        <div class="circle"> <span class="label">3</span>
+
+        </div> <span class="bar"></span>
+
+        <div class="circle"> <span class="label">4</span>
+
+        </div>
+
+    </div>
+
+
+    <ion-list>
+        <form #formu="ngForm">
             <ion-item>
                 <ion-label stacked>Título</ion-label>
-                <ion-input type="text" name="name" class="form-control" placeholder="Escribe el título..." required></ion-input>
+                <ion-input name="title" [(ngModel)]="service.title" #title="ngModel" placeholder="Escribe el título..." required></ion-input>
             </ion-item>
 
             <ion-item>
                 <ion-label stacked>Subtítulo</ion-label>
-                <ion-input type="text" name="name" class="form-control" placeholder="Escribe el subtítulo..." required></ion-input>
+                <ion-input name="subtitle" [(ngModel)]="service.subtitle" #subtitle="ngModel" placeholder="Escribe el subtítulo..." required></ion-input>
 
             </ion-item>
             <ion-item>
                 <ion-label stacked>Dirección</ion-label>
-                <ion-input type="text" name="name" class="form-control" placeholder="Escribe tu dirección..." required></ion-input>
+                <ion-input name="address" [(ngModel)]="service.address" #address="ngModel" placeholder="Escribe tu dirección..." required></ion-input>
 
             </ion-item>
             <ion-item>
                 <ion-label stacked>Teléfono</ion-label>
-                <ion-input type="text" name="name" class="form-control" placeholder="Escribe tu Teléfono..." required></ion-input>
+                <ion-input type="tel" name="phone" [(ngModel)]="service.phone" required #phone="ngModel" placeholder="Escribe tu Teléfono..." required phone></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label>Ciudades</ion-label>
-                <ion-select multiple="true" cancelText="Cancel" okText="Ok">
+                <ion-select multiple="true" cancelText="Cancel" okText="Ok" required>
                     <ion-option value="bacon">Bacon</ion-option>
                     <ion-option value="olives">Black Olives</ion-option>
                     <ion-option value="xcheese">Extra Cheese</ion-option>
@@ -64,11 +81,24 @@
 
 
             <ion-item>
-                <img style="max-width: 50%;" src="{{preview}}" (click)="presentActionSheet()" alt="Ionic File" />
-                <button ion-button (click)="uploadFile()">Subir Foto</button>
+                <img style="max-width: 50%;" src="{{preview}}" (tap)="presentActionSheet()" alt="Ionic File" />
+                <button ion-button (tap)="uploadFile()">Subir Foto</button>
             </ion-item>
 
-            {{resbuesta}}
-        </ion-list>
-    </form>
+        </form>
+    </ion-list>
+
+
 </ion-content>
+<ion-footer>
+    <ion-toolbar>
+
+        <ion-buttons right>
+            <button ion-button icon-start>
+                <ion-icon name="star"></ion-icon>
+              Siguiente
+              </button>
+        </ion-buttons>
+
+    </ion-toolbar>
+</ion-footer>

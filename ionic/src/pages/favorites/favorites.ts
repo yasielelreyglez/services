@@ -1,17 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController} from 'ionic-angular';
+import { NavController, LoadingController,Events,IonicPage} from 'ionic-angular';
 
 import  {ServiceProvider} from  '../../providers/service/service.service';
 import { HttpErrorResponse } from "@angular/common/http";
 import { ServicePage } from "../service/service";
 import { ApiProvider } from "../../providers/api/api";
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 
-/**
- * Generated class for the FavoritesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-favorites',
@@ -29,25 +24,39 @@ export class FavoritesPage {
     public navCtrl: NavController,
     public api: ApiProvider,
      public servProv: ServiceProvider,
-     public load: LoadingController) {
-
-      this.baseUrl = this.api.getbaseUrl() + "resources/image/";
-
+     public load: LoadingController,public events: Events,private photoViewer: PhotoViewer) {
+      this.servProv.getServicesFavorites().then(
+        data => {
+          this.services = data['data'];
+        },
+        (err: HttpErrorResponse) => {
+          if (err.error instanceof Error) {
+          }
+        });
   }
 
   ionViewDidLoad() {
-    this.servProv.getServicesFavorites().then(
-      data => {
-        this.services = data['data'];
-      },
-      (err: HttpErrorResponse) => {
-        if (err.error instanceof Error) {
-        }
-      });
+    this.baseUrl = this.api.getbaseUrl();
+
+  }
+  viewImg(img){
+    this.photoViewer.show(this.baseUrl+img);
   }
   openServicePage(id) {
     this.navCtrl.push(ServicePage, {
       serviceId: id
     });
+  }
+  delete(id){
+    //hacer el
+    this.servProv.diskMarkfavorite(id).then(
+      data => {
+        console.log(data);
+        this.events.publish('dismark:service', data);
+        this.services = this.services.filter(function(item){
+          return item.id !== id;
+        });
+      } );
+
   }
 }

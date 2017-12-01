@@ -11,16 +11,16 @@ page-home {
     .serv-title {
         color: #0092b6;
     }
-    .item {
-        border-bottom: 1px solid #dedede;
-        padding-left: 10px;
-    }
-    .item-md ion-thumbnail[item-start],
-    .item-ios ion-thumbnail[item-start] {
-        margin: -75px 16px 8px 0;
-        & img {
-            width: 80px !important;
-            height: 80px !important;
-        }
-    }
+    //.item {
+    //    border-bottom: 1px solid #dedede;
+    //    padding-left: 10px;
+    //}
+    //.item-md ion-thumbnail[item-start],
+    //.item-ios ion-thumbnail[item-start] {
+    //    margin: -75px 16px 8px 0;
+    //    & img {
+    //        width: 80px !important;
+    //        height: 80px !important;
+    //    }
+    //}
 }

@@ -23,10 +23,6 @@ export class SignupPage {
     this.user = new User();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignupPage');
-  }
-
   doSignUp(){
     this.auth.signUp(this.user)
     .subscribe(result => {
