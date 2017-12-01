@@ -45,24 +45,24 @@
     </div>
 
     <mat-tab-group>
-        <mat-tab label="Informacion">
+        <mat-tab label="Informacion" id="information">
             <br>
             <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
-                <i class="fa fa-calendar fa-2x" style="margin-right: 10px;"></i>
-                <h5 class="mt-0">{{week_days}}</h5>
+                <mat-icon class="mr-10">date_range</mat-icon>
+                <h5 class="mb-0">{{week_days}}</h5>
             </div>
             <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
-                <i class="fa fa-clock-o fa-2x" style="margin-right: 10px;"></i>
-                <h5 class="mt-0">Desde {{service.start_time}} hasta
+                <mat-icon class="mr-10">access_time</mat-icon>
+                <h5 class="mb-0">Desde {{service.start_time}} hasta
                     {{service.end_time}}</h5>
             </div>
             <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
-                <i class="fa fa-at fa-2x" style="margin-right: 10px;"></i>
-                <h5 class="mt-0">{{service.email}}</h5>
+                <mat-icon class="mr-10">mail</mat-icon>
+                <h5 class="mb-0">{{service.email}}</h5>
             </div>
             <div class="tc-blue" style="display: flex">
-                <i class="fa fa-link fa-2x" style="margin-right: 10px;"></i>
-                <h5 class="mt-0">{{service.url}}</h5>
+                <mat-icon class="mr-10">link</mat-icon>
+                <h5 class="mb-0">{{service.url}}</h5>
             </div>
         </mat-tab>
 

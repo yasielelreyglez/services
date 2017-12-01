@@ -202,6 +202,15 @@
     top: 0;
 }
 
+.mr-10 {
+    margin-right: 10px !important;
+}
+
+.pt-5{
+    padding-top: 3px !important;
+}
+
+
 @media (min-width: 576px) and (max-width: 767px) {
     .container {
         max-width: 100% !important;
