@@ -10,7 +10,6 @@ import {AppComponent} from './app.component';
 import {LoginComponent} from './components/login/login.component';
 import {HomeComponent} from './components/home/home.component';
 import {UserService} from './_services/user.service';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MenuComponent} from './components/menu/menu.component';
 import {RegisterComponent} from './components/register/register.component';
 import {EqualValidator} from './_directives/validate-password.directive';
@@ -86,9 +85,7 @@ import { ImageZoomDirective } from './_directives/image-zoom.directive';
         MatGridListModule,
         MatCardModule,
         MatDialogModule,
-        MatTabsModule,
-        NgbModule.forRoot()
-
+        MatTabsModule
     ],
     providers: [
         AuthGuard,
