@@ -10,7 +10,7 @@ import {
 import {User} from '../../models/user';
 import {AuthProvider} from '../../providers/auth/auth';
 import { ForgotPage } from "../forgot/forgot";
-// import { HomePage } from "../home/home";
+import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
@@ -20,6 +20,7 @@ import { ForgotPage } from "../forgot/forgot";
 export class LoginPage {
   user: User;
   loading: any;
+  showPassword: boolean =false;
 
   constructor(public navCtrl: NavController,
      public authService: AuthProvider ,
@@ -29,7 +30,47 @@ export class LoginPage {
      public alertCtrl: AlertController) {
     this.user = new User();
   }
+  showPrompt() {
+    let prompt = this.alertCtrl.create({
+      title: 'Olvido de contraseña',
+      message: "Escribe tu dirección de email",
+      enableBackdropDismiss:false,
+      inputs: [
+        {
+          name: 'email',
+          type: 'email'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: ' Enviarme contraseña',
+          handler: data => {
+            console.log('Cancel clicked');
+            // const navTransition = prompt.dismiss();
 
+                  // start some async method
+                  // someAsyncOperation().then(() => {
+                  //   // once the async operation has completed
+                  //   // then run the next nav transition after the
+                  //   // first transition has finished animating out
+
+                  //   navTransition.then(() => {
+                  //     this.nav.pop();
+                  //   });
+                  // });
+                  //return false;
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
   doLogin() {
      this.loading = this.load.create();
      this.loading.present();
@@ -37,26 +78,28 @@ export class LoginPage {
       .subscribe(result => {
         if (result === true) {
           this.loading.dismiss();
-          // this.navCtrl.setRoot(HomePage);
+           this.navCtrl.setRoot(HomePage);
            this.navCtrl.pop();
         } else {
           let toast = this.toastCtrl.create({
             message: "Correo y/o contraseña incorrectos",
             duration: 5000,
-            position: 'middle',
+            position: 'bottom',
             showCloseButton:true,
             closeButtonText:"Cerrar"
           });
           toast.present();
+          this.loading.dismiss();
         }
       });
   }
+
 
 llenarCampos(){
    let toast = this.toastCtrl.create({
       message: "llenar todos los campos",
       duration: 5000,
-      position: 'middle',
+      position: 'bottom',
       showCloseButton:true,
       closeButtonText:"Cerrar"
     });

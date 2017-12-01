@@ -9,37 +9,51 @@
     <ion-list>
         <ion-item-sliding *ngFor="let serv of services">
             <ion-item>
-                <ion-thumbnail item-start>
+              <ion-grid>
+                <ion-row>
+                  <ion-col col-4>
+                    <!-- <ion-thumbnail item-start> -->
                     <ng-container *ngIf="serv.icon; else imgTemplate">
-                        <img src="{{baseUrl}}/service/{{serv.icon}}">
+                      <img (tap)="viewImg(serv.icon)" src="{{baseUrl + serv.icon}}">
                     </ng-container>
                     <ng-template #imgTemplate>
-                        <img src="assets/imgs/service_img.png">
+                      <img (tap)="viewImg(assets/imgs/service_img.png)" src="assets/imgs/service_img.png">
                     </ng-template>
-                </ion-thumbnail>
-                <h2 class="serv-title ">{{serv.title}}</h2>
-                <hr style="border-bottom: 1px solid #dedede;">
-                <ion-grid>
+                    <!-- </ion-thumbnail> -->
+                  </ion-col>
+
+                  <ion-col col-8>
+                    <h2 class="serv-title ">{{serv.title }} </h2>
+                    <div class="text-center fw-600 serv-pro">
+                      <p class="texto" style>PRO</p>
+                    </div>
+                    <hr class="hr-separador">
                     <ion-row>
-                        <ion-col col-12>
-                            <p>Calificación: {{serv.rated}}/10</p>
-                            <p>Distancia: 5 km</p>
-                            <p>Categoria: Hogar</p>
-                        </ion-col>
+                      <ion-col>
+
+                        <p>Calificación: {{serv.globalrate}}/10</p>
+                        <p>Distancia: 5 km</p>
+                        <p>Categoria: Hogar</p>
+                      </ion-col>
+
                     </ion-row>
-                </ion-grid>
-                <button ion-button color="azul-claro" (click)='openServicePage(serv.id)'><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Ver detalle</button>
+                  </ion-col>
+
+                </ion-row>
+
+                <ion-row>
+                  <ion-col col-12>
+                    <button ion-button full color="azul-claro" (tap)='openServicePage(serv.id)'>
+                      <ion-icon name="checkmark"></ion-icon>&nbsp;Visualizar
+                    </button>
+                  </ion-col>
+
+                </ion-row>
+              </ion-grid>
             </ion-item>
-            <ion-item-options side="left">
-                <button ion-button color="secondary">
-                <ion-icon name="call"></ion-icon>
-                Call
-              </button>
-            </ion-item-options>
             <ion-item-options side="right">
-                <button ion-button color="primary">
-                <ion-icon name="mail"></ion-icon>
-                Email
+                <button (tap)="delete(serv.id)" ion-button color="danger" style="font-size: 30px;">
+                <ion-icon name="trash"></ion-icon>
               </button>
             </ion-item-options>
         </ion-item-sliding>

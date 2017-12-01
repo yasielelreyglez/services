@@ -21,7 +21,7 @@ export class BusquedaPage {
     public api: ApiProvider,
     public servProv: ServiceProvider,public load: LoadingController) {
 
-      this.baseUrl = api.getbaseUrl() + "resources/image/service/";
+      this.baseUrl = api.getbaseUrl() ;
 
 
   }

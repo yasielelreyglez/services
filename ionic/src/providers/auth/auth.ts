@@ -23,7 +23,6 @@ export class AuthProvider {
             return false;
         }
         else{
-          console.log(user);
           localStorage.setItem('user',JSON.stringify({email: user.email, token: user.token,rol:user.rol}));
           this.currentUser.next(user);
 

@@ -22,6 +22,7 @@ class Subcategory extends CI_Controller {
 
 	# GET /subcategory/create
 	function create() {
+        $data['categories'] = $this->Category_model->find();
 		$data['content'] = '/subcategory/create';
         $this->load->view('/includes/contentpage', $data);
 	}
@@ -67,12 +68,15 @@ class Subcategory extends CI_Controller {
 				$data[] = array();
 				$data['id'] = $this->input->post('id', TRUE);
 				$data['title'] = $this->input->post('title', TRUE);
+                $data['category_id'] = $this->input->post('category_id', TRUE);
 				$data['icon'] ='resources/image/categories/'.$data["upload_data"]["file_name"];
 
 				$this->Subcategory_model->save($data);
+                redirect('admin/subcategory/index', 'refresh');
             }
+
 		}
-			redirect('/subcategory/index', 'refresh');
+        $data['categories'] = $this->Category_model->find();
 		$data['subcategory'] =	$this->rebuild();
 		$data['content'] = '/subcategory/create';
         $this->load->view('/includes/contentpage', $data);

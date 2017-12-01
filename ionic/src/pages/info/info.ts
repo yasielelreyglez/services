@@ -6,6 +6,9 @@ import {
   ModalController
 } from "ionic-angular";
 import { RatePage } from "../rate/rate";
+import { CallNumber } from "@ionic-native/call-number";
+import { ServiceProvider } from "../../providers/service/service.service";
+import { AuthProvider } from "../../providers/auth/auth";
 
 /**
  * Generated class for the InfoPage page.
@@ -32,28 +35,38 @@ export class InfoPage {
    5:"Viernes",
    6:"Sabado",
   };
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  loggedIn: boolean;
+  constructor(public auth: AuthProvider, public servPro: ServiceProvider,public navCtrl: NavController,private callNumber: CallNumber, public navParams: NavParams, public modalCtrl: ModalController) {
     this.service = this.navParams.get("service");
     this.baseUrl = this.navParams.get("baseUrl");
-    let tempD=  this.service.week_days.split(',');
+  }
+
+  ionViewDidLoad() {
+    let tempD=  this.service['week_days'].split(',');
+    console.log(tempD);
     for (var index = 0; index < tempD.length; index++) {
       if( index > 0)
        this.serviceDays += ", "+this.days[tempD[index]];
       else
         this.serviceDays += this.days[tempD[index]];
     }
-
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad InfoPage');
+  Llamar(number){
+    this.callNumber.callNumber(number, true)
+    .then(() => console.log('Launched dialer!'))
+    .catch(() => console.log('Error launching dialer'));
   }
 
   openRate(){
     const profileModal = this.modalCtrl.create(RatePage);
     profileModal.onDidDismiss(data => {
-      // enviar rate
-      console.log(data);
+      if(data.rate != "cancel")
+      this.servPro.rateservice(this.service.id,data.rate).then(
+        data => {
+          console.log(data);
+        });
+
     });
 
     profileModal.present();
