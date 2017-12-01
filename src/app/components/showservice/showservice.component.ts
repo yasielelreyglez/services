@@ -6,6 +6,7 @@ import {isNull} from 'util';
 import {MatDialog} from '@angular/material';
 import {AuthService} from '../../_services/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {DatePipe} from '@angular/common';
 
 declare var google: any;
 
@@ -33,11 +34,13 @@ export class ShowserviceComponent implements OnInit {
     model: any;
     loading: boolean;
     error: string;
+    submitAttempt: boolean;
 
     constructor(private route: ActivatedRoute, private apiServices: ApiService,
                 public dialog: MatDialog, private authServices: AuthService) {
         this.model = {};
         this.loading = false;
+        this.submitAttempt = false;
     }
 
     ngOnInit() {
@@ -58,6 +61,13 @@ export class ShowserviceComponent implements OnInit {
 
         this.createForm();
 
+        this.commentForm.controls['textcomment'].valueChanges.subscribe(result => {
+            if (result && (result.length > 9))
+                this.submitAttempt = true;
+            else
+                this.submitAttempt = false;
+        });
+
         // var mapProp = {
         //     center: new google.maps.LatLng(51.508742, -0.120850),
         //     zoom: 5,
@@ -65,6 +75,7 @@ export class ShowserviceComponent implements OnInit {
         // };
         // var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
         // this.initMap()
+        // console.log(this.commentForm.controls['textcomment'].dirty );
     }
 
     initMap() {
@@ -94,12 +105,12 @@ export class ShowserviceComponent implements OnInit {
 
     createForm() {
         this.commentForm = new FormGroup({
-            textcomment: new FormControl('', [Validators.required])
+            textcomment: new FormControl('', Validators.minLength(10))
         });
     }
 
     getErrorMessage() {
-        return this.commentForm.controls['textcomment'].hasError('required') ? 'You must enter a value' :
+        return this.commentForm.controls['textcomment'].hasError('minlength') ? '10 characters minimum' :
             '';
     }
 
@@ -119,16 +130,15 @@ export class ShowserviceComponent implements OnInit {
         this.apiServices.addComment(this.service.id, this.model.textcomment).subscribe(result => {
             if (result) {
                 this.service = result;
+                this.comment = this.service.servicecommentsList.length;
                 this.loading = false;
-                this.commentForm = new FormGroup({
-                    textcomment: new FormControl('', [Validators.required])
-                });
+                this.submitAttempt = false;
+                this.commentForm.reset();
             }
             else {
                 this.error = 'Error en el servidor';
                 this.loading = false;
             }
+
         });
     }
-
-}
