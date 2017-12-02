@@ -225,6 +225,15 @@
     }
 }
 
+#comments p{
+    margin-bottom: 0.25rem;
+}
+
+#comments hr{
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
 /*mat-grid-tile {*/
 /*background: lightblue;*/
 /*}*/
