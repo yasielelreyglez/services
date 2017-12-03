@@ -4,7 +4,7 @@ import {Service} from '../../_models/service';
 import {City} from '../../_models/city';
 // import {WizardComponent} from 'ng2-archwizard/dist';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {element} from "protractor";
+import {element} from 'protractor';
 
 
 @Component({
@@ -53,15 +53,15 @@ export class WizardserviceComponent implements OnInit {
         //     ['../../../assets/service_img.png', '../../../assets/service_img.png', '../../../assets/service_img.png']
         // ];
         this.previews = [
-            {position: false, src: '../../../assets/service_img.png'},
-            {position: false, src: '../../../assets/service_img.png'},
-            {position: false, src: '../../../assets/service_img.png'},
-            {position: false, src: '../../../assets/service_img.png'},
-            {position: false, src: '../../../assets/service_img.png'},
-            {position: false, src: '../../../assets/service_img.png'},
-            {position: false, src: '../../../assets/service_img.png'},
-            {position: false, src: '../../../assets/service_img.png'},
-            {position: false, src: '../../../assets/service_img.png'}];
+            {position: false, src: '../../../assets/service_img.png', filename: null, filetype: null, value: null},
+            {position: false, src: '../../../assets/service_img.png', filename: null, filetype: null, value: null},
+            {position: false, src: '../../../assets/service_img.png', filename: null, filetype: null, value: null},
+            {position: false, src: '../../../assets/service_img.png', filename: null, filetype: null, value: null},
+            {position: false, src: '../../../assets/service_img.png', filename: null, filetype: null, value: null},
+            {position: false, src: '../../../assets/service_img.png', filename: null, filetype: null, value: null},
+            {position: false, src: '../../../assets/service_img.png', filename: null, filetype: null, value: null},
+            {position: false, src: '../../../assets/service_img.png', filename: null, filetype: null, value: null},
+            {position: false, src: '../../../assets/service_img.png', filename: null, filetype: null, value: null}];
 
         // this.step_title = 'Datos iniciales';
         this.service = new Service();
@@ -147,56 +147,71 @@ export class WizardserviceComponent implements OnInit {
 //
 //
     moreImageGalery() {
-        let count = this.previews.filter(prev => prev.position === false).length;
-        if (count === 1) {
+        let count = 9;
+        for (let i = 0; i < 9; i++) {
+            const current = this.previews[i];
+            if (current.position) {
+                count--;
+            }
+        }
+        if (count === 0) {
             this.moreImage = false;
         }
         else {
             this.moreImage = true;
         }
+        // console.log(count);
     }
 
     onFotoChange(event) {
-        let reader = new FileReader();
+        const reader = new FileReader();
         if (event.target.files && event.target.files.length > 0) {
-            let file = event.target.files[0];
+            const file = event.target.files[0];
             reader.readAsDataURL(file);
             reader.onload = () => {
                 for (let i = 0; i < 9; i++) {
-                    let current = this.previews[i];
+                    const current = this.previews[i];
                     if (!current.position) {
                         current.position = true;
                         current.src = reader.result;
-
-                        this.galery.push({
-                            filename: file.name,
-                            filetype: file.type,
-                            value: reader.result.split(',')[1]
-                        });
+                        current.filename = file.name;
+                        current.filetype = file.type;
+                        current.value = reader.result.split(',')[1];
                         break;
                     }
                 }
-                console.log(this.galery);
-                console.log(this.previews);
+                // console.log('Se inserto', this.previews);
+                this.moreImageGalery();
             };
-            this.moreImageGalery();
         }
     }
 
     deleteImage(pos: number) {
         this.previews[pos].position = false;
         this.previews[pos].src = '../../../assets/service_img.png';
-        this.galery.splice(pos, 1);
+        this.previews[pos].filename = null;
+        this.previews[pos].filetype = null;
+        this.previews[pos].value = null;
         this.moreImageGalery();
-        console.log('Quedan: ', this.galery);
-        console.log('Prev: ', this.previews);
+        // console.log('Se elimino: ', this.previews);
     }
 
 //
-// finishFunction() {
-//     this.service.galery = this.galery;
-//     this.apiServices.createFullService(this.service).subscribe(result => this.showService(result));
-// }
+//     finishFunction() {
+//         for (let i = 0; i < 9; i++) {
+//             const current = this.previews[i];
+//             if (current.position) {
+//                 this.galery.push({
+//                     filename: current.filename,
+//                     filetype: current.filetype,
+//                     value: current.value
+//                 });
+//             }
+//         }
+//
+//         this.apiServices.createFullService(this.service).subscribe(result => this.showService(result));
+//     }
+
 //
 // showService(servic) {
 //
