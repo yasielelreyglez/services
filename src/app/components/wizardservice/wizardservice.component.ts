@@ -4,7 +4,6 @@ import {Service} from '../../_models/service';
 import {City} from '../../_models/city';
 // import {WizardComponent} from 'ng2-archwizard/dist';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {element} from 'protractor';
 
 
 @Component({
@@ -26,7 +25,6 @@ export class WizardserviceComponent implements OnInit {
     // positiontitle: string;
     cities: City[];
     categories: any;
-    galery: any;
     currentPos = 0;
     // latitude: string;
     // longitude: string;
@@ -66,9 +64,8 @@ export class WizardserviceComponent implements OnInit {
         // this.step_title = 'Datos iniciales';
         this.service = new Service();
         this.moreImage = true;
-        // this.service.galery = new Array();
+        this.service.galery = new Array();
         this.service.positions = new Array();
-        this.galery = new Array();
         // this.service.week_days = [false, false, false, false, false, false, false];
         // this.service.week_days = [false, false, false, false, false, false, false];
     }
@@ -201,7 +198,7 @@ export class WizardserviceComponent implements OnInit {
 //         for (let i = 0; i < 9; i++) {
 //             const current = this.previews[i];
 //             if (current.position) {
-//                 this.galery.push({
+//                 this.service.galery.push({
 //                     filename: current.filename,
 //                     filetype: current.filetype,
 //                     value: current.value
