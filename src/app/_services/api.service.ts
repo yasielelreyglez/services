@@ -171,6 +171,21 @@ export class ApiService {
         }
     }
 
+    deleteService(id: number): Observable<any> {
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            const headers = new Headers();
+            headers.append('Authorization', JSON.parse(currentUser).token);
+            return this.http.get('http://localhost/services/api/deleteservice/' + id, {headers: headers}).map((response: Response) => {
+                if (response) {
+                    return response.json().data;
+                } else {
+                    return new Array();
+                }
+            });
+        }
+    }
+
     disMarkfavorite(id: number): Observable<Subcategory[]> {
         const currentUser = localStorage.getItem('currentUser');
         if (currentUser) {

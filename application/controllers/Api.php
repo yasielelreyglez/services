@@ -509,13 +509,71 @@ class Api extends REST_Controller
         $em = $this->doctrine->em;
         $comment = $em->find("Entities\Comments", $id);
         $user = $this->getCurrentUser();
-        $comment = new \Entities\Comments();
-        $comment->setReportuser($user);
-        $em->persist($comment);
-        $em->flush();
-        $result["data"]=$comment;
+        if($user){
+            if($comment){
+                $comment->setReportuser($user);
+                $em->persist($comment);
+                $em->flush();
+                $result["data"]=$comment;
+            }else{
+                $result["error"]="Noexiste el comentario";
+            }
+        }else{
+            $result["error"]="Debe estar autenticado";
+        }
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
+
+    public function hidecomment_get($id){
+        $em = $this->doctrine->em;
+        $comment = $em->find("Entities\Comments", $id);
+        $user = $this->getCurrentUser();
+        if($user){
+            if($comment){
+                $service = $comment->getService();
+                if($service->professional&&$service->author==$user){
+                    $comment->hided = 1;
+                    $em->persist($comment);
+                    $em->flush($comment);
+                    $result["data"]=$comment;
+                    $result["desc"]="Comentario ocultado con exito";
+                }else{
+                    $result["error"]="El servicio no es profesional o el usuario no es el dueño del servicio";
+                }
+            }else{
+                $result["error"]="No existe el comentario";
+            }
+        }else{
+            $result["error"]="Debe estar autenticado";
+        }
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
+
+    public function showcomment_get($id){
+        $em = $this->doctrine->em;
+        $comment = $em->find("Entities\Comments", $id);
+        $user = $this->getCurrentUser();
+        if($user){
+            if($comment){
+                $service = $comment->getService();
+                if($service->professional&&$service->author==$user){
+                    $comment->hided = 0;
+                    $em->persist($comment);
+                    $em->flush($comment);
+                    $result["data"]=$comment;
+                    $result["desc"]="Comentario mostrado con exito";
+                }else{
+                    $result["error"]="El servicio no es profesional o el usuario no es el dueño del servicio";
+                }
+            }else{
+                $result["error"]="No existe el comentario";
+            }
+        }else{
+            $result["error"]="Debe estar autenticado";
+        }
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
+
     public function testimg_post()
     {
         echo "FALSE";
@@ -727,6 +785,16 @@ class Api extends REST_Controller
 //            redirect('admin/categories/index', 'refresh');
     }
 
+    function deleteservice_get($id){
+        $user = $this->getCurrentUser();
+        $em = $this->doctrine->em;
+        $service = $em->find("\Entities\Service", $id);
+        if($user==$service->author){
+           $em->remove($service);
+           $em->flush();
+           $this->set_response("OK", REST_Controller::HTTP_OK);
+        }
+    }
 
     //FUNCIONES DE AYUDA
     function getGlobalRate($id)
