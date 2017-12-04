@@ -231,8 +231,8 @@ class Api extends REST_Controller
             $obj->setComplaintCreated(new DateTime("now"));
             $em->persist($obj);
             $em->flush();
-            $obj->loadRelatedData();
-            $result["data"] = $obj;
+            $service->loadRelatedData();
+            $result["data"] = $service;
             $this->set_response($result, REST_Controller::HTTP_OK);
         }
     }

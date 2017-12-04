@@ -18,6 +18,7 @@ export class ServicesComponent implements OnInit {
     loggedIn = false;
 
     constructor(public dialog: MatDialog, private apiServices: ApiService, private authServices: AuthService) {
+
     }
 
     ngOnInit() {
@@ -26,9 +27,11 @@ export class ServicesComponent implements OnInit {
         });
     }
 
-    openDialog(): void {
+    openDialog(id): void {
+        console.log(id);
         const dialogRef = this.dialog.open(ReportComponent, {
-            width: '70%'
+            width: '70%',
+            data: {id: id}
         });
 
         dialogRef.afterClosed().subscribe(() => {

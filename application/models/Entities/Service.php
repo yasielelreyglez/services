@@ -690,10 +690,12 @@ namespace Entities {
             $criteria = new \Doctrine\Common\Collections\Criteria();
             //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
             $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user", \Doctrine\Common\Collections\Expr\Comparison::EQ, $user);
-            $criteria->where($expresion);
+            $criteria = $criteria->where($expresion);
+
             $relacion = $this->getServiceusers()->matching($criteria)->toArray();
             if (count($relacion) > 0) {
-                $relacion = $relacion[0];
+//
+                $relacion = array_pop($relacion) ;
                 $this->visited = $relacion->getVisited();
                 $this->rated = $relacion->getRate();
                 $this->complain = $relacion->getComplaint();

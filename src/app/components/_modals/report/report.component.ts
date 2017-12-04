@@ -17,9 +17,10 @@ export class ReportComponent implements OnInit {
     constructor(public dialogRef: MatDialogRef<ReportComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: any,
                 private apiServices: ApiService) {
-        this.model = {};
+        this.model = {id: data.id};
         this.loading = false;
         this.error = '';
+
     }
 
     ngOnInit() {
@@ -34,11 +35,10 @@ export class ReportComponent implements OnInit {
 
     enviar() {
         this.loading = true;
-        this.apiServices.report(this.model.report).subscribe(result => {
+        this.apiServices.report(this.model).subscribe(result => {
             if (result === true) {
                 this.dialogRef.close();
-            }
-            else {
+            } else {
                 this.error = result.error;
                 this.loading = false;
             }
