@@ -150,7 +150,7 @@ namespace Entities {
 
         /**
          * One User has Many UserService.
-         * @OneToMany(targetEntity="UserService", mappedBy="service")
+         * @OneToMany(targetEntity="UserService", mappedBy="service",cascade={"persist", "remove"})
          */
         protected $serviceusers;
 
@@ -814,6 +814,7 @@ namespace Entities {
         {
             $this->description = $description;
         }
+
 
 
     }
