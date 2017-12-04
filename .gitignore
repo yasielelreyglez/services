@@ -35,3 +35,41 @@ node_modules/
 
 
 /node_modules/*
+
+
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+ionic/*~
+ionic/*.sw[mnpcod]
+ionic/*.log
+ionic/*.tmp
+ionic/*.tmp.*
+ionic/log.txt
+ionic/*.sublime-project
+ionic/*.sublime-workspace
+ionic/.vscode/
+ionic/npm-debug.log*
+
+ionic/.idea/
+ionic/.sourcemaps/
+ionic/.sass-cache/
+ionic/.tmp/
+ionic/.versions/
+ionic/coverage/
+ionic/dist/
+ionic/node_modules/
+ionic/tmp/
+ionic/temp/
+ionic/hooks/
+ionic/platforms/
+ionic/plugins/
+ionic/plugins/android.json
+ionic/plugins/ios.json
+ionic/www/
+ionic/$RECYCLE.BIN/
+
+ionic/.DS_Store
+ionic/Thumbs.db
+ionic/UserInterfaceState.xcuserstate
+
