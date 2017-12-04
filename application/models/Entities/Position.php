@@ -136,4 +136,9 @@ class Position
     {
         return $this->service;
     }
+
+    public function isInRange($distance,$current_position){
+        //TODO CALCULAR SI ESTA EN EL RANGO
+        return true;
+    }
 }
