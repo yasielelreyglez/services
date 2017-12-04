@@ -38,7 +38,9 @@ export class ServicesComponent implements OnInit {
             console.log('The dialog was closed');
         });
     }
-
+    delete(id) {
+    this.apiServices.deleteService(id).subscribe(result => console.log(result));
+    }
     zoomImage(src: string): void {
         const dialogRef = this.dialog.open(ImageComponent, {
             width: '80%',

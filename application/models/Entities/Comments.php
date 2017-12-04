@@ -25,6 +25,13 @@ class Comments
      */
     public $user;
 
+
+    /**
+     * @Column(type="integer", nullable=true)
+     * @var int
+     **/
+    public $hided;
+
     /**
      * Many Features have One Product.
      * @ManyToOne(targetEntity="Service", inversedBy="servicecomments")

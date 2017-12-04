@@ -22,6 +22,12 @@ namespace Entities {
         public $title;
 
         /**
+         * @Column(type="integer", nullable=true)
+         * @var int
+         **/
+        public $professional;
+
+        /**
          * @Column(type="string", nullable=true)
          * @var string
          **/
