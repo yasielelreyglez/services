@@ -45,24 +45,26 @@
     </div>
 
     <mat-tab-group>
-        <mat-tab label="Informacion">
+        <mat-tab label="Informacion" id="information">
             <br>
-            <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
-                <i class="fa fa-calendar fa-2x" style="margin-right: 10px;"></i>
-                <h5 class="mt-0">{{week_days}}</h5>
-            </div>
-            <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
-                <i class="fa fa-clock-o fa-2x" style="margin-right: 10px;"></i>
-                <h5 class="mt-0">Desde {{service.start_time}} hasta
-                    {{service.end_time}}</h5>
-            </div>
-            <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
-                <i class="fa fa-at fa-2x" style="margin-right: 10px;"></i>
-                <h5 class="mt-0">{{service.email}}</h5>
-            </div>
-            <div class="tc-blue" style="display: flex">
-                <i class="fa fa-link fa-2x" style="margin-right: 10px;"></i>
-                <h5 class="mt-0">{{service.url}}</h5>
+            <div style="height: 250px;">
+                <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
+                    <mat-icon class="mr-10">date_range</mat-icon>
+                    <h5 class="mb-0">{{week_days}}</h5>
+                </div>
+                <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
+                    <mat-icon class="mr-10">access_time</mat-icon>
+                    <h5 class="mb-0">Desde {{service.start_time}} hasta
+                        {{service.end_time}}</h5>
+                </div>
+                <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
+                    <mat-icon class="mr-10">mail</mat-icon>
+                    <h5 class="mb-0">{{service.email}}</h5>
+                </div>
+                <div class="tc-blue" style="display: flex">
+                    <mat-icon class="mr-10">link</mat-icon>
+                    <h5 class="mb-0">{{service.url}}</h5>
+                </div>
             </div>
         </mat-tab>
 
@@ -146,9 +148,11 @@
             <br>
             <h5 class="tc-blue">Comentarios anteriores</h5>
 
-            <div *ngIf="comment === 0"><p class="tc-grei">No existen comentarios</p></div>
+            <div *ngIf="comment === 0">
+                <p class="tc-grei">No existen comentarios</p>
+            </div>
 
-            <div *ngFor="let currentcomment of service.servicecommentsList">
+            <div id="comments" *ngFor="let currentcomment of service.servicecommentsList">
                 <hr class="bc-grei">
                 <mat-grid-list cols="12" rowHeight="30px">
                     <mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">
@@ -160,9 +164,24 @@
                 </mat-grid-list>
                 <div>
                     <p class="tc-grei">{{currentcomment.comment}}</p>
+                    <mat-grid-list cols="10" rowHeight="26px">
+                        <mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">
+                        </mat-grid-tile>
+                        <mat-grid-tile class="" [colspan]="1" [rowspan]="1">
+                            <button mat-raised-button class="bc-red tc-white">
+                                <mat-icon>mic</mat-icon>
+                            </button>
+                        </mat-grid-tile>
+                        <mat-grid-tile class="" [colspan]="1" [rowspan]="1">
+                            <button mat-raised-button class="tc-white"
+                                    [ngClass]="(currentcomment.id <= 35) ? 'bc-green' : 'bc-red'">
+                                <mat-icon>{{(currentcomment.id <= 35) ? 'done' : 'clear'}}</mat-icon>
+                            </button>
+                        </mat-grid-tile>
+                    </mat-grid-list>
                 </div>
             </div>
-
+            <br><br>
         </mat-tab>
     </mat-tab-group>
 </div>

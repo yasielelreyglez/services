@@ -202,6 +202,32 @@
     top: 0;
 }
 
+.mr-10 {
+    margin-right: 10px !important;
+}
+
+.pt-5{
+    padding-top: 3px !important;
+}
+
+#comments p{
+    margin-bottom: 0.25rem;
+}
+
+#comments hr{
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.delete-image.mat-icon-button{
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    position: absolute;
+    top: -10px;
+    right: -12px;
+}
+
 @media (min-width: 576px) and (max-width: 767px) {
     .container {
         max-width: 100% !important;
@@ -212,9 +238,11 @@
         padding-right: 15px !important;
         padding-left: 15px !important;
         margin-right: 10px !important;
-        margin-left: 10px !important;
+        margin-left: 0 !important;
     }
 }
+
+
 
 /*mat-grid-tile {*/
 /*background: lightblue;*/

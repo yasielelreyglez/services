@@ -627,10 +627,11 @@ class Api extends REST_Controller
         $service->addSubCategories($this->post('categories', TRUE), $em);
         $service->addCities($this->post('cities', TRUE), $em);
         $icon = $this->post('icon');
-        $path = "./resources/" . $icon['filename'];
-        file_put_contents($path, base64_decode($icon['value']));
-        $service->setIcon($path);
-
+        if ($icon){
+            $path = "./resources/" . $icon['filename'];
+            file_put_contents($path, base64_decode($icon['value']));
+            $service->setIcon($path);
+        }
         //OTROS DATOS
         $service->setOtherPhone($this->post('other_phone', TRUE));
         $service->setEmail($this->post('email', TRUE));
@@ -647,7 +648,7 @@ class Api extends REST_Controller
                 $poss = 0;
             }
         }
-        $service->setWeekDays(substr($string_week,1,strlen($string_week)-1));
+        $service->setWeekDays(substr($string_week, 1, strlen($string_week) - 1));
         $service->setStartTime($this->post('start_time', TRUE));
         $service->setEndTime($this->post('end_time', TRUE));
         //UBICACIONES

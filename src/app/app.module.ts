@@ -31,7 +31,8 @@ import {WizardserviceComponent} from './components/wizardservice/wizardservice.c
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
     MatSelectModule, MatCheckboxModule, MatToolbarModule, MatMenuModule, MatIconModule, MatButtonModule,
-    MatFormFieldModule, MatInputModule, MatGridListModule, MatCardModule, MatDialogModule, MatTabsModule
+    MatFormFieldModule, MatInputModule, MatGridListModule, MatCardModule, MatDialogModule, MatTabsModule,
+    MatStepperModule
 } from '@angular/material';
 import {ImageComponent} from './components/_modals/image/image.component';
 import { ImageZoomDirective } from './_directives/image-zoom.directive';
@@ -85,7 +86,8 @@ import { ImageZoomDirective } from './_directives/image-zoom.directive';
         MatGridListModule,
         MatCardModule,
         MatDialogModule,
-        MatTabsModule
+        MatTabsModule,
+        MatStepperModule
     ],
     providers: [
         AuthGuard,
