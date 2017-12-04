@@ -82,13 +82,13 @@ class User
 
     /**
      * One User has Many UserService.
-     * @OneToMany(targetEntity="Comments", mappedBy="user",nullable=true)
+     * @OneToMany(targetEntity="Comments", mappedBy="user")
      */
     private $usercomments;
 
     /**
      * One User has Many UserService.
-     * @OneToMany(targetEntity="Comments", mappedBy="reportuser",nullable=true)
+     * @OneToMany(targetEntity="Comments", mappedBy="reportuser")
      */
     private $reportcomments;
 

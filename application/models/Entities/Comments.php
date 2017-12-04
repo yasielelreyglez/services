@@ -45,7 +45,7 @@ class Comments
 
     /**
      * Many Features have One Product.
-     * @ManyToOne(targetEntity="User", inversedBy="reportcomments",nullable=true)
+     * @ManyToOne(targetEntity="User", inversedBy="reportcomments")
      */
     public $reportuser;
 
