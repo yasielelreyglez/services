@@ -172,6 +172,7 @@ class Api extends REST_Controller
         $service->setVisits($service->getVisits() + 1);
         $em->persist($service);
         $em->flush();
+        $service->relateUserData($user,$em);
         $service->loadRelatedUserData($user);
         $service->subcategoriesList = $service->getSubcategories()->toArray();
         $service->loadRelatedData();

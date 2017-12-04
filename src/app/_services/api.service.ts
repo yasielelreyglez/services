@@ -101,12 +101,27 @@ export class ApiService {
         }
     }
 
-    myServices(): Observable<any> {
+       myServices(): Observable<any> {
         const currentUser = localStorage.getItem('currentUser');
         if (currentUser) {
             const headers = new Headers();
             headers.append('Authorization', JSON.parse(currentUser).token);
             return this.http.get('http://localhost/services/api/myservices', {headers: headers}).map((response: Response) => {
+                if (response)
+                    return response.json().data;
+                else {
+                    return new Array();
+                }
+            });
+        }
+    }
+
+    mySearchs(): Observable<any> {
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            const headers = new Headers();
+            headers.append('Authorization', JSON.parse(currentUser).token);
+            return this.http.get('http://localhost/services/api/myvisits', {headers: headers}).map((response: Response) => {
                 if (response)
                     return response.json().data;
                 else {
