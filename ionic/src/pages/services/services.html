@@ -66,14 +66,7 @@
             <ion-grid>
                 <ion-row>
                     <ion-col col-4>
-                        <!-- <ion-thumbnail item-start> -->
-                        <ng-container *ngIf="serv.icon; else imgTemplate">
-                            <img (tap)="viewImg(serv.icon)" src="{{baseUrl + serv.icon}}">
-                        </ng-container>
-                        <ng-template #imgTemplate>
-                            <img (tap)="viewImg(assets/imgs/service_img.png)" src="assets/imgs/service_img.png">
-                        </ng-template>
-                        <!-- </ion-thumbnail> -->
+                        <img (tap)="viewImg(serv.icon)" [src]="serv.icon ? baseUrl + serv.icon : 'assets/imgs/service_img.png' ">
                     </ion-col>
 
                     <ion-col col-8>
@@ -83,28 +76,53 @@
                         </div>
                         <hr class="hr-separador">
                         <ion-row>
-                            <ion-col col-6>
+                            <ion-col col-7>
 
                                 <p>Calificación: {{serv.globalrate}}/10</p>
                                 <p>Distancia: 5 km</p>
-                                <p>Categoria: Hogar</p>
+                                <p text-wrap>Categoria: <span *ngFor="let cat of serv.subcategoriesList; let i = index">
+                                    <ng-container *ngIf="i > 0; else elseTemplate">
+                                       ,{{ cat.title}}
+                                    </ng-container>
+                                    <ng-template #elseTemplate>
+                                       {{ cat.title}}
+                                    </ng-template>
+
+                                 </span>
+                                </p>
                             </ion-col>
-                            <ion-col col-6>
-                                <ion-icon float-right class="fs-40" (tap)="toogleFavorite(i,serv.id)" *ngIf=loggedIn name="heart" [color]="serv.favorite ? 'favorite_on' : 'favorite_off'"></ion-icon>
+                            <ion-col col-5>
+                                <ion-icon float-right class="fs-40" (tap)="toogleFavorite(i,serv.id)" *ngIf="loggedIn" name="heart" [color]="serv.favorite ? 'favorite_on' : 'favorite_off'"></ion-icon>
                             </ion-col>
                         </ion-row>
+                        <!-- <ion-row>
+                            <ion-col col-auto>
+                                <p> Categoria:</p>
+                            </ion-col>
+                            <ion-col col-auto>
+                                <p *ngFor="let cat of serv.subcategoriesList; let i = index">
+                                    <ng-container *ngIf="i > 0; else elseTemplate">
+                                        ,{{ cat.title}}
+                                    </ng-container>
+                                    <ng-template #elseTemplate>
+                                        {{ cat.title}}
+                                    </ng-template>
+                                </p>
+                            </ion-col>
+                        </ion-row> -->
+
                     </ion-col>
 
                 </ion-row>
 
                 <ion-row>
                     <ion-col col-6>
-                        <button ion-button full color="azul-claro" (tap)='openServicePage(serv.id)'>
+                        <button ion-button full color="azul-claro" (tap)='openServicePage(serv.id,i)'>
                   <ion-icon name="checkmark"></ion-icon>&nbsp;Visualizar
                 </button>
                     </ion-col>
                     <ion-col col-6>
-                        <button ion-button full color="danger">
+                        <button (tap)="showPromptDenuncia(serv.id)" ion-button full color="danger">
                   <ion-icon name="microphone"></ion-icon>&nbsp;Denunciar
                 </button>
                     </ion-col>

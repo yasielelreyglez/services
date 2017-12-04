@@ -20,12 +20,13 @@ import {
   templateUrl: 'rate.html',
 })
 export class RatePage {
-  value: number = 1;
+  value: number;
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController,public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
+    this.value = this.navParams.get("rated") ? this.navParams.get("rated"):1
   }
   close(){
     let data = { 'rate': "cancel" };

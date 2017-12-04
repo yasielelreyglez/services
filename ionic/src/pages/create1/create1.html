@@ -1,37 +1,42 @@
 <ion-header>
-    <app-header> </app-header>
+
+    <ion-navbar>
+        <ion-title>Logo</ion-title>
+    </ion-navbar>
+
 </ion-header>
 
 
 
-<ion-content padding fixed-top>
-    <h4 color="azul-claro">Crear Anuncio <small>Datos iniciales</small></h4>
-    <hr class="hr-separador">
-    <div class="progress">
-        <div class="circle active"> <span class="label">1</span>
+<ion-content padding fullscreen="true">
+    <ng-container>
+        <h4 class="azul-claro">Crear Anuncio <small style="color: rgb(90, 84, 84)">Datos iniciales</small></h4>
+        <hr class="hr-separador">
+        <div class="progress">
+            <div class="circle active"> <span class="label">1</span>
 
-        </div> <span class="bar  "></span>
+            </div> <span class="bar  "></span>
 
-        <div class="circle"> <span class="label">2</span>
+            <div class="circle"> <span class="label">2</span>
 
-        </div> <span class="bar "></span>
+            </div> <span class="bar "></span>
 
-        <div class="circle"> <span class="label">3</span>
+            <div class="circle"> <span class="label">3</span>
 
-        </div> <span class="bar"></span>
+            </div> <span class="bar"></span>
 
-        <div class="circle"> <span class="label">4</span>
+            <div class="circle"> <span class="label">4</span>
+
+            </div>
 
         </div>
 
-    </div>
 
 
-    <ion-list>
         <form #formu="ngForm">
             <ion-item>
                 <ion-label stacked>Título</ion-label>
-                <ion-input name="title" [(ngModel)]="service.title" #title="ngModel" placeholder="Escribe el título..." required></ion-input>
+                <ion-input (tap)="promptTitle()" name="title" [(ngModel)]="service.title" #title="ngModel" placeholder="Escribe el título..." required></ion-input>
             </ion-item>
 
             <ion-item>
@@ -81,24 +86,26 @@
 
 
             <ion-item>
-                <img style="max-width: 50%;" src="{{preview}}" (tap)="presentActionSheet()" alt="Ionic File" />
-                <button ion-button (tap)="uploadFile()">Subir Foto</button>
+                <img style="max-width: 50%;" src="{{preview}}" alt="Ionic File" />
+                <button ion-button (tap)="presentActionSheet()">Subir Foto</button>
+                <!-- <img style="max-width: 50%;" src="{{preview}}" (tap)="presentActionSheet()" alt="Ionic File" />
+                <button  ion-button (tap)="uploadFile()">Subir Foto</button> -->
             </ion-item>
 
         </form>
-    </ion-list>
+        <ion-grid>
+            <ion-row>
+                <!-- <ion-col col-6>
+            </ion-col> -->
+                <ion-col col-6 offset-6>
+                    <button (tap)="goToCreate2()" ion-button icon-end>
+                    Siguiente
+                      <ion-icon name="arrow-round-forward"></ion-icon>
 
+                    </button>
+                </ion-col>
 
+            </ion-row>
+        </ion-grid>
+    </ng-container>
 </ion-content>
-<ion-footer>
-    <ion-toolbar>
-
-        <ion-buttons right>
-            <button ion-button icon-start>
-                <ion-icon name="star"></ion-icon>
-              Siguiente
-              </button>
-        </ion-buttons>
-
-    </ion-toolbar>
-</ion-footer>

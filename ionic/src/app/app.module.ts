@@ -25,13 +25,14 @@ import { InfoPage } from "../pages/info/info";
 import { MapaPage } from "../pages/mapa/mapa";
 import { GaleriaPage } from "../pages/galeria/galeria";
 import { ComentariosPage } from "../pages/comentarios/comentarios";
-import { ForgotPage } from "../pages/forgot/forgot";
 import { Create1Page } from "../pages/create1/create1";
+import { Create2Page } from "../pages/create2/create2";
 
 
 // Componentes
 import {AppHeaderComponent} from '../components/app-header/app-header';
 import { IonRating } from '../components/ion-rating/ion-rating';
+import { ServUpInfoComponent } from '../components/serv-up-info/serv-up-info';
 
 //Servicios
 import { SubCategoryProvider } from '../providers/sub-category/sub-category';
@@ -47,7 +48,6 @@ import { Camera } from '@ionic-native/camera';
 import { CallNumber } from "@ionic-native/call-number";
 import { Geolocation } from '@ionic-native/geolocation';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
-import { DataCenterProvider } from '../providers/data-center/data-center';
 
 // import { FilePath } from '@ionic-native/file-path';
 
@@ -67,14 +67,15 @@ import { DataCenterProvider } from '../providers/data-center/data-center';
     BusquedaPage,
     MyservicesPage,
     ServicePage,
-    ForgotPage,
     RatePage,
     IonRating,
+    ServUpInfoComponent,
     InfoPage,
     MapaPage,
     GaleriaPage,
     ComentariosPage,
     Create1Page,
+    Create2Page,
     EjemploPage
 
   ],
@@ -82,7 +83,11 @@ import { DataCenterProvider } from '../providers/data-center/data-center';
     BrowserModule,
     HttpModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp,{
+      scrollPadding: false,
+      scrollAssist: false, //estaba true
+      // autoFocusAssist: false
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -99,7 +104,6 @@ import { DataCenterProvider } from '../providers/data-center/data-center';
     BusquedaPage,
     MyservicesPage,
     ServicePage,
-    ForgotPage,
     RatePage,
     IonRating,
     InfoPage,
@@ -107,6 +111,7 @@ import { DataCenterProvider } from '../providers/data-center/data-center';
     GaleriaPage,
     ComentariosPage,
     Create1Page,
+    Create2Page,
     EjemploPage
 
   ],
@@ -125,8 +130,7 @@ import { DataCenterProvider } from '../providers/data-center/data-center';
     CategoryProvider,
     ServiceProvider,
     AuthProvider,
-    ApiProvider,
-    DataCenterProvider
+    ApiProvider
     ]
 })
 export class AppModule {}

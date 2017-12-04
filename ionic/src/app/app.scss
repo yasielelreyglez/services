@@ -35,6 +35,14 @@ ion-modal ion-backdrop {
     }
 }
 
+.azul-claro {
+    color: #0092b6 !important;
+}
+
+.azul-oscuro {
+    color: #075878;
+}
+
 .inline-b {
     display: inline-block;
 }
@@ -45,6 +53,14 @@ ion-modal ion-backdrop {
 
 .azul-claro {
     color: color($colors, azul-claro);
+}
+
+.fs-10 {
+    font-size: 10px;
+}
+
+.fs-15 {
+    font-size: 15px;
 }
 
 .fs-20 {

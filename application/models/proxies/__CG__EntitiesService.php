@@ -720,6 +720,17 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function relateUserData($user, $em)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'relateUserData', [$user, $em]);
+
+        return parent::relateUserData($user, $em);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function loadRelatedUserData($user)
     {
 

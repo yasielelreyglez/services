@@ -172,6 +172,7 @@ class Api extends REST_Controller
         $service->setVisits($service->getVisits() + 1);
         $em->persist($service);
         $em->flush();
+        $service->relateUserData($user,$em);
         $service->loadRelatedUserData($user);
         $service->subcategoriesList = $service->getSubcategories()->toArray();
         $service->loadRelatedData();
@@ -231,8 +232,8 @@ class Api extends REST_Controller
             $obj->setComplaintCreated(new DateTime("now"));
             $em->persist($obj);
             $em->flush();
-            $obj->loadRelatedData();
-            $result["data"] = $obj;
+            $service->loadRelatedData();
+            $result["data"] = $service;
             $this->set_response($result, REST_Controller::HTTP_OK);
         }
     }

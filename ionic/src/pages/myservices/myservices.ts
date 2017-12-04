@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, LoadingController } from "ionic-angular";
+import { IonicPage, NavController, LoadingController, ViewController, App } from "ionic-angular";
 import  {ServiceProvider} from  '../../providers/service/service.service';
 import { ApiProvider } from "../../providers/api/api";
+import { ServicePage } from '../service/service';
 
 @IonicPage()
 @Component({
@@ -14,7 +15,9 @@ export class MyservicesPage {
   baseUrl: any;
   email: any;
   token: any;
-  constructor(public navCtrl: NavController,
+  constructor(  public viewCtrl: ViewController,
+    public navCtrl: NavController,
+    public appCtrl: App,
     public api: ApiProvider,
     public servProv: ServiceProvider,public load: LoadingController) {
       let loading = this.load.create({
@@ -34,6 +37,21 @@ export class MyservicesPage {
   }
 
   ionViewDidLoad() {
+  }
+
+  openServicePage(id,serv) {
+        //this.navCtrl.push(FavoritesPage,);
+        this.viewCtrl.dismiss();
+        // this.appCtrl.getRootNav().push(FavoritesPage);
+
+        this.appCtrl.getActiveNavs()[0].push(ServicePage, {
+          serviceId: id,
+          service:serv
+        });
+    // this.navCtrl.push(ServicePage, {
+    //   serviceId: id,
+    //   service:serv
+    // });
   }
 
 }

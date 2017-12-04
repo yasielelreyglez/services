@@ -1,54 +1,64 @@
 <ion-header>
-    <app-header> </app-header>
+
+    <ion-navbar>
+        <ion-title text-center>
+            LOGO
+        </ion-title>
+    </ion-navbar>
+
 </ion-header>
+
 
 
 <ion-content padding>
     <ion-label text-center color="azul-claro">Mis busquedas realizadas</ion-label>
 
-    <hr style="background-color: #88868B;">
+    <hr class="hr-separador">
     <ion-list>
         <ion-item *ngFor="let serv of services">
-            <ion-thumbnail item-start>
-                <ng-container *ngIf="serv.icon; else imgTemplate">
-                    <img src="{{baseUrl + serv.icon}}">
-                </ng-container>
-                <ng-template #imgTemplate>
-                    <img src="assets/imgs/service_img.png">
-                </ng-template>
-            </ion-thumbnail>
-            <h2 class="serv-title ">{{serv.title}}</h2>
-            <hr style="border-bottom: 1px solid #dedede;">
             <ion-grid>
                 <ion-row>
-                    <ion-col col-12>
-                        <p>Calificación: {{serv.globalrate}}/10</p>
-                        <p>Distancia: 5 km</p>
-                        <p>Categoria: Hogar</p>
-                        <p>Visualización: 2017-04-24</p>
+                    <ion-col col-4>
+                        <img (tap)="viewImg(serv.icon)" [src]="serv.icon ? baseUrl + serv.icon : 'assets/imgs/service_img.png' ">
+                    </ion-col>
 
-                        <ng-container *ngIf="serv.contacted; else contactSetion">
-                            <div class="text-center fw-600" style="width: 100px;
-                            height: 20px;
-                            background-color: #44AB6C;
-                            font-weight: 600;
-                            font-size: 11px;padding: 2px;">
-                                <p style=" color: white; text-align: center;">Contactado</p>
-                            </div>
-                        </ng-container>
-                        <ng-template #contactSetion>
-                            <div class="text-center fw-600" style="width:100px;
-                            height: 20px;
-                            background-color: red;
-                            font-weight: 600;
-                            font-size: 11px;padding: 2px;">
-                                <p style=" color: white; text-align: center;">Sin contactar</p>
-                            </div>
-                        </ng-template>
+                    <ion-col col-8>
+                        <h2 class="azul-claro">{{serv.title }} </h2>
+                        <hr class="hr-separador">
+                        <ion-row>
+                            <ion-col>
 
+                                <p>Calificación: {{serv.globalrate}}/10</p>
+                                <p>Distancia: 5 km</p>
+                                <p text-wrap>Categoria: <span *ngFor="let cat of serv.subcategoriesList; let i = index">
+                                    <ng-container *ngIf="i > 0; else elseTemplate">
+                                       ,{{ cat.title}}
+                                    </ng-container>
+                                    <ng-template #elseTemplate>
+                                       {{ cat.title}}
+                                    </ng-template>
+
+                                 </span>
+                                </p>
+                                <p>Visualización: 2017-02-24</p>
+                                <ng-container *ngIf="serv.contacted==1; else contactSetion">
+                                    <div class="text-center fw-600 contact-section bc-green">
+                                        <p>Contactado</p>
+                                    </div>
+                                </ng-container>
+                                <ng-template #contactSetion>
+                                    <div class="text-center fw-600 contact-section bc-red">
+                                        <p>Sin contactar</p>
+                                    </div>
+                                </ng-template>
+                            </ion-col>
+
+                        </ion-row>
                     </ion-col>
 
                 </ion-row>
+
+
             </ion-grid>
         </ion-item>
     </ion-list>

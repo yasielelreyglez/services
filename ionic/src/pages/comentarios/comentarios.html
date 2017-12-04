@@ -1,0 +1,60 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Comentarios</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <serv-up-info [passedService]="service" [cant_c]="cant_c" (rateService)="rateService($event)"></serv-up-info>
+    <div *ngIf="loggedIn">
+        <ion-label text-center color="azul-claro">
+            Escribe tu comentario
+        </ion-label>
+        <ion-textarea name="comentario" [(ngModel)]="comentario" #com="ngModel" rows="3" placeholder="Escribe tu comentario"></ion-textarea>
+        <button (tap)="comentar()" [disabled]="!comentario" class="btn-text-left" text-left color="azul-claro" ion-button block margin-bottom="1">
+        <ion-icon class="fs-30" name="chatboxes" ></ion-icon>
+        &nbsp;Comentar
+      </button>
+    </div>
+    <ion-label text-center color="azul-claro">
+        Comentarios anterioles
+    </ion-label>
+
+
+    <ion-list>
+
+
+        <ion-item *ngFor="let comment of comentarios">
+            <p float-left class="azul-claro">{{comment.user.username}}</p>
+            <p float-right class="azul-claro"> {{comment.created.date | date:'yyyy-M-d'}}</p>
+
+            <div style="clear: both;"></div>
+            <p text-wrap>{{comment.comment}}</p>
+            <div style="clear: both;"></div>
+            <p float-right>
+                <button ion-button icon-only color="danger">
+                    <ion-icon class="fs-30"  name="microphone" ></ion-icon>
+                  </button>
+                <button ion-button icon-only color="danger">
+                      <ion-icon class="fs-30"  name="close"></ion-icon>
+                    </button>
+                <button ion-button icon-only color="secondary">
+                        <ion-icon class="fs-30"  name="checkmark"></ion-icon>
+                      </button>
+
+
+
+
+            </p>
+
+
+        </ion-item>
+
+    </ion-list>
+
+
+
+</ion-content>

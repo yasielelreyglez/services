@@ -684,16 +684,38 @@ namespace Entities {
             $this->positionsList = $this->getPositions()->toArray();
 
         }
+        public function relateUserData($user,$em){
+            $criteria = new \Doctrine\Common\Collections\Criteria();
+            //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
+            $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user", \Doctrine\Common\Collections\Expr\Comparison::EQ, $user);
+            $criteria = $criteria->where($expresion);
 
+            $relacion = $this->getServiceusers()->matching($criteria)->toArray();
+            if (count($relacion) > 0) {
+//
+                $userservice = array_pop($relacion);
+            }else{
+                $userservice = new UserService();
+
+            }
+            $userservice->setService($this);
+            $userservice->setUser($user);
+            $userservice->setVisited(1);
+            $em->persist($userservice);
+            $em->flush();
+
+        }
         public function loadRelatedUserData($user)
         {
             $criteria = new \Doctrine\Common\Collections\Criteria();
             //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
             $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user", \Doctrine\Common\Collections\Expr\Comparison::EQ, $user);
-            $criteria->where($expresion);
+            $criteria = $criteria->where($expresion);
+
             $relacion = $this->getServiceusers()->matching($criteria)->toArray();
             if (count($relacion) > 0) {
-                $relacion = $relacion[0];
+//
+                $relacion = array_pop($relacion) ;
                 $this->visited = $relacion->getVisited();
                 $this->rated = $relacion->getRate();
                 $this->complain = $relacion->getComplaint();

@@ -18,4 +18,21 @@ page-busqueda {
             height: 90px !important;
         }
     }
+    .contact-section {
+        width: 100px;
+        height: 25px;
+        font-weight: 600;
+        font-size: 11px;
+        padding: 4px 2px;
+        & p {
+            color: white;
+            text-align: center;
+        }
+        &.bc-red {
+            background-color: red;
+        }
+        &.bc-green {
+            background-color: #44AB6C;
+        }
+    }
 }

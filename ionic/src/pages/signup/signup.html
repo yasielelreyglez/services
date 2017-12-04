@@ -13,10 +13,10 @@
 
     <ion-label text-center color="azul-claro">Registrarse</ion-label>
 
-    <hr style="background-color: #88868B;">
+    <hr class="hr-separador">
 
     <!-- <form (submit)="doLogin()"> -->
-    <form (submit)="f.form.valid ? doSignUp() : llenarCampos()" #f="ngForm">
+    <form (submit)="f.form.valid && user.password == user.confirmpassword? doSignUp() : llenarCampos()" #f="ngForm">
         <ion-list>
 
             <ion-item>
@@ -32,12 +32,11 @@
             </ion-item>
             <ion-item>
                 <ion-label stacked>Contraseña</ion-label>
-                <ion-input type="password" name="password" class="form-control" [ngModel]="user.password" placeholder="Escriba su contraseña..." required></ion-input>
-
+                <ion-input type="password" name="password" class="form-control" [(ngModel)]="user.password" placeholder="Escriba su contraseña..." required></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label stacked>Repetir contraseña</ion-label>
-                <ion-input type="password" name="confirmpassword" class="form-control" [ngModel]="user.confirmpassword" placeholder="Escriba su contraseña..." required></ion-input>
+                <ion-input type="password" name="confirmpassword" class="form-control" [(ngModel)]="user.confirmpassword" placeholder="Escriba su contraseña..." required></ion-input>
             </ion-item>
 
             {{f.form.error}}

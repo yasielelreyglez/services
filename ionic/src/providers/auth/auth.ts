@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Http, Response} from '@angular/http';
-import {Observable,BehaviorSubject} from 'rxjs/Rx';
+import {  HttpClient } from "@angular/common/http";
+import {BehaviorSubject} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import {User} from '../../models/user';
 import { ApiProvider } from "../api/api";
@@ -10,49 +10,56 @@ import { ApiProvider } from "../api/api";
 export class AuthProvider {
   public currentUser = new BehaviorSubject(false);
 
-  constructor(public http: Http,public api: ApiProvider) {
+  constructor(public http: HttpClient,public api: ApiProvider) {
     this.currentUser.next(this.getUser());
   }
-
-  login(user: User): Observable<boolean> {
+// Login
+  login(user: User): Promise<any> {
     const body = JSON.stringify({email: user.email, password: user.password});
     return this.http.post(this.api.getbaseUrl()+'auth/login', body)
-      .map(res=> res.json())
-      .map(user =>{
-        if (user. error){
-            return false;
+    .toPromise()
+    .then(
+      (response) => {
+        if (response['error']){
+          return false;
+          }
+        else{
+          localStorage.setItem('ServCurrentUser',JSON.stringify({email: user.email, token: response['token'], rol:response['role']}));
+          this.currentUser.next(true);
+        }
+        return true;
+      }
+    ).catch(this.handleError);
+  }
+
+  // regista y autentica al usuario si todo sale bien
+  signUp(user: User): Promise<any> {
+    const body = JSON.stringify({name: user.name, email: user.email, password: user.password});
+    return this.http.post(this.api.getbaseUrl()+'auth/register', body)
+    .toPromise()
+    .then(
+      (response) => {
+        if (response['error']){
+          return false;
         }
         else{
-          localStorage.setItem('user',JSON.stringify({email: user.email, token: user.token,rol:user.rol}));
-          this.currentUser.next(user);
-
+          localStorage.setItem('ServCurrentUser',JSON.stringify({email: user.email, token: response['token'], rol:response['role']}));
+          this.currentUser.next(true);
+          return true;
         }
-		return !!user;
 
-    });
-
-  }
-  // regista y autentica al usuario si todo sale bien
-  signUp(user: User): Observable<boolean> {
-    const body = JSON.stringify({email: user.email, password: user.password});
-    return this.http.post(this.api.getbaseUrl+'auth/signup', body)
-      .map(res=> res.json())
-      .map(user =>{
-      if (user){
-        localStorage.setItem('user',JSON.stringify({email: user.email, token: user.token}));
-        this.currentUser.next(user);
       }
-      return !!user;
-    });
-
+    ).catch(this.handleError);
   }
+
+
   getUser(){
-    var user = localStorage.getItem('user');
+    var user = localStorage.getItem('ServCurrentUser');
     return user ? JSON.parse(user): false;
   }
 
   logout(): void {
-    localStorage.removeItem('user');
+    localStorage.removeItem('ServCurrentUser');
     this.currentUser.next(false);
   }
 
@@ -60,15 +67,18 @@ export class AuthProvider {
     return !!this.getUser();
   }
 
-  forgotPassword(email: string): Observable<any> {
-    return this.http.post(this.api.getbaseUrl+'api/forgotpassword', email).map((response: Response) => {
-        if (response.json().result === true) {
-          return true;
-        } else {
-          return {error: response.json().result};
+  forgotPassword(email: string): Promise<any> {
+    return this.http.post(this.api.getbaseUrl+'api/forgotpassword', email)
+    .toPromise()
+    .then(
+      (response) => {
+        console.log(response);
+        if (response['error']){
+          return false;
         }
+        return true;
       }
-    );
+    ).catch(this.handleError);
 
   }
 
@@ -76,6 +86,9 @@ export class AuthProvider {
   validateEmail(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
+  }
+  private handleError(error: any): Promise<any> {
+    return Promise.reject(error.message || error);
   }
 
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild  } from '@angular/core';
 import {
   IonicPage,
   ModalController,
@@ -6,10 +6,10 @@ import {
   LoadingController,
   ToastController,
   AlertController
+
 } from "ionic-angular";
 import {User} from '../../models/user';
 import {AuthProvider} from '../../providers/auth/auth';
-import { ForgotPage } from "../forgot/forgot";
 import { HomePage } from '../home/home';
 
 @IonicPage()
@@ -26,10 +26,13 @@ export class LoginPage {
      public authService: AuthProvider ,
      public toastCtrl: ToastController,
      public load: LoadingController,
-     public modalCtrl: ModalController,
      public alertCtrl: AlertController) {
     this.user = new User();
+
+
   }
+
+
   showPrompt() {
     let prompt = this.alertCtrl.create({
       title: 'Olvido de contraseña',
@@ -44,15 +47,23 @@ export class LoginPage {
       buttons: [
         {
           text: 'Cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
+          role: 'cancel'
+
         },
         {
           text: ' Enviarme contraseña',
           handler: data => {
-            console.log('Cancel clicked');
-            // const navTransition = prompt.dismiss();
+           if(this.authService.validateEmail( data.email)){
+            let toast = this.toastCtrl.create({
+              message: "La contraseña se a enviando a su correo",
+              duration: 5000,
+              position: 'bottom',
+              showCloseButton:true,
+              closeButtonText:"Cerrar"
+            });
+            toast.present();
+
+             // const navTransition = prompt.dismiss();
 
                   // start some async method
                   // someAsyncOperation().then(() => {
@@ -64,7 +75,14 @@ export class LoginPage {
                   //     this.nav.pop();
                   //   });
                   // });
-                  //return false;
+
+           }
+           else
+           {
+            return false;
+           }
+
+
           }
         }
       ]
@@ -75,7 +93,7 @@ export class LoginPage {
      this.loading = this.load.create();
      this.loading.present();
      this.authService.login(this.user)
-      .subscribe(result => {
+      .then(result => {
         if (result === true) {
           this.loading.dismiss();
            this.navCtrl.setRoot(HomePage);
@@ -91,13 +109,29 @@ export class LoginPage {
           toast.present();
           this.loading.dismiss();
         }
-      });
+      }).catch(
+        (error) => {
+          let toast = this.toastCtrl.create({
+            message: "No hay conexión a internet",
+            duration: 5000,
+            position: 'bottom',
+            showCloseButton:true,
+          });
+          toast.present();
+          this.loading.dismiss();
+          // this.navCtrl.goToRoot({});
+          this.navCtrl.setRoot(HomePage,{
+            connetionDown:true
+          });
+          this.navCtrl.pop();
+        }
+      );
   }
 
 
 llenarCampos(){
    let toast = this.toastCtrl.create({
-      message: "llenar todos los campos",
+      message: "Debe llenar los campos correctamente",
       duration: 5000,
       position: 'bottom',
       showCloseButton:true,
@@ -105,18 +139,6 @@ llenarCampos(){
     });
     toast.present();
 }
-openForgot(){
-  const profileModal = this.modalCtrl.create(ForgotPage);
-  profileModal.onDidDismiss(data => {
-    // enviar contraseña
-    console.log(data);
-  });
-
-  profileModal.present();
-}
-
-
-
 
 }
 

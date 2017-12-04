@@ -1,0 +1,35 @@
+<ion-grid>
+    <ion-row>
+        <ion-col col-9>
+            <ion-list>
+                <ion-item>
+                    <ion-thumbnail item-start>
+                        <img (tap)="viewImg(passedService.icon)" [src]="passedService.icon ? baseUrl + passedService.icon : 'assets/imgs/service_img.png' ">
+                    </ion-thumbnail>
+                    <h1 text-wrap>{{passedService.title}}</h1>
+                    <p text-wrap>{{passedService.subtitle}}</p>
+                </ion-item>
+                <p text-wrap>{{passedService.address}}</p>
+                <p>1.5km de tu posición</p>
+            </ion-list>
+        </ion-col>
+        <ion-col col-3 float-start>
+            <strong><ion-label class="fs-20" color="azul-claro">{{passedService.globalrate}}/10</ion-label></strong>
+            <button class="fs-10" *ngIf=loggedIn (tap)="openRate(passedService.id,passedService.rated,passedService)" color="azul-claro" ion-button>
+            Evaluar
+            </button>
+            <hr class="hr-separador">
+            <strong>
+              <ion-label class="fs-20"   color="azul-claro">
+                  <ion-icon name="chatboxes" ></ion-icon> {{cant_c}}
+              </ion-label>
+            </strong>
+        </ion-col>
+
+    </ion-row>
+</ion-grid>
+
+<button tappable (tap)="Llamar(passedService.phone)" class="btn-text-left" text-left color="azul-claro" ion-button block margin-bottom="1">
+    <ion-icon class="fs-30" name="call"></ion-icon>
+    &nbsp;Llamar ahora
+  </button>

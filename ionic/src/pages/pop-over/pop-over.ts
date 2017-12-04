@@ -1,5 +1,5 @@
 import { Component,OnInit } from '@angular/core';
-import { ViewController,NavController,NavParams } from 'ionic-angular';
+import { ViewController,NavController,NavParams ,App} from 'ionic-angular';
 import {LoginPage} from '../login/login';
 import {SignupPage} from '../signup/signup';
 import {HomePage} from '../home/home';
@@ -23,6 +23,7 @@ export class PopoverPage implements OnInit {
     public auth: AuthProvider,
     public viewCtrl: ViewController,
     public navCtrl: NavController,
+    public appCtrl: App
    ) {
   }
 
@@ -36,7 +37,20 @@ export class PopoverPage implements OnInit {
   logout() {
     this.auth.logout();
     this.viewCtrl.dismiss();
+    let navList =this.appCtrl.getActiveNavs();
+    navList[0].pop;
+    navList[0].pop;
+    navList[0].pop;
+    console.log(this.appCtrl.getActiveNavs());
     this.navCtrl.setRoot(HomePage);
+
+
+   // this.auth.logout();
+    //let navList =this.appCtrl.getActiveNavs();
+    //console.log(navList);
+   // this.navCtrl.popToRoot();
+   // this.viewCtrl.dismiss();
+
   }
 
   openLoginPage(){
@@ -48,8 +62,12 @@ export class PopoverPage implements OnInit {
     this.viewCtrl.dismiss();
   }
   openFavoritesPage(){
-    this.navCtrl.push(FavoritesPage,);
+    //this.navCtrl.push(FavoritesPage,);
     this.viewCtrl.dismiss();
+    // this.appCtrl.getRootNav().push(FavoritesPage);
+
+    this.appCtrl.getActiveNavs()[0].push(FavoritesPage);
+
   }
   openBusquedaPage(){
     this.navCtrl.push(BusquedaPage);

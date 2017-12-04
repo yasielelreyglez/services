@@ -8,7 +8,9 @@ import {ShowsubcateroriesComponent} from './components/showsubcaterories/showsub
 import {ShowservicesComponent} from './components/showservices/showservices.component';
 import {ShowfavoritesComponent} from './components/showfavorites/showfavorites.component';
 import {ShowmyservicesComponent} from './components/showmyservices/showmyservices.component';
+import {ShowmysearchsComponent} from './components/showmysearchs/showmysearchs.component';
 import {ShowserviceComponent} from './components/showservice/showservice.component';
+
 import {WizardserviceComponent} from './components/wizardservice/wizardservice.component';
 
 const routes: Routes = [
@@ -26,6 +28,7 @@ const routes: Routes = [
     {path: 'myfavorites/service/:id', component: ShowserviceComponent},
     {path: 'myfavorites', component: ShowfavoritesComponent, canActivate: [AuthGuard]},
     {path: 'myservices', component: ShowmyservicesComponent, canActivate: [AuthGuard]},
+    {path: 'mysearchs', component: ShowmysearchsComponent, canActivate: [AuthGuard]},
     {path: 'myservices/service/:id', component: ShowserviceComponent, canActivate: [AuthGuard]},
     {path: 'createservice', component: WizardserviceComponent, canActivate: [AuthGuard]},
 

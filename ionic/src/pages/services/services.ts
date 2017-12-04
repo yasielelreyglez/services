@@ -1,11 +1,12 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, LoadingController, AlertController, Events, Platform} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, LoadingController, AlertController,  Platform, Events} from 'ionic-angular';
 import {ServiceProvider} from '../../providers/service/service.service';
 import {AuthProvider} from '../../providers/auth/auth';
 import {ServicePage} from "../service/service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ApiProvider} from "../../providers/api/api";
 import {PhotoViewer} from '@ionic-native/photo-viewer';
+import { Service } from '../../models/service';
 
 @IonicPage()
 @Component({
@@ -21,46 +22,42 @@ export class ServicesPage {
 
   city: any;
   category: any;
-  didLoad:number=-1;
   subCatId: any;
-  services: any;
+  services: Service[]=[];
   categoryId: any;
   baseUrl: any;
   loggedIn: boolean;
   option: any;
 
-  constructor(public navCtrl: NavController,
-              public auth: AuthProvider,
-              public api: ApiProvider,
-              public navParams: NavParams,
-              public servProv: ServiceProvider,
-              public load: LoadingController,
-              private photoViewer: PhotoViewer, private platform: Platform,
-              public alertCtrl: AlertController, public events: Events) {
-    platform.ready().then(() => {
-      events.subscribe('dismark:service', (service) => {
-
-        this.services[0].title = "cambio";
-        // user and time are the same arguments passed in `events.publish(user, time)`
-        console.log(service);
+  constructor(
+    public navCtrl: NavController,
+    public auth: AuthProvider,
+    public api: ApiProvider,
+    public navParams: NavParams,public events: Events,
+    public servProv: ServiceProvider,
+    public load: LoadingController,
+    private photoViewer: PhotoViewer, private platform: Platform,
+    public alertCtrl: AlertController) {
+      platform.ready().then(() => {
+        this.events.subscribe('dismark:favorite', (id) => {
+          let index = this.services.findIndex(this.findServById, id);
+          this.services[index].favorite = 0;
       });
+      this.servicesBySubCat(navParams.get("subCatId"));
+      this.loadSelect();
     });
-    this.baseUrl = api.getbaseUrl();
-    this.loggedIn = auth.isLoggedIn();
-    this.subCatId = navParams.get("subCatId");
-    this.servicesBySubCat(navParams.get("subCatId"));
-    this.citiestOptions = {
-      title: "Ciudades"
-    };
-    this.catOptions = {
-      title: "Categorias"
-    };
-    this.loadSelect();
+
+
 
   }
 
   viewImg(img) {
+    this.platform.ready().then(() => {
     this.photoViewer.show(this.baseUrl + img);
+    });
+  }
+  findServById(element,index,array) {
+    return element.id == this;
   }
 
   showPromptDenuncia(id) {
@@ -85,15 +82,7 @@ export class ServicesPage {
         {
           text: 'Denunciar',
           handler: data => {
-            const navTransition = prompt.dismiss();
-            this.servProv.denunciarService(id, data.denuncia).then(
-              res => {
-                // navTransition.then(() => {
-                //   this.navCtrl.pop();
-                // });
-              });
-
-            return false;
+             this.servProv.denunciarService(id, data.denuncia)
           }
         }
       ]
@@ -154,49 +143,39 @@ export class ServicesPage {
       },
       (err: HttpErrorResponse) => {
         if (err.error instanceof Error) {
-
-          // loading.dismiss();
         } else {
           console.log(err);
-          // loading.dismiss();
         }
       }
     );
   }
 
   ionViewDidLoad() {
-    console.log("load");
+    this.baseUrl = this.api.getbaseUrl();
+    this.loggedIn = this.auth.isLoggedIn();
+    this.subCatId = this.navParams.get("subCatId");
+
+    this.citiestOptions = {
+      title: "Ciudades"
+    };
+    this.catOptions = {
+      title: "Categorias"
+    };
   }
 
-  ionViewDidEnter() {
-    console.log( "disLoad ",this.didLoad);
-    if (this.didLoad > 0) {
-      this.servProv.getServiceBySubCat(this.subCatId).then(
-        data => {
-          this.services = data["data"];
-          this.services[0].title = "siiiiiiii";
-        }
-      );
-    }
-    this.didLoad++;
-  }
 
   ionViewWillEnter() {
 
 
   }
 
-  openServicePage(id) {
+  openServicePage(id,index) {
     this.navCtrl.push(ServicePage, {
-      // serviceId: this.services[id]  //si paso el service
-      serviceId: id,  //si paso el id del servicio
+      service: this.services[index], //paso el service
+      serviceId: id,  //si paso el id del servicio para la peticion
       parentPage: this
 
     });
-  }
-
-  prueba() {
-
   }
 
   doRefresh(refresher) {

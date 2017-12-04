@@ -24,6 +24,8 @@ import {ServicesComponent} from './components/services/services.component';
 import {ReportComponent} from './components/_modals/report/report.component';
 import {ShowfavoritesComponent} from './components/showfavorites/showfavorites.component';
 import {ShowmyservicesComponent} from './components/showmyservices/showmyservices.component';
+import {ShowmysearchsComponent} from './components/showmysearchs/showmysearchs.component';
+
 import {ShowserviceComponent} from './components/showservice/showservice.component';
 import {RatingComponent} from './components/_modals/rating/rating.component';
 import {ArchwizardModule} from 'ng2-archwizard';
@@ -54,6 +56,7 @@ import { ImageZoomDirective } from './_directives/image-zoom.directive';
         ReportComponent,
         ShowfavoritesComponent,
         ShowmyservicesComponent,
+        ShowmysearchsComponent,
         ShowserviceComponent,
         RatingComponent,
         WizardserviceComponent,

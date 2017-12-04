@@ -58,8 +58,8 @@ export class HomePage {
      private load: LoadingController,
      private photoViewer: PhotoViewer,
      public keyboard: Keyboard,
-     navParams: NavParams,public splashScreen: SplashScreen,public platform: Platform) {
-      this.connetionDown = false;
+     public navParams: NavParams,public splashScreen: SplashScreen,public platform: Platform) {
+
       this.platform.ready().then(() => {
         this.subCat.topSubcategories().then(
           data => {
@@ -82,11 +82,10 @@ export class HomePage {
         });
       });
   }
-  viewImg(img){
-    this.photoViewer.show(this.baseUrl+img);
-  }
   ionViewDidLoad() {
+
     this.platform.ready().then(() => {
+
       // this.platform.registerBackButtonAction((readySource) => {
       //  this.platform.exitApp();
       // });
@@ -99,14 +98,26 @@ export class HomePage {
 
     });
   }
+  ionViewDidEnter() {
+    if(this.navParams.get('connetionDown')){
+      this.connetionDown = true;
+    }
+  }
+  viewImg(img) {
+    this.platform.ready().then(() => {
+    this.photoViewer.show(this.baseUrl + img);
+    });
+  }
+
 
   searchServices(query){
 
-    this.loading = this.load.create();
+    this.loading = this.load.create({
+      content:"Buscando..."
+    });
     this.loading.present();
     this.servProv.getServiceBySearch(query).then(
       data => {
-        console.log(data);
         this.services =data['data'];
         this.noFound = this.services.length == 0 ? true : false;
         this.loading.dismiss();
@@ -115,11 +126,9 @@ export class HomePage {
         if (err.error instanceof Error) {
           this.connetionDown = true;
           this.loading.dismiss();
-          console.log(err,"instace");
         } else {
           this.loading.dismiss();
           this.connetionDown = true;
-          console.log(err,"segundo");
         }
       });
   }
@@ -137,10 +146,10 @@ export class HomePage {
     this.busqueda = false;
     this.noFound =  false;
   }
-  openServicePage(id){
+  openServicePage(id,serv){
     this.navCtrl.push(ServicePage,{
-       serviceId:id
-      // serviceId:this.services[id]
+       serviceId:id,
+       service:serv
     })
   }
 
@@ -168,9 +177,17 @@ export class HomePage {
     this.navCtrl.push(CategoriesPage)
   }
   openServicesPage(id){
-    this.navCtrl.push(ServicesPage,{
-      subCatId:id
-    });
+    // this.api.test().then(
+    //   () => {
+        this.navCtrl.push(ServicesPage,{
+          subCatId:id
+        });
+      // },
+      // (err: HttpErrorResponse) => {
+      //   // no hay conexion
+      //     this.connetionDown = true;
+      // });
+
   }
   reConnect(){
     this.subCat.topSubcategories()

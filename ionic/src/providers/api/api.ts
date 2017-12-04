@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import {  HttpClient } from "@angular/common/http";
+import {  HttpClient,  HttpHeaders } from "@angular/common/http";
+
+
 
 /*
   Generated class for the ApiProvider provider.
@@ -10,9 +12,10 @@ import {  HttpClient } from "@angular/common/http";
 @Injectable()
 export class ApiProvider {
 
-  // private apiBaseUrl = 'http://192.168.137.1/services/';
-  private apiBaseUrl = 'http://localhost/services/';
+  private apiBaseUrl = 'http://192.168.1.80/services/';
+  // private apiBaseUrl = 'http://localhost/services/';
   private days : object;
+  user:any;
 
   constructor(public http: HttpClient) {
     this.days ={
@@ -24,8 +27,33 @@ export class ApiProvider {
       5:"Viernes",
       6:"Sábado",
     }
+    this.user =JSON.parse(localStorage.getItem('ServCurrentUser')) ;
   }
 
+  contactservice(id):Promise<any>{
+
+    if (this.user){
+    return this.http.get(this.apiBaseUrl + 'api/contactservice/'+id,{
+      headers: new HttpHeaders().set('Authorization', this.user.token)
+     })
+      .toPromise()
+      .then(
+        (response) => {
+          return response;
+        }
+      ).catch(this.handleError);
+    }
+  }
+
+  test():Promise<any>{
+    return this.http.get(this.apiBaseUrl + 'api/test')
+      .toPromise()
+      .then(
+        (response) => {
+          return response;
+        }
+      ).catch(this.handleError);
+  }
   getCities():Promise<Object>{
     return this.http.get(this.apiBaseUrl + 'api/cities')
       .toPromise()
@@ -43,6 +71,19 @@ export class ApiProvider {
           return response;
         }
       ).catch(this.handleError);
+  }
+  addComment(id, comment){
+    if (this.user){
+    return this.http.post(this.apiBaseUrl + 'api/addcomment/'+id,{comment}, {
+      headers: new HttpHeaders().set('Authorization', this.user.token)
+     })
+      .toPromise()
+      .then(
+        (response) => {
+          return response;
+        }
+      ).catch(this.handleError);
+    }
   }
 
   getbaseUrl(): string{

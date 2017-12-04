@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController,Events,IonicPage} from 'ionic-angular';
+import { NavController, LoadingController,Events, Platform} from 'ionic-angular';
 
 import  {ServiceProvider} from  '../../providers/service/service.service';
 import { HttpErrorResponse } from "@angular/common/http";
@@ -24,7 +24,7 @@ export class FavoritesPage {
     public navCtrl: NavController,
     public api: ApiProvider,
      public servProv: ServiceProvider,
-     public load: LoadingController,public events: Events,private photoViewer: PhotoViewer) {
+     public load: LoadingController,public events: Events,private photoViewer: PhotoViewer,private platform: Platform) {
       this.servProv.getServicesFavorites().then(
         data => {
           this.services = data['data'];
@@ -39,24 +39,27 @@ export class FavoritesPage {
     this.baseUrl = this.api.getbaseUrl();
 
   }
-  viewImg(img){
-    this.photoViewer.show(this.baseUrl+img);
+  viewImg(img) {
+    this.platform.ready().then(() => {
+    this.photoViewer.show(this.baseUrl + img);
+    });
   }
-  openServicePage(id) {
+
+  openServicePage(id,serv) {
     this.navCtrl.push(ServicePage, {
-      serviceId: id
+      serviceId: id,
+      service:serv
     });
   }
   delete(id){
     //hacer el
     this.servProv.diskMarkfavorite(id).then(
       data => {
-        console.log(data);
-        this.events.publish('dismark:service', data);
+        this.events.publish('dismark:favorite', id);
         this.services = this.services.filter(function(item){
           return item.id !== id;
         });
-      } );
-
+      }
+    );
   }
 }

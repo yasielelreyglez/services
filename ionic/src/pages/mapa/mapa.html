@@ -8,49 +8,7 @@
 
 
 <ion-content padding>
-    <ion-grid>
-        <ion-row>
-            <ion-col col-9>
-                <ion-list>
-                    <ion-item style="padding-left: 0;">
-                        <ion-thumbnail item-start>
-                            <ng-container *ngIf="service.icon; else imgTemplate">
-                                <img src="{{baseUrl + service.icon}}">
-                            </ng-container>
-                            <ng-template #imgTemplate>
-                                <img src="assets/imgs/service_img.png">
-                            </ng-template>
-                        </ion-thumbnail>
-                        <h1>{{service.title}}</h1>
-                        <p>{{service.subtitle}}</p>
-                    </ion-item>
-                    <p>{{service.address}}</p>
-                    <p>1.5km de tu posición</p>
-                </ion-list>
-            </ion-col>
-            <ion-col col-3>
-                <strong>
-          <ion-label text-center style="font-size: 28px; margin: 13px 0;" color="azul-claro">{{service.globalrate}}/10
-          </ion-label>
-        </strong>
-                <button *ngIf=loggedIn (tap)="openRate()" style="font-size: 10px;" color="azul-claro" ion-button>
-          Evaluar
-        </button>
-                <hr style="border-bottom: 2px solid #dedede;">
-                <strong>
-          <ion-label text-center style="font-size: 17px; margin: 13px 0;" color="azul-claro">
-            <i class="fa fa-comment-o" aria-hidden="true"></i> 9999
-          </ion-label>
-        </strong>
-            </ion-col>
-
-        </ion-row>
-    </ion-grid>
-
-    <button (tap)="Llamar(service.phone)" class="btn-text-left" text-left color="azul-claro" ion-button block margin-bottom="1">
-    <ion-icon name="call" style="font-size: 30px;"></ion-icon>
-    &nbsp;Llamar ahora
-  </button>
+    <serv-up-info [passedService]="service" [cant_c]="cant_c" (rateService)="rateService($event)"></serv-up-info>
 
     <ion-label text-center color="azul-claro">
         Mis ubicaciones {{pepe}}

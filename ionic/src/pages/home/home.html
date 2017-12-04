@@ -1,105 +1,115 @@
+<!-- <ion-header>
+
+        <ion-navbar hideBackButton="false">
+            <ion-title text-center>
+                LOGO
+            </ion-title>
+            <app-header *ngIf="!connetionDown"></app-header>
+        </ion-navbar>
+
+    </ion-header> -->
 <ion-header>
-  <app-header></app-header>
+    <app-header [show]="!connetionDown"></app-header>
 </ion-header>
 
 <ion-content padding>
-  <ng-container *ngIf="!connetionDown; else elseTemplate">
-    <ion-searchbar id="search" (ionInput)="onInput($event)" (ionClear)="onCancel($event)"
-                   (keypress)="goSearch($event.keyCode)" placeholder="¿Que buscas?" #search></ion-searchbar>
-    <ng-container *ngIf="busqueda; else topCategories">
-      <p *ngIf="noFound">No hay resultados </p>
-      <ion-list>
-        <ion-item *ngFor="let serv of services; let i = index">
-          <ion-grid>
-            <ion-row>
-              <ion-col col-4>
-                <!-- <ion-thumbnail item-start> -->
-                <ng-container *ngIf="serv.icon; else imgTemplate">
-                  <img (tap)="viewImg(serv.icon)" src="{{baseUrl + serv.icon}}">
-                </ng-container>
-                <ng-template #imgTemplate>
-                  <img (tap)="viewImg(assets/imgs/service_img.png)" src="assets/imgs/service_img.png">
-                </ng-template>
-                <!-- </ion-thumbnail> -->
-              </ion-col>
+    <ng-container *ngIf="!connetionDown; else elseTemplate">
+        <ion-searchbar id="search" (ionInput)="onInput($event)" (ionClear)="onCancel($event)" (keypress)="goSearch($event.keyCode)" placeholder="¿Que buscas?" #search></ion-searchbar>
+        <ng-container *ngIf="busqueda; else topCategories">
+            <p *ngIf="noFound">No hay resultados </p>
+            <ion-list>
+                <ion-item *ngFor="let serv of services; let i = index">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col col-4>
+                                <img (tap)="viewImg(serv.icon)" [src]="serv.icon ? baseUrl + serv.icon : 'assets/imgs/service_img.png' ">
+                            </ion-col>
 
-              <ion-col col-8>
-                <h2 class="serv-title ">{{serv.title }} </h2>
-                <div class="text-center fw-600 serv-pro">
-                  <p class="texto" style>PRO</p>
-                </div>
-                <hr class="hr-separador">
-                <ion-row>
-                  <ion-col>
+                            <ion-col col-8>
+                                <h2 class="serv-title ">{{serv.title }} </h2>
 
-                    <p>Calificación: {{serv.globalrate}}/10</p>
-                    <p>Distancia: 5 km</p>
-                    <p>Categoria: Hogar</p>
-                  </ion-col>
+                                <hr class="hr-separador">
+                                <ion-row>
+                                    <ion-col>
+                                        <p>Calificación: {{serv.globalrate}}/10</p>
+                                        <p>Distancia: 5 km</p>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col col-auto>
+                                        <p> Categoria:</p>
+                                    </ion-col>
+                                    <ion-col col-auto>
+                                        <p *ngFor="let cat of serv.subcategoriesList; let i = index">
+                                            <ng-container *ngIf="i > 0; else elseTemplate">
+                                                ,{{ cat.title}}
+                                            </ng-container>
+                                            <ng-template #elseTemplate>
+                                                {{ cat.title}}
+                                            </ng-template>
+                                        </p>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-col>
 
-                </ion-row>
-              </ion-col>
+                        </ion-row>
 
-            </ion-row>
-
-            <ion-row>
-              <ion-col col-12>
-                <button ion-button full color="azul-claro" (tap)='openServicePage(serv.id)'>
-                  <ion-icon name="checkmark"></ion-icon>&nbsp;Visualizar
+                        <ion-row>
+                            <ion-col col-12>
+                                <button ion-button full color="azul-claro" (tap)='openServicePage(serv.id,serv)'>
+                  <ion-icon name="checkmark"></ion-icon>&nbsp;Ver detalle
                 </button>
-              </ion-col>
+                            </ion-col>
 
-            </ion-row>
-          </ion-grid>
+                        </ion-row>
+                    </ion-grid>
 
-        </ion-item>
+                </ion-item>
 
-      </ion-list>
+            </ion-list>
+        </ng-container>
+
     </ng-container>
 
-  </ng-container>
+    <ng-template #elseTemplate>
+        <ion-label class="fs-20" text-center text-wrap>No tienes conexión a Internet. Activa el Wi-Fi o los datos móviles, y vuelve a intentarlo.</ion-label>
 
-  <ng-template #elseTemplate>
-    <ion-label text-center color="danger">NO HAY CONEXION CON EL SERVIDOR</ion-label>
-
-    <button color="azul-claro" ion-button block margin-bottom="2" (tap)="reConnect()">
+        <button color="azul-claro" ion-button block margin-bottom="2" (tap)="reConnect()">
       Reintentar
     </button>
-  </ng-template>
-  <ng-template #topCategories>
+    </ng-template>
+    <ng-template #topCategories>
 
-    <ion-label text-center color="azul-claro">Principales tendencias</ion-label>
-    <ion-list>
-      <button *ngFor="let sub of subCategories" class="btn-text-left" text-left color="azul-claro" ion-button block
-              margin-bottom="1" (tap)='openServicesPage(sub.id)'>
+        <ion-label text-center color="azul-claro">Principales tendencias</ion-label>
+        <ion-list>
+            <button *ngFor="let sub of subCategories" class="btn-text-left" text-left color="azul-claro" ion-button block margin-bottom="1" (tap)='openServicesPage(sub.id)'>
         <img src="{{baseUrl + sub.icon}}" alt="" height="36">
         &nbsp;{{sub.title}}
       </button>
 
-    </ion-list>
+        </ion-list>
 
-    <ion-grid>
-      <ion-row>
-        <ion-col>
+        <ion-grid>
+            <ion-row>
+                <ion-col>
 
-        </ion-col>
-        <ion-col col-10>
-          <button color="azul-oscuro" class="btn-text-left" ion-button block margin-bottom="2"
-                  (tap)="openCategoriesPage()">
+                </ion-col>
+                <ion-col col-10>
+                    <button color="azul-oscuro" float-left class="btn-text-left" ion-button block margin-bottom="2" (tap)="openCategoriesPage()">
             <ion-icon name="search" class="fs-25"></ion-icon>
             &nbsp;Buscar por categoria
           </button>
-        </ion-col>
-        <ion-col>
+                </ion-col>
+                <ion-col>
 
-        </ion-col>
-      </ion-row>
+                </ion-col>
+            </ion-row>
 
-    </ion-grid>
+        </ion-grid>
 
 
-    <p *ngIf=loggedIn>esta logueado</p>
-    <p *ngIf=!loggedIn>No esta logueado</p>
+        <p *ngIf=loggedIn>esta logueado</p>
+        <p *ngIf=!loggedIn>No esta logueado</p>
 
-  </ng-template>
+    </ng-template>
 </ion-content>

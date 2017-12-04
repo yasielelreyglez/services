@@ -4,7 +4,7 @@
     <ion-title text-center>
         LOGO
     </ion-title>
-    <ion-buttons end>
+    <ion-buttons *ngIf="show" end>
         <button ion-button icon-only (tap)="presentPopover($event)">
         <ion-icon name="reorder"></ion-icon>
       </button>

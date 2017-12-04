@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage,NavParams,ModalController,NavController} from "ionic-angular";
-import { CallNumber } from '@ionic-native/call-number';
+import { IonicPage,NavParams,ModalController,NavController, Events} from "ionic-angular";
 import  {ServiceProvider} from  '../../providers/service/service.service';
 import { ApiProvider } from "../../providers/api/api";
-import { RatePage } from "../rate/rate";
 import { InfoPage } from "../info/info";
 import { MapaPage } from "../mapa/mapa";
 import { AuthProvider } from "../../providers/auth/auth";
 import { GaleriaPage } from "../galeria/galeria";
 import { ComentariosPage } from "../comentarios/comentarios";
+import { Service } from '../../models/service';
 
 @IonicPage()
 @Component({
@@ -17,72 +16,70 @@ import { ComentariosPage } from "../comentarios/comentarios";
 })
 export class ServicePage {
   response: Object;
-  private service: any = {};
+  private service: Service;
+  private passedService: Service;
   private baseUrl: any;
+  cant_c :number;
   loggedIn: boolean;
   constructor(public navParams: NavParams,
-    private callNumber: CallNumber,
+    // private callNumber: CallNumber,
     public servPro: ServiceProvider,
     public api: ApiProvider,
     public modalCtrl: ModalController,
     public auth: AuthProvider,
-    public navCtrl: NavController
+    public navCtrl: NavController,
+    public events: Events
    ) {
-      this.loggedIn = auth.isLoggedIn();
-      this.baseUrl = this.api.getbaseUrl();
+    this.passedService = this.navParams.get("service");
       // si recibo el id del servicio
-      this.servPro.getService(this.navParams.get("serviceId")).then(data=> {
+        this.servPro.getService(this.navParams.get("serviceId")).then(data=> {
         this.response = data;
         this.service = data['data'];
       });
-      // si recibo el servicio por params
-    //  this.service = this.navParams.get("service");
+
   }
 
   ionViewDidLoad() {
-
+    this.loggedIn = this.auth.isLoggedIn();
+    this.baseUrl = this.api.getbaseUrl();
+    this.cant_c=this.passedService.servicecommentsList.length  ? this.passedService.servicecommentsList.length : 0
   }
-  openRate(){
-    const profileModal = this.modalCtrl.create(RatePage);
-    profileModal.onDidDismiss(data => {
-      if(data.rate !== "cancel")
-      this.servPro.rateservice(this.service.id,data.rate).then(
-        data => {
-          this.service.globalrate =data ['data'].globalrate;
-        });
+  ionViewDidEnter() {
+
+    this.events.subscribe('user:commented', (comentarios) => {
+    this.passedService.servicecommentsList= comentarios;
+    this.cant_c+=1;
 
     });
-
-    profileModal.present();
   }
 
-  Llamar(number){
-    this.callNumber.callNumber(number, true)
-    .then(() => console.log('Launched dialer!'))
-    .catch(() => console.log('Error launching dialer'));
-  }
   openInfo(){
       this.navCtrl.push(InfoPage,{
-        service:this.service,
-        baseUrl:this.baseUrl
+        service:this.passedService,
+        baseUrl:this.baseUrl,
+        cant_c:this.cant_c
       });
   }
   openMapa(){
       this.navCtrl.push(MapaPage,{
         response:this.response,
-        baseUrl:this.baseUrl
+        baseUrl:this.baseUrl,
+        cant_c:this.cant_c,
+        service:this.passedService
       });
   }
   openGaleria(){
     this.navCtrl.push(GaleriaPage,{
-      service:this.service,
-      baseUrl:this.baseUrl
+      service:this.passedService,
+      baseUrl:this.baseUrl,
+      cant_c:this.cant_c
     });
 }
 openComentarios(){
   this.navCtrl.push(ComentariosPage,{
-    service:this.service,
-    baseUrl:this.baseUrl
+    service:this.passedService,
+    baseUrl:this.baseUrl,
+    cant_c:this.cant_c
   });
 }
 }

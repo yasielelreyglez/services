@@ -1,22 +1,17 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   IonicPage,
   NavController,
-  NavParams,
   ActionSheetController,
-  ToastController
+  AlertController
 } from "ionic-angular";
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ViewChild } from '@angular/core';
 import {Service} from '../../models/service'
 import { ApiProvider } from '../../providers/api/api';
-/**
- * Generated class for the Create1Page page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Create2Page } from '../create2/create2';
+
 
 @IonicPage()
 @Component({
@@ -30,12 +25,12 @@ export class Create1Page {
   service: Service;
   imageFileName:any;
   constructor(public navCtrl: NavController,
-    public navParams: NavParams,
+    public alertCtrl: AlertController,
     private transfer: FileTransfer,
     private camera: Camera,
     public actionSheetCtrl: ActionSheetController  ,  public api: ApiProvider
       ) {
-     this.imageURI = "http://192.168.137.1/login/resources/image/categories/bares.png";
+     this.preview = "assets/imgs/service_img.png";
      this.service = new Service();
   }
 
@@ -46,22 +41,22 @@ export class Create1Page {
   }
   public presentActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Select Image Source',
+      title: 'Seleccione la imagen',
       buttons: [
         {
-          text: 'Load from Library',
+          text: 'Cargar desde la galeria',
           handler: () => {
             this.getImage(this.camera.PictureSourceType.PHOTOLIBRARY);
           }
         },
         {
-          text: 'Use Camera',
+          text: 'Usar la Camara',
           handler: () => {
             this.getImage(this.camera.PictureSourceType.CAMERA);
           }
         },
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel'
         }
       ]
@@ -109,8 +104,39 @@ export class Create1Page {
     });
   }
 
-  create(){
 
+  promptTitle() {
+    let prompt = this.alertCtrl.create({
+      title: 'Titulo del servicio',
+      inputs: [
+        {
+          name: 'title',
+          type: 'email',
+          value:this.service.title
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+
+        },
+        {
+          text: ' Aceptar',
+          handler: data => {
+            this.service.title = data.title;
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  goToCreate2(){
+    this.navCtrl.push(Create2Page, {
+      service: this.service, //paso el service
+      parentPage: this
+    });
   }
 
 }
