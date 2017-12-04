@@ -43,11 +43,19 @@ class Comments
      **/
     public $parent;
 
+    /**
+     * Many Features have One Product.
+     * @ManyToOne(targetEntity="User", inversedBy="reportcomments",nullable=true)
+     */
+    public $reportuser;
+
 
     /**
      * @Column(type="datetime")
      **/
     public $created;
+
+
 
     /**
      * Set user
@@ -116,5 +124,21 @@ class Comments
     public function setComment($comment)
     {
         $this->comment = $comment;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReportuser()
+    {
+        return $this->reportuser;
+    }
+
+    /**
+     * @param mixed $reportuser
+     */
+    public function setReportuser($reportuser)
+    {
+        $this->reportuser = $reportuser;
     }
 }

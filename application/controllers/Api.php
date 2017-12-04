@@ -183,39 +183,28 @@ class Api extends REST_Controller
     public function filter_get()
     {
         //obteniendo parametros filtro
-
         $ciudades = $this->input->get("cities", true);
         $categorias = $this->input->get("categories", true);
         $distance = $this->input->get("distance", true);
-        $em = $this->doctrine->em;
-        $citiesRepo = $em->getRepository('Entities\City');
-        $serviceRepo = $em->getRepository('Entities\Service');
+        $current_position = $this->input->get("current", true);
 
-        $criteria = new \Doctrine\Common\Collections\Criteria();
-        //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
-        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("title", \Doctrine\Common\Collections\Expr\Comparison::IN, $ciudades);
-        $criteria->where($expresion);
-        $cities = $citiesRepo->matching($criteria)->toArray();
-        $result["data"] = array();
-        $user = $this->getCurrentUser();
-        foreach ($cities as $city) {
-            $services = $city->getServices();
-            foreach ($services as $service) {
-                $service->loadRelatedData();
-                if ($user) {
-                    $service->loadRelatedUserData($user);
-                }
-                $result["data"][] = $service;
+        $services = [];
+        $filtered = false;
+        if($categorias){
+            $filtered = true;
+            $services = $this->filterBySubcategories($categorias);
+            $services = $this->filterByCitiesFiltered($ciudades,$filtered,$services);
+        }else{
+            if($ciudades){
+                $services = $this->filterByCitiesFiltered($ciudades,false,nil);
+                $filtered = true;
             }
-            $result["data"] = array_merge($result["data"], $service->toArray());
-
-            //TODO AGREGAR EL FILTRO POR LOS OTROS ELEMENTOS
-            //TODO CACHEAR LAS BUSQUEDA DE LOS FILTROS
         }
-
-
-//        $data["services"] = $service;
-        $this->set_response($result, REST_Controller::HTTP_OK);
+        if($current_position && $distance){
+            $services = $this->filterByDistance($distance, $current_position, $filtered, $services);
+        }
+        $data["services"] = $services;
+        $this->set_response($data, REST_Controller::HTTP_OK);
     }
 
     //denunciar un servicio
@@ -428,7 +417,45 @@ class Api extends REST_Controller
 
     }
 
-    //COMENTAR UN SERVICIO
+    //obtener las posiciones de un servicio
+    public function positions($id){
+        $em = $this->doctrine->em;
+        $service = $em->find("Entities\Service", $id);
+        if($service){
+            $result["data"] = $service->getPositions();
+            $result["desc"] = "Posiciones del servicio $id";
+        }else{
+            $result["error"]="Servicio no encontrado";
+        }
+
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
+
+    //obtener las imagenes  de un servicio
+    public function imagelist($id){
+        $em = $this->doctrine->em;
+        $service = $em->find("Entities\Service", $id);
+        if($service){
+            $result["data"] = $service->getImages();
+            $result["desc"] = "Posiciones del servicio $id";
+        }else{
+            $result["error"]="Servicio no encontrado";
+        }
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
+    //COMENTARIOS DE UN SERVICIO
+    public function comments($id){
+        $em = $this->doctrine->em;
+        $service = $em->find("Entities\Service", $id);
+        if($service){
+            $result["data"] = $service->getServicecomments();
+            $result["desc"] = "Posiciones del servicio $id";
+        }else{
+            $result["error"]="Servicio no encontrado";
+        }
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
+
     public function addcomment_get($id)
     {
         $comment = $this->input->get("comment", true);
@@ -460,7 +487,7 @@ class Api extends REST_Controller
         $service = $em->find("Entities\Service", $id);
         $user = $this->getCurrentUser();
 
-        if ($user && $service) {
+        if ($user && $service){
             $result["desc"] = "COMENTANDO EL SERVICIO {$service->getTitle()}";
             $comment = new \Entities\Comments();
             $comment->setUser($user);
@@ -477,6 +504,17 @@ class Api extends REST_Controller
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
+    public function reportcomment_get($id){
+        $em = $this->doctrine->em;
+        $comment = $em->find("Entities\Comments", $id);
+        $user = $this->getCurrentUser();
+        $comment = new \Entities\Comments();
+        $comment->setReportuser($user);
+        $em->persist($comment);
+        $em->flush();
+        $result["data"]=$comment;
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
     public function testimg_post()
     {
         echo "FALSE";
@@ -820,4 +858,68 @@ class Api extends REST_Controller
         $this->set_response($output, REST_Controller::HTTP_OK);
         return;
     }
+
+    private function filterByCitiesFiltered($cities,$filtered,$services_filtered)
+    {
+        $em = $this->doctrine->em;
+        $citiesRepo = $em->getRepository('Entities\City');
+        $result_cities = [];
+        $criteria = new \Doctrine\Common\Collections\Criteria();
+        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("ID", \Doctrine\Common\Collections\Expr\Comparison::IN, $ciudades);
+        $criteria->where($expresion);
+        $citiesObj = $citiesRepo->matching($criteria)->toArray();
+        foreach ($citiesObj as $city) {
+            $services = $city->getServices();
+            $result_cities = array_merge($result_cities,$services);
+        }
+        if($filtered){
+            $services_filtered = array_intersect($services_filtered,$result_cities);
+        }else{
+            $services_filtered = $result_cities;
+        }
+        return $services_filtered;
+    }
+
+    private function filterBySubcategories($subcategories){
+        $em = $this->doctrine->em;
+        $sub_repo = $em->getRepository('Entities\Subcategory');
+        $result_subcategories = [];
+        $criteria = new \Doctrine\Common\Collections\Criteria();
+        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("ID", \Doctrine\Common\Collections\Expr\Comparison::IN, $subcategories);
+        $criteria->where($expresion);
+        $subcategoriesObj = $sub_repo->matching($criteria)->toArray();
+        foreach ($subcategoriesObj as $subcategory) {
+            $services = $subcategory->getServices();
+             $result_subcategories = array_merge($result_subcategories,$services);
+        }
+        return $result_subcategories;
+    }
+
+    private function filterByDistance($distance,$current_position,$filtered,$services_filtered){
+        $em = $this->doctrine->em;
+        $positionRepo = $em->getRepository('Entities\Position');
+        $result_position = [];
+        if($filtered){
+            foreach ($services_filtered as $service) {
+                $posiciones = $service->getPositions();
+                foreach ($posiciones as $posicion){
+                    $posicion = new \Entities\Position();
+                    if($posicion->isInRange($distance,$current_position)){
+                        $result_position[]=$service;
+                        break;
+                    }
+                }
+            }
+        }else{
+            $posiciones = $positionRepo->findAll();
+            foreach ($posiciones as $posicion){
+                if($posicion->isInRange($distance,$current_position)){
+                    $result_position[]=$posicion->getService();
+                }
+            }
+        }
+
+        return array_unique($result_position);
+    }
+
 }

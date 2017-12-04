@@ -82,9 +82,17 @@ class User
 
     /**
      * One User has Many UserService.
-     * @OneToMany(targetEntity="Comments", mappedBy="user")
+     * @OneToMany(targetEntity="Comments", mappedBy="user",nullable=true)
      */
     private $usercomments;
+
+    /**
+     * One User has Many UserService.
+     * @OneToMany(targetEntity="Comments", mappedBy="reportuser",nullable=true)
+     */
+    private $reportcomments;
+
+
     /**
      * Bidirectional - One-To-Many (INVERSE SIDE)
      *
@@ -253,5 +261,21 @@ class User
     public function getServices()
     {
         return $this->services;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReportcomments()
+    {
+        return $this->reportcomments;
+    }
+
+    /**
+     * @param mixed $reportcomments
+     */
+    public function setReportcomments($reportcomments)
+    {
+        $this->reportcomments = $reportcomments;
     }
 }
