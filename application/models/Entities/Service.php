@@ -705,6 +705,7 @@ namespace Entities {
 
             }
             $userservice->setService($this);
+
             $userservice->setUser($user);
             $userservice->setVisited(1);
             $em->persist($userservice);
@@ -815,6 +816,22 @@ namespace Entities {
             $this->description = $description;
         }
 
+        /**
+         * @return int
+         */
+        public function getProfessional()
+        {
+            return $this->professional;
+        }
+
+        /**
+         * @param int $professional
+         */
+        public function setProfessional($professional)
+        {
+            $this->professional = $professional;
+            return $this;
+        }
 
 
     }
