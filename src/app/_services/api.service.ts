@@ -171,7 +171,7 @@ export class ApiService {
         }
     }
 
-    hidecomment(id: number): Observable<any> {
+    hideComment(id: number): Observable<any> {
         const currentUser = localStorage.getItem('currentUser');
         if (currentUser) {
             const headers = new Headers();
@@ -186,7 +186,22 @@ export class ApiService {
         }
     }
 
-    reportcomment(id: number): Observable<any> {
+    showComment(id: number): Observable<any> {
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            const headers = new Headers();
+            headers.append('Authorization', JSON.parse(currentUser).token);
+            return this.http.get('http://localhost/services/api/showcomment/' + id, {headers: headers}).map((response: Response) => {
+                if (response) {
+                    return response.json();
+                } else {
+                    return new Array();
+                }
+            });
+        }
+    }
+
+    reportComment(id: number): Observable<any> {
         const currentUser = localStorage.getItem('currentUser');
         if (currentUser) {
             const headers = new Headers();

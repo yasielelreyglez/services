@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../../_services/api.service';
 import {RatingComponent} from '../_modals/rating/rating.component';
@@ -36,6 +36,7 @@ export class ShowserviceComponent implements OnInit {
     error: string;
     submitAttempt: boolean;
     currentUser: any;
+    // @ViewChild('cuba', {read: ElementRef}) cuba: ElementRef;
 
     constructor(private route: ActivatedRoute, private apiServices: ApiService,
                 public dialog: MatDialog, private authServices: AuthService) {
@@ -48,8 +49,9 @@ export class ShowserviceComponent implements OnInit {
         const currentUser = localStorage.getItem('currentUser');
         if (currentUser) {
             this.currentUser = JSON.parse(currentUser).email;
-            console.log(this.currentUser);
         }
+
+        // console.log(this.cuba.nativeElement.hasClass('bc-red'));
 
         this.authServices.currentUser.subscribe(user => {
             this.loggedIn = !!user;
@@ -109,24 +111,52 @@ export class ShowserviceComponent implements OnInit {
         }
     }
 
-    hideComment(id: number) {
-        this.apiServices.hidecomment(id).subscribe(result => {
-            if (result) {
-                if (result.data) {
-                    this.service = result.data;
+    hideComment(id: number, hided: boolean, event) {
+        console.log(event);
+        if (hided) {
+            this.apiServices.showComment(id).subscribe(result => {
+                if (result) {
+                    if (result.data) {
+                        console.log(event);
+
+                        let button = document.getElementById('hided-' + id);
+                        // if (button.file) {
+                        //     console.log(true);
+                        // }
+                        // else {
+                        //     console.log(false);
+                        // }
+                        // console.log(button);
+                        return true;
+                    }
+                    else {
+                        this.error = result.error;
+                    }
                 }
                 else {
-                    this.error = result.error;
+                    this.error = 'Error en el servidor';
                 }
-            }
-            else {
-                this.error = 'Error en el servidor';
-            }
-        });
+            });
+        }
+        else {
+            this.apiServices.hideComment(id).subscribe(result => {
+                if (result) {
+                    if (result.data) {
+                        this.service = result.data;
+                    }
+                    else {
+                        this.error = result.error;
+                    }
+                }
+                else {
+                    this.error = 'Error en el servidor';
+                }
+            });
+        }
     }
 
     reportComment(id: number) {
-        this.apiServices.reportcomment(id).subscribe(result => {
+        this.apiServices.reportComment(id).subscribe(result => {
             if (result.data) {
                 this.service = result.data;
             }

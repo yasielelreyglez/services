@@ -164,7 +164,7 @@
                 </mat-grid-list>
                 <div>
                     <p class="tc-grei">{{currentcomment.comment}}</p>
-                    <mat-grid-list *ngIf="service.author.email === currentUser" cols="10" rowHeight="26px">
+                    <mat-grid-list *ngIf="(service.author.email === currentUser) && loggedIn" cols="10" rowHeight="26px">
                         <mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">
                         </mat-grid-tile>
                         <mat-grid-tile class="" [colspan]="1" [rowspan]="1">
@@ -173,14 +173,14 @@
                             </button>
                         </mat-grid-tile>
                         <mat-grid-tile class="" [colspan]="1" [rowspan]="1">
-                            <button (click)="hideComment(currentcomment.id)" mat-raised-button class="tc-white"
+                            <button #cuba id="hided-{{currentcomment.id}}" (click)="hideComment(currentcomment.id, currentcomment.hided, $event)" mat-raised-button class="tc-white"
                                     [ngClass]="(!currentcomment.hided) ? 'bc-green' : 'bc-red'">
                                 <mat-icon>{{(!currentcomment.hided) ? 'done' : 'clear'}}</mat-icon>
                             </button>
                         </mat-grid-tile>
                     </mat-grid-list>
 
-                    <mat-grid-list *ngIf="service.author.email !== currentUser" cols="10" rowHeight="26px">
+                    <mat-grid-list *ngIf="(service.author.email !== currentUser) && loggedIn" cols="10" rowHeight="26px">
                         <mat-grid-tile [colspan]="9" [rowspan]="1" class="izq">
                         </mat-grid-tile>
                         <mat-grid-tile class="" [colspan]="1" [rowspan]="1">
