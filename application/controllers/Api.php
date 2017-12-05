@@ -567,7 +567,7 @@ class Api extends REST_Controller
                     $em->persist($comment);
                     $em->flush();
                     $service->loadRelatedData($user);
-                    $result["data"]=$comment;
+                    $result["data"]=$service;
                     $result["desc"]="Comentario mostrado con exito";
                 }else{
                     $result["error"]="El servicio no es profesional o el usuario no es el dueño del servicio";
