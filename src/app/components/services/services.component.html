@@ -8,7 +8,7 @@
         </div>
         <div class="media-body" [ngStyle]="{'margin-top': myservices ? '25px' : '0'}">
             <h5 class="mt-0 tc-blue">{{service.title}}</h5>
-            <div class="text-center fw-600 pro" style="" *ngIf="service.id < 2 && !myfavorites && !myservices">PRO
+            <div class="text-center fw-600 pro" style="" *ngIf="(service.professional === 1) && !myfavorites && !myservices">PRO
             </div>
             <hr>
             <div class="info">

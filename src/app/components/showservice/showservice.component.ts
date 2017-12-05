@@ -36,6 +36,7 @@ export class ShowserviceComponent implements OnInit {
     error: string;
     submitAttempt: boolean;
     currentUser: any;
+
     // @ViewChild('cuba', {read: ElementRef}) cuba: ElementRef;
 
     constructor(private route: ActivatedRoute, private apiServices: ApiService,
@@ -111,22 +112,17 @@ export class ShowserviceComponent implements OnInit {
         }
     }
 
-    hideComment(id: number, hided: boolean, event) {
-        console.log(event);
+    // hasClass(element, cls) {
+    //     return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+    // }
+
+    hideComment(id: number, hided: boolean) {
+        // let button = document.getElementById('hided-' + id);
         if (hided) {
             this.apiServices.showComment(id).subscribe(result => {
                 if (result) {
                     if (result.data) {
-                        console.log(event);
-
-                        let button = document.getElementById('hided-' + id);
-                        // if (button.file) {
-                        //     console.log(true);
-                        // }
-                        // else {
-                        //     console.log(false);
-                        // }
-                        // console.log(button);
+                        this.service = result.data;
                         return true;
                     }
                     else {
@@ -143,6 +139,7 @@ export class ShowserviceComponent implements OnInit {
                 if (result) {
                     if (result.data) {
                         this.service = result.data;
+                        return true;
                     }
                     else {
                         this.error = result.error;

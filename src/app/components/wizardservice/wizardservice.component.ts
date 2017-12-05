@@ -22,25 +22,24 @@ export class WizardserviceComponent implements OnInit {
     previewvalue = '../../../assets/service_img.png';
     service: Service;
     moreImage: boolean;
-    // positiontitle: string;
+    positiontitle: string;
     cities: City[];
     categories: any;
     currentPos = 0;
     // latitude: string;
     // longitude: string;
     //
-    // week_days = [
-    //     {title: 'Lunes', value: false},
-    //     {title: 'Martes', value: false},
-    //     {title: 'Miercoles', value: false},
-    //     {title: 'Jueves', value: false},
-    //     {title: 'Viernes', value: false},
-    //     {title: 'Sabado', value: false},
-    //     {title: 'Domingo', value: false},
-    // ];
+    week_days = [
+        {title: 'Lunes', value: false},
+        {title: 'Martes', value: false},
+        {title: 'Miercoles', value: false},
+        {title: 'Jueves', value: false},
+        {title: 'Viernes', value: false},
+        {title: 'Sabado', value: false},
+        {title: 'Domingo', value: false},
+    ];
 
     firstForm: FormGroup;
-
     // secondForm: FormGroup;
 
 
@@ -66,8 +65,7 @@ export class WizardserviceComponent implements OnInit {
         this.moreImage = true;
         this.service.galery = new Array();
         this.service.positions = new Array();
-        // this.service.week_days = [false, false, false, false, false, false, false];
-        // this.service.week_days = [false, false, false, false, false, false, false];
+        this.service.week_days = [false, false, false, false, false, false, false];
     }
 
     ngOnInit() {

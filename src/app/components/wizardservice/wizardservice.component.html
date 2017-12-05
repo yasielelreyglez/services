@@ -3,72 +3,72 @@
     <hr class="bc-grei">
     <mat-horizontal-stepper [linear]="true">
         <!--<mat-step [stepControl]="firstForm">-->
-            <!--<form [formGroup]="firstForm" name="firstForm">-->
-                <!--<mat-form-field>-->
-                    <!--<input matInput placeholder="Título" name="title" [formControl]="firstForm.controls['title']"-->
-                           <!--[(ngModel)]="service.title" required>-->
-                    <!--<mat-error *ngIf="firstForm.controls['title'].invalid">{{getErrorMessage()}}</mat-error>-->
-                <!--</mat-form-field>-->
-                <!--<mat-form-field>-->
-                    <!--<input matInput placeholder="Subtítulo" name="subtitle"-->
-                           <!--[formControl]="firstForm.controls['subtitle']"-->
-                           <!--[(ngModel)]="service.subtitle" required>-->
-                    <!--<mat-error *ngIf="firstForm.controls['subtitle'].invalid">{{getErrorMessage()}}</mat-error>-->
-                <!--</mat-form-field>-->
-                <!--<mat-form-field>-->
-                    <!--<input matInput placeholder="Dirección" name="address" [formControl]="firstForm.controls['address']"-->
-                           <!--[(ngModel)]="service.address">-->
-                    <!--<mat-error *ngIf="firstForm.controls['address'].invalid">{{getErrorMessage()}}</mat-error>-->
-                <!--</mat-form-field>-->
-                <!--<mat-form-field>-->
-                    <!--<input matInput placeholder="Teléfono" name="phone" [formControl]="firstForm.controls['phone']"-->
-                           <!--[(ngModel)]="service.phone">-->
-                    <!--<mat-error *ngIf="firstForm.controls['phone'].invalid">{{getErrorMessage()}}</mat-error>-->
-                <!--</mat-form-field>-->
-                <!--<mat-form-field>-->
-                    <!--<mat-select placeholder="Ciudades" [formControl]="firstForm.controls['cities']" multiple="true"-->
-                                <!--[(ngModel)]="service.cities"-->
-                                <!--name="cities">-->
-                        <!--<mat-option *ngFor="let city of cities" [value]="city.id">-->
-                            <!--{{ city.title }}-->
-                        <!--</mat-option>-->
-                    <!--</mat-select>-->
-                <!--</mat-form-field>-->
-                <!--<mat-form-field>-->
-                    <!--<mat-select placeholder="Categorias" [formControl]="firstForm.controls['categories']"-->
-                                <!--multiple="true"-->
-                                <!--[(ngModel)]="service.categories"-->
-                                <!--name="cities">-->
-                        <!--<mat-option *ngFor="let city of categories" [value]="city.id">-->
-                            <!--{{ city.title }}-->
-                        <!--</mat-option>-->
-                    <!--</mat-select>-->
-                <!--</mat-form-field>-->
-                <!--<br>-->
+        <!--<form [formGroup]="firstForm" name="firstForm">-->
+        <!--<mat-form-field>-->
+        <!--<input matInput placeholder="Título" name="title" [formControl]="firstForm.controls['title']"-->
+        <!--[(ngModel)]="service.title" required>-->
+        <!--<mat-error *ngIf="firstForm.controls['title'].invalid">{{getErrorMessage()}}</mat-error>-->
+        <!--</mat-form-field>-->
+        <!--<mat-form-field>-->
+        <!--<input matInput placeholder="Subtítulo" name="subtitle"-->
+        <!--[formControl]="firstForm.controls['subtitle']"-->
+        <!--[(ngModel)]="service.subtitle" required>-->
+        <!--<mat-error *ngIf="firstForm.controls['subtitle'].invalid">{{getErrorMessage()}}</mat-error>-->
+        <!--</mat-form-field>-->
+        <!--<mat-form-field>-->
+        <!--<input matInput placeholder="Dirección" name="address" [formControl]="firstForm.controls['address']"-->
+        <!--[(ngModel)]="service.address">-->
+        <!--<mat-error *ngIf="firstForm.controls['address'].invalid">{{getErrorMessage()}}</mat-error>-->
+        <!--</mat-form-field>-->
+        <!--<mat-form-field>-->
+        <!--<input matInput placeholder="Teléfono" name="phone" [formControl]="firstForm.controls['phone']"-->
+        <!--[(ngModel)]="service.phone">-->
+        <!--<mat-error *ngIf="firstForm.controls['phone'].invalid">{{getErrorMessage()}}</mat-error>-->
+        <!--</mat-form-field>-->
+        <!--<mat-form-field>-->
+        <!--<mat-select placeholder="Ciudades" [formControl]="firstForm.controls['cities']" multiple="true"-->
+        <!--[(ngModel)]="service.cities"-->
+        <!--name="cities">-->
+        <!--<mat-option *ngFor="let city of cities" [value]="city.id">-->
+        <!--{{ city.title }}-->
+        <!--</mat-option>-->
+        <!--</mat-select>-->
+        <!--</mat-form-field>-->
+        <!--<mat-form-field>-->
+        <!--<mat-select placeholder="Categorias" [formControl]="firstForm.controls['categories']"-->
+        <!--multiple="true"-->
+        <!--[(ngModel)]="service.categories"-->
+        <!--name="cities">-->
+        <!--<mat-option *ngFor="let city of categories" [value]="city.id">-->
+        <!--{{ city.title }}-->
+        <!--</mat-option>-->
+        <!--</mat-select>-->
+        <!--</mat-form-field>-->
+        <!--<br>-->
 
-                <!--<div class="">-->
-                    <!--<div style="width: 133px; height: 122.891px;">-->
-                        <!--<img name="preview" class="d-flex align-self-center" width="115"-->
-                             <!--src="{{previewvalue}}" alt=""-->
-                             <!--style="border: 1px solid #bcbcbc; padding: 5px; width: 90%; height: 100%;" appImageZoom>-->
-                    <!--</div>-->
-                    <!--<label class="fileContainer cp">-->
-                        <!--<button mat-raised-button color="primary">-->
-                            <!--<mat-icon>camera</mat-icon>-->
-                            <!--Subir foto-->
-                        <!--</button>-->
-                        <!--<input type="file" class="" name="icon" size="20"-->
-                               <!--(change)="onFileChange($event)" #fileInput/>-->
-                    <!--</label>-->
-                <!--</div>-->
-                <!--<div style="text-align: right">-->
-                    <!--<button [disabled]="firstForm.invalid" mat-raised-button color="primary" matStepperNext>-->
-                        <!--Siguiente paso-->
-                        <!--<mat-icon>navigate_next</mat-icon>-->
-                    <!--</button>-->
-                <!--</div>-->
-                <!--<br>-->
-            <!--</form>-->
+        <!--<div class="">-->
+        <!--<div style="width: 133px; height: 122.891px;">-->
+        <!--<img name="preview" class="d-flex align-self-center" width="115"-->
+        <!--src="{{previewvalue}}" alt=""-->
+        <!--style="border: 1px solid #bcbcbc; padding: 5px; width: 90%; height: 100%;" appImageZoom>-->
+        <!--</div>-->
+        <!--<label class="fileContainer cp">-->
+        <!--<button mat-raised-button color="primary">-->
+        <!--<mat-icon>camera</mat-icon>-->
+        <!--Subir foto-->
+        <!--</button>-->
+        <!--<input type="file" class="" name="icon" size="20"-->
+        <!--(change)="onFileChange($event)" #fileInput/>-->
+        <!--</label>-->
+        <!--</div>-->
+        <!--<div style="text-align: right">-->
+        <!--<button [disabled]="firstForm.invalid" mat-raised-button color="primary" matStepperNext>-->
+        <!--Siguiente paso-->
+        <!--<mat-icon>navigate_next</mat-icon>-->
+        <!--</button>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--</form>-->
         <!--</mat-step>-->
 
         <!--<mat-step>-->
@@ -136,86 +136,98 @@
             <!--<br>-->
         <!--</mat-step>-->
 
+        <!--<mat-step>-->
+            <!--<mat-form-field>-->
+                <!--<input matInput placeholder="Teléfono adicional" name="other_phone"-->
+                       <!--[(ngModel)]="service.other_phone">-->
+            <!--</mat-form-field>-->
+            <!--<mat-form-field>-->
+                <!--<input matInput placeholder="Correo electrónico" name="email"-->
+                       <!--[(ngModel)]="service.email">-->
+            <!--</mat-form-field>-->
+            <!--<mat-form-field>-->
+                <!--<input matInput placeholder="Dirección web" name="url"-->
+                       <!--[(ngModel)]="service.url">-->
+            <!--</mat-form-field>-->
+            <!--<br>-->
+
+            <!--<h5 class="tc-blue">Días de atención</h5>-->
+            <!--<hr class="bc-grei">-->
+            <!--<mat-checkbox class="example-margin col-4" *ngFor="let day of week_days; let pos = index;"-->
+                          <!--[(ngModel)]="service.week_days[pos]" value="{{pos}}" name="week_days">{{day.title}}-->
+            <!--</mat-checkbox>-->
+            <!--<br>-->
+            <!--<br>-->
+
+            <!--<h5 class="tc-blue">Horario de atención</h5>-->
+            <!--<hr class="bc-grei">-->
+            <!--<mat-form-field>-->
+                <!--<input matInput placeholder="Desde" name="start_time"-->
+                       <!--[(ngModel)]="service.start_time">-->
+            <!--</mat-form-field>-->
+            <!--<mat-form-field>-->
+                <!--<input matInput placeholder="Hasta" name="end_time"-->
+                       <!--[(ngModel)]="service.end_time">-->
+            <!--</mat-form-field>-->
+            <!--<br>-->
+
+            <!--<div class="row">-->
+                <!--<div class="col-6">-->
+                    <!--<button class="d-none d-sm-block pull-left" mat-raised-button color="primary" matStepperPrevious>-->
+                        <!--<mat-icon>navigate_before</mat-icon>-->
+                        <!--Paso anterior-->
+                    <!--</button>-->
+                    <!--<button class="d-block d-sm-none pull-left" mat-raised-button color="primary" matStepperPrevious>-->
+                        <!--<mat-icon>navigate_before</mat-icon>-->
+                    <!--</button>-->
+                <!--</div>-->
+                <!--<div class="col-6">-->
+                    <!--<button class="d-none d-sm-block pull-right" mat-raised-button color="primary" matStepperNext>-->
+                        <!--<mat-icon>navigate_next</mat-icon>-->
+                        <!--Siguiente paso-->
+                    <!--</button>-->
+                    <!--<button class="d-block d-sm-none pull-right" mat-raised-button color="primary" matStepperNext>-->
+                        <!--<mat-icon>navigate_next</mat-icon>-->
+                    <!--</button>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<br>-->
+        <!--</mat-step>-->
+
         <mat-step>
-            You are now done.
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
+            <mat-form-field>
+                <input matInput placeholder="Nombre ubicación" name="positiontitle"
+                       [(ngModel)]="positiontitle">
+            </mat-form-field>
+            <br>
+
+            <div class="row">
+                <div class="col-6">
+                    <button class="d-none d-sm-block pull-left" mat-raised-button color="primary" matStepperPrevious>
+                        <mat-icon>navigate_before</mat-icon>
+                        Paso anterior
+                    </button>
+                    <button class="d-block d-sm-none pull-left" mat-raised-button color="primary" matStepperPrevious>
+                        <mat-icon>navigate_before</mat-icon>
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button class="d-none d-sm-block pull-right bc-green tc-white" mat-raised-button matStepperNext>
+                        <mat-icon>done</mat-icon>
+                        Completar
+                    </button>
+                    <button class="d-block d-sm-none pull-right bc-green tc-white" mat-raised-button matStepperNext>
+                        <mat-icon>done</mat-icon>
+                    </button>
+                </div>
             </div>
+            <br>
         </mat-step>
     </mat-horizontal-stepper>
 </div>
 
 
-<!--<wizard navBarLayout="large-empty-symbols" #WizardComponent name="WizardComponent" data-step="2">-->
 
-<!--<wizard-step stepTitle="" (stepEnter)="step_title='Info adicional'" navigationSymbol="3">-->
-<!--<form name="form3" (ngSubmit)="f3.form.valid&&step3()" #f3="ngForm" class="">-->
-<!--<div class="form-group" [ngClass]="{ 'has-error': f3.submitted && !other_phone.valid }">-->
-<!--<label for="other_phone">Telefono Adicional</label>-->
-<!--<input type="number" class="form-control" name="other_phone" [(ngModel)]="service.other_phone"-->
-<!--#other_phone="ngModel"-->
-<!--placeholder="Escriba un telefono adicional"/>-->
-<!--<div *ngIf="f3.submitted && !title.valid" class="help-block">Telefono Invalido</div>-->
-<!--</div>-->
-<!--<div class="form-group">-->
-
-<!--<label for="email">Correo elecronico</label>-->
-<!--<input type="email" class="form-control" name="email" [(ngModel)]="service.email" #email="ngModel"-->
-<!--placeholder="Escriba su email"/>-->
-<!--<div *ngIf="f3.submitted && email.hasError('email')" class="help-block">Correo incorrecto</div>-->
-
-<!--</div>-->
-<!--<div class="form-group" [ngClass]="{ 'has-error': f3.submitted && !url.valid }">-->
-<!--<label for="url">Dirección</label>-->
-<!--<input type="url" class="form-control" name="url" [(ngModel)]="service.url" #url="ngModel"-->
-<!--placeholder="Escriba su direccion web"/>-->
-<!--</div>-->
-
-<!--&lt;!&ndash;<br>&ndash;&gt;-->
-<!--<div class="form-group">-->
-<!--<mat-checkbox class="example-margin col-4" *ngFor="let day of week_days;let pos = index;"-->
-<!--[(ngModel)]="service.week_days[pos]" value="{{pos}}" name="week_days">{{day.title}}-->
-<!--</mat-checkbox>-->
-<!--</div>-->
-<!--<div class="form-group form-inline">-->
-
-<!--<label for="start_time">Desde</label>-->
-<!--<input type="text" class="form-control" name="start_time" [(ngModel)]="service.start_time"-->
-<!--#start_time="ngModel"-->
-<!--placeholder="Desde"/>-->
-<!--<div *ngIf="f3.submitted && start_time.hasError('start_time')" class="help-block">Hora incorrecta</div>-->
-
-<!--</div>-->
-<!--<div class="form-group form-inline">-->
-
-<!--<label for="end_time">Hasta</label>-->
-<!--<input type="text" class="form-control" name="end_time" [(ngModel)]="service.end_time"-->
-<!--#end_time="ngModel"-->
-<!--placeholder="Hasta"/>-->
-<!--<div *ngIf="f3.submitted && start_time.hasError('end_time')" class="help-block">Hora incorrecta</div>-->
-
-<!--</div>-->
-<!--<div class="form-group">-->
-<!--&lt;!&ndash;<mat-form-field class="form-group ">&ndash;&gt;-->
-<!--&lt;!&ndash;<mat-select placeholder="Categorias" class="form-control" multiple="true" [(ngModel)]="service.categories" name="categories">&ndash;&gt;-->
-<!--&lt;!&ndash;<mat-option *ngFor="let category of categories" [value]="category.id">&ndash;&gt;-->
-<!--&lt;!&ndash;{{ category.title }}&ndash;&gt;-->
-<!--&lt;!&ndash;</mat-option>&ndash;&gt;-->
-<!--&lt;!&ndash;</mat-select>&ndash;&gt;-->
-<!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
-<!--</div>-->
-
-<!--<div class="form-group text-center">-->
-<!--&lt;!&ndash;nextStep&ndash;&gt;-->
-<!--<button type="submit" class="btn btn-primary col-6">-->
-<!--<i class="fa fa-next" aria-hidden="true"></i>-->
-<!--Siguiente paso-->
-<!--</button>-->
-<!--</div>-->
-<!--</form>-->
-<!--<button type="button" previousStep>Previous Step</button>-->
-<!--<button type="button" nextStep>Go to next step</button>-->
-<!--</wizard-step>-->
 <!--<wizard-step stepTitle="" (stepEnter)="step_title='Ubicaciones'" navigationSymbol="4">-->
 <!--<form name="form4" (ngSubmit)="f4.form.valid&&step3()" #f4="ngForm" class="">-->
 <!--<div class="form-group" [ngClass]="{ 'has-error': f4.submitted && !position.valid }">-->
