@@ -679,19 +679,19 @@ namespace Entities {
             return $this;
         }
 
-        public function loadRelatedData(){
+        public function loadRelatedData($user = null){
             $this->subcategoriesList = $this->getSubcategories()->toArray();
-            $this->servicecommentsList = $this->getServicecomments()->toArray();
-            $poss = 0;
-            foreach ( $this->servicecommentsList as $comment){
+            $this->servicecommentsList = [];
+             $temp = $this->getServicecomments()->toArray();
+            foreach ($temp as $comment){
                 $comment->getUser()->getUsername();
                 if($this->professional){
-                    if($comment->hided&&$comment->getUser()->getUsernae()!=$this->author->getUsername()){
-                        $this->servicecommentsList = array_splice($this->servicecommentsList,$poss,1);
-                        $poss--;
+                    if(!$comment->hided||$user==$this->author){
+                        $this->servicecommentsList[] = $comment;
                     }
+                }else{
+                    $this->servicecommentsList[] = $comment;
                 }
-                $poss++;
             }
             $this->citiesList = $this->getCities()->toArray();
             $this->imagesList = $this->getImages()->toArray();
