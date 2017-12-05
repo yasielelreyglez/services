@@ -502,7 +502,7 @@ class Api extends REST_Controller
             $result["desc"] = "ERROR COMENTANDO EL SERVICIO {$service->getTitle()}";
             $result["error"] = "No esta autenticado o no existe el servicio";
         }
-        $service->loadRelatedData();
+        $service->loadRelatedData($user);
         $result["data"] = $service;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
@@ -516,8 +516,8 @@ class Api extends REST_Controller
                 $comment->setReportuser($user);
                 $em->persist($comment);
                 $service = $comment->getService();
-                $service->loadRelatedData();
                 $em->flush();
+                $service->loadRelatedData($user);
                 $result["data"]=$service;
             }else{
                 $result["error"]="No existe el comentario";
@@ -540,7 +540,7 @@ class Api extends REST_Controller
                     $comment->hided = 1;
                     $em->persist($comment);
                     $em->flush($comment);
-                    $em->flush($service);
+                    $service->loadRelatedData($user);
                     $result["data"]=$service;
                     $result["desc"]="Comentario ocultado con exito";
                 }else{
@@ -565,8 +565,8 @@ class Api extends REST_Controller
                 if($service->getProfessional()&&$service->author==$user){
                     $comment->hided = 0;
                     $em->persist($comment);
-                    $em->flush($comment);
-                    $em->flush($service);
+                    $em->flush();
+                    $service->loadRelatedData($user);
                     $result["data"]=$comment;
                     $result["desc"]="Comentario mostrado con exito";
                 }else{
@@ -797,18 +797,11 @@ class Api extends REST_Controller
         $em = $this->doctrine->em;
         $service = $em->find("\Entities\Service", $id);
         if($user==$service->author){
-//            $service = new \Entities\Service();
             $service->getServicecomments()->toArray();
-//            $service->getServicecomments()->clear();
             $service->getPositions()->toArray();
             $service->getImages()->toArray();//TODO VER SI SE BORRAN LOS FICHEROS
-            $relusuario = $service->getServiceusers()->toArray();
-//            foreach ($relusuario as $rel) {
-//                $service->removeServiceuser($rel);
-//                $em->remove($rel);
-//
-//            }
-            $em->flush();
+           $service->getServiceusers()->toArray();
+           //CARGADA LA RELACION PARA DESPUES ELIMINARLAS CON EL SERVICIO
            $em->remove($service);
            $em->flush();
            $this->set_response("OK", REST_Controller::HTTP_OK);

@@ -183,7 +183,11 @@ namespace Entities {
         public $favorite;
         public $rated;
 
-
+        /**
+         *
+         * @OneToMany(targetEntity="Payments", mappedBy="service")
+         */
+        protected $payments;
         /**
          * Service constructor.
          */
@@ -696,7 +700,9 @@ namespace Entities {
             $this->citiesList = $this->getCities()->toArray();
             $this->imagesList = $this->getImages()->toArray();
             $this->positionsList = $this->getPositions()->toArray();
-
+            if($user){
+                $this->loadRelatedUserData($user);
+            }
         }
         public function relateUserData($user,$em){
             $criteria = new \Doctrine\Common\Collections\Criteria();
