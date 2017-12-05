@@ -686,7 +686,7 @@ namespace Entities {
             foreach ( $this->servicecommentsList as $comment){
                 $comment->getUser()->getUsername();
                 if($this->professional){
-                    if($comment->hided){
+                    if($comment->hided&&$comment->getUser()->getUsernae()!=$this->author->getUsername()){
                         $this->servicecommentsList = array_splice($this->servicecommentsList,$poss,1);
                         $poss--;
                     }
