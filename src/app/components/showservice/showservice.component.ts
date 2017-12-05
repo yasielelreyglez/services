@@ -35,6 +35,7 @@ export class ShowserviceComponent implements OnInit {
     loading: boolean;
     error: string;
     submitAttempt: boolean;
+    currentUser: any;
 
     constructor(private route: ActivatedRoute, private apiServices: ApiService,
                 public dialog: MatDialog, private authServices: AuthService) {
@@ -44,6 +45,11 @@ export class ShowserviceComponent implements OnInit {
     }
 
     ngOnInit() {
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            this.currentUser = JSON.parse(currentUser).email;
+            console.log(this.currentUser);
+        }
 
         this.authServices.currentUser.subscribe(user => {
             this.loggedIn = !!user;
@@ -101,6 +107,33 @@ export class ShowserviceComponent implements OnInit {
             console.log(this.week_days.length - 1);
             this.week_days = result.substring(0, (result.length - 2));
         }
+    }
+
+    hideComment(id: number) {
+        this.apiServices.hidecomment(id).subscribe(result => {
+            if (result) {
+                if (result.data) {
+                    this.service = result.data;
+                }
+                else {
+                    this.error = result.error;
+                }
+            }
+            else {
+                this.error = 'Error en el servidor';
+            }
+        });
+    }
+
+    reportComment(id: number) {
+        this.apiServices.reportcomment(id).subscribe(result => {
+            if (result.data) {
+                this.service = result.data;
+            }
+            else {
+                this.error = result.error;
+            }
+        });
     }
 
     createForm() {

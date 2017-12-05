@@ -14,6 +14,8 @@ export class ServicesComponent implements OnInit {
     @Input() services: any;
     @Input() myfavorites?: boolean;
     @Input() myservices?: boolean;
+    @Input() mysearch?: boolean;
+
     valor = 2;
     loggedIn = false;
 
@@ -28,7 +30,6 @@ export class ServicesComponent implements OnInit {
     }
 
     openDialog(id): void {
-        console.log(id);
         const dialogRef = this.dialog.open(ReportComponent, {
             width: '70%',
             data: {id: id}

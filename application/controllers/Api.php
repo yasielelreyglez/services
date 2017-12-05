@@ -516,7 +516,7 @@ class Api extends REST_Controller
                 $em->flush();
                 $result["data"]=$comment;
             }else{
-                $result["error"]="Noexiste el comentario";
+                $result["error"]="No existe el comentario";
             }
         }else{
             $result["error"]="Debe estar autenticado";

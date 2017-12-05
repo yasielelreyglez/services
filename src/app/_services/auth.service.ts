@@ -20,6 +20,7 @@ export class AuthService {
         const body = JSON.stringify({email: user.email, password: user.password});
         return this.http.post('http://localhost/services/auth/login', body).map(response => response.json()).map(result => {
             if (!result.error) {
+                console.log(result);
                 localStorage.setItem('currentUser', JSON.stringify(result));
                 this.currentUser.next(result);
                 return true;

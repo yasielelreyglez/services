@@ -29,6 +29,7 @@ const routes: Routes = [
     {path: 'myfavorites', component: ShowfavoritesComponent, canActivate: [AuthGuard]},
     {path: 'myservices', component: ShowmyservicesComponent, canActivate: [AuthGuard]},
     {path: 'mysearchs', component: ShowmysearchsComponent, canActivate: [AuthGuard]},
+    {path: 'mysearchs/service/:id', component: ShowserviceComponent, canActivate: [AuthGuard]},
     {path: 'myservices/service/:id', component: ShowserviceComponent, canActivate: [AuthGuard]},
     {path: 'createservice', component: WizardserviceComponent, canActivate: [AuthGuard]},
 
