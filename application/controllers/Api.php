@@ -791,18 +791,17 @@ class Api extends REST_Controller
         $service = $em->find("\Entities\Service", $id);
         if($user==$service->author){
 //            $service = new \Entities\Service();
-            $service->getServicecomments()->clear();
-            $service->getPositions()->clear();
-            $service->getImages()->clear();//TODO VER SI SE BORRAN LOS FICHEROS
-            $service->getServiceusers()->clear();
-//            $em->flush($service);
-//            $relusuario = $service->getServiceusers();
+            $service->getServicecomments()->toArray();
+//            $service->getServicecomments()->clear();
+            $service->getPositions()->toArray();
+            $service->getImages()->toArray();//TODO VER SI SE BORRAN LOS FICHEROS
+            $relusuario = $service->getServiceusers()->toArray();
 //            foreach ($relusuario as $rel) {
 //                $service->removeServiceuser($rel);
 //                $em->remove($rel);
 //
 //            }
-//            $em->flush();
+            $em->flush();
            $em->remove($service);
            $em->flush();
            $this->set_response("OK", REST_Controller::HTTP_OK);

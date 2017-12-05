@@ -123,7 +123,7 @@ namespace Entities {
         /**
          * Bidirectional - One-To-Many (INVERSE SIDE)
          *
-         * @OneToMany(targetEntity="Position", mappedBy="service",cascade={"persist"})
+         * @OneToMany(targetEntity="Position", mappedBy="service",cascade={"persist", "remove"})
          */
         protected $positions;
         public $positionsList;
@@ -162,7 +162,7 @@ namespace Entities {
 
         /**
          * One User has Many UserService.
-         * @OneToMany(targetEntity="Comments", mappedBy="service")
+         * @OneToMany(targetEntity="Comments", mappedBy="service",cascade={"persist", "remove"})
          */
         protected $servicecomments;
 
@@ -170,7 +170,7 @@ namespace Entities {
         /**
          * Bidirectional - One-To-Many (INVERSE SIDE)
          *
-         * @OneToMany(targetEntity="Image", mappedBy="service",cascade={"persist"})
+         * @OneToMany(targetEntity="Image", mappedBy="service",cascade={"persist", "remove"})
          */
         private $images;
 
