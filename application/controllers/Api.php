@@ -172,8 +172,10 @@ class Api extends REST_Controller
         $service->setVisits($service->getVisits() + 1);
         $em->persist($service);
         $em->flush();
-        $service->relateUserData($user,$em);
-        $service->loadRelatedUserData($user);
+        if($user) {
+            $service->relateUserData($user, $em);
+            $service->loadRelatedUserData($user);
+        }
         $service->subcategoriesList = $service->getSubcategories()->toArray();
         $service->loadRelatedData();
         $data["data"] = $service;
@@ -513,8 +515,10 @@ class Api extends REST_Controller
             if($comment){
                 $comment->setReportuser($user);
                 $em->persist($comment);
+                $service = $comment->getService();
+                $service->loadRelatedData();
                 $em->flush();
-                $result["data"]=$comment;
+                $result["data"]=$service;
             }else{
                 $result["error"]="Noexiste el comentario";
             }
@@ -531,11 +535,13 @@ class Api extends REST_Controller
         if($user){
             if($comment){
                 $service = $comment->getService();
+                $service->getTitle();#llenando datos del servicio
                 if($service->professional&&$service->author==$user){
                     $comment->hided = 1;
                     $em->persist($comment);
                     $em->flush($comment);
-                    $result["data"]=$comment;
+                    $em->flush($service);
+                    $result["data"]=$service;
                     $result["desc"]="Comentario ocultado con exito";
                 }else{
                     $result["error"]="El servicio no es profesional o el usuario no es el dueño del servicio";
@@ -556,10 +562,11 @@ class Api extends REST_Controller
         if($user){
             if($comment){
                 $service = $comment->getService();
-                if($service->professional&&$service->author==$user){
+                if($service->getProfessional()&&$service->author==$user){
                     $comment->hided = 0;
                     $em->persist($comment);
                     $em->flush($comment);
+                    $em->flush($service);
                     $result["data"]=$comment;
                     $result["desc"]="Comentario mostrado con exito";
                 }else{
