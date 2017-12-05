@@ -177,7 +177,7 @@ class Api extends REST_Controller
             $service->loadRelatedUserData($user);
         }
         $service->subcategoriesList = $service->getSubcategories()->toArray();
-        $service->loadRelatedData();
+        $service->loadRelatedData($user);
         $data["data"] = $service;
         $this->set_response($data, REST_Controller::HTTP_OK);
     }
