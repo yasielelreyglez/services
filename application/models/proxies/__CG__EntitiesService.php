@@ -36,7 +36,7 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = ['title' => NULL, 'icon' => NULL, 'description' => NULL, 'subtitle' => NULL, 'phone' => NULL, 'address' => NULL, 'other_phone' => NULL, 'email' => NULL, 'url' => NULL, 'week_days' => NULL, 'start_time' => NULL, 'end_time' => NULL, 'visits' => NULL, 'author' => NULL, 'globalrate' => NULL];
+    public static $lazyPropertiesDefaults = ['title' => NULL, 'professional' => NULL, 'icon' => NULL, 'description' => NULL, 'subtitle' => NULL, 'phone' => NULL, 'address' => NULL, 'other_phone' => NULL, 'email' => NULL, 'url' => NULL, 'week_days' => NULL, 'start_time' => NULL, 'end_time' => NULL, 'visits' => NULL, 'author' => NULL, 'globalrate' => NULL];
 
 
 
@@ -46,7 +46,7 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
      */
     public function __construct($initializer = null, $cloner = null)
     {
-        unset($this->title, $this->icon, $this->description, $this->subtitle, $this->phone, $this->address, $this->other_phone, $this->email, $this->url, $this->week_days, $this->start_time, $this->end_time, $this->visits, $this->author, $this->globalrate);
+        unset($this->title, $this->professional, $this->icon, $this->description, $this->subtitle, $this->phone, $this->address, $this->other_phone, $this->email, $this->url, $this->week_days, $this->start_time, $this->end_time, $this->visits, $this->author, $this->globalrate);
 
         $this->__initializer__ = $initializer;
         $this->__cloner__      = $cloner;
@@ -108,10 +108,10 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'title', 'icon', 'description', 'subtitle', 'phone', 'address', 'other_phone', 'email', 'url', 'week_days', 'start_time', 'end_time', 'visits', 'created', 'created_at', 'updated_at', 'author', 'positions', 'positionsList', 'cities', 'citiesList', 'subcategories', 'subcategoriesList', 'serviceusers', 'globalrate', 'servicecomments', 'servicecommentsList', '' . "\0" . 'Entities\\Service' . "\0" . 'images', 'imagesList', 'visited', 'contacted', 'complain', 'favorite', 'rated'];
+            return ['__isInitialized__', 'id', 'title', 'professional', 'icon', 'description', 'subtitle', 'phone', 'address', 'other_phone', 'email', 'url', 'week_days', 'start_time', 'end_time', 'visits', 'created', 'created_at', 'updated_at', 'author', 'positions', 'positionsList', 'cities', 'citiesList', 'subcategories', 'subcategoriesList', 'serviceusers', 'globalrate', 'servicecomments', 'servicecommentsList', '' . "\0" . 'Entities\\Service' . "\0" . 'images', 'imagesList', 'visited', 'contacted', 'complain', 'favorite', 'rated', 'payments'];
         }
 
-        return ['__isInitialized__', 'id', 'created', 'created_at', 'updated_at', 'positions', 'positionsList', 'cities', 'citiesList', 'subcategories', 'subcategoriesList', 'serviceusers', 'servicecomments', 'servicecommentsList', '' . "\0" . 'Entities\\Service' . "\0" . 'images', 'imagesList', 'visited', 'contacted', 'complain', 'favorite', 'rated'];
+        return ['__isInitialized__', 'id', 'created', 'created_at', 'updated_at', 'positions', 'positionsList', 'cities', 'citiesList', 'subcategories', 'subcategoriesList', 'serviceusers', 'servicecomments', 'servicecommentsList', '' . "\0" . 'Entities\\Service' . "\0" . 'images', 'imagesList', 'visited', 'contacted', 'complain', 'favorite', 'rated', 'payments'];
     }
 
     /**
@@ -133,7 +133,7 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
                 }
             };
 
-            unset($this->title, $this->icon, $this->description, $this->subtitle, $this->phone, $this->address, $this->other_phone, $this->email, $this->url, $this->week_days, $this->start_time, $this->end_time, $this->visits, $this->author, $this->globalrate);
+            unset($this->title, $this->professional, $this->icon, $this->description, $this->subtitle, $this->phone, $this->address, $this->other_phone, $this->email, $this->url, $this->week_days, $this->start_time, $this->end_time, $this->visits, $this->author, $this->globalrate);
         }
     }
 
@@ -709,12 +709,12 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function loadRelatedData()
+    public function loadRelatedData($user = NULL)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'loadRelatedData', []);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'loadRelatedData', [$user]);
 
-        return parent::loadRelatedData();
+        return parent::loadRelatedData($user);
     }
 
     /**
@@ -836,6 +836,50 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDescription', [$description]);
 
         return parent::setDescription($description);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getProfessional()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getProfessional', []);
+
+        return parent::getProfessional();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setProfessional($professional)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setProfessional', [$professional]);
+
+        return parent::setProfessional($professional);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getPayments()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPayments', []);
+
+        return parent::getPayments();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setPayments($payments)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPayments', [$payments]);
+
+        return parent::setPayments($payments);
     }
 
 }

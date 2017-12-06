@@ -29,14 +29,20 @@ class Services extends CI_Controller {
 	}
 
 	# GET /services/edit/1
-	function edit() {
-		$id = $this->uri->segment(3);
+	function edit($id) {
 		$data['services'] = $this->Services_model->find($id);
 		$data['content'] = '/services/create';
         $data["tab"]="services";
 
         $this->load->view('/includes/contentpage', $data);
 	}
+    function show($id) {
+        $data['services'] = $this->Services_model->find($id);
+        $data['content'] = '/services/show';
+        $data["tab"]="services";
+
+        $this->load->view('/includes/contentpage', $data);
+    }
 
 	# GET /services/destroy/1
 	function destroy() {

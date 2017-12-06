@@ -71,6 +71,15 @@
                             <li class="<?=$tab=="home"?"active":""?>"><a href="<?=site_url("admin/home") ?>"><i class="fa fa-home"></i> Home</a>
 
                             </li>
+                            <li class="<?=$tab=="pagos"?"active":""?>">
+                                <a href="<?=site_url("admin/pagos") ?>"><i class="fa fa-search-plus"></i> Pagos</a>
+                                <ul class="demo-menu">
+                                    <li><a href="<?=site_url("admin/pagos/solicitados") ?>">Pagos solicitados</a></li>
+                                    <li><a href="<?=site_url("admin/pagos/activos") ?>">Pagos activos</a></li>
+                                    <li><a href="<?=site_url("admin/pagos/expirados") ?>">Pagos expirados</a></li>
+                                    <li><a href="<?=site_url("admin/pagos/denegados") ?>">Pagos denegados</a></li>
+                                </ul>
+                            </li>
                             <li class="<?=$tab=="category"?"active":""?>">
                                 <a href="<?=site_url("admin/categories") ?>"><i class="fa fa-search-plus"></i> Categorias</a>
                                 <ul class="demo-menu">
