@@ -16,7 +16,7 @@
                     </mat-grid-tile>
                     <mat-grid-tile [colspan]="8" [rowspan]="2" class="izq">
                         <div class="fw-600 tc-grei" style="font-size: 13px;">
-                            <span>Slogan</span><br>
+                            <span>{{service.subtitle}}</span><br>
                             <span>{{service.address}}</span><br>
                             <span>1.5 KM de tu posición</span><br>
                             <span>{{service.phone}}</span>
@@ -39,15 +39,14 @@
     </div>
     <div>
         <h5 class="tc-blue">Descripción General</h5>
-        <p class="tc-grei">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, ab accusantium at beatae
-            deleniti exercitationem impedit libero.
+        <p class="tc-grei">{{service.description}}
         </p>
     </div>
 
     <mat-tab-group>
         <mat-tab label="Informacion" id="information">
             <br>
-            <div style="height: 250px;">
+            <div style="height: 160px;">
                 <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
                     <mat-icon class="mr-10">date_range</mat-icon>
                     <h5 class="mb-0">{{week_days}}</h5>
@@ -70,7 +69,29 @@
 
         <mat-tab label="Mapa">
             <br>
-            Tab de Mapa
+            <h5 class="tc-blue">Mis ubicaciones</h5>
+
+            <div *ngFor="let currentposition of service.positionsList; let pos = index">
+                <hr class="bc-grei">
+                <mat-grid-list cols="12" rowHeight="25px">
+                    <mat-grid-tile [colspan]="1" [rowspan]="2" class="izq">
+                        <mat-icon class="tc-blue md-3 md-40">location_on</mat-icon>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="9" [rowspan]="1" class="izq">
+                        <h6 class="tc-blue mb-0">{{currentposition.title}}</h6>
+                    </mat-grid-tile>
+                    <mat-grid-tile class="comment-date" [colspan]="2" [rowspan]="1">
+                        <button class="delete-position tc-white bc-red"
+                                mat-icon-button style="z-index: 1000;">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                    </mat-grid-tile>
+                    <mat-grid-tile class="izq" [colspan]="11" [rowspan]="1">
+                        <p class="tc-grei mb-0">{{currentposition.longitude}};{{currentposition.latitude}}</p>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </div>
+            <br>
         </mat-tab>
 
         <mat-tab label="Imágenes">
@@ -115,6 +136,7 @@
                     </div>
                 </mat-grid-tile>
             </mat-grid-list>
+            <br>
         </mat-tab>
 
         <mat-tab label="Comentarios">
@@ -173,7 +195,7 @@
                             </button>
                         </mat-grid-tile>
                         <mat-grid-tile class="" [colspan]="1" [rowspan]="1">
-                            <button #cuba id="hided-{{currentcomment.id}}" (click)="hideComment(currentcomment.id, currentcomment.hided, $event)" mat-raised-button class="tc-white"
+                            <button id="hided-{{currentcomment.id}}" (click)="hideComment(currentcomment.id, currentcomment.hided)" mat-raised-button class="tc-white"
                                     [ngClass]="(!currentcomment.hided) ? 'bc-green' : 'bc-red'">
                                 <mat-icon>{{(!currentcomment.hided) ? 'done' : 'clear'}}</mat-icon>
                             </button>

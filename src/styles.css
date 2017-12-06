@@ -228,6 +228,17 @@
     right: -12px;
 }
 
+.delete-position.mat-icon-button{
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+}
+
+.md-40{
+    font-size: 36px;
+    margin-bottom: 14px;
+}
+
 @media (min-width: 576px) and (max-width: 767px) {
     .container {
         max-width: 100% !important;

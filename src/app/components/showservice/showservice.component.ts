@@ -26,7 +26,7 @@ export class ShowserviceComponent implements OnInit {
     // directionsDisplay = new google.maps.DirectionsRenderer;
     service: any = {};
     images: any[] = [];
-    days: string[] = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    days: string[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
     week_days: any = '';
     comment: number;
     loggedIn = false;
@@ -36,6 +36,7 @@ export class ShowserviceComponent implements OnInit {
     error: string;
     submitAttempt: boolean;
     currentUser: any;
+
     // @ViewChild('cuba', {read: ElementRef}) cuba: ElementRef;
 
     constructor(private route: ActivatedRoute, private apiServices: ApiService,
@@ -100,33 +101,30 @@ export class ShowserviceComponent implements OnInit {
     }
 
     result_week_days() {
-        if (!isNull(this.service.week_days)) {
+        if (this.service.week_days !== '') {
             const days = this.service.week_days.split(',');
             let result = '';
-            for (let day in days) {
+            for (let day of days) {
                 result += this.days[day] + ', ';
             }
-            console.log(this.week_days.length - 1);
             this.week_days = result.substring(0, (result.length - 2));
+        }
+        else {
+            this.week_days = '';
         }
     }
 
-    hideComment(id: number, hided: boolean, event) {
-        console.log(event);
+    // hasClass(element, cls) {
+    //     return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+    // }
+
+    hideComment(id: number, hided: boolean) {
+        // let button = document.getElementById('hided-' + id);
         if (hided) {
             this.apiServices.showComment(id).subscribe(result => {
                 if (result) {
                     if (result.data) {
-                        console.log(event);
-
-                        let button = document.getElementById('hided-' + id);
-                        // if (button.file) {
-                        //     console.log(true);
-                        // }
-                        // else {
-                        //     console.log(false);
-                        // }
-                        // console.log(button);
+                        this.service = result.data;
                         return true;
                     }
                     else {
@@ -143,6 +141,7 @@ export class ShowserviceComponent implements OnInit {
                 if (result) {
                     if (result.data) {
                         this.service = result.data;
+                        return true;
                     }
                     else {
                         this.error = result.error;

@@ -3,7 +3,7 @@ import {ApiService} from '../../_services/api.service';
 import {ReportComponent} from '../_modals/report/report.component';
 import {AuthService} from '../../_services/auth.service';
 import {MatDialog} from '@angular/material';
-import {ImageComponent} from '../_modals/image/image.component';
+import {isNull} from 'util';
 
 @Component({
     selector: 'app-services',
@@ -18,6 +18,7 @@ export class ServicesComponent implements OnInit {
 
     valor = 2;
     loggedIn = false;
+    citiesList: string;
 
     constructor(public dialog: MatDialog, private apiServices: ApiService, private authServices: AuthService) {
 
@@ -39,19 +40,33 @@ export class ServicesComponent implements OnInit {
             console.log('The dialog was closed');
         });
     }
-    delete(id) {
-    this.apiServices.deleteService(id).subscribe(result => console.log(result));
-    }
-    zoomImage(src: string): void {
-        const dialogRef = this.dialog.open(ImageComponent, {
-            width: '80%',
-            height: '80%',
-            data: {src: src}
-        });
 
-        dialogRef.afterClosed().subscribe(() => {
-            console.log('The dialog was closed');
+    delete(id) {
+        this.apiServices.deleteService(id).subscribe(result => {
+            this.services = this.services.filter(service => service.id !== id);
         });
+    }
+
+    result_cities(service: any) {
+        if (!isNull(service.citiesList)) {
+            let result = '';
+            for (let city of service.citiesList) {
+                result += city.title + ', ';
+            }
+            return result.substring(0, (result.length - 2));
+        }
+        return '';
+    }
+
+    result_subcategories(service: any) {
+        if (!isNull(service.subcategoriesList)) {
+            let result = '';
+            for (let city of service.subcategoriesList) {
+                result += city.title + ', ';
+            }
+            return result.substring(0, (result.length - 2));
+        }
+        return '';
     }
 
     markFavorite(id, state, pos) {
