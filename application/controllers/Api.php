@@ -741,13 +741,13 @@ class Api extends REST_Controller
         $poss = 0;
         $string_week = "";
         foreach ($weekdays as $weekday) {
-            $poss++;
-            if ($weekday) {
-                $string_week = $string_week . "," . $poss;
-            }
             if ($poss > 6) {
                 $poss = 0;
             }
+            if ($weekday) {
+                $string_week = $string_week . "," . $poss;
+            }
+            $poss++;
         }
         $service->setWeekDays(substr($string_week, 1, strlen($string_week) - 1));
         $service->setStartTime($this->post('start_time', TRUE));
