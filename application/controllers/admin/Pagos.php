@@ -19,13 +19,47 @@ class Pagos extends CI_Controller {
     {
         $em= $this->doctrine->em;
         $paymentsRepo = $em->getRepository('Entities\Payments');
-        $payments = $paymentsRepo->findAll(array('state' => 'ASC'));
+        $payments = $paymentsRepo->findBy(array(),array('state' => 'ASC'));
         $data["pagos"]=$payments;
         $data['content'] = '/pagos/index';
         $data["tab"]="pagos";
         $this->load->view('/includes/contentpage', $data);
 
     }
+
+    public function revision()
+    {
+        $em= $this->doctrine->em;
+        $paymentsRepo = $em->getRepository('Entities\Payments');
+        $payments = $paymentsRepo->findBy(array('state' => '0'),array('state' => 'ASC'));
+        $data["pagos"]=$payments;
+        $data['content'] = '/pagos/index';
+        $data["tab"]="pagos";
+        $this->load->view('/includes/contentpage', $data);
+
+    }
+    public function aceptadas()
+    {
+        $em= $this->doctrine->em;
+        $paymentsRepo = $em->getRepository('Entities\Payments');
+        $payments = $paymentsRepo->findBy(array('state' => '1'),array('state' => 'ASC'));
+        $data["pagos"]=$payments;
+        $data['content'] = '/pagos/index';
+        $data["tab"]="pagos";
+        $this->load->view('/includes/contentpage', $data);
+
+    }
+    public function denegadas()
+    {
+        $em= $this->doctrine->em;
+        $paymentsRepo = $em->getRepository('Entities\Payments');
+        $payments = $paymentsRepo->findBy(array('state' => '3'),array('state' => 'ASC'));
+        $data["pagos"]=$payments;
+        $data['content'] = '/pagos/index';
+        $data["tab"]="pagos";
+        $this->load->view('/includes/contentpage', $data);
+    }
+
     public function aceptar($id){
         $em = $this->doctrine->em;
         $payment = $em->find("\Entities\Payments", $id);
