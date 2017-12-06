@@ -203,6 +203,7 @@ namespace Entities {
             $this->serviceusers = new ArrayCollection();
             $this->servicecomments = new ArrayCollection();
             $this->images = new ArrayCollection();
+            $this->payments = new ArrayCollection();
             $this->globalrate = 0;
         }
 
@@ -657,11 +658,11 @@ namespace Entities {
 
         public function addFotos(Array $fotos)
         {
-            if (!is_dir("./resources/" . $this->id . "/")) {
-                mkdir("./resources/" . $this->id . "/");
+            if (!is_dir("./resources/services/" . $this->id . "/")) {
+                mkdir("./resources/services/" . $this->id . "/");
             }
             foreach ($fotos as $icon) {
-                $path = "./resources/" . $this->id . "/" . $icon['filename'];
+                $path = "./resources/services/" . $this->id . "/" . $icon['filename'];
                 file_put_contents($path, base64_decode($icon['value']));
                 $image = new Image();
                 $image->setTitle($path);
@@ -845,6 +846,22 @@ namespace Entities {
         {
             $this->professional = $professional;
             return $this;
+        }
+
+        /**
+         * @return \Doctrine\Common\Collections\Collection
+         */
+        public function getPayments()
+        {
+            return $this->payments;
+        }
+
+        /**
+         * @param mixed $payments
+         */
+        public function setPayments($payments)
+        {
+            $this->payments = $payments;
         }
 
 

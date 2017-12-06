@@ -44,6 +44,16 @@ class Payments
     public $phone;
 
     /**
+     * 0 - esperando autorizacion (en revision),
+     * 1 - autorizado,
+     * 2 - vencido
+     * 3 - denegado
+     * @Column(type="integer")
+     * @var int
+     **/
+    public $state;
+
+    /**
      *
      * @ManyToOne(targetEntity="Service", inversedBy="payments")
      */
@@ -67,7 +77,7 @@ class Payments
 
     public function __construct()
     {
-//        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->created_at = new \DateTime("now");
     }
 
     public function getId()
@@ -75,97 +85,117 @@ class Payments
         return $this->id;
     }
 
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-
-    public function getIcon()
-    {
-        return $this->icon;
-    }
-
-    public function setIcon($icon)
-    {
-        $this->icon = $icon;
-    }
     /**
-     * Set category
-     *
-     * @param \Entities\Category $category
-     *
-     * @return Subcategory
+     * Get membership
+     * @return \Entities\Membership
      */
-    public function setCategory(\Entities\Category $category = null)
+    public function getMembership()
     {
-        $this->category = $category;
-
-        return $this;
+        return $this->membership;
     }
 
     /**
-     * Get category
-     *
-     * @return \Entities\Category
+     * @param \Entities\Membership $membership
      */
-    public function getCategory()
+    public function setMembership($membership)
     {
-        return $this->category;
-    }
-
-    /**
-     * Add service
-     *
-     * @param \Entities\Service $service
-     *
-     * @return Subcategory
-     */
-    public function addService(\Entities\Service $service)
-    {
-        $this->services[] = $service;
-
-        return $this;
-    }
-
-    /**
-     * Remove service
-     *
-     * @param \Entities\Service $service
-     */
-    public function removeService(\Entities\Service $service)
-    {
-        $this->services->removeElement($service);
-    }
-
-    /**
-     * Get services
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getServices()
-    {
-        return $this->services;
+        $this->membership = $membership;
     }
 
     /**
      * @return int
      */
-    public function getVisits()
+    public function getType()
     {
-        return $this->visits;
+        return $this->type;
     }
 
     /**
-     * @param int $visits
+     * @param int $type
      */
-    public function setVisits($visits)
+    public function setType($type)
     {
-        $this->visits = $visits;
+        $this->type = $type;
     }
 
+    /**
+     * @return string
+     */
+    public function getEvidence()
+    {
+        return $this->evidence;
+    }
+
+    /**
+     * @param string $evidence
+     */
+    public function setEvidence($evidence)
+    {
+        $this->evidence = $evidence;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param string $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param string $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * @return \Entities\Membership
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+
+    /**
+     * @param \Entities\Service $service
+     */
+    public function setService(\Entities\Service $service)
+    {
+        $this->service = $service;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param mixed $state
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+    }
 }

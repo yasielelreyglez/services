@@ -620,6 +620,41 @@ class Api extends REST_Controller
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
+    public function payservice_post($id){
+
+        $em = $this->doctrine->em;
+        $user = $this->getCurrentUser();
+        $service = $em->find("\Entities\Service", $id);
+        if($service->getAuthor()->getUsername()==$user->getUsername()) {
+            $membership_id = $this->post('country', TRUE);
+            $membership = $em->find("\Entities\Membership", $membership_id);
+            $payment = new \Entities\Payments();
+            $payment->setService($service);
+            $payment->setMembership($membership);
+            $type = $this->post('type', TRUE);
+            $payment->setType($type);
+            if ($type == 1) {
+                $evidence = $this->post('evidence');
+                if ($evidence) {
+                    $path = "./resources/evidences/" . $evidence['filename'];
+                    file_put_contents($path, base64_decode($evidence['value']));
+                    $payment->setEvidence($path);
+                }
+            } else {
+                $payment->setCountry($this->post('country', TRUE));
+                $payment->setPhone($this->post('phone', TRUE));
+            }
+            $em->persist($payment);
+            $em->flush();
+            $service->getPayments()->toArray();
+            $service->loadRelatedData($user);
+            $data["data"] = $service;
+        }else{
+            $data["error"] = "El usuario actual no tiene permiso para pagar este servicio";
+        }
+        $this->set_response($data, REST_Controller::HTTP_OK);
+    }
+
     function createservicestep1_post()
     {
         $em = $this->doctrine->em;
@@ -710,7 +745,7 @@ class Api extends REST_Controller
             if ($weekday) {
                 $string_week = $string_week . "," . $poss;
             }
-            if ($poss > 7) {
+            if ($poss > 6) {
                 $poss = 0;
             }
         }
@@ -853,6 +888,9 @@ class Api extends REST_Controller
     }
 
 
+
+
+    //METODOS DE PRUEBA
     public function users_get()
     {
         $output["result"] = "ejemplo de respuesta";
@@ -946,7 +984,7 @@ class Api extends REST_Controller
         $citiesRepo = $em->getRepository('Entities\City');
         $result_cities = [];
         $criteria = new \Doctrine\Common\Collections\Criteria();
-        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("ID", \Doctrine\Common\Collections\Expr\Comparison::IN, $ciudades);
+        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("ID", \Doctrine\Common\Collections\Expr\Comparison::IN, $cities);
         $criteria->where($expresion);
         $citiesObj = $citiesRepo->matching($criteria)->toArray();
         foreach ($citiesObj as $city) {
