@@ -103,7 +103,6 @@ export class WizardserviceComponent implements OnInit {
 
     deletePosition(pos: number) {
         this.positions.splice(pos, 1);
-        console.log(this.positions);
     }
 
     moreImageGalery() {

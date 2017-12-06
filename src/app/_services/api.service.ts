@@ -345,7 +345,6 @@ export class ApiService {
         if (currentUser) {
             const headers = new Headers();
             headers.append('Authorization', JSON.parse(currentUser).token);
-            console.log(service);
             return this.http.post('http://localhost/services/api/createservicefull', service, {headers: headers}).map(response => {
                 return response.json();
             });
