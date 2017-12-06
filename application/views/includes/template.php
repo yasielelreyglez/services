@@ -21,6 +21,9 @@
     }
     ?>
     <li class="nav-item">
+        <?= anchor('admin/pagos', 'Pagos', $tab=="pagos"?"class='active nav-link'":"class='nav-link'");?>
+    </li>
+    <li class="nav-item">
 <!--        <a class="nav-link --><?//=$tab=="category"?"active":""?><!--" href="--><?//=site_url()?><!--/categoryc/">Categorias</a>-->
         <?= anchor('admin/categoryc', 'Categorias', $tab=="category"?"class='active nav-link'":"class='nav-link'");?>
     </li>

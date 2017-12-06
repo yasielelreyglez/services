@@ -102,4 +102,20 @@ class Membership
         return $this->services;
     }
 
+    /**
+     * @return int
+     */
+    public function getDays()
+    {
+        return $this->days;
+    }
+
+    /**
+     * @param int $days
+     */
+    public function setDays($days)
+    {
+        $this->days = $days;
+    }
+
 }

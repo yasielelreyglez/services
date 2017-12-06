@@ -446,6 +446,7 @@ class Api extends REST_Controller
         }
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
+
     //COMENTARIOS DE UN SERVICIO
     public function comments($id){
         $em = $this->doctrine->em;
@@ -580,6 +581,10 @@ class Api extends REST_Controller
         }
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
+    //FIN DE LAS FUNCIONES DE COMENTARIOS
+
+
+
 
     public function testimg_post()
     {
@@ -619,7 +624,14 @@ class Api extends REST_Controller
 //        file_put_contents($temp_file_path, base64_decode($_POST['imageString']));
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
-
+//FUNCIONES DE PAGOS DEL SERVICIO
+    public function memberships_get(){
+        $em= $this->doctrine->em;
+        $maembershipRepo = $em->getRepository('Entities\Membership');
+        $memberships = $maembershipRepo->findAll();
+        $result["data"] = $memberships;
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
     public function payservice_post($id){
 
         $em = $this->doctrine->em;
@@ -654,7 +666,9 @@ class Api extends REST_Controller
         }
         $this->set_response($data, REST_Controller::HTTP_OK);
     }
+//FIN DE FUNCIONES DE PAGOS DEL SERVICIO
 
+    //FUNCTIONES PARA CREAR UN SERVICIO
     function createservicestep1_post()
     {
         $em = $this->doctrine->em;

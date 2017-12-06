@@ -72,6 +72,10 @@ class Payments
      * @Column(type="datetime")
      **/
     protected $payed_at;
+    /**
+     * @Column(type="datetime")
+     **/
+    protected $expiration_date;
     /*ESTA ES LA VARIABLE DE CONTROL PARA SABER SI EL SERVICIO ES PRO TODAVIA*/
 
 
@@ -108,6 +112,17 @@ class Payments
     public function getType()
     {
         return $this->type;
+    }
+
+    public function getTypeString(){
+        ///**  1-evidencia 2-en linea
+        switch ($this->getType()){
+            case 1:
+                return "Evidencia";
+                break;
+            default:
+                return "Pago en Linea";
+        }
     }
 
     /**
@@ -167,7 +182,7 @@ class Payments
     }
 
     /**
-     * @return \Entities\Membership
+     * @return \Entities\Service
      */
     public function getService()
     {
@@ -190,6 +205,20 @@ class Payments
     {
         return $this->state;
     }
+    public function getStateString()
+    {
+        switch ($this->getState()){
+            case 0:
+                return "Esperando aprobación";
+            case 1:
+                return "Autorizado";
+            case 2:
+                return "Pago vencido";
+            default:
+                return "Denegado";
+        }
+        return $this->state;
+    }
 
     /**
      * @param mixed $state
@@ -197,5 +226,19 @@ class Payments
     public function setState($state)
     {
         $this->state = $state;
+    }
+
+    public function denegar(){
+        $this->setState(3);
+    }
+    public function autorizar(){
+        $this->payed_at = new \DateTime("now");
+        $membership = $this->getMembership();
+        $days = $membership->getDays();
+        $interval = new \DateInterval("P{$days}D");
+        $actual = new \DateTime("now");
+        $actual->add($interval);
+        $this->expiration_date = $actual;
+        $this->setState(1);
     }
 }
