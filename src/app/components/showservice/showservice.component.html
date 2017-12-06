@@ -16,7 +16,7 @@
                     </mat-grid-tile>
                     <mat-grid-tile [colspan]="8" [rowspan]="2" class="izq">
                         <div class="fw-600 tc-grei" style="font-size: 13px;">
-                            <span>Slogan</span><br>
+                            <span>{{service.subtitle}}</span><br>
                             <span>{{service.address}}</span><br>
                             <span>1.5 KM de tu posición</span><br>
                             <span>{{service.phone}}</span>
@@ -39,8 +39,7 @@
     </div>
     <div>
         <h5 class="tc-blue">Descripción General</h5>
-        <p class="tc-grei">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, ab accusantium at beatae
-            deleniti exercitationem impedit libero.
+        <p class="tc-grei">{{service.description}}
         </p>
     </div>
 

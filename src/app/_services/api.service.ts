@@ -293,23 +293,23 @@ export class ApiService {
         }
     }
 
-    createService(service: Service): Observable<any> {
-        // const body = JSON.stringify(service);
-        const currentUser = localStorage.getItem('currentUser');
-        if (currentUser) {
-            const headers = new Headers();
-            headers.append('Authorization', JSON.parse(currentUser).token);
-            console.log(service);
-            return this.http.post('http://localhost/services/api/createservicestep1', service, {headers: headers}).map(response => response.json()).map(result => {
-                if (!result.error) {
-                    return result;
-                }
-                return result;
-            });
-        } else {
-            return new Observable();
-        }
-    }
+    // createService(service: Service): Observable<any> {
+    //     // const body = JSON.stringify(service);
+    //     const currentUser = localStorage.getItem('currentUser');
+    //     if (currentUser) {
+    //         const headers = new Headers();
+    //         headers.append('Authorization', JSON.parse(currentUser).token);
+    //         console.log(service);
+    //         return this.http.post('http://localhost/services/api/createservicestep1', service, {headers: headers}).map(response => response.json()).map(result => {
+    //             if (!result.error) {
+    //                 return result;
+    //             }
+    //             return result;
+    //         });
+    //     } else {
+    //         return new Observable();
+    //     }
+    // }
 
     searchService(query: any): Observable<any> {
         return this.http.get('http://localhost/services/api/searchservice/' + query).map(response => {
@@ -321,23 +321,23 @@ export class ApiService {
         });
     }
 
-    createGalery(service: Service): Observable<any> {
-        // const body = JSON.stringify(service);
-        const currentUser = localStorage.getItem('currentUser');
-        if (currentUser) {
-            const headers = new Headers();
-            headers.append('Authorization', JSON.parse(currentUser).token);
-            console.log(service);
-            return this.http.post('http://localhost/services/api/createservicestep2', service, {headers: headers}).map(response => response.json()).map(result => {
-                if (!result.error) {
-                    return result;
-                }
-                return result;
-            });
-        } else {
-            return new Observable();
-        }
-    }
+    // createGalery(service: Service): Observable<any> {
+    //     // const body = JSON.stringify(service);
+    //     const currentUser = localStorage.getItem('currentUser');
+    //     if (currentUser) {
+    //         const headers = new Headers();
+    //         headers.append('Authorization', JSON.parse(currentUser).token);
+    //         console.log(service);
+    //         return this.http.post('http://localhost/services/api/createservicestep2', service, {headers: headers}).map(response => response.json()).map(result => {
+    //             if (!result.error) {
+    //                 return result;
+    //             }
+    //             return result;
+    //         });
+    //     } else {
+    //         return new Observable();
+    //     }
+    // }
 
     createFullService(service: Service): Observable<any> {
         // const body = JSON.stringify(service);

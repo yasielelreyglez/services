@@ -2,202 +2,178 @@
     <h4 class="tc-blue">Crear anuncio:</h4>
     <hr class="bc-grei">
     <mat-horizontal-stepper [linear]="true">
-        <!--<mat-step [stepControl]="firstForm">-->
-        <!--<form [formGroup]="firstForm" name="firstForm">-->
-        <!--<mat-form-field>-->
-        <!--<input matInput placeholder="Título" name="title" [formControl]="firstForm.controls['title']"-->
-        <!--[(ngModel)]="service.title" required>-->
-        <!--<mat-error *ngIf="firstForm.controls['title'].invalid">{{getErrorMessage()}}</mat-error>-->
-        <!--</mat-form-field>-->
-        <!--<mat-form-field>-->
-        <!--<input matInput placeholder="Subtítulo" name="subtitle"-->
-        <!--[formControl]="firstForm.controls['subtitle']"-->
-        <!--[(ngModel)]="service.subtitle" required>-->
-        <!--<mat-error *ngIf="firstForm.controls['subtitle'].invalid">{{getErrorMessage()}}</mat-error>-->
-        <!--</mat-form-field>-->
-        <!--<mat-form-field>-->
-        <!--<input matInput placeholder="Dirección" name="address" [formControl]="firstForm.controls['address']"-->
-        <!--[(ngModel)]="service.address">-->
-        <!--<mat-error *ngIf="firstForm.controls['address'].invalid">{{getErrorMessage()}}</mat-error>-->
-        <!--</mat-form-field>-->
-        <!--<mat-form-field>-->
-        <!--<input matInput placeholder="Teléfono" name="phone" [formControl]="firstForm.controls['phone']"-->
-        <!--[(ngModel)]="service.phone">-->
-        <!--<mat-error *ngIf="firstForm.controls['phone'].invalid">{{getErrorMessage()}}</mat-error>-->
-        <!--</mat-form-field>-->
-        <!--<mat-form-field>-->
-        <!--<mat-select placeholder="Ciudades" [formControl]="firstForm.controls['cities']" multiple="true"-->
-        <!--[(ngModel)]="service.cities"-->
-        <!--name="cities">-->
-        <!--<mat-option *ngFor="let city of cities" [value]="city.id">-->
-        <!--{{ city.title }}-->
-        <!--</mat-option>-->
-        <!--</mat-select>-->
-        <!--</mat-form-field>-->
-        <!--<mat-form-field>-->
-        <!--<mat-select placeholder="Categorias" [formControl]="firstForm.controls['categories']"-->
-        <!--multiple="true"-->
-        <!--[(ngModel)]="service.categories"-->
-        <!--name="cities">-->
-        <!--<mat-option *ngFor="let city of categories" [value]="city.id">-->
-        <!--{{ city.title }}-->
-        <!--</mat-option>-->
-        <!--</mat-select>-->
-        <!--</mat-form-field>-->
-        <!--<br>-->
+        <mat-step [stepControl]="firstForm">
+            <form [formGroup]="firstForm" name="firstForm">
+                <mat-form-field>
+                    <input matInput placeholder="Título" name="title" [formControl]="firstForm.controls['title']"
+                           [(ngModel)]="service.title" required>
+                    <mat-error *ngIf="firstForm.controls['title'].invalid">{{getErrorMessage()}}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Subtítulo" name="subtitle"
+                           [formControl]="firstForm.controls['subtitle']"
+                           [(ngModel)]="service.subtitle" required>
+                    <mat-error *ngIf="firstForm.controls['subtitle'].invalid">{{getErrorMessage()}}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Dirección" name="address" [formControl]="firstForm.controls['address']"
+                           [(ngModel)]="service.address" required>
+                    <mat-error *ngIf="firstForm.controls['address'].invalid">{{getErrorMessage()}}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Teléfono" name="phone" [formControl]="firstForm.controls['phone']"
+                           [(ngModel)]="service.phone" required>
+                    <mat-error *ngIf="firstForm.controls['phone'].invalid">{{getErrorMessage()}}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <textarea matInput placeholder="Descripción" name="phone"
+                              [formControl]="firstForm.controls['description']"
+                              [(ngModel)]="service.description" required></textarea>
+                    <mat-error *ngIf="firstForm.controls['description'].invalid">{{getErrorMessage()}}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-select placeholder="Ciudades" [formControl]="firstForm.controls['cities']" multiple="true"
+                                [(ngModel)]="service.cities"
+                                name="cities">
+                        <mat-option *ngFor="let city of cities" [value]="city.id">
+                            {{ city.title }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-select placeholder="Categorias" [formControl]="firstForm.controls['categories']"
+                                multiple="true"
+                                [(ngModel)]="service.categories"
+                                name="cities">
+                        <mat-option *ngFor="let city of categories" [value]="city.id">
+                            {{ city.title }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <br>
 
-        <!--<div class="">-->
-        <!--<div style="width: 133px; height: 122.891px;">-->
-        <!--<img name="preview" class="d-flex align-self-center" width="115"-->
-        <!--src="{{previewvalue}}" alt=""-->
-        <!--style="border: 1px solid #bcbcbc; padding: 5px; width: 90%; height: 100%;" appImageZoom>-->
-        <!--</div>-->
-        <!--<label class="fileContainer cp">-->
-        <!--<button mat-raised-button color="primary">-->
-        <!--<mat-icon>camera</mat-icon>-->
-        <!--Subir foto-->
-        <!--</button>-->
-        <!--<input type="file" class="" name="icon" size="20"-->
-        <!--(change)="onFileChange($event)" #fileInput/>-->
-        <!--</label>-->
-        <!--</div>-->
-        <!--<div style="text-align: right">-->
-        <!--<button [disabled]="firstForm.invalid" mat-raised-button color="primary" matStepperNext>-->
-        <!--Siguiente paso-->
-        <!--<mat-icon>navigate_next</mat-icon>-->
-        <!--</button>-->
-        <!--</div>-->
-        <!--<br>-->
-        <!--</form>-->
-        <!--</mat-step>-->
+                <div class="">
+                    <div style="width: 133px; height: 122.891px;">
+                        <img name="preview" class="d-flex align-self-center" width="115"
+                             src="{{previewvalue}}" alt=""
+                             style="border: 1px solid #bcbcbc; padding: 5px; width: 90%; height: 100%;" appImageZoom>
+                    </div>
+                    <label class="fileContainer cp">
+                        <button mat-raised-button color="primary">
+                            <mat-icon>camera</mat-icon>
+                            Subir foto
+                        </button>
+                        <input type="file" class="" name="icon" size="20"
+                               (change)="onFileChange($event)" #fileInput/>
+                    </label>
+                </div>
+                <div style="text-align: right">
+                    <button [disabled]="firstForm.invalid" mat-raised-button color="primary" matStepperNext>
+                        Siguiente paso
+                        <mat-icon>navigate_next</mat-icon>
+                    </button>
+                </div>
+                <br>
+            </form>
+        </mat-step>
 
-        <!--<mat-step>-->
-            <!--<br>-->
-            <!--<label *ngIf="moreImage" class="fileContainer cp">-->
-                <!--<button mat-raised-button color="primary">-->
-                    <!--<mat-icon>camera</mat-icon>-->
-                    <!--Subir foto-->
-                <!--</button>-->
-                <!--<input type="file" class="" name="icon" size="20"-->
-                       <!--(change)="onFotoChange($event)"/>-->
-            <!--</label>-->
-            <!--<br/>-->
+        <mat-step>
+            <br>
+            <label *ngIf="moreImage" class="fileContainer cp">
+                <button mat-raised-button color="primary">
+                    <mat-icon>camera</mat-icon>
+                    Subir foto
+                </button>
+                <input type="file" class="" name="icon" size="20"
+                       (change)="onFotoChange($event)"/>
+            </label>
+            <br/>
 
-            <!--<mat-grid-list cols="2" class="mat-images d-block d-sm-none" rowHeight="140px">-->
-                <!--<mat-grid-tile *ngFor="let prev of previews; let pos = index;" class="text-center">-->
-                    <!--<div class="mat-content text-center" style="position: relative;">-->
-                        <!--<img [src]="prev.src"-->
-                             <!--alt=""-->
-                             <!--style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"-->
-                             <!--appImageZoom>-->
-                        <!--<button *ngIf="prev.position" (click)="deleteImage(pos)" class="delete-image tc-white bc-red"-->
-                                <!--mat-icon-button style="z-index: 1000;">-->
-                            <!--<mat-icon>clear</mat-icon>-->
-                        <!--</button>-->
-                    <!--</div>-->
-                <!--</mat-grid-tile>-->
-            <!--</mat-grid-list>-->
-            <!--<mat-grid-list cols="3" class="mat-images d-none d-sm-block" rowHeight="140px">-->
-                <!--<mat-grid-tile *ngFor="let prev of previews; let pos = index;" class="text-center">-->
-                    <!--<div class="mat-content text-center" style="position: relative;">-->
-                        <!--<img [src]="prev.src"-->
-                             <!--alt=""-->
-                             <!--style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"-->
-                             <!--appImageZoom>-->
-                        <!--<button *ngIf="prev.position" (click)="deleteImage(pos)" class="delete-image tc-white bc-red"-->
-                                <!--mat-icon-button style="z-index: 1000;">-->
-                            <!--<mat-icon>clear</mat-icon>-->
-                        <!--</button>-->
-                    <!--</div>-->
-                <!--</mat-grid-tile>-->
-            <!--</mat-grid-list>-->
-            <!--<br>-->
+            <mat-grid-list cols="2" class="mat-images d-block d-sm-none" rowHeight="140px">
+                <mat-grid-tile *ngFor="let prev of previews; let pos = index;" class="text-center">
+                    <div class="mat-content text-center" style="position: relative;">
+                        <img [src]="prev.src"
+                             alt=""
+                             style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
+                             appImageZoom>
+                        <button *ngIf="prev.position" (click)="deleteImage(pos)" class="delete-image tc-white bc-red"
+                                mat-icon-button style="z-index: 1000;">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-grid-list cols="3" class="mat-images d-none d-sm-block" rowHeight="140px">
+                <mat-grid-tile *ngFor="let prev of previews; let pos = index;" class="text-center">
+                    <div class="mat-content text-center" style="position: relative;">
+                        <img [src]="prev.src"
+                             alt=""
+                             style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
+                             appImageZoom>
+                        <button *ngIf="prev.position" (click)="deleteImage(pos)" class="delete-image tc-white bc-red"
+                                mat-icon-button style="z-index: 1000;">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <br>
 
-            <!--<div class="row">-->
-                <!--<div class="col-6">-->
-                    <!--<button class="d-none d-sm-block pull-left" mat-raised-button color="primary" matStepperPrevious>-->
-                        <!--<mat-icon>navigate_before</mat-icon>-->
-                        <!--Paso anterior-->
-                    <!--</button>-->
-                    <!--<button class="d-block d-sm-none pull-left" mat-raised-button color="primary" matStepperPrevious>-->
-                        <!--<mat-icon>navigate_before</mat-icon>-->
-                    <!--</button>-->
-                <!--</div>-->
-                <!--<div class="col-6">-->
-                    <!--<button class="d-none d-sm-block pull-right" mat-raised-button color="primary" matStepperNext>-->
-                        <!--<mat-icon>navigate_next</mat-icon>-->
-                        <!--Siguiente paso-->
-                    <!--</button>-->
-                    <!--<button class="d-block d-sm-none pull-right" mat-raised-button color="primary" matStepperNext>-->
-                        <!--<mat-icon>navigate_next</mat-icon>-->
-                    <!--</button>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<br>-->
-        <!--</mat-step>-->
-
-        <!--<mat-step>-->
-            <!--<mat-form-field>-->
-                <!--<input matInput placeholder="Teléfono adicional" name="other_phone"-->
-                       <!--[(ngModel)]="service.other_phone">-->
-            <!--</mat-form-field>-->
-            <!--<mat-form-field>-->
-                <!--<input matInput placeholder="Correo electrónico" name="email"-->
-                       <!--[(ngModel)]="service.email">-->
-            <!--</mat-form-field>-->
-            <!--<mat-form-field>-->
-                <!--<input matInput placeholder="Dirección web" name="url"-->
-                       <!--[(ngModel)]="service.url">-->
-            <!--</mat-form-field>-->
-            <!--<br>-->
-
-            <!--<h5 class="tc-blue">Días de atención</h5>-->
-            <!--<hr class="bc-grei">-->
-            <!--<mat-checkbox class="example-margin col-4" *ngFor="let day of week_days; let pos = index;"-->
-                          <!--[(ngModel)]="service.week_days[pos]" value="{{pos}}" name="week_days">{{day.title}}-->
-            <!--</mat-checkbox>-->
-            <!--<br>-->
-            <!--<br>-->
-
-            <!--<h5 class="tc-blue">Horario de atención</h5>-->
-            <!--<hr class="bc-grei">-->
-            <!--<mat-form-field>-->
-                <!--<input matInput placeholder="Desde" name="start_time"-->
-                       <!--[(ngModel)]="service.start_time">-->
-            <!--</mat-form-field>-->
-            <!--<mat-form-field>-->
-                <!--<input matInput placeholder="Hasta" name="end_time"-->
-                       <!--[(ngModel)]="service.end_time">-->
-            <!--</mat-form-field>-->
-            <!--<br>-->
-
-            <!--<div class="row">-->
-                <!--<div class="col-6">-->
-                    <!--<button class="d-none d-sm-block pull-left" mat-raised-button color="primary" matStepperPrevious>-->
-                        <!--<mat-icon>navigate_before</mat-icon>-->
-                        <!--Paso anterior-->
-                    <!--</button>-->
-                    <!--<button class="d-block d-sm-none pull-left" mat-raised-button color="primary" matStepperPrevious>-->
-                        <!--<mat-icon>navigate_before</mat-icon>-->
-                    <!--</button>-->
-                <!--</div>-->
-                <!--<div class="col-6">-->
-                    <!--<button class="d-none d-sm-block pull-right" mat-raised-button color="primary" matStepperNext>-->
-                        <!--<mat-icon>navigate_next</mat-icon>-->
-                        <!--Siguiente paso-->
-                    <!--</button>-->
-                    <!--<button class="d-block d-sm-none pull-right" mat-raised-button color="primary" matStepperNext>-->
-                        <!--<mat-icon>navigate_next</mat-icon>-->
-                    <!--</button>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<br>-->
-        <!--</mat-step>-->
+            <div class="row">
+                <div class="col-6">
+                    <button class="d-none d-sm-block pull-left" mat-raised-button color="primary" matStepperPrevious>
+                        <mat-icon>navigate_before</mat-icon>
+                        Paso anterior
+                    </button>
+                    <button class="d-block d-sm-none pull-left" mat-raised-button color="primary" matStepperPrevious>
+                        <mat-icon>navigate_before</mat-icon>
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button class="d-none d-sm-block pull-right" mat-raised-button color="primary" matStepperNext>
+                        <mat-icon>navigate_next</mat-icon>
+                        Siguiente paso
+                    </button>
+                    <button class="d-block d-sm-none pull-right" mat-raised-button color="primary" matStepperNext>
+                        <mat-icon>navigate_next</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <br>
+        </mat-step>
 
         <mat-step>
             <mat-form-field>
-                <input matInput placeholder="Nombre ubicación" name="positiontitle"
-                       [(ngModel)]="positiontitle">
+                <input matInput placeholder="Teléfono adicional" name="other_phone"
+                       [(ngModel)]="service.other_phone">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Correo electrónico" name="email"
+                       [(ngModel)]="service.email">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Dirección web" name="url"
+                       [(ngModel)]="service.url">
+            </mat-form-field>
+            <br>
+
+            <h5 class="tc-blue">Días de atención</h5>
+            <hr class="bc-grei">
+            <mat-checkbox class="example-margin col-4" *ngFor="let day of week_days; let pos = index;"
+                          [(ngModel)]="service.week_days[pos]" value="{{pos}}" name="week_days">{{day.title}}
+            </mat-checkbox>
+            <br>
+            <br>
+
+            <h5 class="tc-blue">Horario de atención</h5>
+            <hr class="bc-grei">
+            <mat-form-field>
+                <input matInput placeholder="Desde" name="start_time"
+                       [(ngModel)]="service.start_time">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Hasta" name="end_time"
+                       [(ngModel)]="service.end_time">
             </mat-form-field>
             <br>
 
@@ -212,7 +188,71 @@
                     </button>
                 </div>
                 <div class="col-6">
-                    <button class="d-none d-sm-block pull-right bc-green tc-white" mat-raised-button matStepperNext>
+                    <button class="d-none d-sm-block pull-right" mat-raised-button color="primary" matStepperNext>
+                        <mat-icon>navigate_next</mat-icon>
+                        Siguiente paso
+                    </button>
+                    <button class="d-block d-sm-none pull-right" mat-raised-button color="primary" matStepperNext>
+                        <mat-icon>navigate_next</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <br>
+        </mat-step>
+
+        <mat-step>
+            <mat-form-field>
+                <input matInput placeholder="Nombre ubicación" name="positiontitle"
+                       [(ngModel)]="positiontitle">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Latitude" name="latitude"
+                       [(ngModel)]="latitude">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Longitude" name="longitude"
+                       [(ngModel)]="longitude">
+            </mat-form-field>
+            <button mat-raised-button color="primary" class="col-12" (click)="addPosition()">Agregar posiciones</button>
+            <br><br>
+
+            <h5 *ngIf="positions.length !== 0" class="tc-blue">Mis ubicaciones</h5>
+
+            <div *ngFor="let currentposition of positions; let pos = index">
+                <hr class="bc-grei">
+                <mat-grid-list cols="12" rowHeight="25px">
+                    <mat-grid-tile [colspan]="1" [rowspan]="2" class="izq">
+                        <mat-icon class="tc-blue md-3 md-40">location_on</mat-icon>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="9" [rowspan]="1" class="izq">
+                        <h6 class="tc-blue mb-0">{{currentposition.title}}</h6>
+                    </mat-grid-tile>
+                    <mat-grid-tile class="comment-date" [colspan]="2" [rowspan]="1">
+                        <button class="delete-position tc-white bc-red" (click)="deletePosition(pos)"
+                                mat-icon-button style="z-index: 1000;">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                    </mat-grid-tile>
+                    <mat-grid-tile class="izq" [colspan]="11" [rowspan]="1">
+                        <p class="tc-grei mb-0">{{currentposition.longitude}};{{currentposition.latitude}}</p>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </div>
+            <br><br>
+
+            <div class="row">
+                <div class="col-6">
+                    <button class="d-none d-sm-block pull-left" mat-raised-button color="primary" matStepperPrevious>
+                        <mat-icon>navigate_before</mat-icon>
+                        Paso anterior
+                    </button>
+                    <button class="d-block d-sm-none pull-left" mat-raised-button color="primary" matStepperPrevious>
+                        <mat-icon>navigate_before</mat-icon>
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button class="d-none d-sm-block pull-right bc-green tc-white" mat-raised-button
+                            (click)="finishFunction()">
                         <mat-icon>done</mat-icon>
                         Completar
                     </button>
@@ -225,7 +265,6 @@
         </mat-step>
     </mat-horizontal-stepper>
 </div>
-
 
 
 <!--<wizard-step stepTitle="" (stepEnter)="step_title='Ubicaciones'" navigationSymbol="4">-->
