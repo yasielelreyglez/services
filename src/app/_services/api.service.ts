@@ -346,11 +346,8 @@ export class ApiService {
             const headers = new Headers();
             headers.append('Authorization', JSON.parse(currentUser).token);
             console.log(service);
-            return this.http.post('http://localhost/services/api/createservicefull', service, {headers: headers}).map(response => response.json()).map(result => {
-                if (!result.error) {
-                    return result;
-                }
-                return result;
+            return this.http.post('http://localhost/services/api/createservicefull', service, {headers: headers}).map(response => {
+                return response.json();
             });
         } else {
             return new Observable();

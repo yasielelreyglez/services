@@ -69,7 +69,29 @@
 
         <mat-tab label="Mapa">
             <br>
-            Tab de Mapa
+            <h5 class="tc-blue">Mis ubicaciones</h5>
+
+            <div *ngFor="let currentposition of service.positionsList; let pos = index">
+                <hr class="bc-grei">
+                <mat-grid-list cols="12" rowHeight="25px">
+                    <mat-grid-tile [colspan]="1" [rowspan]="2" class="izq">
+                        <mat-icon class="tc-blue md-3 md-40">location_on</mat-icon>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="9" [rowspan]="1" class="izq">
+                        <h6 class="tc-blue mb-0">{{currentposition.title}}</h6>
+                    </mat-grid-tile>
+                    <mat-grid-tile class="comment-date" [colspan]="2" [rowspan]="1">
+                        <button class="delete-position tc-white bc-red"
+                                mat-icon-button style="z-index: 1000;">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                    </mat-grid-tile>
+                    <mat-grid-tile class="izq" [colspan]="11" [rowspan]="1">
+                        <p class="tc-grei mb-0">{{currentposition.longitude}};{{currentposition.latitude}}</p>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </div>
+            <br>
         </mat-tab>
 
         <mat-tab label="Imágenes">

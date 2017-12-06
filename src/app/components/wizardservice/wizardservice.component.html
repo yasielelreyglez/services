@@ -34,7 +34,7 @@
                 <mat-form-field>
                     <mat-select placeholder="Ciudades" [formControl]="firstForm.controls['cities']" multiple="true"
                                 [(ngModel)]="service.cities"
-                                name="cities">
+                                name="cities" required>
                         <mat-option *ngFor="let city of cities" [value]="city.id">
                             {{ city.title }}
                         </mat-option>
@@ -44,11 +44,12 @@
                     <mat-select placeholder="Categorias" [formControl]="firstForm.controls['categories']"
                                 multiple="true"
                                 [(ngModel)]="service.categories"
-                                name="cities">
+                                name="cities" required>
                         <mat-option *ngFor="let city of categories" [value]="city.id">
                             {{ city.title }}
                         </mat-option>
                     </mat-select>
+                    <mat-error *ngIf="firstForm.controls['description'].invalid">{{getErrorMessage()}}</mat-error>
                 </mat-form-field>
                 <br>
 
@@ -159,7 +160,7 @@
 
             <h5 class="tc-blue">Días de atención</h5>
             <hr class="bc-grei">
-            <mat-checkbox class="example-margin col-4" *ngFor="let day of week_days; let pos = index;"
+            <mat-checkbox color="primary" class="example-margin col-4" *ngFor="let day of week_days; let pos = index;"
                           [(ngModel)]="service.week_days[pos]" value="{{pos}}" name="week_days">{{day.title}}
             </mat-checkbox>
             <br>
@@ -206,11 +207,11 @@
                        [(ngModel)]="positiontitle">
             </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="Latitude" name="latitude"
+                <input matInput type="number" placeholder="Latitude" name="latitude"
                        [(ngModel)]="latitude">
             </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="Longitude" name="longitude"
+                <input matInput type="number" placeholder="Longitude" name="longitude"
                        [(ngModel)]="longitude">
             </mat-form-field>
             <button mat-raised-button color="primary" class="col-12" (click)="addPosition()">Agregar posiciones</button>

@@ -21,9 +21,9 @@
                         </div>
 
                         <div class="fw-600 tc-grei" *ngIf="myservices">
-                            <span>Categoría: Hogar</span><br>
-                            <span>Ciudad: Quito</span><br>
-                            <span>Calificación: 8/10</span>
+                            <span>Categoría: {{result_subcategories(service)}}</span><br>
+                            <span>Ciudad: {{result_cities(service)}}</span><br>
+                            <span>Calificación: {{service.globalrate}}</span>
                         </div>
                     </mat-grid-tile>
                     <mat-grid-tile [colspan]="2" [rowspan]="1">

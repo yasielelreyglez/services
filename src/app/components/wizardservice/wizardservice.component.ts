@@ -73,8 +73,8 @@ export class WizardserviceComponent implements OnInit {
             address: new FormControl('', [Validators.required]),
             phone: new FormControl('', [Validators.required]),
             description: new FormControl('', [Validators.required]),
-            cities: new FormControl(''),
-            categories: new FormControl(''),
+            cities: new FormControl('', [Validators.required]),
+            categories: new FormControl('', [Validators.required]),
         });
     }
 
@@ -84,7 +84,9 @@ export class WizardserviceComponent implements OnInit {
                 this.firstForm.controls['address'].hasError('required') ? 'You must enter a value' :
                     this.firstForm.controls['phone'].hasError('required') ? 'You must enter a value' :
                         this.firstForm.controls['description'].hasError('required') ? 'You must enter a value' :
-                            '';
+                            this.firstForm.controls['cities'].hasError('required') ? 'You must enter a value' :
+                                this.firstForm.controls['categories'].hasError('required') ? 'You must enter a value' :
+                                    '';
     }
 
 
@@ -180,8 +182,7 @@ export class WizardserviceComponent implements OnInit {
 
         this.apiServices.createFullService(this.service).subscribe(result => {
             if (result)
-                console.log(result);
-            // this.router.navigate(['']);
+                this.router.navigate(['myservices/service', result.id]);
         });
     }
 
