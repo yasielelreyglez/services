@@ -221,21 +221,43 @@
 
             <div *ngFor="let currentposition of positions; let pos = index">
                 <hr class="bc-grei">
-                <mat-grid-list cols="12" rowHeight="25px">
-                    <mat-grid-tile [colspan]="1" [rowspan]="2" class="izq">
-                        <mat-icon class="tc-blue md-3 md-40">location_on</mat-icon>
-                    </mat-grid-tile>
-                    <mat-grid-tile [colspan]="9" [rowspan]="1" class="izq">
-                        <h6 class="tc-blue mb-0">{{currentposition.title}}</h6>
+                <!--<mat-grid-list cols="12" rowHeight="25px">-->
+                <!--<mat-grid-tile [colspan]="1" [rowspan]="2" class="izq">-->
+                <!--<mat-icon class="tc-blue md-3 md-40">location_on</mat-icon>-->
+                <!--</mat-grid-tile>-->
+                <!--<mat-grid-tile [colspan]="9" [rowspan]="1" class="izq">-->
+                <!--<h6 class="tc-blue mb-0">{{currentposition.title}}</h6>-->
+                <!--</mat-grid-tile>-->
+                <!--<mat-grid-tile class="comment-date" [colspan]="2" [rowspan]="1">-->
+                <!--<button class="delete-position tc-white bc-red" (click)="deletePosition(pos)"-->
+                <!--mat-icon-button style="z-index: 1000;">-->
+                <!--<mat-icon>clear</mat-icon>-->
+                <!--</button>-->
+                <!--</mat-grid-tile>-->
+                <!--<mat-grid-tile class="izq" [colspan]="11" [rowspan]="1">-->
+                <!--<p class="tc-grei mb-0">{{currentposition.longitude}};{{currentposition.latitude}}</p>-->
+                <!--</mat-grid-tile>-->
+                <!--</mat-grid-list>-->
+                <mat-grid-list cols="12" class="mat-position" rowHeight="26px">
+                    <mat-grid-tile [colspan]="10" [rowspan]="2" class="izq">
+                        <div>
+                            <mat-icon style="position: absolute;" class="tc-blue md-3 md-40">location_on</mat-icon>
+                        </div>
+                        <div>
+                            <h6 class="tc-blue mb-0" style="margin-left: 45px;">{{currentposition.title}}</h6>
+                        </div>
+                        <div>
+                            <p class="tc-grei mb-0" style="margin-left: 45px;">
+                                {{currentposition.longitude}};{{currentposition.latitude}}</p>
+                        </div>
                     </mat-grid-tile>
                     <mat-grid-tile class="comment-date" [colspan]="2" [rowspan]="1">
-                        <button class="delete-position tc-white bc-red" (click)="deletePosition(pos)"
+                        <button class="delete-position tc-white bc-red pull-right"
                                 mat-icon-button style="z-index: 1000;">
                             <mat-icon>clear</mat-icon>
                         </button>
                     </mat-grid-tile>
-                    <mat-grid-tile class="izq" [colspan]="11" [rowspan]="1">
-                        <p class="tc-grei mb-0">{{currentposition.longitude}};{{currentposition.latitude}}</p>
+                    <mat-grid-tile class="comment-date" [colspan]="2" [rowspan]="1">
                     </mat-grid-tile>
                 </mat-grid-list>
             </div>

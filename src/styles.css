@@ -96,6 +96,10 @@
     padding-top: 12px !important;
 }
 
+.mat-position .mat-grid-tile .mat-figure {
+    display: block !important;
+}
+
 .mat-categories img {
     width: 110px;
     padding-bottom: 5px;
