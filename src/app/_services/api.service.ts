@@ -286,7 +286,40 @@ export class ApiService {
                     if (response) {
                         return response.json().data;
                     } else {
-                        return {error: response.json().result};
+                        return {error: response.json().error};
+                    }
+                }
+            );
+        }
+    }
+
+    payService(id: number, body: any): Observable<any> {
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            const headers = new Headers();
+            headers.append('Authorization', JSON.parse(currentUser).token);
+            return this.http.post('http://localhost/services/api/payservice/' + id, body, {headers: headers}).map((response: Response) => {
+                    if (response) {
+                        return response.json().data;
+                    } else {
+                        return {error: response.json().error};
+                    }
+                }
+            );
+        }
+    }
+
+    memberships(): Observable<any> {
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            const headers = new Headers();
+            headers.append('Authorization', JSON.parse(currentUser).token);
+            return this.http.get('http://localhost/services/api/memberships', {headers: headers}).map((response: Response) => {
+                    console.log(response);
+                if (response.json().data) {
+                        return response.json().data;
+                    } else {
+                        return {error: 'Error en el servidor'};
                     }
                 }
             );
@@ -345,7 +378,6 @@ export class ApiService {
         if (currentUser) {
             const headers = new Headers();
             headers.append('Authorization', JSON.parse(currentUser).token);
-            console.log(service);
             return this.http.post('http://localhost/services/api/createservicefull', service, {headers: headers}).map(response => {
                 return response.json();
             });

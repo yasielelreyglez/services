@@ -179,11 +179,13 @@ export class ShowserviceComponent implements OnInit {
     ratingDialog(id: number): void {
         const dialogRef = this.dialog.open(RatingComponent, {
             width: '70%',
-            data: {id: id}
+            // data: {id: id}
+            data: {service: this.service}
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            this.service = result;
+            if (result)
+                this.service = result;
         });
     }
 

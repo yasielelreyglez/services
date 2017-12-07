@@ -10,8 +10,8 @@ import {ShowfavoritesComponent} from './components/showfavorites/showfavorites.c
 import {ShowmyservicesComponent} from './components/showmyservices/showmyservices.component';
 import {ShowmysearchsComponent} from './components/showmysearchs/showmysearchs.component';
 import {ShowserviceComponent} from './components/showservice/showservice.component';
-
 import {WizardserviceComponent} from './components/wizardservice/wizardservice.component';
+import {PayserviceComponent} from './components/payservice/payservice.component';
 
 const routes: Routes = [
     {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -28,6 +28,7 @@ const routes: Routes = [
     {path: 'myfavorites/service/:id', component: ShowserviceComponent},
     {path: 'myfavorites', component: ShowfavoritesComponent, canActivate: [AuthGuard]},
     {path: 'myservices', component: ShowmyservicesComponent, canActivate: [AuthGuard]},
+    {path: 'myservices/:id/payservice', component: PayserviceComponent, canActivate: [AuthGuard]},
     {path: 'mysearchs', component: ShowmysearchsComponent, canActivate: [AuthGuard]},
     {path: 'mysearchs/service/:id', component: ShowserviceComponent, canActivate: [AuthGuard]},
     {path: 'myservices/service/:id', component: ShowserviceComponent, canActivate: [AuthGuard]},

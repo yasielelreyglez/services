@@ -37,35 +37,35 @@
             </div>
         </div>
     </div>
-    <div>
+    <div *ngIf="service.description">
         <h5 class="tc-blue">Descripción General</h5>
         <p class="tc-grei">{{service.description}}
         </p>
     </div>
 
     <mat-tab-group>
-        <mat-tab label="Informacion" id="information">
-            <br>
-            <div style="height: 160px;">
-                <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
-                    <mat-icon class="mr-10">date_range</mat-icon>
-                    <h5 class="mb-0">{{week_days}}</h5>
-                </div>
-                <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
-                    <mat-icon class="mr-10">access_time</mat-icon>
-                    <h5 class="mb-0">Desde {{service.start_time}} hasta
-                        {{service.end_time}}</h5>
-                </div>
-                <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
-                    <mat-icon class="mr-10">mail</mat-icon>
-                    <h5 class="mb-0">{{service.email}}</h5>
-                </div>
-                <div class="tc-blue" style="display: flex">
-                    <mat-icon class="mr-10">link</mat-icon>
-                    <h5 class="mb-0">{{service.url}}</h5>
-                </div>
-            </div>
-        </mat-tab>
+        <!--<mat-tab label="Informacion" id="information">-->
+        <!--<br>-->
+        <!--<div style="height: 160px;">-->
+        <!--<div class="tc-blue" style="display: flex; margin-bottom: 10px;">-->
+        <!--<mat-icon class="mr-10">date_range</mat-icon>-->
+        <!--<h5 class="mb-0">{{week_days}}</h5>-->
+        <!--</div>-->
+        <!--<div class="tc-blue" style="display: flex; margin-bottom: 10px;">-->
+        <!--<mat-icon class="mr-10">access_time</mat-icon>-->
+        <!--<h5 class="mb-0">Desde {{service.start_time}} hasta-->
+        <!--{{service.end_time}}</h5>-->
+        <!--</div>-->
+        <!--<div class="tc-blue" style="display: flex; margin-bottom: 10px;">-->
+        <!--<mat-icon class="mr-10">mail</mat-icon>-->
+        <!--<h5 class="mb-0">{{service.email}}</h5>-->
+        <!--</div>-->
+        <!--<div class="tc-blue" style="display: flex">-->
+        <!--<mat-icon class="mr-10">link</mat-icon>-->
+        <!--<h5 class="mb-0">{{service.url}}</h5>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</mat-tab>-->
 
         <mat-tab label="Mapa">
             <br>
@@ -73,21 +73,26 @@
 
             <div *ngFor="let currentposition of service.positionsList; let pos = index">
                 <hr class="bc-grei">
-                <mat-grid-list cols="12" rowHeight="25px">
-                    <mat-grid-tile [colspan]="1" [rowspan]="2" class="izq">
-                        <mat-icon class="tc-blue md-3 md-40">location_on</mat-icon>
-                    </mat-grid-tile>
-                    <mat-grid-tile [colspan]="9" [rowspan]="1" class="izq">
-                        <h6 class="tc-blue mb-0">{{currentposition.title}}</h6>
+                <mat-grid-list cols="12" class="mat-position" rowHeight="26px">
+                    <mat-grid-tile [colspan]="10" [rowspan]="2" class="izq">
+                        <div>
+                            <mat-icon style="position: absolute;" class="tc-blue md-3 md-40">location_on</mat-icon>
+                        </div>
+                        <div>
+                            <h6 class="tc-blue mb-0" style="margin-left: 45px;">{{currentposition.title}}</h6>
+                        </div>
+                        <div>
+                            <p class="tc-grei mb-0" style="margin-left: 45px;">
+                                {{currentposition.longitude}};{{currentposition.latitude}}</p>
+                        </div>
                     </mat-grid-tile>
                     <mat-grid-tile class="comment-date" [colspan]="2" [rowspan]="1">
-                        <button class="delete-position tc-white bc-red"
+                        <button class="delete-position tc-white bc-red pull-right"
                                 mat-icon-button style="z-index: 1000;">
                             <mat-icon>clear</mat-icon>
                         </button>
                     </mat-grid-tile>
-                    <mat-grid-tile class="izq" [colspan]="11" [rowspan]="1">
-                        <p class="tc-grei mb-0">{{currentposition.longitude}};{{currentposition.latitude}}</p>
+                    <mat-grid-tile class="comment-date" [colspan]="2" [rowspan]="1">
                     </mat-grid-tile>
                 </mat-grid-list>
             </div>
@@ -186,27 +191,33 @@
                 </mat-grid-list>
                 <div>
                     <p class="tc-grei">{{currentcomment.comment}}</p>
-                    <mat-grid-list *ngIf="(service.author.email === currentUser) && loggedIn" cols="10" rowHeight="26px">
+                    <mat-grid-list *ngIf="(service.author.email === currentUser) && loggedIn" cols="10"
+                                   rowHeight="26px">
                         <mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">
                         </mat-grid-tile>
                         <mat-grid-tile class="" [colspan]="1" [rowspan]="1">
-                            <button (click)="reportComment(currentcomment.id)" mat-raised-button class="bc-red tc-white">
+                            <button (click)="reportComment(currentcomment.id)" mat-raised-button
+                                    class="bc-red tc-white">
                                 <mat-icon>mic</mat-icon>
                             </button>
                         </mat-grid-tile>
                         <mat-grid-tile class="" [colspan]="1" [rowspan]="1">
-                            <button id="hided-{{currentcomment.id}}" (click)="hideComment(currentcomment.id, currentcomment.hided)" mat-raised-button class="tc-white"
+                            <button id="hided-{{currentcomment.id}}"
+                                    (click)="hideComment(currentcomment.id, currentcomment.hided)" mat-raised-button
+                                    class="tc-white"
                                     [ngClass]="(!currentcomment.hided) ? 'bc-green' : 'bc-red'">
                                 <mat-icon>{{(!currentcomment.hided) ? 'done' : 'clear'}}</mat-icon>
                             </button>
                         </mat-grid-tile>
                     </mat-grid-list>
 
-                    <mat-grid-list *ngIf="(service.author.email !== currentUser) && loggedIn" cols="10" rowHeight="26px">
+                    <mat-grid-list *ngIf="(service.author.email !== currentUser) && loggedIn" cols="10"
+                                   rowHeight="26px">
                         <mat-grid-tile [colspan]="9" [rowspan]="1" class="izq">
                         </mat-grid-tile>
                         <mat-grid-tile class="" [colspan]="1" [rowspan]="1">
-                            <button (click)="reportComment(currentcomment.id)" mat-raised-button class="bc-red tc-white">
+                            <button (click)="reportComment(currentcomment.id)" mat-raised-button
+                                    class="bc-red tc-white">
                                 <mat-icon>mic</mat-icon>
                             </button>
                         </mat-grid-tile>

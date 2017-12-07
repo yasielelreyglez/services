@@ -27,7 +27,7 @@ export class RatingComponent implements OnInit {
     }
 
     rate() {
-        this.apiServices.rateService(this.data.id, this.value).subscribe(result => {
+        this.apiServices.rateService(this.data.service.id, this.value).subscribe(result => {
             if (result) {
                 this.dialogRef.close(result);
             }

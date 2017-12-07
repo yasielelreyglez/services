@@ -1,14 +1,16 @@
 <mat-card *ngFor="let service of services;let pos = index;" class="services-card col-12">
     <div class="media">
         <div>
-            <span *ngIf="myservices" style="color: #e0040b; font-size: 13px; margin-left: 24px;" class="fw-600">{{valor < service.id ? "En revisión" : "Bloqueado"}}</span>
+            <span *ngIf="myservices && service.professional !== 1"
+                  style="color: #e0040b; font-size: 13px; margin-left: 24px;" class="fw-600">{{service.professional === 2 ? "En revisión" : "Bloqueado"}}</span>
             <img class="d-flex align-self-center mr-3" width="115"
                  [src]="service.icon ? 'services/' + service.icon : '../../../assets/service_img.png'"
                  appImageZoom>
         </div>
-        <div class="media-body" [ngStyle]="{'margin-top': myservices ? '25px' : '0'}">
+        <div class="media-body" [ngStyle]="{'margin-top': (myservices && service.professional !== 1) ? '25px' : '0'}">
             <h5 class="mt-0 tc-blue">{{service.title}}</h5>
-            <div class="text-center fw-600 pro" style="" *ngIf="(service.professional === 1) && !myfavorites && !myservices">PRO
+            <div class="text-center fw-600 pro" style=""
+                 *ngIf="(service.professional === 1) && !myfavorites && !myservices">PRO
             </div>
             <hr>
             <div class="info">
@@ -78,7 +80,8 @@
 
             <mat-grid-list cols="4" rowHeight="26px" *ngIf="myservices">
                 <mat-grid-tile>
-                    <button mat-raised-button class="col-12 tc-white bc-green ">
+                    <button mat-raised-button class="col-12 tc-white bc-green"
+                            [routerLink]="'./' + service.id + '/payservice'">
                         <mat-icon>attach_money</mat-icon>
                     </button>
                 </mat-grid-tile>

@@ -37,7 +37,6 @@ export class RegisterComponent implements OnInit {
     }
 
     getErrorMessage() {
-        // console.log(this.registerForm.controls['confirmpassword'].hasError('validateEqual'));
         return this.registerForm.controls['name'].hasError('required') ? 'You must enter a value' :
             this.registerForm.controls['email'].hasError('required') ? 'You must enter a value' :
                 this.registerForm.controls['email'].hasError('email') ? 'Not a valid email' :

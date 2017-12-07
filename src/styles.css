@@ -96,6 +96,10 @@
     padding-top: 12px !important;
 }
 
+.mat-position .mat-grid-tile .mat-figure {
+    display: block !important;
+}
+
 .mat-categories img {
     width: 110px;
     padding-bottom: 5px;
@@ -237,6 +241,25 @@
 .md-40{
     font-size: 36px;
     margin-bottom: 14px;
+}
+
+.fileContainer {
+    overflow: hidden;
+    position: relative;
+}
+
+.fileContainer [type=file] {
+    cursor: inherit;
+    display: block;
+    font-size: 999px;
+    filter: alpha(opacity=0);
+    min-height: 100%;
+    min-width: 100%;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 0;
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
