@@ -142,6 +142,7 @@ namespace Entities {
         protected $subcategories;
 
         public $subcategoriesList;
+
 //    /**
 //     * Many services have Many Users.
 //     * @ManyToMany(targetEntity="User", mappedBy="services")
