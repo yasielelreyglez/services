@@ -16,7 +16,7 @@ export class WizardserviceComponent implements OnInit {
 
     // step_title: string;
     previews: any;
-    previewvalue = '../../../assets/service_img.png';
+    previewvalue: string;
     service: Service;
     moreImage: boolean;
     positiontitle: string;
@@ -57,6 +57,7 @@ export class WizardserviceComponent implements OnInit {
         this.service.galery = new Array();
         this.service.positions = new Array();
         this.positions = new Array();
+        this.previewvalue = '../../../assets/service_img.png';
         this.service.week_days = [false, false, false, false, false, false, false];
     }
 

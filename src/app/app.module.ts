@@ -25,7 +25,6 @@ import {ReportComponent} from './components/_modals/report/report.component';
 import {ShowfavoritesComponent} from './components/showfavorites/showfavorites.component';
 import {ShowmyservicesComponent} from './components/showmyservices/showmyservices.component';
 import {ShowmysearchsComponent} from './components/showmysearchs/showmysearchs.component';
-
 import {ShowserviceComponent} from './components/showservice/showservice.component';
 import {RatingComponent} from './components/_modals/rating/rating.component';
 import {ArchwizardModule} from 'ng2-archwizard';
@@ -38,6 +37,7 @@ import {
 } from '@angular/material';
 import {ImageComponent} from './components/_modals/image/image.component';
 import { ImageZoomDirective } from './_directives/image-zoom.directive';
+import { PayserviceComponent } from './components/payservice/payservice.component';
 
 @NgModule({
     declarations: [
@@ -61,7 +61,8 @@ import { ImageZoomDirective } from './_directives/image-zoom.directive';
         RatingComponent,
         WizardserviceComponent,
         ImageComponent,
-        ImageZoomDirective
+        ImageZoomDirective,
+        PayserviceComponent
     ],
     entryComponents: [
         ForgotpassComponent,

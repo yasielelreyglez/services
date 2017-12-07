@@ -1,0 +1,98 @@
+<div class="col-12">
+    <h4 class="text-center tc-blue">Pagar anuncio</h4>
+    <hr class="bc-grei">
+
+
+    <mat-form-field>
+        <mat-select placeholder="Membresía" [(value)]="model.membership" [formControl]="payForm.controls['membership']"
+                    [(ngModel)]="model.membership"
+                    name="membership">
+            <mat-option [value]="3">
+                Membresía 3 meses
+            </mat-option>
+            <mat-option [value]="6">
+                Membresía 6 meses
+            </mat-option>
+            <mat-option [value]="12">
+                Membresía 12 meses
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="payForm.controls['membership'].invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select placeholder="Tipo de pago" [(value)]="model.type" [formControl]="payForm.controls['type']"
+                    [(ngModel)]="model.type"
+                    name="type">
+            <mat-option [value]="1">
+                Evidencia de pago
+            </mat-option>
+            <mat-option [value]="2">
+                Pago en línea
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="payForm.controls['type'].invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+
+    <div *ngIf="model.type === 1; then evidence else phone"></div>
+    <br>
+
+</div>
+
+
+<ng-template #evidence>
+    <h5 class="tc-blue">Subir evidencia de pago</h5>
+    <div class="">
+        <div style="width: 133px; height: 122.891px;">
+            <img name="preview" class="d-flex align-self-center" width="115"
+                 src="{{previewvalue}}" alt=""
+                 style="border: 1px solid #bcbcbc; padding: 5px; width: 90%; height: 100%;" appImageZoom>
+        </div>
+        <label class="fileContainer cp">
+            <button mat-raised-button color="primary">
+                <mat-icon>camera</mat-icon>
+                Subir foto
+            </button>
+            <input type="file" class="" name="evidence" size="20"
+                   (change)="onFileChange($event)" #fileInput/>
+        </label>
+    </div>
+    <br>
+    <div class="form-group text-center">
+        <button mat-raised-button color="primary" class="tc-white col-12"
+                [disabled]="loading || previewvalue === '../../../assets/service_img.png'">
+            Notificar pago
+        </button>
+        <img *ngIf="loading"
+             src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+        />
+    </div>
+</ng-template>
+
+
+<ng-template #phone>
+    <form [formGroup]="payForm" name="form" (ngSubmit)="payForm.valid">
+        <mat-form-field>
+            <input matInput placeholder="Código del país" name="country" [formControl]="payForm.controls['country']"
+                   [(ngModel)]="model.country" required>
+            <mat-error *ngIf="payForm.controls['country'].invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Número de teléfono" name="title" [formControl]="payForm.controls['phone']"
+                   [(ngModel)]="model.phone" required>
+            <mat-error *ngIf="payForm.controls['phone'].invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <br>
+
+        <div class="form-group text-center">
+            <button mat-raised-button color="primary" class="tc-white col-12" [disabled]="loading || payForm.invalid">
+                Realizar pago
+            </button>
+            <img *ngIf="loading"
+                 src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+            />
+        </div>
+    </form>
+
+</ng-template>

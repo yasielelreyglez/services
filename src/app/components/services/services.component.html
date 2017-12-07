@@ -80,7 +80,8 @@
 
             <mat-grid-list cols="4" rowHeight="26px" *ngIf="myservices">
                 <mat-grid-tile>
-                    <button mat-raised-button class="col-12 tc-white bc-green ">
+                    <button mat-raised-button class="col-12 tc-white bc-green"
+                            [routerLink]="'./' + service.id + '/payservice'">
                         <mat-icon>attach_money</mat-icon>
                     </button>
                 </mat-grid-tile>
