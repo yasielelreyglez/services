@@ -756,9 +756,12 @@ class Api extends REST_Controller
         $service->addCities($this->post('cities', TRUE), $em);
         $icon = $this->post('icon');
         if ($icon){
-            $path = "./resources/" . $icon['filename'];
-            file_put_contents($path, base64_decode($icon['value']));
-            $service->setIcon(base_url($path));
+            if( isset($icon['filename'])) {
+                $path = "./resources/" . $icon['filename'];
+                $save = "/resources/" . $icon['filename'];
+                file_put_contents($path, base64_decode($icon['value']));
+                $service->setIcon(base_url($save));
+            }
         }
         //OTROS DATOS
         $service->setOtherPhone($this->post('other_phone', TRUE));
@@ -776,11 +779,17 @@ class Api extends REST_Controller
             }
             $poss++;
         }
+        $service->setDescription($this->post('description', TRUE));
         $service->setWeekDays(substr($string_week, 1, strlen($string_week) - 1));
         $service->setStartTime($this->post('start_time', TRUE));
         $service->setEndTime($this->post('end_time', TRUE));
         //UBICACIONES
         $positions = $this->post('positions', TRUE);
+        $old_positions = $service->getPositions()->toArray();
+        foreach ($old_positions as $old_position) {
+            $em->remove($old_position);
+        }
+        $em->flush();
         $service->addPositions($positions);
         $em->persist($service);
         $em->flush();

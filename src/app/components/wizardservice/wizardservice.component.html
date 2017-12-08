@@ -1,5 +1,5 @@
 <div class="col-12">
-    <h4 class="tc-blue">Crear anuncio:</h4>
+    <h4 class="tc-blue">{{edit ? 'Editar anuncio:' : 'Crear anuncio:'}}</h4>
     <hr class="bc-grei">
     <mat-horizontal-stepper [linear]="true">
         <mat-step [stepControl]="firstForm">
@@ -26,13 +26,14 @@
                     <mat-error *ngIf="firstForm.controls['phone'].invalid">{{getErrorMessage()}}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <textarea matInput placeholder="Descripción" name="phone"
-                              [formControl]="firstForm.controls['description']"
-                              [(ngModel)]="service.description" required></textarea>
+        <textarea matInput placeholder="Descripción" name="phone"
+                  [formControl]="firstForm.controls['description']"
+                  [(ngModel)]="service.description" required></textarea>
                     <mat-error *ngIf="firstForm.controls['description'].invalid">{{getErrorMessage()}}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-select placeholder="Ciudades" [formControl]="firstForm.controls['cities']" multiple="true"
+                    <mat-select id="cuba" placeholder="Ciudades" [formControl]="firstForm.controls['cities']"
+                                multiple="true"
                                 [(ngModel)]="service.cities"
                                 name="cities" required>
                         <mat-option *ngFor="let city of cities" [value]="city.id">
@@ -56,7 +57,7 @@
                 <div class="">
                     <div style="width: 133px; height: 122.891px;">
                         <img name="preview" class="d-flex align-self-center" width="115"
-                             src="{{previewvalue}}" alt=""
+                             [src]="previewvalue" alt=""
                              style="border: 1px solid #bcbcbc; padding: 5px; width: 90%; height: 100%;" appImageZoom>
                     </div>
                     <label class="fileContainer cp">
@@ -221,23 +222,6 @@
 
             <div *ngFor="let currentposition of positions; let pos = index">
                 <hr class="bc-grei">
-                <!--<mat-grid-list cols="12" rowHeight="25px">-->
-                <!--<mat-grid-tile [colspan]="1" [rowspan]="2" class="izq">-->
-                <!--<mat-icon class="tc-blue md-3 md-40">location_on</mat-icon>-->
-                <!--</mat-grid-tile>-->
-                <!--<mat-grid-tile [colspan]="9" [rowspan]="1" class="izq">-->
-                <!--<h6 class="tc-blue mb-0">{{currentposition.title}}</h6>-->
-                <!--</mat-grid-tile>-->
-                <!--<mat-grid-tile class="comment-date" [colspan]="2" [rowspan]="1">-->
-                <!--<button class="delete-position tc-white bc-red" (click)="deletePosition(pos)"-->
-                <!--mat-icon-button style="z-index: 1000;">-->
-                <!--<mat-icon>clear</mat-icon>-->
-                <!--</button>-->
-                <!--</mat-grid-tile>-->
-                <!--<mat-grid-tile class="izq" [colspan]="11" [rowspan]="1">-->
-                <!--<p class="tc-grei mb-0">{{currentposition.longitude}};{{currentposition.latitude}}</p>-->
-                <!--</mat-grid-tile>-->
-                <!--</mat-grid-list>-->
                 <mat-grid-list cols="12" class="mat-position" rowHeight="26px">
                     <mat-grid-tile [colspan]="10" [rowspan]="2" class="izq">
                         <div>
@@ -252,7 +236,7 @@
                         </div>
                     </mat-grid-tile>
                     <mat-grid-tile class="comment-date" [colspan]="2" [rowspan]="1">
-                        <button class="delete-position tc-white bc-red pull-right"
+                        <button (click)="deletePosition(pos)" class="delete-position tc-white bc-red pull-right"
                                 mat-icon-button style="z-index: 1000;">
                             <mat-icon>clear</mat-icon>
                         </button>
@@ -288,43 +272,3 @@
         </mat-step>
     </mat-horizontal-stepper>
 </div>
-
-
-<!--<wizard-step stepTitle="" (stepEnter)="step_title='Ubicaciones'" navigationSymbol="4">-->
-<!--<form name="form4" (ngSubmit)="f4.form.valid&&step3()" #f4="ngForm" class="">-->
-<!--<div class="form-group" [ngClass]="{ 'has-error': f4.submitted && !position.valid }">-->
-<!--<label for="position_title">Nombre Ubicacion</label>-->
-<!--<input type="text" class="form-control" name="positiontitle"-->
-<!--placeholder="Escriba el nombre de la ubicacion" [(ngModel)]="positiontitle" #position="ngModel"/>-->
-<!--</div>-->
-<!--<div class="form-group" [ngClass]="{ 'has-error': f4.submitted && !latitud.valid }">-->
-<!--<label for="ubicacion_title">latitude</label>-->
-<!--<input type="string" class="form-control" name="latitud"-->
-<!--placeholder="" [(ngModel)]="latitude" #latitud="ngModel"/>-->
-<!--</div>-->
-<!--<div class="form-group" [ngClass]="{ 'has-error': f4.submitted && !longitud.valid }">-->
-<!--<label for="ubicacion_title">Nombre Ubicacion</label>-->
-<!--<input type="string" class="form-control" name="ubicacion"-->
-<!--placeholder="" [(ngModel)]="longitude" #longitud="ngModel"/>-->
-<!--</div>-->
-
-<!--<button type="submit" class="btn btn-primary col-6" (click)="addPosition()">Agregar posiciones</button>-->
-<!--</form>-->
-<!--<div *ngFor="let poss of service.positions">-->
-<!--<div class="pill">{{poss.title}}</div>-->
-<!--</div>-->
-<!--<button type="button" class="btn btn-primary col-6" (click)="finishFunction()">Terminar</button>-->
-<!--</wizard-step>-->
-<!--&lt;!&ndash;wizardCompletionStep&ndash;&gt;-->
-<!--</wizard>-->
-<!--<style>-->
-<!--.horizontal ul.steps-indicator li.current div:after {-->
-<!--background-color: #1e6bb8 !important;-->
-<!--color: #ffffff;-->
-<!--}-->
-
-<!--.horizontal[_nghost-c5] ul.steps-indicator[_ngcontent-c5] li[_ngcontent-c5] div[_ngcontent-c5] a[_ngcontent-c5] {-->
-<!--background-color: #1e6bb8 !important;-->
-<!--color: #ffffff;-->
-<!--}-->
-<!--</style>-->

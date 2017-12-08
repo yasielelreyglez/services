@@ -531,10 +531,13 @@ namespace Entities {
          */
         public function addCities(array $cities, $em)
         {
+            $actuales = $this->getCities()->toArray();
             foreach ($cities as $city_id) {
                 $city = $em->find('\Entities\City', $city_id);
                 if ($city) {
-                    $this->addCity($city);
+                    if(!in_array($city,$actuales)) {
+                        $this->addCity($city);
+                    }
                 }
             }
             return $this;
@@ -550,7 +553,7 @@ namespace Entities {
          */
         public function addSubCategories(array $subcategories, $em)
         {
-            $actuales = $this->getSubcategories();
+            $actuales = $this->getSubcategories()->toArray();
             foreach ($subcategories as $subcategory_id) {
                 $subcategory = $em->find('\Entities\Subcategory', $subcategory_id);
                 if(!in_array($subcategory,$actuales)) {
