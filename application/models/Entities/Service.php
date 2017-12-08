@@ -657,16 +657,18 @@ namespace Entities {
         }
 
 
-        public function addFotos(Array $fotos)
+        public function addFotos(Array $fotos,$site_url)
         {
             if (!is_dir("./resources/services/" . $this->id . "/")) {
                 mkdir("./resources/services/" . $this->id . "/");
             }
+
             foreach ($fotos as $icon) {
                 $path = "./resources/services/" . $this->id . "/" . $icon['filename'];
+                $save_path = "$site_url/resources/services/{$this->id}/{$icon['filename']}";
                 file_put_contents($path, base64_decode($icon['value']));
                 $image = new Image();
-                $image->setTitle($path);
+                $image->setTitle($save_path);
                 $this->addImage($image);
             }
             return $this;

@@ -133,7 +133,6 @@ class Api extends REST_Controller
         $response["count"] = count($response["data"]);
         $this->set_response($response, REST_Controller::HTTP_OK);
     }
-
     //LISTADO DE LOS SERVICIOS  DADA UNA SUBCATEGORIA <params subcategory:string>
     public function servicessub_get($id)
     {
@@ -160,7 +159,6 @@ class Api extends REST_Controller
         }
         $this->set_response($response, REST_Controller::HTTP_OK);
     }
-
     //DATOS DE UN SERVICIO DADO EL ID DEL MISMO <params serviceid:string>
     public function service_get($id)
     {
@@ -181,7 +179,6 @@ class Api extends REST_Controller
         $data["data"] = $service;
         $this->set_response($data, REST_Controller::HTTP_OK);
     }
-
     //LISTADO DE SERVICIOS POR FILTROS
     public function filter_get()
     {
@@ -209,7 +206,6 @@ class Api extends REST_Controller
         $data["services"] = $services;
         $this->set_response($data, REST_Controller::HTTP_OK);
     }
-
     //denunciar un servicio
     public function complaint_get($id)
     {
@@ -654,7 +650,7 @@ class Api extends REST_Controller
                 if ($evidence) {
                     $path = "./resources/evidences/" . $evidence['filename'];
                     file_put_contents($path, base64_decode($evidence['value']));
-                    $payment->setEvidence($path);
+                    $payment->setEvidence(site_url($path));
                 }
             } else {
                 $payment->setCountry($this->post('country', TRUE));
@@ -731,20 +727,28 @@ class Api extends REST_Controller
         $em->flush();
         $this->set_response($service, REST_Controller::HTTP_OK);
     }
-
+//CREANDO EL SERVICIO
     function createservicefull_post()
     {
         $em = $this->doctrine->em;
         $id =  $this->post('id', TRUE);
         if($id){
             $service = $em->find("\Entities\Service",$id);
+            $eliminadas = $this->post('dropsImages', TRUE);
+            $this->load->helper("file");
+            foreach ($eliminadas as $eliminada) {
+                $image = $em->find("\Entities\Image",$eliminada);
+                $path = "./resources/services/" . $id. "/" . $image->getTitle();
+                delete_files($path);
+                $em->remove($image);
+                $em->flush();
+            }
         }else {
             $service = new \Entities\Service();
         }
         //DATOS BASICOS
         $service->setAthor($this->getCurrentUser());
         $service->title = $this->post('title', TRUE);
-
         $service->subtitle = $this->post('subtitle', TRUE);
         $service->phone = $this->post('phone', TRUE);
         $service->address = $this->post('address', TRUE);
@@ -754,7 +758,7 @@ class Api extends REST_Controller
         if ($icon){
             $path = "./resources/" . $icon['filename'];
             file_put_contents($path, base64_decode($icon['value']));
-            $service->setIcon($path);
+            $service->setIcon(site_url($path));
         }
         //OTROS DATOS
         $service->setOtherPhone($this->post('other_phone', TRUE));
@@ -781,8 +785,9 @@ class Api extends REST_Controller
         $em->persist($service);
         $em->flush();
         //GALERIA DE FOTOS
-        $fotos = $this->post('galery', TRUE);
-        $service->addFotos($fotos, $em);
+        $fotos = $this->post('gallery', TRUE);
+
+        $service->addFotos($fotos, site_url());
         $em->persist($service);
         $em->flush();
         $this->set_response($service, REST_Controller::HTTP_OK);
