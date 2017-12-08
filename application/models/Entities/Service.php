@@ -183,7 +183,6 @@ namespace Entities {
         public $complain;
         public $favorite;
         public $rated;
-
         /**
          *
          * @OneToMany(targetEntity="Payments", mappedBy="service",cascade={"persist", "remove"})
@@ -551,11 +550,13 @@ namespace Entities {
          */
         public function addSubCategories(array $subcategories, $em)
         {
+            $actuales = $this->getSubcategories();
             foreach ($subcategories as $subcategory_id) {
                 $subcategory = $em->find('\Entities\Subcategory', $subcategory_id);
-                if ($subcategory) {
-                    $this->addSubCategory($subcategory);
-
+                if(!in_array($subcategory,$actuales)) {
+                    if ($subcategory) {
+                        $this->addSubCategory($subcategory);
+                    }
                 }
             }
             return $this;

@@ -758,7 +758,7 @@ class Api extends REST_Controller
         if ($icon){
             $path = "./resources/" . $icon['filename'];
             file_put_contents($path, base64_decode($icon['value']));
-            $service->setIcon(site_url($path));
+            $service->setIcon(base_url($path));
         }
         //OTROS DATOS
         $service->setOtherPhone($this->post('other_phone', TRUE));
@@ -787,7 +787,7 @@ class Api extends REST_Controller
         //GALERIA DE FOTOS
         $fotos = $this->post('gallery', TRUE);
 
-        $service->addFotos($fotos, site_url());
+        $service->addFotos($fotos, base_url());
         $em->persist($service);
         $em->flush();
         $this->set_response($service, REST_Controller::HTTP_OK);
