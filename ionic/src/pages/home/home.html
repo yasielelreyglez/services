@@ -82,7 +82,7 @@
 
         <ion-label text-center color="azul-claro">Principales tendencias</ion-label>
         <ion-list>
-            <button *ngFor="let sub of subCategories" class="btn-text-left" text-left color="azul-claro" ion-button block margin-bottom="1" (tap)='openServicesPage(sub.id)'>
+            <button *ngFor="let sub of subCategories" class="specific-button" text-left color="azul-claro" ion-button block margin-bottom="1" (tap)='openServicesPage(sub.id)'>
         <img src="{{baseUrl + sub.icon}}" alt="" height="36">
         &nbsp;{{sub.title}}
       </button>
@@ -95,7 +95,7 @@
 
                 </ion-col>
                 <ion-col col-10>
-                    <button color="azul-oscuro" float-left class="btn-text-left" ion-button block margin-bottom="2" (tap)="openCategoriesPage()">
+                    <button color="azul-oscuro" float-left class="btn-text-left specific-button" ion-button block margin-bottom="2" (tap)="openCategoriesPage()">
             <ion-icon name="search" class="fs-25"></ion-icon>
             &nbsp;Buscar por categoria
           </button>

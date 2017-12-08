@@ -42,12 +42,14 @@ import { AuthProvider } from '../providers/auth/auth';
 import { ApiProvider } from '../providers/api/api';
 
 // native
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+
 import { File } from '@ionic-native/file';
 import { Camera } from '@ionic-native/camera';
 import { CallNumber } from "@ionic-native/call-number";
 import { Geolocation } from '@ionic-native/geolocation';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { Create3Page } from '../pages/create3/create3';
+import { Create4Page } from '../pages/create4/create4';
 
 // import { FilePath } from '@ionic-native/file-path';
 
@@ -76,6 +78,8 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
     ComentariosPage,
     Create1Page,
     Create2Page,
+    Create3Page,
+    Create4Page,
     EjemploPage
 
   ],
@@ -85,7 +89,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
     HttpClientModule,
     IonicModule.forRoot(MyApp,{
       scrollPadding: false,
-      scrollAssist: false, //estaba true
+      scrollAssist: true, //estaba true
       // autoFocusAssist: false
     })
   ],
@@ -112,14 +116,15 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
     ComentariosPage,
     Create1Page,
     Create2Page,
+    Create3Page,
+    Create4Page,
     EjemploPage
 
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    FileTransfer,
-    FileTransferObject,
+   
     File,
     Camera,
     CallNumber,
