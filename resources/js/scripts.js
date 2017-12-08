@@ -86,19 +86,20 @@ $('.custom-select').select2();
         });
     }
 
-var map = $("#map-top").gmap3({
-    center:[48.8620722, 2.352047],
-    zoom:4
-}).on('click',function(p,e){
-  console.log(p);
-    console.log(e);
-    placeMarker(e.latLng,p,"title");
-}).marker(markers2)
-    .on('click', function (marker) {
-        marker.setIcon('http://maps.google.com/mapfiles/marker_green.png');
-        console.log(marker);
-    });
-
+    if(google!=undefined) {
+        var map = $("#map-top").gmap3({
+            center: [48.8620722, 2.352047],
+            zoom: 4
+        }).on('click', function (p, e) {
+            console.log(p);
+            console.log(e);
+            placeMarker(e.latLng, p, "title");
+        }).marker(markers2)
+            .on('click', function (marker) {
+                marker.setIcon('http://maps.google.com/mapfiles/marker_green.png');
+                console.log(marker);
+            });
+    }
 // gmap3({
 //   map:{
 //     address:"New York, USA",

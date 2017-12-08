@@ -26,19 +26,19 @@ class Payments
     public $type;
 
     /**
-     * @Column(type="string")
+     * @Column(type="string",nullable=true)
      * @var string
      **/
     public $evidence;
 
     /**
-     * @Column(type="string")
+     * @Column(type="string",nullable=true)
      * @var string
      **/
     public $country;
 
     /**
-     * @Column(type="string")
+     * @Column(type="string",nullable=true)
      * @var string
      **/
     public $phone;
@@ -69,11 +69,11 @@ class Payments
     protected $created_at;
 
     /**
-     * @Column(type="datetime")
+     * @Column(type="datetime",nullable=true)
      **/
     protected $payed_at;
     /**
-     * @Column(type="datetime")
+     * @Column(type="datetime",nullable=true)
      **/
     protected $expiration_date;
     /*ESTA ES LA VARIABLE DE CONTROL PARA SABER SI EL SERVICIO ES PRO TODAVIA*/
@@ -82,6 +82,7 @@ class Payments
     public function __construct()
     {
         $this->created_at = new \DateTime("now");
+        $this->updated_at = new \DateTime("now");
     }
 
     public function getId()

@@ -7,15 +7,10 @@
         <mat-select placeholder="Membresía" [(value)]="model.membership" [formControl]="payForm.controls['membership']"
                     [(ngModel)]="model.membership"
                     name="membership">
-            <mat-option [value]="3">
-                Membresía 3 meses
+            <mat-option *ngFor="let membership of memberships" [value]="membership.id">
+                {{membership.title}}
             </mat-option>
-            <mat-option [value]="6">
-                Membresía 6 meses
-            </mat-option>
-            <mat-option [value]="12">
-                Membresía 12 meses
-            </mat-option>
+
         </mat-select>
         <mat-error *ngIf="payForm.controls['membership'].invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
@@ -60,7 +55,7 @@
     </div>
     <br>
     <div class="form-group text-center">
-        <button mat-raised-button color="primary" class="tc-white col-12"
+        <button mat-raised-button color="primary" class="tc-white col-12" (click)="payEvidence()"
                 [disabled]="loading || previewvalue === '../../../assets/service_img.png'">
             Notificar pago
         </button>
@@ -86,7 +81,8 @@
         <br>
 
         <div class="form-group text-center">
-            <button mat-raised-button color="primary" class="tc-white col-12" [disabled]="loading || payForm.invalid">
+            <button mat-raised-button color="primary" class="tc-white col-12" (click)="payPhone()"
+                    [disabled]="loading || payForm.invalid">
                 Realizar pago
             </button>
             <img *ngIf="loading"

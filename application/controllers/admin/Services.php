@@ -1,4 +1,6 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php use Doctrine\Common\Collections\Criteria;
+
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
  * Services Controller.
@@ -43,6 +45,31 @@ class Services extends CI_Controller {
 
         $this->load->view('/includes/contentpage', $data);
     }
+
+    /**
+     *
+     */
+    function denunciados(){
+        $em= $this->doctrine->em;
+        $relacion = $em->getRepository('Entities\UserService');
+
+        $criteria = new Criteria();
+        $criteria->where(Criteria::expr()->neq('complaint', null));
+        $criteria->orderBy(array("complaint_created"=>"DESC"));
+        $result =  $relacion->matching($criteria);
+        $denunciados = [];
+        foreach ($result as $item) {
+            $item->getService()->getTitle();
+            $item->getUser()->getUsername();
+        }
+        $data["complaints"]=$result;
+        $data['content'] = '/services/denunciados';
+        $data["tab"]="services";
+        $this->load->view('/includes/contentpage', $data);
+
+
+        $this->load->view('/includes/contentpage', $data);
+	}
 
 	# GET /services/destroy/1
 	function destroy() {

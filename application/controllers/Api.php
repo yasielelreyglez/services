@@ -626,9 +626,12 @@ class Api extends REST_Controller
     }
 //FUNCIONES DE PAGOS DEL SERVICIO
     public function memberships_get(){
+
         $em= $this->doctrine->em;
+
         $maembershipRepo = $em->getRepository('Entities\Membership');
         $memberships = $maembershipRepo->findAll();
+         $result["desc"] = "Listado de membresias";
         $result["data"] = $memberships;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
@@ -638,13 +641,14 @@ class Api extends REST_Controller
         $user = $this->getCurrentUser();
         $service = $em->find("\Entities\Service", $id);
         if($service->getAuthor()->getUsername()==$user->getUsername()) {
-            $membership_id = $this->post('country', TRUE);
+            $membership_id = $this->post('membership', TRUE);
             $membership = $em->find("\Entities\Membership", $membership_id);
             $payment = new \Entities\Payments();
             $payment->setService($service);
             $payment->setMembership($membership);
             $type = $this->post('type', TRUE);
             $payment->setType($type);
+            $payment->setState(0);
             if ($type == 1) {
                 $evidence = $this->post('evidence');
                 if ($evidence) {
@@ -731,7 +735,12 @@ class Api extends REST_Controller
     function createservicefull_post()
     {
         $em = $this->doctrine->em;
-        $service = new \Entities\Service();
+        $id =  $this->post('title', TRUE);
+        if($id){
+            $service = $em->find("\Entities\Service",$id);
+        }else {
+            $service = new \Entities\Service();
+        }
         //DATOS BASICOS
         $service->setAthor($this->getCurrentUser());
         $service->title = $this->post('title', TRUE);

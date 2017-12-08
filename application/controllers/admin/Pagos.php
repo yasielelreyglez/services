@@ -38,6 +38,18 @@ class Pagos extends CI_Controller {
         $this->load->view('/includes/contentpage', $data);
 
     }
+
+    public function solicitados()
+    {
+        $em= $this->doctrine->em;
+        $paymentsRepo = $em->getRepository('Entities\Payments');
+        $payments = $paymentsRepo->findBy(array('state' => '0'),array('state' => 'ASC'));
+        $data["pagos"]=$payments;
+        $data['content'] = '/pagos/index';
+        $data["tab"]="pagos";
+        $this->load->view('/includes/contentpage', $data);
+
+    }
     public function aceptadas()
     {
         $em= $this->doctrine->em;
