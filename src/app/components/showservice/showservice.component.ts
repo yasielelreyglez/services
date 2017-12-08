@@ -39,13 +39,13 @@ export class ShowserviceComponent implements OnInit {
     @ViewChild('map') mapElement: ElementRef;
     latLng: any;
     // if(typeof(google)!='undefined') {
-    directionsService = new google.maps.DirectionsService;
-    directionsDisplay = new google.maps.DirectionsRenderer;
-    distanceM = new google.maps.DistanceMatrixService();
-    locations: any;
-    positions: any;
-    infowindow = new google.maps.InfoWindow;
-
+    // directionsService = new google.maps.DirectionsService;
+    // directionsDisplay = new google.maps.DirectionsRenderer;
+    // distanceM = new google.maps.DistanceMatrixService();
+    // locations: any;
+    // positions: any;
+    // infowindow = new google.maps.InfoWindow;
+    //
     // }
     constructor(private route: ActivatedRoute, private apiServices: ApiService,
                 public dialog: MatDialog, private authServices: AuthService) {
@@ -55,40 +55,40 @@ export class ShowserviceComponent implements OnInit {
        // this.loadMap();
     }
 
-    loadMap() {
-        const mapOptions = {
-            center: new google.maps.LatLng(23.126606, -82.32528),
-            // center: this.latLng,
-            zoom: 15,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-
-        this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-        this.directionsDisplay.setMap(this.map);
-        this.directionsDisplay.setOptions({suppressMarkers: true});
-        this.positions = this.service.positionsList;
-
-        for (let i = 0; i < this.positions.length; i++) {
-            const marker = new google.maps.Marker({
-                map: this.map,
-                position: new google.maps.LatLng(this.positions[i].latitude, this.positions[i].longitude)
-            });
-            const content = '<h4>' + this.positions[i].title + '</h4>';
-            this.addInfoWindow(marker, content);
-        }
-
-
-
-    }
-
-    addInfoWindow(marker, content) {
-
-        google.maps.event.addListener(marker, 'click', () => {
-            this.infowindow.setContent(content);
-            this.infowindow.open(this.map, marker);
-        });
-
-    }
+    // loadMap() {
+    //     const mapOptions = {
+    //         center: new google.maps.LatLng(23.126606, -82.32528),
+    //         // center: this.latLng,
+    //         zoom: 15,
+    //         mapTypeId: google.maps.MapTypeId.ROADMAP
+    //     };
+    //
+    //     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+    //     this.directionsDisplay.setMap(this.map);
+    //     this.directionsDisplay.setOptions({suppressMarkers: true});
+    //     this.positions = this.service.positionsList;
+    //
+    //     for (let i = 0; i < this.positions.length; i++) {
+    //         const marker = new google.maps.Marker({
+    //             map: this.map,
+    //             position: new google.maps.LatLng(this.positions[i].latitude, this.positions[i].longitude)
+    //         });
+    //         const content = '<h4>' + this.positions[i].title + '</h4>';
+    //         this.addInfoWindow(marker, content);
+    //     }
+    //
+    //
+    //
+    // }
+    //
+    // addInfoWindow(marker, content) {
+    //
+    //     google.maps.event.addListener(marker, 'click', () => {
+    //         this.infowindow.setContent(content);
+    //         this.infowindow.open(this.map, marker);
+    //     });
+    //
+    // }
 
 
     ngOnInit() {

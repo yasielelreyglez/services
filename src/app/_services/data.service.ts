@@ -5,7 +5,6 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 export class Data {
 
     public storage: any;
-    services: BehaviorSubject<any> = new BehaviorSubject(null);
 
     constructor() {
     }

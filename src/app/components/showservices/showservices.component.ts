@@ -27,9 +27,9 @@ export class ShowservicesComponent implements OnInit {
             if (id)
                 this.apiServices.servicesSub(id).subscribe(resultparams => this.services = resultparams);
             else {
-                this.data.services.subscribe(result => {
-                    this.services = result;
-                });
+                const services = localStorage.getItem('searchServices');
+                if(services)
+                    this.services = JSON.parse(services);
             }
         });
 

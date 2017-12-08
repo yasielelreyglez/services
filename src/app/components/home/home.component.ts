@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
 
     searchQuery() {
         this.apiServices.searchService(this.query).subscribe(result => {
-            this.data.services.next(result);
+            localStorage.setItem('searchServices', JSON.stringify(result));
             this.router.navigate(['/search']);
         });
     }
