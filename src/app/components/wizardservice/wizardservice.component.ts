@@ -5,6 +5,7 @@ import {City} from '../../_models/city';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Data} from '../../_services/data.service';
+import {isNull} from 'util';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class WizardserviceComponent implements OnInit {
     week_days: any;
     firstForm: FormGroup;
     edit: boolean;
+    dropsImages: any;
 
     citiesList: any;
 
@@ -38,63 +40,72 @@ export class WizardserviceComponent implements OnInit {
                 src: '../../../assets/service_img.png',
                 filename: null,
                 filetype: null,
-                value: null
+                value: null,
+                id: null
             },
             {
                 position: false,
                 src: '../../../assets/service_img.png',
                 filename: null,
                 filetype: null,
-                value: null
+                value: null,
+                id: null
             },
             {
                 position: false,
                 src: '../../../assets/service_img.png',
                 filename: null,
                 filetype: null,
-                value: null
+                value: null,
+                id: null
             },
             {
                 position: false,
                 src: '../../../assets/service_img.png',
                 filename: null,
                 filetype: null,
-                value: null
+                value: null,
+                id: null
             },
             {
                 position: false,
                 src: '../../../assets/service_img.png',
                 filename: null,
                 filetype: null,
-                value: null
+                value: null,
+                id: null
             },
             {
                 position: false,
                 src: '../../../assets/service_img.png',
                 filename: null,
                 filetype: null,
-                value: null
+                value: null,
+                id: null
             },
             {
                 position: false,
                 src: '../../../assets/service_img.png',
                 filename: null,
                 filetype: null,
-                value: null
+                value: null,
+                id: null
             },
             {
                 position: false,
                 src: '../../../assets/service_img.png',
                 filename: null,
                 filetype: null,
-                value: null
+                value: null,
+                id: null
             },
             {
                 position: false,
                 src: '../../../assets/service_img.png',
                 filename: null,
                 filetype: null,
-                value: null
+                value: null,
+                id: null
             }];
 
         this.moreImage = true;
@@ -112,12 +123,14 @@ export class WizardserviceComponent implements OnInit {
             {title: 'Domingo', value: false},
         ];
 
+        this.dropsImages = new Array();
         this.previewvalue = '../../../assets/service_img.png';
         this.service.week_days = [false, false, false, false, false, false, false];
 
         this.route.params.subscribe(params => {
             if (params['id']) {
                 this.apiServices.service(params['id']).subscribe(result => {
+                    console.log(result.data);
                     this.edit = true;
                     this.service = result.data;
 
@@ -139,7 +152,9 @@ export class WizardserviceComponent implements OnInit {
                     for (let i = 0; i < result.data.imagesList.length; i++) {
                         this.previews[i].src = result.data.imagesList[i].title;
                         this.previews[i].position = true;
+                        this.previews[i].id = result.data.imagesList[i].id;
                     }
+                    console.log(this.previews);
 
                     let daysId = result.data.week_days.split(',');
                     this.service.week_days = [false, false, false, false, false, false, false];
@@ -247,6 +262,10 @@ export class WizardserviceComponent implements OnInit {
         this.previews[pos].filename = null;
         this.previews[pos].filetype = null;
         this.previews[pos].value = null;
+        if (!isNull(this.previews[pos].id)) {
+            this.dropsImages.push(this.previews[pos].id);
+            this.previews[pos].id = null;
+        }
         this.moreImageGalery();
     }
 
@@ -255,7 +274,7 @@ export class WizardserviceComponent implements OnInit {
         if (this.previews.length > 0) {
             for (let i = 0; i < 9; i++) {
                 const current = this.previews[i];
-                if (current.position) {
+                if (current.position && isNull(current.id)) {
                     this.service.galery.push({
                         filename: current.filename,
                         filetype: current.filetype,
@@ -277,7 +296,7 @@ export class WizardserviceComponent implements OnInit {
             }
         }
 
-        this.apiServices.createFullService(this.service).subscribe(result => {
+        this.apiServices.createFullService(this.service, this.dropsImages).subscribe(result => {
             if (result)
                 this.router.navigate(['myservices/service', result.id]);
         });

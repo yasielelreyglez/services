@@ -84,8 +84,4 @@ export class ServicesComponent implements OnInit {
         }
     }
 
-    edit(service: any) {
-        this.data.service.next(service);
-    }
-
 }
