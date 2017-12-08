@@ -735,7 +735,7 @@ class Api extends REST_Controller
     function createservicefull_post()
     {
         $em = $this->doctrine->em;
-        $id =  $this->post('title', TRUE);
+        $id =  $this->post('id', TRUE);
         if($id){
             $service = $em->find("\Entities\Service",$id);
         }else {
