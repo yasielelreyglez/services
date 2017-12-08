@@ -735,7 +735,12 @@ class Api extends REST_Controller
     function createservicefull_post()
     {
         $em = $this->doctrine->em;
-        $service = new \Entities\Service();
+        $id =  $this->post('title', TRUE);
+        if($id){
+            $service = $em->find("\Entities\Service",$id);
+        }else {
+            $service = new \Entities\Service();
+        }
         //DATOS BASICOS
         $service->setAthor($this->getCurrentUser());
         $service->title = $this->post('title', TRUE);
