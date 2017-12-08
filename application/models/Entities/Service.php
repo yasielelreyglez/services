@@ -550,7 +550,7 @@ namespace Entities {
          */
         public function addSubCategories(array $subcategories, $em)
         {
-            $actuales = $this->getSubcategories();
+            $actuales = $this->getSubcategories()->toArray();
             foreach ($subcategories as $subcategory_id) {
                 $subcategory = $em->find('\Entities\Subcategory', $subcategory_id);
                 if(!in_array($subcategory,$actuales)) {
@@ -677,6 +677,7 @@ namespace Entities {
 
         public function addPositions(Array $positions)
         {
+
             foreach ($positions as $position) {
                 $poss = new Position();
                 $poss->setTitle($position["title"]);
