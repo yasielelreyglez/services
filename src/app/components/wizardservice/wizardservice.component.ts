@@ -3,7 +3,8 @@ import {ApiService} from '../../_services/api.service';
 import {Service} from '../../_models/service';
 import {City} from '../../_models/city';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Data} from '../../_services/data.service';
 
 
 @Component({
@@ -13,8 +14,6 @@ import {Router} from '@angular/router';
 })
 
 export class WizardserviceComponent implements OnInit {
-
-    // step_title: string;
     previews: any;
     previewvalue: string;
     service: Service;
@@ -25,46 +24,144 @@ export class WizardserviceComponent implements OnInit {
     latitude: string;
     longitude: string;
     positions: any;
-
-    week_days = [
-        {title: 'Lunes', value: false},
-        {title: 'Martes', value: false},
-        {title: 'Miercoles', value: false},
-        {title: 'Jueves', value: false},
-        {title: 'Viernes', value: false},
-        {title: 'Sabado', value: false},
-        {title: 'Domingo', value: false},
-    ];
-
+    week_days: any;
     firstForm: FormGroup;
+    edit: boolean;
 
+    citiesList: any;
 
-    constructor(private apiServices: ApiService, private router: Router) {
-        this.previews = [
-            {position: false, src: '../../../assets/service_img.png', filename: null, filetype: null, value: null},
-            {position: false, src: '../../../assets/service_img.png', filename: null, filetype: null, value: null},
-            {position: false, src: '../../../assets/service_img.png', filename: null, filetype: null, value: null},
-            {position: false, src: '../../../assets/service_img.png', filename: null, filetype: null, value: null},
-            {position: false, src: '../../../assets/service_img.png', filename: null, filetype: null, value: null},
-            {position: false, src: '../../../assets/service_img.png', filename: null, filetype: null, value: null},
-            {position: false, src: '../../../assets/service_img.png', filename: null, filetype: null, value: null},
-            {position: false, src: '../../../assets/service_img.png', filename: null, filetype: null, value: null},
-            {position: false, src: '../../../assets/service_img.png', filename: null, filetype: null, value: null}];
-
-        // this.step_title = 'Datos iniciales';
+    constructor(private apiServices: ApiService, private router: Router, private data: Data, private route: ActivatedRoute) {
         this.service = new Service();
+        this.previews = [
+            {
+                position: false,
+                src: '../../../assets/service_img.png',
+                filename: null,
+                filetype: null,
+                value: null
+            },
+            {
+                position: false,
+                src: '../../../assets/service_img.png',
+                filename: null,
+                filetype: null,
+                value: null
+            },
+            {
+                position: false,
+                src: '../../../assets/service_img.png',
+                filename: null,
+                filetype: null,
+                value: null
+            },
+            {
+                position: false,
+                src: '../../../assets/service_img.png',
+                filename: null,
+                filetype: null,
+                value: null
+            },
+            {
+                position: false,
+                src: '../../../assets/service_img.png',
+                filename: null,
+                filetype: null,
+                value: null
+            },
+            {
+                position: false,
+                src: '../../../assets/service_img.png',
+                filename: null,
+                filetype: null,
+                value: null
+            },
+            {
+                position: false,
+                src: '../../../assets/service_img.png',
+                filename: null,
+                filetype: null,
+                value: null
+            },
+            {
+                position: false,
+                src: '../../../assets/service_img.png',
+                filename: null,
+                filetype: null,
+                value: null
+            },
+            {
+                position: false,
+                src: '../../../assets/service_img.png',
+                filename: null,
+                filetype: null,
+                value: null
+            }];
+
         this.moreImage = true;
         this.service.galery = new Array();
         this.service.positions = new Array();
         this.positions = new Array();
+
+        this.week_days = [
+            {title: 'Lunes', value: false},
+            {title: 'Martes', value: false},
+            {title: 'Miercoles', value: false},
+            {title: 'Jueves', value: false},
+            {title: 'Viernes', value: false},
+            {title: 'Sabado', value: false},
+            {title: 'Domingo', value: false},
+        ];
+
         this.previewvalue = '../../../assets/service_img.png';
         this.service.week_days = [false, false, false, false, false, false, false];
+
+        this.route.params.subscribe(params => {
+            if (params['id']) {
+                this.apiServices.service(params['id']).subscribe(result => {
+                    this.edit = true;
+                    this.service = result.data;
+
+                    if (this.service.icon)
+                        this.previewvalue = this.service.icon;
+
+                    let citiesId = [];
+                    for (let i = 0; i < result.data.citiesList.length; i++) {
+                        citiesId.push(result.data.citiesList[i].id);
+                    }
+                    this.service.cities = citiesId;
+
+                    let subcategoriesId = [];
+                    for (let i = 0; i < result.data.subcategoriesList.length; i++) {
+                        subcategoriesId.push(result.data.subcategoriesList[i].id);
+                    }
+                    this.service.categories = subcategoriesId;
+
+                    for (let i = 0; i < result.data.imagesList.length; i++) {
+                        this.previews[i].src = result.data.imagesList[i].title;
+                        this.previews[i].position = true;
+                    }
+
+                    let daysId = result.data.week_days.split(',');
+                    this.service.week_days = [false, false, false, false, false, false, false];
+
+                    for (let i = 0; i < daysId.length; i++) {
+                        this.service.week_days[daysId[i]] = true;
+                    }
+
+                    this.positions = result.data.positionsList;
+
+                });
+            }
+        });
+
+
     }
 
     ngOnInit() {
         this.apiServices.cities().subscribe(result => this.cities = result);
         this.apiServices.allSubCategories().subscribe(result => this.categories = result);
         this.createForms();
+
     }
 
     createForms() {

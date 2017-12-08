@@ -1,5 +1,5 @@
 <div class="col-12">
-    <h4 class="tc-blue">Crear anuncio:</h4>
+    <h4 class="tc-blue">{{edit ? 'Editar anuncio:' : 'Crear anuncio:'}}</h4>
     <hr class="bc-grei">
     <mat-horizontal-stepper [linear]="true">
         <mat-step [stepControl]="firstForm">
@@ -26,13 +26,14 @@
                     <mat-error *ngIf="firstForm.controls['phone'].invalid">{{getErrorMessage()}}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <textarea matInput placeholder="Descripción" name="phone"
-                              [formControl]="firstForm.controls['description']"
-                              [(ngModel)]="service.description" required></textarea>
+        <textarea matInput placeholder="Descripción" name="phone"
+                  [formControl]="firstForm.controls['description']"
+                  [(ngModel)]="service.description" required></textarea>
                     <mat-error *ngIf="firstForm.controls['description'].invalid">{{getErrorMessage()}}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-select placeholder="Ciudades" [formControl]="firstForm.controls['cities']" multiple="true"
+                    <mat-select id="cuba" placeholder="Ciudades" [formControl]="firstForm.controls['cities']"
+                                multiple="true"
                                 [(ngModel)]="service.cities"
                                 name="cities" required>
                         <mat-option *ngFor="let city of cities" [value]="city.id">
@@ -56,7 +57,7 @@
                 <div class="">
                     <div style="width: 133px; height: 122.891px;">
                         <img name="preview" class="d-flex align-self-center" width="115"
-                             src="{{previewvalue}}" alt=""
+                             [src]="edit ? 'services/' + previewvalue : previewvalue" alt=""
                              style="border: 1px solid #bcbcbc; padding: 5px; width: 90%; height: 100%;" appImageZoom>
                     </div>
                     <label class="fileContainer cp">
@@ -93,7 +94,7 @@
             <mat-grid-list cols="2" class="mat-images d-block d-sm-none" rowHeight="140px">
                 <mat-grid-tile *ngFor="let prev of previews; let pos = index;" class="text-center">
                     <div class="mat-content text-center" style="position: relative;">
-                        <img [src]="prev.src"
+                        <img [src]="edit ? 'services/' + prev.src : prev.src"
                              alt=""
                              style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
                              appImageZoom>
@@ -107,7 +108,7 @@
             <mat-grid-list cols="3" class="mat-images d-none d-sm-block" rowHeight="140px">
                 <mat-grid-tile *ngFor="let prev of previews; let pos = index;" class="text-center">
                     <div class="mat-content text-center" style="position: relative;">
-                        <img [src]="prev.src"
+                        <img [src]="edit ? 'services/' + prev.src : prev.src"
                              alt=""
                              style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
                              appImageZoom>
@@ -221,23 +222,6 @@
 
             <div *ngFor="let currentposition of positions; let pos = index">
                 <hr class="bc-grei">
-                <!--<mat-grid-list cols="12" rowHeight="25px">-->
-                <!--<mat-grid-tile [colspan]="1" [rowspan]="2" class="izq">-->
-                <!--<mat-icon class="tc-blue md-3 md-40">location_on</mat-icon>-->
-                <!--</mat-grid-tile>-->
-                <!--<mat-grid-tile [colspan]="9" [rowspan]="1" class="izq">-->
-                <!--<h6 class="tc-blue mb-0">{{currentposition.title}}</h6>-->
-                <!--</mat-grid-tile>-->
-                <!--<mat-grid-tile class="comment-date" [colspan]="2" [rowspan]="1">-->
-                <!--<button class="delete-position tc-white bc-red" (click)="deletePosition(pos)"-->
-                <!--mat-icon-button style="z-index: 1000;">-->
-                <!--<mat-icon>clear</mat-icon>-->
-                <!--</button>-->
-                <!--</mat-grid-tile>-->
-                <!--<mat-grid-tile class="izq" [colspan]="11" [rowspan]="1">-->
-                <!--<p class="tc-grei mb-0">{{currentposition.longitude}};{{currentposition.latitude}}</p>-->
-                <!--</mat-grid-tile>-->
-                <!--</mat-grid-list>-->
                 <mat-grid-list cols="12" class="mat-position" rowHeight="26px">
                     <mat-grid-tile [colspan]="10" [rowspan]="2" class="izq">
                         <div>
@@ -252,7 +236,7 @@
                         </div>
                     </mat-grid-tile>
                     <mat-grid-tile class="comment-date" [colspan]="2" [rowspan]="1">
-                        <button class="delete-position tc-white bc-red pull-right"
+                        <button (click)="deletePosition(pos)" class="delete-position tc-white bc-red pull-right"
                                 mat-icon-button style="z-index: 1000;">
                             <mat-icon>clear</mat-icon>
                         </button>

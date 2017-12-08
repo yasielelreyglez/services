@@ -36,7 +36,6 @@ export class PayserviceComponent implements OnInit {
         });
 
         this.apiServices.memberships().subscribe(result => {
-            console.log(result);
             if (!result.error)
                 this.memberships = result;
             this.error = result.error;
@@ -82,7 +81,6 @@ export class PayserviceComponent implements OnInit {
             type: this.model.type,
             evidence: this.model.evidence
         }).subscribe(result => {
-            console.log(result);
             if (!result.error)
                 this.router.navigate(['/myservices']);
             this.error = result.error;

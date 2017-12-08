@@ -315,7 +315,6 @@ export class ApiService {
             const headers = new Headers();
             headers.append('Authorization', JSON.parse(currentUser).token);
             return this.http.get('http://localhost/services/api/memberships', {headers: headers}).map((response: Response) => {
-                    console.log(response);
                 if (response.json().data) {
                         return response.json().data;
                     } else {
