@@ -864,7 +864,9 @@ class Api extends REST_Controller
             $service->getPositions()->toArray();
             $service->getImages()->toArray();//TODO VER SI SE BORRAN LOS FICHEROS
            $service->getServiceusers()->toArray();
-           //CARGADA LA RELACION PARA DESPUES ELIMINARLAS CON EL SERVICIO
+            $service->getPayments()->toArray();
+
+            //CARGADA LA RELACION PARA DESPUES ELIMINARLAS CON EL SERVICIO
            $em->remove($service);
            $em->flush();
            $this->set_response("OK", REST_Controller::HTTP_OK);
