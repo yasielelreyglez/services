@@ -57,7 +57,6 @@ class Services extends CI_Controller {
         $criteria->where(Criteria::expr()->neq('complaint', null));
         $criteria->orderBy(array("complaint_created"=>"DESC"));
         $result =  $relacion->matching($criteria);
-        $denunciados = [];
         foreach ($result as $item) {
             $item->getService()->getTitle();
             $item->getUser()->getUsername();
@@ -66,16 +65,13 @@ class Services extends CI_Controller {
         $data['content'] = '/services/denunciados';
         $data["tab"]="services";
         $this->load->view('/includes/contentpage', $data);
-
-
-        $this->load->view('/includes/contentpage', $data);
 	}
 
 	# GET /services/destroy/1
 	function destroy() {
 		$id = $this->uri->segment(3);
 		$data['services'] = $this->Services_model->destroy($id);
-		redirect('/services/index', 'refresh');
+		redirect('admin/services/index', 'refresh');
 	}
 
 	# POST /services/save

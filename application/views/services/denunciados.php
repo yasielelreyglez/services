@@ -18,5 +18,4 @@
 			<td width="80"><?= anchor('admin/services/destroy/'.$object->getService()->id, 'Destroy','class="btn btn-danger"'); ?></td>
 		</tr><?php } ?>
 	</table>
-	
-	<?= anchor('admin/services/create','Create','class="btn btn-primary"'); ?>
+
