@@ -186,7 +186,7 @@ namespace Entities {
 
         /**
          *
-         * @OneToMany(targetEntity="Payments", mappedBy="service")
+         * @OneToMany(targetEntity="Payments", mappedBy="service",cascade={"persist", "remove"})
          */
         protected $payments;
         /**
