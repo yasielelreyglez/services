@@ -4,7 +4,7 @@
             <span *ngIf="myservices && service.professional !== 1"
                   style="color: #e0040b; font-size: 13px; margin-left: 24px;" class="fw-600">{{service.professional === 2 ? "En revisión" : "Bloqueado"}}</span>
             <img class="d-flex align-self-center mr-3" width="115"
-                 [src]="service.icon ? 'services/' + service.icon : '../../../assets/service_img.png'"
+                 [src]="service.icon ? service.icon : '../../../assets/service_img.png'"
                  appImageZoom>
         </div>
         <div class="media-body" [ngStyle]="{'margin-top': (myservices && service.professional !== 1) ? '25px' : '0'}">

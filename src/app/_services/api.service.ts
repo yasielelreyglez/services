@@ -371,13 +371,13 @@ export class ApiService {
     //     }
     // }
 
-    createFullService(service: Service, dropedImages: any): Observable<any> {
+    createFullService(service: Service): Observable<any> {
         // const body = JSON.stringify(service);
         const currentUser = localStorage.getItem('currentUser');
         if (currentUser) {
             const headers = new Headers();
             headers.append('Authorization', JSON.parse(currentUser).token);
-            return this.http.post('http://localhost/services/api/createservicefull', {service, dropedImages}, {headers: headers}).map(response => {
+            return this.http.post('http://localhost/services/api/createservicefull', service, {headers: headers}).map(response => {
                 return response.json();
             });
         } else {

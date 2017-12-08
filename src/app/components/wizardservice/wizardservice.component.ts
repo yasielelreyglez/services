@@ -109,7 +109,7 @@ export class WizardserviceComponent implements OnInit {
             }];
 
         this.moreImage = true;
-        this.service.galery = new Array();
+        this.service.gallery = new Array();
         this.service.positions = new Array();
         this.positions = new Array();
 
@@ -272,10 +272,12 @@ export class WizardserviceComponent implements OnInit {
 
     finishFunction() {
         if (this.previews.length > 0) {
+
+            this.service.gallery = new Array();
             for (let i = 0; i < 9; i++) {
                 const current = this.previews[i];
                 if (current.position && isNull(current.id)) {
-                    this.service.galery.push({
+                    this.service.gallery.push({
                         filename: current.filename,
                         filetype: current.filetype,
                         value: current.value
@@ -284,6 +286,7 @@ export class WizardserviceComponent implements OnInit {
             }
         }
 
+        this.service.positions = new Array();
         if (this.positions.length > 0) {
             for (let i = 0; i < this.positions.length; i++) {
                 const current = this.positions[i];
@@ -296,7 +299,9 @@ export class WizardserviceComponent implements OnInit {
             }
         }
 
-        this.apiServices.createFullService(this.service, this.dropsImages).subscribe(result => {
+        this.service.dropsImages = this.dropsImages;
+
+        this.apiServices.createFullService(this.service).subscribe(result => {
             if (result)
                 this.router.navigate(['myservices/service', result.id]);
         });

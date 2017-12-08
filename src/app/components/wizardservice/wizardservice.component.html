@@ -57,7 +57,7 @@
                 <div class="">
                     <div style="width: 133px; height: 122.891px;">
                         <img name="preview" class="d-flex align-self-center" width="115"
-                             [src]="edit ? 'services/' + previewvalue : previewvalue" alt=""
+                             [src]="previewvalue" alt=""
                              style="border: 1px solid #bcbcbc; padding: 5px; width: 90%; height: 100%;" appImageZoom>
                     </div>
                     <label class="fileContainer cp">
@@ -94,7 +94,7 @@
             <mat-grid-list cols="2" class="mat-images d-block d-sm-none" rowHeight="140px">
                 <mat-grid-tile *ngFor="let prev of previews; let pos = index;" class="text-center">
                     <div class="mat-content text-center" style="position: relative;">
-                        <img [src]="edit ? 'services/' + prev.src : prev.src"
+                        <img [src]="prev.src"
                              alt=""
                              style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
                              appImageZoom>
@@ -108,7 +108,7 @@
             <mat-grid-list cols="3" class="mat-images d-none d-sm-block" rowHeight="140px">
                 <mat-grid-tile *ngFor="let prev of previews; let pos = index;" class="text-center">
                     <div class="mat-content text-center" style="position: relative;">
-                        <img [src]="edit ? 'services/' + prev.src : prev.src"
+                        <img [src]="prev.src"
                              alt=""
                              style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
                              appImageZoom>
@@ -272,43 +272,3 @@
         </mat-step>
     </mat-horizontal-stepper>
 </div>
-
-
-<!--<wizard-step stepTitle="" (stepEnter)="step_title='Ubicaciones'" navigationSymbol="4">-->
-<!--<form name="form4" (ngSubmit)="f4.form.valid&&step3()" #f4="ngForm" class="">-->
-<!--<div class="form-group" [ngClass]="{ 'has-error': f4.submitted && !position.valid }">-->
-<!--<label for="position_title">Nombre Ubicacion</label>-->
-<!--<input type="text" class="form-control" name="positiontitle"-->
-<!--placeholder="Escriba el nombre de la ubicacion" [(ngModel)]="positiontitle" #position="ngModel"/>-->
-<!--</div>-->
-<!--<div class="form-group" [ngClass]="{ 'has-error': f4.submitted && !latitud.valid }">-->
-<!--<label for="ubicacion_title">latitude</label>-->
-<!--<input type="string" class="form-control" name="latitud"-->
-<!--placeholder="" [(ngModel)]="latitude" #latitud="ngModel"/>-->
-<!--</div>-->
-<!--<div class="form-group" [ngClass]="{ 'has-error': f4.submitted && !longitud.valid }">-->
-<!--<label for="ubicacion_title">Nombre Ubicacion</label>-->
-<!--<input type="string" class="form-control" name="ubicacion"-->
-<!--placeholder="" [(ngModel)]="longitude" #longitud="ngModel"/>-->
-<!--</div>-->
-
-<!--<button type="submit" class="btn btn-primary col-6" (click)="addPosition()">Agregar posiciones</button>-->
-<!--</form>-->
-<!--<div *ngFor="let poss of service.positions">-->
-<!--<div class="pill">{{poss.title}}</div>-->
-<!--</div>-->
-<!--<button type="button" class="btn btn-primary col-6" (click)="finishFunction()">Terminar</button>-->
-<!--</wizard-step>-->
-<!--&lt;!&ndash;wizardCompletionStep&ndash;&gt;-->
-<!--</wizard>-->
-<!--<style>-->
-<!--.horizontal ul.steps-indicator li.current div:after {-->
-<!--background-color: #1e6bb8 !important;-->
-<!--color: #ffffff;-->
-<!--}-->
-
-<!--.horizontal[_nghost-c5] ul.steps-indicator[_ngcontent-c5] li[_ngcontent-c5] div[_ngcontent-c5] a[_ngcontent-c5] {-->
-<!--background-color: #1e6bb8 !important;-->
-<!--color: #ffffff;-->
-<!--}-->
-<!--</style>-->

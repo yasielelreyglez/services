@@ -2,7 +2,7 @@
     <div class="media" style="margin-bottom: 15px; padding-bottom: 10px;">
         <div style="width: 131px; height: 122.891px;">
             <img class="d-flex align-self-center mr-3" width="115"
-                 [src]="service.icon ? 'services/' + service.icon : '../../../assets/service_img.png'" alt=""
+                 [src]="service.icon ? service.icon : '../../../assets/service_img.png'" alt=""
                  style="border: 1px solid #bcbcbc; padding: 5px; width: 90%; height: 100%;" appImageZoom>
         </div>
         <div class="media-body">
@@ -96,7 +96,7 @@
             <mat-grid-list cols="2" class="mat-images d-block d-sm-none" rowHeight="140px">
                 <mat-grid-tile *ngFor="let prev of images" class="text-center">
                     <div class="mat-content text-center">
-                        <img [src]="'/services/'+prev.title"
+                        <img [src]="prev.title"
                              alt=""
                              style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
                              appImageZoom>
@@ -106,7 +106,7 @@
             <mat-grid-list cols="3" class="mat-images d-none d-sm-block d-md-none" rowHeight="140px">
                 <mat-grid-tile *ngFor="let prev of images" class="text-center">
                     <div class="mat-content text-center">
-                        <img [src]="'/services/'+prev.title"
+                        <img [src]="prev.title"
                              alt=""
                              style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
                              appImageZoom>
@@ -116,7 +116,7 @@
             <mat-grid-list cols="4" class="mat-images d-none d-md-block d-lg-none" rowHeight="140px">
                 <mat-grid-tile *ngFor="let prev of images" class="text-center">
                     <div class="mat-content text-center">
-                        <img [src]="'/services/'+prev.title"
+                        <img [src]="prev.title"
                              alt=""
                              style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
                              appImageZoom>
@@ -126,7 +126,7 @@
             <mat-grid-list cols="6" class="mat-images d-none d-lg-block" rowHeight="140px">
                 <mat-grid-tile *ngFor="let prev of images" class="text-center">
                     <div class="mat-content text-center">
-                        <img [src]="'/services/'+prev.title"
+                        <img [src]="prev.title"
                              alt=""
                              style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
                              appImageZoom>
