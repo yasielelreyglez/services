@@ -12,7 +12,7 @@ import {  HttpClient,  HttpHeaders } from "@angular/common/http";
 @Injectable()
 export class ApiProvider {
 
-  private apiBaseUrl = 'http://192.168.1.80/services/';
+  private apiBaseUrl = 'http://192.168.1.194/services/';
   // private apiBaseUrl = 'http://localhost/services/';
   private days : object;
   user:any;

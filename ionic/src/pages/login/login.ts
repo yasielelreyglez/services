@@ -1,7 +1,6 @@
-import { Component, ViewChild  } from '@angular/core';
+import { Component  } from '@angular/core';
 import {
   IonicPage,
-  ModalController,
   NavController,
   LoadingController,
   ToastController,

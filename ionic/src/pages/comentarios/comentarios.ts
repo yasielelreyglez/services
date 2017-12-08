@@ -13,7 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class ComentariosPage {
   service: any = {};
   comentarios : any[] = [];
-  comentario : string;;
+  comentario : string;
   baseUrl: any;
   loggedIn: boolean;
   cant_c:number;

@@ -531,10 +531,13 @@ namespace Entities {
          */
         public function addCities(array $cities, $em)
         {
+            $actuales = $this->getCities()->toArray();
             foreach ($cities as $city_id) {
                 $city = $em->find('\Entities\City', $city_id);
                 if ($city) {
-                    $this->addCity($city);
+                    if(!in_array($city,$actuales)) {
+                        $this->addCity($city);
+                    }
                 }
             }
             return $this;
@@ -677,7 +680,6 @@ namespace Entities {
 
         public function addPositions(Array $positions)
         {
-
             foreach ($positions as $position) {
                 $poss = new Position();
                 $poss->setTitle($position["title"]);

@@ -3,14 +3,19 @@ import {
   IonicPage,
   NavController,
   ActionSheetController,
-  AlertController
+  Platform
+
 } from "ionic-angular";
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ViewChild } from '@angular/core';
-import {Service} from '../../models/service'
 import { ApiProvider } from '../../providers/api/api';
 import { Create2Page } from '../create2/create2';
+import { City } from '../../models/city';
+import { HttpErrorResponse } from '@angular/common/http';
+import { SubCategory } from '../../models/subCategory';
+import { sendService } from '../../models/sendService';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 
 @IonicPage()
@@ -19,24 +24,45 @@ import { Create2Page } from '../create2/create2';
   templateUrl: 'create1.html',
 })
 export class Create1Page {
-  imageURI:any;
+  @ViewChild('formu') f;
   preview:any;
-  respuesta:any;
-  service: Service;
-  imageFileName:any;
+  service: sendService;
+  cities: City[];
+  categories:SubCategory[];
+
   constructor(public navCtrl: NavController,
-    public alertCtrl: AlertController,
-    private transfer: FileTransfer,
     private camera: Camera,
-    public actionSheetCtrl: ActionSheetController  ,  public api: ApiProvider
+    public actionSheetCtrl: ActionSheetController ,
+    public api: ApiProvider,
+    public photoViewer: PhotoViewer,private platform: Platform
       ) {
-     this.preview = "assets/imgs/service_img.png";
-     this.service = new Service();
+        this.service = new sendService();
+        this.loadSelect();
   }
-
-
-
+  loadSelect() {
+    this.api.getCities().then(
+      data => {
+        this.cities = data["data"];
+      },
+      (err: HttpErrorResponse) => {
+        if (err.error instanceof Error) {
+        } else {
+        }
+      }
+    );
+    this.api.getCategories().then(
+      data => {
+        this.categories = data["data"];
+      },
+      (err: HttpErrorResponse) => {
+        if (err.error instanceof Error) {
+        } else {
+        }
+      }
+    );
+  }
   ionViewDidLoad() {
+    this.preview = "assets/imgs/service_img.png";
 
   }
   public presentActionSheet() {
@@ -72,73 +98,24 @@ export class Create1Page {
 
     this.camera.getPicture(options).then((imageData) => {
        this.preview = 'data:image/jpeg;base64,' + imageData;
-       this.imageURI = imageData;
-
+       this.service.icon = {filename:"imageData",filetype:"image/jpeg",value:imageData};
     }, (err) => {
       console.log(err);
-      // this.presentToast(err);
     });
   }
-  uploadFile() {
-
-
-    const fileTransfer: FileTransferObject = this.transfer.create();
-
-    let options: FileUploadOptions = {
-      fileKey: 'ionicfile',
-      fileName: 'ionicfile',
-      chunkedMode: false,
-      mimeType: "image/jpeg",
-      headers: {}
+  viewImg() {
+    this.platform.ready().then(() => {
+    this.photoViewer.show(this.preview);
+    });
+  }
+  goToCreate2(){
+    if (this.f.form.valid) {
+      this.navCtrl.push(Create2Page, {
+        service: this.service, //paso el service
+      });
     }
 
-    fileTransfer.upload(this.imageURI, this.api.getbaseUrl+'api/testimg', options)
-      .then((data) => {
-      this.respuesta =data;
-      // console.log(data+" Uploaded Successfully");
-      // this.imageFileName = "http://192.168.0.7:8080/static/images/ionicfile.jpg"
-
-    }, (err) => {
-      console.log(err);
-      this.respuesta =err;
-    });
   }
-
-
-  promptTitle() {
-    let prompt = this.alertCtrl.create({
-      title: 'Titulo del servicio',
-      inputs: [
-        {
-          name: 'title',
-          type: 'email',
-          value:this.service.title
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-
-        },
-        {
-          text: ' Aceptar',
-          handler: data => {
-            this.service.title = data.title;
-          }
-        }
-      ]
-    });
-    prompt.present();
-  }
-
-  goToCreate2(){
-    this.navCtrl.push(Create2Page, {
-      service: this.service, //paso el service
-      parentPage: this
-    });
-  }
-
 }
 
 
