@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 <div class="col-md-9 offset-1">
-	<h1>Administrando Pagos <?=count($pagos)?></h1>
+	<h1>Administrando pagos <?=$Tipo?></h1>
 
 	<div id="body">
 

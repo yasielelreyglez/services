@@ -183,10 +183,9 @@ namespace Entities {
         public $complain;
         public $favorite;
         public $rated;
-
         /**
          *
-         * @OneToMany(targetEntity="Payments", mappedBy="service")
+         * @OneToMany(targetEntity="Payments", mappedBy="service",cascade={"persist", "remove"})
          */
         protected $payments;
         /**
@@ -551,11 +550,13 @@ namespace Entities {
          */
         public function addSubCategories(array $subcategories, $em)
         {
+            $actuales = $this->getSubcategories();
             foreach ($subcategories as $subcategory_id) {
                 $subcategory = $em->find('\Entities\Subcategory', $subcategory_id);
-                if ($subcategory) {
-                    $this->addSubCategory($subcategory);
-
+                if(!in_array($subcategory,$actuales)) {
+                    if ($subcategory) {
+                        $this->addSubCategory($subcategory);
+                    }
                 }
             }
             return $this;
@@ -657,16 +658,18 @@ namespace Entities {
         }
 
 
-        public function addFotos(Array $fotos)
+        public function addFotos(Array $fotos,$site_url)
         {
             if (!is_dir("./resources/services/" . $this->id . "/")) {
                 mkdir("./resources/services/" . $this->id . "/");
             }
+
             foreach ($fotos as $icon) {
                 $path = "./resources/services/" . $this->id . "/" . $icon['filename'];
+                $save_path = "$site_url/resources/services/{$this->id}/{$icon['filename']}";
                 file_put_contents($path, base64_decode($icon['value']));
                 $image = new Image();
-                $image->setTitle($path);
+                $image->setTitle($save_path);
                 $this->addImage($image);
             }
             return $this;

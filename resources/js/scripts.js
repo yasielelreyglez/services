@@ -85,8 +85,9 @@ $('.custom-select').select2();
             title:title
         });
     }
-
-    if(google!=undefined) {
+    if (typeof google !== 'undefined') {
+      console.log(google);
+        // the variable is defined
         var map = $("#map-top").gmap3({
             center: [48.8620722, 2.352047],
             zoom: 4
