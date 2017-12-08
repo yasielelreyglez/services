@@ -8,8 +8,7 @@ import {AuthService} from '../../_services/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 
-declare var google: any;
-
+declare var google;
 @Component({
     selector: 'app-showservice',
     templateUrl: './showservice.component.html',
@@ -17,7 +16,6 @@ declare var google: any;
 })
 
 export class ShowserviceComponent implements OnInit {
-    @ViewChild('map2') mapElement: ElementRef;
     map: any;
     start = 'chicago, il';
     end = 'chicago, il';
@@ -37,14 +35,56 @@ export class ShowserviceComponent implements OnInit {
     submitAttempt: boolean;
     currentUser: any;
 
-    // @ViewChild('cuba', {read: ElementRef}) cuba: ElementRef;
+    @ViewChild('map') mapElement: ElementRef;
+    latLng: any;
+    directionsService = new google.maps.DirectionsService;
+    directionsDisplay = new google.maps.DirectionsRenderer;
+    distanceM = new google.maps.DistanceMatrixService();
+    locations: any;
+    positions: any;
+    infowindow = new google.maps.InfoWindow;
 
     constructor(private route: ActivatedRoute, private apiServices: ApiService,
                 public dialog: MatDialog, private authServices: AuthService) {
         this.model = {};
         this.loading = false;
         this.submitAttempt = false;
+        // this.loadMap();
     }
+    loadMap() {
+        let mapOptions = {
+            center: new google.maps.LatLng(23.126606, -82.32528),
+            // center: this.latLng,
+            zoom: 15,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        // this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+        this.directionsDisplay.setMap(this.map);
+        this.directionsDisplay.setOptions({suppressMarkers: true});
+        this.positions = this.service.positionsList;
+
+        for (let i = 0; i < this.positions.length; i++) {
+            let marker = new google.maps.Marker({
+                map: this.map,
+                position: new google.maps.LatLng(this.positions[i].latitude, this.positions[i].longitude)
+            });
+            let content = '<h4>' + this.positions[i].title + '</h4>';
+            this.addInfoWindow(marker, content);
+        }
+    }
+    addInfoWindow(marker, content) {
+
+        google.maps.event.addListener(marker, 'click', () => {
+            this.infowindow.setContent(content)
+            this.infowindow.open(this.map, marker);
+        });
+
+    }
+
+
+
+
 
     ngOnInit() {
         const currentUser = localStorage.getItem('currentUser');
