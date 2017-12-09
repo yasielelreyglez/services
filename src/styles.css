@@ -267,6 +267,16 @@
     height: 300px;
 }
 
+.mt-25{
+    margin-top: 0 !important;
+}
+
+@media (max-width: 992px) {
+    .mt-25{
+        margin-top: 25px !important;
+    }
+}
+
 @media (min-width: 576px) and (max-width: 767px) {
     .container {
         max-width: 100% !important;
