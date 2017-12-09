@@ -1,6 +1,6 @@
 import {User} from './../_models/user';
 import {Injectable} from '@angular/core';
-import {Http, Headers, Response} from '@angular/http';
+import {Http} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
@@ -54,7 +54,7 @@ export class AuthService {
     }
 
     forgotPassword(email: string): Observable<any> {
-        return this.http.post('http://localhost/services/api/forgotpassword', email).map((response: Response) => {
+        return this.http.post('http://localhost/services/api/forgotpassword', email).map((response) => {
                 if (response.json().result === true) {
                     return true;
                 } else {

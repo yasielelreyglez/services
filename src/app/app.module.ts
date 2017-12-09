@@ -9,7 +9,6 @@ import {HttpModule, JsonpModule} from '@angular/http';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './components/login/login.component';
 import {HomeComponent} from './components/home/home.component';
-import {UserService} from './_services/user.service';
 import {MenuComponent} from './components/menu/menu.component';
 import {RegisterComponent} from './components/register/register.component';
 import {EqualValidator} from './_directives/validate-password.directive';
@@ -96,7 +95,6 @@ import { PayserviceComponent } from './components/payservice/payservice.componen
     providers: [
         AuthGuard,
         AuthService,
-        UserService,
         ApiService,
         Data
     ],
