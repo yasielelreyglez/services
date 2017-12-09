@@ -871,7 +871,11 @@ class Api extends REST_Controller
         if($user==$service->author){
             $service->getServicecomments()->toArray();
             $service->getPositions()->toArray();
-            $service->getImages()->toArray();//TODO VER SI SE BORRAN LOS FICHEROS
+           $fotos =  $service->getImages()->toArray();//TODO VER SI SE BORRAN LOS FICHEROS
+            foreach ($fotos as $foto) {
+                delete_files($foto->getTitle());
+            }
+
            $service->getServiceusers()->toArray();
             $service->getPayments()->toArray();
 
