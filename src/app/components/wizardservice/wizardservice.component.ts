@@ -6,6 +6,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Data} from '../../_services/data.service';
 import {isNull} from 'util';
+import {MatSnackBar} from '@angular/material';
 
 
 @Component({
@@ -32,7 +33,8 @@ export class WizardserviceComponent implements OnInit {
 
     citiesList: any;
 
-    constructor(private apiServices: ApiService, private router: Router, private data: Data, private route: ActivatedRoute) {
+    constructor(private apiServices: ApiService, private router: Router, private data: Data, private route: ActivatedRoute,
+                private snackBar: MatSnackBar) {
         this.service = new Service();
         this.previews = [
             {
@@ -130,7 +132,6 @@ export class WizardserviceComponent implements OnInit {
         this.route.params.subscribe(params => {
             if (params['id']) {
                 this.apiServices.service(params['id']).subscribe(result => {
-                    console.log(result.data);
                     this.edit = true;
                     this.service = result.data;
 
@@ -302,8 +303,15 @@ export class WizardserviceComponent implements OnInit {
         this.service.dropsImages = this.dropsImages;
 
         this.apiServices.createFullService(this.service).subscribe(result => {
-            if (result)
+            if (result) {
                 this.router.navigate(['myservices/service', result.id]);
+                if (this.edit) {
+                    this.openSnackBar('El servicio ha sido editado satisfactoriamente', 2500);
+                }
+                else {
+                    this.openSnackBar('El servicio ha sido creado satisfactoriamente', 2500);
+                }
+            }
         });
     }
 
@@ -322,6 +330,13 @@ export class WizardserviceComponent implements OnInit {
                 this.previewvalue = reader.result;
             };
         }
+    }
+
+    openSnackBar(message: string, duration: number, action?: string) {
+        this.snackBar.open(message, action, {
+            duration: duration,
+            horizontalPosition: 'center',
+        });
     }
 
 }

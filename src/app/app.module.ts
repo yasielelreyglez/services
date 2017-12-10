@@ -32,7 +32,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
     MatSelectModule, MatCheckboxModule, MatToolbarModule, MatMenuModule, MatIconModule, MatButtonModule,
     MatFormFieldModule, MatInputModule, MatGridListModule, MatCardModule, MatDialogModule, MatTabsModule,
-    MatStepperModule
+    MatStepperModule, MatSnackBarModule
 } from '@angular/material';
 import {ImageComponent} from './components/_modals/image/image.component';
 import { ImageZoomDirective } from './_directives/image-zoom.directive';
@@ -90,7 +90,8 @@ import { PayserviceComponent } from './components/payservice/payservice.componen
         MatCardModule,
         MatDialogModule,
         MatTabsModule,
-        MatStepperModule
+        MatStepperModule,
+        MatSnackBarModule
     ],
     providers: [
         AuthGuard,
