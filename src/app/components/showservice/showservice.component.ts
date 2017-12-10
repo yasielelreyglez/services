@@ -1,14 +1,14 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../../_services/api.service';
 import {RatingComponent} from '../_modals/rating/rating.component';
 import {isNull} from 'util';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatTabChangeEvent} from '@angular/material';
 import {AuthService} from '../../_services/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 
-declare var google;
+declare const google;
 
 @Component({
     selector: 'app-showservice',
@@ -16,13 +16,7 @@ declare var google;
     styleUrls: ['./showservice.component.css']
 })
 
-export class ShowserviceComponent implements OnInit {
-    map: any;
-    start = 'chicago, il';
-    end = 'chicago, il';
-    // directionsService = new google.maps.DirectionsService;
-
-    // directionsDisplay = new google.maps.DirectionsRenderer;
+export class ShowserviceComponent implements OnInit, AfterViewInit {
     service: any = {};
     images: any[] = [];
     days: string[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
@@ -35,72 +29,29 @@ export class ShowserviceComponent implements OnInit {
     error: string;
     submitAttempt: boolean;
     currentUser: any;
+    selectedIndex = 2;
 
     @ViewChild('map') mapElement: ElementRef;
+    map: any;
     latLng: any;
-    // if(typeof(google)!='undefined') {
-    // directionsService = new google.maps.DirectionsService;
-    // directionsDisplay = new google.maps.DirectionsRenderer;
-    // distanceM = new google.maps.DistanceMatrixService();
-    // locations: any;
-    // positions: any;
-    // infowindow = new google.maps.InfoWindow;
-    //
-    // }
+    infoWindow: any;
+    positions: any;
+
     constructor(private route: ActivatedRoute, private apiServices: ApiService,
                 public dialog: MatDialog, private authServices: AuthService) {
         this.model = {};
         this.loading = false;
         this.submitAttempt = false;
-       // this.loadMap();
+
+        this.latLng = new google.maps.LatLng(23.13302, -82.38304);
+        this.infoWindow = new google.maps.InfoWindow;
     }
 
-    // loadMap() {
-    //     const mapOptions = {
-    //         center: new google.maps.LatLng(23.126606, -82.32528),
-    //         // center: this.latLng,
-    //         zoom: 15,
-    //         mapTypeId: google.maps.MapTypeId.ROADMAP
-    //     };
-    //
-    //     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-    //     this.directionsDisplay.setMap(this.map);
-    //     this.directionsDisplay.setOptions({suppressMarkers: true});
-    //     this.positions = this.service.positionsList;
-    //
-    //     for (let i = 0; i < this.positions.length; i++) {
-    //         const marker = new google.maps.Marker({
-    //             map: this.map,
-    //             position: new google.maps.LatLng(this.positions[i].latitude, this.positions[i].longitude)
-    //         });
-    //         const content = '<h4>' + this.positions[i].title + '</h4>';
-    //         this.addInfoWindow(marker, content);
-    //     }
-    //
-    //
-    //
-    // }
-    //
-    // addInfoWindow(marker, content) {
-    //
-    //     google.maps.event.addListener(marker, 'click', () => {
-    //         this.infowindow.setContent(content);
-    //         this.infowindow.open(this.map, marker);
-    //     });
-    //
-    // }
-
-
     ngOnInit() {
-
-        //google.maps.event.addDomListener(window, 'load', this.loadMap());
-
         const currentUser = localStorage.getItem('currentUser');
         if (currentUser) {
             this.currentUser = JSON.parse(currentUser).email;
         }
-
-        // console.log(this.cuba.nativeElement.hasClass('bc-red'));
 
         this.authServices.currentUser.subscribe(user => {
             this.loggedIn = !!user;
@@ -113,6 +64,7 @@ export class ShowserviceComponent implements OnInit {
                 this.images = result.data.imagesList;
                 this.comment = result.data.servicecommentsList.length;
                 this.result_week_days();
+                this.addPositions();
             });
         });
 
@@ -121,33 +73,57 @@ export class ShowserviceComponent implements OnInit {
         this.commentForm.controls['textcomment'].valueChanges.subscribe(result => {
             if (result && (result.length > 9)) {
                 this.submitAttempt = true;
-            }else {
+            } else {
                 this.submitAttempt = false;
             }
         });
-
-        // var mapProp = {
-        //     center: new google.maps.LatLng(51.508742, -0.120850),
-        //     zoom: 5,
-        //     mapTypeId: google.maps.MapTypeId.ROADMAP
-        // };
-        // var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-        // this.initMap()
-        // console.log(this.commentForm.controls['textcomment'].dirty );
     }
 
-    // initMap() {
-    //     console.log('CUALQUIER TEXTO');
-    //     console.log(this.mapElement);
-    //
-    //     const cuba = new google.maps.LatLng(23.11941, -82.32134);
-    //     this.map = new google.maps.Map(document.getElementById('map2'), {
-    //         zoom: 7,
-    //         center: cuba
-    //     });
-    //
-    //     // this.directionsDisplay.setMap(this.map);
-    // }
+    ngAfterViewInit() {
+        this.initMap();
+    }
+
+    tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
+        // if (tabChangeEvent.index === 1) {
+        //     console.log('Mapa');
+        //     google.maps.event.trigger(this.map, 'resize');
+        // }
+    }
+
+    initMap() {
+        let mapOptions = {
+            center: this.latLng,
+            zoom: 11,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+    }
+
+    addPositions() {
+        // this.directionsDisplay.setMap(this.map);
+        // this.directionsDisplay.setOptions({suppressMarkers: true});
+        this.positions = this.service.positionsList;
+        for (let i = 0; i < this.positions.length; i++) {
+            let marker = new google.maps.Marker({
+                map: this.map,
+                position: new google.maps.LatLng(this.positions[i].latitude, this.positions[i].longitude)
+            });
+
+
+            let content = '<h6 class="tc-blue">' + this.positions[i].title + '</h6>';
+            this.addInfoWindow(marker, content);
+        }
+    }
+
+    addInfoWindow(marker, content) {
+        google.maps.event.addListener(marker, 'click', () => {
+            this.infoWindow.setContent(content)
+            this.infoWindow.open(this.map, marker);
+        });
+
+    }
+
 
     result_week_days() {
         if (this.service.week_days !== '') {

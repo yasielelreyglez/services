@@ -263,9 +263,10 @@
 }
 
 #map {
+    height: 400px;
     width: 100%;
-    height: 300px;
 }
+
 
 .report-comment {
     background-color: antiquewhite;
