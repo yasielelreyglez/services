@@ -27,7 +27,7 @@ export class MenuComponent implements OnInit {
     logout(): void {
         this.authServices.logout();
         this.router.navigate(['']);
-        this.openSnackBar('Ha cerrado la session correctamente', 2500);
+        this.openSnackBar('Ha cerrado la session correctamente.', 2500);
     }
 
     menu() {

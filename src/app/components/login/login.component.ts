@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
             .subscribe(result => {
                 if (result === true) {
                     this.router.navigate(['']);
-                    this.openSnackBar('Usuario autenticado correctamente', 2500);
+                    this.openSnackBar('Usuario autenticado correctamente.', 2500);
                 } else {
                     this.error = 'Username or password is incorrect';
                     this.loading = false;

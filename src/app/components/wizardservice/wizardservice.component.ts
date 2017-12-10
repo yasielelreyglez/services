@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ApiService} from '../../_services/api.service';
 import {Service} from '../../_models/service';
 import {City} from '../../_models/city';
@@ -8,6 +8,7 @@ import {Data} from '../../_services/data.service';
 import {isNull} from 'util';
 import {MatSnackBar} from '@angular/material';
 
+declare const google;
 
 @Component({
     selector: 'app-wizardservice',
@@ -15,7 +16,7 @@ import {MatSnackBar} from '@angular/material';
     styleUrls: ['./wizardservice.component.css']
 })
 
-export class WizardserviceComponent implements OnInit {
+export class WizardserviceComponent implements OnInit, AfterViewInit {
     previews: any;
     previewvalue: string;
     service: Service;
@@ -30,11 +31,19 @@ export class WizardserviceComponent implements OnInit {
     firstForm: FormGroup;
     edit: boolean;
     dropsImages: any;
-
     citiesList: any;
+
+    @ViewChild('map') mapElement: ElementRef;
+    map: any;
+    latLng: any;
+    infoWindow: any;
 
     constructor(private apiServices: ApiService, private router: Router, private data: Data, private route: ActivatedRoute,
                 private snackBar: MatSnackBar) {
+
+            // this.latLng = new google.maps.LatLng(23.13302, -82.38304);
+            // this.infoWindow = new google.maps.InfoWindow;
+
         this.service = new Service();
         this.previews = [
             {
@@ -177,7 +186,32 @@ export class WizardserviceComponent implements OnInit {
         this.apiServices.cities().subscribe(result => this.cities = result);
         this.apiServices.allSubCategories().subscribe(result => this.categories = result);
         this.createForms();
+    }
 
+    ngAfterViewInit() {
+        // this.initMap();
+    }
+
+    initMap() {
+        let mapOptions = {
+            center: this.latLng,
+            zoom: 10,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            zoomControl: true,
+            mapTypeControl: false,
+            scaleControl: false,
+            streetViewControl: false,
+            rotateControl: true,
+            fullscreenControl: false
+        };
+        this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+        this.map.addListener('click', function (e) {
+            console.log(e);
+            const marker = new google.maps.Marker({
+                position: e.latLng,
+                map: this.map
+            });
+        });
     }
 
     createForms() {
@@ -306,10 +340,10 @@ export class WizardserviceComponent implements OnInit {
             if (result) {
                 this.router.navigate(['myservices/service', result.id]);
                 if (this.edit) {
-                    this.openSnackBar('El servicio ha sido editado satisfactoriamente', 2500);
+                    this.openSnackBar('El servicio ha sido editado satisfactoriamente.', 2500);
                 }
                 else {
-                    this.openSnackBar('El servicio ha sido creado satisfactoriamente', 2500);
+                    this.openSnackBar('El servicio ha sido creado satisfactoriamente.', 2500);
                 }
             }
         });

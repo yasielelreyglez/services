@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../../_services/api.service';
 import {RatingComponent} from '../_modals/rating/rating.component';
 import {isNull} from 'util';
-import {MatDialog, MatTabChangeEvent} from '@angular/material';
+import {MatDialog, MatSnackBar, MatTabChangeEvent} from '@angular/material';
 import {AuthService} from '../../_services/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
@@ -38,13 +38,13 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
     positions: any;
 
     constructor(private route: ActivatedRoute, private apiServices: ApiService,
-                public dialog: MatDialog, private authServices: AuthService) {
+                public dialog: MatDialog, private authServices: AuthService, private snackBar: MatSnackBar) {
         this.model = {};
         this.loading = false;
         this.submitAttempt = false;
 
-        this.latLng = new google.maps.LatLng(23.13302, -82.38304);
-        this.infoWindow = new google.maps.InfoWindow;
+        // this.latLng = new google.maps.LatLng(23.13302, -82.38304);
+        // this.infoWindow = new google.maps.InfoWindow;
     }
 
     ngOnInit() {
@@ -64,7 +64,7 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
                 this.images = result.data.imagesList;
                 this.comment = result.data.servicecommentsList.length;
                 this.result_week_days();
-                this.addPositions();
+                // this.addPositions();
             });
         });
 
@@ -80,7 +80,7 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.initMap();
+        // this.initMap();
     }
 
     tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
@@ -94,10 +94,15 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
         let mapOptions = {
             center: this.latLng,
             zoom: 11,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            zoomControl: true,
+            mapTypeControl: false,
+            scaleControl: false,
+            streetViewControl: false,
+            rotateControl: true,
+            fullscreenControl: false
         };
         this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
     }
 
     addPositions() {
@@ -121,7 +126,6 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
             this.infoWindow.setContent(content)
             this.infoWindow.open(this.map, marker);
         });
-
     }
 
 
@@ -209,8 +213,17 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            if (result)
+            if (result){
                 this.service = result;
+                this.openSnackBar('El servicio ha sido evaluado satisfactoriamente.', 2500);
+            }
+        });
+    }
+
+    openSnackBar(message: string, duration: number, action?: string) {
+        this.snackBar.open(message, action, {
+            duration: duration,
+            horizontalPosition: 'center',
         });
     }
 
