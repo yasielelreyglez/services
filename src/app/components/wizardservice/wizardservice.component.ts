@@ -24,8 +24,8 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     positiontitle: string;
     cities: City[];
     categories: any;
-    latitude: string;
-    longitude: string;
+    latitude: number
+    longitude: number;
     positions: any;
     week_days: any;
     firstForm: FormGroup;
@@ -37,6 +37,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     map: any;
     latLng: any;
     infoWindow: any;
+    markers: any;
 
     constructor(private apiServices: ApiService, private router: Router, private data: Data, private route: ActivatedRoute,
                 private snackBar: MatSnackBar) {
@@ -136,6 +137,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         ];
 
         this.dropsImages = new Array();
+        this.markers = new Array();
         this.previewvalue = '../../../assets/service_img.png';
         this.service.week_days = [false, false, false, false, false, false, false];
 
@@ -205,21 +207,58 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
             rotateControl: true,
             fullscreenControl: false
         };
-        let map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-        google.maps.event.addListener(map, 'click', function (event) {
+        this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+        google.maps.event.addListener(this.map, 'click', this.addMarker(this));
+
+    }
+
+    addMarker(that) {
+        return function (event) {
             let marker = new google.maps.Marker({
                 position: event.latLng,
-                map: map,
+                map: that.map,
                 draggable: true,
                 animation: google.maps.Animation.DROP,
             });
-            map.panTo(marker.getPosition());
-            google.maps.event.clearListeners(map, 'click');
+            that.latitude = marker.getPosition().lat();
+            that.longitude = marker.getPosition().lng();
+
+            that.map.panTo(event.latLng);
+
+            that.markers.push(marker);
 
             google.maps.event.addListener(marker, 'dragend', function () {
-                this.latitude = marker.getPosition().lat();
-                this.longitude = marker.getPosition().lng();
+                that.latitude = marker.getPosition().lat();
+                that.longitude = marker.getPosition().lng();
+                that.map.panTo(marker.getPosition());
             });
+
+            google.maps.event.clearListeners(that.map, 'click');
+        };
+    }
+
+    addPosition() {
+        this.positions.push({
+            title: this.positiontitle,
+            longitude: this.longitude,
+            latitude: this.latitude
+        });
+
+        const content = '<h6 class="tc-blue">' + this.positiontitle + '</h6>';
+        this.addInfoWindow(this.markers[this.markers.length - 1], content);
+
+        this.markers[this.markers.length - 1].draggable = false;
+        google.maps.event.addListener(this.map, 'click', this.addMarker(this));
+
+        this.positiontitle = '';
+        this.longitude = null;
+        this.latitude = null;
+    }
+
+    addInfoWindow(marker, content) {
+        google.maps.event.addListener(marker, 'click', () => {
+            this.infoWindow.setContent(content)
+            this.infoWindow.open(this.map, marker);
         });
     }
 
@@ -247,19 +286,10 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     }
 
 
-    addPosition() {
-        this.positions.push({
-            title: this.positiontitle,
-            longitude: this.longitude,
-            latitude: this.latitude
-        });
-        this.positiontitle = '';
-        this.longitude = '';
-        this.latitude = '';
-    }
-
     deletePosition(pos: number) {
         this.positions.splice(pos, 1);
+        this.markers[pos].setMap(null);
+        this.markers.splice(pos, 1);
     }
 
     moreImageGalery() {

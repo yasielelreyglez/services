@@ -63,7 +63,6 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
                 this.images = result.data.imagesList;
                 this.comment = result.data.servicecommentsList.length;
                 this.result_week_days();
-
             });
         });
 
@@ -79,7 +78,6 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-
     }
 
     tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
@@ -128,7 +126,6 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
             this.infoWindow.open(this.map, marker);
         });
     }
-
 
     result_week_days() {
         if (this.service.week_days !== '') {
