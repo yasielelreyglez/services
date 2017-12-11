@@ -68,10 +68,24 @@ class Services extends CI_Controller {
 	}
 
 	# GET /services/destroy/1
-	function destroy() {
-		$id = $this->uri->segment(3);
-		$data['services'] = $this->Services_model->destroy($id);
-		redirect('admin/services/index', 'refresh');
+	function destroy($id) {
+
+        $em = $this->doctrine->em;
+        $service = $em->find("\Entities\Service", $id);
+
+            $service->getServicecomments()->toArray();
+            $service->getPositions()->toArray();
+            $fotos = $service->getImages()->toArray();//TODO VER SI SE BORRAN LOS FICHEROS
+            foreach ($fotos as $foto) {
+                delete_files($foto->getTitle());
+            }
+            $service->getServiceusers()->toArray();
+            $service->getPayments()->toArray();
+
+            //CARGADA LA RELACION PARA DESPUES ELIMINARLAS CON EL SERVICIO
+            $em->remove($service);
+            $em->flush();
+        redirect('admin/services/index', 'refresh');
 	}
 
 	# POST /services/save

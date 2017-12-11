@@ -687,12 +687,12 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function addFotos(array $fotos)
+    public function addFotos(array $fotos, $site_url)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addFotos', [$fotos]);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addFotos', [$fotos, $site_url]);
 
-        return parent::addFotos($fotos);
+        return parent::addFotos($fotos, $site_url);
     }
 
     /**
