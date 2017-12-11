@@ -29,7 +29,6 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
     error: string;
     submitAttempt: boolean;
     currentUser: any;
-    selectedIndex = 2;
 
     @ViewChild('map') mapElement: ElementRef;
     map: any;
@@ -43,8 +42,8 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
         this.loading = false;
         this.submitAttempt = false;
 
-        // this.latLng = new google.maps.LatLng(23.13302, -82.38304);
-        // this.infoWindow = new google.maps.InfoWindow;
+        this.latLng = new google.maps.LatLng(23.13302, -82.38304);
+        this.infoWindow = new google.maps.InfoWindow;
     }
 
     ngOnInit() {
@@ -64,7 +63,7 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
                 this.images = result.data.imagesList;
                 this.comment = result.data.servicecommentsList.length;
                 this.result_week_days();
-                // this.addPositions();
+
             });
         });
 
@@ -80,20 +79,21 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        // this.initMap();
+
     }
 
     tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
-        // if (tabChangeEvent.index === 1) {
-        //     console.log('Mapa');
-        //     google.maps.event.trigger(this.map, 'resize');
-        // }
+        if (tabChangeEvent.index === 1) {
+            this.initMap();
+            this.addPositions();
+            // google.maps.event.trigger(this.map, 'resize');
+        }
     }
 
     initMap() {
         let mapOptions = {
             center: this.latLng,
-            zoom: 11,
+            zoom: 10,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             zoomControl: true,
             mapTypeControl: false,
@@ -110,14 +110,15 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
         // this.directionsDisplay.setOptions({suppressMarkers: true});
         this.positions = this.service.positionsList;
         for (let i = 0; i < this.positions.length; i++) {
-            let marker = new google.maps.Marker({
-                map: this.map,
-                position: new google.maps.LatLng(this.positions[i].latitude, this.positions[i].longitude)
-            });
-
-
-            let content = '<h6 class="tc-blue">' + this.positions[i].title + '</h6>';
-            this.addInfoWindow(marker, content);
+            setTimeout(() => {
+                let marker = new google.maps.Marker({
+                    map: this.map,
+                    position: new google.maps.LatLng(this.positions[i].latitude, this.positions[i].longitude),
+                    animation: google.maps.Animation.DROP,
+                });
+                let content = '<h6 class="tc-blue">' + this.positions[i].title + '</h6>';
+                this.addInfoWindow(marker, content);
+            }, i * 200);
         }
     }
 
@@ -213,9 +214,9 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            if (result){
+            if (result) {
                 this.service = result;
-                this.openSnackBar('El servicio ha sido evaluado satisfactoriamente.', 2500);
+                this.openSnackBar('El servicio ha sido evaluado satisfactoriamente', 2500);
             }
         });
     }

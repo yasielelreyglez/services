@@ -41,8 +41,9 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     constructor(private apiServices: ApiService, private router: Router, private data: Data, private route: ActivatedRoute,
                 private snackBar: MatSnackBar) {
 
-            // this.latLng = new google.maps.LatLng(23.13302, -82.38304);
-            // this.infoWindow = new google.maps.InfoWindow;
+        this.latLng = new google.maps.LatLng(23.13302, -82.38304);
+        this.infoWindow = new google.maps.InfoWindow;
+
 
         this.service = new Service();
         this.previews = [
@@ -189,7 +190,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        // this.initMap();
+        this.initMap();
     }
 
     initMap() {
@@ -204,12 +205,20 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
             rotateControl: true,
             fullscreenControl: false
         };
-        this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-        this.map.addListener('click', function (e) {
-            console.log(e);
-            const marker = new google.maps.Marker({
-                position: e.latLng,
-                map: this.map
+        let map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+        google.maps.event.addListener(map, 'click', function (event) {
+            let marker = new google.maps.Marker({
+                position: event.latLng,
+                map: map,
+                draggable: true,
+                animation: google.maps.Animation.DROP,
+            });
+            map.panTo(marker.getPosition());
+            google.maps.event.clearListeners(map, 'click');
+
+            google.maps.event.addListener(marker, 'dragend', function () {
+                this.latitude = marker.getPosition().lat();
+                this.longitude = marker.getPosition().lng();
             });
         });
     }
