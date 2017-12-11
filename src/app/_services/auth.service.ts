@@ -1,6 +1,6 @@
 import {User} from './../_models/user';
 import {Injectable} from '@angular/core';
-import {Http, Headers, Response} from '@angular/http';
+import {Http} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
@@ -18,7 +18,7 @@ export class AuthService {
 
     login(user: User): Observable<boolean> {
         const body = JSON.stringify({email: user.email, password: user.password});
-        return this.http.post('http://localhost/services/auth/login', body).map(response => response.json()).map(result => {
+        return this.http.post('services/auth/login', body).map(response => response.json()).map(result => {
             if (!result.error) {
                 localStorage.setItem('currentUser', JSON.stringify(result));
                 this.currentUser.next(result);
@@ -30,7 +30,7 @@ export class AuthService {
 
     register(user: User): Observable<boolean> {
         const body = JSON.stringify({name: user.name, email: user.email, password: user.password});
-        return this.http.post('http://localhost/services/auth/register', body).map(response => response.json()).map(result => {
+        return this.http.post('services/auth/register', body).map(response => response.json()).map(result => {
             if (!result.error) {
                 localStorage.setItem('currentUser', JSON.stringify(result));
                 this.currentUser.next(result);
@@ -43,6 +43,7 @@ export class AuthService {
     logout(): void {
         // clear token remove user from local storage to log user out
         localStorage.removeItem('currentUser');
+        localStorage.removeItem('searchServices');
         this.currentUser.next(false);
     }
 
@@ -54,7 +55,7 @@ export class AuthService {
     }
 
     forgotPassword(email: string): Observable<any> {
-        return this.http.post('http://localhost/services/api/forgotpassword', email).map((response: Response) => {
+        return this.http.post('services/api/forgotpassword', email).map((response) => {
                 if (response.json().result === true) {
                     return true;
                 } else {

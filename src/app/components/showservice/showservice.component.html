@@ -5,7 +5,7 @@
                  [src]="service.icon ? service.icon : '../../../assets/service_img.png'" alt=""
                  style="border: 1px solid #bcbcbc; padding: 5px; width: 90%; height: 100%;" appImageZoom>
         </div>
-        <div class="media-body">
+        <div class="media-body d-none d-sm-block">
             <div class="info service">
                 <mat-grid-list cols="12" rowHeight="40px">
                     <mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">
@@ -36,14 +36,58 @@
                 </mat-grid-list>
             </div>
         </div>
+        <div class="media-body d-block d-sm-none">
+            <div class="info service">
+                <mat-grid-list cols="12" rowHeight="40px">
+                    <mat-grid-tile [colspan]="4" [rowspan]="3" class="izq">
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="8" [rowspan]="1">
+                        <span class="tc-blue fw-600" style="font-size: 40px;">{{service.globalrate}}/10</span>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="8" [rowspan]="1">
+                        <button [disabled]="!loggedIn" mat-raised-button color="primary"
+                                (click)="ratingDialog(service.id)">
+                            Evaluar
+                        </button>
+                    </mat-grid-tile>
+                    <mat-grid-tile class="tc-blue" [colspan]="8" [rowspan]="1">
+                        <mat-icon style="padding-top: 3px;">comment</mat-icon>
+                        <span style="font-size: 26px; margin-left: 5px;">{{comment}}</span>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </div>
+        </div>
     </div>
+
+    <div class="media-body d-block d-sm-none">
+        <div class="info service">
+            <mat-grid-list cols="12" rowHeight="40px">
+                <mat-grid-tile [colspan]="12" [rowspan]="1" class="izq">
+                    <h5 class="mt-0 tc-blue">{{service.title}}</h5>
+                </mat-grid-tile>
+
+                <mat-grid-tile [colspan]="12" [rowspan]="2" class="izq">
+                    <div class="fw-600 tc-grei" style="font-size: 13px;">
+                        <span>{{service.subtitle}}</span><br>
+                        <span>{{service.address}}</span><br>
+                        <span>1.5 KM de tu posición</span><br>
+                        <span>{{service.phone}}</span>
+                    </div>
+                </mat-grid-tile>
+
+
+            </mat-grid-list>
+            <br>
+        </div>
+    </div>
+
     <div *ngIf="service.description">
         <h5 class="tc-blue">Descripción General</h5>
         <p class="tc-grei">{{service.description}}
         </p>
     </div>
 
-    <mat-tab-group>
+    <mat-tab-group (selectedTabChange)="tabChanged($event)">
         <mat-tab label="Informacion" id="information">
             <br>
             <div style="height: 160px;">
@@ -68,159 +112,163 @@
         </mat-tab>
 
         <mat-tab label="Mapa">
-            <br>
-
-            <div #map id="map"></div>
-
+            <br/>
             <h5 class="tc-blue">Mis ubicaciones</h5>
+            <div #map id="map"></div>
+            <br>
+            <h5 class="tc-blue">Mas cercano:</h5>
 
+            <br>
+            <h5 class="tc-blue">Adicionales</h5>
+            <hr class="bc-grei">
             <div *ngFor="let currentposition of service.positionsList; let pos = index">
-                <hr class="bc-grei">
-                <mat-grid-list cols="12" class="mat-position" rowHeight="26px">
-                    <mat-grid-tile [colspan]="12" [rowspan]="2" class="izq">
-                        <div>
-                            <mat-icon style="position: absolute;" class="tc-blue md-3 md-40">location_on</mat-icon>
-                        </div>
-                        <div>
-                            <h6 class="tc-blue mb-0" style="margin-left: 45px;">{{currentposition.title}}</h6>
-                        </div>
-                        <div>
-                            <p class="tc-grei mb-0" style="margin-left: 45px;">
-                                {{currentposition.longitude}};{{currentposition.latitude}}</p>
-                        </div>
-                    </mat-grid-tile>
-                </mat-grid-list>
-            </div>
-            <br>
-        </mat-tab>
-
-        <mat-tab label="Imágenes">
-            <br>
-            <mat-grid-list cols="2" class="mat-images d-block d-sm-none" rowHeight="140px">
-                <mat-grid-tile *ngFor="let prev of images" class="text-center">
-                    <div class="mat-content text-center">
-                        <img [src]="prev.title"
-                             alt=""
-                             style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
-                             appImageZoom>
+                <div class="row" style="width: 100%;">
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="padding-right: 0; padding-top: 9px;">
+                        <mat-icon style="position: absolute;" class="tc-blue md-3">location_on</mat-icon>
                     </div>
-                </mat-grid-tile>
-            </mat-grid-list>
-            <mat-grid-list cols="3" class="mat-images d-none d-sm-block d-md-none" rowHeight="140px">
-                <mat-grid-tile *ngFor="let prev of images" class="text-center">
-                    <div class="mat-content text-center">
-                        <img [src]="prev.title"
-                             alt=""
-                             style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
-                             appImageZoom>
+                    <div class="col-7 col-sm-7 col-md-7 col-lg-7" style="padding-left: 0;">
+                        <h6 class="tc-blue mb-0" style="margin-top: 12px;">
+                            {{currentposition.title}}</h6>
                     </div>
-                </mat-grid-tile>
-            </mat-grid-list>
-            <mat-grid-list cols="4" class="mat-images d-none d-md-block d-lg-none" rowHeight="140px">
-                <mat-grid-tile *ngFor="let prev of images" class="text-center">
-                    <div class="mat-content text-center">
-                        <img [src]="prev.title"
-                             alt=""
-                             style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
-                             appImageZoom>
+                    <div class="col-3 col-sm-3 col-md-3 col-lg-3">
+                        <button class="tc-white pull-right" style="" mat-icon-button>
+                            <mat-icon color="primary">navigation</mat-icon>
+                        </button>
                     </div>
-                </mat-grid-tile>
-            </mat-grid-list>
-            <mat-grid-list cols="6" class="mat-images d-none d-lg-block" rowHeight="140px">
-                <mat-grid-tile *ngFor="let prev of images" class="text-center">
-                    <div class="mat-content text-center">
-                        <img [src]="prev.title"
-                             alt=""
-                             style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
-                             appImageZoom>
-                    </div>
-                </mat-grid-tile>
-            </mat-grid-list>
-            <br>
-        </mat-tab>
-
-        <mat-tab label="Comentarios">
-            <br>
-            <form *ngIf="loggedIn" [formGroup]="commentForm" (ngSubmit)="commentForm.valid && sendComment()">
-                <mat-form-field hintLabel="Min 10 characters" class="textcomment">
-                    <textarea matInput placeholder="Escribe tu comentario" #textcomment name="textcomment"
-                              [formControl]="commentForm.controls['textcomment']" [(ngModel)]="model.textcomment"
-                    ></textarea>
-                    <button mat-button *ngIf="model.textcomment" matSuffix mat-icon-button aria-label="Clear"
-                            (click)="model.textcomment = ''">
-                        <mat-icon>close</mat-icon>
-                    </button>
-                    <mat-hint align="end">{{textcomment.value?.length || 0}}</mat-hint>
-                    <mat-error *ngIf="commentForm.controls['textcomment'].invalid">{{getErrorMessage()}}</mat-error>
-                </mat-form-field>
-                <br>
-                <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-                <br>
-                <div class="form-group text-center">
-                    <button mat-raised-button color="primary" class="tc-white col-12"
-                            [disabled]="loading || !submitAttempt">
-                        <mat-icon>comment</mat-icon>
-                        Comentar ahora
-                    </button>
-                    <img *ngIf="loading"
-                         src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
-                    />
-                </div>
-            </form>
-            <br>
-            <h5 class="tc-blue">Comentarios anteriores</h5>
-
-            <div *ngIf="comment === 0">
-                <p class="tc-grei">No existen comentarios</p>
-            </div>
-
-            <div id="comments" *ngFor="let currentcomment of service.servicecommentsList">
-                <hr class="bc-grei">
-                <mat-grid-list cols="12" rowHeight="30px">
-                    <mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">
-                        <h6 class="tc-blue mb-0">{{currentcomment.user.username}}</h6>
-                    </mat-grid-tile>
-                    <mat-grid-tile class="comment-date" [colspan]="4" [rowspan]="1">
-                        <span class="tc-blue">{{currentcomment.created.date | date: 'mediumDate'}}</span>
-                    </mat-grid-tile>
-                </mat-grid-list>
-                <div>
-                    <p class="tc-grei">{{currentcomment.comment}}</p>
-                    <mat-grid-list *ngIf="(service.author.email === currentUser) && loggedIn" cols="10"
-                                   rowHeight="26px">
-                        <mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">
-                        </mat-grid-tile>
-                        <mat-grid-tile class="" [colspan]="1" [rowspan]="1">
-                            <button (click)="reportComment(currentcomment.id)" mat-raised-button
-                                    class="bc-red tc-white">
-                                <mat-icon>mic</mat-icon>
-                            </button>
-                        </mat-grid-tile>
-                        <mat-grid-tile class="" [colspan]="1" [rowspan]="1">
-                            <button id="hided-{{currentcomment.id}}"
-                                    (click)="hideComment(currentcomment.id, currentcomment.hided)" mat-raised-button
-                                    class="tc-white"
-                                    [ngClass]="(!currentcomment.hided) ? 'bc-green' : 'bc-red'">
-                                <mat-icon>{{(!currentcomment.hided) ? 'done' : 'clear'}}</mat-icon>
-                            </button>
-                        </mat-grid-tile>
-                    </mat-grid-list>
-
-                    <mat-grid-list *ngIf="(service.author.email !== currentUser) && loggedIn" cols="10"
-                                   rowHeight="26px">
-                        <mat-grid-tile [colspan]="9" [rowspan]="1" class="izq">
-                        </mat-grid-tile>
-                        <mat-grid-tile class="" [colspan]="1" [rowspan]="1">
-                            <button (click)="reportComment(currentcomment.id)" mat-raised-button
-                                    class="bc-red tc-white">
-                                <mat-icon>mic</mat-icon>
-                            </button>
-                        </mat-grid-tile>
-                    </mat-grid-list>
                 </div>
             </div>
-            <br><br>
+            <br>
         </mat-tab>
+
+        <!--<mat-tab label="Imágenes">-->
+        <!--<br>-->
+        <!--<mat-grid-list cols="2" class="mat-images d-block d-sm-none" rowHeight="140px">-->
+        <!--<mat-grid-tile *ngFor="let prev of images" class="text-center">-->
+        <!--<div class="mat-content text-center">-->
+        <!--<img [src]="prev.title"-->
+        <!--alt=""-->
+        <!--style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"-->
+        <!--appImageZoom>-->
+        <!--</div>-->
+        <!--</mat-grid-tile>-->
+        <!--</mat-grid-list>-->
+        <!--<mat-grid-list cols="3" class="mat-images d-none d-sm-block d-md-none" rowHeight="140px">-->
+        <!--<mat-grid-tile *ngFor="let prev of images" class="text-center">-->
+        <!--<div class="mat-content text-center">-->
+        <!--<img [src]="prev.title"-->
+        <!--alt=""-->
+        <!--style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"-->
+        <!--appImageZoom>-->
+        <!--</div>-->
+        <!--</mat-grid-tile>-->
+        <!--</mat-grid-list>-->
+        <!--<mat-grid-list cols="4" class="mat-images d-none d-md-block d-lg-none" rowHeight="140px">-->
+        <!--<mat-grid-tile *ngFor="let prev of images" class="text-center">-->
+        <!--<div class="mat-content text-center">-->
+        <!--<img [src]="prev.title"-->
+        <!--alt=""-->
+        <!--style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"-->
+        <!--appImageZoom>-->
+        <!--</div>-->
+        <!--</mat-grid-tile>-->
+        <!--</mat-grid-list>-->
+        <!--<mat-grid-list cols="6" class="mat-images d-none d-lg-block" rowHeight="140px">-->
+        <!--<mat-grid-tile *ngFor="let prev of images" class="text-center">-->
+        <!--<div class="mat-content text-center">-->
+        <!--<img [src]="prev.title"-->
+        <!--alt=""-->
+        <!--style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"-->
+        <!--appImageZoom>-->
+        <!--</div>-->
+        <!--</mat-grid-tile>-->
+        <!--</mat-grid-list>-->
+        <!--<br>-->
+        <!--</mat-tab>-->
+
+        <!--<mat-tab label="Comentarios">-->
+        <!--<br>-->
+        <!--<form *ngIf="loggedIn" [formGroup]="commentForm" (ngSubmit)="commentForm.valid && sendComment()">-->
+        <!--<mat-form-field hintLabel="Min 10 characters" class="textcomment">-->
+        <!--<textarea matInput placeholder="Escribe tu comentario" #textcomment name="textcomment"-->
+        <!--[formControl]="commentForm.controls['textcomment']" [(ngModel)]="model.textcomment"-->
+        <!--&gt;</textarea>-->
+        <!--<button mat-button *ngIf="model.textcomment" matSuffix mat-icon-button aria-label="Clear"-->
+        <!--(click)="model.textcomment = ''">-->
+        <!--<mat-icon>close</mat-icon>-->
+        <!--</button>-->
+        <!--<mat-hint align="end">{{textcomment.value?.length || 0}}</mat-hint>-->
+        <!--<mat-error *ngIf="commentForm.controls['textcomment'].invalid">{{getErrorMessage()}}</mat-error>-->
+        <!--</mat-form-field>-->
+        <!--<br>-->
+        <!--<div *ngIf="error" class="alert alert-danger">{{error}}</div>-->
+        <!--<br>-->
+        <!--<div class="form-group text-center">-->
+        <!--<button mat-raised-button color="primary" class="tc-white col-12"-->
+        <!--[disabled]="loading || !submitAttempt">-->
+        <!--<mat-icon>comment</mat-icon>-->
+        <!--Comentar ahora-->
+        <!--</button>-->
+        <!--<img *ngIf="loading"-->
+        <!--src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="-->
+        <!--/>-->
+        <!--</div>-->
+        <!--</form>-->
+        <!--<br>-->
+        <!--<h5 class="tc-blue">Comentarios anteriores</h5>-->
+
+        <!--<div *ngIf="comment === 0">-->
+        <!--<p class="tc-grei">No existen comentarios</p>-->
+        <!--</div>-->
+
+        <!--<div id="comments" *ngFor="let currentcomment of service.servicecommentsList">-->
+        <!--<div [class]="(currentcomment.reportuser !== null) ? 'report-comment': ''">-->
+        <!--<hr class="bc-grei">-->
+        <!--<mat-grid-list cols="12" rowHeight="30px">-->
+        <!--<mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">-->
+        <!--<h6 class="tc-blue mb-0">{{currentcomment.user.username}}</h6>-->
+        <!--</mat-grid-tile>-->
+        <!--<mat-grid-tile class="comment-date" [colspan]="4" [rowspan]="1">-->
+        <!--<span class="tc-blue">{{currentcomment.created.date | date: 'mediumDate'}}</span>-->
+        <!--</mat-grid-tile>-->
+        <!--</mat-grid-list>-->
+        <!--<div>-->
+        <!--<p class="tc-grei">{{currentcomment.comment}}</p>-->
+        <!--<mat-grid-list *ngIf="(service.author.email === currentUser) && loggedIn" cols="10"-->
+        <!--rowHeight="26px">-->
+        <!--<mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">-->
+        <!--</mat-grid-tile>-->
+        <!--<mat-grid-tile class="" [colspan]="1" [rowspan]="1">-->
+        <!--<button (click)="reportComment(currentcomment.id)" mat-raised-button-->
+        <!--class="bc-red tc-white">-->
+        <!--<mat-icon>mic</mat-icon>-->
+        <!--</button>-->
+        <!--</mat-grid-tile>-->
+        <!--<mat-grid-tile class="" [colspan]="1" [rowspan]="1">-->
+        <!--<button id="hided-{{currentcomment.id}}"-->
+        <!--(click)="hideComment(currentcomment.id, currentcomment.hided)" mat-raised-button-->
+        <!--class="tc-white"-->
+        <!--[ngClass]="(!currentcomment.hided) ? 'bc-green' : 'bc-red'">-->
+        <!--<mat-icon>{{(!currentcomment.hided) ? 'done' : 'clear'}}</mat-icon>-->
+        <!--</button>-->
+        <!--</mat-grid-tile>-->
+        <!--</mat-grid-list>-->
+
+        <!--<mat-grid-list *ngIf="(service.author.email !== currentUser) && loggedIn" cols="10"-->
+        <!--rowHeight="26px">-->
+        <!--<mat-grid-tile [colspan]="9" [rowspan]="1" class="izq">-->
+        <!--</mat-grid-tile>-->
+        <!--<mat-grid-tile class="" [colspan]="1" [rowspan]="1">-->
+        <!--<button (click)="reportComment(currentcomment.id)" mat-raised-button-->
+        <!--class="bc-red tc-white">-->
+        <!--<mat-icon>mic</mat-icon>-->
+        <!--</button>-->
+        <!--</mat-grid-tile>-->
+        <!--</mat-grid-list>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<br><br>-->
+        <!--</mat-tab>-->
     </mat-tab-group>
 </div>
 

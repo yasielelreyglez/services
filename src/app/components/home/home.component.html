@@ -1,8 +1,7 @@
 <div class="col-12">
     <form name="form" (ngSubmit)="f.form.valid && searchQuery()" #f="ngForm">
         <mat-form-field class="text-center">
-            <input matInput placeholder="¿Que buscas?" name="query" [(ngModel)]="query" required>
-            <mat-error *ngIf="search.invalid">{{getErrorMessage()}}</mat-error>
+            <input matInput placeholder="¿Que buscas?" name="query" [(ngModel)]="query">
         </mat-form-field>
     </form>
     <br>

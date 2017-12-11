@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {AuthService} from '../../_services/auth.service';
 import {ForgotpassComponent} from '../_modals/forgotpass/forgotpass.component';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 
 @Component({
     selector: 'app-login',
@@ -18,7 +18,8 @@ export class LoginComponent implements OnInit {
     hide = true;
     loginForm: FormGroup;
 
-    constructor(public dialog: MatDialog, private router: Router, private authService: AuthService) {
+    constructor(public dialog: MatDialog, private router: Router, private authService: AuthService,
+                private snackBar: MatSnackBar) {
         this.user = new User();
         this.loading = false;
         this.error = '';
@@ -50,6 +51,7 @@ export class LoginComponent implements OnInit {
             .subscribe(result => {
                 if (result === true) {
                     this.router.navigate(['']);
+                    this.openSnackBar('Usuario autenticado correctamente.', 2500);
                 } else {
                     this.error = 'Username or password is incorrect';
                     this.loading = false;
@@ -64,6 +66,13 @@ export class LoginComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(() => {
             console.log('The dialog was closed');
+        });
+    }
+
+    openSnackBar(message: string, duration: number, action?: string ) {
+        this.snackBar.open(message, action, {
+            duration: duration,
+            horizontalPosition: 'center',
         });
     }
 

@@ -62,9 +62,17 @@ export class ServicesComponent implements OnInit {
     result_subcategories(service: any) {
         if (!isNull(service.subcategoriesList)) {
             let result = '';
+            // if (service.subcategoriesList.length > 1) {
+            //     result = service.subcategoriesList[0].title + ', (...)';
+            // }
+            // else {
+            //     result = service.subcategoriesList[0].title;
+            // }
+
             for (let city of service.subcategoriesList) {
                 result += city.title + ', ';
             }
+
             return result.substring(0, (result.length - 2));
         }
         return '';

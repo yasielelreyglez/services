@@ -9,7 +9,6 @@ import {HttpModule, JsonpModule} from '@angular/http';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './components/login/login.component';
 import {HomeComponent} from './components/home/home.component';
-import {UserService} from './_services/user.service';
 import {MenuComponent} from './components/menu/menu.component';
 import {RegisterComponent} from './components/register/register.component';
 import {EqualValidator} from './_directives/validate-password.directive';
@@ -33,7 +32,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
     MatSelectModule, MatCheckboxModule, MatToolbarModule, MatMenuModule, MatIconModule, MatButtonModule,
     MatFormFieldModule, MatInputModule, MatGridListModule, MatCardModule, MatDialogModule, MatTabsModule,
-    MatStepperModule
+    MatStepperModule, MatSnackBarModule
 } from '@angular/material';
 import {ImageComponent} from './components/_modals/image/image.component';
 import { ImageZoomDirective } from './_directives/image-zoom.directive';
@@ -91,12 +90,12 @@ import { PayserviceComponent } from './components/payservice/payservice.componen
         MatCardModule,
         MatDialogModule,
         MatTabsModule,
-        MatStepperModule
+        MatStepperModule,
+        MatSnackBarModule
     ],
     providers: [
         AuthGuard,
         AuthService,
-        UserService,
         ApiService,
         Data
     ],

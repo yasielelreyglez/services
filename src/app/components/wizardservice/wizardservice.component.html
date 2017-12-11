@@ -203,19 +203,20 @@
         </mat-step>
 
         <mat-step>
-            <mat-form-field>
-                <input matInput placeholder="Nombre ubicación" name="positiontitle"
-                       [(ngModel)]="positiontitle">
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput type="number" placeholder="Latitude" name="latitude"
-                       [(ngModel)]="latitude">
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput type="number" placeholder="Longitude" name="longitude"
-                       [(ngModel)]="longitude">
-            </mat-form-field>
-            <button mat-raised-button color="primary" class="col-12" (click)="addPosition()">Agregar posiciones</button>
+            <form (ngSubmit)="addPosition()" [formGroup]="positionsForm">
+                <mat-form-field>
+                    <input matInput placeholder="Nombre ubicación" name="positiontitle"
+                           [(ngModel)]="positiontitle" [formControl]="positionsForm.controls['positiontitle']" minlength="1">
+                    <mat-error *ngIf="positionsForm.controls['positiontitle'].invalid">{{getErrorMessage()}}</mat-error>
+                </mat-form-field>
+
+                <div #map id="map"></div>
+                <br>
+                <button mat-raised-button color="primary" [disabled]="positionsForm.invalid || !flagPosition"
+                        class="col-12">Agregar
+                    posiciones
+                </button>
+            </form>
             <br><br>
 
             <h5 *ngIf="positions.length !== 0" class="tc-blue">Mis ubicaciones</h5>
@@ -232,7 +233,7 @@
                         </div>
                         <div>
                             <p class="tc-grei mb-0" style="margin-left: 45px;">
-                                {{currentposition.longitude}};{{currentposition.latitude}}</p>
+                                {{currentposition.latitude}};{{currentposition.longitude}}</p>
                         </div>
                     </mat-grid-tile>
                     <mat-grid-tile class="comment-date" [colspan]="2" [rowspan]="1">
@@ -245,7 +246,7 @@
                     </mat-grid-tile>
                 </mat-grid-list>
             </div>
-            <br><br>
+            <br>
 
             <div class="row">
                 <div class="col-6">
@@ -263,7 +264,8 @@
                         <mat-icon>done</mat-icon>
                         Completar
                     </button>
-                    <button class="d-block d-sm-none pull-right bc-green tc-white" mat-raised-button matStepperNext>
+                    <button class="d-block d-sm-none pull-right bc-green tc-white" mat-raised-button matStepperNext
+                            (click)="finishFunction()">
                         <mat-icon>done</mat-icon>
                     </button>
                 </div>

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import {ApiService} from '../../_services/api.service';
 import {Service} from '../../_models/service';
 import {City} from '../../_models/city';
@@ -6,7 +6,9 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Data} from '../../_services/data.service';
 import {isNull} from 'util';
+import {MatSnackBar} from '@angular/material';
 
+declare const google;
 
 @Component({
     selector: 'app-wizardservice',
@@ -14,7 +16,7 @@ import {isNull} from 'util';
     styleUrls: ['./wizardservice.component.css']
 })
 
-export class WizardserviceComponent implements OnInit {
+export class WizardserviceComponent implements OnInit, AfterViewInit {
     previews: any;
     previewvalue: string;
     service: Service;
@@ -22,17 +24,32 @@ export class WizardserviceComponent implements OnInit {
     positiontitle: string;
     cities: City[];
     categories: any;
-    latitude: string;
-    longitude: string;
+    latitude: number
+    longitude: number;
     positions: any;
     week_days: any;
     firstForm: FormGroup;
+    positionsForm: FormGroup;
+    flagPosition = false;
     edit: boolean;
     dropsImages: any;
-
     citiesList: any;
 
-    constructor(private apiServices: ApiService, private router: Router, private data: Data, private route: ActivatedRoute) {
+    @ViewChild('map') mapElement: ElementRef;
+    map: any;
+    latLng: any;
+    infoWindow: any;
+    markers: any;
+
+    constructor(private apiServices: ApiService, private router: Router, private data: Data, private route: ActivatedRoute,
+                private snackBar: MatSnackBar, public zone: NgZone) {
+
+        if (typeof google !== 'undefined') {
+            this.latLng = new google.maps.LatLng(23.13302, -82.38304);
+            this.infoWindow = new google.maps.InfoWindow;
+        }
+        this.flagPosition = false;
+
         this.service = new Service();
         this.previews = [
             {
@@ -114,23 +131,23 @@ export class WizardserviceComponent implements OnInit {
         this.positions = new Array();
 
         this.week_days = [
-            {title: 'Lunes', value: false},
-            {title: 'Martes', value: false},
-            {title: 'Miercoles', value: false},
-            {title: 'Jueves', value: false},
-            {title: 'Viernes', value: false},
-            {title: 'Sabado', value: false},
-            {title: 'Domingo', value: false},
+            {title: 'Lunes'},
+            {title: 'Martes'},
+            {title: 'Miercoles'},
+            {title: 'Jueves'},
+            {title: 'Viernes'},
+            {title: 'Sabado'},
+            {title: 'Domingo'},
         ];
 
         this.dropsImages = new Array();
+        this.markers = new Array();
         this.previewvalue = '../../../assets/service_img.png';
         this.service.week_days = [false, false, false, false, false, false, false];
 
         this.route.params.subscribe(params => {
             if (params['id']) {
                 this.apiServices.service(params['id']).subscribe(result => {
-                    console.log(result.data);
                     this.edit = true;
                     this.service = result.data;
 
@@ -154,7 +171,6 @@ export class WizardserviceComponent implements OnInit {
                         this.previews[i].position = true;
                         this.previews[i].id = result.data.imagesList[i].id;
                     }
-                    console.log(this.previews);
 
                     let daysId = result.data.week_days.split(',');
                     this.service.week_days = [false, false, false, false, false, false, false];
@@ -176,7 +192,89 @@ export class WizardserviceComponent implements OnInit {
         this.apiServices.cities().subscribe(result => this.cities = result);
         this.apiServices.allSubCategories().subscribe(result => this.categories = result);
         this.createForms();
+    }
 
+    ngAfterViewInit() {
+        if (typeof google !== 'undefined')
+            this.initMap();
+    }
+
+    initMap() {
+        let mapOptions = {
+            center: this.latLng,
+            zoom: 10,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            zoomControl: true,
+            mapTypeControl: false,
+            scaleControl: false,
+            streetViewControl: false,
+            rotateControl: true,
+            fullscreenControl: false
+        };
+        this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+        google.maps.event.addListener(this.map, 'click', this.addMarker(this));
+    }
+
+    addMarker(that) {
+        if (typeof google !== 'undefined') {
+            return function (event) {
+                let marker = new google.maps.Marker({
+                    position: event.latLng,
+                    map: that.map,
+                    draggable: true,
+                    animation: google.maps.Animation.DROP,
+                });
+                that.latitude = marker.getPosition().lat();
+                that.longitude = marker.getPosition().lng();
+
+                that.map.panTo(event.latLng);
+
+                that.markers.push(marker);
+                that.flagPosition = true;
+                that.zone.run(() => {
+                });
+
+
+                google.maps.event.addListener(marker, 'dragend', function () {
+                    that.latitude = marker.getPosition().lat();
+                    that.longitude = marker.getPosition().lng();
+                    that.map.panTo(marker.getPosition());
+                });
+
+                google.maps.event.clearListeners(that.map, 'click');
+            };
+        }
+    }
+
+    addPosition() {
+        if (typeof google !== 'undefined') {
+            this.positions.push({
+                title: this.positiontitle,
+                longitude: this.longitude,
+                latitude: this.latitude
+            });
+
+            const content = '<h6 class="tc-blue">' + this.positiontitle + '</h6>';
+            this.addInfoWindow(this.markers[this.markers.length - 1], content);
+
+            this.markers[this.markers.length - 1].draggable = false;
+            google.maps.event.addListener(this.map, 'click', this.addMarker(this));
+
+            this.flagPosition = false;
+
+            this.positiontitle = '';
+            this.longitude = null;
+            this.latitude = null;
+        }
+    }
+
+    addInfoWindow(marker, content) {
+        if (typeof google !== 'undefined') {
+            google.maps.event.addListener(marker, 'click', () => {
+                this.infoWindow.setContent(content)
+                this.infoWindow.open(this.map, marker);
+            });
+        }
     }
 
     createForms() {
@@ -189,6 +287,10 @@ export class WizardserviceComponent implements OnInit {
             cities: new FormControl('', [Validators.required]),
             categories: new FormControl('', [Validators.required]),
         });
+
+        this.positionsForm = new FormGroup({
+            positiontitle: new FormControl('', [Validators.minLength(1)])
+        });
     }
 
     getErrorMessage() {
@@ -199,23 +301,16 @@ export class WizardserviceComponent implements OnInit {
                         this.firstForm.controls['description'].hasError('required') ? 'You must enter a value' :
                             this.firstForm.controls['cities'].hasError('required') ? 'You must enter a value' :
                                 this.firstForm.controls['categories'].hasError('required') ? 'You must enter a value' :
-                                    '';
+                                    this.positionsForm.controls['positiontitle'].hasError('minLength') ? 'You must enter a value' :
+                                        '';
     }
 
-
-    addPosition() {
-        this.positions.push({
-            title: this.positiontitle,
-            longitude: this.longitude,
-            latitude: this.latitude
-        });
-        this.positiontitle = '';
-        this.longitude = '';
-        this.latitude = '';
-    }
 
     deletePosition(pos: number) {
         this.positions.splice(pos, 1);
+        if (typeof google !== 'undefined')
+            this.markers[pos].setMap(null);
+        this.markers.splice(pos, 1);
     }
 
     moreImageGalery() {
@@ -302,8 +397,15 @@ export class WizardserviceComponent implements OnInit {
         this.service.dropsImages = this.dropsImages;
 
         this.apiServices.createFullService(this.service).subscribe(result => {
-            if (result)
+            if (result) {
                 this.router.navigate(['myservices/service', result.id]);
+                if (this.edit) {
+                    this.openSnackBar('El servicio ha sido editado satisfactoriamente.', 2500);
+                }
+                else {
+                    this.openSnackBar('El servicio ha sido creado satisfactoriamente.', 2500);
+                }
+            }
         });
     }
 
@@ -322,6 +424,13 @@ export class WizardserviceComponent implements OnInit {
                 this.previewvalue = reader.result;
             };
         }
+    }
+
+    openSnackBar(message: string, duration: number, action?: string) {
+        this.snackBar.open(message, action, {
+            duration: duration,
+            horizontalPosition: 'center',
+        });
     }
 
 }
