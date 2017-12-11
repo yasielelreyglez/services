@@ -180,12 +180,12 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
                     }
 
                     this.positions = result.data.positionsList;
+                    if (this.positions.length > 0)
+                        this.addPositions();
 
                 });
             }
         });
-
-
     }
 
     ngOnInit() {
@@ -197,6 +197,24 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     ngAfterViewInit() {
         if (typeof google !== 'undefined')
             this.initMap();
+    }
+
+    addPositions() {
+        // this.directionsDisplay.setMap(this.map);
+        // this.directionsDisplay.setOptions({suppressMarkers: true});
+
+        for (let i = 0; i < this.positions.length; i++) {
+            setTimeout(() => {
+                const marker = new google.maps.Marker({
+                    map: this.map,
+                    position: new google.maps.LatLng(this.positions[i].latitude, this.positions[i].longitude),
+                    animation: google.maps.Animation.DROP,
+                });
+                this.markers.push(marker);
+                let content = '<h6 class="tc-blue">' + this.positions[i].title + '</h6>';
+                this.addInfoWindow(marker, content);
+            }, i * 200);
+        }
     }
 
     initMap() {
@@ -301,7 +319,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
                         this.firstForm.controls['description'].hasError('required') ? 'You must enter a value' :
                             this.firstForm.controls['cities'].hasError('required') ? 'You must enter a value' :
                                 this.firstForm.controls['categories'].hasError('required') ? 'You must enter a value' :
-                                    this.positionsForm.controls['positiontitle'].hasError('minLength') ? 'You must enter a value' :
+                                    this.positionsForm.controls['positiontitle'].hasError('minlength') ? 'You must enter a value' :
                                         '';
     }
 

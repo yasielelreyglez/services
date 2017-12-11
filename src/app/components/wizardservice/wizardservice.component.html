@@ -206,15 +206,15 @@
             <form (ngSubmit)="addPosition()" [formGroup]="positionsForm">
                 <mat-form-field>
                     <input matInput placeholder="Nombre ubicación" name="positiontitle"
-                           [(ngModel)]="positiontitle" [formControl]="positionsForm.controls['positiontitle']" minlength="1">
+                           [(ngModel)]="positiontitle" [formControl]="positionsForm.controls['positiontitle']"
+                           minlength="1">
                     <mat-error *ngIf="positionsForm.controls['positiontitle'].invalid">{{getErrorMessage()}}</mat-error>
                 </mat-form-field>
 
                 <div #map id="map"></div>
                 <br>
-                <button mat-raised-button color="primary" [disabled]="positionsForm.invalid || !flagPosition"
-                        class="col-12">Agregar
-                    posiciones
+                <button mat-raised-button color="primary" [disabled]="positionsForm.controls['positiontitle'].invalid || positionsForm.controls['positiontitle'].pristine || !flagPosition"
+                        class="col-12">Agregar posiciones
                 </button>
             </form>
             <br><br>
@@ -222,8 +222,8 @@
             <h5 *ngIf="positions.length !== 0" class="tc-blue">Mis ubicaciones</h5>
 
             <div *ngFor="let currentposition of positions; let pos = index">
-                <hr class="bc-grei">
-                <mat-grid-list cols="12" class="mat-position" rowHeight="26px">
+                <hr class="bc-grei" style="margin-bottom: 0.5rem; margin-top: 0.5rem;">
+                <mat-grid-list cols="12" class="mat-position" rowHeight="25px">
                     <mat-grid-tile [colspan]="10" [rowspan]="2" class="izq">
                         <div>
                             <mat-icon style="position: absolute;" class="tc-blue md-3 md-40">location_on</mat-icon>
