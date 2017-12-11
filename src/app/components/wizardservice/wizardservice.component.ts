@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import {ApiService} from '../../_services/api.service';
 import {Service} from '../../_models/service';
 import {City} from '../../_models/city';
@@ -29,6 +29,8 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     positions: any;
     week_days: any;
     firstForm: FormGroup;
+    positionsForm: FormGroup;
+    flagPosition = false;
     edit: boolean;
     dropsImages: any;
     citiesList: any;
@@ -40,11 +42,13 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     markers: any;
 
     constructor(private apiServices: ApiService, private router: Router, private data: Data, private route: ActivatedRoute,
-                private snackBar: MatSnackBar) {
+                private snackBar: MatSnackBar, public zone: NgZone) {
 
-        this.latLng = new google.maps.LatLng(23.13302, -82.38304);
-        this.infoWindow = new google.maps.InfoWindow;
-
+        if (typeof google !== 'undefined') {
+            this.latLng = new google.maps.LatLng(23.13302, -82.38304);
+            this.infoWindow = new google.maps.InfoWindow;
+        }
+        this.flagPosition = false;
 
         this.service = new Service();
         this.previews = [
@@ -127,13 +131,13 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         this.positions = new Array();
 
         this.week_days = [
-            {title: 'Lunes', value: false},
-            {title: 'Martes', value: false},
-            {title: 'Miercoles', value: false},
-            {title: 'Jueves', value: false},
-            {title: 'Viernes', value: false},
-            {title: 'Sabado', value: false},
-            {title: 'Domingo', value: false},
+            {title: 'Lunes'},
+            {title: 'Martes'},
+            {title: 'Miercoles'},
+            {title: 'Jueves'},
+            {title: 'Viernes'},
+            {title: 'Sabado'},
+            {title: 'Domingo'},
         ];
 
         this.dropsImages = new Array();
@@ -167,7 +171,6 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
                         this.previews[i].position = true;
                         this.previews[i].id = result.data.imagesList[i].id;
                     }
-                    console.log(this.previews);
 
                     let daysId = result.data.week_days.split(',');
                     this.service.week_days = [false, false, false, false, false, false, false];
@@ -192,7 +195,8 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.initMap();
+        if (typeof google !== 'undefined')
+            this.initMap();
     }
 
     initMap() {
@@ -209,57 +213,68 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         };
         this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
         google.maps.event.addListener(this.map, 'click', this.addMarker(this));
-
     }
 
     addMarker(that) {
-        return function (event) {
-            let marker = new google.maps.Marker({
-                position: event.latLng,
-                map: that.map,
-                draggable: true,
-                animation: google.maps.Animation.DROP,
-            });
-            that.latitude = marker.getPosition().lat();
-            that.longitude = marker.getPosition().lng();
-
-            that.map.panTo(event.latLng);
-
-            that.markers.push(marker);
-
-            google.maps.event.addListener(marker, 'dragend', function () {
+        if (typeof google !== 'undefined') {
+            return function (event) {
+                let marker = new google.maps.Marker({
+                    position: event.latLng,
+                    map: that.map,
+                    draggable: true,
+                    animation: google.maps.Animation.DROP,
+                });
                 that.latitude = marker.getPosition().lat();
                 that.longitude = marker.getPosition().lng();
-                that.map.panTo(marker.getPosition());
-            });
 
-            google.maps.event.clearListeners(that.map, 'click');
-        };
+                that.map.panTo(event.latLng);
+
+                that.markers.push(marker);
+                that.flagPosition = true;
+                that.zone.run(() => {
+                });
+
+
+                google.maps.event.addListener(marker, 'dragend', function () {
+                    that.latitude = marker.getPosition().lat();
+                    that.longitude = marker.getPosition().lng();
+                    that.map.panTo(marker.getPosition());
+                });
+
+                google.maps.event.clearListeners(that.map, 'click');
+            };
+        }
     }
 
     addPosition() {
-        this.positions.push({
-            title: this.positiontitle,
-            longitude: this.longitude,
-            latitude: this.latitude
-        });
+        if (typeof google !== 'undefined') {
+            this.positions.push({
+                title: this.positiontitle,
+                longitude: this.longitude,
+                latitude: this.latitude
+            });
 
-        const content = '<h6 class="tc-blue">' + this.positiontitle + '</h6>';
-        this.addInfoWindow(this.markers[this.markers.length - 1], content);
+            const content = '<h6 class="tc-blue">' + this.positiontitle + '</h6>';
+            this.addInfoWindow(this.markers[this.markers.length - 1], content);
 
-        this.markers[this.markers.length - 1].draggable = false;
-        google.maps.event.addListener(this.map, 'click', this.addMarker(this));
+            this.markers[this.markers.length - 1].draggable = false;
+            google.maps.event.addListener(this.map, 'click', this.addMarker(this));
 
-        this.positiontitle = '';
-        this.longitude = null;
-        this.latitude = null;
+            this.flagPosition = false;
+
+            this.positiontitle = '';
+            this.longitude = null;
+            this.latitude = null;
+        }
     }
 
     addInfoWindow(marker, content) {
-        google.maps.event.addListener(marker, 'click', () => {
-            this.infoWindow.setContent(content)
-            this.infoWindow.open(this.map, marker);
-        });
+        if (typeof google !== 'undefined') {
+            google.maps.event.addListener(marker, 'click', () => {
+                this.infoWindow.setContent(content)
+                this.infoWindow.open(this.map, marker);
+            });
+        }
     }
 
     createForms() {
@@ -272,6 +287,10 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
             cities: new FormControl('', [Validators.required]),
             categories: new FormControl('', [Validators.required]),
         });
+
+        this.positionsForm = new FormGroup({
+            positiontitle: new FormControl('', [Validators.minLength(1)])
+        });
     }
 
     getErrorMessage() {
@@ -282,13 +301,15 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
                         this.firstForm.controls['description'].hasError('required') ? 'You must enter a value' :
                             this.firstForm.controls['cities'].hasError('required') ? 'You must enter a value' :
                                 this.firstForm.controls['categories'].hasError('required') ? 'You must enter a value' :
-                                    '';
+                                    this.positionsForm.controls['positiontitle'].hasError('minLength') ? 'You must enter a value' :
+                                        '';
     }
 
 
     deletePosition(pos: number) {
         this.positions.splice(pos, 1);
-        this.markers[pos].setMap(null);
+        if (typeof google !== 'undefined')
+            this.markers[pos].setMap(null);
         this.markers.splice(pos, 1);
     }
 
