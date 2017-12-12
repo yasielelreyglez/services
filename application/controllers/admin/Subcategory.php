@@ -28,8 +28,7 @@ class Subcategory extends CI_Controller {
 	}
 
 	# GET /subcategory/edit/1
-	function edit() {
-		$id = $this->uri->segment(3);
+	function edit($id) {
 		$data['categories'] = $this->Category_model->find();
 		$data['subcategory'] = $this->Subcategory_model->find($id);
 		$data['content'] = '/subcategory/create';

@@ -10,7 +10,7 @@
 		<tr>
 			<td><?=$object->id ?></td>
 			<td><?= $object->title ?></td>
-			<td><?= $object->icon ?></td>
+			<td><img src="<?= $object->icon ?>" height="40px" width="45px" title="<?= $object->icon ?>" alt="<?= $object->icon ?>"></td>
 			<td width="80"><?= anchor('admin/categories/edit/'.$object->id, 'Edit','class="btn btn-warning"'); ?></td>
 			<td width="80"><?= anchor('admin/categories/destroy/'.$object->id, 'Destroy','class="btn btn-danger"'); ?></td>
 		</tr><?php } ?>

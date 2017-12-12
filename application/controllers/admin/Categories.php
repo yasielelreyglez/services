@@ -9,6 +9,7 @@ class Categories extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Categories_model');
         $this->load->helper('html');
+        $this->load->helper('url_helper');
         $this->load->library('ion_auth');
         if (!$this->ion_auth->logged_in())
         {
@@ -103,7 +104,7 @@ class Categories extends CI_Controller {
 
                 $data["upload_data"] =$this->upload->data();
                 $category->setTitle($this->input->post('title', TRUE));
-                $category->setIcon('resources/image/categories/'.$data["upload_data"]["file_name"]);
+                $category->setIcon(base_url('resources/image/categories/'.$data["upload_data"]["file_name"]));
                 $em->persist($category);
                 $em->flush();
 //                $this->load->view('upload_success', $data);
