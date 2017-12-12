@@ -104,7 +104,7 @@ class Categories extends CI_Controller {
 
                 $data["upload_data"] =$this->upload->data();
                 $category->setTitle($this->input->post('title', TRUE));
-                $category->setIcon(base_url('resources/image/categories/'.$data["upload_data"]["file_name"]));
+                $category->setIcon(site_url('resources/image/categories/'.$data["upload_data"]["file_name"]));
                 $em->persist($category);
                 $em->flush();
 //                $this->load->view('upload_success', $data);
