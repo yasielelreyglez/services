@@ -17,15 +17,15 @@
                 <mat-grid-list cols="7" rowHeight="54px">
                     <mat-grid-tile [colspan]="5" [rowspan]="1" class="izq">
                         <div class="fw-600 tc-grei" *ngIf="!myservices">
-                            <span>Calificación: 8/10</span><br>
+                            <span>Calificación: {{service.globalrate}}/10</span><br>
                             <span>Distancia: 5km</span><br>
-                            <span>Categoría: Hogar</span>
+                            <span>Subcategorías: {{result_subcategories(service)}}</span>
                         </div>
 
                         <div class="fw-600 tc-grei" *ngIf="myservices">
                             <span>Subcategorías: {{result_subcategories(service)}}</span><br>
                             <span>Ciudad: {{result_cities(service)}}</span><br>
-                            <span>Calificación: {{service.globalrate}}</span>
+                            <span>Calificación: {{service.globalrate}}/10</span>
                         </div>
                     </mat-grid-tile>
                     <mat-grid-tile [colspan]="2" [rowspan]="1">
@@ -132,9 +132,9 @@
             <mat-grid-list cols="7" rowHeight="80px" *ngIf="!myservices">
                 <mat-grid-tile [colspan]="5" [rowspan]="1" class="izq">
                     <div class="fw-600 tc-grei">
-                        <span>Calificación: 8/10</span><br>
+                        <span>Calificación: {{service.globalrate}}/10</span><br>
                         <span>Distancia: 5km</span><br>
-                        <span>Categoría: Hogar</span>
+                        <span>Subcategorías: {{result_subcategories(service)}}</span>
                     </div>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="2" [rowspan]="1">
