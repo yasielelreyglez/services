@@ -732,6 +732,7 @@ class Api extends REST_Controller
     {
         $em = $this->doctrine->em;
         $id =  $this->post('id', TRUE);
+
         if($id){
             $service = $em->find("\Entities\Service",$id);
             $eliminadas = $this->post('dropsImages', TRUE);
@@ -872,6 +873,7 @@ class Api extends REST_Controller
             $service->getServicecomments()->toArray();
             $service->getPositions()->toArray();
            $fotos =  $service->getImages()->toArray();//TODO VER SI SE BORRAN LOS FICHEROS
+            $this->load->helper("file");
             foreach ($fotos as $foto) {
                 delete_files($foto->getTitle());
             }
