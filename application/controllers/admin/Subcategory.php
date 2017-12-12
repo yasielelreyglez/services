@@ -29,8 +29,7 @@ class Subcategory extends CI_Controller {
 
 	# GET /subcategory/edit/1
 	function edit($id) {
-		$data['categories'] = $this->Category_model->find();
-		$data['subcategory'] = $this->Subcategory_model->find($id);
+		$data['categories'] = $this->Category_model->find();		$data['subcategory'] = $this->Subcategory_model->find($id);
 		$data['content'] = '/subcategory/create';
         $this->load->view('/includes/contentpage', $data);
 	}
@@ -46,7 +45,6 @@ class Subcategory extends CI_Controller {
 	function save() {
 		
 		$this->form_validation->set_rules('title', 'Title', 'required');
-		$this->form_validation->set_rules('icon', 'Icon', 'required');
 
 		if ($this->form_validation->run()) {
 
@@ -68,7 +66,7 @@ class Subcategory extends CI_Controller {
 				$data['id'] = $this->input->post('id', TRUE);
 				$data['title'] = $this->input->post('title', TRUE);
                 $data['category_id'] = $this->input->post('category_id', TRUE);
-				$data['icon'] ='resources/image/categories/'.$data["upload_data"]["file_name"];
+				$data['icon'] =site_url('resources/image/categories/'.$data["upload_data"]["file_name"]);
 
 				$this->Subcategory_model->save($data);
                 redirect('admin/subcategory/index', 'refresh');

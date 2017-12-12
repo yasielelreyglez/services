@@ -17,8 +17,8 @@
         <select type="text" class="form-control" name="category_id" placeholder="Escoja la categoria" value="<?= isset($subcategory)?$subcategory->category_id:''?>">
             <?php
             foreach ($categories as $category) {
-                $is_selected = ($subcategory->category_id==$category->category_id)?"selected":"";
-                echo "<option value'$category->category_id' $is_selected>$category->title </option>";
+                $is_selected = ($subcategory->category_id==$category->id)?"selected":"";
+                echo "<option value='$category->id' $is_selected>$category->title </option>";
             }
             ?>
         </select>
