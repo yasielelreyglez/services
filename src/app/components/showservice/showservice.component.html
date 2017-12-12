@@ -131,8 +131,12 @@
                             {{currentposition.title}}</h6>
                     </div>
                     <div class="col-3 col-sm-3 col-md-3 col-lg-3">
-                        <button class="tc-white pull-right" style="" mat-icon-button>
-                            <mat-icon color="primary">navigation</mat-icon>
+
+                        <button class="tc-white pull-right" (click)="changeCurrentEnd(pos)" mat-icon-button>
+                            <mat-icon color="primary" [ngClass]="{'tc-red':(currentEnd.id !== -1 && currentEnd.id ===
+                                pos)}">{{(currentEnd.id !== -1 && currentEnd.id ===
+                                pos)?'location_off':'navigation'}}
+                            </mat-icon>
                         </button>
                     </div>
                 </div>

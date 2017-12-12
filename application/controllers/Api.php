@@ -649,8 +649,9 @@ class Api extends REST_Controller
                 $evidence = $this->post('evidence');
                 if ($evidence) {
                     $path = "./resources/evidences/" . $evidence['filename'];
+                    $save ="resources/evidences/" . $evidence['filename'];
                     file_put_contents($path, base64_decode($evidence['value']));
-                    $payment->setEvidence(site_url($path));
+                    $payment->setEvidence(site_url($save));
                 }
             } else {
                 $payment->setCountry($this->post('country', TRUE));
@@ -732,6 +733,7 @@ class Api extends REST_Controller
     {
         $em = $this->doctrine->em;
         $id =  $this->post('id', TRUE);
+
         if($id){
             $service = $em->find("\Entities\Service",$id);
             $eliminadas = $this->post('dropsImages', TRUE);
@@ -758,7 +760,7 @@ class Api extends REST_Controller
         if ($icon){
             if( isset($icon['filename'])) {
                 $path = "./resources/" . $icon['filename'];
-                $save = "/resources/" . $icon['filename'];
+                $save = "resources/" . $icon['filename'];
                 file_put_contents($path, base64_decode($icon['value']));
                 $service->setIcon(site_url($save));
             }
@@ -872,6 +874,7 @@ class Api extends REST_Controller
             $service->getServicecomments()->toArray();
             $service->getPositions()->toArray();
            $fotos =  $service->getImages()->toArray();//TODO VER SI SE BORRAN LOS FICHEROS
+            $this->load->helper("file");
             foreach ($fotos as $foto) {
                 delete_files($foto->getTitle());
             }
