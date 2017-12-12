@@ -649,8 +649,9 @@ class Api extends REST_Controller
                 $evidence = $this->post('evidence');
                 if ($evidence) {
                     $path = "./resources/evidences/" . $evidence['filename'];
+                    $save ="resources/evidences/" . $evidence['filename'];
                     file_put_contents($path, base64_decode($evidence['value']));
-                    $payment->setEvidence(site_url($path));
+                    $payment->setEvidence(site_url($save));
                 }
             } else {
                 $payment->setCountry($this->post('country', TRUE));
@@ -759,7 +760,7 @@ class Api extends REST_Controller
         if ($icon){
             if( isset($icon['filename'])) {
                 $path = "./resources/" . $icon['filename'];
-                $save = "/resources/" . $icon['filename'];
+                $save = "resources/" . $icon['filename'];
                 file_put_contents($path, base64_decode($icon['value']));
                 $service->setIcon(site_url($save));
             }
