@@ -45,6 +45,16 @@ class Subcategory
      */
     public $services;
 
+    /**
+     * @Column(type="datetime")
+     **/
+    protected $created_at;
+
+    /**
+     * @Column(type="datetime")
+     **/
+    protected $updated_at;
+
     public function __construct()
     {
 //        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
