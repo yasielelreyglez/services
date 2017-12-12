@@ -48,7 +48,7 @@ class Subcategory extends CI_Controller {
 
 		if ($this->form_validation->run()) {
 
-            $config['upload_path']          = './resources/image/categories';
+            $config['upload_path']          = './resources/image/subcategories';
             $config['allowed_types']        = 'gif|jpg|png';
             $config['max_size']             = 1000;
             $config['max_width']            = 9024;
