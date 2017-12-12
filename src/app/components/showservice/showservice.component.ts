@@ -35,19 +35,32 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
     infoWindow: any;
     positions: any;
     currentPosition: any;
+    currentEnd: any;
     image: any;
+    directionsService: any;
+    directionsDisplay: any;
+    distanceMatrix;
+    markers: any;
 
     constructor(private route: ActivatedRoute, private apiServices: ApiService,
                 public dialog: MatDialog, private authServices: AuthService, private snackBar: MatSnackBar) {
         this.model = {};
         this.loading = false;
+        this.markers = new Array();
+        this.currentEnd = {id: -1};
 
         this.submitAttempt = false;
         if (typeof google !== 'undefined') {
             this.latLng = new google.maps.LatLng(23.13302, -82.38304);
             this.infoWindow = new google.maps.InfoWindow;
+
             this.image = new google.maps.MarkerImage('https://upload.wikimedia.org/wikipedia/commons/a/a2/Location_dot_cyan.svg', null, null, null, new google.maps.Size(15, 15));
             this.currentPosition = new google.maps.Marker({});
+
+            this.distanceMatrix = new google.maps.DistanceMatrixService;
+
+            this.directionsService = new google.maps.DirectionsService;
+            this.directionsDisplay = new google.maps.DirectionsRenderer;
             let content = '<h6 class="tc-blue">Mi Posición</h6>';
             this.addInfoWindow(this.currentPosition, content);
         }
@@ -114,8 +127,8 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
 
     addPositions(that: any) {
         if (typeof google !== 'undefined') {
-            // this.directionsDisplay.setMap(this.map);
-            // this.directionsDisplay.setOptions({suppressMarkers: true});
+            this.directionsDisplay.setMap(this.map);
+            this.directionsDisplay.setOptions({suppressMarkers: true});
             this.positions = this.service.positionsList;
             for (let i = 0; i < this.positions.length; i++) {
                 setTimeout(() => {
@@ -124,6 +137,9 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
                         position: new google.maps.LatLng(this.positions[i].latitude, this.positions[i].longitude),
                         animation: google.maps.Animation.DROP,
                     });
+
+                    that.markers.push(marker);
+
                     let content = '<h6 class="tc-blue">' + this.positions[i].title + '</h6>';
                     this.addInfoWindow(marker, content);
                 }, i * 200);
@@ -142,6 +158,9 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
                     that.currentPosition.setMap(that.map);
                     that.map.panTo(latLng);
 
+                    if (that.currentEnd.id !== -1)
+                        that.calculateAndDisplayRoute();
+
                 }, function () {
                     that.currentPosition.setMap(null);
                 });
@@ -159,6 +178,44 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
                 this.infoWindow.open(this.map, marker);
             });
         }
+    }
+
+    changeCurrentEnd(pos) {
+        console.log(this.currentEnd);
+        console.log(pos);
+        if (this.currentEnd.id !== -1) {
+            if (this.currentEnd.id === pos) {
+                this.currentEnd.id = -1;
+                this.directionsDisplay.setMap(null);
+                this.map.setZoom(11);
+            }
+            else {
+                this.currentEnd.id = pos;
+                this.currentEnd.marker = this.markers[pos];
+                this.directionsDisplay.setMap(this.map);
+                this.calculateAndDisplayRoute();
+            }
+        }
+        else {
+            this.directionsDisplay.setMap(this.map);
+            this.currentEnd.id = pos;
+            this.currentEnd.marker = this.markers[pos];
+            this.calculateAndDisplayRoute();
+        }
+    }
+
+    calculateAndDisplayRoute() {
+        this.directionsService.route({
+            origin: this.currentPosition.getPosition(),
+            destination: this.currentEnd.marker.getPosition(),
+            travelMode: 'DRIVING'
+        }, (response, status) => {
+            if (status === 'OK') {
+                this.directionsDisplay.setDirections(response);
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
     }
 
     result_week_days() {
