@@ -760,7 +760,7 @@ class Api extends REST_Controller
                 $path = "./resources/" . $icon['filename'];
                 $save = "/resources/" . $icon['filename'];
                 file_put_contents($path, base64_decode($icon['value']));
-                $service->setIcon(base_url($save));
+                $service->setIcon(site_url($save));
             }
         }
         //OTROS DATOS

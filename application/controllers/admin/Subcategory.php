@@ -66,7 +66,7 @@ class Subcategory extends CI_Controller {
 				$data['id'] = $this->input->post('id', TRUE);
 				$data['title'] = $this->input->post('title', TRUE);
                 $data['category_id'] = $this->input->post('category_id', TRUE);
-				$data['icon'] =site_url('resources/image/categories/'.$data["upload_data"]["file_name"]);
+				$data['icon'] =site_url('resources/image/subcategories/'.$data["upload_data"]["file_name"]);
 
 				$this->Subcategory_model->save($data);
                 redirect('admin/subcategory/index', 'refresh');
