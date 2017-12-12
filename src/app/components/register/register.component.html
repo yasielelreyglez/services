@@ -33,7 +33,7 @@
             <mat-error *ngIf="registerForm.controls['confirmpassword'].getError('required')">You must enter a value
             </mat-error>
             <mat-error
-                    *ngIf="registerForm.controls['confirmpassword'].getError('validateEqual') === false && (!registerForm.controls['confirmpassword'].pristine || registerForm.submitted)">
+                    *ngIf="registerForm.controls['confirmpassword'].getError('validateEqual') === false && (!registerForm.controls['confirmpassword'].pristine)">
                 Passwords did not match
             </mat-error>
         </mat-form-field>

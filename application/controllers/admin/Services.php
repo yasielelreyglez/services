@@ -69,7 +69,7 @@ class Services extends CI_Controller {
 
 	# GET /services/destroy/1
 	function destroy($id) {
-
+        $this->load->helper("file");
         $em = $this->doctrine->em;
         $service = $em->find("\Entities\Service", $id);
 
@@ -77,7 +77,15 @@ class Services extends CI_Controller {
             $service->getPositions()->toArray();
             $fotos = $service->getImages()->toArray();//TODO VER SI SE BORRAN LOS FICHEROS
             foreach ($fotos as $foto) {
-                delete_files($foto->getTitle());
+            	try{
+            		if(is_file($foto->getTitle())) {
+            			echo $foto->getTitle();
+                        delete_files($foto->getTitle());
+                    }
+				}catch (Exception $e){
+            		echo $foto->getTitle();
+            		print_r($e);
+				}
             }
             $service->getServiceusers()->toArray();
             $service->getPayments()->toArray();
