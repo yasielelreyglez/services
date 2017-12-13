@@ -15,6 +15,8 @@ namespace Entities {
          **/
         public $id;
 
+
+
         /**
          * @Column(type="string")
          * @var string
@@ -127,6 +129,7 @@ namespace Entities {
          */
         protected $positions;
         public $positionsList;
+        public $minorDistance;
         /**
          * Many services have Many cities.
          * @ManyToMany(targetEntity="City", inversedBy="services")
@@ -220,16 +223,6 @@ namespace Entities {
         public function setIcon($icon)
         {
             $this->icon = $icon;
-        }
-
-        public function getUsername()
-        {
-            return $this->username;
-        }
-
-        public function setUsername($username)
-        {
-            $this->username = $username;
         }
 
         public function getEmail()
@@ -481,7 +474,7 @@ namespace Entities {
         /**
          * Get positions
          *
-         * @return \Doctrine\Common\Collections\Collection
+         * @return \Doctrine\Common\Collections\Collection<Positions>
          */
         public function getPositions()
         {
@@ -572,7 +565,7 @@ namespace Entities {
          *
          * @return Service
          */
-        public function addCity(\Entities\City $city)
+        public function addCity(City $city)
         {
             $this->cities[] = $city;
 
@@ -585,7 +578,7 @@ namespace Entities {
          *
          * @param \Entities\City $city
          */
-        public function removeCity(\Entities\City $city)
+        public function removeCity(City $city)
         {
             $this->cities->removeElement($city);
         }
@@ -619,7 +612,7 @@ namespace Entities {
          *
          * @param \Entities\UserService $serviceuser
          */
-        public function removeServiceuser(\Entities\UserService $serviceuser)
+        public function removeServiceuser(UserService $serviceuser)
         {
             $this->serviceusers->removeElement($serviceuser);
         }
@@ -691,7 +684,7 @@ namespace Entities {
             return $this;
         }
 
-        public function loadRelatedData($user = null){
+        public function loadRelatedData($user = null,$current=null){
             $this->subcategoriesList = $this->getSubcategories()->toArray();
             $this->servicecommentsList = [];
              $temp = $this->getServicecomments()->toArray();
@@ -708,6 +701,14 @@ namespace Entities {
             $this->citiesList = $this->getCities()->toArray();
             $this->imagesList = $this->getImages()->toArray();
             $this->positionsList = $this->getPositions()->toArray();
+            if ($current) {
+                foreach ($this->positionsList as $position) {
+                    $position_distance = $position->Distance($current["latitude"],$current["longitude"]);
+                    if (!$this->minorDistance||$this->minorDistance >$position_distance ){
+                        $this->minorDistance = $position_distance;
+                    }
+                }
+            }
             if($user){
                 $this->loadRelatedUserData($user);
             }
