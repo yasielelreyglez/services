@@ -26,7 +26,7 @@ class Api extends REST_Controller
             $response["data"] = $subcategories;
         }
         else{
-            $response["desc"] = 'No existen categorias mas visitadas';
+            $response["desc"] = 'No existen subcategorias mas visitadas';
             $response["count"] = 0;
             $response["data"] = array();
         }
@@ -76,12 +76,12 @@ class Api extends REST_Controller
         $subcategories = $subcategoriesRepo->findBy(array('category' => $category_id));
         $category = $em->find('Entities\Category', $category_id);
         if ($category) {
-            $response["desc"] = 'Subcategorias de la categoria:' . $category->getTitle();
+            $response["desc"] = 'Subcategorias de la categoria: ' . $category->getTitle();
             $response["parent"] = $category;
             $response["count"] = count($subcategories);
             $response["data"] = $subcategories;
         } else {
-            $response["desc"] = 'Categoria no encontrada:';
+            $response["desc"] = 'Categoria no encontrada';
             $response["parent"] = null;
             $response["count"] = 0;
             $response["data"] = array();
@@ -97,7 +97,7 @@ class Api extends REST_Controller
         $category = $em->find('Entities\Category', $id);
         if ($category) {
             $subcategories = $category->getSubcategories()->toArray();
-            $result["desc"] = "Listado de servicios por la categoria:$id";
+            $result["desc"] = "Listado de servicios por la categoria: $id";
             $result["parent"] = $category;
             $result["count"] = 0;
             $result["data"] = array();
@@ -107,7 +107,7 @@ class Api extends REST_Controller
             }
             $result["count"] = count($result["data"]);
         } else {
-            $result["desc"] = "Listado de servicios por la categoria:$id";
+            $result["desc"] = "Listado de servicios por la categoria: $id";
             $result["parent"] = array();
             $result["count"] = 0;
             $result["data"] = array();
@@ -141,14 +141,13 @@ class Api extends REST_Controller
     //LISTADO DE LOS SERVICIOS  DADA UNA SUBCATEGORIA <params subcategory:string>
     public function servicessub_get($id)
     {
-//
         $em = $this->doctrine->em;
 //        $subcategory = $em->find('Entities\Sub',$id);
         $subcategoriesRepo = $em->getRepository('Entities\Subcategory');
         $subcategory = $subcategoriesRepo->find($id);
 //        $subcategory->services->doInitialize();
         if ($subcategory) {
-            $response["desc"] = "Servicios pertenecientes a la subcategoria:$subcategory->title";
+            $response["desc"] = "Servicios pertenecientes a la subcategoria: $subcategory->title";
             $services = $subcategory->getServices()->toArray();
             $user = $this->getCurrentUser();
 
@@ -237,8 +236,12 @@ class Api extends REST_Controller
             $em->flush();
             $service->loadRelatedData();
             $result["data"] = $service;
-            $this->set_response($result, REST_Controller::HTTP_OK);
         }
+        else{
+            $result["error"] = 'Debe estar autenticado para realizar esta acción';
+        }
+
+        $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
     //denunciar un servicio
@@ -394,7 +397,7 @@ class Api extends REST_Controller
             $result["data"] = $service;
         } else {
             $result["desc"] = "El servicio no existe";
-            $result["error"] = "No existe ningun servicio con id:$id";
+            $result["error"] = "No existe ningun servicio con id: $id";
         }
         $this->set_response($result, REST_Controller::HTTP_OK);
     }

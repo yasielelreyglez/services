@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage,NavParams,ModalController,NavController, Events} from "ionic-angular";
 import  {ServiceProvider} from  '../../providers/service/service.service';
-import { ApiProvider } from "../../providers/api/api";
 import { InfoPage } from "../info/info";
 import { MapaPage } from "../mapa/mapa";
 import { AuthProvider } from "../../providers/auth/auth";
@@ -18,13 +17,12 @@ export class ServicePage {
   response: Object;
   private service: Service;
   private passedService: Service;
-  private baseUrl: any;
+
   cant_c :number;
   loggedIn: boolean;
   constructor(public navParams: NavParams,
     // private callNumber: CallNumber,
     public servPro: ServiceProvider,
-    public api: ApiProvider,
     public modalCtrl: ModalController,
     public auth: AuthProvider,
     public navCtrl: NavController,
@@ -41,14 +39,14 @@ export class ServicePage {
 
   ionViewDidLoad() {
     this.loggedIn = this.auth.isLoggedIn();
-    this.baseUrl = this.api.getbaseUrl();
     this.cant_c=this.passedService.servicecommentsList.length  ? this.passedService.servicecommentsList.length : 0
   }
   ionViewDidEnter() {
 
     this.events.subscribe('user:commented', (comentarios) => {
     this.passedService.servicecommentsList= comentarios;
-    this.cant_c+=1;
+    this.cant_c=this.passedService.servicecommentsList.length  ? this.passedService.servicecommentsList.length : 0
+    //this.cant_c+=1;
 
     });
   }
@@ -56,14 +54,12 @@ export class ServicePage {
   openInfo(){
       this.navCtrl.push(InfoPage,{
         service:this.passedService,
-        baseUrl:this.baseUrl,
         cant_c:this.cant_c
       });
   }
   openMapa(){
       this.navCtrl.push(MapaPage,{
         response:this.response,
-        baseUrl:this.baseUrl,
         cant_c:this.cant_c,
         service:this.passedService
       });
@@ -71,15 +67,13 @@ export class ServicePage {
   openGaleria(){
     this.navCtrl.push(GaleriaPage,{
       service:this.passedService,
-      baseUrl:this.baseUrl,
       cant_c:this.cant_c
     });
 }
-openComentarios(){
-  this.navCtrl.push(ComentariosPage,{
-    service:this.passedService,
-    baseUrl:this.baseUrl,
-    cant_c:this.cant_c
-  });
-}
+  openComentarios(){
+    this.navCtrl.push(ComentariosPage,{
+      service:this.passedService,
+      cant_c:this.cant_c
+    });
+  }
 }

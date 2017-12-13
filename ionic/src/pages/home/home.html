@@ -22,7 +22,7 @@
                     <ion-grid>
                         <ion-row>
                             <ion-col col-4>
-                                <img (tap)="viewImg(serv.icon)" [src]="serv.icon ? baseUrl + serv.icon : 'assets/imgs/service_img.png' ">
+                                <img (tap)="viewImg(serv.icon)" [src]="serv.icon ? serv.icon : 'assets/imgs/service_img.png' ">
                             </ion-col>
 
                             <ion-col col-8>
@@ -83,7 +83,7 @@
         <ion-label text-center color="azul-claro">Principales tendencias</ion-label>
         <ion-list>
             <button *ngFor="let sub of subCategories" class="specific-button" text-left color="azul-claro" ion-button block margin-bottom="1" (tap)='openServicesPage(sub.id)'>
-        <img src="{{baseUrl + sub.icon}}" alt="" height="36">
+        <img src="{{sub.icon}}" alt="" height="36">
         &nbsp;{{sub.title}}
       </button>
 

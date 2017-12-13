@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {AuthProvider} from  '../auth/auth'
 import {  HttpClient,  HttpHeaders } from "@angular/common/http";
 import { ApiProvider } from "../api/api";
+import { sendService } from '../../models/sendService';
 
 /*
   Generated class for the ServiceProvider provider.
@@ -15,6 +16,32 @@ export class ServiceProvider {
 
   constructor(public http: HttpClient,public auth: AuthProvider,public api: ApiProvider) {
 
+  }
+  deleteService(id){
+    if (this.auth.getUser()){
+      return this.http.get(this.api.getbaseUrl() + 'api/deleteservice/'+id,{
+      headers: new HttpHeaders().set('Authorization', this.auth.getUser().token)
+      })
+      .toPromise()
+      .then(
+        (response) => {
+         return response;
+      }
+  ).catch(this.handleError);
+}
+  }
+  createFullService(serv: sendService){
+    return this.http.post(this.api.getbaseUrl()+'api/createservicefull', serv,{
+      headers: new HttpHeaders().set('Authorization', this.auth.getUser().token)
+     })
+    .toPromise()
+    .then(
+      (response) => {
+        // if (response['error']){
+           return response;
+        // return true;
+      }
+    ).catch(this.handleError);
   }
    getServiceBySubCat(subcategory):any{
 
@@ -94,6 +121,7 @@ export class ServiceProvider {
       .toPromise()
       .then(
         (response) => {
+          console.log(response)
           return response;
         }
       ).catch(this.handleError);
@@ -180,7 +208,9 @@ rateservice(id,value):Promise<Object>{
 
 }
 
+  filterService(){
 
+  }
   private handleError(error: any): Promise<any> {
     return Promise.reject(error.message || error);
   }

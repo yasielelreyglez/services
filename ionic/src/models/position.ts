@@ -1,6 +1,6 @@
 export class Position {
-  id: number
+  id?: number
   title: string;
-  latitude: number;
-  longitude: number;
+  latitude: any;
+  longitude: any;
 }

@@ -19,23 +19,40 @@
         <div class="circle"> <span class="label">4</span>
         </div>
     </div>
-
+    {{photos}}
     <ion-grid>
 
         <ion-row>
 
             <ion-col col-12>
-                <button ion-button block>Subir foto</button>
+                <button (click)="uploadPhoto()" ion-button block icon-start>
+                  <ion-icon name="camera"></ion-icon>
+                     &nbsp;   Subir foto
+            </button>
             </ion-col>
-            <ion-col col-4>
+            <!-- <ion-col col-4 *ngFor="let photo of photos; let id = index;">
+                <ion-card class="block">
+                    <ion-icon class="deleteIcon" name="trash" (click)="deletePhoto(id)"></ion-icon>
+                   <img src="{{base64Image}}" />
+         <img [src]="photo" *ngIf="photo" />
+            </ion-card>
+            </ion-col> -->
+            <ion-col col-6 *ngFor="let photo of photos; let id = index">
+                <!-- <ion-card class="block"> -->
+                <div class="block">
+                    <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
+                    <img (tap)="viewImg(photo.value)" src="data:image/jpeg;base64,{{photo.value}}">
+                </div>
+                <!-- </ion-card> -->
+                <!-- <div class="block">
+                    <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
+                   <img [src]="data:image/jpeg;base64,{{photo.value}}" /> -->
+                <!-- <img (tap)="viewImg(photo.value)" src="data:image/jpeg;base64,{{photo.value}}">
+                </div> -->
+            </ion-col>
+            <!-- <ion-col col-4>
                 <img (tap)="viewImg(imagen.title)" style="min-width: 100%;min-height: 100%" src="assets/imgs/service_img.png">
-            </ion-col>
-            <ion-col col-4>
-                <img (tap)="viewImg(imagen.title)" style="min-width: 100%;min-height: 100%" src="assets/imgs/service_img.png">
-            </ion-col>
-            <ion-col col-4>
-                <img (tap)="viewImg(imagen.title)" style="min-width: 100%;min-height: 100%" src="assets/imgs/service_img.png">
-            </ion-col>
+            </ion-col> -->
 
         </ion-row>
     </ion-grid>

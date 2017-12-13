@@ -31,7 +31,6 @@ export class MapaPage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
   private service: any = {};
-  private baseUrl: any;
   // latitude:any
   // longitude:any;
   loggedIn: boolean;
@@ -65,7 +64,6 @@ export class MapaPage {
 
   ionViewDidLoad() {
     this.service = this.navParams.get("service");
-    this.baseUrl = this.navParams.get("baseUrl");
     this.cant_c = this.navParams.get("cant_c");
 
     this.response = this.navParams.get("response");

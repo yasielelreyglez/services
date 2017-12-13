@@ -12,22 +12,30 @@
 
     <hr class="hr-separador">
 
-    <ion-label color="azul-claro">Filtrar por</ion-label>
+    <!--<ion-label color="azul-claro">Filtrar por</ion-label>-->
     <ion-list>
         <ion-item>
-            <ion-select [selectOptions]="citiestOptions" [(ngModel)]="city" placeholder="Selecciona una ciudad">>
+            <ion-select [selectOptions]="citiestOptions" name="filter_city" [(ngModel)]="city" placeholder="Selecciona una ciudad">>
                 <ion-option *ngFor="let c of cities" [value]="c.title">{{c.title}}</ion-option>
             </ion-select>
         </ion-item>
 
         <ion-item>
-            <ion-select [selectOptions]="catOptions" [(ngModel)]="category" placeholder="Selecciona una Categoria">>
+            <ion-select [selectOptions]="catOptions" name="filter_category" [(ngModel)]="category" placeholder="Selecciona una Categoria">>
                 <ion-option *ngFor="let c of categories" [value]="c.title">{{c.title}}</ion-option>
             </ion-select>
         </ion-item>
         <ion-item>
             <ion-input type="text" placeholder="Escriba la distancia en Kms"></ion-input>
         </ion-item>
+        <ion-item>
+
+            <button (tap)="filterService()" padding block ion-button>
+
+       Filtrar
+      </button>
+        </ion-item>
+
 
     </ion-list>
     <ion-grid no-padding>
@@ -66,7 +74,7 @@
             <ion-grid>
                 <ion-row>
                     <ion-col col-4>
-                        <img (tap)="viewImg(serv.icon)" [src]="serv.icon ? baseUrl + serv.icon : 'assets/imgs/service_img.png' ">
+                        <img (tap)="viewImg(serv.icon)" [src]="serv.icon ? serv.icon : 'assets/imgs/service_img.png' ">
                     </ion-col>
 
                     <ion-col col-8>
@@ -80,36 +88,27 @@
 
                                 <p>Calificación: {{serv.globalrate}}/10</p>
                                 <p>Distancia: 5 km</p>
-                                <p text-wrap>Categoria: <span *ngFor="let cat of serv.subcategoriesList; let i = index">
-                                    <ng-container *ngIf="i > 0; else elseTemplate">
-                                       ,{{ cat.title}}
-                                    </ng-container>
-                                    <ng-template #elseTemplate>
-                                       {{ cat.title}}
-                                    </ng-template>
-
-                                 </span>
-                                </p>
                             </ion-col>
                             <ion-col col-5>
                                 <ion-icon float-right class="fs-40" (tap)="toogleFavorite(i,serv.id)" *ngIf="loggedIn" name="heart" [color]="serv.favorite ? 'favorite_on' : 'favorite_off'"></ion-icon>
                             </ion-col>
                         </ion-row>
-                        <!-- <ion-row>
-                            <ion-col col-auto>
+                        <ion-row class="pt--12" no-padding>
+                            <ion-col col-5>
                                 <p> Categoria:</p>
                             </ion-col>
-                            <ion-col col-auto>
-                                <p *ngFor="let cat of serv.subcategoriesList; let i = index">
-                                    <ng-container *ngIf="i > 0; else elseTemplate">
-                                        ,{{ cat.title}}
-                                    </ng-container>
-                                    <ng-template #elseTemplate>
-                                        {{ cat.title}}
-                                    </ng-template>
+                            <ion-col col-7>
+                                <p text-wrap><span *ngFor="let cat of serv.subcategoriesList; let i = index">
+                                <ng-container *ngIf="i > 0; else elseTemplate">
+                                   ,{{ cat.title}}
+                                </ng-container>
+                                <ng-template #elseTemplate>
+                                   {{ cat.title}}
+                                </ng-template>
+                             </span>
                                 </p>
                             </ion-col>
-                        </ion-row> -->
+                        </ion-row>
 
                     </ion-col>
 

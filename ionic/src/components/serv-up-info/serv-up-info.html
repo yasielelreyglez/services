@@ -4,7 +4,7 @@
             <ion-list>
                 <ion-item>
                     <ion-thumbnail item-start>
-                        <img (tap)="viewImg(passedService.icon)" [src]="passedService.icon ? baseUrl + passedService.icon : 'assets/imgs/service_img.png' ">
+                        <img (tap)="viewImg(passedService.icon)" [src]="passedService.icon ? passedService.icon : 'assets/imgs/service_img.png' ">
                     </ion-thumbnail>
                     <h1 text-wrap>{{passedService.title}}</h1>
                     <p text-wrap>{{passedService.subtitle}}</p>

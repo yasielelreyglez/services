@@ -40,7 +40,7 @@ export class HomePage {
   connetionDown: boolean;
   loggedIn: boolean;
   noFound: boolean;
-  baseUrl: any;
+
   busqueda:boolean;
   loading: any;
 
@@ -91,7 +91,7 @@ export class HomePage {
       // });
       this.busqueda = false;
       this.noFound = false;
-      this.baseUrl = this.api.getbaseUrl();
+
       this.auth.currentUser.subscribe(user=>{
         this.loggedIn = !!user;
       });
@@ -105,7 +105,7 @@ export class HomePage {
   }
   viewImg(img) {
     this.platform.ready().then(() => {
-    this.photoViewer.show(this.baseUrl + img);
+    this.photoViewer.show(img);
     });
   }
 

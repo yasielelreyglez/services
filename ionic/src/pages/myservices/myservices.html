@@ -22,7 +22,7 @@
                 <ion-row align-items-start>
                     <ion-col col-4>
                         <p style="color:red; text-align: center;">Bloqueado</p>
-                        <img (tap)="viewImg(serv.icon)" [src]="serv.icon ? baseUrl + serv.icon : 'assets/imgs/service_img.png' ">
+                        <img (tap)="viewImg(serv.icon)" [src]="serv.icon ?  + serv.icon : 'assets/imgs/service_img.png' ">
                     </ion-col>
 
                     <ion-col col-8>
@@ -65,7 +65,7 @@
                                   </button>
                             </ion-col>
                             <ion-col col-3>
-                                <button class="action" ion-button icon-only color="danger">
+                                <button (click)="delete(serv.id)" class="action" ion-button icon-only color="danger">
                                     <ion-icon class="fs-30"  name="close"></ion-icon>
                                   </button>
                             </ion-col>
@@ -82,7 +82,7 @@
             <!-- <ion-thumbnail item-start>
                 <p style="color:red; text-align: center;">Bloqueado</p>
                 <ng-container *ngIf="serv.icon; else imgTemplate">
-                    <img src="{{baseUrl + serv.icon}}">
+                    <img src="{{ serv.icon}}">
                 </ng-container>
                 <ng-template #imgTemplate>
                     <img src="assets/imgs/service_img.png">

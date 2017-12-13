@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, LoadingController, Platform } from "ionic-angular";
 import  {ServiceProvider} from  '../../providers/service/service.service';
 import { HttpErrorResponse } from "@angular/common/http";
-import { ApiProvider } from "../../providers/api/api";
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 @IonicPage()
@@ -12,7 +11,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 })
 export class BusquedaPage {
   services = [];
-  baseUrl: any;
+
   email: any;
   token: any;
   haveServices = false;
@@ -20,10 +19,10 @@ export class BusquedaPage {
 
   constructor(public navCtrl: NavController,
 
-    public api: ApiProvider,
+
     public servProv: ServiceProvider,public load: LoadingController,private photoViewer: PhotoViewer,private platform: Platform) {
 
-      this.baseUrl = api.getbaseUrl() ;
+
 
 
   }
@@ -47,7 +46,7 @@ export class BusquedaPage {
   }
   viewImg(img) {
     this.platform.ready().then(() => {
-    this.photoViewer.show(this.baseUrl + img);
+    this.photoViewer.show( img);
     });
   }
 

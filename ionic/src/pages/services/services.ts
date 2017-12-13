@@ -16,16 +16,13 @@ import { Service } from '../../models/service';
 export class ServicesPage {
   catOptions: { title: string };
   citiestOptions: { title: string };
-
   cities: any;
   categories: any;
-
   city: any;
   category: any;
   subCatId: any;
   services: Service[]=[];
   categoryId: any;
-  baseUrl: any;
   loggedIn: boolean;
   option: any;
 
@@ -47,13 +44,11 @@ export class ServicesPage {
       this.loadSelect();
     });
 
-
-
   }
 
   viewImg(img) {
     this.platform.ready().then(() => {
-    this.photoViewer.show(this.baseUrl + img);
+    this.photoViewer.show( img);
     });
   }
   findServById(element,index,array) {
@@ -151,10 +146,8 @@ export class ServicesPage {
   }
 
   ionViewDidLoad() {
-    this.baseUrl = this.api.getbaseUrl();
     this.loggedIn = this.auth.isLoggedIn();
     this.subCatId = this.navParams.get("subCatId");
-
     this.citiestOptions = {
       title: "Ciudades"
     };
@@ -199,5 +192,8 @@ export class ServicesPage {
 
   deleteCategory() {
     this.category = null;
+  }
+  filterService(){
+
   }
 }

@@ -312,14 +312,14 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     }
 
     getErrorMessage() {
-        return this.firstForm.controls['title'].hasError('required') ? 'You must enter a value' :
-            this.firstForm.controls['subtitle'].hasError('required') ? 'You must enter a value' :
-                this.firstForm.controls['address'].hasError('required') ? 'You must enter a value' :
-                    this.firstForm.controls['phone'].hasError('required') ? 'You must enter a value' :
-                        this.firstForm.controls['description'].hasError('required') ? 'You must enter a value' :
-                            this.firstForm.controls['cities'].hasError('required') ? 'You must enter a value' :
-                                this.firstForm.controls['categories'].hasError('required') ? 'You must enter a value' :
-                                    this.positionsForm.controls['positiontitle'].hasError('minlength') ? 'You must enter a value' :
+        return this.firstForm.controls['title'].hasError('required') ? 'Debe escribir un valor' :
+            this.firstForm.controls['subtitle'].hasError('required') ? 'Debe escribir un valor' :
+                this.firstForm.controls['address'].hasError('required') ? 'Debe escribir un valor' :
+                    this.firstForm.controls['phone'].hasError('required') ? 'Debe escribir un valor' :
+                        this.firstForm.controls['description'].hasError('required') ? 'Debe escribir un valor' :
+                            this.firstForm.controls['cities'].hasError('required') ? 'Debe escribir un valor' :
+                                this.firstForm.controls['categories'].hasError('required') ? 'Debe escribir un valor' :
+                                    this.positionsForm.controls['positiontitle'].hasError('minlength') ? 'Debe escribir un valor' :
                                         '';
     }
 

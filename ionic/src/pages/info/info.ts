@@ -16,17 +16,16 @@ import { IonicPage, NavParams} from "ionic-angular";
 })
 export class InfoPage {
   private service: any = {};
-  private baseUrl: any;
   cant_c:any;
 	serviceDays: string="";
   days : object = {
-   0:"Domingo",
-   1:"Lunes",
-   2:"Martes",
-   3:"Miercoles",
-   4:"Jueves",
-   5:"Viernes",
-   6:"Sabado",
+   0:"Lunes",
+   1:"Martes",
+   2:"Miercoles",
+   3:"Jueves",
+   4:"Viernes",
+   5:"Sabado",
+   6:"Domingo",
   };
 
   constructor(public navParams: NavParams) {
@@ -35,7 +34,6 @@ export class InfoPage {
 
   ionViewDidLoad() {
     this.service = this.navParams.get("service");
-    this.baseUrl = this.navParams.get("baseUrl");
     this.cant_c = this.navParams.get("cant_c");
 
     if (this.service['week_days']) {

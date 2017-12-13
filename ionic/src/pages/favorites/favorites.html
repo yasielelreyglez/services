@@ -19,7 +19,7 @@
                     <ion-row>
                         <ion-col col-4>
                             <ng-container *ngIf="serv.icon; else imgTemplate">
-                                <img (tap)="viewImg(serv.icon)" src="{{baseUrl + serv.icon}}">
+                                <img (tap)="viewImg(serv.icon)" src="{{serv.icon}}">
                             </ng-container>
                             <ng-template #imgTemplate>
                                 <img (tap)="viewImg(assets/imgs/service_img.png)" src="assets/imgs/service_img.png">
@@ -36,7 +36,7 @@
                                 </ion-col>
 
                             </ion-row>
-                            <ion-row>
+                            <ion-row class="pt--12">
                                 <ion-col col-auto>
                                     <p> Categoria:</p>
                                 </ion-col>

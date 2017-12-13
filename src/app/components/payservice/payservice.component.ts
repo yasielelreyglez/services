@@ -54,8 +54,8 @@ export class PayserviceComponent implements OnInit {
     }
 
     getErrorMessage() {
-        return this.payForm.controls['country'].hasError('required') ? 'You must enter a value' :
-            this.payForm.controls['phone'].hasError('required') ? 'You must enter a value' :
+        return this.payForm.controls['country'].hasError('required') ? 'Debe escribir un valor' :
+            this.payForm.controls['phone'].hasError('required') ? 'Debe escribir un valor' :
                 '';
     }
 

@@ -77,8 +77,11 @@ export class PopoverPage implements OnInit {
     this.navCtrl.push(MyservicesPage);
     this.viewCtrl.dismiss();
   }
+
   openCreatePage(){
     this.navCtrl.push(Create1Page);
-    this.viewCtrl.dismiss();
+     this.viewCtrl.dismiss();
+
+    // this.viewCtrl.dismiss();
   }
 }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, LoadingController, ViewController, App } from "ionic-angular";
+import { IonicPage, NavController, LoadingController, ViewController, App, AlertController } from "ionic-angular";
 import  {ServiceProvider} from  '../../providers/service/service.service';
-import { ApiProvider } from "../../providers/api/api";
 import { ServicePage } from '../service/service';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 @IonicPage()
 @Component({
@@ -12,20 +12,18 @@ import { ServicePage } from '../service/service';
 export class MyservicesPage {
   // declaracion de variables
   services = [];
-  baseUrl: any;
+
   email: any;
   token: any;
   constructor(  public viewCtrl: ViewController,
     public navCtrl: NavController,
     public appCtrl: App,
-    public api: ApiProvider,
-    public servProv: ServiceProvider,public load: LoadingController) {
+    public servProv: ServiceProvider,private photoViewer: PhotoViewer,
+    public load: LoadingController,private alertCtrl: AlertController) {
       let loading = this.load.create({
         content: "Cargando..."
       });
       loading.present();
-      this.baseUrl = api.getbaseUrl();
-
       this.servProv.getMyServices().then(
         (serv) => {
           this.services = serv['data'];
@@ -36,7 +34,43 @@ export class MyservicesPage {
       );
   }
 
+  delete(id){
+
+    let confirm = this.alertCtrl.create({
+      title: "¿Está seguro que desea eliminar el servicio? ",
+      message: "",
+      buttons: [
+        {
+          text: "No",
+          handler: () => {
+          }
+        },
+        {
+          text: "Si",
+          handler: () => {
+            this.servProv.deleteService(id).then(
+              (response) => {
+                this.services = this.services.filter(service => service.id !== id);
+                  console.log(response);
+              }
+            ).catch(
+              (error) => {}
+            );
+          }
+        }
+      ]
+    });
+    confirm.present();
+
+
+  }
+
   ionViewDidLoad() {
+  }
+  viewImg(img) {
+    // this.platform.ready().then(() => {
+    this.photoViewer.show(img);
+    // });
   }
 
   openServicePage(id,serv) {

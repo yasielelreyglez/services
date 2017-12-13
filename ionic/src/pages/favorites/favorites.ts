@@ -4,7 +4,6 @@ import { NavController, LoadingController,Events, Platform} from 'ionic-angular'
 import  {ServiceProvider} from  '../../providers/service/service.service';
 import { HttpErrorResponse } from "@angular/common/http";
 import { ServicePage } from "../service/service";
-import { ApiProvider } from "../../providers/api/api";
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 
@@ -15,14 +14,12 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 export class FavoritesPage {
   // declaracion de variables
   services = [];
-  baseUrl: any;
   email: any;
   token: any;
 
 
   constructor(
     public navCtrl: NavController,
-    public api: ApiProvider,
      public servProv: ServiceProvider,
      public load: LoadingController,public events: Events,private photoViewer: PhotoViewer,private platform: Platform) {
       this.servProv.getServicesFavorites().then(
@@ -36,12 +33,12 @@ export class FavoritesPage {
   }
 
   ionViewDidLoad() {
-    this.baseUrl = this.api.getbaseUrl();
+
 
   }
   viewImg(img) {
     this.platform.ready().then(() => {
-    this.photoViewer.show(this.baseUrl + img);
+    this.photoViewer.show(img);
     });
   }
 

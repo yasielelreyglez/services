@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ActionSheetController, AlertController } from 'ionic-angular';
 import { Create3Page } from '../create3/create3';
-import { sendService } from '../../models/sendService';
-
+import { sendService, sendGalery } from '../../models/sendService';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 /**
  * Generated class for the Create2Page page.
  *
@@ -16,20 +17,102 @@ import { sendService } from '../../models/sendService';
   templateUrl: 'create2.html',
 })
 export class Create2Page {
-  service: sendService;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+   service: sendService;
+  photos: sendGalery[];
+   preview:any;
+
+  //  photos: any;
+   base64Image: string;
+  constructor(public navCtrl: NavController,
+     public navParams: NavParams,
+     public viewCtrl: ViewController,
+      public actionSheetCtrl: ActionSheetController ,
+      private camera: Camera,public photoViewer: PhotoViewer, private alertCtrl: AlertController,
+    ) {
     this.service = this.navParams.get("service");
-    console.log(this.service);
+    this.service.gallery=[];
+    this.service.dropsImages=[];
+
+
   }
 
   ionViewDidLoad() {
-
+    this.photos = [];
+     this.preview = "as";
   }
+
+  uploadPhoto(){
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Seleccione la imagen',
+      buttons: [
+        {
+          text: 'Cargar desde el almacenamiento',
+          handler: () => {
+            this.getImage(this.camera.PictureSourceType.PHOTOLIBRARY);
+          }
+        },
+        {
+          text: 'Usar la Camara',
+          handler: () => {
+            this.getImage(this.camera.PictureSourceType.CAMERA);
+          }
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+
+  getImage(source) {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: source
+    }
+    this.camera.getPicture(options).then((imageData) => {
+      this.photos.push({filename:"imageData",filetype:"image/jpeg",value:imageData});
+      this.photos.reverse();
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  deletePhoto(index){
+
+          let confirm = this.alertCtrl.create({
+            title: "¿Esta seguro que desea eliminar la imagen? ",
+            message: "",
+            buttons: [
+              {
+                text: "No",
+                handler: () => {
+                }
+              },
+              {
+                text: "Si",
+                handler: () => {
+                  this.photos.splice(index, 1);
+                }
+              }
+            ]
+          });
+          confirm.present();
+      }
+      viewImg(data) {
+        // this.platform.ready().then(() => {
+        this.photoViewer.show( 'data:image/jpeg;base64,' + data);
+        // });
+      }
+
   goToCreate1(){
-    this.navCtrl.pop();
+    this.viewCtrl.dismiss();
   }
   goToCreate3(){
-    console.log(this.service);
+      this.service.gallery=this.photos;
       this.navCtrl.push(Create3Page, {
         service: this.service
       });

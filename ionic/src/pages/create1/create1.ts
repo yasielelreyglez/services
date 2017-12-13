@@ -3,7 +3,7 @@ import {
   IonicPage,
   NavController,
   ActionSheetController,
-  Platform
+  Platform,
 
 } from "ionic-angular";
 
@@ -16,6 +16,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { SubCategory } from '../../models/subCategory';
 import { sendService } from '../../models/sendService';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { ServicesPage } from '../services/services';
 
 
 @IonicPage()
@@ -38,6 +39,9 @@ export class Create1Page {
       ) {
         this.service = new sendService();
         this.loadSelect();
+  }
+  backToHome(){
+     this.navCtrl.popTo(ServicesPage);
   }
   loadSelect() {
     this.api.getCities().then(
