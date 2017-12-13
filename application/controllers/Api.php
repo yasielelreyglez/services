@@ -15,16 +15,20 @@ class Api extends REST_Controller
     // LISTADO DE LAS SUBCATEGORIAS MAS VISITADAS O RANKIADAS(VISTA DEL HOME)
     public function topSubcategories_get()
     {
-
         $em = $this->doctrine->em;
         $subcategoriesRepo = $em->getRepository('Entities\Subcategory');
         $subcategories = $subcategoriesRepo->findBy(array(), array('visits' => 'DESC'), 10);
+        if($subcategories){
         $response["desc"] = "Subcategorias mas visitadas ";
         $response["count"] = count($subcategories);
         $response["data"] = $subcategories;
-
+        }
+        else{
+            $response["desc"] = 'No existen categorias mas visitadas';
+            $response["count"] = 0;
+            $response["data"] = array();
+        }
         $this->set_response($response, REST_Controller::HTTP_OK);
-
     }
 
     //LISTADO DE LAS CATEGORIAS (TODAS LAS CATEGORIAS ?)

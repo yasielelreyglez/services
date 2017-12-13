@@ -6,7 +6,7 @@
         <mat-grid-tile *ngFor="let category of categories" class="text-center">
             <div class="mat-content text-center cp" (click)="dataTitle(category.title)"
                  [routerLink]="['/categories', category.id]">
-                <img class="scale" src="/services/{{category.icon}}" alt="">
+                <img class="scale" src="{{category.icon}}" alt="">
                 <p class="tc-grei fw-600">{{category.title}}</p>
             </div>
         </mat-grid-tile>
@@ -15,7 +15,7 @@
         <mat-grid-tile *ngFor="let category of categories" class="text-center">
             <div class="mat-content text-center cp" (click)="dataTitle(category.title)"
                  [routerLink]="['/categories', category.id]">
-                <img class="scale" src="/services/{{category.icon}}" alt="">
+                <img class="scale" src="{{category.icon}}" alt="">
                 <p class="tc-grei fw-600">{{category.title}}</p>
             </div>
         </mat-grid-tile>
@@ -24,7 +24,7 @@
         <mat-grid-tile *ngFor="let category of categories" class="text-center">
             <div class="mat-content text-center cp" (click)="dataTitle(category.title)"
                  [routerLink]="['/categories', category.id]">
-                <img class="scale" src="/services/{{category.icon}}" alt="">
+                <img class="scale" src="{{category.icon}}" alt="">
                 <p class="tc-grei fw-600">{{category.title}}</p>
             </div>
         </mat-grid-tile>

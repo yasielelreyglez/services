@@ -104,6 +104,9 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
         if (tabChangeEvent.index === 1) {
             this.initMap();
             this.addPositions(this);
+            this.currentEnd.id = -1;
+
+            this.directionsDisplay.setMap(null);
             // google.maps.event.trigger(this.map, 'resize');
         }
     }
@@ -149,8 +152,8 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
             //     console.log(position);
             // })
 
-            if (navigator.geolocation) {
-                navigator.geolocation.watchPosition(function (position) {
+            if (window.navigator.geolocation) {
+                window.navigator.geolocation.watchPosition(function (position) {
                     const latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
                     that.currentPosition.setPosition(latLng);
@@ -181,8 +184,6 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
     }
 
     changeCurrentEnd(pos) {
-        console.log(this.currentEnd);
-        console.log(pos);
         if (this.currentEnd.id !== -1) {
             if (this.currentEnd.id === pos) {
                 this.currentEnd.id = -1;
@@ -330,7 +331,6 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
                 this.error = 'Error en el servidor';
                 this.loading = false;
             }
-
         });
     }
 }
