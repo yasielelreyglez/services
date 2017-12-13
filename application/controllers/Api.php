@@ -17,11 +17,18 @@ class Api extends REST_Controller
     {
         $em = $this->doctrine->em;
         $subcategoriesRepo = $em->getRepository('Entities\Subcategory');
+
         $subcategories = $subcategoriesRepo->findBy(array(), array('visits' => 'DESC'), 10);
+
         if($subcategories){
-        $response["desc"] = "Subcategorias mas visitadas ";
-        $response["count"] = count($subcategories);
-        $response["data"] = $subcategories;
+            $response["desc"] = "Subcategorias mas visitadas ";
+            $response["count"] = count($subcategories);
+            $result = array();
+            foreach ($subcategories as $subcategory) {
+                $result[]=array("id"=>$subcategory->id,"title"=>"algo");
+                echo $subcategory->title;
+            }
+            $response["data"] = $result;
         }
         else{
             $response["desc"] = 'No existen categorias mas visitadas';
