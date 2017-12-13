@@ -38,7 +38,7 @@ class Subcategory extends CI_Controller {
 	function destroy() {
 		$id = $this->uri->segment(3);
 		$data['subcategory'] = $this->Subcategory_model->destroy($id);
-		redirect('/subcategory/index', 'refresh');
+		redirect('admin/subcategory/index', 'refresh');
 	}
 
 	# POST /subcategory/save
