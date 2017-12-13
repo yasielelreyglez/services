@@ -15,7 +15,7 @@ export class ApiService {
 
     topSubcategories(): Observable<Subcategory[]> {
         return this.http.get('services/api/topsubcategories').map((response) => {
-            if (response)
+            if (response.json().count > 0)
                 return response.json().data;
             else {
                 return new Subcategory[0];
@@ -45,7 +45,7 @@ export class ApiService {
 
     allSubCategories(): Observable<any> {
         return this.http.get('services/api/allsubcateogries').map((response) => {
-            if (response)
+            if (response.json().data)
                 return response.json().data;
             else {
                 return new Array();

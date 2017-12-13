@@ -331,7 +331,6 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
                 this.error = 'Error en el servidor';
                 this.loading = false;
             }
-
         });
     }
 }

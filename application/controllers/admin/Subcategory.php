@@ -38,7 +38,7 @@ class Subcategory extends CI_Controller {
 	function destroy() {
 		$id = $this->uri->segment(3);
 		$data['subcategory'] = $this->Subcategory_model->destroy($id);
-		redirect('/subcategory/index', 'refresh');
+		redirect('admin/subcategory/index', 'refresh');
 	}
 
 	# POST /subcategory/save
@@ -60,15 +60,20 @@ class Subcategory extends CI_Controller {
                 print_r($error);
             }else{
 
-
                 $data["upload_data"] =$this->upload->data();
-				$data[] = array();
-				$data['id'] = $this->input->post('id', TRUE);
-				$data['title'] = $this->input->post('title', TRUE);
-                $data['category_id'] = $this->input->post('category_id', TRUE);
-				$data['icon'] =site_url('resources/image/subcategories/'.$data["upload_data"]["file_name"]);
+				$id = $this->input->post('id', TRUE);
+                $em = $this->doctrine->em;
+				if($id){
+                    $subcategory = $em->find("\Entities\Subcategory",$id);
+				}else{
+					$subcategory = new \Entities\Subcategory();
 
-				$this->Subcategory_model->save($data);
+				}
+                $subcategory->setTitle($this->input->post('title', TRUE));
+				$subcategory->setCategory($em->find("\Entities\Category",$this->input->post('category_id', TRUE)));
+				$subcategory->setIcon(site_url('resources/image/subcategories/'.$data["upload_data"]["file_name"]));
+				$em->persist($subcategory);
+				$em->flush();
                 redirect('admin/subcategory/index', 'refresh');
             }
 
