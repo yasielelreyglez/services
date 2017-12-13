@@ -17,8 +17,9 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
   templateUrl: 'create2.html',
 })
 export class Create2Page {
+  edit: boolean =false;
    service: sendService;
-  photos: sendGalery[];
+   photos: sendGalery[];
    preview:any;
 
   //  photos: any;
@@ -32,13 +33,20 @@ export class Create2Page {
     this.service = this.navParams.get("service");
     this.service.gallery=[];
     this.service.dropsImages=[];
-
-
   }
 
   ionViewDidLoad() {
     this.photos = [];
-     this.preview = "as";
+    this.preview = "as";
+    if(this.navParams.get("service").id){
+
+      this.edit=true;
+      // this.photos=this.navParams.get("service").imagesList;
+      // let subcategoriesId = [];
+      // for (let i = 0; i < this.navParams.get("service").imagesList.length; i++) {
+      //     subcategoriesId.push(this.navParams.get("service").subcategoriesList[i].id);
+      // }
+    }
   }
 
   uploadPhoto(){
@@ -74,8 +82,12 @@ export class Create2Page {
       sourceType: source
     }
     this.camera.getPicture(options).then((imageData) => {
+
+      if (this.edit) {
+        this.service.imagesList.push({title:'data:image/jpeg;base64,' + imageData});
+      }
       this.photos.push({filename:"imageData",filetype:"image/jpeg",value:imageData});
-      this.photos.reverse();
+      // this.photos.reverse();
     }, (err) => {
       console.log(err);
     });
@@ -95,7 +107,17 @@ export class Create2Page {
               {
                 text: "Si",
                 handler: () => {
-                  this.photos.splice(index, 1);
+
+                  if (this.edit) {
+                    this.service.dropsImages.push(this.service.imagesList[index].id);
+                    this.service.imagesList.splice(index, 1);
+                  }else{
+                    this.service.dropsImages.push(this.photos[index].id);
+                    this.photos.splice(index, 1);
+
+                  }
+
+                  console.log(this.service);
                 }
               }
             ]
@@ -117,5 +139,7 @@ export class Create2Page {
         service: this.service
       });
   }
+
+
 
 }
