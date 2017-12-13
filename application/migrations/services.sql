@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-12-2017 a las 15:15:31
+-- Tiempo de generación: 13-12-2017 a las 16:18:04
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -261,14 +261,14 @@ CREATE TABLE `subcategories` (
 --
 
 INSERT INTO `subcategories` (`id`, `category_id`, `title`, `icon`, `visits`, `created_at`, `updated_at`) VALUES
-(5, 33, 'Cuidado de niños', 'http://localhost/services/resources/image/subcategories/cuidado_ninos.png', 0, '2017-12-13 02:10:43', '2017-12-13 03:08:44'),
+(5, 33, 'Cuidado de niÃ±os', 'http://localhost/services/resources/image/subcategories/cuidado_ninos.png', 0, '2017-12-13 02:10:43', '2017-12-13 03:08:44'),
 (6, 33, 'Electricidad', 'http://localhost/services/resources/image/subcategories/electricidad.png', 0, '2017-12-13 02:11:38', '2017-12-13 03:09:19'),
 (7, 33, 'Servicios de limpieza', 'http://localhost/services/resources/image/subcategories/servicios_limpieza.png', 0, '2017-12-13 02:12:08', '2017-12-13 03:09:26'),
 (8, 35, 'Servicios medicos', 'http://localhost/services/resources/image/subcategories/servicios_medicos.png', 0, '2017-12-13 02:12:30', '2017-12-13 03:09:36'),
 (9, 36, 'Servicios tecnologicos', 'http://localhost/services/resources/image/subcategories/servicios_tecnologicos.png', 0, '2017-12-13 03:36:03', '2017-12-13 03:09:43'),
 (10, 35, 'Servicios veterinarios', 'http://localhost/services/resources/image/subcategories/servicios_veterinarios.png', 0, '2017-12-13 03:36:30', '2017-12-13 03:09:51'),
-(11, 36, 'Telefonía celular', 'http://localhost/services/resources/image/subcategories/telefonia_celular.png', 0, '2017-12-13 03:37:42', '2017-12-13 03:09:58'),
-(12, 37, 'Transportación', 'http://localhost/services/resources/image/subcategories/transportacion.png', 0, '2017-12-13 03:38:06', '2017-12-13 03:10:04');
+(11, 36, 'TelefonÃ­a celular', 'http://localhost/services/resources/image/subcategories/telefonia_celular.png', 0, '2017-12-13 03:37:42', '2017-12-13 03:09:58'),
+(12, 37, 'TransportaciÃ³n', 'http://localhost/services/resources/image/subcategories/transportacion.png', 0, '2017-12-13 03:38:06', '2017-12-13 03:10:04');
 
 -- --------------------------------------------------------
 
