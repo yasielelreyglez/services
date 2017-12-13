@@ -7,14 +7,14 @@ class Subcategory extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
-		$this->load->model('Subcategory_model');
-		$this->load->model('Category_model');
         $this->load->helper('html');
 	}
 
 	# GET /subcategory
 	function index() {
-		$data['subcategory'] = $this->Subcategory_model->find();
+        $em= $this->doctrine->em;
+        $relacion = $em->getRepository('Entities\Subcategory');
+		$data['subcategory'] = $relacion->findAll();
 		$data['content'] = '/subcategory/index';
         $data["tab"]="subcategory";
         $this->load->view('/includes/contentpage', $data);
@@ -22,14 +22,19 @@ class Subcategory extends CI_Controller {
 
 	# GET /subcategory/create
 	function create() {
-        $data['categories'] = $this->Category_model->find();
+        $em= $this->doctrine->em;
+        $relacion = $em->getRepository('Entities\Category');
+        $data['categories'] = $relacion->findAll();
 		$data['content'] = '/subcategory/create';
         $this->load->view('/includes/contentpage', $data);
 	}
 
 	# GET /subcategory/edit/1
 	function edit($id) {
-		$data['categories'] = $this->Category_model->find();		$data['subcategory'] = $this->Subcategory_model->find($id);
+        $em= $this->doctrine->em;
+        $relacion = $em->getRepository('Entities\Category');
+		$data['categories'] = $relacion->findAll();
+		$data['subcategory'] = $em->find('Entities\Subcategory',$id);
 		$data['content'] = '/subcategory/create';
         $this->load->view('/includes/contentpage', $data);
 	}
@@ -48,35 +53,31 @@ class Subcategory extends CI_Controller {
 
 		if ($this->form_validation->run()) {
 
+            $id = $this->input->post('id', TRUE);
+            $em = $this->doctrine->em;
+            if($id){
+                $subcategory = $em->find("\Entities\Subcategory",$id);
+            }else{
+                $subcategory = new \Entities\Subcategory();
+
+            }
+            $guardar_icon = true;
+
             $config['upload_path']          = './resources/image/subcategories';
             $config['allowed_types']        = 'gif|jpg|png';
             $config['max_size']             = 1000;
             $config['max_width']            = 9024;
             $config['max_height']           = 2768;
             $this->load->library('upload', $config);
-            if ( ! $this->upload->do_upload('userfile')) {
-                $error = array('error' => $this->upload->display_errors());
-                $this->load->view('upload_form', $error);
-                print_r($error);
-            }else{
-
-                $data["upload_data"] =$this->upload->data();
-				$id = $this->input->post('id', TRUE);
-                $em = $this->doctrine->em;
-				if($id){
-                    $subcategory = $em->find("\Entities\Subcategory",$id);
-				}else{
-					$subcategory = new \Entities\Subcategory();
-
-				}
-                $subcategory->setTitle($this->input->post('title', TRUE));
-				$subcategory->setCategory($em->find("\Entities\Category",$this->input->post('category_id', TRUE)));
-				$subcategory->setIcon(site_url('resources/image/subcategories/'.$data["upload_data"]["file_name"]));
-				$em->persist($subcategory);
-				$em->flush();
-                redirect('admin/subcategory/index', 'refresh');
+            if ($this->upload->do_upload('userfile')) {
+                $data["upload_data"] = $this->upload->data();
+                $subcategory->setIcon(site_url('resources/image/subcategories/'.$data["upload_data"]["file_name"]));
             }
-
+			$subcategory->setTitle($this->input->post('title', TRUE));
+			$subcategory->setCategory($em->find("\Entities\Category",$this->input->post('category_id', TRUE)));
+			$em->persist($subcategory);
+			$em->flush();
+			redirect('admin/subcategory/index', 'refresh');
 		}
         $data['categories'] = $this->Category_model->find();
 		$data['subcategory'] =	$this->rebuild();
