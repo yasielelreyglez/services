@@ -64,7 +64,10 @@
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
-      "cordova-plugin-camera": {},
+      "cordova-plugin-camera": {
+        "CAMERA_USAGE_DESCRIPTION": "Camera Access",
+        "PHOTOLIBRARY_USAGE_DESCRIPTION": "Photo library Access"
+      },
       "cordova-plugin-file": {},
       "cordova-plugin-geolocation": {},
       "mx.ferreyra.callnumber": {},

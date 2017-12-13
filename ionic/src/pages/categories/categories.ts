@@ -8,7 +8,6 @@ import {SubcategoriesPage} from '../subcategories/subcategories';
 
 // providers
 import  {CategoryProvider} from  '../../providers/category/category.service';
-import { ApiProvider } from "../../providers/api/api";
 
 
 @IonicPage()
@@ -19,15 +18,14 @@ import { ApiProvider } from "../../providers/api/api";
 })
 export class CategoriesPage {
  private categories=[];
- private baseUrl: any;
+
 
   constructor(public navCtrl: NavController,
     public category: CategoryProvider,
     public load: LoadingController,
     public popCtrl: PopoverController,
-    public api: ApiProvider) {
+   ) {
 
-    this.baseUrl = api.getbaseUrl();
     const loading = this.load.create();
     loading.present();
     category.getcategories()

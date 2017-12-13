@@ -13,7 +13,6 @@ export class GaleriaPage {
   service: any = {};
   galeria : any[] = [];
   comentario : string;;
-  baseUrl: any;
   cant_c:number;
   havePhoto:boolean;
   constructor(private platform: Platform,public navParams: NavParams,private photoViewer: PhotoViewer,) {
@@ -21,7 +20,6 @@ export class GaleriaPage {
 
   ionViewDidLoad() {
     this.service = this.navParams.get("service");
-    this.baseUrl = this.navParams.get("baseUrl");
     this.cant_c = this.navParams.get("cant_c");
     this.galeria= this.service['imagesList'];
     this.havePhoto = this.galeria.length> 0?true:false;
@@ -30,7 +28,7 @@ export class GaleriaPage {
   }
   viewImg(img) {
     this.platform.ready().then(() => {
-    this.photoViewer.show(this.baseUrl + img);
+    this.photoViewer.show(img);
     });
   }
 }

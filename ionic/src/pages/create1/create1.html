@@ -1,6 +1,11 @@
 <ion-header>
 
-    <ion-navbar>
+    <ion-navbar hideBackButton>
+        <ion-buttons left>
+            <button (click)="backToHome()" ion-button icon-only color="royal">
+              <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
         <ion-title text-center>create 1</ion-title>
     </ion-navbar>
 
@@ -25,46 +30,60 @@
 
     <form #formu="ngForm">
         <ion-item>
-            <ion-label stacked>Título</ion-label>
-            <ion-input name="title" [(ngModel)]="service.title" placeholder="Título ..."></ion-input>
+            <ion-label stacked>Título<span class="requerido"><sup>*</sup></span></ion-label>
+            <ion-input name="title" [(ngModel)]="service.title" placeholder="Título ..." required></ion-input>
         </ion-item>
         <ion-item>
-            <ion-label stacked>Subtítulo</ion-label>
-            <ion-input name="subtitle" [(ngModel)]="service.subtitle" placeholder="Subtítulo..."></ion-input>
+            <ion-label stacked>Subtítulo <span class="requerido"><sup>*</sup></span></ion-label>
+            <ion-input name="subtitle" [(ngModel)]="service.subtitle" placeholder="Subtítulo..." required></ion-input>
         </ion-item>
         <ion-item>
-            <ion-label stacked>Dirección</ion-label>
-            <ion-input name="address" [(ngModel)]="service.address" #Saddress="ngModel" placeholder="Dirección..."></ion-input>
+            <ion-label stacked>Dirección <span class="requerido"><sup>*</sup></span></ion-label>
+            <ion-input name="address" [(ngModel)]="service.address" #Saddress="ngModel" placeholder="Dirección..." required></ion-input>
 
         </ion-item>
         <ion-item>
             <ion-label stacked>Descripcion</ion-label>
-            <ion-textarea name="description" [(ngModel)]="service.description" #desc="ngModel" rows="2" placeholder="Descripción "></ion-textarea>
+            <ion-textarea required name="description" [(ngModel)]="service.description" #desc="ngModel" rows="2" placeholder="Descripción "></ion-textarea>
         </ion-item>
         <ion-item>
-            <ion-label stacked>Teléfono</ion-label>
-            <ion-input type="tel" name="phone" [(ngModel)]="service.phone" #Sphone="ngModel" placeholder="Teléfono..."></ion-input>
+            <ion-label stacked>Teléfono <span class="requerido"><sup>*</sup></span></ion-label>
+            <ion-input required type="tel" name="phone" [(ngModel)]="service.phone" #Sphone="ngModel" placeholder="Teléfono..."></ion-input>
         </ion-item>
         <ion-item>
-            <ion-label>Ciudades</ion-label>
-            <ion-select multiple="true" name="cities" [(ngModel)]="service.cities" placeholder="Selecciona una ciudad">
+            <ion-label>Ciudades
+                <span class="requerido"><sup>*</sup></span></ion-label>
+            <ion-select required multiple="true" name="cities" [(ngModel)]="service.cities" placeholder="Selecciona una ciudad">
                 <ion-option *ngFor="let c of cities" [value]="c.id">{{c.title}}</ion-option>
             </ion-select>
         </ion-item>
         <ion-item>
-            <ion-label>Categorias</ion-label>
-            <ion-select multiple="true" name="categories" [(ngModel)]="service.categories" placeholder="Selecciona una ciudad">
+            <ion-label>Categorias <span class="requerido"><sup>*</sup></span></ion-label>
+            <ion-select required multiple="true" name="categories" [(ngModel)]="service.categories" placeholder="Selecciona una ciudad">
                 <ion-option *ngFor="let c of categories" [value]="c.id">{{c.title}}</ion-option>
             </ion-select>
         </ion-item>
 
+        <ion-grid>
+            <ion-row align-items-center>
+                <ion-col col-6>
+                    <img (tap)="viewImg()" src="{{preview}}" />
+                </ion-col>
+                <ion-col col-6>
+                    <button (tap)="presentActionSheet()" padding block ion-button icon-left>
+              <ion-icon name="cloud-upload"></ion-icon>
+              Subir foto
+            </button>
+                </ion-col>
 
-        <ion-item>
-            <img (tap)="viewImg()" style="max-width: 50%;" src="{{preview}}" />
-            <button ion-button (tap)="presentActionSheet()">Subir Foto</button>
-            <!-- <img style="max-width: 50%;" src="{{preview}}" (tap)="presentActionSheet()" alt="Ionic File" />
-                <button  ion-button (tap)="uploadFile()">Subir Foto</button> -->
-        </ion-item>
+            </ion-row>
+        </ion-grid>
+        <!--<ion-item>-->
+        <!--<img (tap)="viewImg()" style="max-width: 50%;" src="{{preview}}" />-->
+        <!--<button ion-button (tap)="presentActionSheet()">Subir Foto</button>-->
+        <!--&lt;!&ndash; <img style="max-width: 50%;" src="{{preview}}" (tap)="presentActionSheet()" alt="Ionic File" />-->
+        <!--<button  ion-button (tap)="uploadFile()">Subir Foto</button> &ndash;&gt;-->
+        <!--</ion-item>-->
 
     </form>
     <ion-grid>
@@ -83,4 +102,4 @@
         </ion-row>
     </ion-grid>
 
-</ion-content>
+</ion-content>s

@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import  {SubCategoryProvider} from  '../../providers/sub-category/sub-category';
 import {ServicesPage} from '../services/services';
-import { ApiProvider } from "../../providers/api/api";
+
 
 
 /**
@@ -24,14 +24,14 @@ export class SubcategoriesPage {
   private parentId:any;
   private subCategories = [];
   private loading: any;
-  private baseUrl: any;
 
-  constructor(   public api: ApiProvider,public navCtrl: NavController, public navParams: NavParams,
+
+  constructor( public navCtrl: NavController, public navParams: NavParams,
     public load: LoadingController,
     public subCat: SubCategoryProvider,) {
     this.parentTitle= navParams.get("title");
     this.parentId= navParams.get("categoryId");
-    this.baseUrl = api.getbaseUrl() ;
+
 
     // obtengo las subcategorias dada una categoria
      this.loading = this.load.create();

@@ -19,13 +19,14 @@ export class ApiProvider {
 
   constructor(public http: HttpClient) {
     this.days ={
-      0:"Domingo",
-      1:"Lunes",
-      2:"Martes",
-      3:"Miercoles",
-      4:"Jueves",
-      5:"Viernes",
-      6:"Sábado",
+
+      0:"Lunes",
+      1:"Martes",
+      2:"Miercoles",
+      3:"Jueves",
+      4:"Viernes",
+      5:"Sábado",
+      6:"Domingo"
     }
     this.user =JSON.parse(localStorage.getItem('ServCurrentUser')) ;
   }

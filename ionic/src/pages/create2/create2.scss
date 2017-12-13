@@ -1,3 +1,15 @@
 page-create2 {
-
+    .block {
+        position: relative;
+        .deleteIcon {
+            position: absolute;
+            margin-left: 85%;
+            margin-top: 0;
+            color: #ffffff !important;
+            font-size: 30px;
+        }
+        .deleteIcon:before {
+            font-size: 30px !important;
+        }
+    }
 }

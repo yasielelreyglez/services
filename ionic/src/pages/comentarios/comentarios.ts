@@ -14,7 +14,7 @@ export class ComentariosPage {
   service: any = {};
   comentarios : any[] = [];
   comentario : string;
-  baseUrl: any;
+
   loggedIn: boolean;
   cant_c:number;
 
@@ -23,7 +23,6 @@ export class ComentariosPage {
 
   ionViewDidLoad() {
     this.service = this.navParams.get("service");
-    this.baseUrl = this.navParams.get("baseUrl");
     this.cant_c = this.navParams.get("cant_c");
     this.comentarios= this.service['servicecommentsList'];
     this.loggedIn = this.auth.isLoggedIn();
