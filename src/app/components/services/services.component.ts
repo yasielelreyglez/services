@@ -34,6 +34,7 @@ export class ServicesComponent implements OnInit {
     openDialog(id): void {
         const dialogRef = this.dialog.open(ReportComponent, {
             width: '70%',
+            height: '303px',
             data: {id: id}
         });
 

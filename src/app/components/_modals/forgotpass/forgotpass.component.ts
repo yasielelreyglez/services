@@ -46,8 +46,8 @@ export class ForgotpassComponent implements OnInit {
     }
 
     getErrorMessage() {
-        return this.forgotForm.controls['email'].hasError('required') ? 'You must enter a value' :
-            this.forgotForm.controls['email'].hasError('email') ? 'Not a valid email' :
+        return this.forgotForm.controls['email'].hasError('required') ? 'Debe escribir un valor' :
+            this.forgotForm.controls['email'].hasError('email') ? 'Correo no valido' :
                 '';
     }
 

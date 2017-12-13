@@ -14,7 +14,6 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 export class LoginComponent implements OnInit {
     user: User;
     loading: boolean;
-    error: string;
     hide = true;
     loginForm: FormGroup;
 
@@ -22,12 +21,9 @@ export class LoginComponent implements OnInit {
                 private snackBar: MatSnackBar) {
         this.user = new User();
         this.loading = false;
-        this.error = '';
     }
 
     ngOnInit() {
-        // reset login status
-        // this.authService.logout();
         this.createForm();
     }
 
@@ -39,9 +35,9 @@ export class LoginComponent implements OnInit {
     }
 
     getErrorMessage() {
-        return this.loginForm.controls['email'].hasError('required') ? 'You must enter a value' :
-            this.loginForm.controls['email'].hasError('email') ? 'Not a valid email' :
-                this.loginForm.controls['password'].hasError('required') ? 'You must enter a value' :
+        return this.loginForm.controls['email'].hasError('required') ? 'Debe escribir un valor' :
+            this.loginForm.controls['email'].hasError('email') ? 'Correo no valido' :
+                this.loginForm.controls['password'].hasError('required') ? 'Debe escribir un valor' :
                     '';
     }
 
@@ -53,8 +49,8 @@ export class LoginComponent implements OnInit {
                     this.router.navigate(['']);
                     this.openSnackBar('Usuario autenticado correctamente.', 2500);
                 } else {
-                    this.error = 'Username or password is incorrect';
                     this.loading = false;
+                    this.openSnackBar(result, 2500);
                 }
             });
     }
@@ -62,6 +58,7 @@ export class LoginComponent implements OnInit {
     openDialog(): void {
         const dialogRef = this.dialog.open(ForgotpassComponent, {
             width: '70%',
+            height: '285px'
         });
 
         dialogRef.afterClosed().subscribe(() => {

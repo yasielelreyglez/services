@@ -99,6 +99,9 @@ export class ApiService {
                 }
             });
         }
+        else {
+            return new Observable();
+        }
     }
 
     myServices(): Observable<any> {
@@ -114,6 +117,9 @@ export class ApiService {
                 }
             });
         }
+        else {
+            return new Observable();
+        }
     }
 
     mySearchs(): Observable<any> {
@@ -128,6 +134,9 @@ export class ApiService {
                     return new Array();
                 }
             });
+        }
+        else {
+            return new Observable();
         }
     }
 
@@ -169,6 +178,9 @@ export class ApiService {
                 }
             });
         }
+        else {
+            return new Observable();
+        }
     }
 
     hideComment(id: number): Observable<any> {
@@ -183,6 +195,9 @@ export class ApiService {
                     return new Array();
                 }
             });
+        }
+        else {
+            return new Observable();
         }
     }
 
@@ -199,6 +214,9 @@ export class ApiService {
                 }
             });
         }
+        else {
+            return new Observable();
+        }
     }
 
     reportComment(id: number): Observable<any> {
@@ -213,6 +231,9 @@ export class ApiService {
                     return new Array();
                 }
             });
+        }
+        else {
+            return new Observable();
         }
     }
 
@@ -229,6 +250,9 @@ export class ApiService {
                 }
             });
         }
+        else {
+            return new Observable();
+        }
     }
 
     disMarkfavorite(id: number): Observable<Subcategory[]> {
@@ -244,6 +268,9 @@ export class ApiService {
                 }
             });
         }
+        else {
+            return new Observable();
+        }
     }
 
     rateService(id: number, rate: number): Observable<any> {
@@ -253,11 +280,14 @@ export class ApiService {
             headers.append('Authorization', JSON.parse(currentUser).token);
             return this.http.get('services/api/rateservice/' + id + '/' + rate, {headers: headers}).map((response) => {
                 if (response)
-                    return response.json().data;
+                    return response.json();
                 else {
-                    return new Array();
+                    return new Observable();
                 }
             });
+        }
+        else {
+            return new Observable();
         }
     }
 
@@ -267,13 +297,17 @@ export class ApiService {
             const headers = new Headers();
             headers.append('Authorization', JSON.parse(currentUser).token);
             return this.http.get('services/api/complaint/' + report.id + '?complaint=' + report.report, {headers: headers}).map((response) => {
-                    if (response.json().result === true) {
+                console.log(response);
+                if (!response.json().error) {
                         return true;
                     } else {
-                        return {error: response.json().result};
+                        return response.json().error;
                     }
                 }
             );
+        }
+        else {
+            return new Observable();
         }
     }
 
@@ -291,6 +325,9 @@ export class ApiService {
                 }
             );
         }
+        else {
+            return new Observable();
+        }
     }
 
     payService(id: number, body: any): Observable<any> {
@@ -307,6 +344,9 @@ export class ApiService {
                 }
             );
         }
+        else {
+            return new Observable();
+        }
     }
 
     memberships(): Observable<any> {
@@ -322,6 +362,9 @@ export class ApiService {
                     }
                 }
             );
+        }
+        else {
+            return new Observable();
         }
     }
 

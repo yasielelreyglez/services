@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {ApiService} from '../../../_services/api.service';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from '@angular/material';
 
 @Component({
     selector: 'app-rating',
@@ -10,15 +10,13 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 export class RatingComponent implements OnInit {
     model: any;
     loading: boolean;
-    error: string;
     stars: boolean[];
     value: number;
 
     constructor(public dialogRef: MatDialogRef<RatingComponent>,
-                @Inject(MAT_DIALOG_DATA) public data: any, private apiServices: ApiService) {
+                @Inject(MAT_DIALOG_DATA) public data: any, private apiServices: ApiService, private snackBar: MatSnackBar) {
         this.model = {};
         this.loading = false;
-        this.error = '';
         this.stars = [false, false, false, false, false, false, false, false, false, false];
         this.value = 0;
     }
@@ -28,8 +26,11 @@ export class RatingComponent implements OnInit {
 
     rate() {
         this.apiServices.rateService(this.data.service.id, this.value).subscribe(result => {
-            if (result) {
-                this.dialogRef.close(result);
+            if (!result.error) {
+                this.dialogRef.close(result.data);
+            }
+            else{
+                this.openSnackBar(result.error, 2500);
             }
         });
     }
@@ -57,6 +58,13 @@ export class RatingComponent implements OnInit {
 
     onNoClick(): void {
         this.dialogRef.close();
+    }
+
+    openSnackBar(message: string, duration: number, action?: string ) {
+        this.snackBar.open(message, action, {
+            duration: duration,
+            horizontalPosition: 'center',
+        });
     }
 
 }

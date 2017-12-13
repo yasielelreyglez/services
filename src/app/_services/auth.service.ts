@@ -16,7 +16,7 @@ export class AuthService {
         this.currentUser.next(this.isAutenticate());
     }
 
-    login(user: User): Observable<boolean> {
+    login(user: User): Observable<any> {
         const body = JSON.stringify({email: user.email, password: user.password});
         return this.http.post('services/auth/login', body).map(response => response.json()).map(result => {
             if (!result.error) {
@@ -24,11 +24,11 @@ export class AuthService {
                 this.currentUser.next(result);
                 return true;
             }
-            return false;
+            return result.error;
         });
     }
 
-    register(user: User): Observable<boolean> {
+    register(user: User): Observable<any> {
         const body = JSON.stringify({name: user.name, email: user.email, password: user.password});
         return this.http.post('services/auth/register', body).map(response => response.json()).map(result => {
             if (!result.error) {
@@ -36,7 +36,7 @@ export class AuthService {
                 this.currentUser.next(result);
                 return true;
             }
-            return false;
+            return result.error;
         });
     }
 

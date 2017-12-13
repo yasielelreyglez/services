@@ -172,7 +172,9 @@
                 </button>
             </mat-grid-tile>
             <mat-grid-tile>
-                <button mat-raised-button class="tc-white col-12 bc-red" (click)="openDialog(service.id)">
+                <button [disabled]="!loggedIn" mat-raised-button
+                        class="tc-white col-12" [ngStyle]="{'background-color': loggedIn ? '#E0040B' : ''}"
+                        (click)="openDialog(service.id)">
                     <mat-icon>mic</mat-icon>
                     Denunciar
                 </button>
@@ -187,7 +189,7 @@
                 </button>
             </mat-grid-tile>
             <mat-grid-tile>
-                <button mat-raised-button class="tc-white col-12 bc-red" (click)="open()">
+                <button mat-raised-button class="tc-white col-12 bc-red" (click)="openDialog(service.id)">
                     <mat-icon>mic</mat-icon>
                 </button>
             </mat-grid-tile>
