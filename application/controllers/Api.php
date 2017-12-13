@@ -23,12 +23,7 @@ class Api extends REST_Controller
         if($subcategories){
             $response["desc"] = "Subcategorias mas visitadas ";
             $response["count"] = count($subcategories);
-            $result = array();
-            foreach ($subcategories as $subcategory) {
-                $result[]=array("id"=>$subcategory->id,"title"=>"algo");
-                echo $subcategory->title;
-            }
-            $response["data"] = $result;
+            $response["data"] = $subcategories;
         }
         else{
             $response["desc"] = 'No existen categorias mas visitadas';
@@ -76,7 +71,6 @@ class Api extends REST_Controller
     //LISTADO DE LAS SUBCATEGORIAS DADA UNA CATEGORIA <params category:string>
     public function subcategories_get($category_id)
     {
-
         $em = $this->doctrine->em;
         $subcategoriesRepo = $em->getRepository('Entities\Subcategory');
         $subcategories = $subcategoriesRepo->findBy(array('category' => $category_id));

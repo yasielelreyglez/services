@@ -15,7 +15,6 @@ export class ApiService {
 
     topSubcategories(): Observable<Subcategory[]> {
         return this.http.get('services/api/topsubcategories').map((response) => {
-            console.log(response);
             if (response.json().count > 0)
                 return response.json().data;
             else {
