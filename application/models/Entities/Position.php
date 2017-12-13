@@ -65,6 +65,7 @@ class Position
     {
         $this->title = $title;
     }
+
     /**
      * Set latitude
      *
@@ -137,8 +138,23 @@ class Position
         return $this->service;
     }
 
-    public function isInRange($distance,$current_position){
+    public function isInRange($distance, $current_position)
+    {
         //TODO CALCULAR SI ESTA EN EL RANGO
-        return true;
+        $current_distance = $this->Distance($current_position["latitude"],$current_position["longitude"]);
+        if($current_distance<=$distance){
+            return true;
+        }
+        return false;
+    }
+
+     function Distance($lat1, $lon1 )
+    {
+        $lat2 = $this->latitude;
+        $lon2 = $this->longitude;
+        $radius = 6378.137; // earth mean radius defined by WGS84
+        $dlon = $lon1 - $lon2;
+        $distance = acos(sin(deg2rad($lat1)) * sin(deg2rad($lat2)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($dlon))) * $radius;
+        return $distance;
     }
 }
