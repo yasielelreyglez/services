@@ -39,13 +39,7 @@ export class Create2Page {
     this.photos = [];
     this.preview = "as";
     if(this.navParams.get("service").id){
-
       this.edit=true;
-      // this.photos=this.navParams.get("service").imagesList;
-      // let subcategoriesId = [];
-      // for (let i = 0; i < this.navParams.get("service").imagesList.length; i++) {
-      //     subcategoriesId.push(this.navParams.get("service").subcategoriesList[i].id);
-      // }
     }
   }
 
