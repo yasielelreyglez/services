@@ -19,7 +19,6 @@
         <div class="circle"> <span class="label">4</span>
         </div>
     </div>
-    {{photos}}
     <ion-grid>
 
         <ion-row>
@@ -37,19 +36,26 @@
          <img [src]="photo" *ngIf="photo" />
             </ion-card>
             </ion-col> -->
-            <ion-col col-6 *ngFor="let photo of photos; let id = index">
-                <!-- <ion-card class="block"> -->
-                <div class="block">
-                    <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
-                    <img (tap)="viewImg(photo.value)" src="data:image/jpeg;base64,{{photo.value}}">
-                </div>
-                <!-- </ion-card> -->
-                <!-- <div class="block">
-                    <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
-                   <img [src]="data:image/jpeg;base64,{{photo.value}}" /> -->
-                <!-- <img (tap)="viewImg(photo.value)" src="data:image/jpeg;base64,{{photo.value}}">
-                </div> -->
-            </ion-col>
+
+            <ng-container *ngIf="edit; else elseTemplate">
+                <ion-col col-6 *ngFor="let foto of service.imagesList; let i = index">
+                    <div class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(i)"></ion-icon>
+                        <img (tap)="viewImg(foto.title)" src="{{foto.title}}">
+                    </div>
+                </ion-col>
+            </ng-container>
+            <ng-template #elseTemplate>
+                <ion-col col-6 *ngFor="let photo of photos; let id = index">
+                    <div class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
+                        <img (tap)="viewImg(photo.value)" [src]="photo.title ? photo.title : 'data:image/jpeg;base64,'+photo.value">
+                    </div>
+                </ion-col>
+            </ng-template>
+
+
+
             <!-- <ion-col col-4>
                 <img (tap)="viewImg(imagen.title)" style="min-width: 100%;min-height: 100%" src="assets/imgs/service_img.png">
             </ion-col> -->
@@ -59,7 +65,7 @@
     <ion-grid>
         <ion-row>
             <ion-col col-6>
-                <button block color="azul-claro" (tap)="goToCreate1()" ion-button icon-start>
+                <button block color="azul-claro" (click)="goToCreate1()" ion-button icon-start>
                     <ion-icon name="arrow-round-back"></ion-icon>
                     Anterior
 
@@ -67,7 +73,7 @@
                     </button>
             </ion-col>
             <ion-col col-6>
-                <button block color="azul-oscuro" (tap)="goToCreate3()" ion-button icon-start>
+                <button block color="azul-oscuro" (click)="goToCreate3()" ion-button icon-start>
 
                           <ion-icon name="arrow-round-forward"></ion-icon>
                           Siguiente
