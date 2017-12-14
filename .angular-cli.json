@@ -7,7 +7,7 @@
     {
       "root": "src",
       "outDir": "dist",
-      "deployUrl": "services/dist/",
+      "deployUrl": "dist/",
       "assets": [
         "assets",
         "favicon.ico"

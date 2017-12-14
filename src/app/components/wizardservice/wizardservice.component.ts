@@ -54,7 +54,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         this.previews = [
             {
                 position: false,
-                src: '../../../assets/service_img.png',
+                src: 'assets/service_img.png',
                 filename: null,
                 filetype: null,
                 value: null,
@@ -62,7 +62,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
             },
             {
                 position: false,
-                src: '../../../assets/service_img.png',
+                src: 'assets/service_img.png',
                 filename: null,
                 filetype: null,
                 value: null,
@@ -70,7 +70,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
             },
             {
                 position: false,
-                src: '../../../assets/service_img.png',
+                src: 'assets/service_img.png',
                 filename: null,
                 filetype: null,
                 value: null,
@@ -78,7 +78,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
             },
             {
                 position: false,
-                src: '../../../assets/service_img.png',
+                src: 'assets/service_img.png',
                 filename: null,
                 filetype: null,
                 value: null,
@@ -86,7 +86,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
             },
             {
                 position: false,
-                src: '../../../assets/service_img.png',
+                src: 'assets/service_img.png',
                 filename: null,
                 filetype: null,
                 value: null,
@@ -94,7 +94,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
             },
             {
                 position: false,
-                src: '../../../assets/service_img.png',
+                src: 'assets/service_img.png',
                 filename: null,
                 filetype: null,
                 value: null,
@@ -102,7 +102,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
             },
             {
                 position: false,
-                src: '../../../assets/service_img.png',
+                src: 'assets/service_img.png',
                 filename: null,
                 filetype: null,
                 value: null,
@@ -110,7 +110,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
             },
             {
                 position: false,
-                src: '../../../assets/service_img.png',
+                src: 'assets/service_img.png',
                 filename: null,
                 filetype: null,
                 value: null,
@@ -118,7 +118,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
             },
             {
                 position: false,
-                src: '../../../assets/service_img.png',
+                src: 'assets/service_img.png',
                 filename: null,
                 filetype: null,
                 value: null,
@@ -142,7 +142,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
 
         this.dropsImages = new Array();
         this.markers = new Array();
-        this.previewvalue = '../../../assets/service_img.png';
+        this.previewvalue = 'assets/service_img.png';
         this.service.week_days = [false, false, false, false, false, false, false];
 
         this.route.params.subscribe(params => {
@@ -371,7 +371,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
 
     deleteImage(pos: number) {
         this.previews[pos].position = false;
-        this.previews[pos].src = '../../../assets/service_img.png';
+        this.previews[pos].src = 'assets/service_img.png';
         this.previews[pos].filename = null;
         this.previews[pos].filetype = null;
         this.previews[pos].value = null;
