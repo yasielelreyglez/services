@@ -20,6 +20,7 @@ const routes: Routes = [
     {path: 'categories', component: ShowcategoriesComponent},
     {path: 'categories/:id/subcategories', component: ShowsubcateroriesComponent},
     {path: 'categories/:id/subcategories/:id', component: ShowservicesComponent},
+    {path: ':id', redirectTo: 'subcategories/:id'},
     {path: 'search', component: ShowservicesComponent},
     {path: 'search/service/:id', component: ShowserviceComponent},
     {path: 'categories/:id/subcategories/:id/service/:id', component: ShowserviceComponent},
