@@ -1,6 +1,6 @@
 <li *ngFor="let subcategory of subcategories" class="list-btn">
     <button mat-raised-button color="primary" class="col-12 list-btn bc-blue-ligth tc-white"
-            [routerLink]="['./', subcategory.id]">
+            [routerLink]="['./subcategories', subcategory.id]">
         <mat-icon>star</mat-icon>
         {{subcategory.title}}
     </button>
