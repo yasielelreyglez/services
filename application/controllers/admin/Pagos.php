@@ -111,6 +111,13 @@ class Pagos extends CI_Controller {
         $em->flush();
         redirect('admin/pagos', 'refresh');
     }
+    public function eliminar($id){
+        $em = $this->doctrine->em;
+        $payment = $em->find("\Entities\Payments", $id);
+        $em->remove($payment);
+        $em->flush();
+        redirect('admin/pagos', 'refresh');
+    }
 
     public function membresias()
     {

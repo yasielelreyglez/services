@@ -35,7 +35,7 @@ class Membership
     /**
      * @Column(type="datetime")
      **/
-    protected $created_at;
+    public $created_at;
 
     /**
      * @Column(type="datetime")

@@ -10,6 +10,9 @@
 		</div>
     <div class="form-group">
         <label for="icon">Icon:</label><br/>
+        <?php if(isset($subcategory)){ ?>
+            <img src="<?=$subcategory->icon?>" width="80px" height="70px"/>
+        <?php } ?>
         <input type="file" name="userfile" size="20" />
     </div>
     <div class="form-group">

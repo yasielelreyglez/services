@@ -19,14 +19,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <th>Estado</th>
             <th>Aceptar</th>
             <th>Denegar</th>
+            <th>Eliminar</th>
         </thead>
         <tbody>
         <?php
 
         foreach ($pagos as $pago) {
+        if($pago->getMembership()){
+          $memb ="<td>{$pago->getMembership()->getTitle()}</td>";
+                         }else {
+            $memb = "  <td></td>";
+        }
+
             echo "<tr>
                         <td><a href='".site_url('admin/services/show/').$pago->getService()->id."'>".$pago->getService()->getTitle()."</a> </td>
-                        <td>{$pago->getMembership()->getTitle()}</td>
+                        $memb
+                        
                         <td>{$pago->getTypeString()}</td>
                         <td><img src='".base_url().$pago->getEvidence()."' height='50px' width='50px'></td>
                         <td>{$pago->getCountry()}</td>
@@ -36,6 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             if($pago->getState()==0){
                 echo " <td width=\"80\">".anchor('admin/pagos/aceptar/'.$pago->id, 'Aceptar pago','class=\"btn btn-info\" method=\"get\"')."</td>
                         <td width=\"80\">".anchor('admin/pagos/denegar/'.$pago->id, 'Denegar pago','class=\"btn btn-info\" method=\"get\"')."</td>
+                        <td width=\"80\">".anchor('admin/pagos/eliminar/'.$pago->id, 'Eliminar pago','class=\"btn btn-info\" method=\"get\"')."</td>
                 ";
             }
             echo "</tr>";
