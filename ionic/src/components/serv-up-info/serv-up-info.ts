@@ -29,7 +29,7 @@ export class ServUpInfoComponent {
   ngAfterViewInit(){
     this.loggedIn = this.auth.isLoggedIn();
   }
-  Llamar(number,id){
+  Llamar(number){
 
     this.callNumber.callNumber(number, true)
     .then(() => {

@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {ApiService} from '../../_services/api.service';
 import {Subcategory} from '../../_models/subcategory';
-import {Data} from '../../_services/data.service';
 
 @Component({
     selector: 'app-showsubcaterories',
@@ -13,9 +12,11 @@ export class ShowsubcateroriesComponent implements OnInit {
     subcategories: any;
     name: string;
 
-    constructor(private route: ActivatedRoute, private apiServices: ApiService, private data: Data) {
+    constructor(private route: ActivatedRoute, private apiServices: ApiService) {
         this.subcategories = new Subcategory()[0];
-        this.name = this.data.storage.title;
+        const name = localStorage.getItem('categoryTitle');
+        if (name)
+            this.name = name;
     }
 
     ngOnInit() {
