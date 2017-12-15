@@ -102,12 +102,14 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
 
     tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
         if (tabChangeEvent.index === 1) {
-            this.initMap();
-            this.addPositions(this);
-            this.currentEnd.id = -1;
+            if (typeof google !== 'undefined') {
+                this.initMap();
+                this.addPositions(this);
+                this.currentEnd.id = -1;
 
-            this.directionsDisplay.setMap(null);
-            // google.maps.event.trigger(this.map, 'resize');
+                this.directionsDisplay.setMap(null);
+                // google.maps.event.trigger(this.map, 'resize');
+            }
         }
     }
 

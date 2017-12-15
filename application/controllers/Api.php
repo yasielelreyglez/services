@@ -180,8 +180,8 @@ class Api extends REST_Controller
         }
         $service->subcategoriesList = $service->getSubcategories()->toArray();
         $service->loadRelatedData($user);
-        $data["data"] = $service;
-        $this->set_response($data, REST_Controller::HTTP_OK);
+        $result["data"] = $service;
+        $this->set_response($result, REST_Controller::HTTP_OK);
     }
     //LISTADO DE SERVICIOS POR FILTROS
     public function filter_get()
@@ -207,8 +207,8 @@ class Api extends REST_Controller
         if($current_position && $distance){
             $services = $this->filterByDistance($distance, $current_position, $filtered, $services);
         }
-        $data["services"] = $services;
-        $this->set_response($data, REST_Controller::HTTP_OK);
+        $result["services"] = $services;
+        $this->set_response($result, REST_Controller::HTTP_OK);
     }
     //denunciar un servicio
     public function complaint_get($id)
