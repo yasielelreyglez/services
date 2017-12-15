@@ -159,6 +159,7 @@ export class MapaPage {
     this.map.addListener('zoom_changed', this.actualZoom(this) );
 
   }
+
   getLocation() {
     this.geolocation.getCurrentPosition().then((resp) => {
     this.latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
@@ -166,7 +167,6 @@ export class MapaPage {
     this.map.setZoom(this.zoom);
     this.currentP.setPosition(this.latLng);
     });
-
   }
 
   addInfoWindow(marker, content) {
