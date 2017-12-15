@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-12-2017 a las 16:18:04
--- Versión del servidor: 10.1.21-MariaDB
--- Versión de PHP: 5.6.30
+-- Tiempo de generación: 15-12-2017 a las 14:22:05
+-- Versión del servidor: 10.1.16-MariaDB
+-- Versión de PHP: 7.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -65,7 +65,7 @@ CREATE TABLE `cities` (
 --
 
 INSERT INTO `cities` (`id`, `title`, `created_at`, `updated_at`) VALUES
-(4, 'La Habana', '2017-12-13 03:39:24', '0000-00-00 00:00:00'),
+(4, 'La HabanÃ³n', '2017-12-13 03:39:24', '2017-12-15 04:40:30'),
 (5, 'Pinar del Rio', '2017-12-13 03:39:52', '0000-00-00 00:00:00'),
 (6, 'Matanzas', '2017-12-13 03:40:00', '0000-00-00 00:00:00');
 
@@ -85,6 +85,14 @@ CREATE TABLE `comments` (
   `reportuser_id` int(11) DEFAULT NULL,
   `hided` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `comments`
+--
+
+INSERT INTO `comments` (`id`, `user_id`, `service_id`, `comment`, `parent`, `created`, `reportuser_id`, `hided`) VALUES
+(1, 3, 1, 'Este servicio es lo mejor que se ha inventado, gracias a el puedo trabajar', NULL, '2017-12-14 20:10:29', 3, NULL),
+(2, 6, 2, 'Este servicio a salvado mi telefono de lo insalvable', NULL, '2017-12-15 05:08:32', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -118,6 +126,16 @@ CREATE TABLE `images` (
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `images`
+--
+
+INSERT INTO `images` (`id`, `service_id`, `title`) VALUES
+(1, 1, 'http://localhost/services//resources/services/1/perfil.png'),
+(2, 1, 'http://localhost/services//resources/services/1/pendiente.png'),
+(3, 2, 'http://localhost/services//resources/services/2/product.jpg'),
+(4, 2, 'http://localhost/services//resources/services/2/IMG_20171109_151148.jpg');
+
 -- --------------------------------------------------------
 
 --
@@ -145,6 +163,13 @@ CREATE TABLE `membership` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `membership`
+--
+
+INSERT INTO `membership` (`id`, `title`, `price`, `days`, `created_at`, `updated_at`) VALUES
+(1, 'Membresia mensual', 30, 30, '2017-12-15 03:49:08', '2017-12-15 03:49:08');
 
 -- --------------------------------------------------------
 
@@ -183,6 +208,14 @@ CREATE TABLE `positions` (
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `positions`
+--
+
+INSERT INTO `positions` (`id`, `title`, `latitude`, `longitude`, `service_id`, `created_at`, `updated_at`) VALUES
+(1, 'mi casa', 23.103102133217, -82.301330566406, 1, '2017-12-14 20:09:29', '2017-12-14 20:09:29'),
+(2, 'tu casa', 23.048459643377, -82.33154296875, 1, '2017-12-14 20:09:29', '2017-12-14 20:09:29');
+
 -- --------------------------------------------------------
 
 --
@@ -212,6 +245,14 @@ CREATE TABLE `services` (
   `professional` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `services`
+--
+
+INSERT INTO `services` (`id`, `author_id`, `title`, `subtitle`, `phone`, `address`, `other_phone`, `email`, `url`, `week_days`, `start_time`, `end_time`, `created`, `visits`, `created_at`, `updated_at`, `icon`, `globalrate`, `description`, `professional`) VALUES
+(1, 3, 'Cuidado de niÃ±os', 'menores', '3323456456', 'asdfasdfasdf', '23234234', 'admin@gmail.com', 'http://url', '0,1,2,3,4', '8:00 am', '10:00 pm', '2017-12-14 20:09:29', 7, '2017-12-14 20:09:29', '2017-12-14 20:09:29', 'http://localhost/services/resources/completadas.png', 6.5, 'aqui cuidamos tu niÃ±o', NULL),
+(2, 6, 'Taller La virgen ', 'Taller de electronica y telefonia', '438038123', 'Calle mayor e/ calzada y rio,Virgen del camino', '', 'iservice@gmail.com', 'http://iservicecuba.emprende.cu', '0,1,2,3,4', '8:00', '18:00', '2017-12-15 05:06:14', 5, '2017-12-15 05:06:14', '2017-12-15 05:06:14', 'http://localhost/services/resources/product.jpg', 6.5, 'Taller de electronica y telefonia, especializado en tecnologia de Apple, con expecialistas de primer nivel con mas de 5 aÃ±os de experiencia en el campo.', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -222,6 +263,14 @@ CREATE TABLE `service_city` (
   `service_id` int(11) NOT NULL,
   `city_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `service_city`
+--
+
+INSERT INTO `service_city` (`service_id`, `city_id`) VALUES
+(1, 4),
+(2, 4);
 
 -- --------------------------------------------------------
 
@@ -239,6 +288,16 @@ CREATE TABLE `service_user` (
   `complaint_created` datetime DEFAULT NULL,
   `visited` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `service_user`
+--
+
+INSERT INTO `service_user` (`user_id`, `service_id`, `favorite`, `rate`, `contacted`, `complaint`, `complaint_created`, `visited`) VALUES
+(3, 1, 1, 4, NULL, NULL, NULL, 1),
+(3, 2, NULL, 8, NULL, NULL, NULL, 1),
+(6, 1, NULL, 9, NULL, NULL, NULL, 1),
+(6, 2, 1, 5, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -261,14 +320,14 @@ CREATE TABLE `subcategories` (
 --
 
 INSERT INTO `subcategories` (`id`, `category_id`, `title`, `icon`, `visits`, `created_at`, `updated_at`) VALUES
-(5, 33, 'Cuidado de niÃ±os', 'http://localhost/services/resources/image/subcategories/cuidado_ninos.png', 0, '2017-12-13 02:10:43', '2017-12-13 03:08:44'),
-(6, 33, 'Electricidad', 'http://localhost/services/resources/image/subcategories/electricidad.png', 0, '2017-12-13 02:11:38', '2017-12-13 03:09:19'),
+(5, 29, 'Cuidado de niÃ±os', 'http://localhost/services/resources/image/subcategories/completadas.png', 0, '2017-12-13 02:10:43', '2017-12-13 03:08:44'),
+(6, 33, 'Electricidad', 'http://localhost/services/resources/image/subcategories/electricidad.png', 5, '2017-12-13 02:11:38', '2017-12-13 03:09:19'),
 (7, 33, 'Servicios de limpieza', 'http://localhost/services/resources/image/subcategories/servicios_limpieza.png', 0, '2017-12-13 02:12:08', '2017-12-13 03:09:26'),
 (8, 35, 'Servicios medicos', 'http://localhost/services/resources/image/subcategories/servicios_medicos.png', 0, '2017-12-13 02:12:30', '2017-12-13 03:09:36'),
-(9, 36, 'Servicios tecnologicos', 'http://localhost/services/resources/image/subcategories/servicios_tecnologicos.png', 0, '2017-12-13 03:36:03', '2017-12-13 03:09:43'),
-(10, 35, 'Servicios veterinarios', 'http://localhost/services/resources/image/subcategories/servicios_veterinarios.png', 0, '2017-12-13 03:36:30', '2017-12-13 03:09:51'),
-(11, 36, 'TelefonÃ­a celular', 'http://localhost/services/resources/image/subcategories/telefonia_celular.png', 0, '2017-12-13 03:37:42', '2017-12-13 03:09:58'),
-(12, 37, 'TransportaciÃ³n', 'http://localhost/services/resources/image/subcategories/transportacion.png', 0, '2017-12-13 03:38:06', '2017-12-13 03:10:04');
+(9, 36, 'Servicios tecnologicos', 'http://localhost/services/resources/image/subcategories/servicios_tecnologicos.png', 12, '2017-12-13 03:36:03', '2017-12-13 03:09:43'),
+(10, 35, 'Servicios veterinarios', 'http://localhost/services/resources/image/subcategories/servicios_veterinarios.png', 7, '2017-12-13 03:36:30', '2017-12-13 03:09:51'),
+(11, 29, 'TelefonÃ­a celular', 'http://localhost/services/resources/image/subcategories/telefonia_celular.png', 5, '2017-12-13 03:37:42', '2017-12-13 03:09:58'),
+(12, 29, 'TransportaciÃ³n', 'http://localhost/services/resources/image/subcategories/transportacion.png', 0, '2017-12-13 03:38:06', '2017-12-13 03:10:04');
 
 -- --------------------------------------------------------
 
@@ -280,6 +339,17 @@ CREATE TABLE `subcategory_service` (
   `service_id` int(11) NOT NULL,
   `subcategory_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `subcategory_service`
+--
+
+INSERT INTO `subcategory_service` (`service_id`, `subcategory_id`) VALUES
+(1, 9),
+(1, 10),
+(2, 6),
+(2, 9),
+(2, 11);
 
 -- --------------------------------------------------------
 
@@ -306,9 +376,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `created_on`, `role`, `active`, `last_login`, `ip_address`, `salt`, `remember_code`) VALUES
-(3, 'admin@gmail.com', 'admin@gmail.com', '$2y$08$/JOwPbrPJgJ344FmUMvFye7ZCgyMv9zmL4mRlSAZrZva/z2hqtcWa', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '::1', '', 'UOPAB9wm88NLT5WozoDK3O'),
+(3, 'admin@gmail.com', 'admin@gmail.com', '$2y$08$/JOwPbrPJgJ344FmUMvFye7ZCgyMv9zmL4mRlSAZrZva/z2hqtcWa', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '::1', '', 'yJGWawfD/OifU.Dj/pgHZO'),
 (4, 'yasielelreyglez@gmail.com', 'yasielelreyglez@gmail.com', '$2y$08$FU/czFK9TjggjVmUuql.KeMpwFtYSYQViPBvCVXWGO3N33SGgF4WC', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '::1', '', '8sxvwziDGm9XNo3pMcDW7u'),
-(5, 'davidrm901503@gmail.com', 'davidrm901503@gmail.com', '$2y$08$UkYNx/XfW61nLKL6gAA77OojeifQ0WgVWZ486iyI6jvivjTyKqVl6', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '::1', '', 'MYVV6u.HYV3J/p4egejz7.');
+(5, 'davidrm901503@gmail.com', 'davidrm901503@gmail.com', '$2y$08$UkYNx/XfW61nLKL6gAA77OojeifQ0WgVWZ486iyI6jvivjTyKqVl6', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '::1', '', 'MYVV6u.HYV3J/p4egejz7.'),
+(6, 'yoidel@gmail.com', 'yoidel@gmail.com', '$2y$08$SGA3Bapqnr411loEyMzOse9jv0JYnVGW8Oosoz8cQpiWs4GlOEoMq', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '::1', '', '');
 
 -- --------------------------------------------------------
 
@@ -329,7 +400,8 @@ CREATE TABLE `users_groups` (
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (1, 3, 2),
 (2, 4, 2),
-(3, 5, 2);
+(3, 5, 2),
+(4, 6, 2);
 
 --
 -- Índices para tablas volcadas
@@ -467,7 +539,7 @@ ALTER TABLE `cities`
 -- AUTO_INCREMENT de la tabla `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `groups`
 --
@@ -477,7 +549,7 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT de la tabla `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `login_attempts`
 --
@@ -487,22 +559,22 @@ ALTER TABLE `login_attempts`
 -- AUTO_INCREMENT de la tabla `membership`
 --
 ALTER TABLE `membership`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `positions`
 --
 ALTER TABLE `positions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `subcategories`
 --
@@ -512,12 +584,12 @@ ALTER TABLE `subcategories`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Restricciones para tablas volcadas
 --

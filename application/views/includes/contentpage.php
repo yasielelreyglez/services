@@ -85,7 +85,7 @@
                                     <li><a href="<?=site_url("admin/pagos/activos") ?>">Pagos activos</a></li>
                                     <li><a href="<?=site_url("admin/pagos/expirados") ?>">Pagos expirados</a></li>
                                     <li><a href="<?=site_url("admin/pagos/denegados") ?>">Pagos denegados</a></li>
-                                    <li><a href="<?=site_url("admin/pagos/membresias") ?>">Pagos denegados</a></li>
+                                    <li><a href="<?=site_url("admin/pagos/membresias") ?>">Pagos membresias</a></li>
                                 </ul>
                             </li>
                             <li class="<?=$tab=="services"?"active":""?>">

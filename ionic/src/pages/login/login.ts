@@ -89,7 +89,9 @@ export class LoginPage {
     prompt.present();
   }
   doLogin() {
-     this.loading = this.load.create();
+     this.loading = this.load.create({
+      content: "Autenticando..."
+    });
      this.loading.present();
      this.authService.login(this.user)
       .then(result => {

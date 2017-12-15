@@ -4,6 +4,7 @@ import  {ServiceProvider} from  '../../providers/service/service.service';
 import { ServicePage } from '../service/service';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Create1Page } from '../create1/create1';
+import { PagarPage } from '../pagar/pagar';
 
 @IonicPage()
 @Component({
@@ -87,6 +88,10 @@ export class MyservicesPage {
     //   serviceId: id,
     //   service:serv
     // });
+  }
+  pagar(){
+    this.navCtrl.push(PagarPage);
+
   }
   editService(serv){
     // this.viewCtrl.dismiss();

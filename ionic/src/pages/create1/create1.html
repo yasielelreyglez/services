@@ -6,7 +6,7 @@
               <ion-icon name="arrow-back"></ion-icon>
             </button>
         </ion-buttons>
-        <ion-title text-center>create 1</ion-title>
+        <ion-title text-center>LOGO</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -14,8 +14,8 @@
 
 <ion-content padding>
 
-    <h4 class="azul-claro">Crear Anuncio <small style="color: rgb(90, 84, 84)">Datos iniciales</small></h4>
-    <hr class="hr-separador">
+    <h4 class="azul-claro">{{edit ? 'Editar Anuncio': 'Crear Anuncio' }} <small class="crear-gris">Datos iniciales</small></h4>
+
     <div class="progress">
         <div class="circle active"> <span class="label">1</span>
         </div> <span class="bar  "></span>
@@ -26,7 +26,7 @@
         <div class="circle"> <span class="label">4</span>
         </div>
     </div>
-
+    <hr class="hr-separador">
 
     <form #formu="ngForm">
         <ion-item>

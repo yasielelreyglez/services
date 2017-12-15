@@ -1,14 +1,14 @@
 <ion-header>
 
     <ion-navbar hideBackButton>
-        <ion-title text-center>Create 2</ion-title>
+        <ion-title text-center>LOGO</ion-title>
     </ion-navbar>
 
 </ion-header>
 <ion-content padding>
 
-    <h4 class="azul-claro">Crear Anuncio <small style="color: rgb(90, 84, 84)">Galeria de fotos</small></h4>
-    <hr class="hr-separador">
+    <h4 class="azul-claro">{{edit ? 'Editar Anuncio': 'Crear Anuncio' }} <small class="crear-gris">Galeria de fotos</small></h4>
+
     <div class="progress">
         <div class="circle done"> <span class="label">1</span>
         </div> <span class="bar  "></span>
@@ -19,6 +19,7 @@
         <div class="circle"> <span class="label">4</span>
         </div>
     </div>
+    <hr class="hr-separador">
     <ion-grid>
 
         <ion-row>
@@ -29,13 +30,6 @@
                      &nbsp;   Subir foto
             </button>
             </ion-col>
-            <!-- <ion-col col-4 *ngFor="let photo of photos; let id = index;">
-                <ion-card class="block">
-                    <ion-icon class="deleteIcon" name="trash" (click)="deletePhoto(id)"></ion-icon>
-                   <img src="{{base64Image}}" />
-         <img [src]="photo" *ngIf="photo" />
-            </ion-card>
-            </ion-col> -->
 
             <ng-container *ngIf="edit; else elseTemplate">
                 <ion-col col-6 *ngFor="let foto of service.imagesList; let i = index">

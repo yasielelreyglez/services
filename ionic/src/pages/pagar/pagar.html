@@ -1,0 +1,83 @@
+<!--
+  Generated template for the PagarPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>LOGO</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-label text-center color="azul-claro">Pagar anuncio</ion-label>
+    <hr class="hr-separador">
+
+    <ion-list>
+        <ion-item>
+            <ion-label stacked>Membresía</ion-label>
+            <ion-select placeholder="Seleccione" name="membresia" [(ngModel)]="membresia">
+                <ion-option value="1">Membresía mensual</ion-option>
+                <ion-option value="2">Membresía 3 meses</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label stacked>Tipo de pago</ion-label>
+            <ion-select placeholder="Seleccione" name="tipo_p" [(ngModel)]="tipo_p">
+                <ion-option value="1">Evidencia de pago</ion-option>
+                <ion-option value="2">Pago en linea</ion-option>
+            </ion-select>
+        </ion-item>
+
+
+        <div *ngIf="tipo_p == '1'">
+            <ion-grid>
+                <ion-row align-items-center>
+                    <ion-col col-6>
+                        <ion-label>Subir evidencia de pago</ion-label>
+                        <img (tap)="viewImg(preview)" src="{{preview}}" />
+                    </ion-col>
+                    <ion-col col-6>
+                        <button (click)="presentActionSheet()" padding block ion-button icon-left>
+                  <ion-icon name="cloud-upload"></ion-icon>
+                  Cargar foto
+                </button>
+                    </ion-col>
+
+                </ion-row>
+            </ion-grid>
+
+            <div padding>
+                <button class="btn-text-left" text-left color="pronto-gris" ion-button block margin-bottom="1" margin-top="2">
+                           Notificar pago
+                        </button>
+            </div>
+        </div>
+
+        <div *ngIf="tipo_p == '2'">
+            <ion-item>
+                <ion-label stacked>Código del país</ion-label>
+                <ion-select name="codigo" [(ngModel)]="codigo">
+                    <ion-option value="1">+593 Ecuador</ion-option>
+                    <ion-option value="2">+53 Cuba</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>Número de telélefono</ion-label>
+                <ion-input name="telefono" [(ngModel)]="telefono"></ion-input>
+            </ion-item>
+            <div padding>
+                <button class="btn-text-left" text-left color="pronto-gris" ion-button block margin-bottom="1" margin-top="2">
+                           Realizar pago
+                        </button>
+            </div>
+        </div>
+
+
+    </ion-list>
+</ion-content>

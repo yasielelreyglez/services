@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Quickfinder Homepage Landing ver2</title>
+    <title>Servicios-Administración</title>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,600,700%7CDroid+Serif:300,400,700,400italic">
@@ -30,7 +30,7 @@
                     <li><a href="#">Privacy Policy</a></li>
                 </ul>
 
-                <ul class="social">
+                <ul class="social"  >
                     <li><a href="#" class="fa fa-facebook"></a></li>
                     <li><a href="#" class="fa fa-twitter"></a></li>
                     <li><a href="#" class="fa fa-google-plus"></a></li>
@@ -46,12 +46,11 @@
                 </ul>
 
                 <div class="language">
-                    <a href="#" class="toggle"><img src="<?=site_url("/resources/img/flags/32/NL.png") ?>" alt=""> NDL</a>
+                    <a href="#" class="toggle"><img src="<?=site_url("/resources/img/flags/32/ES.png") ?>" alt=""> ES</a>
 
                     <ul>
                         <li><a href="#"><img src="<?=site_url("/resources/img/flags/32/PT.png") ?>" alt=""> PT</a></li>
                         <li><a href="#"><img src="<?=site_url("/resources/img/flags/32/FR.png") ?>" alt=""> FR</a></li>
-                        <li><a href="#"><img src="<?=site_url("/resources/img/flags/32/ES.png") ?>" alt=""> ES</a></li>
                     </ul>
                 </div>
             </div>
@@ -78,6 +77,16 @@
                                     <li><a href="<?=site_url("admin/pagos/activos") ?>">Pagos activos</a></li>
                                     <li><a href="<?=site_url("admin/pagos/expirados") ?>">Pagos expirados</a></li>
                                     <li><a href="<?=site_url("admin/pagos/denegados") ?>">Pagos denegados</a></li>
+                                    <li><a href="<?=site_url("admin/pagos/membresias") ?>">Pagos membresias</a></li>
+                                </ul>
+                            </li>
+                            <li class="<?=$tab=="services"?"active":""?>">
+                                <a href="<?=site_url("admin/services") ?>"><i class="fa fa-search-plus"></i> Servicios </a>
+                                <ul class="demo-menu">
+                                    <li><a href="<?=site_url("admin/services/denunciados") ?>">Mostrar Servicios Denunciados</a></li>
+
+                                    <li><a href="<?=site_url("admin/services") ?>">Mostrar Servicios Existentes</a></li>
+                                    <li><a href="<?=site_url("admin/services/create") ?>">Crear Servicio</a></li>
                                 </ul>
                             </li>
                             <li class="<?=$tab=="category"?"active":""?>">
@@ -93,13 +102,7 @@
                                     <li><a href="<?=site_url("admin/subcategory") ?>">Mostrar Sub-Categorias Existentes</a></li>
                                     <li><a href="<?=site_url("admin/subcategory/create") ?>">Crear Sub-Categorias</a></li>
                                 </ul>
-                            <li class="<?=$tab=="services"?"active":""?>">
-                                <a href="<?=site_url("admin/services") ?>"><i class="fa fa-search-plus"></i> Servicios </a>
-                                <ul class="demo-menu">
-                                    <li><a href="<?=site_url("admin/services") ?>">Mostrar Sub-Categorias Existentes</a></li>
-                                    <li><a href="<?=site_url("admin/services/create") ?>">Crear Sub-Categorias</a></li>
-                                </ul>
-                            </li>
+
                             <li  class="<?=$tab=="cities"?"active":""?>">
                                 <a href="<?=site_url("admin/cities") ?>"><i class="fa fa-search-plus"></i> Ciudades </a>
                                 <ul class="demo-menu">

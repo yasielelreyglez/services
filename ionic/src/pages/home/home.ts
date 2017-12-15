@@ -25,6 +25,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ServicePage } from "../service/service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { StatusBar } from "@ionic-native/status-bar";
 
 @IonicPage({
   priority: 'high'
@@ -58,9 +59,12 @@ export class HomePage {
      private load: LoadingController,
      private photoViewer: PhotoViewer,
      public keyboard: Keyboard,
-     public navParams: NavParams,public splashScreen: SplashScreen,public platform: Platform) {
+     public navParams: NavParams,public splashScreen: SplashScreen,public platform: Platform,  statusBar: StatusBar,) {
 
-      // this.platform.ready().then(() => {
+      this.platform.ready().then(() => {
+        statusBar.overlaysWebView(false);
+      });
+
         this.subCat.topSubcategories().then(
           data => {
             this.subCategories =data['data'];
@@ -80,7 +84,6 @@ export class HomePage {
 
             }
         });
-      // });
   }
   ionViewDidLoad() {
 

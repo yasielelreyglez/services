@@ -20,7 +20,9 @@ class Categories extends CI_Controller {
 
 	# GET /categories
 	function index() {
-		$data['categories'] = $this->Categories_model->find();
+        $em= $this->doctrine->em;
+        $categoriesRepo = $em->getRepository('Entities\Category');
+		$data['categories'] = $categoriesRepo->findAll();
 		$data['content'] = '/categories/index';
         $data["tab"]="category";
 		$this->load->view('/includes/contentpage', $data);
@@ -35,7 +37,8 @@ class Categories extends CI_Controller {
 
 	# GET /categories/edit/1
 	function edit($id) {
-		$data['categories'] = $this->Categories_model->find($id);
+        $em= $this->doctrine->em;
+		$data['categories'] = $em->find('Entities\Category',$id);
 		$data['content'] = '/categories/create';
         $data["tab"]="category";
         $this->load->view('/includes/contentpage', $data);
