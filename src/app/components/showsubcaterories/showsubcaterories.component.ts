@@ -15,7 +15,9 @@ export class ShowsubcateroriesComponent implements OnInit {
 
     constructor(private route: ActivatedRoute, private apiServices: ApiService, private data: Data) {
         this.subcategories = new Subcategory()[0];
-        this.name = this.data.storage.title;
+        const name = localStorage.getItem('categoryTitle');
+        if (name)
+            this.name = name;
     }
 
     ngOnInit() {

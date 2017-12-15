@@ -18,6 +18,6 @@ export class ShowcategoriesComponent implements OnInit {
     }
 
     dataTitle(title: string) {
-        this.data.storage = {title};
+        localStorage.setItem('categoryTitle', title);
     }
 }

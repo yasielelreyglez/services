@@ -18,7 +18,7 @@ const routes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'categories', component: ShowcategoriesComponent},
-    {path: 'categories/:id', component: ShowsubcateroriesComponent},
+    {path: 'categories/:id/subcategories', component: ShowsubcateroriesComponent},
     {path: 'categories/:id/subcategories/:id', component: ShowservicesComponent},
     {path: 'search', component: ShowservicesComponent},
     {path: 'search/service/:id', component: ShowserviceComponent},
