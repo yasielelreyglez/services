@@ -35,18 +35,19 @@
                                         <p>Distancia: 5 km</p>
                                     </ion-col>
                                 </ion-row>
-                                <ion-row>
-                                    <ion-col col-auto>
+                                <ion-row class="pt--12" no-padding>
+                                    <ion-col col-5>
                                         <p> Categoria:</p>
                                     </ion-col>
-                                    <ion-col col-auto>
-                                        <p *ngFor="let cat of serv.subcategoriesList; let i = index">
-                                            <ng-container *ngIf="i > 0; else elseTemplate">
-                                                ,{{ cat.title}}
-                                            </ng-container>
-                                            <ng-template #elseTemplate>
-                                                {{ cat.title}}
-                                            </ng-template>
+                                    <ion-col col-7>
+                                        <p text-wrap><span *ngFor="let cat of serv.subcategoriesList; let i = index">
+                                      <ng-container *ngIf="i > 0; else elseTemplate">
+                                         ,{{ cat.title}}
+                                      </ng-container>
+                                      <ng-template #elseTemplate>
+                                         {{ cat.title}}
+                                      </ng-template>
+                                   </span>
                                         </p>
                                     </ion-col>
                                 </ion-row>
@@ -106,10 +107,6 @@
             </ion-row>
 
         </ion-grid>
-
-
-        <p *ngIf=loggedIn>esta logueado</p>
-        <p *ngIf=!loggedIn>No esta logueado</p>
 
     </ng-template>
 </ion-content>

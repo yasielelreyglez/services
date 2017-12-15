@@ -27,8 +27,7 @@ export class FavoritesPage {
           this.services = data['data'];
         },
         (err: HttpErrorResponse) => {
-          if (err.error instanceof Error) {
-          }
+        console.log(err)
         });
   }
 

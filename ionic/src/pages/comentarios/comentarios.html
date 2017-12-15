@@ -9,7 +9,7 @@
 
 <ion-content padding>
     <serv-up-info [passedService]="service" [cant_c]="cant_c" (rateService)="rateService($event)"></serv-up-info>
-    <div *ngIf="loggedIn">
+    <div *ngIf="currentUser">
         <ion-label text-center color="azul-claro">
             Escribe tu comentario
         </ion-label>
@@ -35,18 +35,19 @@
             <p text-wrap>{{comment.comment}}</p>
             <div style="clear: both;"></div>
             <p float-right>
-                <button ion-button icon-only color="danger">
+                <button (click)="showPromptDenuncia(comment.id)" ion-button icon-only color="danger">
                     <ion-icon class="fs-30"  name="microphone" ></ion-icon>
                   </button>
-                <button ion-button icon-only color="danger">
-                      <ion-icon class="fs-30"  name="close"></ion-icon>
+                <span *ngIf="currentUser.email == service.author.email && service.professional === 1">
+                <button (click) ="toggleComment(comment.id,comment.hided)" ion-button icon-only [color]="comment.hided ? 'danger':'secondary'">
+                      <ion-icon class="fs-30"   [name]="comment.hided ? 'close':'checkmark'"></ion-icon>
                     </button>
-                <button ion-button icon-only color="secondary">
+                <!-- <button ion-button icon-only color="secondary">
                         <ion-icon class="fs-30"  name="checkmark"></ion-icon>
-                      </button>
+                      </button> -->
 
 
-
+                    </span>
 
             </p>
 

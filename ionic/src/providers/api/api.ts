@@ -11,9 +11,9 @@ import {  HttpClient,  HttpHeaders } from "@angular/common/http";
 */
 @Injectable()
 export class ApiProvider {
-  // private apiBaseUrl = 'http://192.168.1.194/services/';
+  private apiBaseUrl = 'http://192.168.1.194/services/';
   // private apiBaseUrl = 'http://192.168.137.1/services/';
-  private apiBaseUrl = 'http://localhost/services/';
+  // private apiBaseUrl = 'http://localhost/services/';
   private days : object;
   user:any;
 
@@ -85,6 +85,40 @@ export class ApiProvider {
         }
       ).catch(this.handleError);
     }
+  }
+  showComment(id){
+    return this.http.get(this.apiBaseUrl+ 'api/showcomment/'+id,{
+      headers: new HttpHeaders().set('Authorization', this.user.token)
+      })
+    .toPromise()
+    .then(
+      (response) => {
+        return response;
+      }
+    ).catch(this.handleError);
+  }
+  hideComment(id){
+    return this.http.get(this.apiBaseUrl+ 'api/hidecomment/'+id,{
+      headers: new HttpHeaders().set('Authorization', this.user.token)
+      })
+    .toPromise()
+    .then(
+      (response) => {
+        return response;
+      }
+    ).catch(this.handleError);
+  }
+
+  reportComment(id){
+    return this.http.get(this.apiBaseUrl+ 'api/reportcomment/'+id,{
+      headers: new HttpHeaders().set('Authorization', this.user.token)
+      })
+    .toPromise()
+    .then(
+      (response) => {
+        return response;
+      }
+    ).catch(this.handleError);
   }
 
   getbaseUrl(): string{
