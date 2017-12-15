@@ -4,7 +4,7 @@ import {AuthGuard} from './_guards/auth.guard';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpModule, JsonpModule} from '@angular/http';
+import {JsonpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
@@ -26,7 +26,6 @@ import {ShowmyservicesComponent} from './components/showmyservices/showmyservice
 import {ShowmysearchsComponent} from './components/showmysearchs/showmysearchs.component';
 import {ShowserviceComponent} from './components/showservice/showservice.component';
 import {RatingComponent} from './components/_modals/rating/rating.component';
-import {ArchwizardModule} from 'ng2-archwizard';
 import {WizardserviceComponent} from './components/wizardservice/wizardservice.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
@@ -75,9 +74,7 @@ import { PayserviceComponent } from './components/payservice/payservice.componen
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        HttpModule,
         JsonpModule,
-        ArchwizardModule,
         AppRoutes,
         MatSelectModule,
         MatCheckboxModule,
@@ -101,6 +98,4 @@ import { PayserviceComponent } from './components/payservice/payservice.componen
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule {
-    basepath = "login"
-}
+export class AppModule {}
