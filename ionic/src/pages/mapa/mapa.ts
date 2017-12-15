@@ -17,24 +17,22 @@ declare var google;
   templateUrl: 'mapa.html',
 })
 export class MapaPage {
+  destinos: any[];
+  watch:any;
+  zoom:any =15;
+  currentP: any;
   cant_c: any;
-  locations: Position[] = []
   positions: Position[] = [];
   infowindow = new google.maps.InfoWindow;
-  response: any;
   latLng: any;
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
   distanceM = new google.maps.DistanceMatrixService();
-  // distanceMatrix = new google.maps.DistanceMatrixService;
- pepe:any;
+  destino:any;
   @ViewChild('map') mapElement: ElementRef;
   map: any;
   private service: any = {};
-  // latitude:any
-  // longitude:any;
   loggedIn: boolean;
-  currentPosition: any;
 
   constructor(  private platform: Platform,
 
@@ -43,21 +41,6 @@ export class MapaPage {
               private geolocation: Geolocation,public events: Events) {
 
     platform.ready().then(() => {
-      events.subscribe('user:created', (user, time) => {
-        // user and time are the same arguments passed in `events.publish(user, time)`
-        console.log('Welcome', user, 'at', time);
-      });
-
-      // // get current position
-      // geolocation.getCurrentPosition().then(pos => {
-      //   this.currentPosition = pos;
-      //   // this.longitude = pos.coords.longitude;
-      //   this.latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-      //   this.loadMap();
-      // });
-      // const watch = geolocation.watchPosition().subscribe(pos => {
-      //   this.currentPosition = pos;
-      // });
 
     });
   }
@@ -65,57 +48,25 @@ export class MapaPage {
   ionViewDidLoad() {
     this.service = this.navParams.get("service");
     this.cant_c = this.navParams.get("cant_c");
-
-    this.response = this.navParams.get("response");
-    // this.service = this.response['data'];
-
     this.positions = this.service.positions;
-    // this.positions = this.response['positions'];
 
-
-
-    this.geolocation.getCurrentPosition().then((resp) => {
+    this.geolocation.getCurrentPosition({maximumAge :60000,timeout:60000}).then((resp) => {
       //agrgando los positions del servicio
-      this.loadMap();
-
-      // this.latitude=resp.coords.latitude;
-      // this.longitude =resp.coords.longitude
-      this.latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
-      this.map.setCenter(this.latLng);
-      this.map.setZoom(15);
-      let marker = new google.maps.Marker({
-        map: this.map,
-        // icon: "http://localhost/login/resources/image/categories/current.png",
-        position: this.latLng
-      });
-      let content = "<h4>Mi posición</h4>";
-      this.addInfoWindow(marker, content);
-
-
-      // para calcular la distancia
-      //  let destino1 = new google.maps.LatLng(23.126606, -82.32528);
-
-      var destinos = [];
-      //  destinos.push(destino1);
-
-      for (let i = 0; i < this.positions.length; i++) {
-        destinos.push(new google.maps.LatLng(this.positions[i].latitude,this.positions[i].longitude));
-      }
-      this.distanceM.getDistanceMatrix(
-        {
-          origins: [this.latLng],
-          destinations: destinos,
-          travelMode: 'DRIVING'
-        },this.showDistance(this.events));
-
+      this.loadMap(resp);
+      //agregando el current
     });
-
   }
 
+
+  actualZoom(that) {
+    return function(response, status) {
+      that.zoom= that.map.getZoom();
+   }
+}
   showDistance(event) {
      return function(response, status) {
       if(status == "OK"){
-        event.publish('user:created', "user", Date.now());
+
         for (let i = 0; i < response.rows[0].elements.length; i++) {
           var el = document.getElementById('pos'+i);
           el.innerHTML = ":"+response.rows[0].elements[i].distance.text;
@@ -124,42 +75,48 @@ export class MapaPage {
       } else {
           alert("Error: " + status);
       }
-    // }
-    // let asd = [];
-    // for (let i = 0; i < response.rows[0].elements.length; i++) {
-    //  // this.positions[i].distance = response.rows[0].elements[i];
-    //   console.log(response.rows[0].elements[i]);
-    //   asd.push(response.rows[0].elements[i]);
-    //  // this.prueba(asd);
-    // }
-    // console.log(this.positions);
   }
 }
 
-  prueba(a){
-    console.log(a);
-
-  }
-
   // mostrar ruta entre 2 puntos
   calculateAndDisplayRoute(p) {
+    this.destino=p;
     var end = new google.maps.LatLng(p.latitude, p.longitude);
     this.directionsService.route({
       origin: this.latLng,
       destination: end,
       travelMode: 'DRIVING'
     }, (response, status) => {
-      console.log(status);
       if (status === 'OK') {
+        this.directionsDisplay.setMap(this.map);
         this.directionsDisplay.setDirections(response);
+        this.watch = this.geolocation.watchPosition({maximumAge :60000,timeout:60000})
+        .filter((p) => p.coords !== undefined)
+        .subscribe(position => {
+             let newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+             if(!this.latLng.equals( newPosition ))
+             {
+               console.log("muevete");
+              this.latLng = newPosition;
+              this.map.setZoom(this.zoom);
+              this.currentP.setPosition(this.latLng);
+              this.calculateAndDisplayRoute(this.destino);
+             }
+        });
+
       } else {
         window.alert('Directions request failed due to ' + status);
       }
     });
   }
 
+  cancelarRoute(){
+    this.directionsDisplay.setMap(null);
+    this.destino=null;
+    this.watch.unsubscribe();
+  }
 
-  loadMap() {
+  loadMap(resp) {
     let mapOptions = {
       center: this.latLng,
       zoom: 15,
@@ -168,7 +125,7 @@ export class MapaPage {
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     this.directionsDisplay.setMap(this.map);
     this.directionsDisplay.setOptions({suppressMarkers: true});
-    this.positions = this.response.data.positionsList;
+    this.positions = this.service.positionsList;
 
     for (let i = 0; i < this.positions.length; i++) {
       let marker = new google.maps.Marker({
@@ -178,21 +135,36 @@ export class MapaPage {
       let content = "<h4>" + this.positions[i].title + "</h4>";
       this.addInfoWindow(marker, content);
     }
-  }
+    this.latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
+    this.map.setCenter(this.latLng);
+    this.map.setZoom(15);
+    this.currentP = new google.maps.Marker({
+      map: this.map,
+       icon: "http://www.googlemapsmarkers.com/v1/009900/",
+      position: this.latLng
+    });
+    let content = "<h4>Mi posición</h4>";
+    this.addInfoWindow(this.currentP, content);
 
+    this.destinos = [];
+    for (let i = 0; i < this.positions.length; i++) {
+      this.destinos.push(new google.maps.LatLng(this.positions[i].latitude,this.positions[i].longitude));
+    }
+    this.distanceM.getDistanceMatrix(
+      {
+        origins: [this.latLng],
+        destinations: this.destinos,
+        travelMode: 'DRIVING'
+      },this.showDistance(this.events));
+    this.map.addListener('zoom_changed', this.actualZoom(this) );
+
+  }
   getLocation() {
     this.geolocation.getCurrentPosition().then((resp) => {
-      this.latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
-      this.map.setCenter(this.latLng);
-      this.map.setZoom(15);
-      let marker = new google.maps.Marker({
-        map: this.map,
-        position: this.latLng
-      });
-      let content = "<h4>Mi posición</h4>";
-      this.addInfoWindow(marker, content);
-    }).catch((error) => {
-      console.log('Error getting location', error);
+    this.latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
+    this.map.setCenter(this.latLng);
+    this.map.setZoom(this.zoom);
+    this.currentP.setPosition(this.latLng);
     });
 
   }

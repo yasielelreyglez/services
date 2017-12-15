@@ -55,12 +55,12 @@
                                   </button>
                             </ion-col>
                             <ion-col col-3>
-                                <button (tap)='openServicePage(serv.id,serv)' class="action" ion-button icon-only color="azul-claro">
+                                <button (click)='openServicePage(serv.id,serv)' class="action" ion-button icon-only color="azul-claro">
                                     <ion-icon class="fs-30"  name="checkmark"></ion-icon>
                                   </button>
                             </ion-col>
                             <ion-col col-3>
-                                <button class="action" ion-button icon-only color="warning">
+                                <button (click)="editService(serv)" class="action" ion-button icon-only color="warning">
                                     <ion-icon class="fs-30"  name="clipboard"></ion-icon>
                                   </button>
                             </ion-col>

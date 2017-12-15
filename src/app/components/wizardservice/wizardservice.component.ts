@@ -4,7 +4,6 @@ import {Service} from '../../_models/service';
 import {City} from '../../_models/city';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Data} from '../../_services/data.service';
 import {isNull} from 'util';
 import {MatSnackBar} from '@angular/material';
 
@@ -41,7 +40,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     infoWindow: any;
     markers: any;
 
-    constructor(private apiServices: ApiService, private router: Router, private data: Data, private route: ActivatedRoute,
+    constructor(private apiServices: ApiService, private router: Router, private route: ActivatedRoute,
                 private snackBar: MatSnackBar, public zone: NgZone) {
 
         if (typeof google !== 'undefined') {

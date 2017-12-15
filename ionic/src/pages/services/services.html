@@ -79,7 +79,7 @@
 
                     <ion-col col-8>
                         <h2 class="serv-title ">{{serv.title }} </h2>
-                        <div class="text-center fw-600 serv-pro">
+                        <div class="text-center fw-600 serv-pro" *ngIf="serv.professional === 1">
                             <p class="texto" style>PRO</p>
                         </div>
                         <hr class="hr-separador">

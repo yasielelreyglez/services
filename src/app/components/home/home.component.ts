@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../_services/api.service';
 import {Router} from '@angular/router';
-import {Data} from '../../_services/data.service';
 import {FormControl} from '@angular/forms';
 
 @Component({
@@ -14,7 +13,7 @@ export class HomeComponent implements OnInit {
     query: any;
     search = new FormControl('');
 
-    constructor(private apiServices: ApiService, private router: Router, private data: Data) {
+    constructor(private apiServices: ApiService, private router: Router) {
     }
 
     ngOnInit() {

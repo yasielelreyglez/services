@@ -3,6 +3,7 @@ import { IonicPage, NavController, LoadingController, ViewController, App, Alert
 import  {ServiceProvider} from  '../../providers/service/service.service';
 import { ServicePage } from '../service/service';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { Create1Page } from '../create1/create1';
 
 @IonicPage()
 @Component({
@@ -84,6 +85,17 @@ export class MyservicesPage {
         });
     // this.navCtrl.push(ServicePage, {
     //   serviceId: id,
+    //   service:serv
+    // });
+  }
+  editService(serv){
+    // this.viewCtrl.dismiss();
+    // this.appCtrl.getRootNav().push(FavoritesPage);
+    this.navCtrl.push(Create1Page, {
+      service: serv
+    });
+    // this.appCtrl.getActiveNavs()[0].push(Create1Page, {
+    //   // serviceId: id,
     //   service:serv
     // });
   }

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {ApiService} from '../../_services/api.service';
-import {Data} from '../../_services/data.service';
 import {City} from '../../_models/city';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
@@ -17,7 +16,7 @@ export class ShowservicesComponent implements OnInit {
     model: any;
     filterForm: FormGroup;
 
-    constructor(private route: ActivatedRoute, private apiServices: ApiService, private data: Data) {
+    constructor(private route: ActivatedRoute, private apiServices: ApiService) {
         this.model = {};
     }
 

@@ -4,7 +4,6 @@ import {ReportComponent} from '../_modals/report/report.component';
 import {AuthService} from '../../_services/auth.service';
 import {MatDialog} from '@angular/material';
 import {isNull} from 'util';
-import {Data} from '../../_services/data.service';
 
 @Component({
     selector: 'app-services',
@@ -20,8 +19,7 @@ export class ServicesComponent implements OnInit {
     loggedIn = false;
     citiesList: string;
 
-    constructor(public dialog: MatDialog, private apiServices: ApiService, private authServices: AuthService,
-                private data: Data) {
+    constructor(public dialog: MatDialog, private apiServices: ApiService, private authServices: AuthService) {
 
     }
 

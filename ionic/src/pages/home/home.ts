@@ -60,13 +60,13 @@ export class HomePage {
      public keyboard: Keyboard,
      public navParams: NavParams,public splashScreen: SplashScreen,public platform: Platform) {
 
-      this.platform.ready().then(() => {
+      // this.platform.ready().then(() => {
         this.subCat.topSubcategories().then(
           data => {
             this.subCategories =data['data'];
-            setTimeout(() => {
+            // setTimeout(() => {
               this.splashScreen.hide();
-            }, 1500);
+            // }, 1500);
 
             this.connetionDown = false;
           },
@@ -80,7 +80,7 @@ export class HomePage {
 
             }
         });
-      });
+      // });
   }
   ionViewDidLoad() {
 
