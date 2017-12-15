@@ -29,7 +29,7 @@
 
         <ion-item *ngFor="let p of positions; let i = index">
             <h2>{{p.title}} <span id="{{'pos' + i}}"></span></h2>
-            <button *ngIf="!destino" (click)="calculateAndDisplayRoute(p)" ion-button icon-left clear item-end>
+            <button [disabled]="!havePosition" *ngIf="!destino" (click)="calculateAndDisplayRoute(p)" ion-button icon-left clear item-end>
         <ion-icon name="navigate"></ion-icon>
         Ir
       </button>
