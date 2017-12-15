@@ -17,6 +17,7 @@ declare var google;
   templateUrl: 'mapa.html',
 })
 export class MapaPage {
+  wacthed: any;
   havePosition: boolean;
   destinos: any[];
   watch:any;
@@ -47,6 +48,7 @@ export class MapaPage {
   }
 
   ionViewDidLoad() {
+    this.wacthed=false;
     this.service = this.navParams.get("service");
     this.cant_c = this.navParams.get("cant_c");
     this.positions = this.service.positions;
@@ -87,19 +89,24 @@ export class MapaPage {
       if (status === 'OK') {
         this.directionsDisplay.setMap(this.map);
         this.directionsDisplay.setDirections(response);
-        this.watch = this.geolocation.watchPosition({maximumAge :60000,timeout:60000})
-        .filter((p) => p.coords !== undefined)
-        .subscribe(position => {
-             let newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-             if(!this.latLng.equals( newPosition ))
-             {
-               console.log("muevete");
-              this.latLng = newPosition;
-              this.map.setZoom(this.zoom);
-              this.currentP.setPosition(this.latLng);
-              this.calculateAndDisplayRoute(this.destino);
-             }
-        });
+        if (!this.wacthed) {
+          console.log("this.wacthed");
+          this.watch = this.geolocation.watchPosition({maximumAge :60000,timeout:60000})
+          .filter((p) => p.coords !== undefined)
+          .subscribe(position => {
+              this.wacthed=true;
+               let newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+               if(!this.latLng.equals( newPosition ))
+               {
+                 console.log("muevete");
+                this.latLng = newPosition;
+                this.map.setZoom(this.zoom);
+                this.currentP.setPosition(this.latLng);
+                this.calculateAndDisplayRoute(this.destino);
+               }
+          });
+        }
+
 
       } else {
         window.alert('Directions request failed due to ' + status);
@@ -111,13 +118,14 @@ export class MapaPage {
     this.directionsDisplay.setMap(null);
     this.destino=null;
     this.watch.unsubscribe();
+    this.wacthed=false;
   }
 
   loadMap() {
     let mapOptions = {
       // center: this.latLng,
       center: new google.maps.LatLng(23.13302, -82.38304),
-
+      disableDefaultUI: true,
       zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
