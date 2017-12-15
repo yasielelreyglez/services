@@ -22,8 +22,8 @@ class Home extends CI_Controller {
         $this->load->helper('html');
         $this->load->view('login');
     }
-    public function user_login_show() {
-        $this->load->view('login_form');
+    public function user() {
+        $this->load->view('upload_form');
     }
     public function login()
     {
