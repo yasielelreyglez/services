@@ -37,15 +37,15 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `title`, `icon`) VALUES
-(29, 'Bares', 'http://localhost/services/resources/image/categories/bares.png'),
-(30, 'Cafeterias', 'http://localhost/services/resources/image/categories/cafeterias.png'),
-(31, 'Eventos', 'http://localhost/services/resources/image/categories/eventos.png'),
-(32, 'Fontaneria', 'http://localhost/services/resources/image/categories/fontaneria.png'),
-(33, 'Hogar', 'http://localhost/services/resources/image/categories/hogar.png'),
-(34, 'MecÃ¡nica', 'http://localhost/services/resources/image/categories/mecanica.png'),
-(35, 'Medicina', 'http://localhost/services/resources/image/categories/medicina.png'),
-(36, 'TecnologÃ­a', 'http://localhost/services/resources/image/categories/tecnologia.png'),
-(37, 'Viajes', 'http://localhost/services/resources/image/categories/viajes.png');
+(29, 'Bares', 'http://192.168.1.74/services/resources/image/categories/bares.png'),
+(30, 'Cafeterias', 'http://192.168.1.74/services/resources/image/categories/cafeterias.png'),
+(31, 'Eventos', 'http://192.168.1.74/services/resources/image/categories/eventos.png'),
+(32, 'Fontaneria', 'http://192.168.1.74/services/resources/image/categories/fontaneria.png'),
+(33, 'Hogar', 'http://192.168.1.74/services/resources/image/categories/hogar.png'),
+(34, 'MecÃ¡nica', 'http://192.168.1.74/services/resources/image/categories/mecanica.png'),
+(35, 'Medicina', 'http://192.168.1.74/services/resources/image/categories/medicina.png'),
+(36, 'TecnologÃ­a', 'http://192.168.1.74/services/resources/image/categories/tecnologia.png'),
+(37, 'Viajes', 'http://192.168.1.74/services/resources/image/categories/viajes.png');
 
 -- --------------------------------------------------------
 
@@ -131,10 +131,10 @@ CREATE TABLE `images` (
 --
 
 INSERT INTO `images` (`id`, `service_id`, `title`) VALUES
-(1, 1, 'http://localhost/services//resources/services/1/perfil.png'),
-(2, 1, 'http://localhost/services//resources/services/1/pendiente.png'),
-(3, 2, 'http://localhost/services//resources/services/2/product.jpg'),
-(4, 2, 'http://localhost/services//resources/services/2/IMG_20171109_151148.jpg');
+(1, 1, 'http://192.168.1.74/services//resources/services/1/perfil.png'),
+(2, 1, 'http://192.168.1.74/services//resources/services/1/pendiente.png'),
+(3, 2, 'http://192.168.1.74/services//resources/services/2/product.jpg'),
+(4, 2, 'http://192.168.1.74/services//resources/services/2/IMG_20171109_151148.jpg');
 
 -- --------------------------------------------------------
 
@@ -250,8 +250,8 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`id`, `author_id`, `title`, `subtitle`, `phone`, `address`, `other_phone`, `email`, `url`, `week_days`, `start_time`, `end_time`, `created`, `visits`, `created_at`, `updated_at`, `icon`, `globalrate`, `description`, `professional`) VALUES
-(1, 3, 'Cuidado de niÃ±os', 'menores', '3323456456', 'asdfasdfasdf', '23234234', 'admin@gmail.com', 'http://url', '0,1,2,3,4', '8:00 am', '10:00 pm', '2017-12-14 20:09:29', 7, '2017-12-14 20:09:29', '2017-12-14 20:09:29', 'http://localhost/services/resources/completadas.png', 6.5, 'aqui cuidamos tu niÃ±o', NULL),
-(2, 6, 'Taller La virgen ', 'Taller de electronica y telefonia', '438038123', 'Calle mayor e/ calzada y rio,Virgen del camino', '', 'iservice@gmail.com', 'http://iservicecuba.emprende.cu', '0,1,2,3,4', '8:00', '18:00', '2017-12-15 05:06:14', 5, '2017-12-15 05:06:14', '2017-12-15 05:06:14', 'http://localhost/services/resources/product.jpg', 6.5, 'Taller de electronica y telefonia, especializado en tecnologia de Apple, con expecialistas de primer nivel con mas de 5 aÃ±os de experiencia en el campo.', NULL);
+(1, 3, 'Cuidado de niÃ±os', 'menores', '3323456456', 'asdfasdfasdf', '23234234', 'admin@gmail.com', 'http://url', '0,1,2,3,4', '8:00 am', '10:00 pm', '2017-12-14 20:09:29', 7, '2017-12-14 20:09:29', '2017-12-14 20:09:29', 'http://192.168.1.74/services/resources/completadas.png', 6.5, 'aqui cuidamos tu niÃ±o', NULL),
+(2, 6, 'Taller La virgen ', 'Taller de electronica y telefonia', '438038123', 'Calle mayor e/ calzada y rio,Virgen del camino', '', 'iservice@gmail.com', 'http://iservicecuba.emprende.cu', '0,1,2,3,4', '8:00', '18:00', '2017-12-15 05:06:14', 5, '2017-12-15 05:06:14', '2017-12-15 05:06:14', 'http://192.168.1.74/services/resources/product.jpg', 6.5, 'Taller de electronica y telefonia, especializado en tecnologia de Apple, con expecialistas de primer nivel con mas de 5 aÃ±os de experiencia en el campo.', NULL);
 
 -- --------------------------------------------------------
 
@@ -320,14 +320,14 @@ CREATE TABLE `subcategories` (
 --
 
 INSERT INTO `subcategories` (`id`, `category_id`, `title`, `icon`, `visits`, `created_at`, `updated_at`) VALUES
-(5, 29, 'Cuidado de niÃ±os', 'http://localhost/services/resources/image/subcategories/completadas.png', 0, '2017-12-13 02:10:43', '2017-12-13 03:08:44'),
-(6, 33, 'Electricidad', 'http://localhost/services/resources/image/subcategories/electricidad.png', 5, '2017-12-13 02:11:38', '2017-12-13 03:09:19'),
-(7, 33, 'Servicios de limpieza', 'http://localhost/services/resources/image/subcategories/servicios_limpieza.png', 0, '2017-12-13 02:12:08', '2017-12-13 03:09:26'),
-(8, 35, 'Servicios medicos', 'http://localhost/services/resources/image/subcategories/servicios_medicos.png', 0, '2017-12-13 02:12:30', '2017-12-13 03:09:36'),
-(9, 36, 'Servicios tecnologicos', 'http://localhost/services/resources/image/subcategories/servicios_tecnologicos.png', 12, '2017-12-13 03:36:03', '2017-12-13 03:09:43'),
-(10, 35, 'Servicios veterinarios', 'http://localhost/services/resources/image/subcategories/servicios_veterinarios.png', 7, '2017-12-13 03:36:30', '2017-12-13 03:09:51'),
-(11, 29, 'TelefonÃ­a celular', 'http://localhost/services/resources/image/subcategories/telefonia_celular.png', 5, '2017-12-13 03:37:42', '2017-12-13 03:09:58'),
-(12, 29, 'TransportaciÃ³n', 'http://localhost/services/resources/image/subcategories/transportacion.png', 0, '2017-12-13 03:38:06', '2017-12-13 03:10:04');
+(5, 29, 'Cuidado de niÃ±os', 'http://192.168.1.74/services/resources/image/subcategories/completadas.png', 0, '2017-12-13 02:10:43', '2017-12-13 03:08:44'),
+(6, 33, 'Electricidad', 'http://192.168.1.74/services/resources/image/subcategories/electricidad.png', 5, '2017-12-13 02:11:38', '2017-12-13 03:09:19'),
+(7, 33, 'Servicios de limpieza', 'http://192.168.1.74/services/resources/image/subcategories/servicios_limpieza.png', 0, '2017-12-13 02:12:08', '2017-12-13 03:09:26'),
+(8, 35, 'Servicios medicos', 'http://192.168.1.74/services/resources/image/subcategories/servicios_medicos.png', 0, '2017-12-13 02:12:30', '2017-12-13 03:09:36'),
+(9, 36, 'Servicios tecnologicos', 'http://192.168.1.74/services/resources/image/subcategories/servicios_tecnologicos.png', 12, '2017-12-13 03:36:03', '2017-12-13 03:09:43'),
+(10, 35, 'Servicios veterinarios', 'http://192.168.1.74/services/resources/image/subcategories/servicios_veterinarios.png', 7, '2017-12-13 03:36:30', '2017-12-13 03:09:51'),
+(11, 29, 'TelefonÃ­a celular', 'http://192.168.1.74/services/resources/image/subcategories/telefonia_celular.png', 5, '2017-12-13 03:37:42', '2017-12-13 03:09:58'),
+(12, 29, 'TransportaciÃ³n', 'http://192.168.1.74/services/resources/image/subcategories/transportacion.png', 0, '2017-12-13 03:38:06', '2017-12-13 03:10:04');
 
 -- --------------------------------------------------------
 
