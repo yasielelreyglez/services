@@ -47,40 +47,6 @@
 
         </ion-item>
 
-
-        <!-- </ion-list> -->
-        <!-- <ion-grid no-padding>
-            <ion-row>
-                <ion-col col-2>
-                    <p class="azul-claro" *ngIf="city || category">Filtros:</p>
-                </ion-col>
-                <ion-col col-10>
-                    <div *ngIf="city" class="inline-b">
-                        <ion-chip>
-                            <button ion-button color="danger" (tap)="deleteCity()">
-                        <ion-icon  name="close"></ion-icon>
-                      </button> &nbsp;
-                            <ion-label>{{city}}</ion-label>
-                        </ion-chip>
-                    </div>
-
-                    <div *ngIf="category" class="inline-b">
-                        <ion-chip>
-                            <button ion-button color="danger" (tap)="deleteCategory()">
-                        <ion-icon  name="close"></ion-icon>
-                      </button> &nbsp;
-                            <ion-label>{{category}}</ion-label>
-                        </ion-chip>
-
-                    </div>
-
-                </ion-col>
-            </ion-row>
-        </ion-grid> -->
-
-
-
-        <!-- <ion-list> -->
         <ion-item *ngFor="let serv of services; let i = index">
             <ion-grid>
                 <ion-row>
