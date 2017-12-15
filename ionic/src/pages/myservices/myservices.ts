@@ -70,39 +70,25 @@ export class MyservicesPage {
   ionViewDidLoad() {
   }
   viewImg(img) {
-    // this.platform.ready().then(() => {
     this.photoViewer.show(img);
-    // });
   }
 
   openServicePage(id,serv) {
-        //this.navCtrl.push(FavoritesPage,);
         this.viewCtrl.dismiss();
-        // this.appCtrl.getRootNav().push(FavoritesPage);
-
         this.appCtrl.getActiveNavs()[0].push(ServicePage, {
           serviceId: id,
           service:serv
         });
-    // this.navCtrl.push(ServicePage, {
-    //   serviceId: id,
-    //   service:serv
-    // });
+
   }
   pagar(){
     this.navCtrl.push(PagarPage);
 
   }
   editService(serv){
-    // this.viewCtrl.dismiss();
-    // this.appCtrl.getRootNav().push(FavoritesPage);
     this.navCtrl.push(Create1Page, {
       service: serv
     });
-    // this.appCtrl.getActiveNavs()[0].push(Create1Page, {
-    //   // serviceId: id,
-    //   service:serv
-    // });
   }
 
 }

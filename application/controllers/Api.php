@@ -200,7 +200,7 @@ class Api extends REST_Controller
             $services = $this->filterByCitiesFiltered($ciudades,$filtered,$services);
         }else{
             if($ciudades){
-                $services = $this->filterByCitiesFiltered($ciudades,false,nil);
+                $services = $this->filterByCitiesFiltered($ciudades,false,null);
                 $filtered = true;
             }
         }
@@ -1038,19 +1038,25 @@ class Api extends REST_Controller
         $citiesRepo = $em->getRepository('Entities\City');
         $result_cities = [];
         $criteria = new \Doctrine\Common\Collections\Criteria();
-        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("ID", \Doctrine\Common\Collections\Expr\Comparison::IN, $cities);
+        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("id", \Doctrine\Common\Collections\Expr\Comparison::IN, $cities);
         $criteria->where($expresion);
         $citiesObj = $citiesRepo->matching($criteria)->toArray();
         foreach ($citiesObj as $city) {
-            $services = $city->getServices();
+            $services = $city->getServices()->toArray();
             $result_cities = array_merge($result_cities,$services);
         }
         if($filtered){
-            $services_filtered = array_intersect($services_filtered,$result_cities);
+            $result = [];
+            foreach ($services_filtered as $filt) {
+                if (in_array($filt,$result_cities)){
+                    $result[]=$filt;
+                }
+            }
+//            $result = array_intersect($services_filtered,$result_cities);
         }else{
-            $services_filtered = $result_cities;
+            $result = $result_cities;
         }
-        return $services_filtered;
+        return $result;
     }
 
     private function filterBySubcategories($subcategories){
@@ -1058,11 +1064,11 @@ class Api extends REST_Controller
         $sub_repo = $em->getRepository('Entities\Subcategory');
         $result_subcategories = [];
         $criteria = new \Doctrine\Common\Collections\Criteria();
-        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("ID", \Doctrine\Common\Collections\Expr\Comparison::IN, $subcategories);
+        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("id", \Doctrine\Common\Collections\Expr\Comparison::IN, $subcategories);
         $criteria->where($expresion);
         $subcategoriesObj = $sub_repo->matching($criteria)->toArray();
         foreach ($subcategoriesObj as $subcategory) {
-            $services = $subcategory->getServices();
+            $services = $subcategory->getServices()->toArray();
              $result_subcategories = array_merge($result_subcategories,$services);
         }
         return $result_subcategories;
