@@ -17,7 +17,6 @@ import {ApiService} from './_services/api.service';
 import {ShowcategoriesComponent} from './components/showcategories/showcategories.component';
 import {SubcategoriesComponent} from './components/subcategories/subcategories.component';
 import {ShowsubcateroriesComponent} from './components/showsubcaterories/showsubcaterories.component';
-import {Data} from './_services/data.service';
 import {ShowservicesComponent} from './components/showservices/showservices.component';
 import {ServicesComponent} from './components/services/services.component';
 import {ReportComponent} from './components/_modals/report/report.component';
@@ -97,7 +96,6 @@ import { PayserviceComponent } from './components/payservice/payservice.componen
         AuthGuard,
         AuthService,
         ApiService,
-        Data
     ],
     bootstrap: [AppComponent]
 })
