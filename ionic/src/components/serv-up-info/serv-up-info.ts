@@ -30,7 +30,6 @@ export class ServUpInfoComponent {
     this.loggedIn = this.auth.isLoggedIn();
   }
   Llamar(number){
-
     this.callNumber.callNumber(number, true)
     .then(() => {
       this.api.contactservice(this.passedService.id);

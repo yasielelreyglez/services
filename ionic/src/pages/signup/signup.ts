@@ -52,10 +52,18 @@ export class SignupPage {
               toast.present();
             }
             loading.dismiss();
+
       }
     ).catch(
       (error) => {
         console.log(error);
+        let toast = this.toastCtrl.create({
+          message:error ,
+          duration: 5000,
+          position: 'top'
+        });
+        toast.present();
+        loading.dismiss();
       }
     );
 

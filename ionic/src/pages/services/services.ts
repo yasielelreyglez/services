@@ -14,17 +14,19 @@ import { Service } from '../../models/service';
   templateUrl: "services.html"
 })
 export class ServicesPage {
+  filtro: boolean;
   catOptions: { title: string };
   citiestOptions: { title: string };
   cities: any;
   categories: any;
-  city: any;
-  category: any;
+  filter_city: any= "";
+  filter_category: any= "";
+  filter_distance: number;
   subCatId: any;
   services: Service[]=[];
   categoryId: any;
   loggedIn: boolean;
-  option: any;
+  tempServ:any;
 
   constructor(
     public navCtrl: NavController,
@@ -69,7 +71,7 @@ export class ServicesPage {
       ],
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           handler: data => {
             console.log('Cancel clicked');
           }
@@ -137,10 +139,7 @@ export class ServicesPage {
         loading.dismiss();
       },
       (err: HttpErrorResponse) => {
-        if (err.error instanceof Error) {
-        } else {
-          console.log(err);
-        }
+        loading.dismiss();
       }
     );
   }
@@ -187,13 +186,29 @@ export class ServicesPage {
   }
 
   deleteCity() {
-    this.city = null;
+    this.filter_city = null;
   }
 
   deleteCategory() {
-    this.category = null;
+    this.filter_category = null;
   }
   filterService(){
-
+    this.tempServ = this.services;
+    this.filtro=true;
+    this.servProv.filterService(this.filter_city,this.filter_category,this.filter_distance,'currentPosition').then(
+      data => {
+        this.services = data["services"];
+      },
+      (err: HttpErrorResponse) => {
+        if (err.error instanceof Error) {
+        } else {
+        }
+      }
+    );
+  }
+  deleteFilter(){
+    this.filtro=false;
+    this.services = this.tempServ;
+    this.tempServ=[];
   }
 }

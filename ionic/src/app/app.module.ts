@@ -19,7 +19,6 @@ import { FavoritesPage  } from '../pages/favorites/favorites';
 import { BusquedaPage  } from '../pages/busqueda/busqueda';
 import { MyservicesPage  } from '../pages/myservices/myservices';
 import { ServicePage  } from '../pages/service/service';
-import { EjemploPage  } from '../pages/ejemplo/ejemplo';
 import { RatePage } from "../pages/rate/rate";
 import { InfoPage } from "../pages/info/info";
 import { MapaPage } from "../pages/mapa/mapa";
@@ -50,6 +49,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Create3Page } from '../pages/create3/create3';
 import { Create4Page } from '../pages/create4/create4';
+import { PagarPage } from '../pages/pagar/pagar';
 
 // import { FilePath } from '@ionic-native/file-path';
 
@@ -80,7 +80,7 @@ import { Create4Page } from '../pages/create4/create4';
     Create2Page,
     Create3Page,
     Create4Page,
-    EjemploPage
+    PagarPage
 
   ],
   imports: [
@@ -118,13 +118,13 @@ import { Create4Page } from '../pages/create4/create4';
     Create2Page,
     Create3Page,
     Create4Page,
-    EjemploPage
+    PagarPage
 
   ],
   providers: [
     StatusBar,
     SplashScreen,
-   
+
     File,
     Camera,
     CallNumber,

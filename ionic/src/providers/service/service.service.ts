@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AuthProvider} from  '../auth/auth'
-import {  HttpClient,  HttpHeaders } from "@angular/common/http";
+import {  HttpClient,  HttpHeaders, HttpParams } from "@angular/common/http";
 import { ApiProvider } from "../api/api";
 import { sendService } from '../../models/sendService';
 
@@ -208,8 +208,19 @@ rateservice(id,value):Promise<Object>{
 
 }
 
-  filterService(){
+  filterService(cit,cat,dist,curr){
+    let params = new HttpParams().set('cities',cit);
+    params = params.append('categories',cat);
+     params = params.append('distance',dist);
+    //  params.append('current','');
 
+    return this.http.get(this.api.getbaseUrl() + 'api/filter',{ params: params })
+    .toPromise()
+    .then(
+      (response) => {
+        return response;
+      }
+    ).catch(this.handleError);
   }
   private handleError(error: any): Promise<any> {
     return Promise.reject(error.message || error);

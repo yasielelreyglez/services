@@ -57,9 +57,7 @@ export class Create1Page {
         this.cities = data["data"];
       },
       (err: HttpErrorResponse) => {
-        if (err.error instanceof Error) {
-        } else {
-        }
+       console.log(err);
       }
     );
     this.api.getCategories().then(
