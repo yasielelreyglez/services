@@ -16,9 +16,16 @@ export class AuthService {
         this.currentUser.next(this.isAutenticate());
     }
 
+    // Metodo utilizado para poder utilizar el proxy en desarrollo y el baseURI en producción
+    getBaseURL() {
+        if (document.baseURI === 'http://localhost:4200/')
+            return 'services/';
+        return '';
+    }
+
     login(user: User): Observable<any> {
         const body = JSON.stringify({email: user.email, password: user.password});
-        return this.http.post('services/auth/login', body).map(response => response).map(result => {
+        return this.http.post(this.getBaseURL() + 'auth/login', body).map(response => response).map(result => {
             if (!result['error']) {
                 localStorage.setItem('currentUser', JSON.stringify(result));
                 this.currentUser.next(true);
@@ -30,7 +37,7 @@ export class AuthService {
 
     register(user: User): Observable<any> {
         const body = JSON.stringify({name: user.name, email: user.email, password: user.password});
-        return this.http.post('services/auth/register', body).map(response => response).map(result => {
+        return this.http.post(this.getBaseURL() + 'auth/register', body).map(response => response).map(result => {
             if (!result['error']) {
                 localStorage.setItem('currentUser', JSON.stringify(result));
                 this.currentUser.next(true);
@@ -52,17 +59,6 @@ export class AuthService {
         if (currentUser && currentUser.token)
             return true;
         return false;
-    }
-
-    forgotPassword(email: string): Observable<any> {
-        return this.http.post('services/api/forgotpassword', email).map((response) => {
-                if (response['result'] === true) {
-                    return true;
-                } else {
-                    return {error: response['result']};
-                }
-            }
-        );
     }
 
     private error(error: any) {
