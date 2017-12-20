@@ -257,8 +257,17 @@
 <!--            </div>-->
 <!--        </div>-->
 <!--    </div>-->
-
-    <div class="listing-objects">
+    <div class="subheader subheader-v2 has-bg-image" data-bg-image="<?=site_url("/resources/img/$tab-header.jpg")?>" >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1 class="block-title"><?=$tab?></h1>
+                    <p class="block-secondary-title invert">We are driven by our mission</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="listing-objects" style="background-color: rgb(245, 245, 245)">
         <div class="container">
         <?php if(isset($errors)) { ?>
             <div class="alert alert-danger">

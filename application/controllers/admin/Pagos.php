@@ -14,16 +14,18 @@ class Pagos extends CI_Controller {
         $this->load->model('Entities\Payments');
         $this->load->helper('url_helper');
         $this->load->helper('html');
+
     }
     public function index()
     {
         $em= $this->doctrine->em;
+        $data["title"] = "Pagos";
         $paymentsRepo = $em->getRepository('Entities\Payments');
         $payments = $paymentsRepo->findBy(array(),array('state' => 'ASC'));
         $data["pagos"]=$payments;
         $data['content'] = '/pagos/index';
         $data["tab"]="pagos";
-        $data["Tipo"]="";
+        $data["Tipo"]="Realizados";
         $this->load->view('/includes/contentpage', $data);
 
     }
@@ -34,6 +36,7 @@ class Pagos extends CI_Controller {
         $paymentsRepo = $em->getRepository('Entities\Payments');
         $payments = $paymentsRepo->findBy(array('state' => '0'),array('state' => 'ASC'));
         $data["pagos"]=$payments;
+        $data["title"] = "Pagos";
         $data['content'] = '/pagos/index';
         $data["tab"]="pagos";
         $data["Tipo"]="revisión";
@@ -47,6 +50,7 @@ class Pagos extends CI_Controller {
         $paymentsRepo = $em->getRepository('Entities\Payments');
         $payments = $paymentsRepo->findBy(array('state' => '0'),array('state' => 'ASC'));
         $data["pagos"]=$payments;
+        $data["title"] = "Pagos";
         $data['content'] = '/pagos/index';
         $data["tab"]="pagos";
         $data["Tipo"]="solicitados";
@@ -59,6 +63,7 @@ class Pagos extends CI_Controller {
         $paymentsRepo = $em->getRepository('Entities\Payments');
         $payments = $paymentsRepo->findBy(array('state' => '1'),array('state' => 'ASC'));
         $data["pagos"]=$payments;
+        $data["title"] = "Pagos";
         $data['content'] = '/pagos/index';
         $data["tab"]="pagos";
         $data["Tipo"]="activos";
