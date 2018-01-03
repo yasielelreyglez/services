@@ -36,7 +36,7 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = ['title' => NULL, 'professional' => NULL, 'icon' => NULL, 'description' => NULL, 'subtitle' => NULL, 'phone' => NULL, 'address' => NULL, 'other_phone' => NULL, 'email' => NULL, 'url' => NULL, 'week_days' => NULL, 'start_time' => NULL, 'end_time' => NULL, 'visits' => NULL, 'author' => NULL, 'globalrate' => NULL];
+    public static $lazyPropertiesDefaults = ['title' => NULL, 'professional' => NULL, 'icon' => NULL, 'description' => NULL, 'subtitle' => NULL, 'phone' => NULL, 'address' => NULL, 'other_phone' => NULL, 'email' => NULL, 'url' => NULL, 'week_days' => NULL, 'start_time' => NULL, 'end_time' => NULL, 'visits' => NULL, 'author' => NULL, 'globalrate' => NULL, 'ratereviews' => NULL];
 
 
 
@@ -46,7 +46,7 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
      */
     public function __construct($initializer = null, $cloner = null)
     {
-        unset($this->title, $this->professional, $this->icon, $this->description, $this->subtitle, $this->phone, $this->address, $this->other_phone, $this->email, $this->url, $this->week_days, $this->start_time, $this->end_time, $this->visits, $this->author, $this->globalrate);
+        unset($this->title, $this->professional, $this->icon, $this->description, $this->subtitle, $this->phone, $this->address, $this->other_phone, $this->email, $this->url, $this->week_days, $this->start_time, $this->end_time, $this->visits, $this->author, $this->globalrate, $this->ratereviews);
 
         $this->__initializer__ = $initializer;
         $this->__cloner__      = $cloner;
@@ -108,7 +108,7 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'title', 'professional', 'icon', 'description', 'subtitle', 'phone', 'address', 'other_phone', 'email', 'url', 'week_days', 'start_time', 'end_time', 'visits', 'created', 'created_at', 'updated_at', 'author', 'positions', 'positionsList', 'minorDistance', 'cities', 'citiesList', 'subcategories', 'subcategoriesList', 'serviceusers', 'globalrate', 'servicecomments', 'servicecommentsList', '' . "\0" . 'Entities\\Service' . "\0" . 'images', 'imagesList', 'visited', 'contacted', 'complain', 'favorite', 'rated', 'payments'];
+            return ['__isInitialized__', 'id', 'title', 'professional', 'icon', 'description', 'subtitle', 'phone', 'address', 'other_phone', 'email', 'url', 'week_days', 'start_time', 'end_time', 'visits', 'created', 'created_at', 'updated_at', 'author', 'positions', 'positionsList', 'minorDistance', 'cities', 'citiesList', 'subcategories', 'subcategoriesList', 'serviceusers', 'globalrate', 'ratereviews', 'servicecomments', 'servicecommentsList', '' . "\0" . 'Entities\\Service' . "\0" . 'images', 'imagesList', 'visited', 'contacted', 'complain', 'favorite', 'rated', 'payments'];
         }
 
         return ['__isInitialized__', 'id', 'created', 'created_at', 'updated_at', 'positions', 'positionsList', 'minorDistance', 'cities', 'citiesList', 'subcategories', 'subcategoriesList', 'serviceusers', 'servicecomments', 'servicecommentsList', '' . "\0" . 'Entities\\Service' . "\0" . 'images', 'imagesList', 'visited', 'contacted', 'complain', 'favorite', 'rated', 'payments'];
@@ -133,7 +133,7 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
                 }
             };
 
-            unset($this->title, $this->professional, $this->icon, $this->description, $this->subtitle, $this->phone, $this->address, $this->other_phone, $this->email, $this->url, $this->week_days, $this->start_time, $this->end_time, $this->visits, $this->author, $this->globalrate);
+            unset($this->title, $this->professional, $this->icon, $this->description, $this->subtitle, $this->phone, $this->address, $this->other_phone, $this->email, $this->url, $this->week_days, $this->start_time, $this->end_time, $this->visits, $this->author, $this->globalrate, $this->ratereviews);
         }
     }
 
@@ -858,6 +858,50 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPayments', [$payments]);
 
         return parent::setPayments($payments);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getGlobalrate()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getGlobalrate', []);
+
+        return parent::getGlobalrate();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getReviews()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getReviews', []);
+
+        return parent::getReviews();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function calculateGlobalRate()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'calculateGlobalRate', []);
+
+        return parent::calculateGlobalRate();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getIcon()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIcon', []);
+
+        return parent::getIcon();
     }
 
 }

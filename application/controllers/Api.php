@@ -386,8 +386,7 @@ class Api extends REST_Controller
             $obj->setRate($rate);
             $em->persist($obj);
             $em->flush();
-
-            $service->setGlobalRate($this->getGlobalRate($id));
+            $service = $service->calculateGlobalRate();
             $em->persist($obj);
             $em->flush();
             $service->loadRelatedUserData($user);

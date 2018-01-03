@@ -15,7 +15,9 @@ class Services extends CI_Controller {
 
 	# GET /services
 	function index() {
-		$data['services'] = $this->Services_model->find();
+        $em= $this->doctrine->em;
+        $servicesRepo = $em->getRepository('Entities\Service');
+        $data['services'] = $servicesRepo->findAll();
 		$data['content'] = '/services/index';
         $data["tab"]="services";
 

@@ -165,6 +165,12 @@ namespace Entities {
         public $globalrate;
 
         /**
+         * @Column(type="float")
+         * @var float
+         **/
+        public $ratereviews;
+
+        /**
          * One User has Many UserService.
          * @OneToMany(targetEntity="Comments", mappedBy="service",cascade={"persist", "remove"})
          */
@@ -208,6 +214,7 @@ namespace Entities {
             $this->images = new ArrayCollection();
             $this->payments = new ArrayCollection();
             $this->globalrate = 0;
+            $this->ratereviews = 0;
         }
 
         public function getId()
@@ -870,6 +877,45 @@ namespace Entities {
         public function setPayments($payments)
         {
             $this->payments = $payments;
+        }
+
+        /**
+         * @return float
+         */
+        public function getGlobalrate()
+        {
+            return $this->globalrate;
+        }
+        public function getReviews()
+        {
+            return $this->ratereviews;
+        }
+
+        function calculateGlobalRate()
+        {
+
+            $globalRate = 0;
+            $sum = 0;
+            $countRates = 0;
+            $rates = $this->getServiceusers();
+            foreach ($rates as $rel) {
+//            $rel = new UserService();
+                if ($rel->getRate()) {
+                    $sum += $rel->getRate();
+                    $countRates += 1;
+                }
+            }
+            $this->setGlobalrate($sum / $countRates);
+            $this->ratereviews = $countRates;
+            return $this;
+        }
+
+        /**
+         * @return string
+         */
+        public function getIcon()
+        {
+            return $this->icon;
         }
 
 
