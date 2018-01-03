@@ -49,8 +49,8 @@
             </ul>
 
             <ul *ngIf="!loggedIn" class="authentication">
-                <li><a routerLink="/login">Autenticarse</a></li>
-                <li><a routerLink="/register">Registrarse</a></li>
+                <li><a routerLink="/login">Iniciar sesión</a></li>
+                <li><a routerLink="/register">Crear cuenta</a></li>
             </ul>
             <ul *ngIf="loggedIn" class="authentication">
                 <li (click)="logout()"><a>Cerrar sesión</a></li>
@@ -64,7 +64,7 @@
 
         <div class="uou-block-2b icons">
             <div class="container">
-                <a href="#" class="logo"><img src="../../assets/img/logo.png" alt=""></a>
+                <a routerLink="/" class="logo"><img src="../../assets/img/logo.png" alt=""></a>
                 <a href="#" class="mobile-sidebar-button mobile-sidebar-toggle"><span></span></a>
 
                 <div *ngIf="loggedIn; then login else unlogin"></div>
@@ -78,9 +78,9 @@
 <ng-template #unlogin>
     <nav class="nav">
         <ul class="sf-menu">
-            <li class="active" routerLink="/">
-                <a><i class="fa fa-home"></i>Home</a>
-            </li>
+            <!--<li class="active" routerLink="/">-->
+            <!--<a><i class="fa fa-home"></i>Home</a>-->
+            <!--</li>-->
             <li routerLink="categories">
                 <a><i class="fa fa-search-plus"></i>Categorías</a>
             </li>
@@ -89,5 +89,34 @@
 </ng-template>
 
 <ng-template #login>
-
+    <nav class="nav">
+        <ul class="sf-menu">
+            <!--<li class="active" routerLink="/">-->
+            <!--<a><i class="fa fa-home"></i>Home</a>-->
+            <!--</li>-->
+            <li routerLink="categories">
+                <a><i class="fa fa-search-plus"></i>Categorías</a>
+            </li>
+            <li routerLink="/myfavorites">
+                <a><i class="fa fa-star"></i>Favoritos</a>
+            </li>
+            <li routerLink="/mysearchs">
+                <a><i class="fa fa-search"></i>Mis búsquedas</a>
+            </li>
+            <li routerLink="/createservice">
+                <a><i class="fa fa-plus"></i>Crear anuncio</a>
+            </li>
+            <li routerLink="/myservices">
+                <a><i class="fa fa-bullhorn"></i>Mis anuncios</a>
+            </li>
+            <li routerLink="/">
+                <a><i class="fa fa-bell"></i>Buzón</a>
+            <li routerLink="/">
+                <a><i class="fa fa-cog"></i>Cambiar contraseña</a>
+            </li>
+            <li routerLink="/">
+                <a><i class="fa fa-question-circle-o"></i>Ayuda</a>
+            </li>
+        </ul>
+    </nav>
 </ng-template>
