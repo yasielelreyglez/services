@@ -7,7 +7,8 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Client extends CI_Controller {
+class Client extends CI_Controller
+{
 
     public function __construct()
     {
@@ -20,39 +21,76 @@ class Client extends CI_Controller {
 
     }
 
-    public function favorites(){
-        if (!$this->ion_auth->logged_in())
-        {
+    public function index()
+    {
+        $em = $this->doctrine->em;
+        $morevisits = $em->getRepository('Entities\Service');
+        $data['services'] = $morevisits->findBy(array(), array('visits' => 'DESC'), 4);
+
+        $data['content'] = '/client/index';
+        $data["tab"] = "home";
+        $this->load->view('/client/_layouts/index', $data);
+    }
+
+    public function myfavorites()
+    {
+        if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('admin/auth/login', 'refresh');
         }
         $this->load->helper('html');
-        $em= $this->doctrine->em;
+        $em = $this->doctrine->em;
         $servicesRepo = $em->getRepository('Entities\Service');
         $data['services'] = $servicesRepo->findAll();
-        $data['content'] = '/services/index';
-        $data["tab"]="services";
+        $data['content'] = 'client/services/index';
+        $data["tab"] = "myfavorites";
 
-        $this->load->view('/includes/contentpage', $data);
+        $this->load->view('/client/_layouts/contentpage', $data);
     }
-    public function myservices(){
-        if (!$this->ion_auth->logged_in())
-        {
+
+    public function myservices()
+    {
+        if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('admin/auth/login', 'refresh');
         }
         $user = $this->getCurrentUser();
         $data['services'] = $user->getServices()->toArray();
-        $data['content'] = '/services/index';
-        $data["tab"]="services";
-        $this->load->view('/includes/contentpage', $data);
-
-
+        $data['content'] = 'client/services/index';
+        $data["tab"] = "myservices";
+        $this->load->view('/client/_layouts/contentpage', $data);
     }
 
-    private function getCurrentUser(){
+    public function mysearchs()
+    {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('admin/auth/login', 'refresh');
+        }
+
+        $user = $this->getCurrentUser();
+        $criteria = new \Doctrine\Common\Collections\Criteria();
+        //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
+        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("visited", \Doctrine\Common\Collections\Expr\Comparison::EQ, 1);
+        $criteria->where($expresion);
+        $relacion = $user->getUserservices()->matching($criteria)->toArray();
+        $data["services"] = array();
+        foreach ($relacion as $servicerel) {
+            $service_obj = $servicerel->getService();
+            $service_obj->loadRelatedUserData($user);
+            $service_obj->loadRelatedData();
+            $data["services"][] = $service_obj;
+        }
+
+        $data['content'] = 'client/services/index';
+        $data["tab"] = "myserchs";
+        $this->load->view('/client/_layouts/contentpage', $data);
+    }
+
+    private function getCurrentUser()
+    {
         $clientid = $this->ion_auth->get_user_id();
-        $em= $this->doctrine->em;
+        $em = $this->doctrine->em;
         $user = $em->find("Entities\User", $clientid);
         return $user;
     }
