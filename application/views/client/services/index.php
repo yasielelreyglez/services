@@ -1,6 +1,7 @@
 <div id="listing-3" class="listing listing-3">
     <div class="row">
         <?php foreach ($services as $object) { ?>
+
             <div class="col-md-4">
                 <div class="listing-grid listing-grid-1">
                     <div class="listing-heading">
@@ -11,7 +12,7 @@
                                 </div>
                             </div>
                         <?php } ?>
-                        <h5><a href="single_business.html"><?= $object->title ?></a></h5>
+                        <h5><a href="<?= site_url("service/") . $object->getId() ?>"><?= $object->title ?></a></h5>
                     </div>
                     <div class="listing-inner">
                         <div class="flexslider default-slider">

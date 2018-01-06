@@ -45,7 +45,7 @@ class Client extends CI_Controller
         $data['content'] = 'client/services/index';
         $data["tab"] = "myfavorites";
 
-        $this->load->view('/client/_layouts/contentpage', $data);
+        $this->load->view('/client/_layouts/listpage', $data);
     }
 
     public function myservices()
@@ -58,7 +58,7 @@ class Client extends CI_Controller
         $data['services'] = $user->getServices()->toArray();
         $data['content'] = 'client/services/index';
         $data["tab"] = "myservices";
-        $this->load->view('/client/_layouts/contentpage', $data);
+        $this->load->view('/client/_layouts/listpage', $data);
     }
 
     public function mysearchs()
@@ -84,7 +84,22 @@ class Client extends CI_Controller
 
         $data['content'] = 'client/services/index';
         $data["tab"] = "myserchs";
-        $this->load->view('/client/_layouts/contentpage', $data);
+        $this->load->view('/client/_layouts/listpage', $data);
+    }
+
+    public function service($id = 3)
+    {
+        $em = $this->doctrine->em;
+        $service = $em->find('Entities\Service', $id);
+        $data["object"] = $service;
+
+        $subcategory = $service->getSubcategories();
+        $morevisits = $em->getRepository('Entities\Service');
+        $data['similar'] = $morevisits->findBy(array(), array('visits' => 'DESC' ), 4);
+
+        $data['content'] = 'client/services/show';
+        $data["tab"] = "service";
+        $this->load->view('/client/_layouts/singlepage', $data);
     }
 
     private function getCurrentUser()

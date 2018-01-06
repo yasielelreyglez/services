@@ -5,3 +5,19 @@
 .c-red {
     color: #00d793 !important;
 }
+
+/*.margin-description {*/
+    /*margin-bottom: 330px;*/
+/*}*/
+
+/*@media (max-width: 768px){*/
+    /*.margin-description {*/
+        /*margin-bottom: 0px;*/
+    /*}*/
+/*}*/
+
+/*@media (min-width: 768px) and (max-width: 1199px){*/
+    /*.margin-description {*/
+        /*margin-bottom: 250px;*/
+    /*}*/
+/*}*/
