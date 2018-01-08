@@ -108,10 +108,10 @@ class User extends \Entities\User implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'username', 'email', 'password', 'ip_address', 'remember_code', 'salt', 'created_on', 'last_login', 'active', 'role', '' . "\0" . 'Entities\\User' . "\0" . 'userservices', '' . "\0" . 'Entities\\User' . "\0" . 'usercomments', '' . "\0" . 'Entities\\User' . "\0" . 'reportcomments', 'services'];
+            return ['__isInitialized__', 'id', 'username', 'email', 'password', 'ip_address', 'remember_code', 'salt', 'created_on', 'last_login', 'active', 'role', '' . "\0" . 'Entities\\User' . "\0" . 'userservices', '' . "\0" . 'Entities\\User' . "\0" . 'mensajesc', '' . "\0" . 'Entities\\User' . "\0" . 'mensajes', '' . "\0" . 'Entities\\User' . "\0" . 'usercomments', '' . "\0" . 'Entities\\User' . "\0" . 'reportcomments', 'services'];
         }
 
-        return ['__isInitialized__', 'id', 'password', 'ip_address', 'remember_code', 'salt', 'created_on', 'last_login', 'active', 'role', '' . "\0" . 'Entities\\User' . "\0" . 'userservices', '' . "\0" . 'Entities\\User' . "\0" . 'usercomments', '' . "\0" . 'Entities\\User' . "\0" . 'reportcomments', 'services'];
+        return ['__isInitialized__', 'id', 'password', 'ip_address', 'remember_code', 'salt', 'created_on', 'last_login', 'active', 'role', '' . "\0" . 'Entities\\User' . "\0" . 'userservices', '' . "\0" . 'Entities\\User' . "\0" . 'mensajesc', '' . "\0" . 'Entities\\User' . "\0" . 'mensajes', '' . "\0" . 'Entities\\User' . "\0" . 'usercomments', '' . "\0" . 'Entities\\User' . "\0" . 'reportcomments', 'services'];
     }
 
     /**
@@ -451,6 +451,39 @@ class User extends \Entities\User implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setReportcomments', [$reportcomments]);
 
         return parent::setReportcomments($reportcomments);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getMensajes()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMensajes', []);
+
+        return parent::getMensajes();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setMensajes($mensajes)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMensajes', [$mensajes]);
+
+        return parent::setMensajes($mensajes);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addMensaje(\Entities\Mensaje $mensaje)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addMensaje', [$mensaje]);
+
+        return parent::addMensaje($mensaje);
     }
 
 }

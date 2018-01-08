@@ -77,29 +77,26 @@ namespace Entities {
          * @var string
          **/
         public $url;
-        /**
-         * @Column(type="string",nullable=true)
-         * @var string
-         **/
-        public $week_days;
 
-        /**
-         * @Column(type="string",nullable=true)
-         * @var string
-         **/
-        public $start_time;
-
-        /**
-         * @Column(type="string",nullable=true)
-         * @var string
-         **/
-        public $end_time;
 
         /**
          * @Column(type="integer")
          * @var integer
          **/
         public $visits;
+        /**
+         * Bidirectional - One-To-Many (INVERSE SIDE)
+         *
+         * @OneToMany(targetEntity="Times", mappedBy="service",cascade={"persist", "remove"})
+         */
+        public $times;
+        public $timesList;
+        /**
+         * @Column(type="integer")
+         * @var integer
+         **/
+        public $domicilio;
+
         /**
          * @Column(type="datetime")
          **/
@@ -113,8 +110,19 @@ namespace Entities {
         /**
          * @Column(type="datetime")
          **/
+        public $visit_at;
+
+        /**
+         * @Column(type="datetime")
+         **/
         protected $updated_at;
 
+
+        /**
+         * @Column(type="integer")
+         * @var integer
+         **/
+        public $todopais;
 
         //// relaciones
         /**
@@ -184,10 +192,17 @@ namespace Entities {
          */
         private $images;
 
+
+
+        /**
+         * @ManyToOne(targetEntity="User", inversedBy="mensajes")
+         */
+
         public $imagesList;
         /////DATOS RELACIONADOS CON EL USUARIO
         ///
         public $visited;
+        public $visited_at;
         public $contacted;
         public $complain;
         public $favorite;
@@ -708,6 +723,7 @@ namespace Entities {
             $this->citiesList = $this->getCities()->toArray();
             $this->imagesList = $this->getImages()->toArray();
             $this->positionsList = $this->getPositions()->toArray();
+            $this->timesList = $this->getTimes()->toArray();
             if ($current) {
                 foreach ($this->positionsList as $position) {
                     $position_distance = $position->Distance($current["latitude"],$current["longitude"]);
@@ -738,6 +754,9 @@ namespace Entities {
 
             $userservice->setUser($user);
             $userservice->setVisited(1);
+            $userservice->setVisitedAt(new \DateTime("now"));
+            $this->visit_at = new \DateTime("now");
+            $em->persist($this);
             $em->persist($userservice);
             $em->flush();
 
@@ -754,6 +773,7 @@ namespace Entities {
 //
                 $relacion = array_pop($relacion) ;
                 $this->visited = $relacion->getVisited();
+                $this->visited_at = $relacion->getVisitedAt();
                 $this->rated = $relacion->getRate();
                 $this->complain = $relacion->getComplaint();
                 $this->contacted = $relacion->getContacted();
@@ -918,6 +938,74 @@ namespace Entities {
             return $this->icon;
         }
 
+        /**
+         * @param mixed $times
+         */
+        public function setTimes($times)
+        {
+            $this->times = $times;
+        }
+        public function addTimes(Array $times)
+        {
+            foreach ($times as $time_p) {
+                $time = new Times();
+                $poss = 0;
+                $string_week = "";
+                $weekdays = $time_p["weekdays"];
+                foreach ($weekdays as $weekday) {
+                    if ($poss > 6) {
+                        $poss = 0;
+                    }
+                    if ($weekday) {
+                        $string_week = $string_week . "," . $poss;
+                    }
+                    $poss++;
+                }
+                $time->setWeekDays($string_week);
+                $time->setEndTime($time_p["end_time"]);
+                $time->setStartTime($time_p["start_time"]);
+                $time->setService($this);
+                $this->addTime($time);
+            }
+            return $this;
+        }
+        /**
+         * Add time
+         *
+         * @param \Entities\Times $time
+         *
+         * @return Service
+         */
+        public function addTime(Times $time)
+        {
+            $this->times[] = $time;
+
+            return $this;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getTimes()
+        {
+            return $this->times;
+        }
+
+        /**
+         * @return int
+         */
+        public function getTodopais()
+        {
+            return $this->todopais;
+        }
+
+        /**
+         * @param int $todopais
+         */
+        public function setTodopais($todopais)
+        {
+            $this->todopais = $todopais;
+        }
 
     }
 }

@@ -82,6 +82,18 @@ class User
 
     /**
      * One User has Many UserService.
+     * @OneToMany(targetEntity="Mensaje", mappedBy="author")
+     */
+    private $mensajesc;
+
+    /**
+     * One User has Many UserService.
+     * @OneToMany(targetEntity="Mensaje", mappedBy="destinatario")
+     */
+    private $mensajes;
+
+    /**
+     * One User has Many UserService.
      * @OneToMany(targetEntity="Comments", mappedBy="user")
      */
     private $usercomments;
@@ -278,4 +290,34 @@ class User
     {
         $this->reportcomments = $reportcomments;
     }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMensajes()
+    {
+        return $this->mensajes;
+    }
+
+    /**
+     * @param Mensaje $mensajes
+     */
+    public function setMensajes($mensajes)
+    {
+        $this->mensajes = $mensajes;
+    }
+    /**
+     * Add $mensaje
+     *
+     * @param \Entities\Mensaje $mensaje
+     *
+     * @return User
+     */
+    public function addMensaje(\Entities\Mensaje $mensaje)
+    {
+        $this->mensajes[] = $mensaje;
+
+        return $this;
+    }
+
 }

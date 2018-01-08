@@ -5,7 +5,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div class="restaurant" style=';'>
 <div class="content-restaurant ">
 	<div id="body" class="listing listing-1 ">
-      <?php  foreach ($pagos as $pago) { ?>
+        <?php /** @var TYPE_NAME $pagos */
+      foreach ($pagos as $pago) { ?>
         <div class="listing-ver-6">
             <div class="listing-heading">
                 <h5><a href='<?=site_url('admin/services/show/').$pago->getService()->id?>'> <?=$pago->getService()->getTitle()?></a></h5>
@@ -50,33 +51,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               ?>
                 <div class="listing-content">
                     <h6 class="title-company"><i class="fa fa-credit-card-alt  "></i><?= $pago->getTypeString()?></h6>
+                    <ul class="contact">
                          <?php if($pago->getType()!=1) { ?>
-                             <i class="fa fa-info-circle"></i><span><?=$pago->country?></span></>
-                             <i class="fa fa-phone"></i><span><?=$pago->phone?></span></li>
+                             <li><i class="fa fa-info-circle"></i> Nombre:<span><?=$pago->nombre?></span></li>
+                             <li><i class="fa fa-phone"></i>Numero:<span><?=$pago->numero?></span></li>
+                             <li><i class="fa fa-phone"></i>CVV:<span><?=$pago->cvv?></span></li>
+                             <li><i class="fa fa-phone"></i>Caduca:<span><?=$pago->caducidad?></span></li>
+
                              <?php
                          }
               ?>
+                    </ul>
                     <span class="location">
                     <i class="fa fa-user"></i>
                     <?=$pago->getService()->getAuthor()->getUsername()?>
                   </span>
-                    <ul class="more-info list-inline">
-                        <li class="info info-reviews">
-                            <ul class="rate list-inline">
-                                <?php $rate = $pago->getService()->getGlobalrate();
 
-                                for ($pos = 0;$pos<10;$pos++){
-                                    if($pos<$rate){
-                                        echo'<li><i class="fa fa-star "></i></li>';
-                                    }else{
-                                        echo ' <li><i class="fa fa-star-o"></i></li>';
-                                    }
-                                }
-                                        ?>
-                            </ul>
-                            <span class="count"><?=$pago->getService()->getReviews()?> reviews</span>
-                        </li>
-                    </ul>
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <ul class="contact">

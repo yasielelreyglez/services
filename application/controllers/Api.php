@@ -169,17 +169,19 @@ class Api extends REST_Controller
         $em = $this->doctrine->em;
         $service = $em->find('Entities\Service', $id);
         $user = $this->getCurrentUser();
-        $service->getAuthor()->getUsername();
-        $service->getPositions()->toArray();
-        $service->setVisits($service->getVisits() + 1);
-        $em->persist($service);
-        $em->flush();
-        if($user) {
-            $service->relateUserData($user, $em);
-            $service->loadRelatedUserData($user);
+        if($service) {
+            $service->getAuthor()->getUsername();
+            $service->getPositions()->toArray();
+            $service->setVisits($service->getVisits() + 1);
+            $em->persist($service);
+            $em->flush();
+            if ($user) {
+                $service->relateUserData($user, $em);
+                $service->loadRelatedUserData($user);
+            }
+            $service->subcategoriesList = $service->getSubcategories()->toArray();
+            $service->loadRelatedData($user);
         }
-        $service->subcategoriesList = $service->getSubcategories()->toArray();
-        $service->loadRelatedData($user);
         $result["data"] = $service;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
@@ -400,7 +402,46 @@ class Api extends REST_Controller
         }
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
+    public function rateservice_post($id, $rate)
+    {
+        $em = $this->doctrine->em;
+        $service = $em->find("Entities\Service", $id);
 
+        if ($service) {
+            $user = $this->getCurrentUser();
+            if (!$user) {
+                $result["desc"] = "El usuario no esta autenticado";
+                $result["error"] = "El usuario no esta autenticado";
+                $this->set_response($result, REST_Controller::HTTP_UNAUTHORIZED);
+                return;
+            }
+            $relacion = $service->loadRelatedUserData($user);
+            if (count($relacion) > 0) {
+                $obj = $relacion;
+            } else {
+                $obj = new \Entities\UserService();
+                $obj->setService($service);
+                $obj->setUser($user);
+            }
+            $obj->setRate($rate);
+            $comment_param = $this->post("comment", true);
+            $obj->setRatecomment($comment_param);
+            $em->persist($obj);
+            $em->flush();
+            $service = $service->calculateGlobalRate();
+            $em->persist($obj);
+            $em->flush();
+            $service->loadRelatedUserData($user);
+            $service->loadRelatedData();
+            $result["desc"] = "Evaluando al anuncio $id con $rate puntos";
+            $service->loadRelatedData();
+            $result["data"] = $service;
+        } else {
+            $result["desc"] = "El servicio no existe";
+            $result["error"] = "No existe ningun servicio con id: $id";
+        }
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
     //obtener servicios visitados
     public function myvisits_get()
     {
@@ -661,8 +702,13 @@ class Api extends REST_Controller
                     $payment->setEvidence(site_url($save));
                 }
             } else {
-                $payment->setCountry($this->post('country', TRUE));
-                $payment->setPhone($this->post('phone', TRUE));
+//                $payment->setCountry($this->post('country', TRUE));
+//                $payment->setPhone($this->post('phone', TRUE));
+                $payment->setNombre($this->post('name', TRUE));
+                $payment->setNumero($this->post('number', TRUE));
+                $payment->setCaducidad($this->post('expire', TRUE));
+                $payment->setCvv($this->post('cvv', TRUE));
+
             }
             $em->persist($payment);
             $em->flush();
@@ -776,22 +822,12 @@ class Api extends REST_Controller
         $service->setOtherPhone($this->post('other_phone', TRUE));
         $service->setEmail($this->post('email', TRUE));
         $service->setUrl($this->post('url', TRUE));
-        $weekdays = $this->post('week_days', TRUE);
-        $poss = 0;
-        $string_week = "";
-        foreach ($weekdays as $weekday) {
-            if ($poss > 6) {
-                $poss = 0;
-            }
-            if ($weekday) {
-                $string_week = $string_week . "," . $poss;
-            }
-            $poss++;
-        }
+        $times = $this->post('times', TRUE);
+        $service->addTimes($times);
         $service->setDescription($this->post('description', TRUE));
-        $service->setWeekDays(substr($string_week, 1, strlen($string_week) - 1));
-        $service->setStartTime($this->post('start_time', TRUE));
-        $service->setEndTime($this->post('end_time', TRUE));
+//        $service->setWeekDays(substr($string_week, 1, strlen($string_week) - 1));
+//        $service->setStartTime($this->post('start_time', TRUE));
+//        $service->setEndTime($this->post('end_time', TRUE));
         //UBICACIONES
         $positions = $this->post('positions', TRUE);
         $old_positions = $service->getPositions()->toArray();
@@ -916,6 +952,9 @@ class Api extends REST_Controller
         return $globalRate;
     }
 
+    /**
+     * @return Entities/User
+     */
     function getCurrentUser()
     {
         $headers = $this->input->request_headers();
@@ -939,8 +978,34 @@ class Api extends REST_Controller
             }
         }
     }
+ // FUNCIONES CAMBIOS
+    function mensajesNoleidos_get(){
+        $user = $this->getCurrentUser();
+        if($user) {
+            $em = $this->doctrine->em;
+            $result_cities = [];
+            $criteria = new \Doctrine\Common\Collections\Criteria();
+            $expresion = new \Doctrine\Common\Collections\Expr\Comparison("estado", \Doctrine\Common\Collections\Expr\Comparison::EQ, 0);
+            $criteria->where($expresion);
+            $mensajes = $user->getMensajes()->matching($criteria)->toArray();
+            $result["data"] = $mensajes;
+        }else{
+            $result["error"] = "El usuario debe estar autenticado";
+        }
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
 
-
+    function facturarequest_post(){
+        $em = $this->doctrine->em;
+        $factura = new \Entities\Facturacion();
+        $factura->nombre = $this->post('nombre', TRUE);
+        $factura->cedula = $this->post('cedula', TRUE);
+        $factura->direccion = $this->post('direccion', TRUE);
+        $factura->telefono = $this->post('telefono', TRUE);
+        $factura->email = $this->post('email', TRUE);
+        $em->persist($factura);
+        $em->flush();
+    }
 
 
     //METODOS DE PRUEBA

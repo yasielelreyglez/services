@@ -44,6 +44,29 @@ class Payments
     public $phone;
 
     /**
+     * @Column(type="string",nullable=true)
+     * @var string
+     **/
+    public $nombre;
+
+    /**
+     * @Column(type="string",nullable=true)
+     * @var string
+     **/
+    public $numero;
+
+    /**
+     * @Column(type="string",nullable=true)
+     * @var string
+     **/
+    public $caducidad;
+    /**
+     * @Column(type="string",nullable=true)
+     * @var string
+     **/
+    public $cvv;
+
+    /**
      * 0 - esperando autorizacion (en revision),
      * 1 - autorizado,
      * 2 - vencido
@@ -257,5 +280,69 @@ class Payments
     public function setCreatedAt($created_at)
     {
         $this->created_at = $created_at;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCvv()
+    {
+        return $this->cvv;
+    }
+
+    /**
+     * @param string $cvv
+     */
+    public function setCvv($cvv)
+    {
+        $this->cvv = $cvv;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCaducidad()
+    {
+        return $this->caducidad;
+    }
+
+    /**
+     * @param string $caducidad
+     */
+    public function setCaducidad($caducidad)
+    {
+        $this->caducidad = $caducidad;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNumero()
+    {
+        return $this->numero;
+    }
+
+    /**
+     * @param string $numero
+     */
+    public function setNumero($numero)
+    {
+        $this->numero = $numero;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * @param string $nombre
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
     }
 }

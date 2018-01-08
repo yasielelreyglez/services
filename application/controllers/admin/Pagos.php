@@ -68,7 +68,18 @@ class Pagos extends CI_Controller {
         $data["tab"]="pagos";
         $data["Tipo"]="activos";
         $this->load->view('/includes/contentpage', $data);
+    }
 
+    public function facturaciones(){
+        $em = $this->doctrine->em;
+        $repoFactura = $em->getRepository('Entities\Facturacion');
+        $solicitudes = $repoFactura->findBy(array(),array('state' => 'ASC'));
+        $data["pagos"]=$solicitudes;
+        $data["title"] = "Pagos";
+        $data['content'] = '/pagos/facturaciones';
+        $data["tab"]="pagos";
+        $data["Tipo"]="activos";
+        $this->load->view('/includes/contentpage', $data);
     }
     public function expirados()
     {
