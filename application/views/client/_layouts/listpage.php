@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Quickfinder Business Homepage</title>
+    <title>Listado de servicios</title>
 
     <!-- Stylesheets -->
     <link rel="stylesheet"
@@ -32,7 +32,7 @@
                 <div class="col-md-3">
                     <div class="sidebar">
                         <div class="sidebar-categories">
-                            <h6>Categories</h6>
+                            <h6>Categorias:</h6>
                             <ul>
                                 <li>
                                     <input type="checkbox">
@@ -67,7 +67,7 @@
                             </ul>
                         </div>
                         <div class="sidebar-categories">
-                            <h6>Cities</h6>
+                            <h6>Ciudades:</h6>
                             <ul>
                                 <li>
                                     <input type="checkbox">
@@ -87,7 +87,7 @@
                             </ul>
                         </div>
                         <div class="sidebar-scrollbars">
-                            <h6>Date Posted:</h6>
+                            <h6>Distancia:</h6>
                             <div class="slider-range-container">
                                 <div class="slider-range" data-min="1" data-max="50" data-step="1" data-default-min="1"
                                      data-default-max="50" data-currency="&nbsp;"></div>
@@ -98,7 +98,7 @@
                             </div>
                         </div>
                         <div class="sidebar-button">
-                            <button class="btn-medium btn-primary full-width">Filter Results</button>
+                            <button class="btn-medium btn-primary full-width">Filtrar</button>
                         </div>
                     </div>
                 </div>
@@ -158,7 +158,6 @@
 
 </body>
 
-<!-- Mirrored from new.uouapps.com/quick-finder/index_business1.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 Nov 2017 14:43:44 GMT -->
 </html>
 
 <script>
