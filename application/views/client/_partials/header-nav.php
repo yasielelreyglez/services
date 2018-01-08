@@ -1,4 +1,4 @@
-<div class="header-nav">
+<div class="header-nav" style="background-color: white;">
     <div class="box-shadow-for-ui">
 
         <div class="uou-block-2b icons">
