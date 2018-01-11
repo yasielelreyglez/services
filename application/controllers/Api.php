@@ -33,6 +33,31 @@ class Api extends REST_Controller
         $this->set_response($response, REST_Controller::HTTP_OK);
     }
 
+    public function moreVisits_get()
+    {
+        $em = $this->doctrine->em;
+        $morevisitsRepo = $em->getRepository('Entities\Service');
+        $morevisits = $morevisitsRepo->findBy(array(), array('visits' => 'DESC'), 4);
+
+        foreach ($morevisits as $service) {
+            $service->loadRelatedData();
+        }
+
+        if($morevisits){
+            $response["desc"] = "Servicios mas visitados";
+            $response["count"] = count($morevisits);
+            $response["data"] = $morevisits;
+        }
+        else{
+            $response["desc"] = 'No existen servicios mas visitados';
+            $response["count"] = 0;
+            $response["data"] = array();
+        }
+        $this->set_response($response, REST_Controller::HTTP_OK);
+    }
+
+
+
     //LISTADO DE LAS CATEGORIAS (TODAS LAS CATEGORIAS ?)
     public function categories_get()
     {
