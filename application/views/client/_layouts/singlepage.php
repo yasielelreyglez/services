@@ -68,7 +68,7 @@
 <!--<script src="--><? //= site_url("/resources/js/gmap3.min.js") ?><!--"></script>-->
 <script src="<?= site_url("/resources/js/scripts.js") ?>"></script>
 <script src="<?= site_url("/resources/js/bootstrap.js") ?>"></script>
-
+<script src="<?= site_url("/resources/js/create_service.js") ?>"></script>
 </body>
 
 </html>

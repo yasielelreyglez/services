@@ -755,7 +755,7 @@ namespace Entities {
             $userservice->setUser($user);
             $userservice->setVisited(1);
             $userservice->setVisitedAt(new \DateTime("now"));
-            $this->visit_at = new \DateTime("now");
+//            $this->visit_at = new \DateTime("now");
             $em->persist($this);
             $em->persist($userservice);
             $em->flush();
