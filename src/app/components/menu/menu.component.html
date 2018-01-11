@@ -1,44 +1,3 @@
-<!--<button class="right-icon tc-white" mat-icon-button [matMenuTriggerFor]="menu">-->
-<!--<mat-icon>menu</mat-icon>-->
-<!--</button>-->
-<!--<mat-menu #menu="matMenu" xPosition="before">-->
-<!--<div *ngIf="loggedIn; then login else unlogin"></div>-->
-<!--</mat-menu>-->
-
-<!--<ng-template #unlogin>-->
-<!--<button mat-menu-item routerLink="/login">-->
-<!--<mat-icon>lock_open</mat-icon>-->
-<!--<span>Autenticarse</span>-->
-<!--</button>-->
-<!--<button mat-menu-item routerLink="/register">-->
-<!--<mat-icon>assignment</mat-icon>-->
-<!--<span>Registrarse</span>-->
-<!--</button>-->
-<!--</ng-template>-->
-
-<!--<ng-template #login>-->
-<!--<button mat-menu-item routerLink="/myfavorites">-->
-<!--<mat-icon>favorite</mat-icon>-->
-<!--<span>Mis favoritos</span>-->
-<!--</button>-->
-<!--<button mat-menu-item routerLink="/createservice">-->
-<!--<mat-icon>add_circle</mat-icon>-->
-<!--<span>Crear anuncio</span>-->
-<!--</button>-->
-<!--<button mat-menu-item routerLink="/myservices">-->
-<!--<mat-icon>business_center</mat-icon>-->
-<!--<span>Mis anuncios</span>-->
-<!--</button>-->
-<!--<button mat-menu-item routerLink="/mysearchs">-->
-<!--<mat-icon>search</mat-icon>-->
-<!--<span>Mis búsquedas</span>-->
-<!--</button>-->
-<!--<button mat-menu-item (click)="logout()">-->
-<!--<mat-icon>lock</mat-icon>-->
-<!--<span>Cerrar sesión</span>-->
-<!--</button>-->
-<!--</ng-template>-->
-
 <div class="toolbar">
     <div class="uou-block-1a blog">
         <div class="container">
@@ -98,7 +57,7 @@
                 <a><i class="fa fa-search-plus"></i>Categorías</a>
             </li>
             <li routerLink="/myfavorites">
-                <a><i class="fa fa-star"></i>Favoritos</a>
+                <a><i class="fa fa-star"></i>Mis Favoritos</a>
             </li>
             <li routerLink="/mysearchs">
                 <a><i class="fa fa-search"></i>Mis búsquedas</a>
@@ -109,14 +68,14 @@
             <li routerLink="/myservices">
                 <a><i class="fa fa-bullhorn"></i>Mis anuncios</a>
             </li>
-            <li routerLink="/">
-                <a><i class="fa fa-bell"></i>Buzón</a>
-            <li routerLink="/">
-                <a><i class="fa fa-cog"></i>Cambiar contraseña</a>
-            </li>
-            <li routerLink="/">
-                <a><i class="fa fa-question-circle-o"></i>Ayuda</a>
-            </li>
+            <!--<li routerLink="/">-->
+                <!--<a><i class="fa fa-bell"></i>Buzón</a>-->
+            <!--<li routerLink="/">-->
+                <!--<a><i class="fa fa-cog"></i>Cambiar contraseña</a>-->
+            <!--</li>-->
+            <!--<li routerLink="/">-->
+                <!--<a><i class="fa fa-question-circle-o"></i>Ayuda</a>-->
+            <!--</li>-->
         </ul>
     </nav>
 </ng-template>

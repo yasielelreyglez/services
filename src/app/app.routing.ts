@@ -25,6 +25,7 @@ const routes: Routes = [
     {path: 'categories/:id/subcategories/:id/service/:id', component: ShowserviceComponent},
     {path: 'subcategories/:id', component: ShowservicesComponent},
     {path: 'subcategories/:id/service/:id', component: ShowserviceComponent},
+    {path: 'service/:id', component: ShowserviceComponent},
     {path: 'myfavorites/service/:id', component: ShowserviceComponent},
     {path: 'myfavorites', component: ShowfavoritesComponent, canActivate: [AuthGuard]},
     {path: 'myservices', component: ShowmyservicesComponent, canActivate: [AuthGuard]},

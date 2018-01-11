@@ -1,279 +1,627 @@
-<div class="col-12">
-    <div class="media" style="margin-bottom: 15px; padding-bottom: 10px;">
-        <div style="width: 131px; height: 122.891px;">
-            <img class="d-flex align-self-center mr-3" width="115"
-                 [src]="service.icon ? service.icon : '../../../assets/service_img.png'" alt=""
-                 style="border: 1px solid #bcbcbc; padding: 5px; width: 90%; height: 100%;" appImageZoom>
-        </div>
-        <div class="media-body d-none d-sm-block">
-            <div class="info service">
-                <mat-grid-list cols="12" rowHeight="40px">
-                    <mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">
-                        <h5 class="mt-0 tc-blue">{{service.title}}</h5>
-                    </mat-grid-tile>
-                    <mat-grid-tile [colspan]="4" [rowspan]="1">
-                        <span class="tc-blue fw-600" style="font-size: 40px;">{{service.globalrate}}/10</span>
-                    </mat-grid-tile>
-                    <mat-grid-tile [colspan]="8" [rowspan]="2" class="izq">
-                        <div class="fw-600 tc-grei" style="font-size: 13px;">
-                            <span>{{service.subtitle}}</span><br>
-                            <span>{{service.address}}</span><br>
-                            <span>1.5 KM de tu posición</span><br>
-                            <span>{{service.phone}}</span>
+<!--<div class="col-12">-->
+<!--<div class="media" style="margin-bottom: 15px; padding-bottom: 10px;">-->
+<!--<div style="width: 131px; height: 122.891px;">-->
+<!--<img class="d-flex align-self-center mr-3" width="115"-->
+<!--[src]="service.icon ? service.icon : '../../../assets/service_img.png'" alt=""-->
+<!--style="border: 1px solid #bcbcbc; padding: 5px; width: 90%; height: 100%;" appImageZoom>-->
+<!--</div>-->
+<!--<div class="media-body d-none d-sm-block">-->
+<!--<div class="info service">-->
+<!--<mat-grid-list cols="12" rowHeight="40px">-->
+<!--<mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">-->
+<!--<h5 class="mt-0 tc-blue">{{service.title}}</h5>-->
+<!--</mat-grid-tile>-->
+<!--<mat-grid-tile [colspan]="4" [rowspan]="1">-->
+<!--<span class="tc-blue fw-600" style="font-size: 40px;">{{service.globalrate}}/10</span>-->
+<!--</mat-grid-tile>-->
+<!--<mat-grid-tile [colspan]="8" [rowspan]="2" class="izq">-->
+<!--<div class="fw-600 tc-grei" style="font-size: 13px;">-->
+<!--<span>{{service.subtitle}}</span><br>-->
+<!--<span>{{service.address}}</span><br>-->
+<!--<span>1.5 KM de tu posición</span><br>-->
+<!--<span>{{service.phone}}</span>-->
+<!--</div>-->
+<!--</mat-grid-tile>-->
+
+<!--<mat-grid-tile [colspan]="4" [rowspan]="1">-->
+<!--<button [disabled]="!loggedIn" mat-raised-button color="primary"-->
+<!--(click)="ratingDialog(service.id)">-->
+<!--Evaluar-->
+<!--</button>-->
+<!--</mat-grid-tile>-->
+<!--<mat-grid-tile class="tc-blue" [colspan]="4" [rowspan]="1">-->
+<!--<mat-icon style="padding-top: 3px;">comment</mat-icon>-->
+<!--<span style="font-size: 26px; margin-left: 5px;">{{comment}}</span>-->
+<!--</mat-grid-tile>-->
+<!--</mat-grid-list>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="media-body d-block d-sm-none">-->
+<!--<div class="info service">-->
+<!--<mat-grid-list cols="12" rowHeight="40px">-->
+<!--<mat-grid-tile [colspan]="4" [rowspan]="3" class="izq">-->
+<!--</mat-grid-tile>-->
+<!--<mat-grid-tile [colspan]="8" [rowspan]="1">-->
+<!--<span class="tc-blue fw-600" style="font-size: 40px;">{{service.globalrate}}/10</span>-->
+<!--</mat-grid-tile>-->
+<!--<mat-grid-tile [colspan]="8" [rowspan]="1">-->
+<!--<button [disabled]="!loggedIn" mat-raised-button color="primary"-->
+<!--(click)="ratingDialog(service.id)">-->
+<!--Evaluar-->
+<!--</button>-->
+<!--</mat-grid-tile>-->
+<!--<mat-grid-tile class="tc-blue" [colspan]="8" [rowspan]="1">-->
+<!--<mat-icon style="padding-top: 3px;">comment</mat-icon>-->
+<!--<span style="font-size: 26px; margin-left: 5px;">{{comment}}</span>-->
+<!--</mat-grid-tile>-->
+<!--</mat-grid-list>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--<div class="media-body d-block d-sm-none">-->
+<!--<div class="info service">-->
+<!--<mat-grid-list cols="12" rowHeight="40px">-->
+<!--<mat-grid-tile [colspan]="12" [rowspan]="1" class="izq">-->
+<!--<h5 class="mt-0 tc-blue">{{service.title}}</h5>-->
+<!--</mat-grid-tile>-->
+
+<!--<mat-grid-tile [colspan]="12" [rowspan]="2" class="izq">-->
+<!--<div class="fw-600 tc-grei" style="font-size: 13px;">-->
+<!--<span>{{service.subtitle}}</span><br>-->
+<!--<span>{{service.address}}</span><br>-->
+<!--<span>1.5 KM de tu posición</span><br>-->
+<!--<span>{{service.phone}}</span>-->
+<!--</div>-->
+<!--</mat-grid-tile>-->
+
+
+<!--</mat-grid-list>-->
+<!--<br>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--<div *ngIf="service.description">-->
+<!--<h5 class="tc-blue">Descripción General</h5>-->
+<!--<p class="tc-grei">{{service.description}}-->
+<!--</p>-->
+<!--</div>-->
+
+<!--<mat-tab-group (selectedTabChange)="tabChanged($event)">-->
+<!--<mat-tab label="Informacion" id="information">-->
+<!--<br>-->
+<!--<div style="height: 160px;">-->
+<!--<div class="tc-blue" style="display: flex; margin-bottom: 10px;">-->
+<!--<mat-icon class="mr-10">date_range</mat-icon>-->
+<!--<h5 class="mb-0">{{week_days}}</h5>-->
+<!--</div>-->
+<!--<div class="tc-blue" style="display: flex; margin-bottom: 10px;">-->
+<!--<mat-icon class="mr-10">access_time</mat-icon>-->
+<!--<h5 class="mb-0">Desde {{service.start_time}} hasta-->
+<!--{{service.end_time}}</h5>-->
+<!--</div>-->
+<!--<div class="tc-blue" style="display: flex; margin-bottom: 10px;">-->
+<!--<mat-icon class="mr-10">mail</mat-icon>-->
+<!--<h5 class="mb-0">{{service.email}}</h5>-->
+<!--</div>-->
+<!--<div class="tc-blue" style="display: flex">-->
+<!--<mat-icon class="mr-10">link</mat-icon>-->
+<!--<h5 class="mb-0">{{service.url}}</h5>-->
+<!--</div>-->
+<!--</div>-->
+<!--</mat-tab>-->
+
+<!--<mat-tab label="Mapa">-->
+<!--<br/>-->
+<!--<h5 class="tc-blue">Mis ubicaciones</h5>-->
+<!--<div #map id="map"></div>-->
+<!--<br>-->
+<!--<h5 class="tc-blue">Mas cercano:</h5>-->
+
+<!--<br>-->
+<!--<h5 class="tc-blue">Adicionales</h5>-->
+<!--<hr class="bc-grei">-->
+<!--<div *ngFor="let currentposition of service.positionsList; let pos = index">-->
+<!--<div class="row" style="width: 100%;">-->
+<!--<div class="col-2 col-sm-2 col-md-2 col-lg-2" style="padding-right: 0; padding-top: 9px;">-->
+<!--<mat-icon style="position: absolute;" class="tc-blue md-3">location_on</mat-icon>-->
+<!--</div>-->
+<!--<div class="col-7 col-sm-7 col-md-7 col-lg-7" style="padding-left: 0;">-->
+<!--<h6 class="tc-blue mb-0" style="margin-top: 12px;">-->
+<!--{{currentposition.title}}</h6>-->
+<!--</div>-->
+<!--<div class="col-3 col-sm-3 col-md-3 col-lg-3">-->
+
+<!--<button class="tc-white pull-right" (click)="changeCurrentEnd(pos)" mat-icon-button>-->
+<!--<mat-icon color="primary" [ngClass]="{'tc-red':(currentEnd.id !== -1 && currentEnd.id ===-->
+<!--pos)}">{{(currentEnd.id !== -1 && currentEnd.id ===-->
+<!--pos)?'location_off':'navigation'}}-->
+<!--</mat-icon>-->
+<!--</button>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<br>-->
+<!--</mat-tab>-->
+
+<!--<mat-tab label="Imágenes">-->
+<!--<br>-->
+<!--<mat-grid-list cols="2" class="mat-images d-block d-sm-none" rowHeight="140px">-->
+<!--<mat-grid-tile *ngFor="let prev of images" class="text-center">-->
+<!--<div class="mat-content text-center">-->
+<!--<img [src]="prev.title"-->
+<!--alt=""-->
+<!--style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"-->
+<!--appImageZoom>-->
+<!--</div>-->
+<!--</mat-grid-tile>-->
+<!--</mat-grid-list>-->
+<!--<mat-grid-list cols="3" class="mat-images d-none d-sm-block d-md-none" rowHeight="140px">-->
+<!--<mat-grid-tile *ngFor="let prev of images" class="text-center">-->
+<!--<div class="mat-content text-center">-->
+<!--<img [src]="prev.title"-->
+<!--alt=""-->
+<!--style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"-->
+<!--appImageZoom>-->
+<!--</div>-->
+<!--</mat-grid-tile>-->
+<!--</mat-grid-list>-->
+<!--<mat-grid-list cols="4" class="mat-images d-none d-md-block d-lg-none" rowHeight="140px">-->
+<!--<mat-grid-tile *ngFor="let prev of images" class="text-center">-->
+<!--<div class="mat-content text-center">-->
+<!--<img [src]="prev.title"-->
+<!--alt=""-->
+<!--style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"-->
+<!--appImageZoom>-->
+<!--</div>-->
+<!--</mat-grid-tile>-->
+<!--</mat-grid-list>-->
+<!--<mat-grid-list cols="6" class="mat-images d-none d-lg-block" rowHeight="140px">-->
+<!--<mat-grid-tile *ngFor="let prev of images" class="text-center">-->
+<!--<div class="mat-content text-center">-->
+<!--<img [src]="prev.title"-->
+<!--alt=""-->
+<!--style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"-->
+<!--appImageZoom>-->
+<!--</div>-->
+<!--</mat-grid-tile>-->
+<!--</mat-grid-list>-->
+<!--<br>-->
+<!--</mat-tab>-->
+
+<!--<mat-tab label="Comentarios">-->
+<!--<br>-->
+<!--<form *ngIf="loggedIn" [formGroup]="commentForm" (ngSubmit)="commentForm.valid && sendComment()">-->
+<!--<mat-form-field hintLabel="Min 10 characters" class="textcomment">-->
+<!--<textarea matInput placeholder="Escribe tu comentario" #textcomment name="textcomment"-->
+<!--[formControl]="commentForm.controls['textcomment']" [(ngModel)]="model.textcomment"-->
+<!--&gt;</textarea>-->
+<!--<button mat-button *ngIf="model.textcomment" matSuffix mat-icon-button aria-label="Clear"-->
+<!--(click)="model.textcomment = ''">-->
+<!--<mat-icon>close</mat-icon>-->
+<!--</button>-->
+<!--<mat-hint align="end">{{textcomment.value?.length || 0}}</mat-hint>-->
+<!--<mat-error *ngIf="commentForm.controls['textcomment'].invalid">{{getErrorMessage()}}</mat-error>-->
+<!--</mat-form-field>-->
+<!--<br>-->
+<!--<div *ngIf="error" class="alert alert-danger">{{error}}</div>-->
+<!--<br>-->
+<!--<div class="form-group text-center">-->
+<!--<button mat-raised-button color="primary" class="tc-white col-12"-->
+<!--[disabled]="loading || !submitAttempt">-->
+<!--<mat-icon>comment</mat-icon>-->
+<!--Comentar ahora-->
+<!--</button>-->
+<!--<img *ngIf="loading"-->
+<!--src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="-->
+<!--/>-->
+<!--</div>-->
+<!--</form>-->
+<!--<br>-->
+<!--<h5 class="tc-blue">Comentarios anteriores</h5>-->
+
+<!--<div *ngIf="comment === 0">-->
+<!--<p class="tc-grei">No existen comentarios</p>-->
+<!--</div>-->
+
+<!--<div id="comments" *ngFor="let currentcomment of service.servicecommentsList">-->
+<!--<div [class]="(currentcomment.reportuser !== null) ? 'report-comment': ''">-->
+<!--<hr class="bc-grei">-->
+<!--<mat-grid-list cols="12" rowHeight="30px">-->
+<!--<mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">-->
+<!--<h6 class="tc-blue mb-0">{{currentcomment.user.username}}</h6>-->
+<!--</mat-grid-tile>-->
+<!--<mat-grid-tile class="comment-date" [colspan]="4" [rowspan]="1">-->
+<!--<span class="tc-blue">{{currentcomment.created.date | date: 'mediumDate'}}</span>-->
+<!--</mat-grid-tile>-->
+<!--</mat-grid-list>-->
+<!--<div>-->
+<!--<p class="tc-grei">{{currentcomment.comment}}</p>-->
+<!--<mat-grid-list *ngIf="(service.author.email === currentUser) && loggedIn" cols="10"-->
+<!--rowHeight="26px">-->
+<!--<mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">-->
+<!--</mat-grid-tile>-->
+<!--<mat-grid-tile class="" [colspan]="1" [rowspan]="1">-->
+<!--<button (click)="reportComment(currentcomment.id)" mat-raised-button-->
+<!--class="bc-red tc-white">-->
+<!--<mat-icon>mic</mat-icon>-->
+<!--</button>-->
+<!--</mat-grid-tile>-->
+<!--<mat-grid-tile class="" [colspan]="1" [rowspan]="1">-->
+<!--<button id="hided-{{currentcomment.id}}"-->
+<!--(click)="hideComment(currentcomment.id, currentcomment.hided)" mat-raised-button-->
+<!--class="tc-white"-->
+<!--[ngClass]="(!currentcomment.hided) ? 'bc-green' : 'bc-red'">-->
+<!--<mat-icon>{{(!currentcomment.hided) ? 'done' : 'clear'}}</mat-icon>-->
+<!--</button>-->
+<!--</mat-grid-tile>-->
+<!--</mat-grid-list>-->
+
+<!--<mat-grid-list *ngIf="(service.author.email !== currentUser) && loggedIn" cols="10"-->
+<!--rowHeight="26px">-->
+<!--<mat-grid-tile [colspan]="9" [rowspan]="1" class="izq">-->
+<!--</mat-grid-tile>-->
+<!--<mat-grid-tile class="" [colspan]="1" [rowspan]="1">-->
+<!--<button (click)="reportComment(currentcomment.id)" mat-raised-button-->
+<!--class="bc-red tc-white">-->
+<!--<mat-icon>mic</mat-icon>-->
+<!--</button>-->
+<!--</mat-grid-tile>-->
+<!--</mat-grid-list>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<br><br>-->
+<!--</mat-tab>-->
+<!--</mat-tab-group>-->
+<!--</div>-->
+
+<div class="main-content content-business single-business has-bg-image" data-bg-color="f5f5f5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="listing listing-1 single-listing">
+                    <div class="listing-ver-1">
+                        <div class="listing-heading">
+                            <h5>{{service.title}}</h5>
+                            <a *ngIf="service.professional" href="#" class="c-red"><i class="fa fa-bookmark"></i></a>
+
                         </div>
-                    </mat-grid-tile>
+                        <div class="listing-tabs">
+                            <ul>
+                                <li class="active"><a href="#basic" data-toggle="tab"><i class="fa fa-info"></i></a>
+                                </li>
+                                <li><a href="#contact" data-toggle="tab"><i class="fa fa-map-marker"></i></a></li>
+                                <li><a href="#report" data-toggle="tab"><i class="fa fa-comments"></i></a></li>
+                                <li><a href="#hours" data-toggle="tab"><i class="fa fa-clock-o"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="tab-content">
+                            <div id="basic" class="tab-pane fade in active basic-single">
+                                <div class="listing-inner" style="min-height: 420px;">
+                                    <div class="listing-content">
+                                        <!--                                        <span class="location">-->
+                                        <!--                                            <i class="fa fa-map-marker"></i> Manhattan, New York, USA-->
+                                        <!--                                        </span>-->
+                                        <div class="listing-content-inner">
+                                            <div class="listing-content-thumbnail">
+                                                <img src="{{service.icon}}" alt="">
+                                            </div>
+                                            <div class="listing-content-description margin-description">
+                                                <p>{{service.description}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="contact" class="tab-pane fade in contact">
+                                <div class="listing-inner">
+                                    <div class="map">
+                                        <div class="map-listing-04"></div>
+                                    </div>
+                                    <div class="listing-content">
+                                        <h6 class="main-title">Información adicional</h6>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <ul class="contact">
+                                                    <li>
+                                                        <h6>Correo:</h6>
+                                                        <span>{{service.email}}</span>
+                                                    </li>
+                                                    <li>
+                                                        <h6>Sitio web:</h6>
+                                                        <span>{{service.url}}</span>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#"><i class="fa fa-arrows-alt"></i> View map in
+                                                            fullscreen</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <ul class="contact">
+                                                    <li>
+                                                        <h6>Teléfono:</h6>
+                                                        <span>{{service.phone}}</span>
+                                                    </li>
+                                                    <li>
+                                                        <h6>Télefono adicional:</h6>
+                                                        <span>{{service.other_phone}}</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="report" class="tab-pane fade in report">
+                                <div class="listing-inner">
+                                    <div class="listing-content">
+                                        <h6 class="main-title">Report / Claim Listing</h6>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <select class="custom-select">
+                                                    <option value="0" selected>Report Category</option>
+                                                    <option value="1">Prior</option>
+                                                    <option value="2">Standard</option>
+                                                </select>
+                                                <select class="custom-select">
+                                                    <option value="0" selected>Reasons for report</option>
+                                                    <option value="1">Illegal anons</option>
+                                                    <option value="2">Cheater employee</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <textarea name="message" placeholder="Your Message"></textarea>
+                                                <input type="button" class="btn btn-primary" value="Submit">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="hours" class="tab-pane fade in hours">
+                                <div class="listing-inner">
+                                    <div class="listing-content">
+                                        <h6 class="main-title">Opening Hours</h6>
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <ul class="schedule">
+                                                    <li><span class="day">Monday</span> <span class="hours">10:00 AM - 7:00 PM</span>
+                                                    </li>
+                                                    <li><span class="day">Tuesday</span> <span class="hours">10:00 AM - 7:00 PM</span>
+                                                    </li>
+                                                    <li><span class="day">Wednesday</span> <span class="hours">10:00 AM - 7:00 PM</span>
+                                                    </li>
+                                                    <li class="sunday"><span class="day">Sunday</span> <span
+                                                            class="hours">Closed</span></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <ul class="schedule">
+                                                    <li><span class="day">Thursday</span><span class="hours">10:00 AM - 7:00 PM</span>
+                                                    </li>
+                                                    <li><span class="day">Friday</span><span class="hours">10:00 AM - 7:00 PM</span>
+                                                    </li>
+                                                    <li><span class="day">Saturday</span><span class="hours">10:00 AM - 7:00 PM</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="advertiser-info">
+                    <div class="advertiser-header">
+                        <h5>Comentarios</h5>
+                    </div>
+                    <div class="advertiser-inner">
+                        <div class="row">
+                            <div *ngIf="comment === 0">
+                                <span class="tc-grei">No existen comentarios</span>
+                            </div>
 
-                    <mat-grid-tile [colspan]="4" [rowspan]="1">
-                        <button [disabled]="!loggedIn" mat-raised-button color="primary"
-                                (click)="ratingDialog(service.id)">
-                            Evaluar
-                        </button>
-                    </mat-grid-tile>
-                    <mat-grid-tile class="tc-blue" [colspan]="4" [rowspan]="1">
-                        <mat-icon style="padding-top: 3px;">comment</mat-icon>
-                        <span style="font-size: 26px; margin-left: 5px;">{{comment}}</span>
-                    </mat-grid-tile>
-                </mat-grid-list>
+                            <div id="comments" *ngFor="let currentcomment of service.servicecommentsList">
+                                <div [class]="(currentcomment.reportuser !== null) ? 'report-comment': ''">
+                                    <hr class="bc-grei">
+                                    <mat-grid-list cols="12" rowHeight="30px">
+                                        <mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">
+                                            <h6 class="tc-blue mb-0">{{currentcomment.user.username}}</h6>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile class="comment-date" [colspan]="4" [rowspan]="1">
+                                            <span class="tc-blue">{{currentcomment.created.date | date: 'mediumDate'}}</span>
+                                        </mat-grid-tile>
+                                    </mat-grid-list>
+                                    <div>
+                                        <p class="tc-grei">{{currentcomment.comment}}</p>
+                                        <mat-grid-list *ngIf="(service.author.email === currentUser) && loggedIn"
+                                                       cols="10"
+                                                       rowHeight="26px">
+                                            <mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">
+                                            </mat-grid-tile>
+                                            <mat-grid-tile class="" [colspan]="1" [rowspan]="1">
+                                                <button (click)="reportComment(currentcomment.id)" mat-raised-button
+                                                        class="bc-red tc-white">
+                                                    <mat-icon>mic</mat-icon>
+                                                </button>
+                                            </mat-grid-tile>
+                                            <mat-grid-tile class="" [colspan]="1" [rowspan]="1">
+                                                <button id="hided-{{currentcomment.id}}"
+                                                        (click)="hideComment(currentcomment.id, currentcomment.hided)"
+                                                        mat-raised-button
+                                                        class="tc-white"
+                                                        [ngClass]="(!currentcomment.hided) ? 'bc-green' : 'bc-red'">
+                                                    <mat-icon>{{(!currentcomment.hided) ? 'done' : 'clear'}}</mat-icon>
+                                                </button>
+                                            </mat-grid-tile>
+                                        </mat-grid-list>
+
+                                        <mat-grid-list *ngIf="(service.author.email !== currentUser) && loggedIn"
+                                                       cols="10"
+                                                       rowHeight="26px">
+                                            <mat-grid-tile [colspan]="9" [rowspan]="1" class="izq">
+                                            </mat-grid-tile>
+                                            <mat-grid-tile class="" [colspan]="1" [rowspan]="1">
+                                                <button (click)="reportComment(currentcomment.id)" mat-raised-button
+                                                        class="bc-red tc-white">
+                                                    <mat-icon>mic</mat-icon>
+                                                </button>
+                                            </mat-grid-tile>
+                                        </mat-grid-list>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--<div class="col-md-7 col-sm-7 advertiser-personal">-->
+                            <!--<div class="advertiser-thumbnail">-->
+                            <!--<img src="../../../assets/img/advertiser-thumbnail.png" alt="">-->
+                            <!--</div>-->
+                            <!--<div class="advertiser-details">-->
+                            <!--<h5 class="name">Juan De La Cruz</h5>-->
+                            <!--<span class="location">36 Years Old - Sydney, AU</span>-->
+                            <!--<ul>-->
+                            <!--<li><span>Tel: (123) 123-4567</span></li>-->
+                            <!--<li><span>Website: example.com</span></li>-->
+                            <!--</ul>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-5 col-sm-5 advertiser-contact text-right">-->
+                            <!--<ul class="social">-->
+                            <!--<li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>-->
+                            <!--<li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>-->
+                            <!--<li class="google"><a href="#"><i class="fa fa-google-plus"></i></a></li>-->
+                            <!--</ul>-->
+                            <!--<a href="#" class="btn btn-medium btn-transparent-primary">Send a message</a>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="advertiser-info">
+                    <div class="advertiser-header">
+                        <h5>Insertar comentario</h5>
+                    </div>
+                    <div class="advertiser-inner">
+                        <div class="row">
+                            <form *ngIf="loggedIn" [formGroup]="commentForm"
+                                  (ngSubmit)="commentForm.valid && sendComment()">
+                                <span *ngIf="commentForm.controls['textcomment'].invalid" class="tc-red">
+                                    {{getErrorMessage()}}
+                                </span>
+                                <textarea rows="4" name="textcomment" placeholder="Escribe tu comentario" #textcomment
+                                          [formControl]="commentForm.controls['textcomment']"
+                                          [(ngModel)]="model.textcomment"></textarea>
+
+                                <div class="form-group">
+                                    <input class="btn btn-primary" [disabled]="loading || !submitAttempt" value="Enviar"
+                                           type="button">
+                                    <img *ngIf="loading"
+                                         src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                                    />
+                                </div>
+                            </form>
+
+                            <!--<div class="col-md-7 col-sm-7 advertiser-personal">-->
+                            <!--<div class="advertiser-thumbnail">-->
+                            <!--<img src="../../../assets/img/advertiser-thumbnail.png" alt="">-->
+                            <!--</div>-->
+                            <!--<div class="advertiser-details">-->
+                            <!--<h5 class="name">Juan De La Cruz</h5>-->
+                            <!--<span class="location">36 Years Old - Sydney, AU</span>-->
+                            <!--<ul>-->
+                            <!--<li><span>Tel: (123) 123-4567</span></li>-->
+                            <!--<li><span>Website: example.com</span></li>-->
+                            <!--</ul>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-5 col-sm-5 advertiser-contact text-right">-->
+                            <!--<ul class="social">-->
+                            <!--<li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>-->
+                            <!--<li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>-->
+                            <!--<li class="google"><a href="#"><i class="fa fa-google-plus"></i></a></li>-->
+                            <!--</ul>-->
+                            <!--<a href="#" class="btn btn-medium btn-transparent-primary">Send a message</a>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="media-body d-block d-sm-none">
-            <div class="info service">
-                <mat-grid-list cols="12" rowHeight="40px">
-                    <mat-grid-tile [colspan]="4" [rowspan]="3" class="izq">
-                    </mat-grid-tile>
-                    <mat-grid-tile [colspan]="8" [rowspan]="1">
-                        <span class="tc-blue fw-600" style="font-size: 40px;">{{service.globalrate}}/10</span>
-                    </mat-grid-tile>
-                    <mat-grid-tile [colspan]="8" [rowspan]="1">
-                        <button [disabled]="!loggedIn" mat-raised-button color="primary"
-                                (click)="ratingDialog(service.id)">
-                            Evaluar
-                        </button>
-                    </mat-grid-tile>
-                    <mat-grid-tile class="tc-blue" [colspan]="8" [rowspan]="1">
-                        <mat-icon style="padding-top: 3px;">comment</mat-icon>
-                        <span style="font-size: 26px; margin-left: 5px;">{{comment}}</span>
-                    </mat-grid-tile>
-                </mat-grid-list>
+            <div class="col-md-3">
+                <div class="sidebar-listing">
+                    <h5 class="sidebar-listing-title">Servicios similares</h5>
+                    <div class="listing-offer">
+                        <h6 class="title"><a href="#">Urban Escape Spa</a></h6>
+                        <div class="listing-offer-thumbnail">
+                            <img src="../../../assets/img/listing-offer-thumbnail1.png" alt="">
+                        </div>
+                        <div class="listing-offer-content">
+                            <span class="location"><i class="fa fa-map-marker"></i> Manila, Philippines</span>
+                            <ul class="rate">
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                            </ul>
+                            <span class="count">208 reviews</span>
+                        </div>
+                    </div>
+                    <div class="listing-offer">
+                        <h6 class="title"><a href="#">Shear Studio</a></h6>
+                        <div class="listing-offer-thumbnail">
+                            <img src="../../../assets/img/listing-offer-thumbnail2.png" alt="">
+                        </div>
+                        <div class="listing-offer-content">
+                            <span class="location"><i class="fa fa-map-marker"></i> Dhaka, Bangladesh</span>
+                            <ul class="rate">
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                            </ul>
+                            <span class="count">208 reviews</span>
+                        </div>
+                    </div>
+                    <div class="listing-offer">
+                        <h6 class="title"><a href="#">Derma Spa</a></h6>
+                        <div class="listing-offer-thumbnail">
+                            <img src="../../../assets/img/listing-offer-thumbnail3.png" alt="">
+                        </div>
+                        <div class="listing-offer-content">
+                            <span class="location"><i class="fa fa-map-marker"></i> Manila, Philippines</span>
+                            <ul class="rate">
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                            </ul>
+                            <span class="count">208 reviews</span>
+                        </div>
+                    </div>
+                    <div class="listing-offer">
+                        <h6 class="title"><a href="#">Kelly’s Spa</a></h6>
+                        <div class="listing-offer-thumbnail">
+                            <img src="../../../assets/img/listing-offer-thumbnail4.png" alt="">
+                        </div>
+                        <div class="listing-offer-content">
+                            <span class="location"><i class="fa fa-map-marker"></i> Manila, Philippines</span>
+                            <ul class="rate">
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                            </ul>
+                            <span class="count">208 reviews</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="media-body d-block d-sm-none">
-        <div class="info service">
-            <mat-grid-list cols="12" rowHeight="40px">
-                <mat-grid-tile [colspan]="12" [rowspan]="1" class="izq">
-                    <h5 class="mt-0 tc-blue">{{service.title}}</h5>
-                </mat-grid-tile>
-
-                <mat-grid-tile [colspan]="12" [rowspan]="2" class="izq">
-                    <div class="fw-600 tc-grei" style="font-size: 13px;">
-                        <span>{{service.subtitle}}</span><br>
-                        <span>{{service.address}}</span><br>
-                        <span>1.5 KM de tu posición</span><br>
-                        <span>{{service.phone}}</span>
-                    </div>
-                </mat-grid-tile>
-
-
-            </mat-grid-list>
-            <br>
-        </div>
-    </div>
-
-    <div *ngIf="service.description">
-        <h5 class="tc-blue">Descripción General</h5>
-        <p class="tc-grei">{{service.description}}
-        </p>
-    </div>
-
-    <mat-tab-group (selectedTabChange)="tabChanged($event)">
-        <mat-tab label="Informacion" id="information">
-            <br>
-            <div style="height: 160px;">
-                <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
-                    <mat-icon class="mr-10">date_range</mat-icon>
-                    <h5 class="mb-0">{{week_days}}</h5>
-                </div>
-                <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
-                    <mat-icon class="mr-10">access_time</mat-icon>
-                    <h5 class="mb-0">Desde {{service.start_time}} hasta
-                        {{service.end_time}}</h5>
-                </div>
-                <div class="tc-blue" style="display: flex; margin-bottom: 10px;">
-                    <mat-icon class="mr-10">mail</mat-icon>
-                    <h5 class="mb-0">{{service.email}}</h5>
-                </div>
-                <div class="tc-blue" style="display: flex">
-                    <mat-icon class="mr-10">link</mat-icon>
-                    <h5 class="mb-0">{{service.url}}</h5>
-                </div>
-            </div>
-        </mat-tab>
-
-        <mat-tab label="Mapa">
-            <br/>
-            <h5 class="tc-blue">Mis ubicaciones</h5>
-            <div #map id="map"></div>
-            <br>
-            <h5 class="tc-blue">Mas cercano:</h5>
-
-            <br>
-            <h5 class="tc-blue">Adicionales</h5>
-            <hr class="bc-grei">
-            <div *ngFor="let currentposition of service.positionsList; let pos = index">
-                <div class="row" style="width: 100%;">
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="padding-right: 0; padding-top: 9px;">
-                        <mat-icon style="position: absolute;" class="tc-blue md-3">location_on</mat-icon>
-                    </div>
-                    <div class="col-7 col-sm-7 col-md-7 col-lg-7" style="padding-left: 0;">
-                        <h6 class="tc-blue mb-0" style="margin-top: 12px;">
-                            {{currentposition.title}}</h6>
-                    </div>
-                    <div class="col-3 col-sm-3 col-md-3 col-lg-3">
-
-                        <button class="tc-white pull-right" (click)="changeCurrentEnd(pos)" mat-icon-button>
-                            <mat-icon color="primary" [ngClass]="{'tc-red':(currentEnd.id !== -1 && currentEnd.id ===
-                                pos)}">{{(currentEnd.id !== -1 && currentEnd.id ===
-                                pos)?'location_off':'navigation'}}
-                            </mat-icon>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <br>
-        </mat-tab>
-
-        <mat-tab label="Imágenes">
-            <br>
-            <mat-grid-list cols="2" class="mat-images d-block d-sm-none" rowHeight="140px">
-                <mat-grid-tile *ngFor="let prev of images" class="text-center">
-                    <div class="mat-content text-center">
-                        <img [src]="prev.title"
-                             alt=""
-                             style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
-                             appImageZoom>
-                    </div>
-                </mat-grid-tile>
-            </mat-grid-list>
-            <mat-grid-list cols="3" class="mat-images d-none d-sm-block d-md-none" rowHeight="140px">
-                <mat-grid-tile *ngFor="let prev of images" class="text-center">
-                    <div class="mat-content text-center">
-                        <img [src]="prev.title"
-                             alt=""
-                             style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
-                             appImageZoom>
-                    </div>
-                </mat-grid-tile>
-            </mat-grid-list>
-            <mat-grid-list cols="4" class="mat-images d-none d-md-block d-lg-none" rowHeight="140px">
-                <mat-grid-tile *ngFor="let prev of images" class="text-center">
-                    <div class="mat-content text-center">
-                        <img [src]="prev.title"
-                             alt=""
-                             style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
-                             appImageZoom>
-                    </div>
-                </mat-grid-tile>
-            </mat-grid-list>
-            <mat-grid-list cols="6" class="mat-images d-none d-lg-block" rowHeight="140px">
-                <mat-grid-tile *ngFor="let prev of images" class="text-center">
-                    <div class="mat-content text-center">
-                        <img [src]="prev.title"
-                             alt=""
-                             style="border: 1px solid #bcbcbc; padding: 5px; width: 120px; height: 100% !important;"
-                             appImageZoom>
-                    </div>
-                </mat-grid-tile>
-            </mat-grid-list>
-            <br>
-        </mat-tab>
-
-        <mat-tab label="Comentarios">
-            <br>
-            <form *ngIf="loggedIn" [formGroup]="commentForm" (ngSubmit)="commentForm.valid && sendComment()">
-                <mat-form-field hintLabel="Min 10 characters" class="textcomment">
-        <textarea matInput placeholder="Escribe tu comentario" #textcomment name="textcomment"
-                  [formControl]="commentForm.controls['textcomment']" [(ngModel)]="model.textcomment"
-        ></textarea>
-                    <button mat-button *ngIf="model.textcomment" matSuffix mat-icon-button aria-label="Clear"
-                            (click)="model.textcomment = ''">
-                        <mat-icon>close</mat-icon>
-                    </button>
-                    <mat-hint align="end">{{textcomment.value?.length || 0}}</mat-hint>
-                    <mat-error *ngIf="commentForm.controls['textcomment'].invalid">{{getErrorMessage()}}</mat-error>
-                </mat-form-field>
-                <br>
-                <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-                <br>
-                <div class="form-group text-center">
-                    <button mat-raised-button color="primary" class="tc-white col-12"
-                            [disabled]="loading || !submitAttempt">
-                        <mat-icon>comment</mat-icon>
-                        Comentar ahora
-                    </button>
-                    <img *ngIf="loading"
-                         src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
-                    />
-                </div>
-            </form>
-            <br>
-            <h5 class="tc-blue">Comentarios anteriores</h5>
-
-            <div *ngIf="comment === 0">
-                <p class="tc-grei">No existen comentarios</p>
-            </div>
-
-            <div id="comments" *ngFor="let currentcomment of service.servicecommentsList">
-                <div [class]="(currentcomment.reportuser !== null) ? 'report-comment': ''">
-                    <hr class="bc-grei">
-                    <mat-grid-list cols="12" rowHeight="30px">
-                        <mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">
-                            <h6 class="tc-blue mb-0">{{currentcomment.user.username}}</h6>
-                        </mat-grid-tile>
-                        <mat-grid-tile class="comment-date" [colspan]="4" [rowspan]="1">
-                            <span class="tc-blue">{{currentcomment.created.date | date: 'mediumDate'}}</span>
-                        </mat-grid-tile>
-                    </mat-grid-list>
-                    <div>
-                        <p class="tc-grei">{{currentcomment.comment}}</p>
-                        <mat-grid-list *ngIf="(service.author.email === currentUser) && loggedIn" cols="10"
-                                       rowHeight="26px">
-                            <mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">
-                            </mat-grid-tile>
-                            <mat-grid-tile class="" [colspan]="1" [rowspan]="1">
-                                <button (click)="reportComment(currentcomment.id)" mat-raised-button
-                                        class="bc-red tc-white">
-                                    <mat-icon>mic</mat-icon>
-                                </button>
-                            </mat-grid-tile>
-                            <mat-grid-tile class="" [colspan]="1" [rowspan]="1">
-                                <button id="hided-{{currentcomment.id}}"
-                                        (click)="hideComment(currentcomment.id, currentcomment.hided)" mat-raised-button
-                                        class="tc-white"
-                                        [ngClass]="(!currentcomment.hided) ? 'bc-green' : 'bc-red'">
-                                    <mat-icon>{{(!currentcomment.hided) ? 'done' : 'clear'}}</mat-icon>
-                                </button>
-                            </mat-grid-tile>
-                        </mat-grid-list>
-
-                        <mat-grid-list *ngIf="(service.author.email !== currentUser) && loggedIn" cols="10"
-                                       rowHeight="26px">
-                            <mat-grid-tile [colspan]="9" [rowspan]="1" class="izq">
-                            </mat-grid-tile>
-                            <mat-grid-tile class="" [colspan]="1" [rowspan]="1">
-                                <button (click)="reportComment(currentcomment.id)" mat-raised-button
-                                        class="bc-red tc-white">
-                                    <mat-icon>mic</mat-icon>
-                                </button>
-                            </mat-grid-tile>
-                        </mat-grid-list>
-                    </div>
-                </div>
-            </div>
-            <br><br>
-        </mat-tab>
-    </mat-tab-group>
 </div>
-
 

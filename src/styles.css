@@ -3,7 +3,7 @@
 
 @font-face {
     font-family: 'Material Icons';
-    /*font-style: normal;*/
+    font-style: normal;
     font-weight: 400;
     src: url(../node_modules/material-design-icons/iconfont/MaterialIcons-Regular.eot); /* For IE6-8 */
     src: local('Material Icons'),
