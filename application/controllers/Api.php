@@ -56,6 +56,30 @@ class Api extends REST_Controller
         $this->set_response($response, REST_Controller::HTTP_OK);
     }
 
+    public function recentVisits_get()
+    {
+        $em = $this->doctrine->em;
+        $morevisitsRepo = $em->getRepository('Entities\Service');
+        $morevisits = $morevisitsRepo->findBy(array(), array('visit_at' => 'DESC'), 4);
+
+        foreach ($morevisits as $service) {
+            $service->loadRelatedData();
+        }
+
+        if($morevisits){
+            $response["desc"] = "Servicios mas visitados";
+            $response["count"] = count($morevisits);
+            $response["data"] = $morevisits;
+        }
+        else{
+            $response["desc"] = 'No existen servicios mas visitados';
+            $response["count"] = 0;
+            $response["data"] = array();
+        }
+        $this->set_response($response, REST_Controller::HTTP_OK);
+    }
+
+
 
 
     //LISTADO DE LAS CATEGORIAS (TODAS LAS CATEGORIAS ?)
@@ -198,6 +222,7 @@ class Api extends REST_Controller
             $service->getAuthor()->getUsername();
             $service->getPositions()->toArray();
             $service->setVisits($service->getVisits() + 1);
+            $service->visit_at = new DateTime("now");
             $em->persist($service);
             $em->flush();
             if ($user) {
@@ -651,9 +676,6 @@ class Api extends REST_Controller
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
     //FIN DE LAS FUNCIONES DE COMENTARIOS
-
-
-
 
     public function testimg_post()
     {
