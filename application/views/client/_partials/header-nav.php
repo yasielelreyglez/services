@@ -15,6 +15,9 @@
                             <a href="<?= site_url("myservices") ?>"><i class="fa fa-bullhorn"></i>Mis
                                 Servicios
                             </a>
+                            <ul class="demo-menu">
+                                <li><a href="<?=site_url("createservice") ?>">Crear Anuncio</a></li>
+                            </ul>
                         </li>
                         <li class="<?= $tab == "mysearchs" ? "active" : "" ?>">
                             <a href="<?= site_url("mysearchs") ?>"><i class="fa fa-search-plus"></i>

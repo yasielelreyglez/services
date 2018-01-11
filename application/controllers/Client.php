@@ -36,7 +36,7 @@ class Client extends CI_Controller
     {
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
-            redirect('admin/auth/login', 'refresh');
+            redirect('authw/login', 'refresh');
         }
         $this->load->helper('html');
         $em = $this->doctrine->em;
@@ -47,6 +47,33 @@ class Client extends CI_Controller
 
         $this->load->view('/client/_layouts/listpage', $data);
     }
+    public function createservice()
+    {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('admin/auth/login', 'refresh');
+        }
+        $this->load->helper('html');
+        $em = $this->doctrine->em;
+        $servicesRepo = $em->getRepository('Entities\City');
+        $categoRepo = $em->getRepository('Entities\Category');
+        $subcategoRepo = $em->getRepository('Entities\Subcategory');
+
+
+        $data["object"] = new \Entities\Service();
+        $data['ciudades'] = $servicesRepo->findAll();
+        $data['categorias'] = $categoRepo->findAll();
+        $data['subcategorias'] = $subcategoRepo->findAll();
+
+        $subcategory = [];
+        $morevisits = $em->getRepository('Entities\Service');
+        $data['similar'] = $morevisits->findBy(array(), array('visits' => 'DESC' ), 4);
+        $data['services'] = $servicesRepo->findAll();
+        $data['content'] = 'client/services/create';
+        $data["tab"] = "myservices";
+        $this->load->view('/client/_layouts/singlepage', $data);
+    }
+
 
     public function myservices()
     {

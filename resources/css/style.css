@@ -15056,7 +15056,7 @@ p i {
 }
 .listing.listing-1 .listing-ver-1 .listing-tabs ul li {
   float: left;
-  width: 12.5%;
+  min-width: 12.5%;
 }
 .listing.listing-1 .listing-ver-1 .listing-tabs ul li.active a {
   background: #fff;

@@ -16,10 +16,10 @@
 
             <ul class="authentication">
                 <?php if (isset($showlogin) == true) { ?>
-                    <li><a href="<?= site_url("admin/auth/login") ?>">Login</a></li>
-                    <li><a href="<?= site_url("admin/auth/register") ?>">Register</a></li>
+                    <li><a href="<?= site_url("authw/login") ?>">Login</a></li>
+                    <li><a href="<?= site_url("authw/register") ?>">Register</a></li>
                 <?php } else { ?>
-                    <li><a href="<?= site_url("admin/auth/logout") ?>">Logout</a></li>
+                    <li><a href="<?= site_url("authw/logout") ?>">Logout</a></li>
                 <?php } ?>
             </ul>
         </div>
