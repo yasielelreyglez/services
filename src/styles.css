@@ -1,3 +1,24 @@
+/**********************************************************************************************************************/
+.showrate{
+    margin-bottom: 0;
+}
+
+.showrate li{
+    display: inline-block;
+    list-style-type: none;
+    color: #feab29;
+}
+
+
+
+
+
+
+
+
+
+/**********************************************************************************************************************/
+
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 

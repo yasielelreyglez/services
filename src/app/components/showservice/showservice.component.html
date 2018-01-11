@@ -283,9 +283,14 @@
                 <div class="listing listing-1 single-listing">
                     <div class="listing-ver-1">
                         <div class="listing-heading">
-                            <h5>{{service.title}}</h5>
-                            <a *ngIf="service.professional" href="#" class="c-red"><i class="fa fa-bookmark"></i></a>
-
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-8"><h5>{{service.title}}</h5></div>
+                                <!--<a *ngIf="service.professional" href="#" class="c-red"><i class="fa fa-bookmark"></i></a>-->
+                                <div class="col-xs-6 col-sm-4">
+                                    <ul class="showrate pull-right" [innerHTML]="result_rate()">
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                         <div class="listing-tabs">
                             <ul>
@@ -309,6 +314,10 @@
                                             </div>
                                             <div class="listing-content-description margin-description">
                                                 <p>{{service.description}}</p>
+                                                <button [disabled]="!loggedIn" mat-raised-button color="primary"
+                                                        (click)="ratingDialog(service.id)">
+                                                    Evaluar
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

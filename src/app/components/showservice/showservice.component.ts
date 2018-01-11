@@ -8,6 +8,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 
 declare const google;
+declare const $;
 
 @Component({
     selector: 'app-showservice',
@@ -891,6 +892,19 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
         // else {
         //     this.week_days = '';
         // }
+    }
+
+    result_rate() {
+        let result = '';
+        for (const value of [1, 2, 3, 4, 5]) {
+            if (value <= this.service.globalrate) {
+                result += '<li><i class="fa fa-star"></i></li> ';
+            }
+            else {
+                result += '<li><i class="fa fa-star-o"></i></li> ';
+            }
+        }
+        return result;
     }
 
 // hasClass(element, cls) {

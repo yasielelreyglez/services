@@ -37,7 +37,7 @@ class Api extends REST_Controller
     {
         $em = $this->doctrine->em;
         $morevisitsRepo = $em->getRepository('Entities\Service');
-        $morevisits = $morevisitsRepo->findBy(array(), array('visits' => 'DESC'), 4);
+        $morevisits = $morevisitsRepo->findBy(array(), array('visits' => 'DESC'), 3 );
 
         foreach ($morevisits as $service) {
             $service->loadRelatedData();
