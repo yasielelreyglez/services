@@ -31,9 +31,9 @@
                                 <ul>
                                     <?php $rate = $object->getGlobalrate();
 
-                                    for ($pos = 0; $pos < 10; $pos++) {
+                                    for ($pos = 0; $pos < 5; $pos++) {
                                         if ($pos < $rate) {
-                                            echo '<li><i class="fa fa-star "></i></li>';
+                                            echo '<li><i class="fa fa-star"></i></li>';
                                         } else {
                                             echo ' <li><i class="fa fa-star-o"></i></li>';
                                         }
