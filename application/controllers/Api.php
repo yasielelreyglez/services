@@ -859,10 +859,11 @@ class Api extends REST_Controller
         $icon = $this->post('icon');
         if ($icon){
             if( isset($icon['filename'])) {
-                $path = "./resources/" . $icon['filename'];
-                $save = "resources/" . $icon['filename'];
+                $path = "./resources/services/" . $icon['filename'];
+                $save = "resources/services/" . $icon['filename'];
                 file_put_contents($path, base64_decode($icon['value']));
                 $service->setIcon(site_url($save));
+                $service->setThumb($icon['filename']);
             }
         }
         //OTROS DATOS

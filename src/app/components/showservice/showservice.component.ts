@@ -8,6 +8,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 
 declare const google;
+declare const $;
 
 @Component({
     selector: 'app-showservice',
