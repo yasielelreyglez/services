@@ -12,6 +12,20 @@ declare const google;
     styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked {
+
+    morevisits: any;
+    recentvisits: any;
+    query: any;
+    search = new FormControl('');
+
+    constructor(private apiServices: ApiService, private router: Router) {
+    }
+
+    ngOnInit() {
+        this.apiServices.moreVisits().subscribe(result => this.morevisits = result);
+        this.apiServices.recentVisits().subscribe(result => this.recentvisits = result);
+    }
+
     ngAfterViewChecked(): void {
         if ($.fn.uouAccordions) {
             $('.uou-accordions').uouAccordions();
@@ -29,17 +43,6 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked {
         } else {
             console.warn('not loaded -> jquery.flexslider-min.js');
         }
-    }
-
-    morevisits: any;
-    query: any;
-    search = new FormControl('');
-
-    constructor(private apiServices: ApiService, private router: Router) {
-    }
-
-    ngOnInit() {
-        return this.apiServices.moreVisits().subscribe(result => this.morevisits = result);
     }
 
     searchQuery() {

@@ -41,6 +41,16 @@ export class ApiService {
         });
     }
 
+    recentVisits(): Observable<Subcategory[]> {
+        return this.http.get(this.getBaseURL() + 'api/recentvisits').map((response) => {
+            if (response['data'])
+                return response['data'];
+            else {
+                return new Array();
+            }
+        });
+    }
+
     cities(): Observable<City[]> {
         return this.http.get(this.getBaseURL() + 'api/cities').map((response) => {
             if (response['data'])

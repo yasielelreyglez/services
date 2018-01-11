@@ -297,13 +297,13 @@
             <div class="col-md-3">
                 <div class="sidebar-listing">
                     <h5 class="sidebar-listing-title">Visitados recientemente</h5>
-                    <div *ngFor="let service of morevisits" class="listing-offer">
+                    <div *ngFor="let service of recentvisits" class="listing-offer">
                         <h6 class="title"><a [routerLink]="['service', service.id]">{{service.title}}</a></h6>
                         <div class="listing-offer-thumbnail">
                             <img src="{{service.icon}}" alt="">
                         </div>
                         <div class="listing-offer-content">
-                            <span class="location"><i class="fa fa-map-marker"></i>{{service.citiesList[0].title}}</span>
+                            <span class="location"><i class="fa fa-map-marker"></i> {{service.citiesList[0].title}}</span>
                             <ul class="rate">
                                 <li><i class="fa fa-star"></i></li>
                                 <li><i class="fa fa-star"></i></li>

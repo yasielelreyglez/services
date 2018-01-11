@@ -108,7 +108,7 @@ namespace Entities {
         protected $created_at;
 
         /**
-         * @Column(type="datetime")
+         * @Column(type="datetime",nullable=true)
          **/
         public $visit_at;
 
@@ -218,6 +218,9 @@ namespace Entities {
         public function __construct()
         {
             $this->visits = 0;
+            $this->domicilio = 0;
+            $this->professional = 0;
+            $this->todopais = 0;
             $this->created = new \DateTime("now");
             $this->created_at = new \DateTime("now");
             $this->updated_at = new \DateTime("now");

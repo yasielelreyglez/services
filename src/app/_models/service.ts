@@ -17,4 +17,5 @@ export class Service {
     end_time: string;
     positions: any[];
     dropsImages: any;
+    times: any;
 }

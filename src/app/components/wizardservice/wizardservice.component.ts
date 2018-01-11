@@ -412,6 +412,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         }
 
         this.service.dropsImages = this.dropsImages;
+        this.service.times = new Array();
 
         this.apiServices.createFullService(this.service).subscribe(result => {
             if (result) {
