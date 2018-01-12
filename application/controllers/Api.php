@@ -860,7 +860,7 @@ class Api extends REST_Controller
         if ($icon){
             if( isset($icon['filename'])) {
                 $path = "./resources/services/" . $icon['filename'];
-                $save = "resources/services/" . $icon['filename'];
+                $save = "/resources/services/" . $icon['filename'];
                 file_put_contents($path, base64_decode($icon['value']));
                 $service->setIcon(site_url($save));
                 $service->setThumb($icon['filename']);

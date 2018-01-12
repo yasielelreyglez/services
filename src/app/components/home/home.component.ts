@@ -45,6 +45,19 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked {
         }
     }
 
+    result_rate(service) {
+        let result = '';
+        for (const value of [1, 2, 3, 4, 5]) {
+            if (value <= service.globalrate) {
+                result += '<li><i class="fa fa-star"></i></li> ';
+            }
+            else {
+                result += '<li><i class="fa fa-star-o"></i></li> ';
+            }
+        }
+        return result;
+    }
+
     searchQuery() {
         if (this.query !== undefined) {
             this.apiServices.searchService(this.query).subscribe(result => {

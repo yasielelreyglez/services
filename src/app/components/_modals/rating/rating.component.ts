@@ -17,7 +17,7 @@ export class RatingComponent implements OnInit {
                 @Inject(MAT_DIALOG_DATA) public data: any, private apiServices: ApiService, private snackBar: MatSnackBar) {
         this.model = {};
         this.loading = false;
-        this.stars = [false, false, false, false, false, false, false, false, false, false];
+        this.stars = [false, false, false, false, false];
         this.value = 0;
     }
 
@@ -36,7 +36,7 @@ export class RatingComponent implements OnInit {
     }
 
     paint(value: number) {
-        this.stars = [false, false, false, false, false, false, false, false, false, false];
+        this.stars = [false, false, false, false, false];
         for (let i = 0; i <= value; i++) {
             this.stars[i] = true;
         }
@@ -48,7 +48,7 @@ export class RatingComponent implements OnInit {
     }
 
     clear() {
-        this.stars = [false, false, false, false, false, false, false, false, false, false];
+        this.stars = [false, false, false, false, false];
         if (this.value !== 0) {
             for (let i = 0; i <= (this.value - 1); i++) {
                 this.stars[i] = true;

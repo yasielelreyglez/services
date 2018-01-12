@@ -1034,7 +1034,7 @@ namespace Entities {
         public function setThumb($thumb)
         {
             createThumb("./resources/services/$thumb",700,500);
-            $this->thumb = "./resources/services/$thumb";
+            $this->thumb = site_url() . "/resources/services/thumbs/$thumb";
         }
     }
     function createThumb($sImagen, $nWidth = false, $nHeight = false)

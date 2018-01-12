@@ -300,16 +300,11 @@
                     <div *ngFor="let service of recentvisits" class="listing-offer">
                         <h6 class="title"><a [routerLink]="['service', service.id]">{{service.title}}</a></h6>
                         <div class="listing-offer-thumbnail">
-                            <img src="{{service.icon}}" alt="">
+                            <img src="{{service.thumb}}" alt="">
                         </div>
                         <div class="listing-offer-content">
                             <span class="location"><i class="fa fa-map-marker"></i> {{service.citiesList[0].title}}</span>
-                            <ul class="rate">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
+                            <ul class="rate" [innerHTML]="result_rate(service)">
                             </ul>
                             <span class="count">{{service.visits}} vistas</span>
                         </div>
@@ -434,17 +429,12 @@
                                 <div class="listing-inner">
                                     <div class="flexslider default-slider">
                                         <ul class="slides">
-                                            <li><img src="{{service.icon}}" alt=""></li>
-                                            <li *ngFor="let image of service.imagesList"><img src="{{image.title}}"
+                                            <li><img src="{{service.thumb}}" alt=""></li>
+                                            <li *ngFor="let image of service.imagesList"><img src="{{image.thumb}}"
                                                                                               alt=""></li>
                                         </ul>
                                         <div class="reviews">
-                                            <ul>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
+                                            <ul [innerHTML]="result_rate(service)">
                                             </ul>
                                             <span class="count">{{service.visits}} vistas</span>
                                         </div>

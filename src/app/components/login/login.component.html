@@ -1,46 +1,89 @@
-<div class="col-12">
-    <h4 class="text-center tc-blue">Autenticarse</h4>
-    <hr class="bc-grei">
-    <form [formGroup]="loginForm" name="form" (ngSubmit)="loginForm.valid && login()">
-        <mat-form-field>
-            <input matInput placeholder="Correo electrónico" name="email" [(ngModel)]="user.email"
-                   [formControl]="loginForm.controls['email']"
-                   required>
-            <mat-error *ngIf="loginForm.controls['email'].invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Contraseña" name="password"
-                   [formControl]="loginForm.controls['password']"
-                   [(ngModel)]="user.password"
-                   required>
-            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-            <mat-error *ngIf="loginForm.controls['password'].invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
+<!--<div class="col-12">-->
+<!--<h4 class="text-center tc-blue">Autenticarse</h4>-->
+<!--<hr class="bc-grei">-->
+<!--<form [formGroup]="loginForm" name="form" (ngSubmit)="loginForm.valid && login()">-->
+<!--<mat-form-field>-->
+<!--<input matInput placeholder="Correo electrónico" name="email" [(ngModel)]="user.email"-->
+<!--[formControl]="loginForm.controls['email']"-->
+<!--required>-->
+<!--<mat-error *ngIf="loginForm.controls['email'].invalid">{{getErrorMessage()}}</mat-error>-->
+<!--</mat-form-field>-->
+<!--<mat-form-field>-->
+<!--<input matInput [type]="hide ? 'password' : 'text'" placeholder="Contraseña" name="password"-->
+<!--[formControl]="loginForm.controls['password']"-->
+<!--[(ngModel)]="user.password"-->
+<!--required>-->
+<!--<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>-->
+<!--<mat-error *ngIf="loginForm.controls['password'].invalid">{{getErrorMessage()}}</mat-error>-->
+<!--</mat-form-field>-->
 
-        <br>
-        <div class="form-group text-center">
-            <button mat-raised-button color="primary" class="tc-white col-12" [disabled]="loading || loginForm.invalid">
-                <mat-icon>lock_open</mat-icon>
-                Autenticarse
-            </button>
-            <div *ngIf="loading">
-                <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" alt="">
+<!--<br>-->
+<!--<div class="form-group text-center">-->
+<!--<button mat-raised-button color="primary" class="tc-white col-12" [disabled]="loading || loginForm.invalid">-->
+<!--<mat-icon>lock_open</mat-icon>-->
+<!--Autenticarse-->
+<!--</button>-->
+<!--<div *ngIf="loading">-->
+<!--<img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" alt="">-->
+<!--</div>-->
+<!--</div>-->
+<!--</form>-->
+<!--<div class="form-group text-center">-->
+<!--<span class="tc-blue"><b>Si quieres puedes autenticarte también con:</b></span>-->
+<!--<button mat-raised-button class="tc-white bc-facebook col-12">-->
+<!--<i class="fa fa-facebook-official" aria-hidden="true"></i>-->
+<!--Facebook-->
+<!--</button>-->
+<!--</div>-->
+<!--<br>-->
+<!--<div class="form-group text-center">-->
+<!--<button mat-raised-button color="primary" class="tc-white col-12" (click)="openDialog()">-->
+<!--Olvidé mi contraseña-->
+<!--</button>-->
+<!--</div>-->
+<!--</div>-->
+
+
+<div class="main-content content-business single-business has-bg-image" data-bg-color="f5f5f5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="container">
+                    <h1 class="text-center">Iniciar sesión</h1>
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            <form [formGroup]="loginForm" name="form" (ngSubmit)="loginForm.valid && login()">
+                                <input placeholder="Correo electrónico" name="email" type="email"
+                                       [(ngModel)]="user.email"
+                                       [formControl]="loginForm.controls['email']"
+                                       required>
+                                <!--<mat-error *ngIf="loginForm.controls['password'].invalid">{{getErrorMessage()}}-->
+                                <!--</mat-error>-->
+                                <input type="password" placeholder="Contraseña"
+                                       name="password"
+                                       [formControl]="loginForm.controls['password']"
+                                       [(ngModel)]="user.password"
+                                       required>
+                                <!--<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' :-->
+                                    <!--'visibility_off'}}-->
+                                <!--</mat-icon>-->
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-primary"
+                                            [disabled]="loading || loginForm.invalid" value="Autenticarse">
+                                    <div *ngIf="loading">
+                                        <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                                             alt="">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </form>
-    <div class="form-group text-center">
-        <span class="tc-blue"><b>Si quieres puedes autenticarte también con:</b></span>
-        <button mat-raised-button class="tc-white bc-facebook col-12">
-            <i class="fa fa-facebook-official" aria-hidden="true"></i>
-            Facebook
-        </button>
-    </div>
-    <br>
-    <div class="form-group text-center">
-        <button mat-raised-button color="primary" class="tc-white col-12" (click)="openDialog()">
-            Olvidé mi contraseña
-        </button>
     </div>
 </div>
+
+
 
 
