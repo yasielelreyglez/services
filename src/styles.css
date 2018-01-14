@@ -1,21 +1,21 @@
 /**********************************************************************************************************************/
-.showrate{
+.showrate {
     margin-bottom: 0;
 }
 
-.showrate li{
+.showrate li {
     display: inline-block;
     list-style-type: none;
     color: #feab29;
 }
 
+.mat-snack-bar-container {
+    background-color: #009e67;
+}
 
-
-
-
-
-
-
+.mat-simple-snackbar {
+    justify-content: center !important;
+}
 
 /**********************************************************************************************************************/
 
@@ -300,9 +300,7 @@
     margin-top: 0 !important;
 }
 
-.mat-simple-snackbar{
-    justify-content: center !important;
-}
+
 
 @media (max-width: 992px) {
     .mt-25 {

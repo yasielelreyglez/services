@@ -29,6 +29,7 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
     error: string;
     submitAttempt: boolean;
     currentUser: any;
+    recentvisits: any;
 
     @ViewChild('map') mapElement: ElementRef;
     map: any;
@@ -68,6 +69,8 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
+        this.apiServices.recentVisits().subscribe(result => this.recentvisits = result);
+
         const currentUser = localStorage.getItem('currentUser');
         if (currentUser) {
             this.currentUser = JSON.parse(currentUser).email;
@@ -759,6 +762,20 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
 
     }
 
+    result_rate(service) {
+        let result = '';
+        for (const value of [1, 2, 3, 4, 5]) {
+            if (value <= service.globalrate) {
+                result += '<li><i class="fa fa-star"></i></li> ';
+            }
+            else {
+                result += '<li><i class="fa fa-star-o"></i></li> ';
+            }
+        }
+
+        return result;
+    }
+
     tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
         if (tabChangeEvent.index === 1) {
             if (typeof google !== 'undefined') {
@@ -894,19 +911,6 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
         // }
     }
 
-    result_rate() {
-        let result = '';
-        for (const value of [1, 2, 3, 4, 5]) {
-            if (value <= this.service.globalrate) {
-                result += '<li><i class="fa fa-star"></i></li> ';
-            }
-            else {
-                result += '<li><i class="fa fa-star-o"></i></li> ';
-            }
-        }
-        return result;
-    }
-
 // hasClass(element, cls) {
 //     return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
 // }
@@ -980,6 +984,7 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
             if (result) {
                 this.service = result;
                 this.openSnackBar('El servicio ha sido evaluado satisfactoriamente', 2500);
+                this.apiServices.recentVisits().subscribe(response => this.recentvisits = response);
             }
         });
     }

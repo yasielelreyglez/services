@@ -287,7 +287,7 @@
                                 <div class="col-xs-6 col-sm-8"><h5>{{service.title}}</h5></div>
                                 <!--<a *ngIf="service.professional" href="#" class="c-red"><i class="fa fa-bookmark"></i></a>-->
                                 <div class="col-xs-6 col-sm-4">
-                                    <ul class="showrate pull-right" [innerHTML]="result_rate()">
+                                    <ul class="showrate pull-right" [innerHTML]="result_rate(service)">
                                     </ul>
                                 </div>
                             </div>
@@ -482,28 +482,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!--<div class="col-md-7 col-sm-7 advertiser-personal">-->
-                            <!--<div class="advertiser-thumbnail">-->
-                            <!--<img src="../../../assets/img/advertiser-thumbnail.png" alt="">-->
-                            <!--</div>-->
-                            <!--<div class="advertiser-details">-->
-                            <!--<h5 class="name">Juan De La Cruz</h5>-->
-                            <!--<span class="location">36 Years Old - Sydney, AU</span>-->
-                            <!--<ul>-->
-                            <!--<li><span>Tel: (123) 123-4567</span></li>-->
-                            <!--<li><span>Website: example.com</span></li>-->
-                            <!--</ul>-->
-                            <!--</div>-->
-                            <!--</div>-->
-                            <!--<div class="col-md-5 col-sm-5 advertiser-contact text-right">-->
-                            <!--<ul class="social">-->
-                            <!--<li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>-->
-                            <!--<li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>-->
-                            <!--<li class="google"><a href="#"><i class="fa fa-google-plus"></i></a></li>-->
-                            <!--</ul>-->
-                            <!--<a href="#" class="btn btn-medium btn-transparent-primary">Send a message</a>-->
-                            <!--</div>-->
                         </div>
                     </div>
                 </div>
@@ -531,28 +509,6 @@
                                     />
                                 </div>
                             </form>
-
-                            <!--<div class="col-md-7 col-sm-7 advertiser-personal">-->
-                            <!--<div class="advertiser-thumbnail">-->
-                            <!--<img src="../../../assets/img/advertiser-thumbnail.png" alt="">-->
-                            <!--</div>-->
-                            <!--<div class="advertiser-details">-->
-                            <!--<h5 class="name">Juan De La Cruz</h5>-->
-                            <!--<span class="location">36 Years Old - Sydney, AU</span>-->
-                            <!--<ul>-->
-                            <!--<li><span>Tel: (123) 123-4567</span></li>-->
-                            <!--<li><span>Website: example.com</span></li>-->
-                            <!--</ul>-->
-                            <!--</div>-->
-                            <!--</div>-->
-                            <!--<div class="col-md-5 col-sm-5 advertiser-contact text-right">-->
-                            <!--<ul class="social">-->
-                            <!--<li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>-->
-                            <!--<li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>-->
-                            <!--<li class="google"><a href="#"><i class="fa fa-google-plus"></i></a></li>-->
-                            <!--</ul>-->
-                            <!--<a href="#" class="btn btn-medium btn-transparent-primary">Send a message</a>-->
-                            <!--</div>-->
                         </div>
                     </div>
                 </div>
@@ -560,72 +516,16 @@
             <div class="col-md-3">
                 <div class="sidebar-listing">
                     <h5 class="sidebar-listing-title">Servicios similares</h5>
-                    <div class="listing-offer">
-                        <h6 class="title"><a href="#">Urban Escape Spa</a></h6>
+                    <div *ngFor="let service of recentvisits" class="listing-offer">
+                        <h6 class="title"><a [routerLink]="['/service', service.id]">{{service.title}}</a></h6>
                         <div class="listing-offer-thumbnail">
-                            <img src="../../../assets/img/listing-offer-thumbnail1.png" alt="">
+                            <img src="{{service.thumb}}" alt="">
                         </div>
                         <div class="listing-offer-content">
-                            <span class="location"><i class="fa fa-map-marker"></i> Manila, Philippines</span>
-                            <ul class="rate">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
+                            <span class="location"><i class="fa fa-map-marker"></i> {{service.citiesList[0].title}}</span>
+                            <ul class="rate" [innerHTML]="result_rate(service)">
                             </ul>
-                            <span class="count">208 reviews</span>
-                        </div>
-                    </div>
-                    <div class="listing-offer">
-                        <h6 class="title"><a href="#">Shear Studio</a></h6>
-                        <div class="listing-offer-thumbnail">
-                            <img src="../../../assets/img/listing-offer-thumbnail2.png" alt="">
-                        </div>
-                        <div class="listing-offer-content">
-                            <span class="location"><i class="fa fa-map-marker"></i> Dhaka, Bangladesh</span>
-                            <ul class="rate">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
-                            <span class="count">208 reviews</span>
-                        </div>
-                    </div>
-                    <div class="listing-offer">
-                        <h6 class="title"><a href="#">Derma Spa</a></h6>
-                        <div class="listing-offer-thumbnail">
-                            <img src="../../../assets/img/listing-offer-thumbnail3.png" alt="">
-                        </div>
-                        <div class="listing-offer-content">
-                            <span class="location"><i class="fa fa-map-marker"></i> Manila, Philippines</span>
-                            <ul class="rate">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
-                            <span class="count">208 reviews</span>
-                        </div>
-                    </div>
-                    <div class="listing-offer">
-                        <h6 class="title"><a href="#">Kelly’s Spa</a></h6>
-                        <div class="listing-offer-thumbnail">
-                            <img src="../../../assets/img/listing-offer-thumbnail4.png" alt="">
-                        </div>
-                        <div class="listing-offer-content">
-                            <span class="location"><i class="fa fa-map-marker"></i> Manila, Philippines</span>
-                            <ul class="rate">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
-                            <span class="count">208 reviews</span>
+                            <span class="count">{{service.visits}} vistas</span>
                         </div>
                     </div>
                 </div>

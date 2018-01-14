@@ -68,7 +68,7 @@
                         <div class="col-md-6 col-md-offset-3">
                             <form name="form" [formGroup]="registerForm" (ngSubmit)="registerForm.valid && register()"
                                   #f="ngForm">
-                                    <input placeholder="Escriba su nombre y apellidos" name="name" type="text"
+                                    <input autofocus placeholder="Escriba su nombre y apellidos" name="name" type="text"
                                            [(ngModel)]="user.name"
                                            [formControl]="registerForm.controls['name']"
                                            required>

@@ -1,4 +1,7 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, Component, OnInit} from '@angular/core';
+import {AuthService} from './_services/auth.service';
+import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material';
 
 declare const $;
 declare const google;
@@ -9,9 +12,41 @@ declare const google;
     styleUrls: ['./app.component.css'],
 })
 
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
+    loggedIn = false;
+
+    constructor(public authServices: AuthService, private router: Router, private snackBar: MatSnackBar) {
+
+    }
+
+    ngOnInit(): void {
+        this.authServices.currentUser.subscribe(user => {
+            this.loggedIn = !!user;
+        });
+    }
+
     ngAfterViewInit(): void {
         this.scripts();
+    }
+
+    ngAfterViewChecked(): void {
+        const $body = $('body');
+
+        $('.mobile-sidebar-toggle').on('click', function () {
+            $body.toggleClass('mobile-sidebar-active');
+            return false;
+        });
+
+        $('.mobile-sidebar-open').on('click', function () {
+            $body.addClass('mobile-sidebar-active');
+            return false;
+        });
+
+        $('.mobile-sidebar-close').on('click', function () {
+            $body.removeClass('mobile-sidebar-active');
+            return false;
+        });
+
     }
 
     scripts() {
@@ -236,20 +271,20 @@ export class AppComponent implements AfterViewInit {
 
 // Mobile Sidebar
 // ---------------------------------------------------------
-        $('.mobile-sidebar-toggle').on('click', function () {
-            $body.toggleClass('mobile-sidebar-active');
-            return false;
-        });
-
-        $('.mobile-sidebar-open').on('click', function () {
-            $body.addClass('mobile-sidebar-active');
-            return false;
-        });
-
-        $('.mobile-sidebar-close').on('click', function () {
-            $body.removeClass('mobile-sidebar-active');
-            return false;
-        });
+//         $('.mobile-sidebar-toggle').on('click', function () {
+//             $body.toggleClass('mobile-sidebar-active');
+//             return false;
+//         });
+//
+//         $('.mobile-sidebar-open').on('click', function () {
+//             $body.addClass('mobile-sidebar-active');
+//             return false;
+//         });
+//
+//         $('.mobile-sidebar-close').on('click', function () {
+//             $body.removeClass('mobile-sidebar-active');
+//             return false;
+//         });
 
 
 // UOU Tabs
@@ -669,5 +704,18 @@ export class AppComponent implements AfterViewInit {
 //             });
 //         });
 
+    }
+
+    logout(): void {
+        this.authServices.logout();
+        this.router.navigate(['']);
+        this.openSnackBar('Ha cerrado la session correctamente.', 2500);
+    }
+
+    openSnackBar(message: string, duration: number, action?: string ) {
+        this.snackBar.open(message, action, {
+            duration: duration,
+            horizontalPosition: 'center',
+        });
     }
 }
