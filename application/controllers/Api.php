@@ -262,6 +262,32 @@ class Api extends REST_Controller
         $result["services"] = $services;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
+    public function filter_post()
+    {
+        //obteniendo parametros filtro
+        $ciudades = $this->post("cities", true);
+        $categorias = $this->post("categories", true);
+        $distance = $this->post("distance", true);
+        $current_position = $this->post("current", true);
+        print_r($ciudades);
+        $services = [];
+        $filtered = false;
+        if($categorias){
+            $filtered = true;
+            $services = $this->filterBySubcategories($categorias);
+            $services = $this->filterByCitiesFiltered($ciudades,$filtered,$services);
+        }else{
+            if($ciudades){
+                $services = $this->filterByCitiesFiltered($ciudades,false,null);
+                $filtered = true;
+            }
+        }
+        if($current_position && $distance){
+            $services = $this->filterByDistance($distance, $current_position, $filtered, $services);
+        }
+        $result["services"] = $services;
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
     //denunciar un servicio
     public function complaint_get($id)
     {
