@@ -287,7 +287,8 @@ class Api extends REST_Controller
 		foreach ($services as $service) {
             $service->loadRelatedData();
         }
-        $result["services"] = $services;
+		
+        $result["services"] = array_values($services);
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
     //denunciar un servicio
