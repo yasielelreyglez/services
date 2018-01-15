@@ -286,7 +286,6 @@ class Api extends REST_Controller
         }
         $user=$this->getCurrentUser();
 		foreach ($services as $service) {
-            $service = new \Entities\Service();
 		    $service->loadRelatedData();
 		    if($user) {
                 $service->loadRelatedUserData($user);
