@@ -284,8 +284,13 @@ class Api extends REST_Controller
         if($current_position && $distance){
             $services = $this->filterByDistance($distance, $current_position, $filtered, $services);
         }
+        $user=$this->getCurrentUser();
 		foreach ($services as $service) {
-            $service->loadRelatedData();
+            $service = new \Entities\Service();
+		    $service->loadRelatedData();
+		    if($user) {
+                $service->loadRelatedUserData($user);
+            }
         }
 		
         $result["services"] = array_values($services);

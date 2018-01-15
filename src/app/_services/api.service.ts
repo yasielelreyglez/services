@@ -72,7 +72,7 @@ export class ApiService {
     }
 
     allSubCategories(): Observable<any> {
-        return this.http.get(this.getBaseURL() + 'api/allsubcateogries').map((response) => {
+        return this.http.get(this.getBaseURL() + 'api/allsubcategories').map((response) => {
             if (response['data'])
                 return response['data'];
             else {

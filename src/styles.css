@@ -17,6 +17,60 @@
     justify-content: center !important;
 }
 
+.content-business .sidebar .sidebar-subcategories {
+    position: relative;
+    padding: 5px 22px 18px 22px;
+    border-top: 1px solid #e8e8e8;
+}
+.content-business .sidebar .sidebar-subcategories h6 {
+    margin: 20px 0;
+    font-size: 17px;
+}
+.content-business .sidebar .sidebar-subcategories ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-y: scroll;
+    height: 250px;
+}
+.content-business .sidebar .sidebar-subcategories ul li {
+    display: block;
+    margin-bottom: 5px;
+}
+.content-business .sidebar .sidebar-subcategories ul li input {
+    margin-top: 7px;
+    margin-right: 5px;
+    display: inline-block;
+    vertical-align: top;
+}
+.content-business .sidebar .sidebar-subcategories ul li .title {
+    line-height: 20px;
+    display: inline-block;
+}
+@media (max-width: 1200px) {
+    .content-business .sidebar .sidebar-subcategories ul li .title {
+        font-size: 11px;
+    }
+}
+@media (max-width: 992px) {
+    .content-business .sidebar .sidebar-subcategories ul li .title {
+        font-size: 13px;
+    }
+}
+.content-business .sidebar .sidebar-subcategories ul li .count {
+    display: inline-block;
+    float: right;
+    width: 25px;
+    height: 20px;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    color: #fff;
+    background: #c4c4c4;
+    border-radius: 5px;
+    border-radius: 40%;
+}
+
 /**********************************************************************************************************************/
 
 /* You can add global styles to this file, and also import other style files */
