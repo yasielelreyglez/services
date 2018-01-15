@@ -37,7 +37,7 @@ class Subcategory
      *
      * @ManyToOne(targetEntity="Category", inversedBy="subcategories")
      */
-    protected $category;
+    public $category;
 
     /**
      * Many Subcategory have Many Services.
