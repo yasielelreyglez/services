@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {ApiService} from '../../_services/api.service';
 import {City} from '../../_models/city';
@@ -15,11 +15,20 @@ export class ShowservicesComponent implements OnInit, AfterViewInit {
     services: any;
     cities: City[];
     subcategories: any;
+    listSubcategories: any;
+    categories: any;
+    listCategories: any;
     model: any;
     filterForm: FormGroup;
 
-    constructor(private route: ActivatedRoute, private apiServices: ApiService) {
+    selectSub: any;
+    selectCit: any;
+
+    constructor(private route: ActivatedRoute, private apiServices: ApiService, private elRef: ElementRef) {
         this.model = {};
+        this.listCategories = new Array();
+        this.selectSub = new Array();
+        this.selectCit = new Array();
     }
 
     ngOnInit() {
@@ -29,13 +38,17 @@ export class ShowservicesComponent implements OnInit, AfterViewInit {
                 this.apiServices.servicesSub(id).subscribe(resultparams => this.services = resultparams);
             else {
                 const services = localStorage.getItem('searchServices');
-                if(services)
+                if (services)
                     this.services = JSON.parse(services);
             }
         });
 
         this.apiServices.cities().subscribe(result => this.cities = result);
-        this.apiServices.allSubCategories().subscribe(result => this.subcategories = result);
+        this.apiServices.allSubCategories().subscribe(result => {
+            this.subcategories = result;
+            this.listSubcategories = this.subcategories;
+        });
+        this.apiServices.categories().subscribe(result => this.categories = result);
 
         this.createForm();
     }
@@ -710,11 +723,56 @@ export class ShowservicesComponent implements OnInit, AfterViewInit {
         });
     }
 
+    onCheckCategory(id: number) {
+        const pos = this.listCategories.indexOf(id);
+        // console.log('posicion', pos);
+
+        if (pos === -1) {
+            this.listCategories.push(id);
+            console.log(this.listCategories);
+            this.listSubcategories = this.subcategories.filter(item => this.exclude(item, this));
+            // console.log('subcategorias', this.subcategories);
+        } else {
+            this.listCategories.splice(pos, 1);
+            // console.log('quedan', this.subcategories);
+            // console.log('quedan categories', this.listCategories.length);
+
+            if (this.listCategories.length === 0) {
+                this.listSubcategories = this.subcategories;
+            } else {
+                this.listSubcategories = this.subcategories.filter(item => this.exclude(item, this));
+            }
+        }
+    }
+
+    exclude(element, that) {
+        // console.log('metodo', that.listCategories[0]);
+        // console.log(element);
+        if (that.listCategories.indexOf(element.category.id) !== -1)
+            return element;
+    }
+
     getErrorMessage() {
         return this.filterForm.controls['distance'].hasError('min') ? 'Not a valid number' :
             '';
     }
 
+
     filter() {
+        const selectSub = new Array();
+        const selectCit = new Array();
+        const sub = this.elRef.nativeElement.querySelectorAll('.subcategories:checked');
+        sub.forEach(function (item) {
+            selectSub.push($(item).attr('id'));
+        });
+        this.selectSub = selectSub;
+        const cit = this.elRef.nativeElement.querySelectorAll('.cities:checked');
+        cit.forEach(function (item) {
+            selectCit.push($(item).attr('id'));
+        });
+        this.selectCit = selectCit;
+
+        console.log(this.selectSub);
+        console.log(this.selectCit);
     }
 }
