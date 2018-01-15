@@ -21,9 +21,14 @@ export class ShowservicesComponent implements OnInit, AfterViewInit {
     model: any;
     filterForm: FormGroup;
 
+    selectSub: any;
+    selectCit: any;
+
     constructor(private route: ActivatedRoute, private apiServices: ApiService, private elRef: ElementRef) {
         this.model = {};
         this.listCategories = new Array();
+        this.selectSub = new Array();
+        this.selectCit = new Array();
     }
 
     ngOnInit() {
@@ -754,7 +759,20 @@ export class ShowservicesComponent implements OnInit, AfterViewInit {
 
 
     filter() {
-        const li = this.elRef.nativeElement.querySelectorAll('.subcategories:checked');
-        console.log(li);
+        const selectSub = new Array();
+        const selectCit = new Array();
+        const sub = this.elRef.nativeElement.querySelectorAll('.subcategories:checked');
+        sub.forEach(function (item) {
+            selectSub.push($(item).attr('id'));
+        });
+        this.selectSub = selectSub;
+        const cit = this.elRef.nativeElement.querySelectorAll('.cities:checked');
+        cit.forEach(function (item) {
+            selectCit.push($(item).attr('id'));
+        });
+        this.selectCit = selectCit;
+
+        console.log(this.selectSub);
+        console.log(this.selectCit);
     }
 }
