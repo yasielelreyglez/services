@@ -266,7 +266,9 @@ class Api extends REST_Controller
     {
         //obteniendo parametros filtro
         $ciudades = $this->post("cities", true);
+        if($ciudades&&count($ciudades)==0){ $ciudades = false;}
         $categorias = $this->post("categories", true);
+        if($categorias&&count($categorias)==0){ $categorias = false;}
         $distance = $this->post("distance", true);
         $current_position = $this->post("current", true);
         $services = [];
@@ -286,7 +288,6 @@ class Api extends REST_Controller
         }
         $user=$this->getCurrentUser();
 		foreach ($services as $service) {
-            $service = new \Entities\Service();
 		    $service->loadRelatedData();
 		    if($user) {
                 $service->loadRelatedUserData($user);
