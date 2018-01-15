@@ -284,6 +284,14 @@ class Api extends REST_Controller
         if($current_position && $distance){
             $services = $this->filterByDistance($distance, $current_position, $filtered, $services);
         }
+        $user=$this->getCurrentUser();
+		foreach ($services as $service) {
+            $service = new \Entities\Service();
+		    $service->loadRelatedData();
+		    if($user) {
+                $service->loadRelatedUserData($user);
+            }
+        }
         $result["services"] = $services;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
@@ -1230,12 +1238,13 @@ class Api extends REST_Controller
             $posiciones = $positionRepo->findAll();
             foreach ($posiciones as $posicion){
                 if($posicion->isInRange($distance,$current_position)){
-                    $result_position[]=$posicion->getService();
+                    $result_position[$posicion->getService()->getId()]=$posicion->getService();
                 }
             }
         }
 
-        return array_unique($result_position);
+        return array_values($result_position);
+
     }
 
     private function Distance($lat1, $lon1, $lat2, $lon2, $unit) {

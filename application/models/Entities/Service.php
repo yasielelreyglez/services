@@ -736,7 +736,11 @@ namespace Entities {
             $this->citiesList = $this->getCities()->toArray();
             $this->imagesList = $this->getImages()->toArray();
             $this->positionsList = $this->getPositions()->toArray();
+            $times = $this->getTimes();
+            if($times)
             $this->timesList = $this->getTimes()->toArray();
+            else
+                $this->timesList = [];
             if ($current) {
                 foreach ($this->positionsList as $position) {
                     $position_distance = $position->Distance($current["latitude"],$current["longitude"]);
