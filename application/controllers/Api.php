@@ -269,7 +269,6 @@ class Api extends REST_Controller
         $categorias = $this->post("categories", true);
         $distance = $this->post("distance", true);
         $current_position = $this->post("current", true);
-        print_r($ciudades);
         $services = [];
         $filtered = false;
         if($categorias){
