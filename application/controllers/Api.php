@@ -94,7 +94,7 @@ class Api extends REST_Controller
     }
 
 //LISTADO DE LAS SUBCATEGORIAS (TODAS LAS SUBCATEGORIAS ?)
-    public function allsubcateogries_get()
+    public function allsubcategories_get()
     {
         $em = $this->doctrine->em;
         $subcategoriesRepo = $em->getRepository('Entities\Subcategory');

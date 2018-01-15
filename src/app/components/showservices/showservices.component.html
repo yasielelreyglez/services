@@ -50,10 +50,20 @@
                     <div class="sidebar-categories">
                         <h6>Categorias:</h6>
                         <ul>
-                            <li *ngFor="let subcategory of subcategories">
-                                <input type="checkbox">
+                            <li *ngFor="let category of categories">
+                                <input type="checkbox" id="{{category.id}}" (change)="onCheckCategory(category.id)">
+                                <span class="title">{{category.title}}</span>
+                                <!--<span class="count">5</span>-->
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-subcategories">
+                        <h6>Subcategorias:</h6>
+                        <ul>
+                            <li *ngFor="let subcategory of listSubcategories">
+                                <input class="subcategories" type="checkbox">
                                 <span class="title">{{subcategory.title}}</span>
-                                <span class="count">5</span>
+                                <!--<span class="count">5</span>-->
                             </li>
                         </ul>
                     </div>
@@ -63,7 +73,7 @@
                             <li *ngFor="let city of cities">
                                 <input type="checkbox">
                                 <span class="title">{{city.title}}</span>
-                                <span class="count">3</span>
+                                <!--<span class="count">3</span>-->
                             </li>
                         </ul>
                     </div>
@@ -79,7 +89,7 @@
                         </div>
                     </div>
                     <div class="sidebar-button">
-                        <button class="btn-medium btn-primary full-width">Filtrar</button>
+                        <button class="btn-medium btn-primary full-width" (click)="filter()">Filtrar</button>
                     </div>
                 </div>
             </div>
