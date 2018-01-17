@@ -45,6 +45,7 @@ class Subcategory
      */
     public $services;
 
+    public $servicesCount;
     /**
      * @Column(type="datetime")
      **/

@@ -35,6 +35,8 @@ class City
      * @ManyToMany(targetEntity="Service", mappedBy="cities")
      */
     private $services;
+
+    public $servicesCount;
     public function __construct()
     {
         $this->services = new \Doctrine\Common\Collections\ArrayCollection();
