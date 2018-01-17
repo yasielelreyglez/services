@@ -99,6 +99,9 @@ class Api extends REST_Controller
         $em = $this->doctrine->em;
         $subcategoriesRepo = $em->getRepository('Entities\Subcategory');
         $subcategories = $subcategoriesRepo->findAll();
+        foreach ($subcategories as $subcategory){
+            $subcategory->countServices = $subcategory->getServices()->count();
+        }
         $response["data"] = $subcategories;
         $response["count"] = count($subcategories);
         $this->set_response($response, REST_Controller::HTTP_OK);
@@ -111,6 +114,9 @@ class Api extends REST_Controller
         $em = $this->doctrine->em;
         $citiesRepo = $em->getRepository('Entities\City');
         $cities = $citiesRepo->findAll();
+        foreach ($cities as $city) {
+            $city->servicesCount = $city->getServices()->count();
+        }
         $response["data"] = $cities;
         $response["count"] = count($cities);
         $this->set_response($response, REST_Controller::HTTP_OK);
@@ -267,6 +273,7 @@ class Api extends REST_Controller
         //obteniendo parametros filtro
         $ciudades = $this->post("cities", true);
         $categorias = $this->post("categories", true);
+        if($categorias&&count($categorias)==0){ $categorias = false;}
         $distance = $this->post("distance", true);
         $current_position = $this->post("current", true);
         $services = [];
@@ -274,7 +281,9 @@ class Api extends REST_Controller
         if($categorias){
             $filtered = true;
             $services = $this->filterBySubcategories($categorias);
-            $services = $this->filterByCitiesFiltered($ciudades,$filtered,$services);
+            if($ciudades) {
+                $services = $this->filterByCitiesFiltered($ciudades, $filtered, $services);
+            }
         }else{
             if($ciudades){
                 $services = $this->filterByCitiesFiltered($ciudades,false,null);
@@ -283,10 +292,15 @@ class Api extends REST_Controller
         }
         if($current_position && $distance){
             $services = $this->filterByDistance($distance, $current_position, $filtered, $services);
+            $filtered = true;
         }
         $user=$this->getCurrentUser();
+        if(!$filtered){
+            $em = $this->doctrine->em;
+            $services_repo = $em->getRepository('Entities\Service');
+            $services = $services_repo->findAll();
+        }
 		foreach ($services as $service) {
-            $service = new \Entities\Service();
 		    $service->loadRelatedData();
 		    if($user) {
                 $service->loadRelatedUserData($user);

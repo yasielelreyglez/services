@@ -156,7 +156,6 @@
 <script src="<?= site_url("/resources/js/bootstrap.js") ?>"></script>
 
 </body>
-
 </html>
 
 <script>

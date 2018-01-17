@@ -71,6 +71,23 @@ export class ApiService {
         });
     }
 
+    filter(cities?: any, categories?: any, distance?: number, current?: any): Observable<any> {
+        return this.http.post(this.getBaseURL() + 'api/filter', {
+            cities,
+            categories,
+            distance,
+            current
+        }).map((response) => {
+            if (response['services']) {
+                console.log(response['services']);
+                return response['services'];
+            }
+            else {
+                return new Array();
+            }
+        });
+    }
+
     allSubCategories(): Observable<any> {
         return this.http.get(this.getBaseURL() + 'api/allsubcategories').map((response) => {
             if (response['data'])
