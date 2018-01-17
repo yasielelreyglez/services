@@ -55,6 +55,17 @@ export class ShowservicesComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit(): void {
         this.scripts();
+
+        const $viewtype = $('.view-type');
+        $viewtype.click(function (event) {
+            event.preventDefault();
+            const $this = $(this);
+            $('.listing').addClass('hidden');
+            const type = $this.data('type');
+            $('#' + type).removeClass('hidden');
+            $viewtype.removeClass('active');
+            $this.addClass('active');
+        });
     }
 
 
@@ -771,14 +782,14 @@ export class ShowservicesComponent implements OnInit, AfterViewInit {
         });
         this.selectCit = selectCit;
 
+        // this.apiServices.filter(this.selectCit, this.selectSub).subscribe(result => {
+        //     this.services = result;
+        // });
+
         this.apiServices.filter(this.selectCit, this.selectSub).subscribe(result => {
             this.services = result;
-            this.scripts();
+            localStorage.setItem('searchServices', JSON.stringify(result));
+            this.router.navigate(['/search']);
         });
-
-        // this.apiServices.filter(this.selectCit, this.selectSub).subscribe(result => {
-        //     localStorage.setItem('searchServices', JSON.stringify(result));
-        //     this.router.navigate(['/search']);
-        // });
     }
 }
