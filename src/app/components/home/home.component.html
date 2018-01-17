@@ -150,7 +150,9 @@
                         </div>
                     </div>
                     <div class="search-button">
-                        <button class="btn btn-medium btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Filtrar &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                        <button class="btn btn-medium btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            Filtrar &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </button>
                     </div>
                 </div>
             </div>
@@ -303,7 +305,8 @@
                             <img src="{{service.thumb}}" alt="">
                         </div>
                         <div class="listing-offer-content">
-                            <span class="location"><i class="fa fa-map-marker"></i> {{service.citiesList[0].title}}</span>
+                            <span class="location"><i
+                                    class="fa fa-map-marker"></i> {{service.citiesList[0].title}}</span>
                             <ul class="rate" [innerHTML]="result_rate(service)">
                             </ul>
                             <span class="count">{{service.visits}} vistas</span>
@@ -416,7 +419,7 @@
                 <div class="listing listing-3">
                     <div class="row">
                         <div *ngFor="let service of morevisits" class="col-sm-6 col-md-4 col-lg-4">
-                            <div class="listing-grid listing-grid-1">
+                            <div class="listing-grid listing-grid-4">
                                 <div class="listing-heading">
                                     <div *ngIf="service.professional" class="marker-ribbon">
                                         <div class="ribbon-banner">
@@ -452,10 +455,15 @@
                                             <div>
                                                 <ul class="contact-info list-unstyled mb0">
                                                     <!--<ng-template *ngIf="service.address.length > 30">-->
-                                                        <!--<li><i class="fa fa-map-marker"></i> {{service.address.substr(0,30)}}...</li>-->
+                                                    <!--<li><i class="fa fa-map-marker"></i> {{service.address.substr(0,30)}}...</li>-->
                                                     <!--</ng-template>-->
-                                                    <li *ngIf="service.address.length > 30"><i class="fa fa-map-marker"></i> {{service.address.substring(0,30)}}...</li>
-                                                    <li *ngIf="service.address.length <= 30"><i class="fa fa-map-marker"></i> {{service.address}}</li>
+                                                    <li *ngIf="service.address.length > 30"><i
+                                                            class="fa fa-map-marker"></i>
+                                                        {{service.address.substring(0,30)}}...
+                                                    </li>
+                                                    <li *ngIf="service.address.length <= 30"><i
+                                                            class="fa fa-map-marker"></i> {{service.address}}
+                                                    </li>
 
                                                     <li><i class="fa fa-envelope-o"></i> {{service.email}}</li>
                                                     <li><i class="fa fa-globe"></i> {{service.url}}</li>
@@ -467,8 +475,9 @@
                                     </ul> <!-- end .uou-accordions -->
                                     <div class="info-footer">
                                         <!--<i class="fa fa-map-marker location"></i>-->
-                                        <h6>{{service.subcategoriesList[0].title}}</h6>
+                                        <!--<h6>{{service.subcategoriesList[0].title}}</h6>-->
                                         <!--<i *ngIf="service.professional" class="fa fa-bookmark bookmark pull-right"></i>-->
+                                        <a [routerLink]="['service', service.id]">Ver detalles</a>
                                     </div>
                                 </div>
                             </div>
@@ -476,7 +485,7 @@
                     </div>
                 </div>
                 <!--<div class="toggle-button text-center">-->
-                    <!--<button class="btn btn-medium btn-primary">Ver todos</button>-->
+                <!--<button class="btn btn-medium btn-primary">Ver todos</button>-->
                 <!--</div>-->
             </div>
         </div>

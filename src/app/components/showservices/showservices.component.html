@@ -52,8 +52,8 @@
                         <ul>
                             <li *ngFor="let category of categories">
                                 <input type="checkbox" id="{{category.id}}" (change)="onCheckCategory(category.id)">
-                                <span class="title">{{category.title}}</span>
-                                <!--<span class="count">5</span>-->
+                                <span class="title" style="max-width: 70%;">{{category.title}}</span>
+                                <span class="count">{{category.servicesCount}}</span>
                             </li>
                         </ul>
                     </div>
@@ -62,8 +62,8 @@
                         <ul>
                             <li *ngFor="let subcategory of listSubcategories">
                                 <input class="subcategories" type="checkbox" id="{{subcategory.id}}">
-                                <span class="title">{{subcategory.title}}</span>
-                                <!--<span class="count">5</span>-->
+                                <span class="title" style="max-width: 70%;">{{subcategory.title}}</span>
+                                <span class="count">{{subcategory.servicesCount}}</span>
                             </li>
                         </ul>
                     </div>
@@ -72,8 +72,8 @@
                         <ul>
                             <li *ngFor="let city of cities">
                                 <input type="checkbox" class="cities" id="{{city.id}}">
-                                <span class="title">{{city.title}}</span>
-                                <!--<span class="count">3</span>-->
+                                <span class="title" style="max-width: 70%;">{{city.title}}</span>
+                                <span class="count">{{city.servicesCount}}</span>
                             </li>
                         </ul>
                     </div>
