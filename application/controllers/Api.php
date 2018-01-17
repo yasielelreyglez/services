@@ -292,8 +292,14 @@ class Api extends REST_Controller
         }
         if($current_position && $distance){
             $services = $this->filterByDistance($distance, $current_position, $filtered, $services);
+            $filtered = true;
         }
         $user=$this->getCurrentUser();
+        if(!$filtered){
+            $em = $this->doctrine->em;
+            $services_repo = $em->getRepository('Entities\Service');
+            $services = $services_repo->findAll();
+        }
 		foreach ($services as $service) {
 		    $service->loadRelatedData();
 		    if($user) {
