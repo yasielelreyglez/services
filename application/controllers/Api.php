@@ -100,7 +100,7 @@ class Api extends REST_Controller
         $subcategoriesRepo = $em->getRepository('Entities\Subcategory');
         $subcategories = $subcategoriesRepo->findAll();
         foreach ($subcategories as $subcategory){
-            $subcategory->countServices = $subcategory->getServices()->count();
+            $subcategory->servicesCount = $subcategory->getServices()->count();
         }
         $response["data"] = $subcategories;
         $response["count"] = count($subcategories);
