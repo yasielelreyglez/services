@@ -88,9 +88,19 @@ class Api extends REST_Controller
         $em = $this->doctrine->em;
         $categoriesRepo = $em->getRepository('Entities\Category');
         $categories = $categoriesRepo->findAll();
+
+        foreach ($categories as $category) {
+            $services= 0;
+            $subcats = $category->getSubcategories();
+            foreach ($subcats as $subcat) {
+                $services+=$subcat->getServices()->count();
+            }
+            $category->servicesCount = $services;
+        }
         $response["data"] = $categories;
         $response["count"] = count($categories);
         $this->set_response($response, REST_Controller::HTTP_OK);
+
     }
 
 //LISTADO DE LAS SUBCATEGORIAS (TODAS LAS SUBCATEGORIAS ?)
