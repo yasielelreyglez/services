@@ -70,11 +70,9 @@ export class ServiceProvider {
   get(search): Promise<Object> {
     return this.http
       .get(this.api.getbaseUrl() + 'api/searchService/'+search)
-      // .get<MyModel>(`${this.url}`)
       .toPromise()
       .then(
         (response) => {
-          console.log(response);
          return response;
         }
       ).catch(this.handleError);;
@@ -208,13 +206,39 @@ rateservice(id,value):Promise<Object>{
 
 }
 
-  filterService(cit,cat,dist,curr){
-    let params = new HttpParams().set('cities',cit);
-    params = params.append('categories',cat);
-     params = params.append('distance',dist);
-    //  params.append('current','');
+  filterService(cities,categories,distance,current){
+    // var params = new HttpParams();
 
-    return this.http.get(this.api.getbaseUrl() + 'api/filter',{ params: params })
+    // params = params.append('distance',dist);
+    // params = params.append('current.latitude',"23.106028199999997");
+    // params = params.append('current.longitude',"-82.3333833");
+
+
+  // if( cities.length  ){
+  //  cities.map(function(obj) {
+  //      params = params.append('cities',obj);
+  //  });
+  // }
+  // if( cat.length ){
+  //   cat.map(function(obj) {
+  //     params = params.append('categories',obj);
+  //   });
+  // }
+  // if( dist ){
+  //   //  let latitude:"23.106028199999997" ;
+  //   //  let longitude:"-82.3333833";
+  //   var current={
+  //     "latitude":23.106028199999997,
+  //     "longitude":-82.3333833
+  //   }
+  //     // params = params.append('distance',dist);
+  //     // params = params.append('current', current);
+  //      // params = params.append('latitude', "23.106028199999997");
+  //     // params = params.append('longitude', "-82.3333833");
+  // }
+
+  // return this.http.get(this.api.getbaseUrl() + 'api/filter', {params} )
+  return this.http.post(this.api.getbaseUrl() + 'api/filter', {cities,categories,distance,current} )
     .toPromise()
     .then(
       (response) => {

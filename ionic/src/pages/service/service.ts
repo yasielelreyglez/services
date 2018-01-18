@@ -7,21 +7,22 @@ import { AuthProvider } from "../../providers/auth/auth";
 import { GaleriaPage } from "../galeria/galeria";
 import { ComentariosPage } from "../comentarios/comentarios";
 import { Service } from '../../models/service';
+import { ServUpInfoComponent } from '../../components/serv-up-info/serv-up-info';
 
 @IonicPage()
 @Component({
   selector: 'page-service',
   templateUrl: 'service.html',
+  // entryComponents:[ ServUpInfoComponent]
 })
 export class ServicePage {
   response: Object;
   private service: Service;
-  private passedService: Service;
-
+  passedService: Service;
   cant_c :number;
   loggedIn: boolean;
+
   constructor(public navParams: NavParams,
-    // private callNumber: CallNumber,
     public servPro: ServiceProvider,
     public modalCtrl: ModalController,
     public auth: AuthProvider,
@@ -41,9 +42,6 @@ export class ServicePage {
 
   ionViewDidLoad() {
     this.loggedIn = this.auth.isLoggedIn();
-
-
-
   }
   ionViewDidEnter() {
 
@@ -79,5 +77,20 @@ export class ServicePage {
       service:this.passedService,
       cant_c:this.cant_c
     });
+  }
+
+  toogleFavorite(id) {
+    if (this.passedService.favorite == 1) {
+      this.servPro.diskMarkfavorite(id).then(
+        data => {
+          this.passedService.favorite = 0;
+        });
+    }
+    else {
+      this.servPro.markfavorite(id).then(
+        data => {
+          this.passedService.favorite = 1;
+        });
+    }
   }
 }

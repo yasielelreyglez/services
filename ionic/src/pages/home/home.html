@@ -1,15 +1,5 @@
-<!-- <ion-header>
-
-        <ion-navbar hideBackButton="false">
-            <ion-title text-center>
-                LOGO
-            </ion-title>
-            <app-header *ngIf="!connetionDown"></app-header>
-        </ion-navbar>
-
-    </ion-header> -->
 <ion-header>
-    <app-header [show]="!connetionDown"></app-header>
+    <app-header [showSearch]="false" [show]="!connetionDown"></app-header>
 </ion-header>
 
 <ion-content padding>
@@ -25,46 +15,33 @@
                                 <img (tap)="viewImg(serv.icon)" [src]="serv.icon ? serv.icon : 'assets/imgs/service_img.png' ">
                             </ion-col>
 
-                            <ion-col col-8>
+                            <ion-col col-8 (tap)='openServicePage(serv.id,i)'>
                                 <h2 class="serv-title ">{{serv.title }} </h2>
-
                                 <hr class="hr-separador">
                                 <ion-row>
-                                    <ion-col>
-                                        <p>Calificación: {{serv.globalrate}}/10</p>
+                                    <ion-col col-12>
                                         <p>Distancia: 5 km</p>
-                                    </ion-col>
-                                </ion-row>
-                                <ion-row class="pt--12" no-padding>
-                                    <ion-col col-5>
-                                        <p> Categoria:</p>
-                                    </ion-col>
-                                    <ion-col col-7>
                                         <p text-wrap><span *ngFor="let cat of serv.subcategoriesList; let i = index">
-                                      <ng-container *ngIf="i > 0; else elseTemplate">
-                                         ,{{ cat.title}}
-                                      </ng-container>
-                                      <ng-template #elseTemplate>
-                                         {{ cat.title}}
-                                      </ng-template>
-                                   </span>
+                          <ng-container *ngIf="i > 0; else elseTemplate">
+                              ,{{ cat.title}}
+                          </ng-container>
+                          <ng-template #elseTemplate>
+                              {{ cat.title}}
+                          </ng-template>
+                        </span>
                                         </p>
+                                        <ion-rating [readOnly]="true" [numStars]="5" [value]="serv.globalrate"></ion-rating>
+
                                     </ion-col>
+
                                 </ion-row>
+
                             </ion-col>
 
                         </ion-row>
 
-                        <ion-row>
-                            <ion-col col-12>
-                                <button ion-button full color="azul-claro" (click)='openServicePage(serv.id,serv)'>
-                  <ion-icon name="checkmark"></ion-icon>&nbsp;Ver detalle
-                </button>
-                            </ion-col>
-
-                        </ion-row>
                     </ion-grid>
-
+                    <hr class="hr-separador">
                 </ion-item>
 
             </ion-list>

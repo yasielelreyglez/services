@@ -1,7 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { ViewController,NavController,NavParams ,App} from 'ionic-angular';
 import {LoginPage} from '../login/login';
-import {SignupPage} from '../signup/signup';
+// import {SignupPage} from '../signup/signup';
 import {HomePage} from '../home/home';
 import {FavoritesPage} from '../favorites/favorites';
 import {MyservicesPage} from '../myservices/myservices';
@@ -26,62 +26,43 @@ export class PopoverPage implements OnInit {
     public appCtrl: App
    ) {
   }
-
   ngOnInit() {
     this.loggedIn = this.navPar.get("login");
   }
-
   close() {
     this.viewCtrl.dismiss();
   }
   logout() {
     this.auth.logout();
-    this.viewCtrl.dismiss();
-    let navList =this.appCtrl.getActiveNavs();
-    navList[0].pop;
-    navList[0].pop;
-    navList[0].pop;
-    console.log(this.appCtrl.getActiveNavs());
-    this.navCtrl.setRoot(HomePage);
-
-
-   // this.auth.logout();
-    //let navList =this.appCtrl.getActiveNavs();
-    //console.log(navList);
-   // this.navCtrl.popToRoot();
-   // this.viewCtrl.dismiss();
-
+    // this.navCtrl.popToRoot();
+    this.close()
+    this.appCtrl.getActiveNavs()[0].popToRoot();
   }
-
   openLoginPage(){
-    this.navCtrl.push(LoginPage);
-    this.viewCtrl.dismiss();
+    this.close()
+    this.appCtrl.getActiveNavs()[0].push("LoginPage");
   }
   openSignUpPage(){
-    this.navCtrl.push(SignupPage);
-    this.viewCtrl.dismiss();
+    this.close()
+    this.appCtrl.getActiveNavs()[0].push("SignupPage");
   }
   openFavoritesPage(){
-    //this.navCtrl.push(FavoritesPage,);
-    this.viewCtrl.dismiss();
-    // this.appCtrl.getRootNav().push(FavoritesPage);
-
+    this.close()
     this.appCtrl.getActiveNavs()[0].push(FavoritesPage);
-
   }
   openBusquedaPage(){
     this.navCtrl.push(BusquedaPage);
-    this.viewCtrl.dismiss();
+    this.close()
   }
   openMyServicesPage(){
-    this.navCtrl.push(MyservicesPage);
-    this.viewCtrl.dismiss();
-  }
+    // this.navCtrl.push(MyservicesPage);
+    // this.close()
 
+    this.close()
+    this.appCtrl.getActiveNavs()[0].push(MyservicesPage);
+  }
   openCreatePage(){
     this.navCtrl.push(Create1Page);
-     this.viewCtrl.dismiss();
-
-    // this.viewCtrl.dismiss();
+    this.close()
   }
 }

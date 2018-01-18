@@ -1,10 +1,6 @@
 <ion-header>
 
-    <ion-navbar>
-        <ion-title text-center>
-            LOGO
-        </ion-title>
-    </ion-navbar>
+    <app-header></app-header>
 
 </ion-header>
 
@@ -13,64 +9,49 @@
     <ion-label text-center color="azul-claro">Mis anuncios favoritos</ion-label>
     <hr class="hr-separador">
     <ion-list>
-        <ion-item-sliding *ngFor="let serv of services">
-            <ion-item>
-                <ion-grid>
-                    <ion-row>
-                        <ion-col col-4>
-                            <ng-container *ngIf="serv.icon; else imgTemplate">
-                                <img (tap)="viewImg(serv.icon)" src="{{serv.icon}}">
-                            </ng-container>
-                            <ng-template #imgTemplate>
-                                <img (tap)="viewImg(assets/imgs/service_img.png)" src="assets/imgs/service_img.png">
-                            </ng-template>
-                        </ion-col>
 
-                        <ion-col col-8>
-                            <h2 class="azul-claro">{{serv.title }} </h2>
-                            <hr class="hr-separador">
-                            <ion-row>
-                                <ion-col>
-                                    <p>Calificación: {{serv.globalrate}}/10</p>
-                                    <p>Distancia: 5 km</p>
-                                </ion-col>
+        <ion-item *ngFor="let serv of services">
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-4>
+                        <ng-container *ngIf="serv.icon; else imgTemplate">
+                            <img (tap)="viewImg(serv.icon)" src="{{serv.icon}}">
+                        </ng-container>
+                        <ng-template #imgTemplate>
+                            <img (tap)="viewImg(assets/imgs/service_img.png)" src="assets/imgs/service_img.png">
+                        </ng-template>
+                    </ion-col>
 
-                            </ion-row>
-                            <ion-row class="pt--12">
-                                <ion-col col-auto>
-                                    <p> Categoria:</p>
-                                </ion-col>
-                                <ion-col col-auto>
-                                    <p *ngFor="let cat of serv.subcategoriesList; let i = index">
-                                        <ng-container *ngIf="i > 0; else elseTemplate">
-                                            ,{{ cat.title}}
-                                        </ng-container>
-                                        <ng-template #elseTemplate>
-                                            {{ cat.title}}
-                                        </ng-template>
-                                    </p>
-                                </ion-col>
-                            </ion-row>
-                        </ion-col>
+                    <ion-col col-8>
+                        <h2 class="azul-claro">{{serv.title }} </h2>
+                        <hr class="hr-separador">
+                        <ion-row>
+                            <ion-col col-9 style="margin-left: -10px;">
+                                <p>Calificación: {{serv.globalrate}}/10</p>
+                                <p>Distancia: 5 km</p>
+                            </ion-col>
+                            <ion-col col-3 style="margin-left: 7px;">
+                                <button (click)="delete(serv.id)" color="danger" ion-button icon-only>
+                                        <ion-icon name="close"></ion-icon>
+                                    </button>
+                            </ion-col>
+                        </ion-row>
+                        <p style="margin-left: -6px; margin-top: -10px;" text-wrap text-left>Categoria: <span *ngFor="let cat of serv.subcategoriesList; let i = index">
+                                    <ng-container *ngIf="i > 0; else elseTemplate">
+                                       <!-- ,{{ cat.title}} -->
+                                    </ng-container>
+                                    <ng-template #elseTemplate>
+                                       {{ cat.title}}
+                                    </ng-template>
+                                 </span>
+                        </p>
 
-                    </ion-row>
+                    </ion-col>
 
-                    <ion-row>
-                        <ion-col col-12>
-                            <button ion-button full color="azul-claro" (click)='openServicePage(serv.id,serv)'>
-                      <ion-icon name="checkmark"></ion-icon>&nbsp;Ver detalle
-                    </button>
-                        </ion-col>
+                </ion-row>
 
-                    </ion-row>
-                </ion-grid>
-            </ion-item>
-            <ion-item-options side="right">
-                <button class="fs-30" (click)="delete(serv.id)" ion-button color="danger">
-                <ion-icon name="trash"></ion-icon>
-              </button>
-            </ion-item-options>
-        </ion-item-sliding>
+            </ion-grid>
+        </ion-item>
 
     </ion-list>
 

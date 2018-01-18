@@ -15,9 +15,20 @@ import  {AuthProvider} from  '../../providers/auth/auth';
 })
 export class AppHeaderComponent implements OnInit {
   @Input() show: boolean = true;
+  @Input() showSearch: boolean = true;
+  @Input() showPopover: boolean = true;
+  @Input() title: string = '';
+
   loggedIn: boolean;
+  toggled: boolean;
+  searchTerm: String = '';
+  items: string[];
+
   constructor(public popCtrl: PopoverController,public auth: AuthProvider,public viewCtrl: ViewController ) {  }
   ngOnInit() {
+    this.toggled = false;
+    this.initializeItems();
+
     this.auth.currentUser.subscribe(user=>{
       this.loggedIn = !!user;
      });
@@ -28,6 +39,27 @@ export class AppHeaderComponent implements OnInit {
     popover.present({
       ev: ev,
     });
+  }
+
+  toggleSearch() {
+    this.toggled = this.toggled ? false : true;
+  }
+
+  initializeItems() {
+      this.items = ['Amsterdam','Bogota','Mumbai','San José','Salvador'];
+  }
+
+  triggerInput( ev: any ) {
+      // Reset items back to all of the items
+      this.initializeItems();
+      // set val to the value of the searchbar
+      let val = ev.target.value;
+      // if the value is an empty string don't filter the items
+      if (val && val.trim() != '') {
+        this.items = this.items.filter((item) => {
+          return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        })
+      }
   }
 
 }

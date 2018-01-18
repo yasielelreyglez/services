@@ -13,8 +13,8 @@ import { PopoverPage } from '../pages/pop-over/pop-over';
 import { CategoriesPage } from '../pages/categories/categories';
 import { SubcategoriesPage } from '../pages/subcategories/subcategories';
 import { ServicesPage } from '../pages/services/services';
-import { LoginPage  } from '../pages/login/login';
-import { SignupPage  } from '../pages/signup/signup';
+// import { LoginPage  } from '../pages/login/login';
+// import { SignupPage  } from '../pages/signup/signup';
 import { FavoritesPage  } from '../pages/favorites/favorites';
 import { BusquedaPage  } from '../pages/busqueda/busqueda';
 import { MyservicesPage  } from '../pages/myservices/myservices';
@@ -26,6 +26,8 @@ import { GaleriaPage } from "../pages/galeria/galeria";
 import { ComentariosPage } from "../pages/comentarios/comentarios";
 import { Create1Page } from "../pages/create1/create1";
 import { Create2Page } from "../pages/create2/create2";
+import {  TabPage} from "../pages/tab/tab";
+import {  TabMapaPage} from "../pages/tab-mapa/tab-mapa";
 
 
 // Componentes
@@ -50,28 +52,29 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Create3Page } from '../pages/create3/create3';
 import { Create4Page } from '../pages/create4/create4';
 import { PagarPage } from '../pages/pagar/pagar';
-
-// import { FilePath } from '@ionic-native/file-path';
-
+import { FiltroModalPage } from '../pages/filtro-modal/filtro-modal';
+import { ConnectivityProvider } from '../providers/connectivity/connectivity';
 
 @NgModule({
   declarations: [
     MyApp,
+    TabPage,
     HomePage,
     PopoverPage,
     CategoriesPage,
     SubcategoriesPage,
     AppHeaderComponent,
+    IonRating,
+    ServUpInfoComponent,
     ServicesPage,
-    LoginPage,
-    SignupPage,
+    // LoginPage,
+    // SignupPage,
+    FiltroModalPage,
     FavoritesPage,
     BusquedaPage,
     MyservicesPage,
     ServicePage,
     RatePage,
-    IonRating,
-    ServUpInfoComponent,
     InfoPage,
     MapaPage,
     GaleriaPage,
@@ -80,7 +83,8 @@ import { PagarPage } from '../pages/pagar/pagar';
     Create2Page,
     Create3Page,
     Create4Page,
-    PagarPage
+    PagarPage,
+    TabMapaPage
 
   ],
   imports: [
@@ -91,25 +95,30 @@ import { PagarPage } from '../pages/pagar/pagar';
       scrollPadding: false,
       scrollAssist: true, //estaba true
       // autoFocusAssist: false
+      // Tabs config
+      tabsHideOnSubPages: true,
     })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    TabPage,
     HomePage,
     PopoverPage,
     CategoriesPage,
     SubcategoriesPage,
     AppHeaderComponent,
+    IonRating,
+    ServUpInfoComponent,
     ServicesPage,
-    LoginPage,
-    SignupPage,
+    FiltroModalPage,
+    // LoginPage,
+    // SignupPage,
     FavoritesPage,
     BusquedaPage,
     MyservicesPage,
-    ServicePage,
+     ServicePage,
     RatePage,
-    IonRating,
     InfoPage,
     MapaPage,
     GaleriaPage,
@@ -118,8 +127,8 @@ import { PagarPage } from '../pages/pagar/pagar';
     Create2Page,
     Create3Page,
     Create4Page,
-    PagarPage
-
+    PagarPage,
+    TabMapaPage
   ],
   providers: [
     StatusBar,
@@ -135,7 +144,8 @@ import { PagarPage } from '../pages/pagar/pagar';
     CategoryProvider,
     ServiceProvider,
     AuthProvider,
-    ApiProvider
+    ApiProvider,
+    ConnectivityProvider
     ]
 })
 export class AppModule {}

@@ -11,7 +11,7 @@
 <ion-content padding>
 
 
-    <ion-label text-center color="azul-claro">Registrarse</ion-label>
+    <ion-label text-center color="azul-claro">Crear cuenta</ion-label>
 
     <hr class="hr-separador">
 
@@ -38,13 +38,15 @@
                 <ion-label stacked>Repetir contraseña</ion-label>
                 <ion-input type="password" name="confirmpassword" class="form-control" [(ngModel)]="user.confirmpassword" placeholder="Escriba su contraseña..." required></ion-input>
             </ion-item>
-
-            {{f.form.error}}
+            <ion-item no-lines>
+                <ion-label>Acepto las condiciones del servicio</ion-label>
+                <ion-checkbox [(ngModel)]="condiciones" name="condiciones"></ion-checkbox>
+            </ion-item>
 
             <div padding>
-                <button class="btn-text-left" text-left color="azul-claro" ion-button block margin-bottom="1" margin-top="2">
+                <button [disabled]="!condiciones || !f.form.valid" class="btn-text-left" text-left color="azul-claro" ion-button block margin-bottom="1" margin-top="2">
                     <i class="fa fa-list-alt" aria-hidden="true"></i>
-                    &nbsp;  Registrarse
+                    &nbsp;  Crear cuenta
 
                 </button>
             </div>
@@ -52,7 +54,7 @@
         </ion-list>
     </form>
 
-    <ion-label text-center><b>Si quieres puedes registrarte también con::</b></ion-label>
+    <ion-label text-center color="azul-claro"><b>Si quieres puedes crear una cuenta con::</b></ion-label>
     <button class="btn-text-left" text-left color="azul-facebook" ion-button block margin-bottom="1">
         <i class="fa fa-facebook-official" aria-hidden="true"></i>&nbsp;
         facebook

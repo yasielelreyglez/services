@@ -10,6 +10,7 @@ import { PagarPage } from '../pagar/pagar';
 @Component({
   selector: 'page-myservices',
   templateUrl: 'myservices.html',
+
 })
 export class MyservicesPage {
   // declaracion de variables
@@ -53,7 +54,6 @@ export class MyservicesPage {
             this.servProv.deleteService(id).then(
               (response) => {
                 this.services = this.services.filter(service => service.id !== id);
-                  console.log(response);
               }
             ).catch(
               (error) => {}
@@ -74,16 +74,23 @@ export class MyservicesPage {
   }
 
   openServicePage(id,serv) {
-        this.viewCtrl.dismiss();
-        this.appCtrl.getActiveNavs()[0].push(ServicePage, {
-          serviceId: id,
-          service:serv
-        });
+        // this.navCtrl.push("ServicePage",{
+        //   serviceId: id,
+        //   service:serv
+        // });
+        // this.viewCtrl.dismiss();
+        this.navCtrl.push(ServicePage, {
+            serviceId: id,
+            service:serv
+          });
+        // this.appCtrl.getActiveNavs()[0].push(ServicePage, {
+        //   serviceId: id,
+        //   service:serv
+        // });
 
   }
   pagar(){
     this.navCtrl.push(PagarPage);
-
   }
   editService(serv){
     this.navCtrl.push(Create1Page, {

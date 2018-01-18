@@ -1,102 +1,69 @@
 <ion-header>
-
-    <ion-navbar>
-        <ion-title text-center>
-            LOGO
-        </ion-title>
-    </ion-navbar>
-
+    <app-header></app-header>
 </ion-header>
-
 
 <ion-content>
     <ion-label text-center color="azul-claro">Mis anuncios creados</ion-label>
 
-    <hr class="hr-separador">
+    <hr class="hr-separador" style="width: 330px;">
     <ion-list>
-
-
 
         <ion-item *ngFor="let serv of services">
             <ion-grid>
                 <ion-row align-items-start>
-                    <ion-col col-4>
+                    <ion-col col-3>
                         <p style="color:red; text-align: center;">Bloqueado</p>
                         <img (tap)="viewImg(serv.icon)" [src]="serv.icon ?  + serv.icon : 'assets/imgs/service_img.png' ">
                     </ion-col>
 
-                    <ion-col col-8>
+                    <ion-col col-9>
                         <h2 class="title" class="azul-claro">{{serv.title }} </h2>
                         <hr class="hr-separador">
                         <ion-row>
-                            <ion-col>
-
-                                <p>Calificación: {{serv.globalrate}}/10</p>
-                                <p>Distancia: 5 km</p>
-                                <p text-wrap>Categoria: <span *ngFor="let cat of serv.subcategoriesList; let i = index">
+                            <ion-col col-8 style="margin-left: -10px;">
+                                <p class="fs-10" text-wrap>Categoria: <span *ngFor="let cat of serv.subcategoriesList; let i = index">
                                     <ng-container *ngIf="i > 0; else elseTemplate">
-                                       ,{{ cat.title}}
+                                       <!-- ,{{ cat.title}} -->
                                     </ng-container>
                                     <ng-template #elseTemplate>
                                        {{ cat.title}}
                                     </ng-template>
-
                                  </span>
                                 </p>
-                                <p>Visialización: 2017-02-24</p>
-
+                                <p class="fs-10" text-wrap>Ciudad: <span *ngFor="let city of serv.citiesList	; let i = index">
+                                    <ng-container *ngIf="i > 0; else elseTemplate">
+                                       <!-- ,{{ cat.title}} -->
+                                    </ng-container>
+                                    <ng-template #elseTemplate>
+                                       {{ city.title}}
+                                    </ng-template>
+                                 </span>
+                                </p>
+                                <!-- <p>Ciudad: Quito</p> -->
+                                <ion-rating [readOnly]="true" [numStars]="5" [value]="serv.globalrate/2"></ion-rating>
                             </ion-col>
-
-                        </ion-row>
-                        <ion-row>
-                            <ion-col col-3>
-                                <button (click)="pagar()" class="action" ion-button icon-only color="secondary">
-                                    <ion-icon class="fs-30"  name="cash"></ion-icon>
+                            <ion-col col-4>
+                                <button class="fs-10" (click)='openServicePage(serv.id,serv)' color="azul-claro" ion-button block small icon-left>
+                              <ion-icon  name="checkmark"></ion-icon>
+                              Ver
+                            </button>
+                                <button class="fs-10" (click)="editService(serv)" color="warning" ion-button small block icon-left>
+                                <ion-icon name="clipboard"></ion-icon>
+                                Editar
+                              </button>
+                                <button class="fs-10" (click)="pagar()" color="secondary" ion-button small block icon-left>
+                                  <ion-icon name="cash"></ion-icon>
+                                 Pagar
+                                </button>
+                                <button class="fs-10" (click)="delete(serv.id)" color="danger" ion-button small block icon-left>
+                                    <ion-icon name="close"></ion-icon>
+                                    Eliminar
                                   </button>
                             </ion-col>
-                            <ion-col col-3>
-                                <button (click)='openServicePage(serv.id,serv)' class="action" ion-button icon-only color="azul-claro">
-                                    <ion-icon class="fs-30"  name="checkmark"></ion-icon>
-                                  </button>
-                            </ion-col>
-                            <ion-col col-3>
-                                <button (click)="editService(serv)" class="action" ion-button icon-only color="warning">
-                                    <ion-icon class="fs-30"  name="clipboard"></ion-icon>
-                                  </button>
-                            </ion-col>
-                            <ion-col col-3>
-                                <button (click)="delete(serv.id)" class="action" ion-button icon-only color="danger">
-                                    <ion-icon class="fs-30"  name="close"></ion-icon>
-                                  </button>
-                            </ion-col>
-
                         </ion-row>
                     </ion-col>
-
                 </ion-row>
-
-
             </ion-grid>
-
-
-            <!-- <ion-thumbnail item-start>
-                <p style="color:red; text-align: center;">Bloqueado</p>
-                <ng-container *ngIf="serv.icon; else imgTemplate">
-                    <img src="{{ serv.icon}}">
-                </ng-container>
-                <ng-template #imgTemplate>
-                    <img src="assets/imgs/service_img.png">
-                </ng-template>
-            </ion-thumbnail>
-            <h2 class="serv-title">{{serv.title}}</h2>
-            <hr style="border-bottom: 1px solid #dedede;">
-            <p>Categoria: Hogar</p>
-            <p>Ciudad: Quito</p>
-            <p>Evaluación: {{serv.globalrate}}/10</p> -->
-
-
         </ion-item>
-
     </ion-list>
-
 </ion-content>

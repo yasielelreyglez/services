@@ -18,15 +18,15 @@ declare var google;
 })
 export class MapaPage {
   wacthed: any;
+  watch:any;
+  latLng: any;
+  currentP: any;
   havePosition: boolean;
   destinos: any[];
-  watch:any;
   zoom:any =15;
-  currentP: any;
   cant_c: any;
   positions: Position[] = [];
   infowindow = new google.maps.InfoWindow;
-  latLng: any;
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
   distanceM = new google.maps.DistanceMatrixService();
@@ -46,7 +46,9 @@ export class MapaPage {
 
     });
   }
-
+  ionViewDidEnter(){
+    this.getLocation();
+  }
   ionViewDidLoad() {
     this.wacthed=false;
     this.service = this.navParams.get("service");
@@ -90,11 +92,11 @@ export class MapaPage {
         this.directionsDisplay.setMap(this.map);
         this.directionsDisplay.setDirections(response);
         if (!this.wacthed) {
-          console.log("this.wacthed");
           this.watch = this.geolocation.watchPosition({maximumAge :60000,timeout:60000})
           .filter((p) => p.coords !== undefined)
           .subscribe(position => {
               this.wacthed=true;
+              console.log("CAMBIO");
                let newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                if(!this.latLng.equals( newPosition ))
                {
@@ -123,7 +125,6 @@ export class MapaPage {
 
   loadMap() {
     let mapOptions = {
-      // center: this.latLng,
       center: new google.maps.LatLng(23.13302, -82.38304),
       disableDefaultUI: true,
       zoom: 15,
@@ -146,7 +147,6 @@ export class MapaPage {
     this.map.addListener('zoom_changed', this.actualZoom(this) );
 
   }
-
   getLocation() {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.havePosition=true;
@@ -172,6 +172,7 @@ export class MapaPage {
           travelMode: 'DRIVING'
         },this.showDistance(this.events));
     });
+
   }
 
   addInfoWindow(marker, content) {

@@ -5,27 +5,27 @@ import { ApiProvider } from '../../providers/api/api';
 import { RatePage } from '../../pages/rate/rate';
 import { ModalController, Platform } from 'ionic-angular';
 import { ServiceProvider } from '../../providers/service/service.service';
-import {PhotoViewer} from '@ionic-native/photo-viewer';
+import { PhotoViewer} from '@ionic-native/photo-viewer';
 import { Service } from '../../models/service';
 
 @Component({
   selector: 'serv-up-info',
   templateUrl: 'serv-up-info.html'
 })
-export class ServUpInfoComponent {
+export class ServUpInfoComponent{
 	@Input() passedService:Service;
-  loggedIn: boolean;
-  @Input() cant_c :number = 0;
+  @Input() cantComentarios :number = 0;
   @Output() rateService: EventEmitter<any> = new EventEmitter<any>();
+  loggedIn: boolean;
+
 
   constructor(public api: ApiProvider, public auth: AuthProvider,
     private callNumber: CallNumber,
     public servPro: ServiceProvider,
     public modalCtrl: ModalController,
-    private photoViewer: PhotoViewer,private platform: Platform
-  ) {
+    private photoViewer: PhotoViewer,private platform: Platform) {  }
 
-  }
+
   ngAfterViewInit(){
     this.loggedIn = this.auth.isLoggedIn();
   }

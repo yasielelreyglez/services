@@ -69,14 +69,27 @@ export class ComentariosPage {
   showPromptDenuncia(id) {
     let prompt = this.alertCtrl.create({
       title: 'Denunciar comentario',
-      message: "Escriba la denuncia",
+      message: "Elije la denuncia que desea hacer",
       enableBackdropDismiss: false,
+      // <ion-radio checked="true" value="go"></ion-radio>
       inputs: [
         {
-          name: 'denuncia',
-          type: 'textarea',
+          name: 'denuncia1',
+          type: 'radio',
+          label: 'Denuncia 1'
+
+        }, {
+          name: 'denuncia2',
+          type: 'radio',
+          label: 'Denuncia 2'
+
+        }, {
+          name: 'denuncia3',
+          type: 'radio',
+          label: 'Denuncia 3'
 
         },
+
       ],
       buttons: [
         {
@@ -86,7 +99,7 @@ export class ComentariosPage {
           }
         },
         {
-          text: 'Denunciar',
+          text: 'Realizar denuncia',
           handler: data => {
              this.api.reportComment(id)
           }

@@ -1,12 +1,21 @@
-<!-- Generated template for the AppHeaderComponent component -->
-
-<ion-navbar hideBackButton="false">
-    <ion-title text-center>
+<ion-navbar hideBackButton="!toggled">
+    <!-- <ion-title text-center>
         LOGO
     </ion-title>
     <ion-buttons *ngIf="show" end>
         <button ion-button icon-only (click)="presentPopover($event)">
         <ion-icon name="reorder"></ion-icon>
       </button>
-    </ion-buttons>
-</ion-navbar>
+    </ion-buttons> -->
+
+    <ion-navbar>
+
+        <ion-title text-center *ngIf="!toggled">{{title}}</ion-title>
+        <ion-searchbar placeholder="Buscar..." *ngIf="toggled" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch()" (ionInput)="triggerInput($event)"></ion-searchbar>
+        <ion-buttons end *ngIf="!toggled">
+            <button *ngIf="showSearch" ion-button icon-only (click)="toggleSearch()"><ion-icon
+  name="search"></ion-icon></button>
+            <button *ngIf="showPopover" ion-button icon-only (click)="presentPopover($event)"><ion-icon
+    name="more"></ion-icon></button>
+        </ion-buttons>
+    </ion-navbar>

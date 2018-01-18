@@ -10,6 +10,7 @@ import {
 import {User} from '../../models/user';
 import {AuthProvider} from '../../providers/auth/auth';
 import { HomePage } from '../home/home';
+// import { SignupPage } from '../signup/signup';
 
 @IonicPage()
 @Component({
@@ -98,7 +99,7 @@ export class LoginPage {
         if (result === true) {
           this.loading.dismiss();
            this.navCtrl.setRoot(HomePage);
-           this.navCtrl.pop();
+          //  this.navCtrl.pop();
         } else {
           let toast = this.toastCtrl.create({
             message: "Correo y/o contraseña incorrectos",
@@ -140,6 +141,10 @@ llenarCampos(){
     });
     toast.present();
 }
+  goToSignup(){
+    this.navCtrl.push("SignupPage");
+    // this.navCtrl.push(SignupPage);
+  }
 
 }
 

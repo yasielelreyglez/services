@@ -49,5 +49,16 @@ export class BusquedaPage {
     this.photoViewer.show( img);
     });
   }
+  delete(id){
+    //hacer el
+    // this.servProv.diskMarkfavorite(id).then(
+    //   data => {
+    //     this.events.publish('dismark:favorite', id);
+        this.services = this.services.filter(function(item){
+          return item.id !== id;
+        });
+    //   }
+    // );
+  }
 
 }
