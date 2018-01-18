@@ -103,7 +103,7 @@ class Api extends REST_Controller
 
     }
 
-    public function categoriesLoaded(){
+    public function categoriesLoaded_get(){
         $em = $this->doctrine->em;
         $categoriesRepo = $em->getRepository('Entities\Category');
         $categories = $categoriesRepo->findAll();

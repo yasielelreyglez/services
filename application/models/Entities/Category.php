@@ -30,7 +30,7 @@ class Category
      *
      * @OneToMany(targetEntity="Subcategory", mappedBy="category")
      */
-    private $subcategories;
+    public $subcategories;
 
     public function __construct()
     {
