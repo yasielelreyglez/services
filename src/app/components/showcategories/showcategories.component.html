@@ -33,9 +33,9 @@
 <div class="categories" style="background-color: #f5f5f5;">
     <div class="container">
         <div class="row">
-            <div class="col-md-4" *ngFor="let category of categories" style="margin-bottom: 30px;">
+            <div class="col-md-4" *ngFor="let category of categories; let pos = index" style="margin-bottom: 30px;">
                 <div class="category-block">
-                    <div class="category-header header-jobs">
+                    <div class="category-header header-{{pos%3}}">
                         <h5>{{category.title}}</h5>
                         <div class="icon">
                             <div class="icon-inner" style="overflow: hidden;">
