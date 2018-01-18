@@ -88,11 +88,40 @@ class Api extends REST_Controller
         $em = $this->doctrine->em;
         $categoriesRepo = $em->getRepository('Entities\Category');
         $categories = $categoriesRepo->findAll();
+
+        foreach ($categories as $category) {
+            $services= 0;
+            $subcats = $category->getSubcategories();
+            foreach ($subcats as $subcat) {
+                $services+=$subcat->getServices()->count();
+            }
+            $category->servicesCount = $services;
+        }
+        $response["data"] = $categories;
+        $response["count"] = count($categories);
+        $this->set_response($response, REST_Controller::HTTP_OK);
+
+    }
+
+    public function categoriesLoaded_get(){
+        $em = $this->doctrine->em;
+        $categoriesRepo = $em->getRepository('Entities\Category');
+        $categories = $categoriesRepo->findAll();
+
+        foreach ($categories as $category) {
+            $services= 0;
+            $subcats = $category->getSubcategories();
+            foreach ($subcats as $subcat) {
+                $subcat->servicesCount = $subcat->getServices()->count();
+                $services+=$subcat->getServices()->count();
+            }
+            $category->subcategories = $subcats;
+            $category->servicesCount = $services;
+        }
         $response["data"] = $categories;
         $response["count"] = count($categories);
         $this->set_response($response, REST_Controller::HTTP_OK);
     }
-
 //LISTADO DE LAS SUBCATEGORIAS (TODAS LAS SUBCATEGORIAS ?)
     public function allsubcategories_get()
     {
@@ -100,7 +129,7 @@ class Api extends REST_Controller
         $subcategoriesRepo = $em->getRepository('Entities\Subcategory');
         $subcategories = $subcategoriesRepo->findAll();
         foreach ($subcategories as $subcategory){
-            $subcategory->countServices = $subcategory->getServices()->count();
+            $subcategory->servicesCount = $subcategory->getServices()->count();
         }
         $response["data"] = $subcategories;
         $response["count"] = count($subcategories);

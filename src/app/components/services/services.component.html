@@ -239,8 +239,8 @@
 
 <div id="listing-3" class="listing listing-3">
     <div class="row">
-        <div *ngFor="let service of services" class="col-xs-6">
-            <div class="listing-grid listing-grid-1">
+        <div *ngFor="let service of services" class="col-md-6">
+            <div class="listing-grid listing-grid-3">
                 <div class="listing-heading">
                     <div *ngIf="service.professional" class="marker-ribbon">
                         <div class="ribbon-banner">
@@ -295,8 +295,15 @@
                     </ul> <!-- end .uou-accordions -->
                     <div class="info-footer">
                         <!--<i class="fa fa-map-marker location"></i>-->
-                        <h6>{{service.subcategoriesList[0].title}}</h6>
+                        <!--<h6>{{service.subcategoriesList[0].title}}</h6>-->
+                        <a *ngIf="!myservices" [routerLink]="['service', service.id]">Ver detalles</a>
                         <!--<i *ngIf="service.professional" class="fa fa-bookmark bookmark pull-right"></i>-->
+                        <ul *ngIf="myservices" class="bookmark list-inline">
+                            <li data-tooltip="Ver detalles"><a href="#"><i class="fa fa-eye"></i></a></li>
+                            <li data-tooltip="Editar"><a href="#"><i class="fa fa-pencil-square-o"></i></a></li>
+                            <li data-tooltip="Pagar"><a href="#"><i class="fa fa-dollar"></i></a></li>
+                            <li data-tooltip="Eliminar"><a href="#"><i class="fa fa-remove"></i></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -308,13 +315,14 @@
     <div class="row">
         <div class="col-md-12">
             <div class="listing-section">
-                <div class="listing-ver-2" style="margin-bottom: 30px;" *ngFor="let service of services; let pos = index">
+                <div class="listing-ver-2" style="margin-bottom: 30px;"
+                     *ngFor="let service of services; let pos = index">
                     <div class="listing-heading">
                         <h5><a [routerLink]="['service', service.id]">{{service.title}}</a></h5>
                         <!--<a href="#"><i class="fa fa-bookmark"></i></a>-->
                     </div>
                     <div class="basic">
-                        <div class="listing-inner">
+                        <div class="listing-inner" style="min-height: 220px;">
                             <div class="flexslider default-slider">
                                 <ul class="slides">
                                     <li class="flex-active-slide"
@@ -327,30 +335,28 @@
                                     </li>
                                 </ul>
                                 <!--<ol class="flex-control-nav flex-control-paging">-->
-                                    <!--<li><a class="flex-active">1</a></li>-->
-                                    <!--<li><a class="">2</a></li>-->
+                                <!--<li><a class="flex-active">1</a></li>-->
+                                <!--<li><a class="">2</a></li>-->
                                 <!--</ol>-->
                                 <!--<ul class="flex-direction-nav">-->
-                                    <!--<li><a class="flex-prev" href="#"></a></li>-->
-                                    <!--<li><a class="flex-next" href="#"></a></li>-->
+                                <!--<li><a class="flex-prev" href="#"></a></li>-->
+                                <!--<li><a class="flex-next" href="#"></a></li>-->
                                 <!--</ul>-->
                             </div>
                             <div class="listing-content">
-                                <h6 class="main-title">Secondary Heading</h6>
-                                <span class="location">
-                      <i class="fa fa-map-marker"></i>
-                      Location
-                    </span>
-                                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Integer turpis nisi
-                                    eleifend quis arcu eu blandit aliquet ori pellentesque habitant morbi tristique
-                                    senectus et netus et malesuada.</p>
+                                <h6 class="main-title">{{service.subtitle}}</h6>
+                                <!--<span class="location">-->
+                                <!--<i class="fa fa-map-marker"></i>-->
+                                <!--Location-->
+                                <!--</span>-->
+                                <p>{{service.description}}</p>
                                 <!--<h6 class="title-tags">Tags:</h6>-->
                                 <!--<ul class="tags list-inline">-->
-                                    <!--<li><a href="#">Tag 1</a></li>-->
-                                    <!--<li><a href="#">Tag 2</a></li>-->
-                                    <!--<li><a href="#">Tag 3</a></li>-->
-                                    <!--<li><a href="#">Tag 4</a></li>-->
-                                    <!--<li><a href="#">Tag 5</a></li>-->
+                                <!--<li><a href="#">Tag 1</a></li>-->
+                                <!--<li><a href="#">Tag 2</a></li>-->
+                                <!--<li><a href="#">Tag 3</a></li>-->
+                                <!--<li><a href="#">Tag 4</a></li>-->
+                                <!--<li><a href="#">Tag 5</a></li>-->
                                 <!--</ul>-->
                             </div>
                         </div>
@@ -377,25 +383,10 @@
                     <div id="basic{{pos}}" class="tab-pane fade in active report">
                         <div class="listing-inner">
                             <div class="listing-content">
-                                <h6 class="main-title">Aqui va el mapa</h6>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <select class="custom-select">
-                                            <option value="0" selected="">Report Category</option>
-                                            <option value="1">Prior</option>
-                                            <option value="2">Standard</option>
-                                        </select>
-                                        <select class="custom-select">
-                                            <option value="0" selected="">Reasons for report</option>
-                                            <option value="1">Illegal anons</option>
-                                            <option value="2">Cheater employee</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <textarea name="message" placeholder="Your Message"></textarea>
-                                        <input class="btn btn-primary" value="Submit" type="button">
-                                    </div>
-                                </div>
+                                <h6 class="main-title">...</h6>
+                                <!--<div class="row">-->
+
+                                <!--</div>-->
                             </div>
                         </div>
                     </div>
@@ -470,17 +461,24 @@
                                 <div class="row">
                                     <div class="col-md-5">
                                         <ul class="schedule">
-                                            <li><span class="day">Monday</span> <span class="hours">10:00 AM - 7:00 PM</span></li>
-                                            <li><span class="day">Tuesday</span> <span class="hours">10:00 AM - 7:00 PM</span></li>
-                                            <li><span class="day">Wednesday</span> <span class="hours">10:00 AM - 7:00 PM</span></li>
-                                            <li class="sunday"><span class="day">Sunday</span> <span class="hours">Closed</span></li>
+                                            <li><span class="day">Monday</span> <span
+                                                    class="hours">10:00 AM - 7:00 PM</span></li>
+                                            <li><span class="day">Tuesday</span> <span
+                                                    class="hours">10:00 AM - 7:00 PM</span></li>
+                                            <li><span class="day">Wednesday</span> <span class="hours">10:00 AM - 7:00 PM</span>
+                                            </li>
+                                            <li class="sunday"><span class="day">Sunday</span> <span class="hours">Closed</span>
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="col-md-5">
                                         <ul class="schedule">
-                                            <li><span class="day">Thursday</span><span class="hours">10:00 AM - 7:00 PM</span></li>
-                                            <li><span class="day">Friday</span><span class="hours">10:00 AM - 7:00 PM</span></li>
-                                            <li><span class="day">Saturday</span><span class="hours">10:00 AM - 7:00 PM</span></li>
+                                            <li><span class="day">Thursday</span><span
+                                                    class="hours">10:00 AM - 7:00 PM</span></li>
+                                            <li><span class="day">Friday</span><span
+                                                    class="hours">10:00 AM - 7:00 PM</span></li>
+                                            <li><span class="day">Saturday</span><span
+                                                    class="hours">10:00 AM - 7:00 PM</span></li>
                                         </ul>
                                     </div>
                                 </div>
