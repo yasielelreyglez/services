@@ -103,7 +103,7 @@ class Api extends REST_Controller
 
     }
 
-    public function categoriesLoaded(){
+    public function categoriesLoaded_get(){
         $em = $this->doctrine->em;
         $categoriesRepo = $em->getRepository('Entities\Category');
         $categories = $categoriesRepo->findAll();
@@ -111,11 +111,16 @@ class Api extends REST_Controller
         foreach ($categories as $category) {
             $services= 0;
             $subcats = $category->getSubcategories();
+            $subcats_array = array();
             foreach ($subcats as $subcat) {
-                $subcat->servicesCount = $subcat->getServices()->count();
-                $services+=$subcat->getServices()->count();
+                $objSubcat = new stdClass();
+                $objSubcat->id = $subcat->getId();
+                $objSubcat->title = $subcat->getTitle();
+                $objSubcat->count = $subcat->getServices()->count();
+                $services+= $objSubcat->count;
+                $subcats_array[] =$objSubcat;
             }
-            $category->subcategories = $subcats;
+            $category->subcategoriesLists = $subcats_array;
             $category->servicesCount = $services;
         }
         $response["data"] = $categories;
