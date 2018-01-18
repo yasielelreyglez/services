@@ -136,6 +136,18 @@
     opacity: 1;
 }
 
+.categories .category-block .category-header.header-0 {
+    background: #00d793 url(../src/assets/img/category-header-jobs.png) no-repeat top;
+}
+
+.categories .category-block .category-header.header-1 {
+    background: #3399ff url(../src/assets/img/category-header-business.png) no-repeat top;
+}
+
+.categories .category-block .category-header.header-2 {
+    background: #ff822e url(../src/assets/img/category-header-restaurant.png) no-repeat top;
+}
+
 
 /**********************************************************************************************************************/
 

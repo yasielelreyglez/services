@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked {
     morevisits: any;
     recentvisits: any;
     categories: any;
+    cities: any;
     query: any;
     search = new FormControl('');
 
@@ -26,6 +27,7 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked {
         this.apiServices.moreVisits().subscribe(result => this.morevisits = result);
         this.apiServices.recentVisits().subscribe(result => this.recentvisits = result);
         this.apiServices.categoriesLoaded().subscribe(result => this.categories = result);
+        this.apiServices.cities().subscribe(result => this.cities = result);
     }
 
     ngAfterViewChecked(): void {

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, Component, OnInit} from '@angular/core';
 import {ApiService} from '../../_services/api.service';
 
 declare const $;
@@ -8,7 +8,7 @@ declare const $;
     templateUrl: './showcategories.component.html',
     styleUrls: ['./showcategories.component.css']
 })
-export class ShowcategoriesComponent implements OnInit, AfterViewInit {
+export class ShowcategoriesComponent implements OnInit, AfterViewInit, AfterViewChecked {
     categories: any;
 
     constructor(private apiServices: ApiService) {
@@ -24,6 +24,16 @@ export class ShowcategoriesComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit(): void {
         this.scripts();
+    }
+
+    ngAfterViewChecked(): void {
+        let heightNew = 0;
+        $('.category-block').each(function (index, element) {
+            if ($(this).height() > heightNew) {
+                heightNew = $(this).height();
+            }
+        });
+        $('.category-block').css('height', heightNew + 'px');
     }
 
 
