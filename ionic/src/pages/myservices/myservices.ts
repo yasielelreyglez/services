@@ -10,11 +10,12 @@ import { PagarPage } from '../pagar/pagar';
 @Component({
   selector: 'page-myservices',
   templateUrl: 'myservices.html',
+
 })
 export class MyservicesPage {
   // declaracion de variables
   services = [];
-
+  temp=[]
   email: any;
   token: any;
   constructor(  public viewCtrl: ViewController,
@@ -29,11 +30,20 @@ export class MyservicesPage {
       this.servProv.getMyServices().then(
         (serv) => {
           this.services = serv['data'];
+          this.temp=this.services;
           loading.dismiss();
         }
       ).catch(
         (error) => {}
       );
+  }
+  getSearchValue(value) {
+      this.services=this.temp;
+      if (value && value.trim() != '' ) {
+        this.services = this.services.filter((item) => {
+          return (item.title.toLowerCase().indexOf(value.toLowerCase()) > -1);
+        })
+      }
   }
 
   delete(id){
@@ -53,7 +63,6 @@ export class MyservicesPage {
             this.servProv.deleteService(id).then(
               (response) => {
                 this.services = this.services.filter(service => service.id !== id);
-                  console.log(response);
               }
             ).catch(
               (error) => {}
@@ -74,16 +83,23 @@ export class MyservicesPage {
   }
 
   openServicePage(id,serv) {
-        this.viewCtrl.dismiss();
-        this.appCtrl.getActiveNavs()[0].push(ServicePage, {
-          serviceId: id,
-          service:serv
-        });
+        // this.navCtrl.push("ServicePage",{
+        //   serviceId: id,
+        //   service:serv
+        // });
+        // this.viewCtrl.dismiss();
+        this.navCtrl.push(ServicePage, {
+            serviceId: id,
+            service:serv
+          });
+        // this.appCtrl.getActiveNavs()[0].push(ServicePage, {
+        //   serviceId: id,
+        //   service:serv
+        // });
 
   }
   pagar(){
     this.navCtrl.push(PagarPage);
-
   }
   editService(serv){
     this.navCtrl.push(Create1Page, {

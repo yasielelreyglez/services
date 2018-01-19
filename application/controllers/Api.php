@@ -334,13 +334,17 @@ class Api extends REST_Controller
             $services_repo = $em->getRepository('Entities\Service');
             $services = $services_repo->findAll();
         }
+        $services_a = array();
 		foreach ($services as $service) {
-		    $service->loadRelatedData();
-		    if($user) {
-                $service->loadRelatedUserData($user);
+		    if(!assertArrayHasKey($service->getId(),$services_a)){
+                $service->loadRelatedData();
+                if($user) {
+                    $service->loadRelatedUserData($user);
+                }
+                $services_a[$service->getId()] = $service;
             }
         }
-        $result["services"] = $services;
+        $result["services"] = array_values($services_a);
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
     //denunciar un servicio

@@ -1,10 +1,9 @@
-import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { sendService } from '../../models/sendService';
 import { ServiceProvider } from '../../providers/service/service.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import {Position} from "../../models/position";
-import { ServicesPage } from '../services/services';
 import { HomePage } from '../home/home';
 /**
  * Generated class for the Create4Page page.
@@ -43,7 +42,7 @@ export class Create4Page {
   longitude: number;
   flagPosition = false;
 
-  constructor(public load: LoadingController,public navCtrl: NavController, public navParams: NavParams,public servProv: ServiceProvider,public zone: NgZone) {
+  constructor(public load: LoadingController,public navCtrl: NavController, public navParams: NavParams,public servProv: ServiceProvider) {
     this.service =this.navParams.get("service");
     this.service.positions=[];
     this.markers = new Array();
@@ -76,9 +75,6 @@ export class Create4Page {
     this.service.positions=this.positions;
     this.servProv.createFullService(this.service).then(
       data => {
-        // this.zone.run(() => {
-        // });
-        // this.navCtrl.popTo(ServicesPage);
         this.navCtrl.setRoot(HomePage);
         loading.dismiss();
       },
@@ -88,28 +84,7 @@ export class Create4Page {
     );;
 
   }
-  // loadMap() {
-  //   let mapOptions = {
-  //     center: this.latLng,
-  //     zoom: 15,
-  //     mapTypeId: google.maps.MapTypeId.ROADMAP
-  //   };
-  //   this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-  //   this.directionsDisplay.setMap(this.map);
-  //   this.directionsDisplay.setOptions({suppressMarkers: true});
-  //   // this.positions = this.response.data.positionsList;
-
-  //   for (let i = 0; i < this.positions.length; i++) {
-  //     let marker = new google.maps.Marker({
-  //       map: this.map,
-  //       position: new google.maps.LatLng(this.positions[i].latitude, this.positions[i].longitude)
-  //     });
-  //     let content = "<h4>" + this.positions[i].title + "</h4>";
-  //     this.addInfoWindow(marker, content);
-  //   }
-  // }
-
-  addInfoWindow(marker, content) {
+    addInfoWindow(marker, content) {
     if (typeof google !== 'undefined') {
         google.maps.event.addListener(marker, 'click', () => {
           this.infowindow.setContent(content)

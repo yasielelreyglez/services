@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
+import {PhotoViewer} from "@ionic-native/photo-viewer";
 
 /**
  * Generated class for the PagarPage page.
@@ -17,12 +18,25 @@ export class PagarPage {
   membresia:any;
   tipo_p:any;
   codigo:any;
-  telefono:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  nombre_t:any;
+  numero_t:any;
+  private preview: string;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public photoViewer: PhotoViewer,private platform: Platform) {
+  }
+  pagar()
+  {
+    this.navCtrl.pop().then((valor) =>{
+      console.log("atras "+valor);
+    });
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PagarPage');
+    this.preview = "assets/imgs/service_img.png";
+  }
+  viewImg() {
+    this.platform.ready().then(() => {
+      this.photoViewer.show(this.preview);
+    });
   }
 
 }

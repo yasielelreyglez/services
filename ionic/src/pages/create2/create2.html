@@ -34,7 +34,7 @@
             <ng-container *ngIf="edit; else elseTemplate">
                 <ion-col col-6 *ngFor="let foto of service.imagesList; let i = index">
                     <div class="block">
-                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(i)"></ion-icon>
+                        <ion-icon name="close" class="deleteIcon" (click)="deletePhoto(i)"></ion-icon>
                         <img (tap)="viewImg(foto.title)" src="{{foto.title}}">
                     </div>
                 </ion-col>

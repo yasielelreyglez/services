@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage,NavParams,ModalController,NavController, Events} from "ionic-angular";
+import { IonicPage,NavParams,ModalController,NavController, Events, PopoverController} from "ionic-angular";
 import  {ServiceProvider} from  '../../providers/service/service.service';
 import { InfoPage } from "../info/info";
 import { MapaPage } from "../mapa/mapa";
@@ -7,26 +7,29 @@ import { AuthProvider } from "../../providers/auth/auth";
 import { GaleriaPage } from "../galeria/galeria";
 import { ComentariosPage } from "../comentarios/comentarios";
 import { Service } from '../../models/service';
+import { PopoverPage } from '../pop-over/pop-over';
+
 
 @IonicPage()
 @Component({
   selector: 'page-service',
   templateUrl: 'service.html',
+  // entryComponents:[ ServUpInfoComponent]
 })
 export class ServicePage {
   response: Object;
   private service: Service;
-  private passedService: Service;
-
+  passedService: Service;
   cant_c :number;
   loggedIn: boolean;
+
   constructor(public navParams: NavParams,
-    // private callNumber: CallNumber,
     public servPro: ServiceProvider,
     public modalCtrl: ModalController,
     public auth: AuthProvider,
     public navCtrl: NavController,
-    public events: Events
+    public events: Events,
+    public popCtrl: PopoverController
    ) {
     this.passedService = this.navParams.get("service");
       // si recibo el id del servicio
@@ -41,9 +44,6 @@ export class ServicePage {
 
   ionViewDidLoad() {
     this.loggedIn = this.auth.isLoggedIn();
-
-
-
   }
   ionViewDidEnter() {
 
@@ -52,6 +52,12 @@ export class ServicePage {
     this.cant_c=this.passedService.servicecommentsList.length  ? this.passedService.servicecommentsList.length : 0
     //this.cant_c+=1;
 
+    });
+  }
+  presentPopover(ev) {
+    let popover = this.popCtrl.create(PopoverPage,{login:this.loggedIn,tipo:"servicio",denuncia:true,id:this.passedService.id});
+    popover.present({
+      ev: ev,
     });
   }
 
@@ -79,5 +85,20 @@ export class ServicePage {
       service:this.passedService,
       cant_c:this.cant_c
     });
+  }
+
+  toogleFavorite(id) {
+    if (this.passedService.favorite == 1) {
+      this.servPro.diskMarkfavorite(id).then(
+        data => {
+          this.passedService.favorite = 0;
+        });
+    }
+    else {
+      this.servPro.markfavorite(id).then(
+        data => {
+          this.passedService.favorite = 1;
+        });
+    }
   }
 }

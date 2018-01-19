@@ -6,12 +6,13 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class IonRating {
 
-	@Input() numStars: number = 10;
+  @Input() numStars: number = 10;
+  @Input() pcolor: string =  "favorite_on";
 	@Input() readOnly: boolean = true;
 	@Input() value: number = 0;
 
 	@Output() clicked: EventEmitter<number> = new EventEmitter<number>();
-
+ color :string;
 	stars: string[] = [];
 
   constructor() {}

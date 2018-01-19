@@ -70,11 +70,9 @@ export class ServiceProvider {
   get(search): Promise<Object> {
     return this.http
       .get(this.api.getbaseUrl() + 'api/searchService/'+search)
-      // .get<MyModel>(`${this.url}`)
       .toPromise()
       .then(
         (response) => {
-          console.log(response);
          return response;
         }
       ).catch(this.handleError);;
@@ -208,13 +206,8 @@ rateservice(id,value):Promise<Object>{
 
 }
 
-  filterService(cit,cat,dist,curr){
-    let params = new HttpParams().set('cities',cit);
-    params = params.append('categories',cat);
-     params = params.append('distance',dist);
-    //  params.append('current','');
-
-    return this.http.get(this.api.getbaseUrl() + 'api/filter',{ params: params })
+  filterService(cities,categories,distance,current){
+  return this.http.post(this.api.getbaseUrl() + 'api/filter', {cities,categories} )
     .toPromise()
     .then(
       (response) => {

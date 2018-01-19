@@ -10,6 +10,7 @@ import { ApiProvider } from "../api/api";
 export class AuthProvider {
   public currentUser = new BehaviorSubject(false);
 
+
   constructor(public http: HttpClient,public api: ApiProvider) {
     this.currentUser.next(this.getUser());
   }
