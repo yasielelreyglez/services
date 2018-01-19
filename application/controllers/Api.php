@@ -336,12 +336,12 @@ class Api extends REST_Controller
         }
         $services_a = array();
 		foreach ($services as $service) {
-		    $service->loadRelatedData();
-		    if($user) {
-		        if(!assertArrayHasKey($service->getId(),$services_a)){
+		    if(!assertArrayHasKey($service->getId(),$services_a)){
+                $service->loadRelatedData();
+                if($user) {
                     $service->loadRelatedUserData($user);
-                    $services_a[$service->getId()] = $service;
                 }
+                $services_a[$service->getId()] = $service;
             }
         }
         $result["services"] = array_values($services_a);
