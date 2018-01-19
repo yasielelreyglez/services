@@ -52,8 +52,8 @@
                         <ul>
                             <li *ngFor="let category of categories">
                                 <input type="checkbox" id="{{category.id}}" (change)="onCheckCategory(category.id)">
-                                <span class="title">{{category.title}}</span>
-                                <!--<span class="count">5</span>-->
+                                <span class="title" style="max-width: 70%;">{{category.title}}</span>
+                                <span class="count">{{category.servicesCount}}</span>
                             </li>
                         </ul>
                     </div>
@@ -62,8 +62,8 @@
                         <ul>
                             <li *ngFor="let subcategory of listSubcategories">
                                 <input class="subcategories" type="checkbox" id="{{subcategory.id}}">
-                                <span class="title">{{subcategory.title}}</span>
-                                <!--<span class="count">5</span>-->
+                                <span class="title" style="max-width: 70%;">{{subcategory.title}}</span>
+                                <span class="count">{{subcategory.servicesCount}}</span>
                             </li>
                         </ul>
                     </div>
@@ -72,8 +72,8 @@
                         <ul>
                             <li *ngFor="let city of cities">
                                 <input type="checkbox" class="cities" id="{{city.id}}">
-                                <span class="title">{{city.title}}</span>
-                                <!--<span class="count">3</span>-->
+                                <span class="title" style="max-width: 70%;">{{city.title}}</span>
+                                <span class="count">{{city.servicesCount}}</span>
                             </li>
                         </ul>
                     </div>
@@ -96,16 +96,17 @@
             <div class="col-md-9">
                 <div class="header-listing">
                     <ul class="listing-views">
-                        <li class="active view-type" data-type="listing-3"><a href="#"><i class="fa fa-th"></i></a>
+                        <li class="active view-type" data-type="listing-3" style="cursor: pointer"><a href=""><i class="fa fa-th"></i></a>
                         </li>
-                        <li class="view-type" data-type="listing-1"><a href="#"><i class="fa fa-list"></i></a></li>
+                        <li class="view-type" data-type="listing-2" style="cursor: pointer"><a href=""><i class="fa fa-list"></i></a></li>
                     </ul>
                 </div>
 
                 <app-services [services]=services></app-services>
 
             </div>
-            <div class="col-md-12 text-center">
+
+            <div class="col-md-9 col-md-offset-3 text-center" style="margin-top: 30px;">
                 <ul class="pagination">
                     <li><a href="#."><i class="fa fa-angle-left"></i></a></li>
                     <li><a href="#.">1</a></li>

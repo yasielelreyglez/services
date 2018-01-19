@@ -13,7 +13,7 @@ import {ServicesPage} from '../services/services';
 import  {CategoriesPage} from  '../categories/categories';
 import 'rxjs/add/operator/map';
 // componetes ionic
-import {IonicPage,PopoverController,NavController,} from 'ionic-angular';
+import {IonicPage,PopoverController,NavController, AlertController,} from 'ionic-angular';
 import {
   NavParams,
   LoadingController,
@@ -26,6 +26,7 @@ import { ServicePage } from "../service/service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { StatusBar } from "@ionic-native/status-bar";
+import { Observable } from "rxjs/Observable";
 
 @IonicPage({
   priority: 'high'
@@ -44,12 +45,11 @@ export class HomePage {
 
   busqueda:boolean;
   loading: any;
-
   @ViewChild('search') search;
 
 
   constructor(
-
+    private alertCtrl: AlertController,
      public auth: AuthProvider,
      private popoverCtrl: PopoverController,
      public subCat: SubCategoryProvider,
@@ -62,16 +62,18 @@ export class HomePage {
      public navParams: NavParams,public splashScreen: SplashScreen,public platform: Platform,  statusBar: StatusBar,) {
 
       this.platform.ready().then(() => {
-        statusBar.overlaysWebView(false);
+        //statusBar.hide();
+        //statusBar.backgroundColorByHexString('#ffffff');
+        this.platform.registerBackButtonAction((readySource) => {
+          this.exitApp()
+
+        });
       });
 
         this.subCat.topSubcategories().then(
           data => {
             this.subCategories =data['data'];
-            // setTimeout(() => {
               this.splashScreen.hide();
-            // }, 1500);
-
             this.connetionDown = false;
           },
           (err: HttpErrorResponse) => {
@@ -89,9 +91,7 @@ export class HomePage {
 
     this.platform.ready().then(() => {
 
-      // this.platform.registerBackButtonAction((readySource) => {
-      //  this.platform.exitApp();
-      // });
+
       this.busqueda = false;
       this.noFound = false;
 
@@ -110,6 +110,27 @@ export class HomePage {
     this.platform.ready().then(() => {
     this.photoViewer.show(img);
     });
+  }
+
+  exitApp(){
+    let confirm = this.alertCtrl.create({
+      title: "¿Desea salir de la aplicación? ",
+      message: "",
+      buttons: [
+        {
+          text: "No",
+          handler: () => {
+          }
+        },
+        {
+          text: "Si",
+          handler: () => {
+            this.platform.exitApp();
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 
 
@@ -149,11 +170,19 @@ export class HomePage {
     this.busqueda = false;
     this.noFound =  false;
   }
-  openServicePage(id,serv){
-    this.navCtrl.push(ServicePage,{
-       serviceId:id,
-       service:serv
-    })
+  // openServicePage(id,serv){
+  //   this.navCtrl.push(ServicePage,{
+  //      serviceId:id,
+  //      service:serv
+  //   })
+  // }
+  openServicePage(id,index) {
+    this.navCtrl.push(ServicePage, {
+      service: this.services[index], //paso el service
+      serviceId: id,  //si paso el id del servicio para la peticion
+      parentPage: this
+
+    });
   }
 
   onInput(e){

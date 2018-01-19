@@ -14,6 +14,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 export class FavoritesPage {
   // declaracion de variables
   services = [];
+  temp=[]
   email: any;
   token: any;
 
@@ -25,16 +26,22 @@ export class FavoritesPage {
       this.servProv.getServicesFavorites().then(
         data => {
           this.services = data['data'];
+          this.temp=this.services;
         },
         (err: HttpErrorResponse) => {
         console.log(err)
         });
   }
 
-  ionViewDidLoad() {
+  getSearchValue(value) {
 
-
-  }
+        this.services=this.temp;
+        if (value && value.trim() != '' ) {
+          this.services = this.services.filter((item) => {
+            return (item.title.toLowerCase().indexOf(value.toLowerCase()) > -1);
+          })
+        }
+    }
   viewImg(img) {
     this.platform.ready().then(() => {
     this.photoViewer.show(img);

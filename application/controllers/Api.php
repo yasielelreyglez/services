@@ -1264,7 +1264,6 @@ class Api extends REST_Controller
         $expresion = new \Doctrine\Common\Collections\Expr\Comparison("id", \Doctrine\Common\Collections\Expr\Comparison::IN, $subcategories);
         $criteria->where($expresion);
         $subcategoriesObj = $sub_repo->matching($criteria)->toArray();
-        
         foreach ($subcategoriesObj as $subcategory) {
             $services = $subcategory->getServices()->toArray();
              $result_subcategories = array_merge($result_subcategories,$services);

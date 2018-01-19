@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, LoadingController, AlertController,  Platform, Events} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, LoadingController, AlertController,  Platform, Events, ModalController} from 'ionic-angular';
 import {ServiceProvider} from '../../providers/service/service.service';
 import {AuthProvider} from '../../providers/auth/auth';
 import {ServicePage} from "../service/service";
@@ -7,6 +7,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {ApiProvider} from "../../providers/api/api";
 import {PhotoViewer} from '@ionic-native/photo-viewer';
 import { Service } from '../../models/service';
+import { FiltroModalPage } from '../filtro-modal/filtro-modal';
 
 @IonicPage()
 @Component({
@@ -19,16 +20,17 @@ export class ServicesPage {
   citiestOptions: { title: string };
   cities: any;
   categories: any;
-  filter_city: any= "";
-  filter_category: any= "";
-  filter_distance: number;
+  filter_city: any =[];
+  filter_category: any =[];
+  filter_distance: number =0;
   subCatId: any;
   services: Service[]=[];
+  servTemp: Service[]=[];
   categoryId: any;
   loggedIn: boolean;
-  tempServ:any;
 
   constructor(
+    public modalCtrl: ModalController,
     public navCtrl: NavController,
     public auth: AuthProvider,
     public api: ApiProvider,
@@ -37,14 +39,14 @@ export class ServicesPage {
     public load: LoadingController,
     private photoViewer: PhotoViewer, private platform: Platform,
     public alertCtrl: AlertController) {
-      platform.ready().then(() => {
+      // platform.ready().then(() => {
         this.events.subscribe('dismark:favorite', (id) => {
           let index = this.services.findIndex(this.findServById, id);
           this.services[index].favorite = 0;
       });
       this.servicesBySubCat(navParams.get("subCatId"));
-      this.loadSelect();
-    });
+      // this.loadSelect();
+    // });
 
   }
 
@@ -100,7 +102,6 @@ export class ServicesPage {
           this.services[index].favorite = 1;
         });
     }
-
   }
 
   loadSelect() {
@@ -127,7 +128,6 @@ export class ServicesPage {
   }
 
 
-  // servicios dada una subCat
   servicesBySubCat(id) {
     let loading = this.load.create({
       content: "Cargando..."
@@ -136,6 +136,7 @@ export class ServicesPage {
     this.servProv.getServiceBySubCat(id).then(
       data => {
         this.services = data["data"];
+        this.servTemp = data["data"];
         loading.dismiss();
       },
       (err: HttpErrorResponse) => {
@@ -153,12 +154,6 @@ export class ServicesPage {
     this.catOptions = {
       title: "Categorias"
     };
-  }
-
-
-  ionViewWillEnter() {
-
-
   }
 
   openServicePage(id,index) {
@@ -192,26 +187,60 @@ export class ServicesPage {
   deleteCategory() {
     this.filter_category = null;
   }
-  filterService(){
-    this.tempServ = this.services;
-    this.filtro=true;
-    this.servProv.filterService(this.filter_city,this.filter_category,this.filter_distance,'currentPosition').then(
-      data => {
-        this.services = data["services"];
-      },
-      (err: HttpErrorResponse) => {
-        if (err.error instanceof Error) {
-        } else {
-        }
-      }
-    );
-  }
+
   deleteFilter(){
     this.filtro=false;
-    this.services = this.tempServ;
-    this.tempServ=[];
-    this.filter_city ='';
-    this.filter_category ='';
-    this.filter_distance =null;
+    this.filter_city =[];
+    this.filter_category =[];
+    this.filter_distance = 0;
+    this.services =this.servTemp;
+  }
+
+  filterServices(){
+    const profileModal = this.modalCtrl.create(FiltroModalPage,{
+      filter_city:this.filter_city,
+      filter_category:this.filter_category,
+      filter_distance:this.filter_distance,
+    });
+    profileModal.onDidDismiss(data => {
+      this.filter_city = data.filter_city;
+      this.filter_category= data.filter_category;
+      this.filter_distance = data.filter_distance;
+      if (data.clear != undefined ){
+        this.deleteFilter();
+      }
+      if(data.filter_category != undefined || data.filter_city != undefined || data.filter_distance != undefined){
+        let loading = this.load.create({
+          content: "Cargando..."
+        });
+        loading.present();
+        this.servProv.filterService(this.filter_city,this.filter_category,this.filter_distance,'currentPosition').then(
+          data => {
+            console.log(data);
+             this.services = data["services"];
+            loading.dismiss();
+          },
+          (err: HttpErrorResponse) => {
+            if (err.error instanceof Error) {
+              console.log("error 1");
+            loading.dismiss();
+            } else {
+              console.log(err);
+              loading.dismiss();
+            }
+          }
+        );
+      }
+        });
+
+    profileModal.present();
+  }
+  getSearchValue(value) {
+    this.services=this.servTemp;
+    if (value && value.trim() != '' ) {
+      this.services = this.services.filter((item) => {
+        return (item.title.toLowerCase().indexOf(value.toLowerCase()) > -1);
+      })
+    }
   }
 }

@@ -51,6 +51,16 @@ export class ApiService {
         });
     }
 
+    categoriesLoaded(): Observable<Subcategory[]> {
+        return this.http.get(this.getBaseURL() + 'api/categoriesloaded').map((response) => {
+            if (response['data'])
+                return response['data'];
+            else {
+                return new Array();
+            }
+        });
+    }
+
     cities(): Observable<City[]> {
         return this.http.get(this.getBaseURL() + 'api/cities').map((response) => {
             if (response['data'])
@@ -65,6 +75,23 @@ export class ApiService {
         return this.http.get(this.getBaseURL() + 'api/categories').map((response) => {
             if (response['data'])
                 return response['data'];
+            else {
+                return new Array();
+            }
+        });
+    }
+
+    filter(cities?: any, categories?: any, distance?: number, current?: any): Observable<any> {
+        return this.http.post(this.getBaseURL() + 'api/filter', {
+            cities,
+            categories,
+            distance,
+            current
+        }).map((response) => {
+            if (response['services']) {
+                console.log(response['services']);
+                return response['services'];
+            }
             else {
                 return new Array();
             }

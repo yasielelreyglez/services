@@ -239,8 +239,8 @@
 
 <div id="listing-3" class="listing listing-3">
     <div class="row">
-        <div *ngFor="let service of services" class="col-xs-6">
-            <div class="listing-grid listing-grid-1">
+        <div *ngFor="let service of services" class="col-md-6">
+            <div class="listing-grid listing-grid-3">
                 <div class="listing-heading">
                     <div *ngIf="service.professional" class="marker-ribbon">
                         <div class="ribbon-banner">
@@ -278,8 +278,12 @@
                                     <!--<ng-template *ngIf="service.address.length > 30">-->
                                     <!--<li><i class="fa fa-map-marker"></i> {{service.address.substr(0,30)}}...</li>-->
                                     <!--</ng-template>-->
-                                    <li *ngIf="service.address.length > 35"><i class="fa fa-map-marker"></i> {{service.address.substring(0,35)}}...</li>
-                                    <li *ngIf="service.address.length <= 35"><i class="fa fa-map-marker"></i> {{service.address}}</li>
+                                    <li *ngIf="service.address.length > 35"><i class="fa fa-map-marker"></i>
+                                        {{service.address.substring(0,35)}}...
+                                    </li>
+                                    <li *ngIf="service.address.length <= 35"><i class="fa fa-map-marker"></i>
+                                        {{service.address}}
+                                    </li>
 
                                     <li><i class="fa fa-envelope-o"></i> {{service.email}}</li>
                                     <li><i class="fa fa-globe"></i> {{service.url}}</li>
@@ -291,11 +295,343 @@
                     </ul> <!-- end .uou-accordions -->
                     <div class="info-footer">
                         <!--<i class="fa fa-map-marker location"></i>-->
-                        <h6>{{service.subcategoriesList[0].title}}</h6>
+                        <!--<h6>{{service.subcategoriesList[0].title}}</h6>-->
+                        <a *ngIf="!myservices" [routerLink]="['service', service.id]">Ver detalles</a>
                         <!--<i *ngIf="service.professional" class="fa fa-bookmark bookmark pull-right"></i>-->
+                        <ul *ngIf="myservices" class="bookmark list-inline">
+                            <li data-tooltip="Ver detalles"><a href="#"><i class="fa fa-eye"></i></a></li>
+                            <li data-tooltip="Editar"><a href="#"><i class="fa fa-pencil-square-o"></i></a></li>
+                            <li data-tooltip="Pagar"><a href="#"><i class="fa fa-dollar"></i></a></li>
+                            <li data-tooltip="Eliminar"><a href="#"><i class="fa fa-remove"></i></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div id="listing-2" class="listing listing-2 listing-variation hidden">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="listing-section">
+                <div class="listing-ver-2" style="margin-bottom: 30px;"
+                     *ngFor="let service of services; let pos = index">
+                    <div class="listing-heading">
+                        <h5><a [routerLink]="['service', service.id]">{{service.title}}</a></h5>
+                        <!--<a href="#"><i class="fa fa-bookmark"></i></a>-->
+                    </div>
+                    <div class="basic">
+                        <div class="listing-inner" style="min-height: 220px;">
+                            <div class="flexslider default-slider">
+                                <ul class="slides">
+                                    <li class="flex-active-slide"
+                                        style="width: 100%; float: left; margin-right: -100%; position: relative; opacity:1; display: block; z-index: 2;">
+                                        <img src="{{service.thumb}}" alt="" draggable="false"></li>
+
+                                    <li *ngFor="let image of service.imagesList" class=""
+                                        style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;">
+                                        <img src="{{image.thumb}}" alt="" draggable="false">
+                                    </li>
+                                </ul>
+                                <!--<ol class="flex-control-nav flex-control-paging">-->
+                                <!--<li><a class="flex-active">1</a></li>-->
+                                <!--<li><a class="">2</a></li>-->
+                                <!--</ol>-->
+                                <!--<ul class="flex-direction-nav">-->
+                                <!--<li><a class="flex-prev" href="#"></a></li>-->
+                                <!--<li><a class="flex-next" href="#"></a></li>-->
+                                <!--</ul>-->
+                            </div>
+                            <div class="listing-content">
+                                <h6 class="main-title">{{service.subtitle}}</h6>
+                                <!--<span class="location">-->
+                                <!--<i class="fa fa-map-marker"></i>-->
+                                <!--Location-->
+                                <!--</span>-->
+                                <p>{{service.description}}</p>
+                                <!--<h6 class="title-tags">Tags:</h6>-->
+                                <!--<ul class="tags list-inline">-->
+                                <!--<li><a href="#">Tag 1</a></li>-->
+                                <!--<li><a href="#">Tag 2</a></li>-->
+                                <!--<li><a href="#">Tag 3</a></li>-->
+                                <!--<li><a href="#">Tag 4</a></li>-->
+                                <!--<li><a href="#">Tag 5</a></li>-->
+                                <!--</ul>-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="listing-tabs with-rating">
+                        <div class="rating">
+                            <ul [innerHTML]="result_rate(service)">
+                            </ul>
+                            <span class="count">{{service.visits}} vistas</span>
+                        </div>
+                        <ul>
+                            <li class="active"><a href="#basic{{pos}}" data-toggle="tab" aria-expanded="false"><i
+                                    class="fa fa-user"></i></a></li>
+                            <li class=""><a href="#contact{{pos}}" data-toggle="tab" aria-expanded="false"><i
+                                    class="fa fa-envelope"></i></a></li>
+                            <li class=""><a href="#report{{pos}}" data-toggle="tab" aria-expanded="false"><i
+                                    class="fa fa-flag"></i></a></li>
+                            <li class=""><a href="#hours{{pos}}" data-toggle="tab" aria-expanded="false"><i
+                                    class="fa fa-clock-o"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <div id="basic{{pos}}" class="tab-pane fade in active report">
+                        <div class="listing-inner">
+                            <div class="listing-content">
+                                <h6 class="main-title">...</h6>
+                                <!--<div class="row">-->
+
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div id="contact{{pos}}" class="tab-pane fade contact  in">
+                        <div class="listing-inner">
+                            <div class="map">
+                                <div class="map-listing-04"></div>
+                            </div>
+                            <div class="listing-content">
+                                <h6 class="main-title">Secondary Heading</h6>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <ul class="contact">
+                                            <li>
+                                                <h6>Correo:</h6>
+                                                <span>{{service.email}}</span>
+                                            </li>
+                                            <li>
+                                                <h6>Sitio web:</h6>
+                                                <span>{{service.url}}</span>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-arrows-alt"></i> View map in fullscreen</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="contact">
+                                            <li>
+                                                <h6>Teléfono:</h6>
+                                                <span>{{service.phone}}</span>
+                                            </li>
+                                            <li>
+                                                <h6>Télefono adicional:</h6>
+                                                <span>{{service.other_phone}}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="report{{pos}}" class="tab-pane fade in report">
+                        <div class="listing-inner">
+                            <div class="listing-content">
+                                <h6 class="main-title">Report / Claim Listing</h6>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <select class="custom-select">
+                                            <option value="0" selected="">Report Category</option>
+                                            <option value="1">Prior</option>
+                                            <option value="2">Standard</option>
+                                        </select>
+                                        <select class="custom-select">
+                                            <option value="0" selected="">Reasons for report</option>
+                                            <option value="1">Illegal anons</option>
+                                            <option value="2">Cheater employee</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <textarea name="message" placeholder="Your Message"></textarea>
+                                        <input class="btn btn-primary" value="Submit" type="button">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="hours{{pos}}" class="tab-pane fade in hours">
+                        <div class="listing-inner">
+                            <div class="listing-content">
+                                <h6 class="main-title">Opening Hours</h6>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <ul class="schedule">
+                                            <li><span class="day">Monday</span> <span
+                                                    class="hours">10:00 AM - 7:00 PM</span></li>
+                                            <li><span class="day">Tuesday</span> <span
+                                                    class="hours">10:00 AM - 7:00 PM</span></li>
+                                            <li><span class="day">Wednesday</span> <span class="hours">10:00 AM - 7:00 PM</span>
+                                            </li>
+                                            <li class="sunday"><span class="day">Sunday</span> <span class="hours">Closed</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <ul class="schedule">
+                                            <li><span class="day">Thursday</span><span
+                                                    class="hours">10:00 AM - 7:00 PM</span></li>
+                                            <li><span class="day">Friday</span><span
+                                                    class="hours">10:00 AM - 7:00 PM</span></li>
+                                            <li><span class="day">Saturday</span><span
+                                                    class="hours">10:00 AM - 7:00 PM</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div id="listing-1" class="listing listing-1">-->
+<!--<div class="listing-ver-1" *ngFor="let service of services; let pos = index">-->
+<!--<div class="listing-heading">-->
+<!--<h5><a href="single_business.html">{{service.title}}</a></h5>-->
+<!--&lt;!&ndash;<?php if ($object->professional == 1) { ?>&ndash;&gt;-->
+<!--&lt;!&ndash;<a href="#" class="c-red"><i class="fa fa-bookmark"></i></a>&ndash;&gt;-->
+<!--&lt;!&ndash;<?php } ?>&ndash;&gt;-->
+<!--</div>-->
+<!--<div class="tab-content">-->
+<!--<div id="basic{{pos}}" class="tab-pane fade in active basic">-->
+<!--<div class="listing-inner">-->
+<!--<div class="flexslider default-slider">-->
+<!--<ul class="slides">-->
+<!--<li class="flex-active-slide"-->
+<!--style="width: 100%; float: left; margin-right: -100%; position: relative; opacity:1; display: block; z-index: 2;">-->
+<!--<img src="{{service.thumb}}" alt="" draggable="false"></li>-->
+
+<!--<li *ngFor="let image of service.imagesList" class=""-->
+<!--style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;">-->
+<!--<img src="{{image.thumb}}" alt="" draggable="false">-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--<div class="listing-content">-->
+<!--<span class="location">-->
+<!--{{service.subtitle}}-->
+<!--</span>-->
+<!--<p>{{service.description}}</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div id="contact{{pos}}" class="tab-pane fade in contact">-->
+<!--<div class="listing-inner">-->
+<!--<div class="map">-->
+<!--<div class="map-listing-04"></div>-->
+<!--</div>-->
+<!--<div class="listing-content">-->
+<!--<h6 class="main-title">Información adicional</h6>-->
+<!--<div class="row">-->
+<!--<div class="col-md-6">-->
+<!--<ul class="contact">-->
+<!--<li>-->
+<!--<h6>Correo:</h6>-->
+<!--<span>{{service.email}}</span>-->
+<!--</li>-->
+<!--<li>-->
+<!--<h6>Sitio web:</h6>-->
+<!--<span>{{service.url}}</span>-->
+<!--</li>-->
+<!--<li>-->
+<!--<a href="#"><i class="fa fa-arrows-alt"></i> View map in fullscreen</a>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--<div class="col-md-6">-->
+<!--<ul class="contact">-->
+<!--<li>-->
+<!--<h6>Teléfono:</h6>-->
+<!--<span>{{service.phone}}</span>-->
+<!--</li>-->
+<!--<li>-->
+<!--<h6>Télefono adicional:</h6>-->
+<!--<span>{{service.other_phone}}</span>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div id="report{{pos}}" class="tab-pane fade in report">-->
+<!--<div class="listing-inner">-->
+<!--<div class="listing-content">-->
+<!--<h6 class="main-title">Report / Claim Listing</h6>-->
+<!--<div class="row">-->
+<!--<div class="col-md-3">-->
+<!--<select class="custom-select">-->
+<!--<option value="0" selected>Report Category</option>-->
+<!--<option value="1">Prior</option>-->
+<!--<option value="2">Standard</option>-->
+<!--</select>-->
+<!--<select class="custom-select">-->
+<!--<option value="0" selected>Reasons for report</option>-->
+<!--<option value="1">Illegal anons</option>-->
+<!--<option value="2">Cheater employee</option>-->
+<!--</select>-->
+<!--</div>-->
+<!--<div class="col-md-9">-->
+<!--<textarea name="message" placeholder="Your Message"></textarea>-->
+<!--<input type="button" class="btn btn-primary" value="Submit">-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div id="hours{{pos}}" class="tab-pane fade in hours">-->
+<!--<div class="listing-inner">-->
+<!--<div class="listing-content">-->
+<!--<h6 class="main-title">Opening Hours</h6>-->
+<!--<div class="row">-->
+<!--<div class="col-md-5">-->
+<!--<ul class="schedule">-->
+<!--<li><span class="day">Monday</span> <span-->
+<!--class="hours">10:00 AM - 7:00 PM</span>-->
+<!--</li>-->
+<!--<li><span class="day">Tuesday</span> <span-->
+<!--class="hours">10:00 AM - 7:00 PM</span>-->
+<!--</li>-->
+<!--<li><span class="day">Wednesday</span> <span-->
+<!--class="hours">10:00 AM - 7:00 PM</span>-->
+<!--</li>-->
+<!--<li class="sunday"><span class="day">Sunday</span> <span-->
+<!--class="hours">Closed</span>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--<div class="col-md-5">-->
+<!--<ul class="schedule">-->
+<!--<li><span class="day">Thursday</span><span-->
+<!--class="hours">10:00 AM - 7:00 PM</span>-->
+<!--</li>-->
+<!--<li><span class="day">Friday</span><span class="hours">10:00 AM - 7:00 PM</span>-->
+<!--</li>-->
+<!--<li><span class="day">Saturday</span><span-->
+<!--class="hours">10:00 AM - 7:00 PM</span>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--<div class="listing-tabs">-->
+<!--<ul>-->
+<!--<li class="active"><a href="#basic{{pos}}" data-toggle="tab"><i class="fa fa-info"></i></a></li>-->
+<!--<li><a href="#contact{{pos}}" data-toggle="tab"><i class="fa fa-envelope"></i></a></li>-->
+<!--<li><a href="#report{{pos}}" data-toggle="tab"><i class="fa fa-flag"></i></a></li>-->
+<!--<li><a href="#hours{{pos}}" data-toggle="tab"><i class="fa fa-clock-o"></i></a></li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->

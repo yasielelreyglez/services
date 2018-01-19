@@ -11,20 +11,16 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 })
 export class BusquedaPage {
   services = [];
-
+  temp=[]
   email: any;
   token: any;
   haveServices = false;
 
 
   constructor(public navCtrl: NavController,
-
-
-    public servProv: ServiceProvider,public load: LoadingController,private photoViewer: PhotoViewer,private platform: Platform) {
-
-
-
-
+    public servProv: ServiceProvider,
+    public load: LoadingController,
+    private photoViewer: PhotoViewer,private platform: Platform) {
   }
 
   ionViewDidLoad() {
@@ -35,6 +31,7 @@ export class BusquedaPage {
     this.servProv.getServicesVisited().then(
       data => {
         this.services = data['data'];
+        this.temp=this.services;
         loading.dismiss();
 
       },
@@ -44,10 +41,30 @@ export class BusquedaPage {
         }
       });
   }
+  getSearchValue(value) {
+
+    this.services=this.temp;
+    if (value && value.trim() != '' ) {
+      this.services = this.services.filter((item) => {
+        return (item.title.toLowerCase().indexOf(value.toLowerCase()) > -1);
+      })
+    }
+}
   viewImg(img) {
     this.platform.ready().then(() => {
     this.photoViewer.show( img);
     });
+  }
+  delete(id){
+    //hacer el
+    // this.servProv.diskMarkfavorite(id).then(
+    //   data => {
+    //     this.events.publish('dismark:favorite', id);
+        this.services = this.services.filter(function(item){
+          return item.id !== id;
+        });
+    //   }
+    // );
   }
 
 }

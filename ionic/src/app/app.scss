@@ -91,6 +91,7 @@ ion-modal ion-backdrop {
     background-color: #44AB6C;
     font-weight: 600;
     font-size: 11px;
+    padding-top: 2px;
     & {
         .texto {
             color: white;
@@ -157,4 +158,24 @@ ion-modal ion-backdrop {
 
 .crear-gris {
     color: rgb(90, 84, 84)
+}
+
+.popover-content {
+    max-width: 200px;
+}
+
+.item-md p {
+    font-size: 1.3rem;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.lowercase {
+    text-transform: lowercase;
+}
+
+.capitalize {
+    text-transform: capitalize;
 }

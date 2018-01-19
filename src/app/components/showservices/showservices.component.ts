@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ApiService} from '../../_services/api.service';
 import {City} from '../../_models/city';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -24,7 +24,7 @@ export class ShowservicesComponent implements OnInit, AfterViewInit {
     selectSub: any;
     selectCit: any;
 
-    constructor(private route: ActivatedRoute, private apiServices: ApiService, private elRef: ElementRef) {
+    constructor(private route: ActivatedRoute, private apiServices: ApiService, private elRef: ElementRef, private router: Router) {
         this.model = {};
         this.listCategories = new Array();
         this.selectSub = new Array();
@@ -55,6 +55,17 @@ export class ShowservicesComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit(): void {
         this.scripts();
+
+        const $viewtype = $('.view-type');
+        $viewtype.click(function (event) {
+            event.preventDefault();
+            const $this = $(this);
+            $('.listing').addClass('hidden');
+            const type = $this.data('type');
+            $('#' + type).removeClass('hidden');
+            $viewtype.removeClass('active');
+            $this.addClass('active');
+        });
     }
 
 
@@ -715,6 +726,7 @@ export class ShowservicesComponent implements OnInit, AfterViewInit {
 
     }
 
+
     createForm() {
         this.filterForm = new FormGroup({
             cities: new FormControl(''),
@@ -746,8 +758,6 @@ export class ShowservicesComponent implements OnInit, AfterViewInit {
     }
 
     exclude(element, that) {
-        // console.log('metodo', that.listCategories[0]);
-        // console.log(element);
         if (that.listCategories.indexOf(element.category.id) !== -1)
             return element;
     }
@@ -772,7 +782,14 @@ export class ShowservicesComponent implements OnInit, AfterViewInit {
         });
         this.selectCit = selectCit;
 
-        console.log(this.selectSub);
-        console.log(this.selectCit);
+        // this.apiServices.filter(this.selectCit, this.selectSub).subscribe(result => {
+        //     this.services = result;
+        // });
+
+        this.apiServices.filter(this.selectCit, this.selectSub).subscribe(result => {
+            this.services = result;
+            localStorage.setItem('searchServices', JSON.stringify(result));
+            this.router.navigate(['/search']);
+        });
     }
 }
