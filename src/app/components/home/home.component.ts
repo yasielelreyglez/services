@@ -67,7 +67,10 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked {
     }
 
     filter() {
-        this.apiServices.filter(this.selectCit, this.selectSub).subscribe(result => {
+        const selectCit = $('#filterCit').select2('val');
+        const selectSub = $('#filterSub').select2('val');
+        const selectDis = $('#filterDis').val();
+        this.apiServices.filter(selectCit, selectSub, selectDis).subscribe(result => {
             localStorage.setItem('searchServices', JSON.stringify(result));
             this.router.navigate(['/search']);
         });
