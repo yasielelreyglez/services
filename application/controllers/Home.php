@@ -15,6 +15,9 @@ class Home extends CI_Controller {
         $this->load->helper('form');
         $this->load->library('form_validation');
         $this->load->library('session');
+        $this->load->library('ion_auth');
+
+
     }
 
     public function index()
@@ -22,9 +25,27 @@ class Home extends CI_Controller {
         $this->load->helper('html');
         $this->load->view('login');
     }
-    public function user_login_show() {
-        $this->load->view('login_form');
+    public function user() {
+        $this->load->view('upload_form');
     }
+
+    public function favorites(){
+        if (!$this->ion_auth->logged_in())
+        {
+            // redirect them to the login page
+            redirect('admin/auth/login', 'refresh');
+        }
+        $this->load->helper('html');
+        $em= $this->doctrine->em;
+        $servicesRepo = $em->getRepository('Entities\Service');
+        $data['services'] = $servicesRepo->findAll();
+        $data['content'] = '/services/index';
+        $data["tab"]="services";
+
+        $this->load->view('/includes/contentpage', $data);
+    }
+
+
     public function login()
     {
         $email = $this->input->post('email');

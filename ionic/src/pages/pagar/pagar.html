@@ -1,0 +1,104 @@
+<!--
+  Generated template for the PagarPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>LOGO</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-label text-center color="azul-claro">Pagar anuncio</ion-label>
+  <hr class="hr-separador">
+
+  <ion-list>
+    <ion-item>
+      <ion-label stacked>Membresía</ion-label>
+      <ion-select placeholder="Seleccione" name="membresia" [(ngModel)]="membresia">
+        <ion-option value="1">Membresía A</ion-option>
+        <ion-option value="2">Membresía B</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Tipo de pago</ion-label>
+      <ion-select placeholder="Seleccione " name="tipo_p" [(ngModel)]="tipo_p">
+        <ion-option value="1">Evidencia de pago</ion-option>
+        <ion-option value="2">Pago en linea</ion-option>
+      </ion-select>
+    </ion-item>
+
+
+    <div *ngIf="tipo_p=='1'">
+
+      <ion-label color="azul-claro">Subir evidencia de pago</ion-label>
+      <p>000000000000</p>
+      <ion-label color="azul-claro">Banco Metropolitano</ion-label>
+      <p>RUC:758469521485</p>
+      <ion-grid>
+        <ion-row align-items-center>
+          <ion-col col-12>
+            <ion-label>Subir evidencia de pago</ion-label>
+            <img style="max-height: 150px;" (tap)="viewImg(preview)" src="{{preview}}"/>
+          </ion-col>
+          <ion-col col-12>
+            <button (click)="presentActionSheet()" padding block ion-button icon-left>
+              <ion-icon name="cloud-upload"></ion-icon>
+              Cargar foto
+            </button>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+
+      <div padding>
+        <button (click)="pagar()" class="btn-text-left" text-left color="pronto-gris" ion-button block margin-bottom="1" margin-top="2">
+          Notificar pago
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="tipo_p == '2'">
+      <ion-item >
+        <ion-label stacked>Nombre en la tarjeta</ion-label>
+        <ion-input name="nombre_t" [(ngModel)]="nombre_t"></ion-input>
+      </ion-item>
+      <ion-item >
+        <ion-label stacked>Número de tarjeta</ion-label>
+        <ion-input type="number" name="numero_t" [(ngModel)]="numero_t"></ion-input>
+      </ion-item>
+
+      <ion-grid>
+        <ion-row >
+          <ion-col col-6>
+            <ion-item no-lines>
+              <ion-label stacked>Caducidad</ion-label>
+              <ion-datetime displayFormat="MM/YY" pickerFormat="MMMM YYYY" placeholder="MM/AA"></ion-datetime>
+            </ion-item>
+          </ion-col>
+          <ion-col col-6>
+            <ion-item no-lines>
+              <ion-label stacked>CVV</ion-label>
+              <ion-input ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div padding>
+        <button (click)="pagar()" class="btn-text-left" text-left color="pronto-gris" ion-button block margin-bottom="1" margin-top="2">
+          Realizar pago
+        </button>
+      </div>
+
+    </div>
+
+
+
+  </ion-list>
+</ion-content>

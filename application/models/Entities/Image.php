@@ -21,6 +21,12 @@ class Image
      **/
     public $title;
 
+    /**
+     * @Column(type="string")
+     * @var string
+     **/
+    public $thumb;
+
 
     /**
      *
@@ -70,5 +76,21 @@ class Image
     public function getService()
     {
         return $this->service;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getThumb()
+    {
+        return $this->thumb;
+    }
+
+    /**
+     * @param mixed $thumb
+     */
+    public function setThumb($thumb)
+    {
+        $this->thumb = $thumb;
     }
 }

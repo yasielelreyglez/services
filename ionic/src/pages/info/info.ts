@@ -1,11 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  IonicPage,
-  NavController,
-  NavParams,
-  ModalController
-} from "ionic-angular";
-import { RatePage } from "../rate/rate";
+import { IonicPage, NavParams} from "ionic-angular";
+
 
 /**
  * Generated class for the InfoPage page.
@@ -21,42 +16,38 @@ import { RatePage } from "../rate/rate";
 })
 export class InfoPage {
   private service: any = {};
-  private baseUrl: any;
-	serviceDays: string = "";
+  cant_c:any;
+	serviceDays: string="";
   days : object = {
-   0:"Domingo",
-   1:"Lunes",
-   2:"Martes",
-   3:"Miercoles",
-   4:"Jueves",
-   5:"Viernes",
-   6:"Sabado",
+   0:"Lunes",
+   1:"Martes",
+   2:"Miercoles",
+   3:"Jueves",
+   4:"Viernes",
+   5:"Sabado",
+   6:"Domingo",
   };
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
-    this.service = this.navParams.get("service");
-    this.baseUrl = this.navParams.get("baseUrl");
-    let tempD=  this.service.week_days.split(',');
-    for (var index = 0; index < tempD.length; index++) {
-      if( index > 0)
-       this.serviceDays += ", "+this.days[tempD[index]];
-      else
-        this.serviceDays += this.days[tempD[index]];
-    }
+
+  constructor(public navParams: NavParams) {
 
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad InfoPage');
-  }
+    this.service = this.navParams.get("service");
+    this.cant_c = this.navParams.get("cant_c");
 
-  openRate(){
-    const profileModal = this.modalCtrl.create(RatePage);
-    profileModal.onDidDismiss(data => {
-      // enviar rate
-      console.log(data);
-    });
+    if (this.service['week_days']) {
 
-    profileModal.present();
+
+    let tempD=  this.service['week_days'].split(',');
+
+      for (var index = 0; index < tempD.length; index++) {
+        if( index > 0)
+        this.serviceDays += ", "+this.days[tempD[index]];
+        else
+          this.serviceDays += this.days[tempD[index]];
+      }
+    }
   }
 
 }

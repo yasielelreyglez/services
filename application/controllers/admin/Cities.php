@@ -13,7 +13,9 @@ class Cities extends CI_Controller {
 
 	# GET /cities
 	function index() {
-		$data['cities'] = $this->Cities_model->find();
+        $em= $this->doctrine->em;
+        $citiesRepo = $em->getRepository('Entities\City');
+        $data['cities'] = $citiesRepo->findAll();
 		$data['content'] = '/cities/index';
         $data["tab"]="cities";
         $this->load->view('/includes/contentpage', $data);
@@ -27,12 +29,11 @@ class Cities extends CI_Controller {
 	}
 
 	# GET /cities/edit/1
-	function edit() {
-		$id = $this->uri->segment(3);
-		$data['cities'] = $this->Cities_model->find($id);
+	function edit($id) {
+        $em= $this->doctrine->em;
+        $data['cities'] = $em->find('Entities\City',$id);
 		$data['content'] = '/cities/create';
         $data["tab"]="cities";
-
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -51,14 +52,18 @@ class Cities extends CI_Controller {
 		if ($this->form_validation->run()) {
 
 			$data[] = array();
-			$data['id'] = $this->input->post('id', TRUE);
-			$data['title'] = $this->input->post('title', TRUE);
-			$this->Cities_model->save($data);
+            $id =  $this->input->post('id', TRUE);
+            $em = $this->doctrine->em;
+            if(!$id) {
+                $city = new \Entities\City();
+            }else {
+                $city = $em->find("\Entities\City",$id);
+            }
+            $city->setTitle($this->input->post('title', TRUE));
+            $em->persist($city);
+            $em->flush();
 			redirect('admin/cities/index', 'refresh');
 		}
-		$data['cities'] =	$this->rebuild();
-		$data['content'] = '/cities/create';
-        $data["tab"]="cities";
 
         $this->load->view('/includes/contentpage', $data);
 	}

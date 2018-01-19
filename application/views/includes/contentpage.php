@@ -78,6 +78,25 @@
                             <li class="<?=$tab=="home"?"active":""?>"><a href="<?=site_url("admin/home") ?>"><i class="fa fa-home"></i> Home</a>
 
                             </li>
+                            <li class="<?=$tab=="pagos"?"active":""?>">
+                                <a href="<?=site_url("admin/pagos") ?>"><i class="fa fa-search-plus"></i> Pagos</a>
+                                <ul class="demo-menu">
+                                    <li><a href="<?=site_url("admin/pagos/solicitados") ?>">Pagos solicitados</a></li>
+                                    <li><a href="<?=site_url("admin/pagos/activos") ?>">Pagos activos</a></li>
+                                    <li><a href="<?=site_url("admin/pagos/expirados") ?>">Pagos expirados</a></li>
+                                    <li><a href="<?=site_url("admin/pagos/denegados") ?>">Pagos denegados</a></li>
+                                    <li><a href="<?=site_url("admin/pagos/membresias") ?>">Pagos membresias</a></li>
+                                </ul>
+                            </li>
+                            <li class="<?=$tab=="services"?"active":""?>">
+                                <a href="<?=site_url("admin/services") ?>"><i class="fa fa-search-plus"></i> Servicios </a>
+                                <ul class="demo-menu">
+                                    <li><a href="<?=site_url("admin/services/denunciados") ?>">Mostrar Servicios Denunciados</a></li>
+
+                                    <li><a href="<?=site_url("admin/services") ?>">Mostrar Servicios Existentes</a></li>
+                                    <li><a href="<?=site_url("admin/services/create") ?>">Crear Servicio</a></li>
+                                </ul>
+                            </li>
                             <li class="<?=$tab=="category"?"active":""?>">
                                 <a href="<?=site_url("admin/categories") ?>"><i class="fa fa-search-plus"></i> Categorias</a>
                                 <ul class="demo-menu">
@@ -91,13 +110,7 @@
                                     <li><a href="<?=site_url("admin/subcategory") ?>">Mostrar Sub-Categorias Existentes</a></li>
                                     <li><a href="<?=site_url("admin/subcategory/create") ?>">Crear Sub-Categorias</a></li>
                                 </ul>
-                            <li class="<?=$tab=="services"?"active":""?>">
-                                <a href="<?=site_url("admin/services") ?>"><i class="fa fa-search-plus"></i> Servicios </a>
-                                <ul class="demo-menu">
-                                    <li><a href="<?=site_url("admin/services") ?>">Mostrar Sub-Categorias Existentes</a></li>
-                                    <li><a href="<?=site_url("admin/services/create") ?>">Crear Sub-Categorias</a></li>
-                                </ul>
-                            </li>
+
                             <li  class="<?=$tab=="cities"?"active":""?>">
                                 <a href="<?=site_url("admin/cities") ?>"><i class="fa fa-search-plus"></i> Ciudades </a>
                                 <ul class="demo-menu">
@@ -244,8 +257,17 @@
 <!--            </div>-->
 <!--        </div>-->
 <!--    </div>-->
-
-    <div class="listing-objects">
+    <div class="subheader subheader-v2 has-bg-image" data-bg-image="<?=site_url("/resources/img/$tab-header.jpg")?>" >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1 class="block-title"><?=$tab?></h1>
+                    <p class="block-secondary-title invert">We are driven by our mission</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="listing-objects" style="background-color: rgb(245, 245, 245)">
         <div class="container">
         <?php if(isset($errors)) { ?>
             <div class="alert alert-danger">
@@ -306,7 +328,7 @@
 </div>
 
 <!-- Scripts -->
-<script src="<?=site_url("/resources/js/googlemaplocal.js") ?>"></script>
+<!--<script src="--><?//=site_url("/resources/js/googlemaplocal.js") ?><!--"></script>-->
 <script src="<?=site_url("/resources/js/jquery-2.1.3.min.js") ?>"></script>
 <script src="<?=site_url("/resources/js/plugins/superfish.min.js") ?>"></script>
 <script src="<?=site_url("/resources/js/jquery.ui.min.js") ?>"></script>
@@ -319,7 +341,7 @@
 <script src="<?=site_url("/resources/js/uou-tabs.js") ?>"></script>
 <script src="<?=site_url("/resources/js/plugins/select2.min.js") ?>"></script>
 <script src="<?=site_url("/resources/js/owl.carousel.min.js") ?>"></script>
-<script src="<?=site_url("/resources/js/gmap3.min.js") ?>"></script>
+<!--<script src="--><?//=site_url("/resources/js/gmap3.min.js") ?><!--"></script>-->
 <script src="<?=site_url("/resources/js/bootstrap.js") ?>"></script>
 <script src="<?=site_url("/resources/js/scripts.js") ?>"></script>
 

@@ -8,14 +8,14 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding fullscreen="true">
+
 
 
     <ion-label text-center color="azul-claro">Autenticarse</ion-label>
 
-    <hr style="background-color: #88868B;">
+    <hr class="hr-separador">
 
-    <!-- <form (submit)="doLogin()"> -->
     <form (submit)="f.form.valid ? doLogin() : llenarCampos()" #f="ngForm">
         <ion-list>
 
@@ -27,13 +27,17 @@
 
             <ion-item>
                 <ion-label stacked>Contraseña</ion-label>
-                <ion-input type="password" class="form-control" name="password" [(ngModel)]="user.password" placeholder="Escriba su contraseña..." required></ion-input>
+                <ion-input [type]="showPassword ? 'text' : 'password'" class="form-control" name="password" [(ngModel)]="user.password" placeholder="Escriba su contraseña..." required></ion-input>
 
             </ion-item>
-
+            <!--<ion-item no-lines>-->
+                <!--<ion-label>Mostrar contraseña</ion-label>-->
+                <!--<ion-checkbox [(ngModel)]="showPassword" name="showPassword"></ion-checkbox>-->
+            <!--</ion-item>-->
             <div padding>
+
                 <button class="btn-text-left" text-left color="azul-claro" ion-button block margin-bottom="1" margin-top="2">
-                    <i class="fa fa-unlock-alt fa-flip-horizontal" aria-hidden="true"></i>&nbsp; Autenticarse
+                    <ion-icon name="unlock"></ion-icon>&nbsp; Iniciar sesión
                 </button>
             </div>
 
@@ -41,14 +45,18 @@
         </ion-list>
     </form>
 
-    <ion-label text-center><b>Si quieres puedes autenticarte también con:</b></ion-label>
+    <ion-label text-center color="azul-claro"><b>Si quieres puedes autenticarte también con:</b></ion-label>
     <button class="btn-text-left" text-left color="azul-facebook" ion-button block margin-bottom="1">
-        <i class="fa fa-facebook-official" aria-hidden="true"></i>&nbsp;
+        <ion-icon name="face"></ion-icon>&nbsp;
         facebook
     </button>
-
-    <button (click)="openForgot()" class="btn-text-left" text-left color="azul-oscuro" ion-button block margin-bottom="1">
+    <ion-label text-center color="azul-claro"><b>Otras opciones para ti:</b></ion-label>
+    <button (click)="showPrompt()" class="btn-text-left" text-left color="azul-oscuro" ion-button block margin-bottom="1">
         Olvidé mi contraseña
     </button>
+    <button (click)="goToSignup()" class="btn-text-left" text-left color="warning" ion-button block margin-bottom="1">
+     Crear una cuenta nueva
+  </button>
+
 
 </ion-content>

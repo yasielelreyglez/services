@@ -1,3 +1,167 @@
+/**********************************************************************************************************************/
+.showrate {
+    margin-bottom: 0;
+}
+
+.showrate li {
+    display: inline-block;
+    list-style-type: none;
+    color: #feab29;
+}
+
+.mat-snack-bar-container {
+    background-color: #009e67;
+}
+
+.mat-simple-snackbar {
+    justify-content: center !important;
+}
+
+.content-business .sidebar .sidebar-subcategories {
+    position: relative;
+    padding: 5px 22px 18px 22px;
+    border-top: 1px solid #e8e8e8;
+}
+.content-business .sidebar .sidebar-subcategories h6 {
+    margin: 20px 0;
+    font-size: 17px;
+}
+.content-business .sidebar .sidebar-subcategories ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-y: auto;
+    height: 350px;
+}
+.content-business .sidebar .sidebar-subcategories ul li {
+    display: block;
+    margin-bottom: 5px;
+}
+.content-business .sidebar .sidebar-subcategories ul li input {
+    margin-top: 7px;
+    margin-right: 5px;
+    display: inline-block;
+    vertical-align: top;
+}
+.content-business .sidebar .sidebar-subcategories ul li .title {
+    line-height: 20px;
+    display: inline-block;
+}
+@media (max-width: 1200px) {
+    .content-business .sidebar .sidebar-subcategories ul li .title {
+        font-size: 11px;
+    }
+}
+@media (max-width: 992px) {
+    .content-business .sidebar .sidebar-subcategories ul li .title {
+        font-size: 13px;
+    }
+}
+.content-business .sidebar .sidebar-subcategories ul li .count {
+    display: inline-block;
+    float: right;
+    width: 25px;
+    height: 20px;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    color: #fff;
+    background: #c4c4c4;
+    border-radius: 5px;
+    border-radius: 40%;
+}
+
+.listing.listing-3 .listing-grid .listing-heading .marker-ribbon .ribbon-text{
+    font-size: 9px;
+}
+
+[data-tooltip] {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+
+/* Hide the tooltip content by default */
+[data-tooltip]:before,
+[data-tooltip]:after {
+    visibility: hidden;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Position tooltip above the element */
+[data-tooltip]:before {
+    position: absolute;
+    bottom: -85%;
+    left: 50%;
+    margin-bottom: 5px;
+    margin-left: -65px;
+    padding: 7px;
+    width: 130px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #000;
+    background-color: hsla(0, 0%, 20%, 0.9);
+    color: #fff;
+    content: attr(data-tooltip);
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+/* Triangle hack to make tooltip look like a speech bubble */
+[data-tooltip]:after {
+    position: absolute;
+    bottom: -12%;
+    left: 50%;
+    margin-left: -5px;
+    width: 0;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    border-bottom: 5px solid hsla(0, 0%, 20%, 0.9);
+    content: " ";
+    font-size: 0;
+    line-height: 0;
+}
+
+/* Show tooltip content on hover */
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+    visibility: visible;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+}
+
+.categories .category-block .category-header.header-0 {
+    background: #00d793 url(../src/assets/img/category-header-jobs.png) no-repeat top;
+}
+
+.categories .category-block .category-header.header-1 {
+    background: #3399ff url(../src/assets/img/category-header-business.png) no-repeat top;
+}
+
+.categories .category-block .category-header.header-2 {
+    background: #ff822e url(../src/assets/img/category-header-restaurant.png) no-repeat top;
+}
+
+.homepage .homepage-banner .map-search .map-search-fields{
+    padding: 0 205px 0 20px;
+}
+
+.homepage .homepage-banner .map-search .map-search-fields .field input{
+    height: 31px;
+}
+
+#filterDis {
+    height: 45px;
+}
+
+/**********************************************************************************************************************/
+
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
@@ -63,6 +227,10 @@
     color: white !important;
 }
 
+.tc-red {
+    color: #E0040B !important;
+}
+
 .tc-blue {
     color: #0092B5;
 }
@@ -91,18 +259,21 @@
     cursor: pointer !important;
 }
 
-#mat-categories .mat-grid-tile .mat-figure {
+.mat-categories .mat-grid-tile .mat-figure {
     display: block !important;
     padding-top: 12px !important;
 }
 
+.mat-position .mat-grid-tile .mat-figure {
+    display: block !important;
+}
 
-#mat-categories img {
+.mat-categories img {
     width: 110px;
     padding-bottom: 5px;
 }
 
-#mat-categories div.mat-content {
+.mat-categories div.mat-content {
     font-size: 18px;
 }
 
@@ -144,8 +315,8 @@
 
 .services-card .info {
     line-height: 1.2;
-    text-align: left !important;
     margin-bottom: 5px;
+    text-align: left !important;
 }
 
 .services-card .mat-raised-button {
@@ -153,7 +324,6 @@
 }
 
 .services-card .media-body button span {
-    /*height: 24px !important;*/
     font-size: 16px !important;
 }
 
@@ -165,31 +335,139 @@
     font-size: 11px;
 }
 
-.bc-green{
+.bc-green {
     background-color: #008F2F !important;
 }
 
-.bc-yellow{
+.bc-yellow {
     background-color: #F09700 !important;
 }
 
-.bc-red{
+.bc-red {
     background-color: #E0040B !important;
 }
 
-.services-card mat-grid-list{
+.services-card mat-grid-list {
     margin-top: 2px !important;
 }
 
-.mat-grid-tile.izq .mat-figure{
+.mat-grid-tile.izq .mat-figure {
     justify-content: flex-start !important;
+}
+
+.service .mat-raised-button {
+    line-height: 26px;
+}
+
+.mat-images .mat-content {
+    height: 85%;
+}
+
+.mat-grid-tile.comment-date .mat-figure {
+    justify-content: flex-end !important;
+    font-size: 14px;
+}
+
+.textcomment button {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.mr-10 {
+    margin-right: 10px !important;
+}
+
+.pt-5 {
+    padding-top: 3px !important;
+}
+
+#comments p {
+    margin-bottom: 0.25rem;
+}
+
+#comments hr {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.delete-image.mat-icon-button {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    position: absolute;
+    top: -10px;
+    right: -12px;
+}
+
+.delete-position.mat-icon-button {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+}
+
+.md-40 {
+    font-size: 36px;
+    margin-bottom: 14px;
+}
+
+.fileContainer {
+    overflow: hidden;
+    position: relative;
+}
+
+.fileContainer [type=file] {
+    cursor: inherit;
+    display: block;
+    font-size: 999px;
+    filter: alpha(opacity=0);
+    min-height: 100%;
+    min-width: 100%;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 0;
+}
+
+#map {
+    height: 400px;
+    width: 100%;
+}
+
+.report-comment {
+    background-color: antiquewhite;
+}
+
+.mt-25 {
+    margin-top: 0 !important;
+}
+
+
+
+@media (max-width: 992px) {
+    .mt-25 {
+        margin-top: 25px !important;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    .container {
+        max-width: 100% !important;
+    }
+
+    .container {
+        width: 100%;
+        padding-right: 15px !important;
+        padding-left: 15px !important;
+        margin-right: 10px !important;
+        margin-left: 0 !important;
+    }
 }
 
 /*mat-grid-tile {*/
 /*background: lightblue;*/
 /*}*/
-
-
 
 /*.help-block {*/
 /*color: #FF3C2F;*/

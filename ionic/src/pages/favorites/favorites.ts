@@ -1,17 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController} from 'ionic-angular';
+import { NavController, LoadingController,Events, Platform} from 'ionic-angular';
 
 import  {ServiceProvider} from  '../../providers/service/service.service';
 import { HttpErrorResponse } from "@angular/common/http";
 import { ServicePage } from "../service/service";
-import { ApiProvider } from "../../providers/api/api";
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 
-/**
- * Generated class for the FavoritesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-favorites',
@@ -20,34 +14,55 @@ import { ApiProvider } from "../../providers/api/api";
 export class FavoritesPage {
   // declaracion de variables
   services = [];
-  baseUrl: any;
+  temp=[]
   email: any;
   token: any;
 
 
   constructor(
     public navCtrl: NavController,
-    public api: ApiProvider,
      public servProv: ServiceProvider,
-     public load: LoadingController) {
-
-      this.baseUrl = this.api.getbaseUrl() + "resources/image/";
-
+     public load: LoadingController,public events: Events,private photoViewer: PhotoViewer,private platform: Platform) {
+      this.servProv.getServicesFavorites().then(
+        data => {
+          this.services = data['data'];
+          this.temp=this.services;
+        },
+        (err: HttpErrorResponse) => {
+        console.log(err)
+        });
   }
 
-  ionViewDidLoad() {
-    this.servProv.getServicesFavorites().then(
-      data => {
-        this.services = data['data'];
-      },
-      (err: HttpErrorResponse) => {
-        if (err.error instanceof Error) {
+  getSearchValue(value) {
+
+        this.services=this.temp;
+        if (value && value.trim() != '' ) {
+          this.services = this.services.filter((item) => {
+            return (item.title.toLowerCase().indexOf(value.toLowerCase()) > -1);
+          })
         }
-      });
-  }
-  openServicePage(id) {
-    this.navCtrl.push(ServicePage, {
-      serviceId: id
+    }
+  viewImg(img) {
+    this.platform.ready().then(() => {
+    this.photoViewer.show(img);
     });
+  }
+
+  openServicePage(id,serv) {
+    this.navCtrl.push(ServicePage, {
+      serviceId: id,
+      service:serv
+    });
+  }
+  delete(id){
+    //hacer el
+    this.servProv.diskMarkfavorite(id).then(
+      data => {
+        this.events.publish('dismark:favorite', id);
+        this.services = this.services.filter(function(item){
+          return item.id !== id;
+        });
+      }
+    );
   }
 }

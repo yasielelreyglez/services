@@ -31,7 +31,7 @@ class Category
      * @OneToMany(targetEntity="Subcategory", mappedBy="category")
      */
     private $subcategories;
-
+    public $subcategoriesLists;
     public function __construct()
     {
         $this->subcategories = new \Doctrine\Common\Collections\ArrayCollection();

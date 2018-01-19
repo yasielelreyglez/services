@@ -8,24 +8,30 @@ import {ShowsubcateroriesComponent} from './components/showsubcaterories/showsub
 import {ShowservicesComponent} from './components/showservices/showservices.component';
 import {ShowfavoritesComponent} from './components/showfavorites/showfavorites.component';
 import {ShowmyservicesComponent} from './components/showmyservices/showmyservices.component';
+import {ShowmysearchsComponent} from './components/showmysearchs/showmysearchs.component';
 import {ShowserviceComponent} from './components/showservice/showservice.component';
 import {WizardserviceComponent} from './components/wizardservice/wizardservice.component';
+import {PayserviceComponent} from './components/payservice/payservice.component';
 
 const routes: Routes = [
     {path: '', component: HomeComponent, pathMatch: 'full'},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'categories', component: ShowcategoriesComponent},
-    {path: 'categories/:id', component: ShowsubcateroriesComponent},
     {path: 'categories/:id/subcategories/:id', component: ShowservicesComponent},
     {path: 'search', component: ShowservicesComponent},
     {path: 'search/service/:id', component: ShowserviceComponent},
     {path: 'categories/:id/subcategories/:id/service/:id', component: ShowserviceComponent},
     {path: 'subcategories/:id', component: ShowservicesComponent},
     {path: 'subcategories/:id/service/:id', component: ShowserviceComponent},
+    {path: 'service/:id', component: ShowserviceComponent},
     {path: 'myfavorites/service/:id', component: ShowserviceComponent},
     {path: 'myfavorites', component: ShowfavoritesComponent, canActivate: [AuthGuard]},
     {path: 'myservices', component: ShowmyservicesComponent, canActivate: [AuthGuard]},
+    {path: 'myservices/:id/pay', component: PayserviceComponent, canActivate: [AuthGuard]},
+    {path: 'myservices/:id/edit', component: WizardserviceComponent, canActivate: [AuthGuard]},
+    {path: 'mysearchs', component: ShowmysearchsComponent, canActivate: [AuthGuard]},
+    {path: 'mysearchs/service/:id', component: ShowserviceComponent, canActivate: [AuthGuard]},
     {path: 'myservices/service/:id', component: ShowserviceComponent, canActivate: [AuthGuard]},
     {path: 'createservice', component: WizardserviceComponent, canActivate: [AuthGuard]},
 

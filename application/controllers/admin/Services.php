@@ -1,4 +1,6 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php use Doctrine\Common\Collections\Criteria;
+
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
  * Services Controller.
@@ -13,7 +15,9 @@ class Services extends CI_Controller {
 
 	# GET /services
 	function index() {
-		$data['services'] = $this->Services_model->find();
+        $em= $this->doctrine->em;
+        $servicesRepo = $em->getRepository('Entities\Service');
+        $data['services'] = $servicesRepo->findAll();
 		$data['content'] = '/services/index';
         $data["tab"]="services";
 
@@ -29,20 +33,69 @@ class Services extends CI_Controller {
 	}
 
 	# GET /services/edit/1
-	function edit() {
-		$id = $this->uri->segment(3);
+	function edit($id) {
 		$data['services'] = $this->Services_model->find($id);
 		$data['content'] = '/services/create';
         $data["tab"]="services";
 
         $this->load->view('/includes/contentpage', $data);
 	}
+    function show($id) {
+        $data['services'] = $this->Services_model->find($id);
+        $data['content'] = '/services/show';
+        $data["tab"]="services";
+
+        $this->load->view('/includes/contentpage', $data);
+    }
+
+    /**
+     *
+     */
+    function denunciados(){
+        $em= $this->doctrine->em;
+        $relacion = $em->getRepository('Entities\UserService');
+
+        $criteria = new Criteria();
+        $criteria->where(Criteria::expr()->neq('complaint', null));
+        $criteria->orderBy(array("complaint_created"=>"DESC"));
+        $result =  $relacion->matching($criteria);
+        foreach ($result as $item) {
+            $item->getService()->getTitle();
+            $item->getUser()->getUsername();
+        }
+        $data["complaints"]=$result;
+        $data['content'] = '/services/denunciados';
+        $data["tab"]="services";
+        $this->load->view('/includes/contentpage', $data);
+	}
 
 	# GET /services/destroy/1
-	function destroy() {
-		$id = $this->uri->segment(3);
-		$data['services'] = $this->Services_model->destroy($id);
-		redirect('/services/index', 'refresh');
+	function destroy($id) {
+        $this->load->helper("file");
+        $em = $this->doctrine->em;
+        $service = $em->find("\Entities\Service", $id);
+
+            $service->getServicecomments()->toArray();
+            $service->getPositions()->toArray();
+            $fotos = $service->getImages()->toArray();//TODO VER SI SE BORRAN LOS FICHEROS
+            foreach ($fotos as $foto) {
+            	try{
+            		if(is_file($foto->getTitle())) {
+            			echo $foto->getTitle();
+                        delete_files($foto->getTitle());
+                    }
+				}catch (Exception $e){
+            		echo $foto->getTitle();
+            		print_r($e);
+				}
+            }
+            $service->getServiceusers()->toArray();
+            $service->getPayments()->toArray();
+
+            //CARGADA LA RELACION PARA DESPUES ELIMINARLAS CON EL SERVICIO
+            $em->remove($service);
+            $em->flush();
+        redirect('admin/services/index', 'refresh');
 	}
 
 	# POST /services/save

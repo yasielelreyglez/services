@@ -6839,7 +6839,7 @@ p i {
 }
 .homepage .search-form .restaurant-banner {
   position: relative;
-  padding: 120px 0;
+  padding: 0px 0;
 }
 .homepage .search-form .restaurant-banner .banner-text {
   position: relative;
@@ -15056,7 +15056,7 @@ p i {
 }
 .listing.listing-1 .listing-ver-1 .listing-tabs ul li {
   float: left;
-  width: 12.5%;
+  min-width: 12.5%;
 }
 .listing.listing-1 .listing-ver-1 .listing-tabs ul li.active a {
   background: #fff;
@@ -18001,7 +18001,7 @@ p i {
 }
 .restaurant .search-form .restaurant-banner {
   position: relative;
-  padding: 120px 0;
+  padding: 20px 0px ;
 }
 .restaurant .search-form .restaurant-banner .banner-text {
   position: relative;
@@ -18274,7 +18274,7 @@ p i {
 }
 .restaurant .content-restaurant {
   position: relative;
-  padding: 60px 0 80px 0;
+  padding: 0px 0 80px 0;
 }
 .restaurant .content-restaurant .sidebar {
   position: relative;

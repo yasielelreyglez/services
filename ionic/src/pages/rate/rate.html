@@ -1,26 +1,29 @@
 <ion-header>
 
-    <ion-navbar>
-        <ion-title text-center>Evalua este servicio</ion-title>
+  <ion-navbar>
+    <ion-title text-center>Evalua este servicio</ion-title>
 
-        <ion-buttons end>
-            <button (click)="close()" ion-button icon-only style="padding: 16px 8px;">
-                <i style="font-size: 30px;" class="fa fa-times" aria-hidden="true"></i>
-              </button>
-        </ion-buttons>
+    <ion-buttons end>
+      <button (click)="close()" ion-button icon-only style="padding: 16px 8px;">
+        <ion-icon class="fs-30" name="close"></ion-icon>
+      </button>
+    </ion-buttons>
 
-    </ion-navbar>
+  </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
 
-    <ion-label style="font-size: 18px;" margin-bottom="10" color="azul-claro" stacked>¿ Cómo calificarías este servicio ?</ion-label>
-    <ion-rating [readOnly]="false" (clicked)="starClicked($event)">
-    </ion-rating>
-
-    <button color="azul-oscuro" style="width:90%;margin-left:5%" class="btn-text-left" ion-button block margin-bottom="2" (click)="sendRate()">
-      Calificar servicio
-      </button>
+  <ion-label style="font-size: 18px;" margin-bottom="10" color="azul-claro" stacked>¿ Cómo calificarías este anuncio ?
+  </ion-label>
+  <ion-rating [readOnly]="false" [numStars]="5" [pcolor]="'azul-claro'" [value]="value" (clicked)="starClicked($event)">
+  </ion-rating>
+  <br>
+  <ion-textarea style="border: 1px solid #0092b6" rows="4" placeholder="Escribe tu comentario aqui"></ion-textarea>
+  <button color="azul-oscuro" class="btn-text-left" ion-button block margin-bottom="2" (tap)="sendRate()">
+    <ion-icon class="fs-30" name="star"></ion-icon>
+    &nbsp; Calificar
+  </button>
 </ion-content>

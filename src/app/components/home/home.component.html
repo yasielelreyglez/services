@@ -1,26 +1,455 @@
-<div class="col-12">
-    <form name="form" (ngSubmit)="f.form.valid && searchQuery()" #f="ngForm">
-        <mat-form-field class="text-center">
-            <input matInput placeholder="¿Que buscas?" name="query" [(ngModel)]="query" required>
-            <mat-error *ngIf="search.invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-    </form>
-    <br>
-    <div class="mb-20">
-        <h5 class="text-center tc-blue">Principales Tendencias</h5>
+<!--<div class="col-12">-->
+<!--<form name="form" (ngSubmit)="f.form.valid && searchQuery()" #f="ngForm">-->
+<!--<mat-form-field class="text-center">-->
+<!--<input matInput placeholder="¿Que buscas?" name="query" [(ngModel)]="query">-->
+<!--</mat-form-field>-->
+<!--</form>-->
+<!--<p id="yasiel"></p>-->
+<!--<br>-->
+<!--<div class="mb-20">-->
+<!--<h5 class="text-center tc-blue">Principales Tendencias</h5>-->
+<!--</div>-->
+
+<!--<app-subcategories [subcategories]=subcategories></app-subcategories>-->
+
+<!--<div class="text-center">-->
+<!--<button mat-raised-button color="primary" class="tc-white" routerLink="/categories">-->
+<!--<mat-icon>search</mat-icon>-->
+<!--Buscar por categoría-->
+<!--</button>-->
+<!--</div>-->
+<!--<br><br>-->
+<!--</div>-->
+
+<div class="homepage-banner has-bg-image" data-bg-image="../../assets/img/homepage-banner.jpg">
+    <div class="advanced-search">
+        <div class="close">
+            <i class="fa fa-close"></i>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="search-category">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3">
+                                <label>Cost</label>
+                            </div>
+                            <div class="col-md-9 col-sm-9 col-sm-9">
+                                <div class="slider-range-container">
+                                    <div class="slider-range" data-min="1" data-max="10000" data-step="2"
+                                         data-default-min="500" data-default-max="8000" data-currency="$"></div>
+                                    <div class="clearfix">
+                                        <input type="text" class="range-from" value="1">
+                                        <input type="text" class="range-to" value="60">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-category">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3">
+                                <label>Rating</label>
+                            </div>
+                            <div class="col-md-9 col-sm-9">
+                                <div class="slider-range-container">
+                                    <div class="slider-range" data-min="1" data-max="6" data-step="1"
+                                         data-default-min="1" data-default-max="6" data-currency=" &nbsp; "></div>
+                                    <div class="clearfix">
+                                        <input type="text" class="range-from" value="1">
+                                        <input type="text" class="range-to" value="6">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-category">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3">
+                                <label>Days published</label>
+                            </div>
+                            <div class="col-md-9 col-sm-9">
+                                <div class="slider-range-container">
+                                    <div class="slider-range" data-min="1" data-max="30" data-step="1"
+                                         data-default-min="4" data-default-max="10" data-currency=" &nbsp; "></div>
+                                    <div class="clearfix">
+                                        <input type="text" class="range-from" value="2">
+                                        <input type="text" class="range-to" value="30">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-category">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3">
+                                <label>Location</label>
+                            </div>
+                            <div class="col-md-9 col-sm-9">
+                                <input type="text" placeholder="Switzerland">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-category">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3">
+                                <label>Keywords</label>
+                            </div>
+                            <div class="col-md-9 col-sm-9">
+                                <input type="text" placeholder="Freelance">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-category">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3">
+                                <label>Industry</label>
+                            </div>
+                            <div class="col-md-9 col-sm-9">
+                                <div class="custom-select-box">
+                                    <select name="industry" class="custom-select">
+                                        <option value="0">IT</option>
+                                        <option value="1">Hobby</option>
+                                        <option value="2">Sport</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <app-subcategories [subcategories]=subcategories></app-subcategories>
-
-    <div class="text-center">
-        <button mat-raised-button color="primary" class="tc-white" routerLink="/categories">
-            <mat-icon>search</mat-icon>
-            Buscar por categoría
-        </button>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>Looking for something?<br> let us help you.</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem ad eius consequatur nulla
+                    commodi inventore mollitia esse totam minima error, doloremque placeat deleniti suscipit, ipsam
+                    maxime.</p>
+            </div>
+            <div class="col-md-12">
+                <div class="map-search">
+                    <!--<div class="map-toggleButton">-->
+                        <!--<i class="fa fa-bars"></i>-->
+                    <!--</div>-->
+                    <div class="map-search-fields">
+                        <div class="field custom-select-box">
+                            <select id="filterCit" name="cities" class="custom-select" multiple="true" data-placeholder="Ciudades">
+                                <option *ngFor="let city of cities" value="{{city.id}}">{{city.title}}</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <i class="fa fa-map-marker"></i>
+                            <input id="filterDis" type="text" placeholder="Distancia" class="location">
+                        </div>
+                        <div class="field custom-select-box">
+                            <select id="filterSub" name="subcategories" class="custom-select" multiple="true" data-placeholder="Subcategorías">
+                                <option *ngFor="let subcategory of subcategories" value="{{subcategory.id}}">{{subcategory.title}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="search-button">
+                        <button class="btn btn-medium btn-primary" (click)="filter()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            Filtrar &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
+<div class="listing-objects has-bg-image" data-bg-color="f5f5f5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="uou-tabs">
+                    <ul class="tabs">
+                        <li class="active"><a href="#uou-tab-1">Mapa</a></li>
+                        <li><a href="#uou-tab-2">Categorias</a></li>
+                        <li><a href="#uou-tab-3">Ciudades</a></li>
+                    </ul>
 
+                    <div class="content">
+                        <div class="active" id="uou-tab-1">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="map">
+                                            <div id="map-top"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="locations-list list-unstyled mb0">
+                                        <li><a href="#"><i class="fa fa-angle-right"></i>Australia & New Zeland <span
+                                                class="count">(5)</span></a></li>
+                                        <li><a href="#"><i class="fa fa-angle-right"></i>Northern America <span
+                                                class="count">(5)</span></a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="locations-list list-unstyled mb0">
+                                        <li><a href="#"><i class="fa fa-angle-right"></i>Southern Asia <span
+                                                class="count">(5)</span></a></li>
+                                        <li><a href="#"><i class="fa fa-angle-right"></i>Southern Europe <span
+                                                class="count">(5)</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="uou-tab-2">
+                            <div class="row">
+                                <div class="col-md-6" *ngFor="let category of categories">
+                                    <h5 class="industry-title">{{category.title}}</h5>
+                                    <ul class="industry-list list-unstyled mb0">
+                                        <li *ngFor="let subcategory of category.subcategoriesLists">
+                                            <a href="">{{subcategory.title}} <span
+                                                    class="count">({{subcategory.count}})</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="uou-tab-3">
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6" *ngFor="let city of cities">
+                                    <ul class="type-list list-unstyled mb0">
+                                        <li><a href="#">{{city.title}} <span
+                                                class="count">({{city.servicesCount}})</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- end .uou-tabs -->
+            </div>
+            <div class="col-md-3">
+                <div class="sidebar-listing">
+                    <h5 class="sidebar-listing-title">Visitados recientemente</h5>
+                    <div *ngFor="let service of recentvisits" class="listing-offer">
+                        <h6 class="title"><a [routerLink]="['service', service.id]">{{service.title}}</a></h6>
+                        <div class="listing-offer-thumbnail">
+                            <img src="{{service.thumb}}" alt="">
+                        </div>
+                        <div class="listing-offer-content">
+                            <span class="location"><i
+                                    class="fa fa-map-marker"></i> {{service.citiesList[0].title}}</span>
+                            <ul class="rate" [innerHTML]="result_rate(service)">
+                            </ul>
+                            <span class="count">{{service.visits}} vistas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="about about-section has-bg-image" data-bg-image="../../assets/img/about-bg.jpg">
+    <div class="triangle"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="section-title text-center">About The Company</h4>
+                <div class="uou-tabs vertical">
+                    <ul class="tabs">
+                        <li class="active"><a href="#uou-tab-1v">About Us</a></li>
+                        <li><a href="#uou-tab-2v">Our Team</a></li>
+                        <li><a href="#uou-tab-3v">Our Services</a></li>
+                    </ul>
+
+                    <div class="content">
+                        <div class="active" id="uou-tab-1v">
+                            <div class="col-md-5">
+                                <img src="../../assets/img/about-thumbnail.png" alt="" class="img-responsive">
+                            </div>
+                            <div class="col-md-7">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa in placeat voluptates
+                                    omnis vel quod maiores perferendis, eaque quasi expedita, adipisci dolorum porro
+                                    itaque quia nesciunt atque earum consequatur ex.</p>
+                                <ul class="list-unstyled mb0">
+                                    <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                    </li>
+                                    <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                    </li>
+                                    <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                    </li>
+                                    <li><i class="fa fa-angle-right"></i><span>Mauris in erat justo.</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div id="uou-tab-2v">
+                            <div class="col-md-5">
+                                <img src="../../assets/img/about-thumbnail.png" alt="" class="img-responsive">
+                            </div>
+                            <div class="col-md-7">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa in placeat voluptates
+                                    omnis vel ddquod maiores perferendis, eaque quasi expedita, adipisci dolorum porro
+                                    itaque quia nesciunt atque earum consequatur ex.</p>
+                                <ul class="list-unstyled mb0">
+                                    <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                    </li>
+                                    <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                    </li>
+                                    <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                    </li>
+                                    <li><i class="fa fa-angle-right"></i><span>Mauris in erat justo.</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div id="uou-tab-3v">
+                            <div class="col-md-5">
+                                <img src="../../assets/img/about-thumbnail.png" alt="" class="img-responsive">
+                            </div>
+                            <div class="col-md-7">
+                                <p>Lorem ipsuddm dolor sit amet, consectetur adipisicing elit. Ipsa in placeat
+                                    voluptates omnis vel quod maiores perferendis, eaque quasi expedita, adipisci
+                                    dolorum porro itaque quia nesciunt atque earum consequatur ex.</p>
+                                <ul class="list-unstyled mb0">
+                                    <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                    </li>
+                                    <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                    </li>
+                                    <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                    </li>
+                                    <li><i class="fa fa-angle-right"></i><span>Mauris in erat justo.</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- end .uou-tabs -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="popular_listings">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="section-title">Servicios populares</h3>
+                <!--<div class="header-listing">-->
+                <!--<h6>Sort by</h6>-->
+                <!--<div class="custom-select-box">-->
+                <!--<select name="order" class="custom-select">-->
+                <!--<option value="0">Most popular</option>-->
+                <!--<option value="1">The latest</option>-->
+                <!--<option value="2">The best rating</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--<ul class="listing-views">-->
+                <!--<li class="active"><a href="#"><i class="fa fa-th"></i></a></li>-->
+                <!--</ul>-->
+                <!--</div>-->
+                <div class="listing listing-3">
+                    <div class="row">
+                        <div *ngFor="let service of morevisits" class="col-sm-6 col-md-4 col-lg-4">
+                            <div class="listing-grid listing-grid-4">
+                                <div class="listing-heading">
+                                    <div *ngIf="service.professional" class="marker-ribbon">
+                                        <div class="ribbon-banner">
+                                            <div class="ribbon-text">Profesional</div>
+                                        </div>
+                                    </div>
+                                    <h5><a [routerLink]="['service', service.id]">{{service.title}}</a></h5>
+                                </div>
+                                <div class="listing-inner">
+                                    <div class="flexslider default-slider">
+                                        <ul class="slides">
+                                            <li><img src="{{service.thumb}}" alt=""></li>
+                                            <li *ngFor="let image of service.imagesList"><img src="{{image.thumb}}"
+                                                                                              alt=""></li>
+                                        </ul>
+                                        <div class="reviews">
+                                            <ul [innerHTML]="result_rate(service)">
+                                            </ul>
+                                            <span class="count">{{service.visits}} vistas</span>
+                                        </div>
+                                    </div>
+                                    <ul class="uou-accordions">
+                                        <li class="">
+                                            <a href="#"><i class="fa fa-user main-icon"></i> Información</a>
+                                            <div>
+                                                <h5 class="title">{{service.subtitle}}</h5>
+                                                <p>{{service.description}}</p>
+                                            </div>
+                                        </li>
+                                        <li class="active">
+                                            <a href="#"><i class="fa fa-envelope main-icon"></i> Información
+                                                adicional</a>
+                                            <div>
+                                                <ul class="contact-info list-unstyled mb0">
+                                                    <!--<ng-template *ngIf="service.address.length > 30">-->
+                                                    <!--<li><i class="fa fa-map-marker"></i> {{service.address.substr(0,30)}}...</li>-->
+                                                    <!--</ng-template>-->
+                                                    <li *ngIf="service.address.length > 30"><i
+                                                            class="fa fa-map-marker"></i>
+                                                        {{service.address.substring(0,30)}}...
+                                                    </li>
+                                                    <li *ngIf="service.address.length <= 30"><i
+                                                            class="fa fa-map-marker"></i> {{service.address}}
+                                                    </li>
+
+                                                    <li><i class="fa fa-envelope-o"></i> {{service.email}}</li>
+                                                    <li><i class="fa fa-globe"></i> {{service.url}}</li>
+                                                    <li><i class="fa fa-phone"></i> {{service.phone}}</li>
+                                                    <li><i class="fa fa-fax"></i> {{service.other_phone}}</li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul> <!-- end .uou-accordions -->
+                                    <div class="info-footer">
+                                        <!--<i class="fa fa-map-marker location"></i>-->
+                                        <!--<h6>{{service.subcategoriesList[0].title}}</h6>-->
+                                        <!--<i *ngIf="service.professional" class="fa fa-bookmark bookmark pull-right"></i>-->
+                                        <a [routerLink]="['service', service.id]">Ver detalles</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="toggle-button text-center">-->
+                <!--<button class="btn btn-medium btn-primary">Ver todos</button>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sponsors sponsors-2 has-bg-image" data-bg-image="../../assets/img/banner-mission.jpg" data-bg-color="00D793"
+     data-bg-opacity=".20">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="section-title">Our Sponsors</h3>
+                <div class="sponsors-slider">
+                    <div class="item"><img src="../../assets/img/sponsor_logo1_1.png" alt="" class="img-responsive">
+                    </div>
+                    <div class="item"><img src="../../assets/img/sponsor_logo2_2.png" alt="" class="img-responsive">
+                    </div>
+                    <div class="item"><img src="../../assets/img/sponsor_logo3_3.png" alt="" class="img-responsive">
+                    </div>
+                    <div class="item"><img src="../../assets/img/sponsor_logo4_4.png" alt="" class="img-responsive">
+                    </div>
+                    <div class="item"><img src="../../assets/img/sponsor_logo5_5.png" alt="" class="img-responsive">
+                    </div>
+                    <div class="item"><img src="../../assets/img/sponsor_logo6_6.png" alt="" class="img-responsive">
+                    </div>
+                    <div class="item"><img src="../../assets/img/sponsor_logo4_4.png" alt="" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

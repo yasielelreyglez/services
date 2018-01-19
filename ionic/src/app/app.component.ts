@@ -2,15 +2,13 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-import { HomePage } from '../pages/home/home';
-import { EjemploPage } from "../pages/ejemplo/ejemplo";
+import {TabPage} from "../pages/tab/tab";
 @Component({
   templateUrl: "app.html"
 })
 export class MyApp {
-  rootPage: any = HomePage;
-  // rootPage: any = EjemploPage;
+  // rootPage: any = HomePage;
+  rootPage: any = TabPage;
   splah: any;
   constructor(
     platform: Platform,
@@ -23,6 +21,8 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
+      statusBar.overlaysWebView(false);
+      // statusBar.backgroundColorByHexString('#ffffff');
       // setTimeout(function(){
         // splashScreen.hide();
       // }, 5000);

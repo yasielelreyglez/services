@@ -37,13 +37,24 @@ class Subcategory
      *
      * @ManyToOne(targetEntity="Category", inversedBy="subcategories")
      */
-    protected $category;
+    public $category;
 
     /**
      * Many Subcategory have Many Services.
      * @ManyToMany(targetEntity="Service", mappedBy="subcategories")
      */
     public $services;
+
+    public $servicesCount;
+    /**
+     * @Column(type="datetime")
+     **/
+    protected $created_at;
+
+    /**
+     * @Column(type="datetime")
+     **/
+    protected $updated_at;
 
     public function __construct()
     {

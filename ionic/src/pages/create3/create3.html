@@ -1,0 +1,81 @@
+<ion-header>
+
+    <ion-navbar hideBackButton>
+        <ion-title text-center>LOGO</ion-title>
+    </ion-navbar>
+
+</ion-header>
+<ion-content padding>
+
+    <h4 class="azul-claro">{{edit ? 'Editar Anuncio': 'Crear Anuncio' }} <small class="crear-gris">Info adicional</small></h4>
+    <div class="progress">
+        <div class="circle done"> <span class="label">1</span>
+        </div> <span class="bar  "></span>
+        <div class="circle done "> <span class="label">2</span>
+        </div> <span class="bar "></span>
+        <div class="circle active"> <span class="label">3</span>
+        </div> <span class="bar"></span>
+        <div class="circle"> <span class="label">4</span>
+        </div>
+    </div>
+    <hr class="hr-separador">
+
+    <form #formu="ngForm">
+        <ion-item>
+            <ion-label>Días de atención</ion-label>
+            <ion-select multiple="true" name="days" [(ngModel)]="tempDay" placeholder="Seleccione">
+                <ion-option *ngFor="let item of week_days; let pos = index;" [value]="item.value">{{item.title}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item no-lines>
+            <ion-label color="azul-claro">Horario de atención</ion-label>
+
+        </ion-item>
+        <ion-item no-lines>
+            <ion-label fixed>Desde</ion-label>
+            <ion-datetime placeholder="Hora de inicio" name="start_time" [(ngModel)]="service.start_time" block displayFormat="HH:mm"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label fixed>Hasta</ion-label>
+            <ion-datetime placeholder="Hora de inicio" name="end_time" [(ngModel)]="service.end_time" displayFormat="HH:mm"></ion-datetime>
+
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Teléfono adicional</ion-label>
+            <ion-input type="tel" name="other_phone" [(ngModel)]="service.other_phone" placeholder="Teléfono adicional ..."></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Correo electrónico</ion-label>
+            <ion-input type="email" name="email" [(ngModel)]="service.email" placeholder="Correo electrónico..."></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Dirección web</ion-label>
+            <ion-input type="url" name="web" [(ngModel)]="service.url" placeholder="Dirección web..."></ion-input>
+
+        </ion-item>
+
+
+    </form>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-6>
+                <button block color="azul-claro" (click)="goToCreate2()" ion-button icon-start>
+                        <ion-icon name="arrow-round-back"></ion-icon>
+                        Anterior
+
+
+                        </button>
+            </ion-col>
+            <ion-col col-6>
+                <button [disabled]="!formu.form.valid" block color="azul-oscuro" (click)="goToCreate4()" ion-button icon-start>
+
+                              <ion-icon name="arrow-round-forward"></ion-icon>
+                              Siguiente
+
+                            </button>
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

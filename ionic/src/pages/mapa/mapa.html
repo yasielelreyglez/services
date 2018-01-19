@@ -8,49 +8,37 @@
 
 
 <ion-content padding>
-    <ion-grid>
-        <ion-row>
-            <ion-col col-9>
-                <ion-list>
-                    <ion-item style="padding-left: 0;">
-                        <ion-thumbnail item-start>
-                            <ng-container *ngIf="service.icon; else imgTemplate">
-                                <img src="{{baseUrl}}/service/{{service.icon}}">
-                            </ng-container>
-                            <ng-template #imgTemplate>
-                                <img src="assets/imgs/service_img.png">
-                            </ng-template>
-                        </ion-thumbnail>
-                        <h1>{{service.title}}</h1>
-                        <p>{{service.subtitle}}</p>
-                    </ion-item>
-                    <p>{{service.address}}</p>
-                    <p>1.5km de tu posición</p>
-                </ion-list>
-            </ion-col>
-            <ion-col col-3>
-                <strong><ion-label text-center style="font-size: 28px; margin: 13px 0;" color="azul-claro">{{service.rated}}/10</ion-label></strong>
-                <button (click)="openRate()" style="font-size: 10px;" color="azul-claro" ion-button>
-                  Evaluar
-                  </button>
-                <hr style="border-bottom: 2px solid #dedede;">
-                <strong>
-                    <ion-label text-center style="font-size: 17px; margin: 13px 0;" color="azul-claro">
-                      <i class="fa fa-comment-o" aria-hidden="true"></i> 9999
-                    </ion-label>
-                  </strong>
-            </ion-col>
-
-        </ion-row>
-    </ion-grid>
-
-    <button (click)="Llamar(service.phone)" class="btn-text-left" text-left color="azul-claro" ion-button block margin-bottom="1">
-          <ion-icon name="call" style="font-size: 30px;"></ion-icon>
-          &nbsp;Llamar ahora
-        </button>
+    <serv-up-info [passedService]="service" [cantComentarios]="cant_c" (rateService)="rateService($event)"></serv-up-info>
 
     <ion-label text-center color="azul-claro">
-        Mis ubicaciones
+        Mis ubicaciones {{pepe}}
     </ion-label>
+    <ion-card>
+
+        <ion-item>
+            <div #map id="map"></div>
+            <ion-fab class="fs-15" left bottom>
+                <button ion-fab mini (tap)="getLocation()">
+                 <ion-icon name="pin"></ion-icon>
+                 </button>
+            </ion-fab>
+        </ion-item>
+
+        <ion-item *ngFor="let p of positions; let i = index">
+            <h2>{{p.title}} <span id="{{'pos' + i}}"></span></h2>
+            <button [disabled]="!havePosition" *ngIf="!destino" (click)="calculateAndDisplayRoute(p)" ion-button icon-left clear item-end>
+        <ion-icon name="navigate"></ion-icon>
+        Ir
+      </button>
+            <button color="danger" *ngIf="destino && p.id == destino.id" (click)="cancelarRoute()" ion-button icon-left clear item-end>
+        <ion-icon  name="close"></ion-icon>
+       Cancelar
+      </button>
+        </ion-item>
+
+    </ion-card>
+
+
+
 
 </ion-content>

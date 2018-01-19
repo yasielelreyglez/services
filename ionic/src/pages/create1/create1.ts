@@ -2,18 +2,24 @@ import { Component } from '@angular/core';
 import {
   IonicPage,
   NavController,
-  NavParams,
   ActionSheetController,
-  ToastController
+  Platform,
+  NavParams,
+
 } from "ionic-angular";
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+
 import { Camera, CameraOptions } from '@ionic-native/camera';
-/**
- * Generated class for the Create1Page page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { ViewChild } from '@angular/core';
+import { ApiProvider } from '../../providers/api/api';
+import { Create2Page } from '../create2/create2';
+import { City } from '../../models/city';
+import { HttpErrorResponse } from '@angular/common/http';
+import { SubCategory } from '../../models/subCategory';
+import { sendService } from '../../models/sendService';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { ServicesPage } from '../services/services';
+import { MyservicesPage } from '../myservices/myservices';
+
 
 @IonicPage()
 @Component({
@@ -21,41 +27,89 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
   templateUrl: 'create1.html',
 })
 export class Create1Page {
-  imageURI:any;
+  edit: boolean =false;
+  @ViewChild('formu') f;
   preview:any;
-  resbuesta:any;
+  service: sendService;
+  cities: City[];
+  categories:SubCategory[];
 
-  imageFileName:any;
-  constructor(public navCtrl: NavController,
-    public navParams: NavParams,
-    private transfer: FileTransfer,
+  constructor(public navParams: NavParams,public navCtrl: NavController,
     private camera: Camera,
-    public actionSheetCtrl: ActionSheetController  ,
+    public actionSheetCtrl: ActionSheetController ,
+    public api: ApiProvider,
+    public photoViewer: PhotoViewer,private platform: Platform
       ) {
-     this.imageURI = "http://192.168.137.1/login/resources/image/categories/bares.png"
+        this.service = new sendService();
+        this.loadSelect();
   }
+  backToHome(){
+    if (this.edit) {
+      this.navCtrl.popTo(MyservicesPage);
+    }else{
+      this.navCtrl.popTo(ServicesPage);
+    }
 
+  }
+  loadSelect() {
+    this.api.getCities().then(
+      data => {
+        this.cities = data["data"];
+      },
+      (err: HttpErrorResponse) => {
+       console.log(err);
+      }
+    );
+    this.api.getCategories().then(
+      data => {
+        this.categories = data["data"];
+      },
+      (err: HttpErrorResponse) => {
+        if (err.error instanceof Error) {
+        } else {
+        }
+      }
+    );
+  }
   ionViewDidLoad() {
-    console.log('ionViewDidLoad Create1Page');
+    this.preview = "assets/imgs/service_img.png";
+    if(this.navParams.get("service")){
+      this.edit=true;
+      this.service = this.navParams.get("service");
+      let citiesId = [];
+      for (let i = 0; i <this.navParams.get("service").citiesList.length; i++) {
+          citiesId.push(this.navParams.get("service").citiesList[i].id);
+      }
+      this.service.cities = citiesId;
+
+      let subcategoriesId = [];
+      for (let i = 0; i < this.navParams.get("service").subcategoriesList.length; i++) {
+          subcategoriesId.push(this.navParams.get("service").subcategoriesList[i].id);
+      }
+      this.service.categories = subcategoriesId;
+      if (this.service.icon)
+      this.preview = this.service.icon;
+
+    }
   }
   public presentActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Select Image Source',
+      title: 'Seleccione la imagen',
       buttons: [
         {
-          text: 'Load from Library',
+          text: 'Cargar desde la galeria',
           handler: () => {
             this.getImage(this.camera.PictureSourceType.PHOTOLIBRARY);
           }
         },
         {
-          text: 'Use Camera',
+          text: 'Usar la Camara',
           handler: () => {
             this.getImage(this.camera.PictureSourceType.CAMERA);
           }
         },
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel'
         }
       ]
@@ -71,38 +125,24 @@ export class Create1Page {
 
     this.camera.getPicture(options).then((imageData) => {
        this.preview = 'data:image/jpeg;base64,' + imageData;
-       this.imageURI = imageData;
-
+       this.service.icon = {filename:Date.now()+this.service.title+"imageData.jpg",filetype:"image/jpeg",value:imageData};
     }, (err) => {
       console.log(err);
-      // this.presentToast(err);
     });
   }
-  uploadFile() {
-
-
-    const fileTransfer: FileTransferObject = this.transfer.create();
-
-    let options: FileUploadOptions = {
-      fileKey: 'ionicfile',
-      fileName: 'ionicfile',
-      chunkedMode: false,
-      mimeType: "image/jpeg",
-      headers: {}
+  viewImg() {
+    this.platform.ready().then(() => {
+    this.photoViewer.show(this.preview);
+    });
+  }
+  goToCreate2(){
+    if (this.f.form.valid) {
+      this.navCtrl.push(Create2Page, {
+        service: this.service, //paso el service
+      });
     }
 
-    fileTransfer.upload(this.imageURI, 'http://192.168.137.149/login/api/testimg', options)
-      .then((data) => {
-      this.resbuesta =data;
-      // console.log(data+" Uploaded Successfully");
-      // this.imageFileName = "http://192.168.0.7:8080/static/images/ionicfile.jpg"
-
-    }, (err) => {
-      console.log(err);
-      this.resbuesta =err;
-    });
   }
-
 }
 
 

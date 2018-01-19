@@ -1,9 +1,11 @@
 // componetes angular
+
 import { Component, ViewChild } from "@angular/core";
 // providers
 import  {SubCategoryProvider} from  '../../providers/sub-category/sub-category';
 import  {AuthProvider} from  '../../providers/auth/auth';
 import { ServiceProvider } from "../../providers/service/service.service";
+import { ApiProvider } from "../../providers/api/api";
 
 // Paginas
 import  {PopoverPage} from  '../pop-over/pop-over';
@@ -11,7 +13,7 @@ import {ServicesPage} from '../services/services';
 import  {CategoriesPage} from  '../categories/categories';
 import 'rxjs/add/operator/map';
 // componetes ionic
-import {IonicPage,PopoverController,NavController,} from 'ionic-angular';
+import {IonicPage,PopoverController,NavController, AlertController,} from 'ionic-angular';
 import {
   NavParams,
   LoadingController,
@@ -22,9 +24,13 @@ import {
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ServicePage } from "../service/service";
 import { HttpErrorResponse } from "@angular/common/http";
-import { ApiProvider } from "../../providers/api/api";
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { StatusBar } from "@ionic-native/status-bar";
+import { Observable } from "rxjs/Observable";
 
-@IonicPage()
+@IonicPage({
+  priority: 'high'
+})
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -36,13 +42,14 @@ export class HomePage {
   connetionDown: boolean;
   loggedIn: boolean;
   noFound: boolean;
-  baseUrl: any;
+
   busqueda:boolean;
   loading: any;
   @ViewChild('search') search;
 
 
   constructor(
+    private alertCtrl: AlertController,
      public auth: AuthProvider,
      private popoverCtrl: PopoverController,
      public subCat: SubCategoryProvider,
@@ -50,40 +57,88 @@ export class HomePage {
      public api: ApiProvider,
      public servProv: ServiceProvider,
      private load: LoadingController,
+     private photoViewer: PhotoViewer,
      public keyboard: Keyboard,
-     navParams: NavParams,public splashScreen: SplashScreen,public platform: Platform) {
-      this.connetionDown = false;
-  }
+     public navParams: NavParams,public splashScreen: SplashScreen,public platform: Platform,  statusBar: StatusBar,) {
 
+      this.platform.ready().then(() => {
+        //statusBar.hide();
+        //statusBar.backgroundColorByHexString('#ffffff');
+        this.platform.registerBackButtonAction((readySource) => {
+          this.exitApp()
+
+        });
+      });
+
+        this.subCat.topSubcategories().then(
+          data => {
+            this.subCategories =data['data'];
+              this.splashScreen.hide();
+            this.connetionDown = false;
+          },
+          (err: HttpErrorResponse) => {
+            if (err.error instanceof Error) {
+              this.connetionDown = true;
+              this.splashScreen.hide();
+            } else {
+              this.connetionDown = true;
+              this.splashScreen.hide();
+
+            }
+        });
+  }
   ionViewDidLoad() {
+
     this.platform.ready().then(() => {
+
+
       this.busqueda = false;
       this.noFound = false;
-      this.baseUrl = this.api.getbaseUrl() + "resources/image/";
+
       this.auth.currentUser.subscribe(user=>{
         this.loggedIn = !!user;
       });
-       this.subCat.topSubcategories().then(
-        data => {
-          this.subCategories =data['data'];
-          this.splashScreen.hide();
-          this.connetionDown = false;
-        },
-        (err: HttpErrorResponse) => {
-          if (err.error instanceof Error) {
-            this.connetionDown = true;
-            this.splashScreen.hide();
-          } else {
-            this.splashScreen.hide();
-            this.connetionDown = true;
-          }
-        });
+
     });
-      }
+  }
+  ionViewDidEnter() {
+    if(this.navParams.get('connetionDown')){
+      this.connetionDown = true;
+    }
+  }
+  viewImg(img) {
+    this.platform.ready().then(() => {
+    this.photoViewer.show(img);
+    });
+  }
+
+  exitApp(){
+    let confirm = this.alertCtrl.create({
+      title: "¿Desea salir de la aplicación? ",
+      message: "",
+      buttons: [
+        {
+          text: "No",
+          handler: () => {
+          }
+        },
+        {
+          text: "Si",
+          handler: () => {
+            this.platform.exitApp();
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
 
   searchServices(query){
 
-    this.loading = this.load.create();
+    this.loading = this.load.create({
+      content:"Buscando..."
+    });
     this.loading.present();
     this.servProv.getServiceBySearch(query).then(
       data => {
@@ -102,26 +157,6 @@ export class HomePage {
       });
   }
 
-  // ngOnInit() {
-  //   this.auth.currentUser.subscribe(user=>{
-  //     this.loggedIn = !!user;
-  //   });
-  //    this.subCat.topSubcategories().then(
-  //     data => {
-  //       this.subCategories =data['data'];
-  //       this.splashScreen.hide();
-  //       this.connetionDown = false;
-  //     },
-  //     (err: HttpErrorResponse) => {
-  //       if (err.error instanceof Error) {
-  //         this.connetionDown = true;
-  //         this.splashScreen.hide();
-  //       } else {
-  //         this.splashScreen.hide();
-  //         this.connetionDown = true;
-  //       }
-  //     });
-  // }
   goSearch(keyCode) {
     if (keyCode === 13){
      this.busqueda = true;
@@ -135,10 +170,19 @@ export class HomePage {
     this.busqueda = false;
     this.noFound =  false;
   }
-  openServicePage(id){
-    this.navCtrl.push(ServicePage,{
-      serviceId:id
-    })
+  // openServicePage(id,serv){
+  //   this.navCtrl.push(ServicePage,{
+  //      serviceId:id,
+  //      service:serv
+  //   })
+  // }
+  openServicePage(id,index) {
+    this.navCtrl.push(ServicePage, {
+      service: this.services[index], //paso el service
+      serviceId: id,  //si paso el id del servicio para la peticion
+      parentPage: this
+
+    });
   }
 
   onInput(e){
@@ -165,9 +209,17 @@ export class HomePage {
     this.navCtrl.push(CategoriesPage)
   }
   openServicesPage(id){
-    this.navCtrl.push(ServicesPage,{
-      subCatId:id
-    });
+    // this.api.test().then(
+    //   () => {
+        this.navCtrl.push(ServicesPage,{
+          subCatId:id
+        });
+      // },
+      // (err: HttpErrorResponse) => {
+      //   // no hay conexion
+      //     this.connetionDown = true;
+      // });
+
   }
   reConnect(){
     this.subCat.topSubcategories()
@@ -182,6 +234,21 @@ export class HomePage {
         this.connetionDown = true;
       }
     );
+  }
+  toogleFavorite(index,id){
+    if(this.services[index].favorite == 1){
+      this.servProv.diskMarkfavorite(id).then(
+        data => {
+          this.services[index].favorite = 0;
+        } );
+    }
+    else{
+      this.servProv.markfavorite(id).then(
+        data => {
+          this.services[index].favorite = 1;
+        });
+    }
+
   }
 }
 

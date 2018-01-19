@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {AuthProvider} from  '../auth/auth'
-import {  HttpClient,  HttpHeaders } from "@angular/common/http";
+import {  HttpClient,  HttpHeaders, HttpParams } from "@angular/common/http";
 import { ApiProvider } from "../api/api";
+import { sendService } from '../../models/sendService';
 
 /*
   Generated class for the ServiceProvider provider.
@@ -16,10 +17,36 @@ export class ServiceProvider {
   constructor(public http: HttpClient,public auth: AuthProvider,public api: ApiProvider) {
 
   }
-  getServiceBySubCat(subcategory):any{
+  deleteService(id){
+    if (this.auth.getUser()){
+      return this.http.get(this.api.getbaseUrl() + 'api/deleteservice/'+id,{
+      headers: new HttpHeaders().set('Authorization', this.auth.getUser().token)
+      })
+      .toPromise()
+      .then(
+        (response) => {
+         return response;
+      }
+  ).catch(this.handleError);
+}
+  }
+  createFullService(serv: sendService){
+    return this.http.post(this.api.getbaseUrl()+'api/createservicefull', serv,{
+      headers: new HttpHeaders().set('Authorization', this.auth.getUser().token)
+     })
+    .toPromise()
+    .then(
+      (response) => {
+        // if (response['error']){
+           return response;
+        // return true;
+      }
+    ).catch(this.handleError);
+  }
+   getServiceBySubCat(subcategory):any{
 
     if (this.auth.getUser()){
-      return this.http.get(this.api.getbaseUrl() + 'api/servicessub/'+subcategory,{
+            return this.http.get(this.api.getbaseUrl() + 'api/servicessub/'+subcategory,{
         headers: new HttpHeaders().set('Authorization', this.auth.getUser().token)
        })
         .toPromise()
@@ -40,6 +67,16 @@ export class ServiceProvider {
       }
   }
 
+  get(search): Promise<Object> {
+    return this.http
+      .get(this.api.getbaseUrl() + 'api/searchService/'+search)
+      .toPromise()
+      .then(
+        (response) => {
+         return response;
+        }
+      ).catch(this.handleError);;
+}
 
   getServiceBySearch(search):Promise<Object>{
     if (this.auth.getUser()){
@@ -71,6 +108,18 @@ export class ServiceProvider {
       .toPromise()
       .then(
         (response) => {
+          return response;
+        }
+      ).catch(this.handleError);
+  }
+  denunciarService(id,denuncia):Promise<Object>{
+    return this.http.get(this.api.getbaseUrl() + 'api/complaint/'+id+"?complaint="+denuncia,{
+      headers: new HttpHeaders().set('Authorization',this.auth.getUser().token)
+     })
+      .toPromise()
+      .then(
+        (response) => {
+          console.log(response)
           return response;
         }
       ).catch(this.handleError);
@@ -119,6 +168,52 @@ export class ServiceProvider {
         }
       ).catch(this.handleError);
     }
+  }
+  markfavorite(id):Promise<Object>{
+      return this.http.get(this.api.getbaseUrl() + 'api/markfavorite/'+id,{
+        headers: new HttpHeaders().set('Authorization', this.auth.getUser().token)
+        })
+      .toPromise()
+      .then(
+        (response) => {
+          return response;
+        }
+      ).catch(this.handleError);
+
+  }
+  diskMarkfavorite(id):Promise<Object>{
+    return this.http.get(this.api.getbaseUrl() + 'api/dismarkfavorite/'+id,{
+      headers: new HttpHeaders().set('Authorization', this.auth.getUser().token)
+      })
+    .toPromise()
+    .then(
+      (response) => {
+        return response;
+      }
+    ).catch(this.handleError);
+
+}
+rateservice(id,value):Promise<Object>{
+  return this.http.get(this.api.getbaseUrl() + 'api/rateservice/'+id+'/'+value,{
+    headers: new HttpHeaders().set('Authorization', this.auth.getUser().token)
+    })
+  .toPromise()
+  .then(
+    (response) => {
+      return response;
+    }
+  ).catch(this.handleError);
+
+}
+
+  filterService(cities,categories,distance,current){
+  return this.http.post(this.api.getbaseUrl() + 'api/filter', {cities,categories} )
+    .toPromise()
+    .then(
+      (response) => {
+        return response;
+      }
+    ).catch(this.handleError);
   }
   private handleError(error: any): Promise<any> {
     return Promise.reject(error.message || error);

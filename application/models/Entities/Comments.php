@@ -25,29 +25,44 @@ class Comments
      */
     public $user;
 
+
+    /**
+     * @Column(type="integer", nullable=true)
+     * @var int
+     **/
+    public $hided;
+
     /**
      * Many Features have One Product.
      * @ManyToOne(targetEntity="Service", inversedBy="servicecomments")
      */
-    public $service;
+    protected $service;
 
     /**
      * @Column(type="string")
      * @var string
      **/
-    protected $comment;
+    public $comment;
 
     /**
-     * @Column(type="integer")
+     * @Column(type="integer",nullable=true)
      * @var int
      **/
     public $parent;
+
+    /**
+     * Many Features have One Product.
+     * @ManyToOne(targetEntity="User", inversedBy="reportcomments")
+     */
+    public $reportuser;
 
 
     /**
      * @Column(type="datetime")
      **/
     public $created;
+
+
 
     /**
      * Set user
@@ -56,6 +71,11 @@ class Comments
      *
      * @return Comments
      */
+    public function __construct()
+    {
+        $this->created = new \DateTime("now");
+    }
+
     public function setUser(\Entities\User $user = null)
     {
         $this->user = $user;
@@ -95,5 +115,37 @@ class Comments
     public function getService()
     {
         return $this->service;
+    }
+
+    /**
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param string $comment
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReportuser()
+    {
+        return $this->reportuser;
+    }
+
+    /**
+     * @param mixed $reportuser
+     */
+    public function setReportuser($reportuser)
+    {
+        $this->reportuser = $reportuser;
     }
 }

@@ -22,7 +22,7 @@ class UserService
 
     /**
      * Many Features have One Product.
-     * @Id @ManyToOne(targetEntity="Service", inversedBy="serviceusers")
+     * @Id @ManyToOne(targetEntity="Service", inversedBy="serviceusers",cascade={"persist", "remove"})
      */
     public $service;
 
@@ -37,6 +37,11 @@ class UserService
      * @var int
      **/
     public $rate;
+    /**
+     * @Column(type="string", nullable=true)
+     * @var string
+     **/
+    public $ratecomment;
 
     /**
      * @Column(type="integer", nullable=true)
@@ -48,6 +53,11 @@ class UserService
      * @var int
      **/
     public $visited;
+
+    /**
+     * @Column(type="datetime", nullable=true)
+     **/
+    public $visited_at;
 
     /**
      * @Column(type="string", nullable=true)
@@ -250,5 +260,37 @@ class UserService
     public function getService()
     {
         return $this->service;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVisitedAt()
+    {
+        return $this->visited_at;
+    }
+
+    /**
+     * @param mixed $visited_at
+     */
+    public function setVisitedAt($visited_at)
+    {
+        $this->visited_at = $visited_at;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRatecomment()
+    {
+        return $this->ratecomment;
+    }
+
+    /**
+     * @param string $ratecomment
+     */
+    public function setRatecomment($ratecomment)
+    {
+        $this->ratecomment = $ratecomment;
     }
 }

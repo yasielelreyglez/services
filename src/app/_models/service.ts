@@ -8,7 +8,7 @@ export class Service {
     icon: string | any;
     cities: any[];
     categories: any[];
-    galery: any[];
+    gallery: any[];
     other_phone: string;
     email: string;
     url: string;
@@ -16,5 +16,6 @@ export class Service {
     start_time: string;
     end_time: string;
     positions: any[];
-
+    dropsImages: any;
+    times: any;
 }

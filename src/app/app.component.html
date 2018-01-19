@@ -1,14 +1,144 @@
-<mat-toolbar color="primary" role="header">
-    <mat-toolbar-row>
-        <span routerLink="" class="tc-white cp">LOGO</span>
-        <span class="center-spacer"></span>
+<!--<mat-toolbar color="primary" role="header">-->
+<!--<mat-toolbar-row>-->
+<!--<span routerLink="" class="tc-white cp">LOGO</span>-->
+<!--<span class="center-spacer"></span>-->
 
-        <app-menu></app-menu>
+<!--<app-menu></app-menu>-->
 
-    </mat-toolbar-row>
-</mat-toolbar>
-<br><br>
+<!--</mat-toolbar-row>-->
+<!--</mat-toolbar>-->
+<!--<br><br>-->
 
-<div class="container">
+<!--<div class="container">-->
+<!--<router-outlet #leftMenu></router-outlet>-->
+<!--</div>-->
+
+
+<!-- Mirrored from new.uouapps.com/quick-finder/index2.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 Nov 2017 14:43:12 GMT -->
+
+
+<div id="main-wrapper" class="homepage">
+
+    <app-menu></app-menu>
+
     <router-outlet #leftMenu></router-outlet>
+
+
+    <div class="uou-block-4e has-bg-image" data-bg-color="ffffff">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <a routerLink="/" class="logo"><img src="../../assets/img/logo.png" alt=""></a>
+
+                    <ul style="background-image: url(../../assets/img/footer-map-bg.html);"
+                        class="contact-info has-bg-image contain" data-bg-image="../../assets/img/footer-map-bg.png">
+                        <li>
+                            <i class="fa fa-map-marker"></i>
+                            <address>795 Folsom Ave, Suite 600, San Francisco, CA 94107</address>
+                        </li>
+
+                        <li>
+                            <i class="fa fa-phone"></i>
+                            <a href="tel:#">(123) 456-7890</a>
+                        </li>
+
+                        <li>
+                            <i class="fa fa-envelope"></i>
+                            <a href="mailto:#">first.last@example.com</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <h5>Twitter Feed</h5>
+
+                    <ul class="twitter-feed">
+                        <li>
+                            RT <a href="#">@no1son</a>: Now this <a href="#">http://t.co/TSfMW1qMAW</a> is one hell of a
+                            stunning site!!! Awesome work guys <a href="#">@AIRNAUTS</a>
+                            <a href="#" class="time">May 25</a>
+                        </li>
+
+                        <li>
+                            Check out the wordpress version of Tucson - <a href="#">http://t.co/sBlU3GbapT</a>
+                            <a href="#" class="time">May 22</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <h5>Photostream</h5>
+
+                    <ul class="photos-list">
+                        <li><img src="../../assets/img/photostream4.jpg" alt=""></li>
+                        <li><img src="../../assets/img/photostream6.jpg" alt=""></li>
+                        <li><img src="../../assets/img/photostream3.jpg" alt=""></li>
+                        <li><img src="../../assets/img/photostream2.jpg" alt=""></li>
+                        <li><img src="../../assets/img/photostream1.jpg" alt=""></li>
+                        <li><img src="../../assets/img/photostream.jpg" alt=""></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <h5>Newsletter</h5>
+
+                    <p>Subscribe to our newsletter to receive our latest news and updates. We do not spam.</p>
+
+                    <form class="newsletter-form" action="#">
+                        <input placeholder="Enter your email address" type="email">
+                        <input class="btn btn-primary" value="Subscribe" type="submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uou-block-4a secondary">
+        <div class="container">
+            <ul class="social-icons">
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+            </ul>
+
+            <p>Copyright © 2018 Quck Finder. All Rights reserved.</p>
+        </div>
+    </div>
 </div>
+
+<div class="uou-block-11a">
+    <h5 class="title">Menu</h5>
+    <a href="#" class="mobile-sidebar-close">&times;</a>
+    <nav class="main-nav">
+        <div *ngIf="loggedIn; then login else unlogin"></div>
+    </nav>
+</div>
+
+<ng-template #unlogin>
+    <ul>
+        <li class="active" routerLink="/"><a>Inicio</a></li>
+        <li class="active" routerLink="categories"><a>Categorías</a></li>
+    </ul>
+    <hr>
+    <ul>
+        <li class="active"><a routerLink="/login">Iniciar sesión</a></li>
+        <li class="active"><a routerLink="/register">Crear cuenta</a></li>
+    </ul>
+</ng-template>
+
+<ng-template #login>
+    <ul>
+        <li class="active" routerLink="/"><a>Inicio</a></li>
+        <li class="active" routerLink="categories"><a>Categorías</a></li>
+        <li class="active" routerLink="/myfavorites"><a>Mis Favoritos</a></li>
+        <li class="active" routerLink="/mysearchs"><a>Mis búsquedas</a></li>
+        <li class="active" routerLink="/myservices"><a>Mis anuncios</a></li>
+        <li class="active" routerLink="/createservice"><a>Crear anuncio</a></li>
+    </ul>
+    <hr>
+    <ul>
+        <li class="active" (click)="logout()"><a>Cerrar sesión</a></li>
+    </ul>
+</ng-template>

@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from '../../_models/user';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from '../../_services/auth.service';
+import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material';
 
 
 @Component({
@@ -11,14 +14,12 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class RegisterComponent implements OnInit {
     user: User;
     loading: boolean;
-    error: string;
     registerForm: FormGroup;
     hide = true;
 
-    constructor() {
+    constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar) {
         this.user = new User();
         this.loading = false;
-        this.error = '';
     }
 
     ngOnInit() {
@@ -35,15 +36,29 @@ export class RegisterComponent implements OnInit {
     }
 
     getErrorMessage() {
-        // console.log(this.registerForm.controls['confirmpassword'].hasError('validateEqual'));
-        return this.registerForm.controls['name'].hasError('required') ? 'You must enter a value' :
-            this.registerForm.controls['email'].hasError('required') ? 'You must enter a value' :
-                this.registerForm.controls['email'].hasError('email') ? 'Not a valid email' :
-                    this.registerForm.controls['password'].hasError('required') ? 'You must enter a value' :
+        return this.registerForm.controls['name'].hasError('required') ? 'Debe escribir un valor' :
+            this.registerForm.controls['email'].hasError('required') ? 'Debe escribir un valor' :
+                this.registerForm.controls['email'].hasError('email') ? 'Correo no valido' :
+                    this.registerForm.controls['password'].hasError('required') ? 'Debe escribir un valor' :
                         '';
     }
 
     register() {
-        return true;
+        this.loading = true;
+        this.authService.register(this.user).subscribe(result => {
+            if (result === true) {
+                this.router.navigate(['']);
+            } else {
+                this.loading = false;
+                this.openSnackBar(result, 2500);
+            }
+        });
+    }
+
+    openSnackBar(message: string, duration: number, action?: string) {
+        this.snackBar.open(message, action, {
+            duration: duration,
+            horizontalPosition: 'center',
+        });
     }
 }

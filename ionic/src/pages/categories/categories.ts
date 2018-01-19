@@ -8,16 +8,7 @@ import {SubcategoriesPage} from '../subcategories/subcategories';
 
 // providers
 import  {CategoryProvider} from  '../../providers/category/category.service';
-import { ApiProvider } from "../../providers/api/api";
 
-
-
-/**
- * Generated class for the CetegoriesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -27,15 +18,14 @@ import { ApiProvider } from "../../providers/api/api";
 })
 export class CategoriesPage {
  private categories=[];
- private baseUrl: any;
+
 
   constructor(public navCtrl: NavController,
     public category: CategoryProvider,
     public load: LoadingController,
     public popCtrl: PopoverController,
-    public api: ApiProvider) {
+   ) {
 
-    this.baseUrl = api.getbaseUrl();
     const loading = this.load.create();
     loading.present();
     category.getcategories()

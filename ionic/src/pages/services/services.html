@@ -1,5 +1,5 @@
 <ion-header>
-    <app-header> </app-header>
+    <app-header (searchValue)="getSearchValue($event)"></app-header>
 </ion-header>
 
 
@@ -8,96 +8,59 @@
         <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Actualizando...">
         </ion-refresher-content>
     </ion-refresher>
-    <ion-label text-center color="azul-claro">Lista de servicios</ion-label>
 
-    <hr style="background-color: #88868B;">
-    <ion-label color="azul-claro">Filtrar por</ion-label>
-    <ion-list>
-        <ion-item>
-            <ion-select [selectOptions]="citiestOptions" [(ngModel)]="city" placeholder="Selecciona una ciudad">>
-                <ion-option *ngFor="let c of cities" [value]="c.title">{{c.title}}</ion-option>
-            </ion-select>
-        </ion-item>
-
-        <ion-item>
-            <ion-select [selectOptions]="catOptions" [(ngModel)]="category" placeholder="Selecciona una Categoria">>
-                <ion-option *ngFor="let c of categories" [value]="c.title">{{c.title}}</ion-option>
-            </ion-select>
-        </ion-item>
-        <ion-item>
-            <ion-input type="text" value="" placeholder="Escriba la distancia en Kms"></ion-input>
-        </ion-item>
-
-    </ion-list>
     <ion-grid>
         <ion-row>
-            <ion-col col-2>
-                <ion-label text-center style="display: inline-block;" color="azul-claro">Filtros: </ion-label>
+            <ion-col col-7>
+                <ion-label text-center color="azul-claro">{{services.length}} Resultados</ion-label>
+
             </ion-col>
-            <ion-col col-10>
-                <div *ngIf="city" style="display: inline-block;">
-                    <ion-chip>
-                        <button ion-button color="danger" (click)="deleteCity()">
-                        <ion-icon  name="close"></ion-icon>
-                      </button> &nbsp;
-                        <ion-label>{{city}}</ion-label>
-                    </ion-chip>
-                </div>
-
-                <div *ngIf="category" style="display: inline-block;">
-                    <ion-chip>
-                        <button ion-button color="danger" (click)="deleteCategory()">
-                        <ion-icon  name="close"></ion-icon>
-                      </button> &nbsp;
-                        <ion-label>{{category}}</ion-label>
-                    </ion-chip>
-
-                </div>
+            <ion-col col-5 text-right>
+                <button ion-button (click)="filterServices()">Filtrar</button>
 
             </ion-col>
         </ion-row>
     </ion-grid>
-
-
+    <hr class="hr-separador">
 
     <ion-list>
-        <ion-item *ngFor="let serv of services">
-            <ion-thumbnail item-start>
-                <ng-container *ngIf="serv.icon; else imgTemplate">
-                    <img src="{{baseUrl + serv.icon}}">
-                </ng-container>
-                <ng-template #imgTemplate>
-                    <img src="assets/imgs/service_img.png">
-                </ng-template>
-            </ion-thumbnail>
-            <h2 class="serv-title ">{{serv.title}}</h2>
-            <div class="text-center fw-600" style="width: 35px;
-            height: 16px;
-            background-color: #44AB6C;
-            font-weight: 600;
-            font-size: 11px;">
-                <p style=" color: white; text-align: center;">PRO</p>
-            </div>
-            <hr style="border-bottom: 1px solid #dedede;">
-
+        <ion-item *ngFor="let serv of services; let i = index">
             <ion-grid>
                 <ion-row>
-                    <ion-col col-6>
-                        <p>Calificación: {{serv.rated}}/10</p>
-                        <p>Distancia: 5 km</p>
-                        <p>Categoria: Hogar</p>
+                    <ion-col col-4>
+                        <img (tap)="viewImg(serv.icon)" [src]="serv.icon ? serv.icon : 'assets/imgs/service_img.png' ">
                     </ion-col>
 
-                    <ion-col col-6 text-right>
-                        <ion-icon *ngIf=loggedIn name="heart" [color]="serv.visits ? 'favorite_on' : 'favorite_off'" color="favorite_on" style="font-size: 35px;"></ion-icon>
+                    <ion-col col-8 (tap)='openServicePage(serv.id,i)'>
+                        <h2 class="serv-title ">{{serv.title }} </h2>
+                        <div class="text-center fw-600 serv-pro" *ngIf="serv.professional === 1">
+                            <p class="texto" style>PRO</p>
+                        </div>
+                        <hr class="hr-separador">
+                        <ion-row>
+                            <ion-col col-12>
+                                <p>Distancia: 5 km</p>
+                                <p text-wrap><span *ngFor="let cat of serv.subcategoriesList; let i = index">
+                  <ng-container *ngIf="i > 0; else elseTemplate">
+                      ,{{ cat.title}}
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                      {{ cat.title}}
+                  </ng-template>
+                </span>
+                                </p>
+                                <ion-rating [readOnly]="true" [numStars]="5" [value]="serv.globalrate"></ion-rating>
+
+                            </ion-col>
+
+                        </ion-row>
+
                     </ion-col>
+
                 </ion-row>
+
             </ion-grid>
-
-
-            <button ion-button color="azul-claro" (click)='openServicePage(serv.id)'><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Visualizar</button>
-            <button ion-button color="danger"><i class="fa fa-bullhorn" aria-hidden="true"></i>&nbsp;Denunciar</button>
+            <hr class="hr-separador">
         </ion-item>
     </ion-list>
-
 </ion-content>

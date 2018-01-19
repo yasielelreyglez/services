@@ -53,31 +53,8 @@
 			<input type="text" class="form-control" name="end_time" placeholder="Enter End_time" value="<?= isset($services)?$services->end_time:''?>"/>
 			
 		</div>
-		<div class="form-group">
-			<label for="visits">Visits:</label><br/>
-			<input type="text" class="form-control" name="visits" placeholder="Enter Visits" value="<?= isset($services)?$services->visits:''?>"/>
-			
-		</div>
-		<div class="form-group">
-			<label for="author">Author:</label><br/>
-			<input type="text" class="form-control" name="author" placeholder="Enter Author" value="<?= isset($services)?$services->author:''?>"/>
-			
-		</div>
-		<div class="form-group">
-			<label for="positions">Positions:</label><br/>
-			<input type="text" class="form-control" name="positions" placeholder="Enter Positions" value="<?= isset($services)?$services->positions:''?>"/>
-			
-		</div>
-		<div class="form-group">
-			<label for="cities">Cities:</label><br/>
-			<input type="text" class="form-control" name="cities" placeholder="Enter Cities" value="<?= isset($services)?$services->cities:''?>"/>
-			
-		</div>
-		<div class="form-group">
-			<label for="subcategories">Subcategories:</label><br/>
-			<input type="text" class="form-control" name="subcategories" placeholder="Enter Subcategories" value="<?= isset($services)?$services->subcategories:''?>"/>
-			
-		</div>
+
+
     <div class="form-group">
         <label for="icon">Icon:</label><br/>
         <input type="file" name="userfile" size="20" />

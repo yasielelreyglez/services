@@ -1,7 +1,0 @@
-{
-  "login/*":{
-    "target":"http://localhost/login",
-    "secure":false,
-    "logLevel":"debug"
-  }
-}

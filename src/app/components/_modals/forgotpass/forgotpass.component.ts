@@ -32,22 +32,22 @@ export class ForgotpassComponent implements OnInit {
         });
     }
 
-    enviar() {
-        this.loading = true;
-        this.authService.forgotPassword(this.model.email).subscribe(result => {
-            if (result === true) {
-                this.dialogRef.close();
-            }
-            else {
-                this.error = result.error;
-                this.loading = false;
-            }
-        });
-    }
+    // enviar() {
+    //     this.loading = true;
+    //     this.authService.forgotPassword(this.model.email).subscribe(result => {
+    //         if (result === true) {
+    //             this.dialogRef.close();
+    //         }
+    //         else {
+    //             this.error = result.error;
+    //             this.loading = false;
+    //         }
+    //     });
+    // }
 
     getErrorMessage() {
-        return this.forgotForm.controls['email'].hasError('required') ? 'You must enter a value' :
-            this.forgotForm.controls['email'].hasError('email') ? 'Not a valid email' :
+        return this.forgotForm.controls['email'].hasError('required') ? 'Debe escribir un valor' :
+            this.forgotForm.controls['email'].hasError('email') ? 'Correo no valido' :
                 '';
     }
 

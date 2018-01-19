@@ -1,74 +1,106 @@
 <ion-header>
-    <app-header> </app-header>
+
+    <ion-navbar hideBackButton>
+        <ion-buttons left>
+            <button (click)="backToHome()" ion-button icon-only color="royal">
+              <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title text-center>LOGO</ion-title>
+    </ion-navbar>
+
 </ion-header>
 
 
-
 <ion-content padding>
-    <ion-label text-center color="azul-claro">Registrarse</ion-label>
 
-    <hr style="background-color: #88868B;">
+    <h4 class="azul-claro">{{edit ? 'Editar Anuncio': 'Crear Anuncio' }} <small class="crear-gris">Datos iniciales</small></h4>
 
-    <form #f="ngForm">
-        <ion-list>
+    <div class="progress">
+        <div class="circle active"> <span class="label">1</span>
+        </div> <span class="bar  "></span>
+        <div class="circle"> <span class="label">2</span>
+        </div> <span class="bar "></span>
+        <div class="circle"> <span class="label">3</span>
+        </div> <span class="bar"></span>
+        <div class="circle"> <span class="label">4</span>
+        </div>
+    </div>
+    <hr class="hr-separador">
 
-            <ion-item>
-                <ion-label stacked>Título</ion-label>
-                <ion-input type="text" name="name" class="form-control" placeholder="Escribe el título..." required></ion-input>
-            </ion-item>
+    <form #formu="ngForm">
+        <ion-item>
+            <ion-label stacked>Título<span class="requerido"><sup>*</sup></span></ion-label>
+            <ion-input name="title" [(ngModel)]="service.title" placeholder="Título ..." required></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Subtítulo <span class="requerido"><sup>*</sup></span></ion-label>
+            <ion-input name="subtitle" [(ngModel)]="service.subtitle" placeholder="Subtítulo..." required></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Dirección <span class="requerido"><sup>*</sup></span></ion-label>
+            <ion-input name="address" [(ngModel)]="service.address" #Saddress="ngModel" placeholder="Dirección..." required></ion-input>
 
-            <ion-item>
-                <ion-label stacked>Subtítulo</ion-label>
-                <ion-input type="text" name="name" class="form-control" placeholder="Escribe el subtítulo..." required></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Descripcion</ion-label>
+            <ion-textarea required name="description" [(ngModel)]="service.description" #desc="ngModel" rows="2" placeholder="Descripción "></ion-textarea>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Teléfono <span class="requerido"><sup>*</sup></span></ion-label>
+            <ion-input required type="tel" name="phone" [(ngModel)]="service.phone" #Sphone="ngModel" placeholder="Teléfono..."></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Ciudades
+                <span class="requerido"><sup>*</sup></span></ion-label>
+            <ion-select required multiple="true" name="cities" [(ngModel)]="service.cities" placeholder="Selecciona una ciudad">
+                <ion-option *ngFor="let c of cities" [value]="c.id">{{c.title}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>Categorias <span class="requerido"><sup>*</sup></span></ion-label>
+            <ion-select required multiple="true" name="categories" [(ngModel)]="service.categories" placeholder="Selecciona una ciudad">
+                <ion-option *ngFor="let c of categories" [value]="c.id">{{c.title}}</ion-option>
+            </ion-select>
+        </ion-item>
 
-            </ion-item>
-            <ion-item>
-                <ion-label stacked>Dirección</ion-label>
-                <ion-input type="text" name="name" class="form-control" placeholder="Escribe tu dirección..." required></ion-input>
+        <ion-grid>
+            <ion-row align-items-center>
+                <ion-col col-6>
 
-            </ion-item>
-            <ion-item>
-                <ion-label stacked>Teléfono</ion-label>
-                <ion-input type="text" name="name" class="form-control" placeholder="Escribe tu Teléfono..." required></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label>Ciudades</ion-label>
-                <ion-select multiple="true" cancelText="Cancel" okText="Ok">
-                    <ion-option value="bacon">Bacon</ion-option>
-                    <ion-option value="olives">Black Olives</ion-option>
-                    <ion-option value="xcheese">Extra Cheese</ion-option>
-                    <ion-option value="peppers">Green Peppers</ion-option>
-                    <ion-option value="mushrooms">Mushrooms</ion-option>
-                    <ion-option value="onions">Onions</ion-option>
-                    <ion-option value="pepperoni">Pepperoni</ion-option>
-                    <ion-option value="pineapple">Pineapple</ion-option>
-                    <ion-option value="sausage">Sausage</ion-option>
-                    <ion-option value="Spinach">Spinach</ion-option>
-                </ion-select>
-            </ion-item>
-            <ion-item>
-                <ion-label>Categorias</ion-label>
-                <ion-select multiple="true" cancelText="Cancel" okText="Ok">
-                    <ion-option value="bacon">Bacon</ion-option>
-                    <ion-option value="olives">Black Olives</ion-option>
-                    <ion-option value="xcheese">Extra Cheese</ion-option>
-                    <ion-option value="peppers">Green Peppers</ion-option>
-                    <ion-option value="mushrooms">Mushrooms</ion-option>
-                    <ion-option value="onions">Onions</ion-option>
-                    <ion-option value="pepperoni">Pepperoni</ion-option>
-                    <ion-option value="pineapple">Pineapple</ion-option>
-                    <ion-option value="sausage">Sausage</ion-option>
-                    <ion-option value="Spinach">Spinach</ion-option>
-                </ion-select>
-            </ion-item>
+                    <img (tap)="viewImg(preview)" src="{{preview}}" />
+                </ion-col>
+                <ion-col col-6>
+                    <button (click)="presentActionSheet()" padding block ion-button icon-left>
+              <ion-icon name="cloud-upload"></ion-icon>
+              Subir foto
+            </button>
+                </ion-col>
 
+            </ion-row>
+        </ion-grid>
+        <!--<ion-item>-->
+        <!--<img (tap)="viewImg()" style="max-width: 50%;" src="{{preview}}" />-->
+        <!--<button ion-button (tap)="presentActionSheet()">Subir Foto</button>-->
+        <!--&lt;!&ndash; <img style="max-width: 50%;" src="{{preview}}" (tap)="presentActionSheet()" alt="Ionic File" />-->
+        <!--<button  ion-button (tap)="uploadFile()">Subir Foto</button> &ndash;&gt;-->
+        <!--</ion-item>-->
 
-            <ion-item>
-                <img style="max-width: 50%;" src="{{preview}}" (click)="presentActionSheet()" alt="Ionic File" />
-                <button ion-button (click)="uploadFile()">Subir Foto</button>
-            </ion-item>
-
-            {{resbuesta}}
-        </ion-list>
     </form>
-</ion-content>
+    <ion-grid>
+        <ion-row>
+
+            <ion-col col-6 offset-6>
+
+                <button block [disabled]="!f.form.valid" color="azul-oscuro" (tap)="goToCreate2()" ion-button icon-start>
+
+                                                  <ion-icon name="arrow-round-forward"></ion-icon>
+                                                  Siguiente
+
+                                                </button>
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
+
+</ion-content>s
