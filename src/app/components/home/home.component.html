@@ -135,8 +135,8 @@
                     <!--</div>-->
                     <div class="map-search-fields">
                         <div class="field custom-select-box">
-                            <select name="cities" class="custom-select">
-                                <option value="-1">Ciudades</option>
+                            <select name="cities" class="custom-select" multiple="true" data-placeholder="Ciudades">
+                                <!--<option value="-1">Ciudades</option>-->
                                 <option *ngFor="let city of cities" value="{{city.id}}">{{city.title}}</option>
                             </select>
                         </div>
@@ -145,8 +145,8 @@
                             <input type="text" placeholder="Distancia" class="location">
                         </div>
                         <div class="field custom-select-box">
-                            <select name="subcategories" class="custom-select">
-                                <option value="-1">Subcategorías</option>
+                            <select name="subcategories" class="custom-select" multiple="true" data-placeholder="Subcategorías">
+                                <!--<option value="-1">Subcategorías</option>-->
                                 <option *ngFor="let subcategory of subcategories" value="{{subcategory.id}}">{{subcategory.title}}</option>
                             </select>
                         </div>
