@@ -201,7 +201,7 @@ export class ApiService {
         else {
             return this.http.get(this.getBaseURL() + 'api/service/' + id).map((response) => {
                 if (response['data'])
-                    return response['data'];
+                    return response;
                 else {
                     return new Array();
                 }

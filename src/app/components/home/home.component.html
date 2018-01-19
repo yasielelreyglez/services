@@ -130,27 +130,29 @@
             </div>
             <div class="col-md-12">
                 <div class="map-search">
-                    <div class="map-toggleButton">
-                        <i class="fa fa-bars"></i>
-                    </div>
+                    <!--<div class="map-toggleButton">-->
+                        <!--<i class="fa fa-bars"></i>-->
+                    <!--</div>-->
                     <div class="map-search-fields">
-                        <div class="field">
-                            <input type="text" placeholder="Filter by keyword">
+                        <div class="field custom-select-box">
+                            <select name="cities" class="custom-select">
+                                <option value="-1">Ciudades</option>
+                                <option *ngFor="let city of cities" value="{{city.id}}">{{city.title}}</option>
+                            </select>
                         </div>
                         <div class="field">
                             <i class="fa fa-map-marker"></i>
-                            <input type="text" placeholder="Location" class="location">
+                            <input type="text" placeholder="Distancia" class="location">
                         </div>
                         <div class="field custom-select-box">
-                            <select name="categories" class="custom-select">
-                                <option value="0">Categories</option>
-                                <option value="1">Spa</option>
-                                <option value="2">Cinema</option>
+                            <select name="subcategories" class="custom-select">
+                                <option value="-1">Subcategorías</option>
+                                <option *ngFor="let subcategory of subcategories" value="{{subcategory.id}}">{{subcategory.title}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="search-button">
-                        <button class="btn btn-medium btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button class="btn btn-medium btn-primary" (click)="filter()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             Filtrar &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </button>
                     </div>

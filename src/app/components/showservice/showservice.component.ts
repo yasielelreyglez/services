@@ -17,7 +17,7 @@ declare const $;
 })
 
 export class ShowserviceComponent implements OnInit, AfterViewInit {
-    service: any = {};
+    service: any;
     images: any[] = [];
     days: string[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
     week_days: any = '';
@@ -50,6 +50,7 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
         this.loading = false;
         this.markers = new Array();
         this.currentEnd = {id: -1};
+        this.service = {};
 
         this.submitAttempt = false;
         if (typeof google !== 'undefined') {
@@ -83,9 +84,12 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
         this.route.params.subscribe(params => {
             const id = params['id'];
             this.apiServices.service(id).subscribe(result => {
+                console.log(result);
                 this.service = result.data;
                 this.images = result.data.imagesList;
                 this.comment = result.data.servicecommentsList.length;
+                console.log(this.comment);
+
                 this.result_week_days();
             });
         });

@@ -19,6 +19,9 @@ export class ShowservicesComponent implements OnInit, AfterViewInit {
     categories: any;
     listCategories: any;
     model: any;
+    allSub: boolean;
+    allCat: boolean;
+    allCit: boolean;
     filterForm: FormGroup;
 
     selectSub: any;
@@ -29,6 +32,9 @@ export class ShowservicesComponent implements OnInit, AfterViewInit {
         this.listCategories = new Array();
         this.selectSub = new Array();
         this.selectCit = new Array();
+        this.allSub = false;
+        this.allCat = false;
+        this.allCit = false;
     }
 
     ngOnInit() {
@@ -737,18 +743,13 @@ export class ShowservicesComponent implements OnInit, AfterViewInit {
 
     onCheckCategory(id: number) {
         const pos = this.listCategories.indexOf(id);
-        // console.log('posicion', pos);
 
         if (pos === -1) {
             this.listCategories.push(id);
             console.log(this.listCategories);
             this.listSubcategories = this.subcategories.filter(item => this.exclude(item, this));
-            // console.log('subcategorias', this.subcategories);
         } else {
             this.listCategories.splice(pos, 1);
-            // console.log('quedan', this.subcategories);
-            // console.log('quedan categories', this.listCategories.length);
-
             if (this.listCategories.length === 0) {
                 this.listSubcategories = this.subcategories;
             } else {
