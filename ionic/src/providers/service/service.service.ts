@@ -207,38 +207,7 @@ rateservice(id,value):Promise<Object>{
 }
 
   filterService(cities,categories,distance,current){
-    // var params = new HttpParams();
-
-    // params = params.append('distance',dist);
-    // params = params.append('current.latitude',"23.106028199999997");
-    // params = params.append('current.longitude',"-82.3333833");
-
-
-  // if( cities.length  ){
-  //  cities.map(function(obj) {
-  //      params = params.append('cities',obj);
-  //  });
-  // }
-  // if( cat.length ){
-  //   cat.map(function(obj) {
-  //     params = params.append('categories',obj);
-  //   });
-  // }
-  // if( dist ){
-  //   //  let latitude:"23.106028199999997" ;
-  //   //  let longitude:"-82.3333833";
-  //   var current={
-  //     "latitude":23.106028199999997,
-  //     "longitude":-82.3333833
-  //   }
-  //     // params = params.append('distance',dist);
-  //     // params = params.append('current', current);
-  //      // params = params.append('latitude', "23.106028199999997");
-  //     // params = params.append('longitude', "-82.3333833");
-  // }
-
-  // return this.http.get(this.api.getbaseUrl() + 'api/filter', {params} )
-  return this.http.post(this.api.getbaseUrl() + 'api/filter', {cities,categories,distance,current} )
+  return this.http.post(this.api.getbaseUrl() + 'api/filter', {cities,categories} )
     .toPromise()
     .then(
       (response) => {

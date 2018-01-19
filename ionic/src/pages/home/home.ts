@@ -45,12 +45,6 @@ export class HomePage {
 
   busqueda:boolean;
   loading: any;
-
-  private data: Observable<string>;
-  private values:string;
-  private anyErrors: boolean;
-  private finished: boolean;
-
   @ViewChild('search') search;
 
 
@@ -68,28 +62,6 @@ export class HomePage {
      public navParams: NavParams,public splashScreen: SplashScreen,public platform: Platform,  statusBar: StatusBar,) {
 
       this.platform.ready().then(() => {
-
-        this.data = new Observable(observer => {
-          setTimeout(() => {
-              observer.next("42");
-          }, 1000);
-
-          setTimeout(() => {
-              observer.next("43");
-          }, 2000);
-
-          setTimeout(() => {
-              observer.complete();
-          }, 3000);
-      });
-
-      let subscription = this.data.subscribe(
-        value => {this.values= value,
-        console.log(this.values)
-      },
-        error => this.anyErrors = true,
-        () => this.finished = true
-    );
         //statusBar.hide();
         //statusBar.backgroundColorByHexString('#ffffff');
         this.platform.registerBackButtonAction((readySource) => {

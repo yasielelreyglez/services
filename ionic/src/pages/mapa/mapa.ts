@@ -36,15 +36,8 @@ export class MapaPage {
   private service: any = {};
   loggedIn: boolean;
 
-  constructor(  private platform: Platform,
-
-              public navParams: NavParams,
-
+  constructor( public navParams: NavParams,
               private geolocation: Geolocation,public events: Events) {
-
-    platform.ready().then(() => {
-
-    });
   }
   ionViewDidEnter(){
     this.getLocation();

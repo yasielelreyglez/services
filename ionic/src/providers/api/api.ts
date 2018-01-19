@@ -109,7 +109,7 @@ export class ApiProvider {
     ).catch(this.handleError);
   }
 
-  reportComment(id){
+  reportComment(id,data){
     return this.http.get(this.apiBaseUrl+ 'api/reportcomment/'+id,{
       headers: new HttpHeaders().set('Authorization', this.user.token)
       })

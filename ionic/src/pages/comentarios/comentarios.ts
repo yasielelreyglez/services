@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, Events, AlertController} from "ionic-angular";
+import { IonicPage, NavParams, Events, AlertController, PopoverController} from "ionic-angular";
 import { AuthProvider } from '../../providers/auth/auth';
 import {ApiProvider} from '../../providers/api/api'
 import { HttpErrorResponse } from '@angular/common/http';
+import { PopoverPage } from '../pop-over/pop-over';
 
 
 @IonicPage()
@@ -11,6 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: 'comentarios.html'
 })
 export class ComentariosPage {
+  loggedIn: boolean;
   service: any = {};
   comentarios : any[] = [];
   comentario : string;
@@ -21,7 +23,8 @@ export class ComentariosPage {
   constructor(public alertCtrl: AlertController,
     public events: Events,
     public navParams: NavParams,
-    public auth: AuthProvider,public api:ApiProvider ) {
+    public auth: AuthProvider,public api:ApiProvider,
+    public popCtrl: PopoverController ) {
   }
 
   ionViewDidLoad() {
@@ -29,6 +32,7 @@ export class ComentariosPage {
     this.cant_c = this.navParams.get("cant_c");
     this.comentarios= this.service['servicecommentsList'];
     this.currentUser = this.auth.getUser();
+    this.loggedIn = this.auth.isLoggedIn();
   }
  comentar(){
    this.api.addComment(this.service.id,this.comentario).then(
@@ -101,12 +105,19 @@ export class ComentariosPage {
         {
           text: 'Realizar denuncia',
           handler: data => {
-             this.api.reportComment(id)
+            //  this.api.reportComment(id)
           }
         }
       ]
     });
     prompt.present();
+  }
+
+  presentPopover(ev) {
+    let popover = this.popCtrl.create(PopoverPage,{login:this.loggedIn,tipo:"comentario",denuncia:true,id:this.service.id});
+    popover.present({
+      ev: ev,
+    });
   }
 
 

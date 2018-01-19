@@ -17,10 +17,10 @@
                 <button color="azul-oscuro" ion-button small icon-only>
                     <ion-icon name="share"></ion-icon>
                   </button>
-                <button color="azul-oscuro" (click)="toogleFavorite(passedService.id)" ion-button small icon-only>
+                <button *ngIf="loggedIn" color="azul-oscuro" (click)="toogleFavorite(passedService.id)" ion-button small icon-only>
                       <ion-icon name="heart"  [color]="passedService.favorite ? 'favorite_on' : 'favorite_off'"></ion-icon>
                     </button>
-                <button style="padding: 0 5px;" ion-button color="danger" small icon-only>
+                <button (click)="presentPopover($event)" style="padding: 0 5px;" ion-button color="danger" small icon-only>
                         <ion-icon name="more"></ion-icon>
                       </button>
             </ion-col>

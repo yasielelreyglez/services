@@ -43,7 +43,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { ApiProvider } from '../providers/api/api';
 
 // native
-
+import { Keyboard } from '@ionic-native/keyboard';
 import { File } from '@ionic-native/file';
 import { Camera } from '@ionic-native/camera';
 import { CallNumber } from "@ionic-native/call-number";
@@ -53,7 +53,9 @@ import { Create3Page } from '../pages/create3/create3';
 import { Create4Page } from '../pages/create4/create4';
 import { PagarPage } from '../pages/pagar/pagar';
 import { FiltroModalPage } from '../pages/filtro-modal/filtro-modal';
-import { ConnectivityProvider } from '../providers/connectivity/connectivity';
+import { ModalDenunciaPage } from '../pages/modal-denuncia/modal-denuncia';
+import { ChangePassPage } from '../pages/change-pass/change-pass';
+
 
 @NgModule({
   declarations: [
@@ -84,7 +86,9 @@ import { ConnectivityProvider } from '../providers/connectivity/connectivity';
     Create3Page,
     Create4Page,
     PagarPage,
-    TabMapaPage
+    TabMapaPage,
+    ModalDenunciaPage,
+    ChangePassPage
 
   ],
   imports: [
@@ -128,7 +132,10 @@ import { ConnectivityProvider } from '../providers/connectivity/connectivity';
     Create3Page,
     Create4Page,
     PagarPage,
-    TabMapaPage
+    TabMapaPage,
+    ModalDenunciaPage,
+    ChangePassPage
+
   ],
   providers: [
     StatusBar,
@@ -137,6 +144,7 @@ import { ConnectivityProvider } from '../providers/connectivity/connectivity';
     File,
     Camera,
     CallNumber,
+    Keyboard,
     Geolocation,
     PhotoViewer,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
@@ -144,8 +152,8 @@ import { ConnectivityProvider } from '../providers/connectivity/connectivity';
     CategoryProvider,
     ServiceProvider,
     AuthProvider,
-    ApiProvider,
-    ConnectivityProvider
+    ApiProvider
+
     ]
 })
 export class AppModule {}

@@ -378,7 +378,7 @@ class Api extends REST_Controller
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
-    //denunciar un servicio
+    //contactar un servicio
     public function contactservice_get($id)
     {
         $em = $this->doctrine->em;

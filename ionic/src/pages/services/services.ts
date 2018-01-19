@@ -187,20 +187,7 @@ export class ServicesPage {
   deleteCategory() {
     this.filter_category = null;
   }
-  // filterService(){
-  //   this.tempServ = this.services;
-  //   this.filtro=true;
-  //   this.servProv.filterService(this.filter_city,this.filter_category,this.filter_distance,'currentPosition').then(
-  //     data => {
-  //       this.services = data["services"];
-  //     },
-  //     (err: HttpErrorResponse) => {
-  //       if (err.error instanceof Error) {
-  //       } else {
-  //       }
-  //     }
-  //   );
-  // }
+
   deleteFilter(){
     this.filtro=false;
     this.filter_city =[];
@@ -247,5 +234,13 @@ export class ServicesPage {
         });
 
     profileModal.present();
+  }
+  getSearchValue(value) {
+    this.services=this.servTemp;
+    if (value && value.trim() != '' ) {
+      this.services = this.services.filter((item) => {
+        return (item.title.toLowerCase().indexOf(value.toLowerCase()) > -1);
+      })
+    }
   }
 }

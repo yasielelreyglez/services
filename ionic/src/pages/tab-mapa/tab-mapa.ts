@@ -8,7 +8,6 @@ import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@io
  * Ionic pages and navigation.
  */
 declare var google;
-declare var Connection;
 @IonicPage()
 @Component({
   selector: 'page-tab-mapa',
