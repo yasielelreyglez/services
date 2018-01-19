@@ -157,4 +157,14 @@ class Position
         $distance = acos(sin(deg2rad($lat1)) * sin(deg2rad($lat2)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($dlon))) * $radius;
         return $distance;
     }
+
+    function getListObj(){
+        $obj = new \stdClass();
+        $obj->id = $this->getId();
+        $obj->latitude = $this->getLatitude();
+        $obj->longitude = $this->getLongitude();
+        $obj->title = $this->getTitle();
+        $obj->service = $this->getService()->getId();
+        return $obj;
+    }
 }
