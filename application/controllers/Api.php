@@ -336,7 +336,7 @@ class Api extends REST_Controller
         }
         $services_a = array();
 		foreach ($services as $service) {
-		    if(!assertArrayHasKey($service->getId(),$services_a)){
+		    if(!array_key_exists($service->getId(),$services_a)){
                 $service->loadRelatedData();
                 if($user) {
                     $service->loadRelatedUserData($user);
