@@ -795,7 +795,7 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
 
     initMap() {
         if (typeof google !== 'undefined') {
-            let mapOptions = {
+            const mapOptions = {
                 center: this.latLng,
                 zoom: 10,
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
