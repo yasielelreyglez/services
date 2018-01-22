@@ -81,6 +81,16 @@ export class ApiService {
         });
     }
 
+    allPositions(): Observable<any> {
+        return this.http.get(this.getBaseURL() + 'api/allpositions').map((response) => {
+            if (response['data'])
+                return response['data'];
+            else {
+                return new Array();
+            }
+        });
+    }
+
     filter(cities?: any, categories?: any, distance?: number, current?: any): Observable<any> {
         return this.http.post(this.getBaseURL() + 'api/filter', {
             cities,
@@ -201,7 +211,7 @@ export class ApiService {
         else {
             return this.http.get(this.getBaseURL() + 'api/service/' + id).map((response) => {
                 if (response['data'])
-                    return response['data'];
+                    return response;
                 else {
                     return new Array();
                 }

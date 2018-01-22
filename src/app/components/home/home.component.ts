@@ -1,4 +1,4 @@
-import {AfterViewChecked, AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ApiService} from '../../_services/api.service';
 import {Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
@@ -16,18 +16,105 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked {
     morevisits: any;
     recentvisits: any;
     categories: any;
+    subcategories: any;
     cities: any;
     query: any;
     search = new FormControl('');
+    @ViewChild('map') mapElement: ElementRef;
+    map: any;
+    latLng: any;
+    positions: any;
+    infoWindow: any;
 
     constructor(private apiServices: ApiService, private router: Router) {
+        if (typeof google !== 'undefined') {
+            this.latLng = new google.maps.LatLng(23.13302, -82.38304);
+            this.infoWindow = new google.maps.InfoWindow;
+        }
     }
 
     ngOnInit() {
         this.apiServices.moreVisits().subscribe(result => this.morevisits = result);
         this.apiServices.recentVisits().subscribe(result => this.recentvisits = result);
         this.apiServices.categoriesLoaded().subscribe(result => this.categories = result);
+        this.apiServices.allSubCategories().subscribe(result => this.subcategories = result);
         this.apiServices.cities().subscribe(result => this.cities = result);
+        this.apiServices.allPositions().subscribe(result => {
+            this.positions = result;
+            if (typeof google !== 'undefined') {
+                this.initMap();
+                this.addPositions(this);
+            }
+        });
+    }
+
+    initMap() {
+        if (typeof google !== 'undefined') {
+            const mapOptions = {
+                center: this.latLng,
+                zoom: 8,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                rotateControl: true,
+                fullscreenControl: false
+            };
+            this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+        }
+    }
+
+    addPositions(that: any) {
+        if (typeof google !== 'undefined') {
+            for (let i = 0; i < this.positions.length; i++) {
+                setTimeout(() => {
+                    const marker = new google.maps.Marker({
+                        map: this.map,
+                        position: new google.maps.LatLng(this.positions[i].latitude, this.positions[i].longitude),
+                        animation: google.maps.Animation.DROP,
+                    });
+
+                    that.markers.push(marker);
+
+                    const content = '<h6 class="tc-blue">' + this.positions[i].title + '</h6>';
+                    this.addInfoWindow(marker, content);
+                }, i * 200);
+            }
+
+            // navigator.geolocation.getCurrentPosition(function (position) {
+            //     console.log(position);
+            // })
+
+            // if (window.navigator.geolocation) {
+            //     window.navigator.geolocation.watchPosition(function (position) {
+            //         const latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            //
+            //         that.currentPosition.setPosition(latLng);
+            //         that.currentPosition.setIcon(that.image);
+            //         that.currentPosition.setMap(that.map);
+            //         that.map.panTo(latLng);
+            //
+            //         if (that.currentEnd.id !== -1)
+            //             that.calculateAndDisplayRoute();
+            //
+            //     }, function () {
+            //         that.currentPosition.setMap(null);
+            //     });
+            // }
+            // else {
+            //     that.currentPosition.setMap(null);
+            // }
+        }
+    }
+
+    addInfoWindow(marker, content) {
+        if (typeof google !== 'undefined') {
+            google.maps.event.addListener(marker, 'click', () => {
+                this.infoWindow.setContent(content)
+                this.infoWindow.open(this.map, marker);
+            });
+        }
     }
 
     ngAfterViewChecked(): void {
@@ -60,6 +147,16 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked {
             }
         }
         return result;
+    }
+
+    filter() {
+        const selectCit = $('#filterCit').select2('val');
+        const selectSub = $('#filterSub').select2('val');
+        const selectDis = $('#filterDis').val();
+        this.apiServices.filter(selectCit, selectSub, selectDis).subscribe(result => {
+            localStorage.setItem('searchServices', JSON.stringify(result));
+            this.router.navigate(['/search']);
+        });
     }
 
     searchQuery() {

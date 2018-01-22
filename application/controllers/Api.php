@@ -20,12 +20,11 @@ class Api extends REST_Controller
 
         $subcategories = $subcategoriesRepo->findBy(array(), array('visits' => 'DESC'), 10);
 
-        if($subcategories){
+        if ($subcategories) {
             $response["desc"] = "Subcategorias mas visitadas ";
             $response["count"] = count($subcategories);
             $response["data"] = $subcategories;
-        }
-        else{
+        } else {
             $response["desc"] = 'No existen subcategorias mas visitadas';
             $response["count"] = 0;
             $response["data"] = array();
@@ -37,18 +36,17 @@ class Api extends REST_Controller
     {
         $em = $this->doctrine->em;
         $morevisitsRepo = $em->getRepository('Entities\Service');
-        $morevisits = $morevisitsRepo->findBy(array(), array('visits' => 'DESC'), 3 );
+        $morevisits = $morevisitsRepo->findBy(array(), array('visits' => 'DESC'), 3);
 
         foreach ($morevisits as $service) {
             $service->loadRelatedData();
         }
 
-        if($morevisits){
+        if ($morevisits) {
             $response["desc"] = "Servicios mas visitados";
             $response["count"] = count($morevisits);
             $response["data"] = $morevisits;
-        }
-        else{
+        } else {
             $response["desc"] = 'No existen servicios mas visitados';
             $response["count"] = 0;
             $response["data"] = array();
@@ -66,21 +64,17 @@ class Api extends REST_Controller
             $service->loadRelatedData();
         }
 
-        if($morevisits){
+        if ($morevisits) {
             $response["desc"] = "Servicios mas visitados";
             $response["count"] = count($morevisits);
             $response["data"] = $morevisits;
-        }
-        else{
+        } else {
             $response["desc"] = 'No existen servicios mas visitados';
             $response["count"] = 0;
             $response["data"] = array();
         }
         $this->set_response($response, REST_Controller::HTTP_OK);
     }
-
-
-
 
     //LISTADO DE LAS CATEGORIAS (TODAS LAS CATEGORIAS ?)
     public function categories_get()
@@ -90,10 +84,10 @@ class Api extends REST_Controller
         $categories = $categoriesRepo->findAll();
 
         foreach ($categories as $category) {
-            $services= 0;
+            $services = 0;
             $subcats = $category->getSubcategories();
             foreach ($subcats as $subcat) {
-                $services+=$subcat->getServices()->count();
+                $services += $subcat->getServices()->count();
             }
             $category->servicesCount = $services;
         }
@@ -103,13 +97,14 @@ class Api extends REST_Controller
 
     }
 
-    public function categoriesLoaded_get(){
+    public function categoriesLoaded_get()
+    {
         $em = $this->doctrine->em;
         $categoriesRepo = $em->getRepository('Entities\Category');
         $categories = $categoriesRepo->findAll();
 
         foreach ($categories as $category) {
-            $services= 0;
+            $services = 0;
             $subcats = $category->getSubcategories();
             $subcats_array = array();
             foreach ($subcats as $subcat) {
@@ -117,8 +112,8 @@ class Api extends REST_Controller
                 $objSubcat->id = $subcat->getId();
                 $objSubcat->title = $subcat->getTitle();
                 $objSubcat->count = $subcat->getServices()->count();
-                $services+= $objSubcat->count;
-                $subcats_array[] =$objSubcat;
+                $services += $objSubcat->count;
+                $subcats_array[] = $objSubcat;
             }
             $category->subcategoriesLists = $subcats_array;
             $category->servicesCount = $services;
@@ -127,13 +122,14 @@ class Api extends REST_Controller
         $response["count"] = count($categories);
         $this->set_response($response, REST_Controller::HTTP_OK);
     }
+
 //LISTADO DE LAS SUBCATEGORIAS (TODAS LAS SUBCATEGORIAS ?)
     public function allsubcategories_get()
     {
         $em = $this->doctrine->em;
         $subcategoriesRepo = $em->getRepository('Entities\Subcategory');
         $subcategories = $subcategoriesRepo->findAll();
-        foreach ($subcategories as $subcategory){
+        foreach ($subcategories as $subcategory) {
             $subcategory->servicesCount = $subcategory->getServices()->count();
         }
         $response["data"] = $subcategories;
@@ -227,6 +223,7 @@ class Api extends REST_Controller
         $response["count"] = count($response["data"]);
         $this->set_response($response, REST_Controller::HTTP_OK);
     }
+
     //LISTADO DE LOS SERVICIOS  DADA UNA SUBCATEGORIA <params subcategory:string>
     public function servicessub_get($id)
     {
@@ -252,13 +249,14 @@ class Api extends REST_Controller
         }
         $this->set_response($response, REST_Controller::HTTP_OK);
     }
+
     //DATOS DE UN SERVICIO DADO EL ID DEL MISMO <params serviceid:string>
     public function service_get($id)
     {
         $em = $this->doctrine->em;
         $service = $em->find('Entities\Service', $id);
         $user = $this->getCurrentUser();
-        if($service) {
+        if ($service) {
             $service->getAuthor()->getUsername();
             $service->getPositions()->toArray();
             $service->setVisits($service->getVisits() + 1);
@@ -275,6 +273,7 @@ class Api extends REST_Controller
         $result["data"] = $service;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
+
     //LISTADO DE SERVICIOS POR FILTROS
     public function filter_get()
     {
@@ -286,64 +285,71 @@ class Api extends REST_Controller
 
         $services = [];
         $filtered = false;
-        if($categorias){
+        if ($categorias) {
             $filtered = true;
             $services = $this->filterBySubcategories($categorias);
-            $services = $this->filterByCitiesFiltered($ciudades,$filtered,$services);
-        }else{
-            if($ciudades){
-                $services = $this->filterByCitiesFiltered($ciudades,false,null);
+            $services = $this->filterByCitiesFiltered($ciudades, $filtered, $services);
+        } else {
+            if ($ciudades) {
+                $services = $this->filterByCitiesFiltered($ciudades, false, null);
                 $filtered = true;
             }
         }
-        if($current_position && $distance){
+        if ($current_position && $distance) {
             $services = $this->filterByDistance($distance, $current_position, $filtered, $services);
         }
         $result["services"] = $services;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
+
     public function filter_post()
     {
         //obteniendo parametros filtro
         $ciudades = $this->post("cities", true);
         $categorias = $this->post("categories", true);
-        if($categorias&&count($categorias)==0){ $categorias = false;}
+        if ($categorias && count($categorias) == 0) {
+            $categorias = false;
+        }
         $distance = $this->post("distance", true);
         $current_position = $this->post("current", true);
         $services = [];
         $filtered = false;
-        if($categorias){
+        if ($categorias) {
             $filtered = true;
             $services = $this->filterBySubcategories($categorias);
-            if($ciudades) {
+            if ($ciudades) {
                 $services = $this->filterByCitiesFiltered($ciudades, $filtered, $services);
             }
-        }else{
-            if($ciudades){
-                $services = $this->filterByCitiesFiltered($ciudades,false,null);
+        } else {
+            if ($ciudades) {
+                $services = $this->filterByCitiesFiltered($ciudades, false, null);
                 $filtered = true;
             }
         }
-        if($current_position && $distance){
+        if ($current_position && $distance) {
             $services = $this->filterByDistance($distance, $current_position, $filtered, $services);
             $filtered = true;
         }
-        $user=$this->getCurrentUser();
-        if(!$filtered){
+        $user = $this->getCurrentUser();
+        if (!$filtered) {
             $em = $this->doctrine->em;
             $services_repo = $em->getRepository('Entities\Service');
             $services = $services_repo->findAll();
         }
-		foreach ($services as $service) {
-		    $service->loadRelatedData();
-		    if($user) {
-                $service->loadRelatedUserData($user);
+        $services_a = array();
+        foreach ($services as $service) {
+            if (!array_key_exists($service->getId(), $services_a)) {
+                $service->loadRelatedData();
+                if ($user) {
+                    $service->loadRelatedUserData($user);
+                }
+                $services_a[$service->getId()] = $service;
             }
         }
-		
-        $result["services"] = array_values($services);
+        $result["services"] = array_values($services_a);
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
+
     //denunciar un servicio
     public function complaint_get($id)
     {
@@ -370,15 +376,14 @@ class Api extends REST_Controller
             $em->flush();
             $service->loadRelatedData();
             $result["data"] = $service;
-        }
-        else{
+        } else {
             $result["error"] = 'Debe estar autenticado para realizar esta acción';
         }
 
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
-    //contactar un servicio
+    //denunciar un servicio
     public function contactservice_get($id)
     {
         $em = $this->doctrine->em;
@@ -534,6 +539,7 @@ class Api extends REST_Controller
         }
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
+
     public function rateservice_post($id, $rate)
     {
         $em = $this->doctrine->em;
@@ -574,6 +580,7 @@ class Api extends REST_Controller
         }
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
+
     //obtener servicios visitados
     public function myvisits_get()
     {
@@ -596,42 +603,60 @@ class Api extends REST_Controller
 
     }
 
+    public function allPositions_get()
+    {
+        $em = $this->doctrine->em;
+        $em->getRepository('Entities\Membership');
+        $repo = $em->getRepository('Entities\Position');
+        $posiciones = $repo->findAll();
+        $data = array();
+        foreach ($posiciones as $posicione) {
+            $data[] = $posicione->getListObj();
+        }
+        $result["data"] = $data;
+        $result["desc"] = "Posiciones de los servicios";
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
+
     //obtener las posiciones de un servicio
-    public function positions($id){
+    public function positions_get($id)
+    {
         $em = $this->doctrine->em;
         $service = $em->find("Entities\Service", $id);
-        if($service){
+        if ($service) {
             $result["data"] = $service->getPositions();
             $result["desc"] = "Posiciones del servicio $id";
-        }else{
-            $result["error"]="Servicio no encontrado";
+        } else {
+            $result["error"] = "Servicio no encontrado";
         }
 
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
     //obtener las imagenes  de un servicio
-    public function imagelist($id){
+    public function imagelist($id)
+    {
         $em = $this->doctrine->em;
         $service = $em->find("Entities\Service", $id);
-        if($service){
+        if ($service) {
             $result["data"] = $service->getImages();
             $result["desc"] = "Posiciones del servicio $id";
-        }else{
-            $result["error"]="Servicio no encontrado";
+        } else {
+            $result["error"] = "Servicio no encontrado";
         }
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
     //COMENTARIOS DE UN SERVICIO
-    public function comments($id){
+    public function comments($id)
+    {
         $em = $this->doctrine->em;
         $service = $em->find("Entities\Service", $id);
-        if($service){
+        if ($service) {
             $result["data"] = $service->getServicecomments();
             $result["desc"] = "Posiciones del servicio $id";
-        }else{
-            $result["error"]="Servicio no encontrado";
+        } else {
+            $result["error"] = "Servicio no encontrado";
         }
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
@@ -667,7 +692,7 @@ class Api extends REST_Controller
         $service = $em->find("Entities\Service", $id);
         $user = $this->getCurrentUser();
 
-        if ($user && $service){
+        if ($user && $service) {
             $result["desc"] = "COMENTANDO EL SERVICIO {$service->getTitle()}";
             $comment = new \Entities\Comments();
             $comment->setUser($user);
@@ -684,79 +709,83 @@ class Api extends REST_Controller
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
-    public function reportcomment_get($id){
+    public function reportcomment_get($id)
+    {
         $em = $this->doctrine->em;
         $comment = $em->find("Entities\Comments", $id);
         $user = $this->getCurrentUser();
-        if($user){
-            if($comment){
+        if ($user) {
+            if ($comment) {
                 $comment->setReportuser($user);
                 $em->persist($comment);
                 $service = $comment->getService();
                 $em->flush();
                 $service->loadRelatedData($user);
-                $result["data"]=$service;
-            }else{
-                $result["error"]="No existe el comentario";
+                $result["data"] = $service;
+            } else {
+                $result["error"] = "No existe el comentario";
             }
-        }else{
-            $result["error"]="Debe estar autenticado";
+        } else {
+            $result["error"] = "Debe estar autenticado";
         }
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
-    public function hidecomment_get($id){
+    public function hidecomment_get($id)
+    {
         $em = $this->doctrine->em;
         $comment = $em->find("Entities\Comments", $id);
         $user = $this->getCurrentUser();
-        if($user){
-            if($comment){
+        if ($user) {
+            if ($comment) {
                 $service = $comment->getService();
                 $service->getTitle();#llenando datos del servicio
-                if($service->professional&&$service->author==$user){
+                if ($service->professional && $service->author == $user) {
                     $comment->hided = 1;
                     $em->persist($comment);
                     $em->flush($comment);
                     $service->loadRelatedData($user);
-                    $result["data"]=$service;
-                    $result["desc"]="Comentario ocultado con exito";
-                }else{
-                    $result["error"]="El servicio no es profesional o el usuario no es el dueño del servicio";
+                    $result["data"] = $service;
+                    $result["desc"] = "Comentario ocultado con exito";
+                } else {
+                    $result["error"] = "El servicio no es profesional o el usuario no es el dueño del servicio";
                 }
-            }else{
-                $result["error"]="No existe el comentario";
+            } else {
+                $result["error"] = "No existe el comentario";
             }
-        }else{
-            $result["error"]="Debe estar autenticado";
+        } else {
+            $result["error"] = "Debe estar autenticado";
         }
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
-    public function showcomment_get($id){
+    public function showcomment_get($id)
+    {
         $em = $this->doctrine->em;
         $comment = $em->find("Entities\Comments", $id);
         $user = $this->getCurrentUser();
-        if($user){
-            if($comment){
+        if ($user) {
+            if ($comment) {
                 $service = $comment->getService();
-                if($service->getProfessional()&&$service->author==$user){
+                if ($service->getProfessional() && $service->author == $user) {
                     $comment->hided = 0;
                     $em->persist($comment);
                     $em->flush();
                     $service->loadRelatedData($user);
-                    $result["data"]=$service;
-                    $result["desc"]="Comentario mostrado con exito";
-                }else{
-                    $result["error"]="El servicio no es profesional o el usuario no es el dueño del servicio";
+                    $result["data"] = $service;
+                    $result["desc"] = "Comentario mostrado con exito";
+                } else {
+                    $result["error"] = "El servicio no es profesional o el usuario no es el dueño del servicio";
                 }
-            }else{
-                $result["error"]="No existe el comentario";
+            } else {
+                $result["error"] = "No existe el comentario";
             }
-        }else{
-            $result["error"]="Debe estar autenticado";
+        } else {
+            $result["error"] = "Debe estar autenticado";
         }
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
+
     //FIN DE LAS FUNCIONES DE COMENTARIOS
 
     public function testimg_post()
@@ -797,23 +826,27 @@ class Api extends REST_Controller
 //        file_put_contents($temp_file_path, base64_decode($_POST['imageString']));
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
-//FUNCIONES DE PAGOS DEL SERVICIO
-    public function memberships_get(){
 
-        $em= $this->doctrine->em;
+//FUNCIONES DE PAGOS DEL SERVICIO
+    public function memberships_get()
+    {
+
+        $em = $this->doctrine->em;
 
         $maembershipRepo = $em->getRepository('Entities\Membership');
         $memberships = $maembershipRepo->findAll();
-         $result["desc"] = "Listado de membresias";
+        $result["desc"] = "Listado de membresias";
         $result["data"] = $memberships;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
-    public function payservice_post($id){
+
+    public function payservice_post($id)
+    {
 
         $em = $this->doctrine->em;
         $user = $this->getCurrentUser();
         $service = $em->find("\Entities\Service", $id);
-        if($service->getAuthor()->getUsername()==$user->getUsername()) {
+        if ($service->getAuthor()->getUsername() == $user->getUsername()) {
             $membership_id = $this->post('membership', TRUE);
             $membership = $em->find("\Entities\Membership", $membership_id);
             $payment = new \Entities\Payments();
@@ -826,7 +859,7 @@ class Api extends REST_Controller
                 $evidence = $this->post('evidence');
                 if ($evidence) {
                     $path = "./resources/evidences/" . $evidence['filename'];
-                    $save ="resources/evidences/" . $evidence['filename'];
+                    $save = "resources/evidences/" . $evidence['filename'];
                     file_put_contents($path, base64_decode($evidence['value']));
                     $payment->setEvidence(site_url($save));
                 }
@@ -844,7 +877,7 @@ class Api extends REST_Controller
             $service->getPayments()->toArray();
             $service->loadRelatedData($user);
             $data["data"] = $service;
-        }else{
+        } else {
             $data["error"] = "El usuario actual no tiene permiso para pagar este servicio";
         }
         $this->set_response($data, REST_Controller::HTTP_OK);
@@ -910,24 +943,25 @@ class Api extends REST_Controller
         $em->flush();
         $this->set_response($service, REST_Controller::HTTP_OK);
     }
+
 //CREANDO EL SERVICIO
     function createservicefull_post()
     {
         $em = $this->doctrine->em;
-        $id =  $this->post('id', TRUE);
+        $id = $this->post('id', TRUE);
 
-        if($id){
-            $service = $em->find("\Entities\Service",$id);
+        if ($id) {
+            $service = $em->find("\Entities\Service", $id);
             $eliminadas = $this->post('dropsImages', TRUE);
             $this->load->helper("file");
             foreach ($eliminadas as $eliminada) {
-                $image = $em->find("\Entities\Image",$eliminada);
-                $path = "./resources/services/" . $id. "/" . $image->getTitle();
+                $image = $em->find("\Entities\Image", $eliminada);
+                $path = "./resources/services/" . $id . "/" . $image->getTitle();
                 delete_files($path);
                 $em->remove($image);
                 $em->flush();
             }
-        }else {
+        } else {
             $service = new \Entities\Service();
         }
         //DATOS BASICOS
@@ -939,8 +973,8 @@ class Api extends REST_Controller
         $service->addSubCategories($this->post('categories', TRUE), $em);
         $service->addCities($this->post('cities', TRUE), $em);
         $icon = $this->post('icon');
-        if ($icon){
-            if( isset($icon['filename'])) {
+        if ($icon) {
+            if (isset($icon['filename'])) {
                 $path = "./resources/services/" . $icon['filename'];
                 $save = "/resources/services/" . $icon['filename'];
                 file_put_contents($path, base64_decode($icon['value']));
@@ -1039,26 +1073,27 @@ class Api extends REST_Controller
 //            redirect('admin/categories/index', 'refresh');
     }
 
-    function deleteservice_get($id){
+    function deleteservice_get($id)
+    {
         $user = $this->getCurrentUser();
         $em = $this->doctrine->em;
         $service = $em->find("\Entities\Service", $id);
-        if($user==$service->author){
+        if ($user == $service->author) {
             $service->getServicecomments()->toArray();
             $service->getPositions()->toArray();
-           $fotos =  $service->getImages()->toArray();//TODO VER SI SE BORRAN LOS FICHEROS
+            $fotos = $service->getImages()->toArray();//TODO VER SI SE BORRAN LOS FICHEROS
             $this->load->helper("file");
             foreach ($fotos as $foto) {
                 delete_files($foto->getTitle());
             }
 
-           $service->getServiceusers()->toArray();
+            $service->getServiceusers()->toArray();
             $service->getPayments()->toArray();
 
             //CARGADA LA RELACION PARA DESPUES ELIMINARLAS CON EL SERVICIO
-           $em->remove($service);
-           $em->flush();
-           $this->set_response("OK", REST_Controller::HTTP_OK);
+            $em->remove($service);
+            $em->flush();
+            $this->set_response("OK", REST_Controller::HTTP_OK);
         }
     }
 
@@ -1108,10 +1143,12 @@ class Api extends REST_Controller
             }
         }
     }
- // FUNCIONES CAMBIOS
-    function mensajesNoleidos_get(){
+
+    // FUNCIONES CAMBIOS
+    function mensajesNoleidos_get()
+    {
         $user = $this->getCurrentUser();
-        if($user) {
+        if ($user) {
             $em = $this->doctrine->em;
             $result_cities = [];
             $criteria = new \Doctrine\Common\Collections\Criteria();
@@ -1119,13 +1156,14 @@ class Api extends REST_Controller
             $criteria->where($expresion);
             $mensajes = $user->getMensajes()->matching($criteria)->toArray();
             $result["data"] = $mensajes;
-        }else{
+        } else {
             $result["error"] = "El usuario debe estar autenticado";
         }
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
-    function facturarequest_post(){
+    function facturarequest_post()
+    {
         $em = $this->doctrine->em;
         $factura = new \Entities\Facturacion();
         $factura->nombre = $this->post('nombre', TRUE);
@@ -1226,7 +1264,7 @@ class Api extends REST_Controller
         return;
     }
 
-    private function filterByCitiesFiltered($cities,$filtered,$services_filtered)
+    private function filterByCitiesFiltered($cities, $filtered, $services_filtered)
     {
         $em = $this->doctrine->em;
         $citiesRepo = $em->getRepository('Entities\City');
@@ -1237,23 +1275,24 @@ class Api extends REST_Controller
         $citiesObj = $citiesRepo->matching($criteria)->toArray();
         foreach ($citiesObj as $city) {
             $services = $city->getServices()->toArray();
-            $result_cities = array_merge($result_cities,$services);
+            $result_cities = array_merge($result_cities, $services);
         }
-        if($filtered){
+        if ($filtered) {
             $result = [];
             foreach ($services_filtered as $filt) {
-                if (in_array($filt,$result_cities)){
-                    $result[]=$filt;
+                if (in_array($filt, $result_cities)) {
+                    $result[] = $filt;
                 }
             }
 //            $result = array_intersect($services_filtered,$result_cities);
-        }else{
+        } else {
             $result = $result_cities;
         }
         return $result;
     }
 
-    private function filterBySubcategories($subcategories){
+    private function filterBySubcategories($subcategories)
+    {
         $em = $this->doctrine->em;
         $sub_repo = $em->getRepository('Entities\Subcategory');
         $result_subcategories = [];
@@ -1263,31 +1302,32 @@ class Api extends REST_Controller
         $subcategoriesObj = $sub_repo->matching($criteria)->toArray();
         foreach ($subcategoriesObj as $subcategory) {
             $services = $subcategory->getServices()->toArray();
-             $result_subcategories = array_merge($result_subcategories,$services);
+            $result_subcategories = array_merge($result_subcategories, $services);
         }
         return $result_subcategories;
     }
 
-    private function filterByDistance($distance,$current_position,$filtered,$services_filtered){
+    private function filterByDistance($distance, $current_position, $filtered, $services_filtered)
+    {
         $em = $this->doctrine->em;
         $positionRepo = $em->getRepository('Entities\Position');
         $result_position = [];
-        if($filtered){
+        if ($filtered) {
             foreach ($services_filtered as $service) {
                 $posiciones = $service->getPositions();
-                foreach ($posiciones as $posicion){
+                foreach ($posiciones as $posicion) {
                     $posicion = new \Entities\Position();
-                    if($posicion->isInRange($distance,$current_position)){
-                        $result_position[]=$service;
+                    if ($posicion->isInRange($distance, $current_position)) {
+                        $result_position[] = $service;
                         break;
                     }
                 }
             }
-        }else{
+        } else {
             $posiciones = $positionRepo->findAll();
-            foreach ($posiciones as $posicion){
-                if($posicion->isInRange($distance,$current_position)){
-                    $result_position[$posicion->getService()->getId()]=$posicion->getService();
+            foreach ($posiciones as $posicion) {
+                if ($posicion->isInRange($distance, $current_position)) {
+                    $result_position[$posicion->getService()->getId()] = $posicion->getService();
                 }
             }
         }
@@ -1296,11 +1336,12 @@ class Api extends REST_Controller
 
     }
 
-    private function Distance($lat1, $lon1, $lat2, $lon2, $unit) {
+    private function Distance($lat1, $lon1, $lat2, $lon2, $unit)
+    {
 
-    $radius = 6378.137; // earth mean radius defined by WGS84
-    $dlon = $lon1 - $lon2;
-    $distance = acos( sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($dlon))) * $radius;
+        $radius = 6378.137; // earth mean radius defined by WGS84
+        $dlon = $lon1 - $lon2;
+        $distance = acos(sin(deg2rad($lat1)) * sin(deg2rad($lat2)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($dlon))) * $radius;
 
         if ($unit == "K") {
             return ($distance);

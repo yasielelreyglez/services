@@ -171,12 +171,12 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
                         this.previews[i].id = result.data.imagesList[i].id;
                     }
 
-                    let daysId = result.data.week_days.split(',');
-                    this.service.week_days = [false, false, false, false, false, false, false];
-
-                    for (let i = 0; i < daysId.length; i++) {
-                        this.service.week_days[daysId[i]] = true;
-                    }
+                    // let daysId = result.data.week_days.split(',');
+                    // this.service.week_days = [false, false, false, false, false, false, false];
+                    //
+                    // for (let i = 0; i < daysId.length; i++) {
+                    //     this.service.week_days[daysId[i]] = true;
+                    // }
 
                     this.positions = result.data.positionsList;
                     if (this.positions.length > 0)

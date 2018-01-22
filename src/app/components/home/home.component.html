@@ -130,27 +130,31 @@
             </div>
             <div class="col-md-12">
                 <div class="map-search">
-                    <div class="map-toggleButton">
-                        <i class="fa fa-bars"></i>
-                    </div>
+                    <!--<div class="map-toggleButton">-->
+                    <!--<i class="fa fa-bars"></i>-->
+                    <!--</div>-->
                     <div class="map-search-fields">
-                        <div class="field">
-                            <input type="text" placeholder="Filter by keyword">
+                        <div class="field custom-select-box">
+                            <select id="filterCit" name="cities" class="custom-select" multiple="true"
+                                    data-placeholder="Ciudades">
+                                <option *ngFor="let city of cities" value="{{city.id}}">{{city.title}}</option>
+                            </select>
                         </div>
                         <div class="field">
                             <i class="fa fa-map-marker"></i>
-                            <input type="text" placeholder="Location" class="location">
+                            <input id="filterDis" type="text" placeholder="Distancia" class="location">
                         </div>
                         <div class="field custom-select-box">
-                            <select name="categories" class="custom-select">
-                                <option value="0">Categories</option>
-                                <option value="1">Spa</option>
-                                <option value="2">Cinema</option>
+                            <select id="filterSub" name="subcategories" class="custom-select" multiple="true"
+                                    data-placeholder="Subcategorías">
+                                <option *ngFor="let subcategory of subcategories" value="{{subcategory.id}}">
+                                    {{subcategory.title}}
+                                </option>
                             </select>
                         </div>
                     </div>
                     <div class="search-button">
-                        <button class="btn btn-medium btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button class="btn btn-medium btn-primary" (click)="filter()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             Filtrar &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </button>
                     </div>
@@ -175,28 +179,25 @@
                         <div class="active" id="uou-tab-1">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="map">
-                                            <div id="map-top"></div>
-                                        </div>
-                                    </div>
+                                    <br>
+                                    <div #map id="map-top" style="width: 100%; height: 531px; margin-bottom: 0;"></div>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="locations-list list-unstyled mb0">
-                                        <li><a href="#"><i class="fa fa-angle-right"></i>Australia & New Zeland <span
-                                                class="count">(5)</span></a></li>
-                                        <li><a href="#"><i class="fa fa-angle-right"></i>Northern America <span
-                                                class="count">(5)</span></a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-4">
-                                    <ul class="locations-list list-unstyled mb0">
-                                        <li><a href="#"><i class="fa fa-angle-right"></i>Southern Asia <span
-                                                class="count">(5)</span></a></li>
-                                        <li><a href="#"><i class="fa fa-angle-right"></i>Southern Europe <span
-                                                class="count">(5)</span></a></li>
-                                    </ul>
-                                </div>
+                                <!--<div class="col-md-4">-->
+                                <!--<ul class="locations-list list-unstyled mb0">-->
+                                <!--<li><a href="#"><i class="fa fa-angle-right"></i>Australia & New Zeland <span-->
+                                <!--class="count">(5)</span></a></li>-->
+                                <!--<li><a href="#"><i class="fa fa-angle-right"></i>Northern America <span-->
+                                <!--class="count">(5)</span></a></li>-->
+                                <!--</ul>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-4">-->
+                                <!--<ul class="locations-list list-unstyled mb0">-->
+                                <!--<li><a href="#"><i class="fa fa-angle-right"></i>Southern Asia <span-->
+                                <!--class="count">(5)</span></a></li>-->
+                                <!--<li><a href="#"><i class="fa fa-angle-right"></i>Southern Europe <span-->
+                                <!--class="count">(5)</span></a></li>-->
+                                <!--</ul>-->
+                                <!--</div>-->
                             </div>
                         </div>
 
