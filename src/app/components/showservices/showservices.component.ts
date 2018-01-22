@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit} from '@angular/core';
+import {AfterContentChecked, AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ApiService} from '../../_services/api.service';
 import {City} from '../../_models/city';
@@ -11,7 +11,7 @@ declare const $;
     templateUrl: './showservices.component.html',
     styleUrls: ['./showservices.component.css']
 })
-export class ShowservicesComponent implements OnInit, AfterViewInit {
+export class ShowservicesComponent implements OnInit, AfterViewInit, AfterViewChecked {
     services: any;
     cities: City[];
     subcategories: any;
@@ -19,9 +19,12 @@ export class ShowservicesComponent implements OnInit, AfterViewInit {
     categories: any;
     listCategories: any;
     model: any;
+    paramsChecked: any;
     allSub: boolean;
+    flagAllSub: boolean;
     allCat: boolean;
     allCit: boolean;
+    flagAllCit: boolean;
     filterForm: FormGroup;
 
     selectSub: any;
@@ -33,15 +36,22 @@ export class ShowservicesComponent implements OnInit, AfterViewInit {
         this.selectSub = new Array();
         this.selectCit = new Array();
         this.allSub = false;
+        // this.flagAllSub = false;
         this.allCat = false;
         this.allCit = false;
+        // this.flagAllCit = false;
     }
 
     ngOnInit() {
         this.route.params.subscribe((params: Params) => {
             const id = params['id'];
-            if (id)
+            if (id) {
                 this.apiServices.servicesSub(id).subscribe(resultparams => this.services = resultparams);
+                const selectCit = [];
+                const selectSub = [id];
+                const selectDis = [];
+                localStorage.setItem('searchParams', JSON.stringify({selectCit, selectSub, selectDis}));
+            }
             else {
                 const services = localStorage.getItem('searchServices');
                 if (services)
@@ -72,6 +82,90 @@ export class ShowservicesComponent implements OnInit, AfterViewInit {
             $viewtype.removeClass('active');
             $this.addClass('active');
         });
+
+        this.paramsChecked = localStorage.getItem('searchParams');
+        if (this.paramsChecked)
+            this.paramsChecked = JSON.parse(this.paramsChecked);
+
+    }
+
+    ngAfterViewChecked(): void {
+        const paramsChecked = this.paramsChecked;
+
+        const sub = this.elRef.nativeElement.querySelectorAll('.subcategories');
+        // console.log(sub.length);
+        const subChecked = this.elRef.nativeElement.querySelectorAll('.subcategories:checked');
+        // console.log(subChecked.length);
+        // console.log(sub.length === subChecked.length);
+        // if ((sub.length > 0) && (paramsChecked.selectSub !== null) && (this.flagAllSub === false)) {
+        if ((sub.length > 0) && (paramsChecked.selectSub !== null)) {
+            sub.forEach(function (item) {
+                if ((paramsChecked.selectSub.indexOf(+item.getAttribute('id')) !== -1) ||
+                    (paramsChecked.selectSub.indexOf(item.getAttribute('id')) !== -1))
+                    item.setAttribute('checked', 'checked');
+            });
+        }
+
+        const cit = this.elRef.nativeElement.querySelectorAll('.cities');
+        const citChecked = this.elRef.nativeElement.querySelectorAll('.cities:checked');
+        // if ((cit.length > 0) && (paramsChecked.selectCit !== null) && (this.flagAllCit === false)) {
+        if ((cit.length > 0) && (paramsChecked.selectCit !== null)) {
+            cit.forEach(function (item) {
+                if ((paramsChecked.selectCit.indexOf(+item.getAttribute('id')) !== -1) ||
+                    (paramsChecked.selectCit.indexOf(item.getAttribute('id')) !== -1))
+                    item.setAttribute('checked', 'checked');
+            });
+        }
+
+        // if (sub.length === subChecked.length) {
+        //     this.allSub = true;
+        // }
+        // else {
+        //     this.allSub = false;
+        // }
+        //
+        // if (cit.length === citChecked.length) {
+        //     this.allCit = true;
+        // }
+        // else {
+        //     this.allCit = false;
+        // }
+    }
+
+    changeAllCit() {
+        const cit = this.elRef.nativeElement.querySelectorAll('.cities');
+        if (!this.allCit) {
+            this.allCit = true;
+            cit.forEach(function (item) {
+                item.setAttribute('checked', 'checked');
+            });
+        } else {
+            this.allCit = false;
+            // this.flagAllCit = true;
+            cit.forEach(function (item) {
+                item.removeAttribute('checked');
+            });
+        }
+    }
+
+    changeAllSub() {
+        const sub = this.elRef.nativeElement.querySelectorAll('.subcategories');
+        console.log(sub);
+
+        if (!this.allSub) {
+            console.log('entro en falsa');
+            this.allSub = true;
+            sub.forEach(function (item) {
+                item.setAttribute('checked', 'checked');
+            });
+        } else {
+            console.log('entro en true');
+            this.allSub = false;
+            // this.flagAllSub = true;
+            sub.forEach(function (item) {
+                item.removeAttribute('checked');
+            });
+        }
     }
 
 
@@ -746,7 +840,6 @@ export class ShowservicesComponent implements OnInit, AfterViewInit {
 
         if (pos === -1) {
             this.listCategories.push(id);
-            console.log(this.listCategories);
             this.listSubcategories = this.subcategories.filter(item => this.exclude(item, this));
         } else {
             this.listCategories.splice(pos, 1);
@@ -772,22 +865,23 @@ export class ShowservicesComponent implements OnInit, AfterViewInit {
     filter() {
         const selectSub = new Array();
         const selectCit = new Array();
+        const selectDis = new Array();
         const sub = this.elRef.nativeElement.querySelectorAll('.subcategories:checked');
         sub.forEach(function (item) {
             selectSub.push($(item).attr('id'));
         });
-        this.selectSub = selectSub;
+        // this.selectSub = selectSub;
         const cit = this.elRef.nativeElement.querySelectorAll('.cities:checked');
         cit.forEach(function (item) {
             selectCit.push($(item).attr('id'));
         });
-        this.selectCit = selectCit;
+        // this.selectCit = selectCit;
 
-        // this.apiServices.filter(this.selectCit, this.selectSub).subscribe(result => {
-        //     this.services = result;
-        // });
-
-        this.apiServices.filter(this.selectCit, this.selectSub).subscribe(result => {
+        // const selectCit = $('#filterCit').select2('val');
+        // const selectSub = $('#filterSub').select2('val');
+        // const selectDis = $('#filterDis').val();
+        localStorage.setItem('searchParams', JSON.stringify({selectCit, selectSub, selectDis}));
+        this.apiServices.filter(selectCit, selectSub).subscribe(result => {
             this.services = result;
             localStorage.setItem('searchServices', JSON.stringify(result));
             this.router.navigate(['/search']);

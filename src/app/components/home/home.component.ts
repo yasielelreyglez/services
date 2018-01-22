@@ -25,11 +25,13 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked {
     latLng: any;
     positions: any;
     infoWindow: any;
+    markers: any;
 
     constructor(private apiServices: ApiService, private router: Router) {
         if (typeof google !== 'undefined') {
             this.latLng = new google.maps.LatLng(23.13302, -82.38304);
             this.infoWindow = new google.maps.InfoWindow;
+            this.markers = new Array();
         }
     }
 
@@ -75,7 +77,7 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked {
                         animation: google.maps.Animation.DROP,
                     });
 
-                    that.markers.push(marker);
+                    this.markers.push(marker);
 
                     const content = '<h6 class="tc-blue">' + this.positions[i].title + '</h6>';
                     this.addInfoWindow(marker, content);
@@ -153,7 +155,19 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked {
         const selectCit = $('#filterCit').select2('val');
         const selectSub = $('#filterSub').select2('val');
         const selectDis = $('#filterDis').val();
+        localStorage.setItem('searchParams', JSON.stringify({selectCit, selectSub, selectDis}));
         this.apiServices.filter(selectCit, selectSub, selectDis).subscribe(result => {
+            localStorage.setItem('searchServices', JSON.stringify(result));
+            this.router.navigate(['/search']);
+        });
+    }
+
+    clickCity(id: number) {
+        const selectCit = [id];
+        const selectSub = [];
+        const selectDis = [];
+        localStorage.setItem('searchParams', JSON.stringify({selectCit, selectSub, selectDis}));
+        this.apiServices.filter(selectCit).subscribe(result => {
             localStorage.setItem('searchServices', JSON.stringify(result));
             this.router.navigate(['/search']);
         });
