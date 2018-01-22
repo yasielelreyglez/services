@@ -1,0 +1,23 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title text-center>Denunciar este {{tipo}}</ion-title>
+
+        <ion-buttons end>
+            <button (click)="close()" ion-button icon-only style="padding: 16px 8px;">
+          <ion-icon class="fs-30" name="close"></ion-icon>
+        </button>
+        </ion-buttons>
+
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-textarea autofocus (focus)="setFocus($event)" [(ngModel)]="denuncia" style="border: 1px solid #0092b6" rows="8" placeholder="Escribe la denuncia aqui"></ion-textarea>
+    <button [disabled]="!denuncia" color="azul-oscuro" class="btn-text-left" ion-button block margin-tops="2" (tap)="denunciar()">
+      &nbsp; Denunciar
+    </button>
+</ion-content>
