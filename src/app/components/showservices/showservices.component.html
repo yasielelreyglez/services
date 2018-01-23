@@ -65,12 +65,12 @@
                     <div class="sidebar-subcategories">
                         <h6>Subcategorias:</h6>
                         <ul>
-                            <li *ngIf="listSubcategories?.length > 0">
-                                <input type="checkbox" [checked]="allSub" (change)="allSub = !allSub">
-                                <span class="title" style="max-width: 70%;">{{allSub ? 'Desmarcar todas' : 'Marcar todas'}}</span>
-                            </li>
+                            <!--<li *ngIf="listSubcategories?.length > 0">-->
+                                <!--<input type="checkbox" [checked]="allSub" (change)="changeAllSub()">-->
+                                <!--<span class="title" style="max-width: 70%;">{{allSub ? 'Desmarcar todas' : 'Marcar todas'}}</span>-->
+                            <!--</li>-->
                             <li *ngFor="let subcategory of listSubcategories">
-                                <input class="subcategories" [checked]="allSub" type="checkbox" id="{{subcategory.id}}">
+                                <input class="subcategories" type="checkbox" id="{{subcategory.id}}">
                                 <span class="title" style="max-width: 70%;">{{subcategory.title}}</span>
                                 <span class="count">{{subcategory.servicesCount}}</span>
                             </li>
@@ -79,12 +79,12 @@
                     <div class="sidebar-categories">
                         <h6>Ciudades:</h6>
                         <ul>
-                            <li *ngIf="cities?.length > 0">
-                                <input type="checkbox" [checked]="allCit" (change)="allCit = !allCit">
-                                <span class="title" style="max-width: 70%;">{{allCit ? 'Desmarcar todas' : 'Marcar todas'}}</span>
-                            </li>
+                            <!--<li *ngIf="cities?.length > 0">-->
+                                <!--<input type="checkbox" [checked]="allCit" (change)="changeAllCit()">-->
+                                <!--<span class="title" style="max-width: 70%;">{{allCit ? 'Desmarcar todas' : 'Marcar todas'}}</span>-->
+                            <!--</li>-->
                             <li *ngFor="let city of cities">
-                                <input type="checkbox" [checked]="allCit" class="cities" id="{{city.id}}">
+                                <input type="checkbox" class="cities" id="{{city.id}}">
                                 <span class="title" style="max-width: 70%;">{{city.title}}</span>
                                 <span class="count">{{city.servicesCount}}</span>
                             </li>

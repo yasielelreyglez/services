@@ -36,6 +36,13 @@ export class ShowcategoriesComponent implements OnInit, AfterViewInit, AfterView
         $('.category-block').css('height', heightNew + 'px');
     }
 
+    // clickSub(id: number){
+    //     const selectCit = [];
+    //     const selectSub = [id];
+    //     const selectDis = [];
+    //     localStorage.setItem('searchParams', JSON.stringify({selectCit, selectSub, selectDis}));
+    // }
+
 
     scripts() {
         'use strict';
