@@ -91,6 +91,16 @@ export class ApiService {
         });
     }
 
+    mvPositions(): Observable<any> {
+        return this.http.get(this.getBaseURL() + 'api/mvpositions').map((response) => {
+            if (response['data'])
+                return response['data'];
+            else {
+                return new Array();
+            }
+        });
+    }
+
     filter(cities?: any, categories?: any, distance?: number, current?: any): Observable<any> {
         return this.http.post(this.getBaseURL() + 'api/filter', {
             cities,
@@ -315,10 +325,10 @@ export class ApiService {
         }
     }
 
-    rateService(id: number, rate: number): Observable<any> {
+    rateService(id: number, rate: number, comment: string): Observable<any> {
         const currentUser = localStorage.getItem('currentUser');
         if (currentUser) {
-            return this.http.get(this.getBaseURL() + 'api/rateservice/' + id + '/' + rate, {headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)}).map((response) => {
+            return this.http.post(this.getBaseURL() + 'api/rateservice/' + id + '/' + rate, { comment }, {headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)}).map((response) => {
                 if (response)
                     return response;
                 else {

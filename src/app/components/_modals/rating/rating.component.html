@@ -1,25 +1,38 @@
-<h4 class="text-center tc-blue">Evalúa este servicio</h4>
+<h4 class="text-center">¿Como calificarías este anuncio?</h4>
 
 <div class="modal-body">
     <form (ngSubmit)="rate()">
         <mat-grid-list cols="5" rowHeight="25px" (mouseleave)="clear()">
-            <mat-grid-tile *ngFor="let star of stars;let pos = index;">
+            <mat-grid-tile *ngFor="let star of stars; let pos = index;">
                 <mat-icon style="cursor:pointer;" (mouseenter)="paint(pos)" (click)="click(pos)">{{star ? 'star' :
                     'star_border'}}
                 </mat-icon>
             </mat-grid-tile>
         </mat-grid-list>
 
-        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+        <!--<div *ngIf="error" class="alert alert-danger">{{error}}</div>-->
         <br>
-        <div class="form-group text-center">
-            <button [disabled]="value === 0" mat-raised-button color="primary" [disabled]="loading" class="col-12 tc-white">
-                <mat-icon>start</mat-icon>
-                Calificar servicio
-            </button>
+        <textarea rows="4" name="textcomment" placeholder="Escribe tu comentario aqui" [(ngModel)]="comment"></textarea>
+
+        <!--<textarea rows="4" name="textcomment" placeholder="Escribe tu comentario" #textcomment-->
+        <!--[formControl]="commentForm.controls['textcomment']"-->
+        <!--[(ngModel)]="model.textcomment"></textarea>-->
+
+        <div class="form-group">
+            <input class="btn btn-primary" (click)="rate()" [disabled]="loading || value === 0 || comment?.length === 0" value="Calificar"
+                   type="button">
             <img *ngIf="loading"
                  src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
             />
         </div>
+    <!--<div class="form-group text-center">-->
+        <!--<button [disabled]="value === 0" mat-raised-button color="primary" [disabled]="loading" class="col-12 tc-white">-->
+            <!--<mat-icon>start</mat-icon>-->
+            <!--Calificar servicio-->
+        <!--</button>-->
+        <!--<img *ngIf="loading"-->
+             <!--src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="-->
+        <!--/>-->
+    <!--</div>-->
     </form>
 </div>

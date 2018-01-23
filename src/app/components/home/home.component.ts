@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked {
         this.apiServices.categoriesLoaded().subscribe(result => this.categories = result);
         this.apiServices.allSubCategories().subscribe(result => this.subcategories = result);
         this.apiServices.cities().subscribe(result => this.cities = result);
-        this.apiServices.allPositions().subscribe(result => {
+        this.apiServices.mvPositions().subscribe(result => {
             this.positions = result;
             if (typeof google !== 'undefined') {
                 this.initMap();

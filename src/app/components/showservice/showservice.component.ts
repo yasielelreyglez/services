@@ -979,8 +979,8 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
 
     ratingDialog(id: number): void {
         const dialogRef = this.dialog.open(RatingComponent, {
-            width: '70%',
-            height: '245px',
+            width: '60%',
+            height: '405px',
             data: {service: this.service}
         });
 
