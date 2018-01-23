@@ -817,7 +817,7 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
             this.positions = this.service.positionsList;
             for (let i = 0; i < this.positions.length; i++) {
                 setTimeout(() => {
-                    let marker = new google.maps.Marker({
+                    const marker = new google.maps.Marker({
                         map: this.map,
                         position: new google.maps.LatLng(this.positions[i].latitude, this.positions[i].longitude),
                         animation: google.maps.Animation.DROP,
@@ -825,7 +825,7 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
 
                     that.markers.push(marker);
 
-                    let content = '<h6 class="tc-blue">' + this.positions[i].title + '</h6>';
+                    const content = '<h6 class="tc-blue"><a>' + this.positions[i].title + '</a></h6>';
                     this.addInfoWindow(marker, content);
                 }, i * 200);
             }
@@ -979,8 +979,8 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
 
     ratingDialog(id: number): void {
         const dialogRef = this.dialog.open(RatingComponent, {
-            width: '70%',
-            height: '245px',
+            width: '60%',
+            height: '405px',
             data: {service: this.service}
         });
 

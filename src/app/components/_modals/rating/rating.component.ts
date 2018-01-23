@@ -12,6 +12,7 @@ export class RatingComponent implements OnInit {
     loading: boolean;
     stars: boolean[];
     value: number;
+    comment: string;
 
     constructor(public dialogRef: MatDialogRef<RatingComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: any, private apiServices: ApiService, private snackBar: MatSnackBar) {
@@ -25,14 +26,16 @@ export class RatingComponent implements OnInit {
     }
 
     rate() {
-        this.apiServices.rateService(this.data.service.id, this.value).subscribe(result => {
-            if (!result.error) {
-                this.dialogRef.close(result.data);
-            }
-            else{
-                this.openSnackBar(result.error, 2500);
-            }
-        });
+        this.loading = true;
+        // this.apiServices.rateService(this.data.service.id, this.value, this.comment).subscribe(result => {
+        //     if (!result.error) {
+        //         this.dialogRef.close(result.data);
+        //         this.loading = false;
+        //     }
+        //     else {
+        //         this.openSnackBar(result.error, 2500);
+        //     }
+        // });
     }
 
     paint(value: number) {
