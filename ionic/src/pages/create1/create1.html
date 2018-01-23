@@ -1,106 +1,141 @@
 <ion-header>
 
-    <ion-navbar hideBackButton>
-        <ion-buttons left>
-            <button (click)="backToHome()" ion-button icon-only color="royal">
-              <ion-icon name="arrow-back"></ion-icon>
-            </button>
-        </ion-buttons>
-        <ion-title text-center>LOGO</ion-title>
-    </ion-navbar>
+  <ion-navbar hideBackButton>
+    <ion-buttons left>
+      <button (click)="backToHome()" ion-button icon-only color="royal">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>LOGO</ion-title>
+  </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
 
-    <h4 class="azul-claro">{{edit ? 'Editar Anuncio': 'Crear Anuncio' }} <small class="crear-gris">Datos iniciales</small></h4>
+  <h4 class="azul-claro">{{edit ? 'Editar Anuncio': 'Crear Anuncio' }}
+    <small class="crear-gris">Datos iniciales</small>
+  </h4>
 
-    <div class="progress">
-        <div class="circle active"> <span class="label">1</span>
-        </div> <span class="bar  "></span>
-        <div class="circle"> <span class="label">2</span>
-        </div> <span class="bar "></span>
-        <div class="circle"> <span class="label">3</span>
-        </div> <span class="bar"></span>
-        <div class="circle"> <span class="label">4</span>
-        </div>
+  <div class="progress">
+    <div class="circle active"><span class="label">1</span>
     </div>
-    <hr class="hr-separador">
+    <span class="bar  "></span>
+    <div class="circle"><span class="label">2</span>
+    </div>
+    <span class="bar "></span>
+    <div class="circle"><span class="label">3</span>
+    </div>
+    <span class="bar"></span>
+    <div class="circle"><span class="label">4</span>
+    </div>
+  </div>
+  <hr class="hr-separador">
 
-    <form #formu="ngForm">
-        <ion-item>
-            <ion-label stacked>Título<span class="requerido"><sup>*</sup></span></ion-label>
-            <ion-input name="title" [(ngModel)]="service.title" placeholder="Título ..." required></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label stacked>Subtítulo <span class="requerido"><sup>*</sup></span></ion-label>
-            <ion-input name="subtitle" [(ngModel)]="service.subtitle" placeholder="Subtítulo..." required></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label stacked>Dirección <span class="requerido"><sup>*</sup></span></ion-label>
-            <ion-input name="address" [(ngModel)]="service.address" #Saddress="ngModel" placeholder="Dirección..." required></ion-input>
+  <form #formu="ngForm">
+    <ion-item>
+      <ion-label stacked>Título<span class="requerido"><sup>*</sup></span></ion-label>
+      <ion-input name="title" [(ngModel)]="service.title" placeholder="Título ..." required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Subtítulo <span class="requerido"><sup>*</sup></span></ion-label>
+      <ion-input name="subtitle" [(ngModel)]="service.subtitle" placeholder="Subtítulo..." required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Dirección <span class="requerido"><sup>*</sup></span></ion-label>
+      <ion-input name="address" [(ngModel)]="service.address" #Saddress="ngModel" placeholder="Dirección..."
+                 required></ion-input>
 
-        </ion-item>
-        <ion-item>
-            <ion-label stacked>Descripcion</ion-label>
-            <ion-textarea required name="description" [(ngModel)]="service.description" #desc="ngModel" rows="2" placeholder="Descripción "></ion-textarea>
-        </ion-item>
-        <ion-item>
-            <ion-label stacked>Teléfono <span class="requerido"><sup>*</sup></span></ion-label>
-            <ion-input required type="tel" name="phone" [(ngModel)]="service.phone" #Sphone="ngModel" placeholder="Teléfono..."></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label>Ciudades
-                <span class="requerido"><sup>*</sup></span></ion-label>
-            <ion-select required multiple="true" name="cities" [(ngModel)]="service.cities" placeholder="Selecciona una ciudad">
-                <ion-option *ngFor="let c of cities" [value]="c.id">{{c.title}}</ion-option>
-            </ion-select>
-        </ion-item>
-        <ion-item>
-            <ion-label>Categorias <span class="requerido"><sup>*</sup></span></ion-label>
-            <ion-select required multiple="true" name="categories" [(ngModel)]="service.categories" placeholder="Selecciona una ciudad">
-                <ion-option *ngFor="let c of categories" [value]="c.id">{{c.title}}</ion-option>
-            </ion-select>
-        </ion-item>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Teléfono <span class="requerido"><sup>*</sup></span></ion-label>
+      <ion-input required type="tel" name="phone" [(ngModel)]="service.phone" #Sphone="ngModel" placeholder="Teléfono..."></ion-input>
+    </ion-item>
 
-        <ion-grid>
-            <ion-row align-items-center>
-                <ion-col col-6>
+    <ion-label class="azul-claro" style="margin-left: 16px;border-bottom: 1px solid #0092b6" text-center>Ubicación</ion-label>
 
-                    <img (tap)="viewImg(preview)" src="{{preview}}" />
-                </ion-col>
-                <ion-col col-6>
-                    <button (click)="presentActionSheet()" padding block ion-button icon-left>
-              <ion-icon name="cloud-upload"></ion-icon>
-              Subir foto
-            </button>
-                </ion-col>
+    <ion-item>
+      <ion-label>Ciudades
+        <span class="requerido"><sup>*</sup></span></ion-label>
+      <ion-select style="padding: 0 !important;" required multiple="true" name="cities" [(ngModel)]="service.cities"
+                  placeholder="Selecciona la ciudad">
+        <ion-option *ngFor="let c of cities" [value]="c.id">{{c.title}}</ion-option>
+      </ion-select>
+    </ion-item>
 
-            </ion-row>
-        </ion-grid>
-        <!--<ion-item>-->
-        <!--<img (tap)="viewImg()" style="max-width: 50%;" src="{{preview}}" />-->
-        <!--<button ion-button (tap)="presentActionSheet()">Subir Foto</button>-->
-        <!--&lt;!&ndash; <img style="max-width: 50%;" src="{{preview}}" (tap)="presentActionSheet()" alt="Ionic File" />-->
-        <!--<button  ion-button (tap)="uploadFile()">Subir Foto</button> &ndash;&gt;-->
-        <!--</ion-item>-->
+    <ion-item no-lines>
+      <ion-label>Todo el país</ion-label>
+      <ion-checkbox  name="allCities" [(ngModel)]="allCities"  (ionChange)="allClickedCities()"color="dark" ></ion-checkbox>
+    </ion-item>
 
-    </form>
-    <ion-grid>
-        <ion-row>
+    <ion-label class="azul-claro" style="margin-left: 16px;border-bottom: 1px solid #0092b6" text-center>Categorías</ion-label>
 
-            <ion-col col-6 offset-6>
+    <ion-item>
+      <ion-select required multiple="true" #C (ionChange)="onChangeCountry(C.value)" name="categories" [(ngModel)]="service.categories"
+                  placeholder="Selecciona la categoria">
+        <ion-option *ngFor="let c of categories" [value]="c.id">{{c.title}}</ion-option>
+      </ion-select>
+    </ion-item>
 
-                <button block [disabled]="!f.form.valid" color="azul-oscuro" (tap)="goToCreate2()" ion-button icon-start>
+    <ion-item>
+      <ion-select [disabled]="!service.categories " required multiple="true" name="subCategories" [(ngModel)]="choosedSub"
+                  placeholder="Selecciona la subcategoria">
+        <ion-option *ngFor="let c of subCategories" [value]="c.id">{{c.title}}</ion-option>
+      </ion-select>
+    </ion-item>
 
-                                                  <ion-icon name="arrow-round-forward"></ion-icon>
-                                                  Siguiente
 
-                                                </button>
-            </ion-col>
+    <!--<ion-item>-->
+      <!--<ion-label stacked>Pais<span class="requerido"><sup>*</sup></span></ion-label>-->
+      <!--<ion-select placeholder="Seleccione" #C (ionChange)="onChangeCountry(C.value)" name="country_id" [(ngModel)]="user.country_id" required>-->
+        <!--<ion-option *ngFor="let item of paises" [value]="item.country_id">{{item.nombre}}</ion-option>-->
+      <!--</ion-select>-->
+    <!--</ion-item>-->
+    <!--<ion-item>-->
+      <!--<ion-label stacked>Ciudad<span class="requerido"><sup>*</sup></span></ion-label>-->
+      <!--<ion-select placeholder="Seleccione" [disabled]="!user.country_id" name="province_id" [(ngModel)]="user.province_id" required>-->
+        <!--<ion-option *ngFor="let item of provicias" [value]="item.provincia_id">{{item.nombre}}</ion-option>-->
+      <!--</ion-select>-->
+    <!--</ion-item>-->
 
-        </ion-row>
-    </ion-grid>
+    <!--<ion-grid>-->
+      <!--<ion-row align-items-center>-->
+        <!--<ion-col col-6>-->
+
+          <!--<img (tap)="viewImg(preview)" src="{{preview}}"/>-->
+        <!--</ion-col>-->
+        <!--<ion-col col-6>-->
+          <!--<button (click)="presentActionSheet()" padding block ion-button icon-left>-->
+            <!--<ion-icon name="cloud-upload"></ion-icon>-->
+            <!--Subir foto-->
+          <!--</button>-->
+        <!--</ion-col>-->
+
+      <!--</ion-row>-->
+    <!--</ion-grid>-->
+    <!--<ion-item>-->
+    <!--<img (tap)="viewImg()" style="max-width: 50%;" src="{{preview}}" />-->
+    <!--<button ion-button (tap)="presentActionSheet()">Subir Foto</button>-->
+    <!--&lt;!&ndash; <img style="max-width: 50%;" src="{{preview}}" (tap)="presentActionSheet()" alt="Ionic File" />-->
+    <!--<button  ion-button (tap)="uploadFile()">Subir Foto</button> &ndash;&gt;-->
+    <!--</ion-item>-->
+
+  </form>
+  <ion-grid>
+    <ion-row>
+
+      <ion-col col-6 offset-6>
+
+        <button block [disabled]="!f.form.valid" color="azul-oscuro" (tap)="goToCreate2()" ion-button icon-start>
+
+          <ion-icon name="arrow-round-forward"></ion-icon>
+          Siguiente
+
+        </button>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
 
 </ion-content>s

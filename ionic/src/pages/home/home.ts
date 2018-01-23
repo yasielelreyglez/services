@@ -26,7 +26,6 @@ import { ServicePage } from "../service/service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { StatusBar } from "@ionic-native/status-bar";
-import { Observable } from "rxjs/Observable";
 
 @IonicPage({
   priority: 'high'

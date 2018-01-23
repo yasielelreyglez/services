@@ -1,6 +1,5 @@
 import { Component,OnInit } from '@angular/core';
 import { ViewController,NavController,NavParams ,App} from 'ionic-angular';
-import {LoginPage} from '../login/login';
 // import {SignupPage} from '../signup/signup';
 import {FavoritesPage} from '../favorites/favorites';
 import {MyservicesPage} from '../myservices/myservices';
@@ -42,44 +41,41 @@ export class PopoverPage implements OnInit {
   logout() {
     this.auth.logout();
     // this.navCtrl.popToRoot();
-    this.close()
+    this.close();
     this.appCtrl.getActiveNavs()[0].popToRoot();
   }
   denunciar(){
-    this.close()
+    this.close();
     this.appCtrl.getActiveNavs()[0].push(ModalDenunciaPage,{tipo:this.tipo ,id:this.id});
   }
 
   openLoginPage(){
-    this.close()
+    this.close();
     this.appCtrl.getActiveNavs()[0].push("LoginPage");
   }
   openChangePassPage(){
-    this.close()
+    this.close();
     this.appCtrl.getActiveNavs()[0].push(ChangePassPage);
   }
 
   openSignUpPage(){
-    this.close()
+    this.close();
     this.appCtrl.getActiveNavs()[0].push("SignupPage");
   }
   openFavoritesPage(){
-    this.close()
+    this.close();
     this.appCtrl.getActiveNavs()[0].push(FavoritesPage);
   }
   openBusquedaPage(){
-    this.navCtrl.push(BusquedaPage);
-    this.close()
+    this.close();
+    this.appCtrl.getActiveNavs()[0].push(BusquedaPage);
   }
   openMyServicesPage(){
-    // this.navCtrl.push(MyservicesPage);
-    // this.close()
-
-    this.close()
+    this.close();
     this.appCtrl.getActiveNavs()[0].push(MyservicesPage);
   }
   openCreatePage(){
-    this.navCtrl.push(Create1Page);
-    this.close()
+    this.close();
+    this.appCtrl.getActiveNavs()[0].push(Create1Page);
   }
 }

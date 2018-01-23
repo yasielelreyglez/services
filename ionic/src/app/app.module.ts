@@ -55,6 +55,7 @@ import { PagarPage } from '../pages/pagar/pagar';
 import { FiltroModalPage } from '../pages/filtro-modal/filtro-modal';
 import { ModalDenunciaPage } from '../pages/modal-denuncia/modal-denuncia';
 import { ChangePassPage } from '../pages/change-pass/change-pass';
+import {ModalHorarioPage} from "../pages/modal-horario/modal-horario";
 
 
 @NgModule({
@@ -72,6 +73,7 @@ import { ChangePassPage } from '../pages/change-pass/change-pass';
     // LoginPage,
     // SignupPage,
     FiltroModalPage,
+    ModalHorarioPage,
     FavoritesPage,
     BusquedaPage,
     MyservicesPage,
@@ -119,6 +121,7 @@ import { ChangePassPage } from '../pages/change-pass/change-pass';
     // LoginPage,
     // SignupPage,
     FavoritesPage,
+    ModalHorarioPage,
     BusquedaPage,
     MyservicesPage,
      ServicePage,

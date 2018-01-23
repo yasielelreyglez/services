@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import { Create4Page } from '../create4/create4';
 import { sendService } from '../../models/sendService';
+import {FiltroModalPage} from "../filtro-modal/filtro-modal";
+import {HttpErrorResponse} from "@angular/common/http";
+import {ModalHorarioPage} from "../modal-horario/modal-horario";
 
 /**
  * Generated class for the Create3Page page.
@@ -28,11 +31,22 @@ export class Create3Page {
     {title: 'Domingo', value: 6},
 ];
   tempDay:any[];
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public modalCtrl: ModalController,public navCtrl: NavController, public navParams: NavParams) {
     //this.tempDay= this.navParams.get("service")['week_days'].split(',');
     this.service =this.navParams.get("service");
     this.tempDay = [];
 
+  }
+
+  addHorario(){
+    const profileModal = this.modalCtrl.create(ModalHorarioPage,{
+
+    });
+    profileModal.onDidDismiss(data => {
+
+    });
+
+    profileModal.present();
   }
 
   ionViewDidLoad() {

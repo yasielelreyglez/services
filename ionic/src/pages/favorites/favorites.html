@@ -10,7 +10,7 @@
     <hr class="hr-separador">
     <ion-list>
 
-        <ion-item *ngFor="let serv of services">
+        <ion-item *ngFor="let serv of services; let i = index">
             <ion-grid>
                 <ion-row>
                     <ion-col col-4>
@@ -22,7 +22,7 @@
                         </ng-template>
                     </ion-col>
 
-                    <ion-col col-8>
+                    <ion-col col-8 (click)='openServicePage(serv.id,i)'>
                         <h2 class="azul-claro">{{serv.title }} </h2>
                         <hr class="hr-separador">
                         <ion-row>
