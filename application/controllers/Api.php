@@ -618,6 +618,21 @@ class Api extends REST_Controller
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
+    public function mvPositions_get(){
+        $em = $this->doctrine->em;
+        $morevisitsRepo = $em->getRepository('Entities\Service');
+        $morevisits = $morevisitsRepo->findBy(array(), array('visits' => 'DESC'), 5);
+        $positions = array();
+        foreach ($morevisits as $service) {
+            $posiciones = $service->getPositions();
+            foreach ($posiciones as $posicione) {
+                $positions[] = $posicione->getListObj();
+            }
+        }
+        $response["data"] = $positions;
+        $this->set_response($response, REST_Controller::HTTP_OK);
+
+    }
     //obtener las posiciones de un servicio
     public function positions_get($id)
     {
