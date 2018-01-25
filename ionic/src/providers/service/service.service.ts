@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AuthProvider} from  '../auth/auth'
-import {  HttpClient,  HttpHeaders, HttpParams } from "@angular/common/http";
+import {  HttpClient,  HttpHeaders } from "@angular/common/http";
 import { ApiProvider } from "../api/api";
 import { sendService } from '../../models/sendService';
 
@@ -75,7 +75,7 @@ export class ServiceProvider {
         (response) => {
          return response;
         }
-      ).catch(this.handleError);;
+      ).catch(this.handleError)
 }
 
   getServiceBySearch(search):Promise<Object>{
@@ -119,8 +119,7 @@ export class ServiceProvider {
       .toPromise()
       .then(
         (response) => {
-          console.log(response)
-          return response;
+         return response;
         }
       ).catch(this.handleError);
   }

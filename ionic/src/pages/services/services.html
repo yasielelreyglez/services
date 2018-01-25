@@ -31,7 +31,7 @@
                         <img (tap)="viewImg(serv.icon)" [src]="serv.icon ? serv.icon : 'assets/imgs/service_img.png' ">
                     </ion-col>
 
-                    <ion-col col-8 (tap)='openServicePage(serv.id,i)'>
+                    <ion-col col-8 (click)='openServicePage(serv.id,i)'>
                         <h2 class="serv-title ">{{serv.title }} </h2>
                         <div class="text-center fw-600 serv-pro" *ngIf="serv.professional === 1">
                             <p class="texto" style>PRO</p>

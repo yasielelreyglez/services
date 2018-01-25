@@ -60,7 +60,7 @@ export class FiltroModalPage {
        console.log(err);
       }
     );
-    this.api.getCategories().then(
+    this.api.getAllSubCategories().then(
       data => {
         this.categories = data["data"];
       },

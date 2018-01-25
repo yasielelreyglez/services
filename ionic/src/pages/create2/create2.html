@@ -31,22 +31,26 @@
             </button>
             </ion-col>
 
-            <ng-container *ngIf="edit; else elseTemplate">
-                <ion-col col-6 *ngFor="let foto of service.imagesList; let i = index">
-                    <div class="block">
-                        <ion-icon name="close" class="deleteIcon" (click)="deletePhoto(i)"></ion-icon>
-                        <img (tap)="viewImg(foto.title)" src="{{foto.title}}">
-                    </div>
-                </ion-col>
-            </ng-container>
-            <ng-template #elseTemplate>
-                <ion-col col-6 *ngFor="let photo of photos; let id = index">
-                    <div class="block">
-                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
-                        <img (tap)="viewImg(photo.value)" [src]="photo.title ? photo.title : 'data:image/jpeg;base64,'+photo.value">
-                    </div>
-                </ion-col>
-            </ng-template>
+            <!--<ng-container *ngIf="edit; else elseTemplate">-->
+                <!--<ion-col col-6 *ngFor="let foto of service.imagesList; let i = index">-->
+                    <!--<div class="block">-->
+                        <!--<ion-icon name="close" class="deleteIcon" (click)="deletePhoto(i)"></ion-icon>-->
+                        <!--<img (tap)="viewImg(foto.title)" src="{{foto.title}}">-->
+                    <!--</div>-->
+                <!--</ion-col>-->
+            <!--</ng-container>-->
+            <!--<ng-template #elseTemplate>-->
+                <!--<ion-col col-6 *ngFor="let photo of photos; let id = index">-->
+                    <!--<div class="block">-->
+                        <!--<ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>-->
+                        <!--<img (tap)="viewImg(photo.value)" [src]="photo.title ? photo.title : 'data:image/jpeg;base64,'+photo.value">-->
+                    <!--</div>-->
+                <!--</ion-col>-->
+            <!--</ng-template>-->
+
+          <ion-col col-4 *ngFor="let imagen of [1,1,1,1,1,1,1,1,1]">
+            <img src="assets/imgs/service_img.png">
+          </ion-col>
 
 
 

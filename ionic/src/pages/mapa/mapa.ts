@@ -1,6 +1,5 @@
 import {Component, ViewChild, ElementRef} from '@angular/core';
 import {
-  Platform,
   IonicPage,
   NavParams
 } from "ionic-angular";
@@ -62,8 +61,8 @@ export class MapaPage {
       if(status == "OK"){
 
         for (let i = 0; i < response.rows[0].elements.length; i++) {
-          var el = document.getElementById('pos'+i);
-          el.innerHTML = ":"+response.rows[0].elements[i].distance.text;
+          const el = document.getElementById('pos' + i);
+          el.innerHTML = ": "+response.rows[0].elements[i].distance.text;
         }
 
       } else {
@@ -75,7 +74,7 @@ export class MapaPage {
   // mostrar ruta entre 2 puntos
   calculateAndDisplayRoute(p) {
     this.destino=p;
-    var end = new google.maps.LatLng(p.latitude, p.longitude);
+    const end = new google.maps.LatLng(p.latitude, p.longitude);
     this.directionsService.route({
       origin: this.latLng,
       destination: end,

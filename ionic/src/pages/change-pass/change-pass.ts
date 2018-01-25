@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, ToastController, NavController} from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
-import { HttpErrorResponse } from '@angular/common/http';
 
 /**
  * Generated class for the ChangePassPage page.

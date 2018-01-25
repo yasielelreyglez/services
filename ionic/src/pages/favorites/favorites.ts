@@ -48,11 +48,13 @@ export class FavoritesPage {
     });
   }
 
-  openServicePage(id,serv) {
+  openServicePage(id,index) {
     this.navCtrl.push(ServicePage, {
-      serviceId: id,
-      service:serv
+      service: this.services[index], //paso el service
+      serviceId: id,  //si paso el id del servicio para la peticion
+      parentPage: this
     });
+
   }
   delete(id){
     //hacer el

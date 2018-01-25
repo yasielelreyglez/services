@@ -115,7 +115,7 @@ export class ServicesPage {
         }
       }
     );
-    this.api.getCategories().then(
+    this.api.getAllSubCategories().then(
       data => {
         this.categories = data["data"];
       },

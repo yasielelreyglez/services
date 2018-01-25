@@ -64,7 +64,7 @@ export class ApiProvider {
         }
       ).catch(this.handleError);
   }
-  getCategories():Promise<Object>{
+  getAllSubCategories():Promise<Object>{
     return this.http.get(this.apiBaseUrl + 'api/allsubcategories')
       .toPromise()
       .then(
@@ -72,6 +72,15 @@ export class ApiProvider {
           return response;
         }
       ).catch(this.handleError);
+  }
+  allCategories():Promise<Object>{
+    return this.http.get(this.apiBaseUrl + 'api/categories')
+      .toPromise()
+      .then(
+        (response) => {
+          return response;
+        }
+      ).catch()
   }
   addComment(id, comment){
     if (this.user){
