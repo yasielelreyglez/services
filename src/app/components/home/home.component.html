@@ -140,9 +140,14 @@
                                 <option *ngFor="let city of cities" value="{{city.id}}">{{city.title}}</option>
                             </select>
                         </div>
-                        <div class="field">
-                            <i class="fa fa-map-marker"></i>
-                            <input id="filterDis" type="text" placeholder="Distancia" class="location">
+                        <div class="field custom-select-box">
+                            <select id="filterDis" name="distance" class="custom-select" data-placeholder="Distancia">
+                                <option value="5">5 km</option>
+                                <option value="10">10 km</option>
+                                <option value="15">15 km</option>
+                                <option value="20">20 km</option>
+                                <option value="25">25 km</option>
+                            </select>
                         </div>
                         <div class="field custom-select-box">
                             <select id="filterSub" name="subcategories" class="custom-select" multiple="true"

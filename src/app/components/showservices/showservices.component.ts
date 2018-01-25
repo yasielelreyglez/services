@@ -25,6 +25,7 @@ export class ShowservicesComponent implements OnInit, AfterViewInit, AfterViewCh
     allCat: boolean;
     allCit: boolean;
     flagAllCit: boolean;
+    flagDis: boolean;
     filterForm: FormGroup;
 
     selectSub: any;
@@ -40,6 +41,7 @@ export class ShowservicesComponent implements OnInit, AfterViewInit, AfterViewCh
         this.allCat = false;
         this.allCit = false;
         // this.flagAllCit = false;
+        this.flagDis = false;
     }
 
     ngOnInit() {
@@ -130,6 +132,11 @@ export class ShowservicesComponent implements OnInit, AfterViewInit, AfterViewCh
         // else {
         //     this.allCit = false;
         // }
+
+        if (!this.flagDis) {
+            $('#distance').select2('val', paramsChecked.selectDis);
+            this.flagDis = true;
+        }
     }
 
     changeAllCit() {
@@ -865,21 +872,18 @@ export class ShowservicesComponent implements OnInit, AfterViewInit, AfterViewCh
     filter() {
         const selectSub = new Array();
         const selectCit = new Array();
-        const selectDis = new Array();
         const sub = this.elRef.nativeElement.querySelectorAll('.subcategories:checked');
         sub.forEach(function (item) {
             selectSub.push($(item).attr('id'));
         });
-        // this.selectSub = selectSub;
+
         const cit = this.elRef.nativeElement.querySelectorAll('.cities:checked');
         cit.forEach(function (item) {
             selectCit.push($(item).attr('id'));
         });
-        // this.selectCit = selectCit;
 
-        // const selectCit = $('#filterCit').select2('val');
-        // const selectSub = $('#filterSub').select2('val');
-        // const selectDis = $('#filterDis').val();
+        const selectDis = $('#distance').val();
+
         localStorage.setItem('searchParams', JSON.stringify({selectCit, selectSub, selectDis}));
         this.apiServices.filter(selectCit, selectSub).subscribe(result => {
             this.services = result;

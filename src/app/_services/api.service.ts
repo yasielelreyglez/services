@@ -109,7 +109,6 @@ export class ApiService {
             current
         }).map((response) => {
             if (response['services']) {
-                console.log(response['services']);
                 return response['services'];
             }
             else {

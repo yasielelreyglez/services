@@ -434,13 +434,12 @@
 
                             <div id="comments" *ngFor="let currentcomment of service.servicecommentsList">
                                 <div [class]="(currentcomment.reportuser !== null) ? 'report-comment': ''">
-                                    <hr class="bc-grei">
                                     <mat-grid-list cols="12" rowHeight="30px">
                                         <mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">
-                                            <h6 class="tc-blue mb-0">{{currentcomment.user.username}}</h6>
+                                            <h6 class="mb-0">{{currentcomment.user.username}}</h6>
                                         </mat-grid-tile>
                                         <mat-grid-tile class="comment-date" [colspan]="4" [rowspan]="1">
-                                            <span class="tc-blue">{{currentcomment.created.date | date: 'mediumDate'}}</span>
+                                            <span class="">{{currentcomment.created.date | date: 'mediumDate'}}</span>
                                         </mat-grid-tile>
                                     </mat-grid-list>
                                     <div>
@@ -479,6 +478,7 @@
                                                 </button>
                                             </mat-grid-tile>
                                         </mat-grid-list>
+                                        <hr class="bc-grei">
                                     </div>
                                 </div>
                             </div>
@@ -503,7 +503,7 @@
 
                                 <div class="form-group">
                                     <input class="btn btn-primary" [disabled]="loading || !submitAttempt" value="Enviar"
-                                           type="button">
+                                           type="submit">
                                     <img *ngIf="loading"
                                          src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
                                     />
