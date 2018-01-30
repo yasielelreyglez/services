@@ -172,7 +172,9 @@
     padding: 28px 28px 28px 28px;
 }
 
-
+.mat-stepper-horizontal, .mat-stepper-vertical{
+    background-color: #f5f5f5;
+}
 
 
 
