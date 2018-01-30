@@ -10,7 +10,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <h1 class="text-center">{{edit ? 'Editar anuncio:' : 'Crear anuncio:'}}</h1>
 
-                <mat-horizontal-stepper [linear]="false">
+                <mat-horizontal-stepper [linear]="false" (selectionChange)="onChangeTab($event)">
                     <mat-step [stepControl]="firstForm">
                         <form name="firstForm">
                             <br>
@@ -150,18 +150,18 @@
                     </mat-step>
 
                     <mat-step>
-                        <mat-form-field>
-                            <input matInput placeholder="Teléfono adicional" name="other_phone"
-                                   [(ngModel)]="service.other_phone">
-                        </mat-form-field>
-                        <mat-form-field>
-                            <input matInput placeholder="Correo electrónico" name="email"
-                                   [(ngModel)]="service.email">
-                        </mat-form-field>
-                        <mat-form-field>
-                            <input matInput placeholder="Dirección web" name="url"
-                                   [(ngModel)]="service.url">
-                        </mat-form-field>
+                        <br>
+                        <label for="other_phone">Teléfono adicional</label>
+                        <input id="other_phone" placeholder="Escriba un teléfono adicional" name="other_phone" type="text"
+                               [(ngModel)]="service.other_phone">
+
+                        <label for="email">Correo electrónico</label>
+                        <input id="email" placeholder="Escriba su email" name="email" type="email"
+                               [(ngModel)]="service.email">
+
+                        <label for="url">Dirección web</label>
+                        <input id="url" placeholder="Escriba su dirección web" name="url" type="url"
+                               [(ngModel)]="service.url">
                         <br>
 
                         <h5 class="tc-blue">Días de atención</h5>
@@ -212,16 +212,22 @@
                     </mat-step>
 
                     <mat-step>
+                        <br>
                         <form (ngSubmit)="addPosition()" [formGroup]="positionsForm">
-                            <mat-form-field>
-                                <input matInput placeholder="Nombre ubicación" name="positiontitle"
-                                       [(ngModel)]="positiontitle"
-                                       [formControl]="positionsForm.controls['positiontitle']"
-                                       minlength="1">
-                                <mat-error *ngIf="positionsForm.controls['positiontitle'].invalid">
-                                    {{getErrorMessage()}}
-                                </mat-error>
-                            </mat-form-field>
+                            <!--<mat-form-field>-->
+                            <!--<input matInput placeholder="Nombre ubicación" name="positiontitle"-->
+                            <!--[(ngModel)]="positiontitle"-->
+                            <!--[formControl]="positionsForm.controls['positiontitle']"-->
+                            <!--minlength="1">-->
+                            <!--<mat-error *ngIf="positionsForm.controls['positiontitle'].invalid">-->
+                            <!--{{getErrorMessage()}}-->
+                            <!--</mat-error>-->
+                            <!--</mat-form-field>-->
+                            <label for="positiontitle">Nombre ubicación *</label>
+                            <input id="positiontitle" name="positiontitle" type="text"
+                                   [(ngModel)]="positiontitle"
+                                   [formControl]="positionsForm.controls['positiontitle']" minlength="1"
+                                   required>
 
                             <div #map id="map"></div>
                             <br>
@@ -277,14 +283,21 @@
                                 </button>
                             </div>
                             <div class="col-6">
-                                <button class="hidden-xs hidden-sm pull-right bc-green tc-white" mat-raised-button
-                                        (click)="finishFunction()">
+                                <button class="hidden-xs hidden-sm pull-right" mat-raised-button color="primary"
+                                        (click)="finishFunction()"
+                                        [disabled]="service.title?.length === 0 || service.subtitle?.length === 0 ||
+                                                    service.address?.length === 0 || service.phone?.length === 0 ||
+                                                    service.description?.length === 0 || service.categories?.length === 0 ||
+                                                    service.cities?.length === 0">
                                     Completar
                                     <mat-icon>done</mat-icon>
                                 </button>
-                                <button class="hidden-md hidden-lg pull-right bc-green tc-white" mat-raised-button
-                                        matStepperNext
-                                        (click)="finishFunction()">
+                                <button class="hidden-md hidden-lg pull-right" mat-raised-button
+                                        (click)="finishFunction()" color="primary"
+                                        [disabled]="service.title?.length === 0 || service.subtitle?.length === 0 ||
+                                                    service.address?.length === 0 || service.phone?.length === 0 ||
+                                                    service.description?.length === 0 || service.categories?.length === 0 ||
+                                                    service.cities?.length === 0">
                                     <mat-icon>done</mat-icon>
                                 </button>
                             </div>

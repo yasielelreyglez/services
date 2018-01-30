@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, NgZone, OnInit, ViewChild} from '@angular/core';
 import {ApiService} from '../../_services/api.service';
 import {Service} from '../../_models/service';
 import {City} from '../../_models/city';
@@ -6,6 +6,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {isNull} from 'util';
 import {MatSnackBar} from '@angular/material';
+import {StepperSelectionEvent} from '@angular/cdk/stepper';
 
 declare const google;
 declare const $;
@@ -51,6 +52,14 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         this.flagPosition = false;
 
         this.service = new Service();
+        this.service.title = '';
+        this.service.subtitle = '';
+        this.service.address = '';
+        this.service.phone = '';
+        this.service.description = '';
+        this.service.categories = new Array();
+        this.service.cities = new Array();
+
         this.previews = [
             {
                 position: false,
@@ -154,13 +163,13 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
                     if (this.service.icon)
                         this.previewvalue = this.service.icon;
 
-                    let citiesId = [];
+                    const citiesId = [];
                     for (let i = 0; i < result.data.citiesList.length; i++) {
                         citiesId.push(result.data.citiesList[i].id);
                     }
                     this.service.cities = citiesId;
 
-                    let subcategoriesId = [];
+                    const subcategoriesId = [];
                     for (let i = 0; i < result.data.subcategoriesList.length; i++) {
                         subcategoriesId.push(result.data.subcategoriesList[i].id);
                     }
@@ -201,6 +210,20 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         this.scripts();
     }
 
+
+    onChangeTab(event) {
+        console.log(event)
+        if (event.selectedIndex === 3) {
+            const categories = $('#categories').select2('val');
+            const cities = $('#cities').select2('val');
+            if (!isNull(categories))
+                this.service.categories = categories;
+            if (!isNull(cities))
+                this.service.cities = cities;
+        }
+    }
+
+
     addPositions() {
         // this.directionsDisplay.setMap(this.map);
         // this.directionsDisplay.setOptions({suppressMarkers: true});
@@ -213,14 +236,14 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
                     animation: google.maps.Animation.DROP,
                 });
                 this.markers.push(marker);
-                let content = '<h6 class="tc-blue">' + this.positions[i].title + '</h6>';
+                const content = '<h6 class="tc-blue">' + this.positions[i].title + '</h6>';
                 this.addInfoWindow(marker, content);
             }, i * 200);
         }
     }
 
     initMap() {
-        let mapOptions = {
+        const mapOptions = {
             center: this.latLng,
             zoom: 10,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -238,7 +261,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     addMarker(that) {
         if (typeof google !== 'undefined') {
             return function (event) {
-                let marker = new google.maps.Marker({
+                const marker = new google.maps.Marker({
                     position: event.latLng,
                     map: that.map,
                     draggable: true,
@@ -273,6 +296,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
                 longitude: this.longitude,
                 latitude: this.latitude
             });
+            console.log(this.positions);
 
             const content = '<h6 class="tc-blue">' + this.positiontitle + '</h6>';
             this.addInfoWindow(this.markers[this.markers.length - 1], content);
@@ -415,19 +439,20 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         this.service.dropsImages = this.dropsImages;
         this.service.times = new Array();
 
-        this.service.categories = $('#categories').select2('val').map(Number);
-        this.service.cities = $('#cities').select2('val').map(Number);
-        this.apiServices.createFullService(this.service).subscribe(result => {
-            if (result) {
-                this.router.navigate(['myservices/service', result.id]);
-                if (this.edit) {
-                    this.openSnackBar('El servicio ha sido editado satisfactoriamente.', 2500);
-                }
-                else {
-                    this.openSnackBar('El servicio ha sido creado satisfactoriamente.', 2500);
-                }
-            }
-        });
+        // this.service.categories = $('#categories').select2('val').map(Number);
+        // this.service.cities = $('#cities').select2('val').map(Number);
+        console.log(this.service);
+        // this.apiServices.createFullService(this.service).subscribe(result => {
+        //     if (result) {
+        //         this.router.navigate(['myservices/service', result.id]);
+        //         if (this.edit) {
+        //             this.openSnackBar('El servicio ha sido editado satisfactoriamente.', 2500);
+        //         }
+        //         else {
+        //             this.openSnackBar('El servicio ha sido creado satisfactoriamente.', 2500);
+        //         }
+        //     }
+        // });
     }
 
 
