@@ -1,3 +1,15 @@
 page-modal-horario {
-
+  .item.item-md .checkbox-md{
+    margin-right: 4px;
+  }
+  .item-md{
+    padding-left: 0;
+    padding-right: 0;
+  }
+  [col-4] {
+    padding: 0;
+  }
+  .input-wrapper{
+    overflow: visible;
+  }
 }

@@ -79,9 +79,9 @@ export class Create4Page {
         loading.dismiss();
       },
       (err: HttpErrorResponse) => {
-
+        loading.dismiss();
       }
-    );;
+    );
 
   }
     addInfoWindow(marker, content) {

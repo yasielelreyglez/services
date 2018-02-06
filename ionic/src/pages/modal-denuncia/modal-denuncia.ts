@@ -28,8 +28,8 @@ export class ModalDenunciaPage {
     //   keyboard.show();
     // });
   }
-  setFocus(event){
-    // this.keyboard.show();
+  setFocus(){
+     this.keyboard.show();
   }
   ionViewDidLoad() {
     this.id = this.navParams.get("id");

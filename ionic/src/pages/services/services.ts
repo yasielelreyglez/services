@@ -192,7 +192,7 @@ export class ServicesPage {
     this.filtro=false;
     this.filter_city =[];
     this.filter_category =[];
-    this.filter_distance = 0;
+    this.filter_distance = 5;
     this.services =this.servTemp;
   }
 

@@ -9,6 +9,7 @@ import { ApiProvider } from "../api/api";
 @Injectable()
 export class AuthProvider {
   public currentUser = new BehaviorSubject(false);
+  public zz = new BehaviorSubject(false);
 
 
   constructor(public http: HttpClient,public api: ApiProvider) {

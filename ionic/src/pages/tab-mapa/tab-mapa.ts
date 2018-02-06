@@ -29,19 +29,29 @@ export class TabMapaPage {
   map: any;
   places: Array<any>;
 
-  constructor(public events: Events,platform: Platform, public navCtrl: NavController, public navParams: NavParams, private geolocation: Geolocation) {
+  constructor(public events: Events, platform: Platform, public navCtrl: NavController,
+              public navParams: NavParams, private geolocation: Geolocation) {
     platform.ready().then(() => {
-      // events.subscribe('user:created', (time) => {
-      //   // user and time are the same arguments passed in `events.publish(user, time)`
-      //   console.log('Welcome','at', time);
-      // });
-      this.getUserPosition();
     });
+    events.subscribe('current:position', (position) => {
+      // user and time are the same arguments passed in `events.publish(user, time)`
+      //this.latLng=position
+      console.log("YA HAY!! ademas de que cambio !!");
+    });
+
+    if (!this.latLng){
+      this.getUserPosition();
+    }
+    else {
+      console.log("si hay");
+    }
   }
 
-  // ionViewDidEnter(){
+  // ionViewDidLoad() {
   //   this.getUserPosition();
   // }
+
+
   addMap(lat, long) {
 
     let latLng = new google.maps.LatLng(lat, long);
@@ -50,7 +60,7 @@ export class TabMapaPage {
       center: latLng,
       zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
+    };
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
@@ -61,16 +71,16 @@ export class TabMapaPage {
       }
     }, (status) => console.log(status));
 
-    this.addMarker();
+    this.addMarker(latLng);
 
   }
 
-  addMarker() {
+  addMarker(latLng) {
 
     this.currentP = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
-      position: this.map.getCenter()
+      position: latLng
     });
 
     let content = "<p>This is your current position !</p>";
@@ -85,7 +95,6 @@ export class TabMapaPage {
   }
 
   getLocation() {
-    console.log("current");
     // this.geolocation.getCurrentPosition({ enableHighAccuracy : false}).then((resp) => {
     // this.latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
     this.map.setCenter(this.latLng);
@@ -113,14 +122,10 @@ export class TabMapaPage {
 
   getUserPosition() {
 
-    this.options = {
-      enableHighAccuracy: false
-    };
-
-    this.geolocation.getCurrentPosition(this.options).then((pos) => {
+    this.geolocation.getCurrentPosition().then((pos) => {
+      console.log("entro a bucar");
       this.latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
       this.addMap(pos.coords.latitude, pos.coords.longitude);
-      console.log("encontro ", this.latLng);
 
       this.watch = this.geolocation.watchPosition({maximumAge: 60000, timeout: 60000})
         .filter((p) => p.coords !== undefined)
@@ -160,7 +165,8 @@ export class TabMapaPage {
     });
 
   }
-  openService(id){
+
+  openService(id) {
     this.navCtrl.push(ServicePage);
   }
 
@@ -171,12 +177,7 @@ export class TabMapaPage {
       position: place.geometry.location,
       name
     });
-    let content = "<a (click)='this.bind(this.openService(1))' )>"+ place.name+"</a>";
+    let content = "<a (click)='this.bind(this.openService(1))' )>" + place.name + "</a>";
     this.addInfoWindow(marker, content);
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TabMapaPage');
-  }
-
 }

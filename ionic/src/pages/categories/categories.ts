@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, PopoverController} from 'ionic-angular';
-import { LoadingController } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, PopoverController} from 'ionic-angular';
+import {LoadingController} from 'ionic-angular';
 
 // pages
-import  {PopoverPage} from  '../pop-over/pop-over';
+import {PopoverPage} from '../pop-over/pop-over';
 import {SubcategoriesPage} from '../subcategories/subcategories';
 
 // providers
-import  {CategoryProvider} from  '../../providers/category/category.service';
+import {CategoryProvider} from '../../providers/category/category.service';
 
 
 @IonicPage()
@@ -17,14 +17,13 @@ import  {CategoryProvider} from  '../../providers/category/category.service';
 
 })
 export class CategoriesPage {
- private categories=[];
+  private categories = [];
 
 
   constructor(public navCtrl: NavController,
-    public category: CategoryProvider,
-    public load: LoadingController,
-    public popCtrl: PopoverController,
-   ) {
+              public category: CategoryProvider,
+              public load: LoadingController,
+              public popCtrl: PopoverController,) {
 
     const loading = this.load.create();
     loading.present();
@@ -34,19 +33,23 @@ export class CategoriesPage {
           this.categories = cat['data'];
           loading.dismiss();
         }
-      );
+      ).catch((error) => {
+      loading.dismiss();
+    });
   }
+
   presentPopover(ev) {
     let popover = this.popCtrl.create(PopoverPage);
     popover.present({
       ev: ev
     });
   }
-  openSubcategories(catId,title){
-      this.navCtrl.push(SubcategoriesPage,{
-        categoryId:catId,
-        title:title
-      });
+
+  openSubcategories(catId, title) {
+    this.navCtrl.push(SubcategoriesPage, {
+      categoryId: catId,
+      title: title
+    });
   }
 
 }
