@@ -296,7 +296,8 @@
                             <ul>
                                 <li class="active"><a href="#basic" data-toggle="tab"><i class="fa fa-info"></i></a>
                                 </li>
-                                <li><a href="#contact" data-toggle="tab"><i class="fa fa-map-marker"></i></a></li>
+                                <li><a href="#moreinfo" data-toggle="tab"><i class="fa fa-plus"></i></a></li>
+                                <li><a href="#contact" (click)="MapPos()" data-toggle="tab"><i class="fa fa-map-marker"></i></a></li>
                                 <li><a href="#report" data-toggle="tab"><i class="fa fa-comments"></i></a></li>
                                 <li><a href="#hours" data-toggle="tab"><i class="fa fa-clock-o"></i></a></li>
                             </ul>
@@ -305,9 +306,6 @@
                             <div id="basic" class="tab-pane fade in active basic-single">
                                 <div class="listing-inner" style="min-height: 420px;">
                                     <div class="listing-content">
-                                        <!--                                        <span class="location">-->
-                                        <!--                                            <i class="fa fa-map-marker"></i> Manhattan, New York, USA-->
-                                        <!--                                        </span>-->
                                         <div class="listing-content-inner">
                                             <div class="listing-content-thumbnail">
                                                 <img src="{{service.icon}}" alt="">
@@ -323,11 +321,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="contact" class="tab-pane fade in contact">
+                            <div id="moreinfo" class="tab-pane fade in contact">
                                 <div class="listing-inner">
-                                    <div class="map">
-                                        <div class="map-listing-04"></div>
-                                    </div>
                                     <div class="listing-content">
                                         <h6 class="main-title">Información adicional</h6>
                                         <div class="row">
@@ -340,10 +335,6 @@
                                                     <li>
                                                         <h6>Sitio web:</h6>
                                                         <span>{{service.url}}</span>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#"><i class="fa fa-arrows-alt"></i> View map in
-                                                            fullscreen</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -358,6 +349,52 @@
                                                         <span>{{service.other_phone}}</span>
                                                     </li>
                                                 </ul>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <ul class="contact">
+                                                    <li>
+                                                        <h6>Direccion:</h6>
+                                                        <span>{{service.address}}</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="contact" class="tab-pane fade in contact">
+                                <div class="listing-inner">
+                                    <div class="listing-content">
+                                        <h6 class="main-title">Mis ubicaciones</h6>
+                                        <div #map id="map"></div>
+                                        <br>
+                                        <h6 class="">Mas cercano:</h6>
+
+                                        <br>
+                                        <h6 class="">Adicionales</h6>
+                                        <hr class="bc-grei">
+                                        <div *ngFor="let currentposition of service.positionsList; let pos = index">
+                                            <div class="row" style="width: 100%;">
+                                                <div class="col-2 col-sm-2 col-md-2 col-lg-2"
+                                                     style="padding-right: 0; padding-top: 9px;">
+                                                    <mat-icon style="position: absolute;" class="tc-blue md-3">
+                                                        location_on
+                                                    </mat-icon>
+                                                </div>
+                                                <div class="col-7 col-sm-7 col-md-7 col-lg-7" style="padding-left: 0;">
+                                                    <h6 class="tc-blue mb-0" style="margin-top: 12px;">
+                                                        {{currentposition.title}}</h6>
+                                                </div>
+                                                <div class="col-3 col-sm-3 col-md-3 col-lg-3">
+
+                                                    <button class="tc-white pull-right" (click)="changeCurrentEnd(pos)"
+                                                            mat-icon-button>
+                                                        <mat-icon color="primary" [ngClass]="{'tc-red':(currentEnd.id !== -1 && currentEnd.id ===
+                                        pos)}">{{(currentEnd.id !== -1 && currentEnd.id ===
+                                                            pos)?'location_off':'navigation'}}
+                                                        </mat-icon>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -434,13 +471,12 @@
 
                             <div id="comments" *ngFor="let currentcomment of service.servicecommentsList">
                                 <div [class]="(currentcomment.reportuser !== null) ? 'report-comment': ''">
-                                    <hr class="bc-grei">
                                     <mat-grid-list cols="12" rowHeight="30px">
                                         <mat-grid-tile [colspan]="8" [rowspan]="1" class="izq">
-                                            <h6 class="tc-blue mb-0">{{currentcomment.user.username}}</h6>
+                                            <h6 class="mb-0">{{currentcomment.user.username}}</h6>
                                         </mat-grid-tile>
                                         <mat-grid-tile class="comment-date" [colspan]="4" [rowspan]="1">
-                                            <span class="tc-blue">{{currentcomment.created.date | date: 'mediumDate'}}</span>
+                                            <span class="">{{currentcomment.created.date | date: 'mediumDate'}}</span>
                                         </mat-grid-tile>
                                     </mat-grid-list>
                                     <div>
@@ -479,6 +515,7 @@
                                                 </button>
                                             </mat-grid-tile>
                                         </mat-grid-list>
+                                        <hr class="bc-grei">
                                     </div>
                                 </div>
                             </div>
@@ -503,7 +540,7 @@
 
                                 <div class="form-group">
                                     <input class="btn btn-primary" [disabled]="loading || !submitAttempt" value="Enviar"
-                                           type="button">
+                                           type="submit">
                                     <img *ngIf="loading"
                                          src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
                                     />
@@ -522,7 +559,8 @@
                             <img src="{{service.thumb}}" alt="">
                         </div>
                         <div class="listing-offer-content">
-                            <span class="location"><i class="fa fa-map-marker"></i> {{service.citiesList[0].title}}</span>
+                            <span class="location"><i
+                                    class="fa fa-map-marker"></i> {{service.citiesList[0].title}}</span>
                             <ul class="rate" [innerHTML]="result_rate(service)">
                             </ul>
                             <span class="count">{{service.visits}} vistas</span>

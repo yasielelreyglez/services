@@ -43,11 +43,13 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
     directionsDisplay: any;
     distanceMatrix;
     markers: any;
+    flagMap: boolean;
 
     constructor(private route: ActivatedRoute, private apiServices: ApiService,
                 public dialog: MatDialog, private authServices: AuthService, private snackBar: MatSnackBar) {
         this.model = {};
         this.loading = false;
+        this.flagMap = false;
         this.markers = new Array();
         this.currentEnd = {id: -1};
         this.service = {};
@@ -84,11 +86,11 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
         this.route.params.subscribe(params => {
             const id = params['id'];
             this.apiServices.service(id).subscribe(result => {
-                console.log(result);
+                // console.log(result);
                 this.service = result.data;
                 this.images = result.data.imagesList;
                 this.comment = result.data.servicecommentsList.length;
-                console.log(this.comment);
+                // console.log(this.comment);
 
                 this.result_week_days();
             });
@@ -780,8 +782,21 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
         return result;
     }
 
-    tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
-        if (tabChangeEvent.index === 1) {
+    // tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
+    //     if (tabChangeEvent.index === 1) {
+    //         if (typeof google !== 'undefined') {
+    //             this.initMap();
+    //             this.addPositions(this);
+    //             this.currentEnd.id = -1;
+    //
+    //             this.directionsDisplay.setMap(null);
+    //             // google.maps.event.trigger(this.map, 'resize');
+    //         }
+    //     }
+    // }
+
+    MapPos() {
+        if (!this.flagMap) {
             if (typeof google !== 'undefined') {
                 this.initMap();
                 this.addPositions(this);
@@ -789,6 +804,7 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
 
                 this.directionsDisplay.setMap(null);
                 // google.maps.event.trigger(this.map, 'resize');
+                this.flagMap = true;
             }
         }
     }
@@ -934,6 +950,7 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
                 }
                 else {
                     this.error = 'Error en el servidor';
+                    this.openSnackBar('Error inesperado', 2500);
                 }
             });
         }
@@ -945,11 +962,11 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
                         return true;
                     }
                     else {
-                        this.error = result.error;
+                        this.openSnackBar(result.error, 2500);
                     }
                 }
                 else {
-                    this.error = 'Error en el servidor';
+                    this.openSnackBar('Error inesperado', 2500);
                 }
             });
         }

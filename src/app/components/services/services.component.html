@@ -301,8 +301,8 @@
                         <ul *ngIf="myservices" class="bookmark list-inline">
                             <li data-tooltip="Ver detalles" [routerLink]="['service', service.id]"><a><i class="fa fa-eye"></i></a></li>
                             <li data-tooltip="Editar" [routerLink]="'./' + service.id + '/edit'"><a><i class="fa fa-pencil-square-o"></i></a></li>
-                            <li data-tooltip="Pagar"><a><i class="fa fa-dollar"></i></a></li>
-                            <li data-tooltip="Eliminar"><a><i class="fa fa-remove"></i></a></li>
+                            <li data-tooltip="Pagar" [routerLink]="'./' + service.id + '/pay'"><a><i class="fa fa-dollar"></i></a></li>
+                            <li data-tooltip="Eliminar" (click)="delete(service.id)"><a><i class="fa fa-remove"></i></a></li>
                         </ul>
                     </div>
                 </div>
