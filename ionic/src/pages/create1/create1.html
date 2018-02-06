@@ -53,7 +53,7 @@
       <ion-input required type="tel" name="phone" [(ngModel)]="service.phone" #Sphone="ngModel" placeholder="Teléfono..."></ion-input>
     </ion-item>
 
-    <ion-label class="azul-claro" style="margin-left: 16px;border-bottom: 1px solid #0092b6" text-center>Ubicación</ion-label>
+    <ion-label class="azul-claro label-centro" text-center>Ubicación</ion-label>
 
     <ion-item>
       <ion-label>Ciudades
@@ -69,7 +69,7 @@
       <ion-checkbox  name="allCities" [(ngModel)]="allCities"  (ionChange)="allClickedCities()"color="dark" ></ion-checkbox>
     </ion-item>
 
-    <ion-label class="azul-claro" style="margin-left: 16px;border-bottom: 1px solid #0092b6" text-center>Categorías</ion-label>
+    <ion-label class="azul-claro label-centro"  text-center>Categorías</ion-label>
 
     <ion-item>
       <ion-select required multiple="true" #C (ionChange)="onChangeCountry(C.value)" name="categories" [(ngModel)]="service.categories"
@@ -126,8 +126,8 @@
     <ion-row>
 
       <ion-col col-6 offset-6>
-
-        <button block [disabled]="!f.form.valid" color="azul-oscuro" (tap)="goToCreate2()" ion-button icon-start>
+        <!--[disabled]="!f.form.valid"-->
+        <button block  color="azul-oscuro" (tap)="goToCreate2()" ion-button icon-start>
 
           <ion-icon name="arrow-round-forward"></ion-icon>
           Siguiente

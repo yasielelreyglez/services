@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title text-center>Horario</ion-title>
+    <ion-title text-center>Gestión de horarios</ion-title>
     <ion-buttons end>
       <button (click)="close()" ion-button icon-only style="padding: 16px 8px;">
         <ion-icon class="fs-30" name="close"></ion-icon>
@@ -19,6 +19,49 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding="">
+  <ion-label class="azul-claro" style="margin-left: 16px;border-bottom: 1px solid #0092b6" text-center>Dias de atención
+  </ion-label>
+  <ion-item>
+    <ion-label>Días de atención</ion-label>
+    <ion-select multiple="true" name="daysii" [(ngModel)]="tempDay" placeholder="Seleccione">
+      <ion-option *ngFor="let item of week_days" [value]="item.value">{{item.title}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-label class="azul-claro" style="margin-left: 16px;margin-top: 15px; border-bottom: 1px solid #0092b6"
+             text-center>Horario de atención
+  </ion-label>
+
+  <ion-item no-lines>
+    <ion-label>Desde</ion-label>
+    <ion-datetime name="start_time" [(ngModel)]="start_time" placeholder="Hora inicio" displayFormat="h:mm A"
+                  pickerFormat="h mm A"></ion-datetime>
+  </ion-item>
+  <ion-item no-lines>
+    <ion-label>Hasta</ion-label>
+    <ion-datetime name="end_time" [(ngModel)]="end_time" placeholder="Hora cierre" displayFormat="h:mm A"
+                  pickerFormat="h mm A"></ion-datetime>
+  </ion-item>
+
+  <button [disabled]= "start_time==null || end_time==null || tempDay==[]" color="azul-claro" (click)="addHorario()" ion-button block margin-bottom="1" margin-top="2">
+    Adicionar horario
+  </button>
+  <ion-item *ngFor="let item of horarios; let i =index;">
+
+    <ion-icon style="display: inline-block;" class="fs-25" name="calendar" color="azul-claro"></ion-icon>
+    &nbsp;<p style="display: inline-block;" text-wrap><span *ngFor="let day of item.weekdays; let i = index">
+                  <ng-container *ngIf="item.weekdays.length > 1 && i != item.weekdays.length-1; else elseTemplate">
+                      {{ days[day]}},
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                      {{ days[day]}}
+                  </ng-template>
+                </span> | {{item.start_time}} - {{item.end_time}}
+  </p>
+    <button (click)="deleteHorario(i)" class="fs-25" color="danger" ion-button icon-only item-end>
+      <ion-icon name="close"></ion-icon>
+    </button>
+  </ion-item>
 
 </ion-content>

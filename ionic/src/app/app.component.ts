@@ -3,7 +3,11 @@ import {Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {TabPage} from "../pages/tab/tab";
-import { Events } from 'ionic-angular';
+import {Events} from 'ionic-angular';
+import {Geolocation} from "@ionic-native/geolocation";
+
+
+declare var google;
 
 @Component({
   templateUrl: "app.html"
@@ -11,10 +15,13 @@ import { Events } from 'ionic-angular';
 export class MyApp {
   // rootPage: any = HomePage;
   rootPage: any = TabPage;
+  latLng: any;
+  watch: any;
 
-  constructor(platform: Platform,
+  constructor(public geolocation: Geolocation,
+              platform: Platform,
               statusBar: StatusBar,
-              splashScreen: SplashScreen, events: Events) {
+              splashScreen: SplashScreen, public events: Events) {
     // splashScreen.show();
     // this.splah = splashScreen;
     platform.ready().then(() => {
@@ -26,12 +33,20 @@ export class MyApp {
       // setTimeout(function(){
       // splashScreen.hide();
       // }, 5000);
-
-      // setInterval(function () {
-      //
-      //   events.publish('user:created',Date.now());
-      // }, 5000);
+     // this.getUserPosition();
     });
+
+  }
+
+  getUserPosition() {
+
+    this.geolocation.watchPosition()
+      // .filter((p) => p.coords !== undefined)
+      .subscribe(position => {
+        let newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        console.log(newPosition.lat(),"-",newPosition.lng());
+        this.events.publish('current:position',newPosition)
+      });
   }
 }
 

@@ -67,12 +67,11 @@ export class HomePage {
           this.exitApp()
 
         });
-      });
 
         this.subCat.topSubcategories().then(
           data => {
             this.subCategories =data['data'];
-              this.splashScreen.hide();
+            this.splashScreen.hide();
             this.connetionDown = false;
           },
           (err: HttpErrorResponse) => {
@@ -84,7 +83,10 @@ export class HomePage {
               this.splashScreen.hide();
 
             }
-        });
+          });
+      });
+
+
   }
   ionViewDidLoad() {
 
