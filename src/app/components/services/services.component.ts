@@ -2,7 +2,7 @@ import {Component, OnInit, Input, AfterViewInit, AfterViewChecked} from '@angula
 import {ApiService} from '../../_services/api.service';
 import {ReportComponent} from '../_modals/report/report.component';
 import {AuthService} from '../../_services/auth.service';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {isNull} from 'util';
 
 declare const $;
@@ -22,7 +22,8 @@ export class ServicesComponent implements OnInit, AfterViewInit, AfterViewChecke
     loggedIn = false;
     citiesList: string;
 
-    constructor(public dialog: MatDialog, private apiServices: ApiService, private authServices: AuthService) {
+    constructor(public dialog: MatDialog, private apiServices: ApiService, private authServices: AuthService,
+                private snackBar: MatSnackBar) {
 
     }
 
@@ -741,6 +742,7 @@ export class ServicesComponent implements OnInit, AfterViewInit, AfterViewChecke
     delete(id) {
         this.apiServices.deleteService(id).subscribe(result => {
             this.services = this.services.filter(service => service.id !== id);
+            this.openSnackBar('El servicio fue eliminado satisfactoriamente', 2500);
         });
     }
 
@@ -779,13 +781,23 @@ export class ServicesComponent implements OnInit, AfterViewInit, AfterViewChecke
         if (state === 1) {
             this.apiServices.disMarkfavorite(id).subscribe(() => {
                 this.services[pos].favorite = 0;
+                this.openSnackBar('El servicio fue eliminado de "Mis favoritos" satisfactoriamente', 2500);
+
                 if (this.myfavorites)
                     this.services = this.services.filter(service => service.id !== id);
             });
         } else {
             this.apiServices.markfavorite(id).subscribe(result => results = result);
             this.services[pos].favorite = 1;
+            this.openSnackBar('El servicio fue añadido a "Mis favoritos" satisfactoriamente', 2500);
         }
+    }
+
+    openSnackBar(message: string, duration: number, action ?: string) {
+        this.snackBar.open(message, action, {
+            duration: duration,
+            horizontalPosition: 'center',
+        });
     }
 
 }

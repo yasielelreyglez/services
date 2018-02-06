@@ -27,15 +27,15 @@ export class RatingComponent implements OnInit {
 
     rate() {
         this.loading = true;
-        // this.apiServices.rateService(this.data.service.id, this.value, this.comment).subscribe(result => {
-        //     if (!result.error) {
-        //         this.dialogRef.close(result.data);
-        //         this.loading = false;
-        //     }
-        //     else {
-        //         this.openSnackBar(result.error, 2500);
-        //     }
-        // });
+        this.apiServices.rateService(this.data.service.id, this.value, this.comment).subscribe(result => {
+            if (!result.error) {
+                this.dialogRef.close(result.data);
+                this.loading = false;
+            }
+            else {
+                this.openSnackBar(result.error, 2500);
+            }
+        });
     }
 
     paint(value: number) {
