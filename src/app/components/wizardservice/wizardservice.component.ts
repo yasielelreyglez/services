@@ -5,8 +5,8 @@ import {City} from '../../_models/city';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {isNull} from 'util';
-import {MatSnackBar} from '@angular/material';
-import {StepperSelectionEvent} from '@angular/cdk/stepper';
+import {MatDialog, MatSnackBar} from '@angular/material';
+import {TimesComponent} from '../_modals/times/times.component';
 
 declare const google;
 declare const $;
@@ -28,7 +28,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     latitude: number
     longitude: number;
     positions: any;
-    week_days: any;
+    // week_days: any;
     firstForm: FormGroup;
     positionsForm: FormGroup;
     flagPosition = false;
@@ -43,7 +43,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     markers: any;
 
     constructor(private apiServices: ApiService, private router: Router, private route: ActivatedRoute,
-                private snackBar: MatSnackBar, public zone: NgZone) {
+                private snackBar: MatSnackBar, public zone: NgZone, public dialog: MatDialog) {
 
         if (typeof google !== 'undefined') {
             this.latLng = new google.maps.LatLng(23.13302, -82.38304);
@@ -139,20 +139,19 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         this.service.positions = new Array();
         this.positions = new Array();
 
-        this.week_days = [
-            {title: 'Lunes'},
-            {title: 'Martes'},
-            {title: 'Miercoles'},
-            {title: 'Jueves'},
-            {title: 'Viernes'},
-            {title: 'Sabado'},
-            {title: 'Domingo'},
-        ];
+        // this.week_days = [
+        //     {title: 'Lunes'},
+        //     {title: 'Martes'},
+        //     {title: 'Miercoles'},
+        //     {title: 'Jueves'},
+        //     {title: 'Viernes'},
+        //     {title: 'Sabado'},
+        //     {title: 'Domingo'},
+        // ];
 
         this.dropsImages = new Array();
         this.markers = new Array();
         this.previewvalue = 'assets/service_img.png';
-        this.service.week_days = [false, false, false, false, false, false, false];
 
         this.route.params.subscribe(params => {
             if (params['id']) {
@@ -180,6 +179,9 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
                         this.previews[i].position = true;
                         this.previews[i].id = result.data.imagesList[i].id;
                     }
+
+                    $('#categories').select2('val', this.service.categories.map(String));
+                    $('#cities').select2('val', this.service.cities.map(String));
 
                     // let daysId = result.data.week_days.split(',');
                     // this.service.week_days = [false, false, false, false, false, false, false];
@@ -212,14 +214,13 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
 
 
     onChangeTab(event) {
-        console.log(event)
         if (event.selectedIndex === 3) {
             const categories = $('#categories').select2('val');
             const cities = $('#cities').select2('val');
             if (!isNull(categories))
-                this.service.categories = categories;
+                this.service.categories = categories.map(Number);
             if (!isNull(cities))
-                this.service.cities = cities;
+                this.service.cities = cities.map(Number);
         }
     }
 
@@ -227,19 +228,36 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     addPositions() {
         // this.directionsDisplay.setMap(this.map);
         // this.directionsDisplay.setOptions({suppressMarkers: true});
-
-        for (let i = 0; i < this.positions.length; i++) {
-            setTimeout(() => {
-                const marker = new google.maps.Marker({
-                    map: this.map,
-                    position: new google.maps.LatLng(this.positions[i].latitude, this.positions[i].longitude),
-                    animation: google.maps.Animation.DROP,
-                });
-                this.markers.push(marker);
-                const content = '<h6 class="tc-blue">' + this.positions[i].title + '</h6>';
-                this.addInfoWindow(marker, content);
-            }, i * 200);
+        if (typeof google !== 'undefined') {
+            for (let i = 0; i < this.positions.length; i++) {
+                setTimeout(() => {
+                    const marker = new google.maps.Marker({
+                        map: this.map,
+                        position: new google.maps.LatLng(this.positions[i].latitude, this.positions[i].longitude),
+                        animation: google.maps.Animation.DROP,
+                    });
+                    this.markers.push(marker);
+                    const content = '<h6 class="tc-blue">' + this.positions[i].title + '</h6>';
+                    this.addInfoWindow(marker, content);
+                }, i * 200);
+            }
         }
+    }
+
+    timesDialog(id: number): void {
+        const dialogRef = this.dialog.open(TimesComponent, {
+            width: '60%',
+            height: '450px',
+            data: {service: this.service}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.service.times = result;
+                console.log(this.service);
+                // this.openSnackBar('El servicio ha sido evaluado satisfactoriamente', 2500);
+            }
+        });
     }
 
     initMap() {
@@ -296,7 +314,6 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
                 longitude: this.longitude,
                 latitude: this.latitude
             });
-            console.log(this.positions);
 
             const content = '<h6 class="tc-blue">' + this.positiontitle + '</h6>';
             this.addInfoWindow(this.markers[this.markers.length - 1], content);
@@ -437,22 +454,22 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         }
 
         this.service.dropsImages = this.dropsImages;
-        this.service.times = new Array();
+        // this.service.times = new Array();
 
         // this.service.categories = $('#categories').select2('val').map(Number);
         // this.service.cities = $('#cities').select2('val').map(Number);
-        console.log(this.service);
-        // this.apiServices.createFullService(this.service).subscribe(result => {
-        //     if (result) {
-        //         this.router.navigate(['myservices/service', result.id]);
-        //         if (this.edit) {
-        //             this.openSnackBar('El servicio ha sido editado satisfactoriamente.', 2500);
-        //         }
-        //         else {
-        //             this.openSnackBar('El servicio ha sido creado satisfactoriamente.', 2500);
-        //         }
-        //     }
-        // });
+        console.log('al final', this.service);
+        this.apiServices.createFullService(this.service).subscribe(result => {
+            if (result) {
+                this.router.navigate(['myservices/service', result.id]);
+                if (this.edit) {
+                    this.openSnackBar('El servicio ha sido editado satisfactoriamente.', 2500);
+                }
+                else {
+                    this.openSnackBar('El servicio ha sido creado satisfactoriamente.', 2500);
+                }
+            }
+        });
     }
 
 

@@ -1,0 +1,77 @@
+<h4 class="text-center">Gestión de horarios</h4>
+
+<div class="modal-body">
+    <div class="row">
+        <h6 class="">Días de atención</h6>
+        <!--<hr class="bc-grei">-->
+        <mat-checkbox color="primary" class="example-margin col-md-4" *ngFor="let day of week_days; let pos = index;"
+                      [(ngModel)]="week_daysValue[pos]" value="{{pos}}" name="week_days">{{day.title}}
+        </mat-checkbox>
+    </div>
+
+    <div class="row">
+        <h6 class="">Horario de atención</h6>
+        <!--<hr class="bc-grei">-->
+        <!--<mat-form-field>-->
+        <!--<input matInput placeholder="Desde" name="start_time"-->
+        <!--&gt;-->
+        <!--</mat-form-field>-->
+        <label for="start_time">Desde:</label>
+        <input id="start_time" name="start_time" type="text"
+               [(ngModel)]="start_time">
+        <!--<mat-form-field>-->
+        <!--<input matInput placeholder="Hasta" name="end_time"-->
+        <!--&gt;-->
+        <!--</mat-form-field>-->
+        <label for="end_time">Hasta:</label>
+        <input id="end_time" name="end_time" type="text"
+               [(ngModel)]="end_time">
+    </div>
+
+    <div class="row">
+        <button class="col-xs-12" (click)="addTime()" mat-raised-button color="primary"
+        [disabled]="start_time?.length === 0 || end_time?.length === 0">
+            Adicionar horario
+        </button>
+    </div>
+    <br>
+
+    <div *ngFor="let currentime of previewsTimes; let pos = index" class="row">
+        <div class="col-md-10">
+            <i class="fa fa-calendar"></i>
+            <span   >{{currentime.start_time}} - {{currentime.end_time}}</span>
+        </div>
+        <div class="col-md-2">
+
+        </div>
+        <!--<mat-grid-list cols="12" class="mat-position" rowHeight="25px">-->
+            <!--<mat-grid-tile [colspan]="10" [rowspan]="2" class="izq">-->
+                <!--<div>-->
+                    <!--<mat-icon style="position: absolute;" class="tc-blue md-3 md-40">date_range-->
+                    <!--</mat-icon>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<h6 class="tc-blue mb-0" style="margin-left: 45px;">-->
+                        <!--{{currentime.start_time}} - {{currentime.end_time}}</h6>-->
+                <!--</div>-->
+
+            <!--</mat-grid-tile>-->
+            <!--<mat-grid-tile class="comment-date" [colspan]="2" [rowspan]="1">-->
+                <!--<button (click)="deletePosition(pos)"-->
+                        <!--class="delete-position tc-white bc-red pull-right"-->
+                        <!--mat-icon-button style="z-index: 1000;">-->
+                    <!--<mat-icon>clear</mat-icon>-->
+                <!--</button>-->
+            <!--</mat-grid-tile>-->
+            <!--<mat-grid-tile class="comment-date" [colspan]="2" [rowspan]="1">-->
+            <!--</mat-grid-tile>-->
+        <!--</mat-grid-list>-->
+        <hr class="bc-grei" style="margin-bottom: 0.5rem; margin-top: 0.5rem;">
+    </div>
+
+    <div class="row" *ngIf="previewsTimes?.length !== 0">
+        <button class="col-xs-12" (click)="done()" mat-raised-button color="primary">
+            Aceptar
+        </button>
+    </div>
+</div>
