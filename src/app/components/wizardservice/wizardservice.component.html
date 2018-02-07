@@ -152,7 +152,8 @@
                     <mat-step>
                         <br>
                         <label for="other_phone">Teléfono adicional</label>
-                        <input id="other_phone" placeholder="Escriba un teléfono adicional" name="other_phone" type="text"
+                        <input id="other_phone" placeholder="Escriba un teléfono adicional" name="other_phone"
+                               type="text"
                                [(ngModel)]="service.other_phone">
 
                         <label for="email">Correo electrónico</label>
@@ -163,26 +164,32 @@
                         <input id="url" placeholder="Escriba su dirección web" name="url" type="url"
                                [(ngModel)]="service.url">
                         <br>
+                        <div class="row">
+                            <button class="pull-left col-xs-12" mat-raised-button color="primary"
+                            (click)="timesDialog()">
+                                Gestión de horarios
+                            </button>
+                        </div>
+                        <br><br>
+                        <!--<h5 class="tc-blue">Días de atención</h5>-->
+                        <!--<hr class="bc-grei">-->
+                        <!--&lt;!&ndash;<mat-checkbox color="primary" class="example-margin col-4" *ngFor="let day of week_days; let pos = index;"&ndash;&gt;-->
+                        <!--&lt;!&ndash;[(ngModel)]="service.week_days[pos]" value="{{pos}}" name="week_days">{{day.title}}&ndash;&gt;-->
+                        <!--&lt;!&ndash;</mat-checkbox>&ndash;&gt;-->
+                        <!--<br>-->
+                        <!--<br>-->
 
-                        <h5 class="tc-blue">Días de atención</h5>
-                        <hr class="bc-grei">
-                        <!--<mat-checkbox color="primary" class="example-margin col-4" *ngFor="let day of week_days; let pos = index;"-->
-                        <!--[(ngModel)]="service.week_days[pos]" value="{{pos}}" name="week_days">{{day.title}}-->
-                        <!--</mat-checkbox>-->
-                        <br>
-                        <br>
-
-                        <h5 class="tc-blue">Horario de atención</h5>
-                        <hr class="bc-grei">
-                        <mat-form-field>
-                            <input matInput placeholder="Desde" name="start_time"
-                                   [(ngModel)]="service.start_time">
-                        </mat-form-field>
-                        <mat-form-field>
-                            <input matInput placeholder="Hasta" name="end_time"
-                                   [(ngModel)]="service.end_time">
-                        </mat-form-field>
-                        <br>
+                        <!--<h5 class="tc-blue">Horario de atención</h5>-->
+                        <!--<hr class="bc-grei">-->
+                        <!--<mat-form-field>-->
+                        <!--<input matInput placeholder="Desde" name="start_time"-->
+                        <!--[(ngModel)]="service.start_time">-->
+                        <!--</mat-form-field>-->
+                        <!--<mat-form-field>-->
+                        <!--<input matInput placeholder="Hasta" name="end_time"-->
+                        <!--[(ngModel)]="service.end_time">-->
+                        <!--</mat-form-field>-->
+                        <!--<br>-->
 
                         <div class="row">
                             <div class="col-6">
