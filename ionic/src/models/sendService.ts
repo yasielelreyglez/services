@@ -22,13 +22,13 @@ export class sendService {
   email: string;
   url: string;
   description: string;
-  start_time: string;
-  end_time: string;
+  // start_time: string;
+  // end_time: string;
   other_phone: any;
+  times: any;
   gallery:sendGalery[];
   positions:sendPositions[];
-  // week_days:string | boolean[];
-   week_days:any;
+  // week_days:any;
   cities:number[];
   dropsImages: any[];
   categories:number[];

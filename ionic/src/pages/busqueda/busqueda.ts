@@ -45,7 +45,9 @@ export class BusquedaPage {
       },
       (err: HttpErrorResponse) => {
         if (err.error instanceof Error) {
+          loading.dismiss();
         } else {
+          loading.dismiss();
         }
       });
   }

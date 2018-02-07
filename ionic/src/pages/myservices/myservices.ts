@@ -34,7 +34,9 @@ export class MyservicesPage {
           loading.dismiss();
         }
       ).catch(
-        (error) => {}
+        (error) => {
+          loading.dismiss();
+        }
       );
   }
   getSearchValue(value) {

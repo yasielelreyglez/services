@@ -56,6 +56,7 @@ import { FiltroModalPage } from '../pages/filtro-modal/filtro-modal';
 import { ModalDenunciaPage } from '../pages/modal-denuncia/modal-denuncia';
 import { ChangePassPage } from '../pages/change-pass/change-pass';
 import {ModalHorarioPage} from "../pages/modal-horario/modal-horario";
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 
 @NgModule({
@@ -143,7 +144,7 @@ import {ModalHorarioPage} from "../pages/modal-horario/modal-horario";
   providers: [
     StatusBar,
     SplashScreen,
-
+    SocialSharing,
     File,
     Camera,
     CallNumber,

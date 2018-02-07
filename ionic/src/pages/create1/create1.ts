@@ -152,7 +152,7 @@ export class Create1Page {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       sourceType: source
-    }
+    };
 
     this.camera.getPicture(options).then((imageData) => {
        this.preview = 'data:image/jpeg;base64,' + imageData;
@@ -167,11 +167,11 @@ export class Create1Page {
     });
   }
   goToCreate2(){
-    if (this.f.form.valid) {
+    // if (this.f.form.valid) {
       this.navCtrl.push(Create2Page, {
         service: this.service, //paso el service
       });
-    }
+    // }
 
   }
 }

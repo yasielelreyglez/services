@@ -11,10 +11,10 @@ import {  HttpClient,  HttpHeaders } from "@angular/common/http";
 */
 @Injectable()
 export class ApiProvider {
-  // private apiBaseUrl = 'http://192.168.137.1/services/';
+  // private apiBaseUrl = 'http://192.168.0.106/services/';
   private apiBaseUrl = 'http://localhost/services/';
   // private apiBaseUrl = 'http://php-yoidel86941305.codeanyapp.com/services/';
-  private days : object;
+  public days : object;
   user:any;
 
   constructor(public http: HttpClient) {
@@ -27,7 +27,7 @@ export class ApiProvider {
       4:"Viernes",
       5:"Sábado",
       6:"Domingo"
-    }
+    };
     this.user =JSON.parse(localStorage.getItem('ServCurrentUser')) ;
   }
 

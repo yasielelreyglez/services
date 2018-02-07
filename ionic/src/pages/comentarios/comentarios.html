@@ -23,10 +23,7 @@
         Comentarios anterioles
     </ion-label>
 
-
     <ion-list>
-
-
         <ion-item *ngFor="let comment of comentarios">
             <p float-left class="azul-claro">{{comment.user.username}}</p>
             <p float-right class="azul-claro"> {{comment.created.date | date:'yyyy-M-d'}}</p>
