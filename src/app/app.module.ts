@@ -36,6 +36,7 @@ import {
 import {ImageComponent} from './components/_modals/image/image.component';
 import { ImageZoomDirective } from './_directives/image-zoom.directive';
 import { PayserviceComponent } from './components/payservice/payservice.component';
+import { TimesComponent } from './components/_modals/times/times.component';
 
 @NgModule({
     declarations: [
@@ -60,13 +61,15 @@ import { PayserviceComponent } from './components/payservice/payservice.componen
         WizardserviceComponent,
         ImageComponent,
         ImageZoomDirective,
-        PayserviceComponent
+        PayserviceComponent,
+        TimesComponent
     ],
     entryComponents: [
         ForgotpassComponent,
         ReportComponent,
         RatingComponent,
-        ImageComponent
+        ImageComponent,
+        TimesComponent
     ],
     imports: [
         BrowserAnimationsModule,

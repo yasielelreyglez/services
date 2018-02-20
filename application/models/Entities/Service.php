@@ -601,8 +601,6 @@ namespace Entities {
 
             return $this;
         }
-
-
         /**
          * Remove city
          *
@@ -612,7 +610,6 @@ namespace Entities {
         {
             $this->cities->removeElement($city);
         }
-
         /**
          * Get cities
          *
@@ -622,7 +619,6 @@ namespace Entities {
         {
             return $this->cities;
         }
-
         /**
          * Add serviceuser
          *
@@ -636,7 +632,6 @@ namespace Entities {
 
             return $this;
         }
-
         /**
          * Remove serviceuser
          *
@@ -646,8 +641,6 @@ namespace Entities {
         {
             $this->serviceusers->removeElement($serviceuser);
         }
-
-
         /**
          * Add Image
          *
@@ -662,7 +655,6 @@ namespace Entities {
 
             return $this;
         }
-
         /**
          * Remove image
          *
@@ -672,7 +664,6 @@ namespace Entities {
         {
             $this->images->removeElement($image);
         }
-
         /**
          * Get images
          *
@@ -682,8 +673,6 @@ namespace Entities {
         {
             return $this->images;
         }
-
-
         public function addFotos(Array $fotos,$site_url)
         {
             if (!is_dir("./resources/services/" . $this->id . "/")) {
@@ -705,7 +694,6 @@ namespace Entities {
             }
             return $this;
         }
-
         public function addPositions(Array $positions)
         {
             foreach ($positions as $position) {
@@ -718,7 +706,6 @@ namespace Entities {
             }
             return $this;
         }
-
         public function loadRelatedData($user = null,$current=null){
             $this->subcategoriesList = $this->getSubcategories()->toArray();
             $this->servicecommentsList = [];
@@ -734,17 +721,20 @@ namespace Entities {
                 }
             }
             $this->citiesList = $this->getCities()->toArray();
-            $this->imagesList = $this->getImages()->toArray();
+            $this->imagesList = [];
+            if($this->getProfessional()) {
+                $this->imagesList  = $this->getImages()->toArray();
+            }
             $this->positionsList = $this->getPositions()->toArray();
             $times = $this->getTimes();
             if($times)
-            $this->timesList = $this->getTimes()->toArray();
+             $this->timesList = $this->getTimes()->toArray();
             else
                 $this->timesList = [];
             if ($current) {
-                foreach ($this->positionsList as $position) {
+                foreach ($this->positionsList as $position){
                     $position_distance = $position->Distance($current["latitude"],$current["longitude"]);
-                    if (!$this->minorDistance||$this->minorDistance >$position_distance ){
+                    if(!$this->minorDistance||$this->minorDistance >$position_distance){
                         $this->minorDistance = $position_distance;
                     }
                 }
@@ -978,7 +968,7 @@ namespace Entities {
                     }
                     $poss++;
                 }
-                $time->setWeekDays($string_week);
+                $time->setWeekDays(substr($string_week,1));
                 $time->setEndTime($time_p["end_time"]);
                 $time->setStartTime($time_p["start_time"]);
                 $time->setService($this);
