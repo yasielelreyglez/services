@@ -19,23 +19,20 @@ export class sendService {
   subtitle: string;
   address: string;
   phone: string;
-  email: string;
-  url: string;
   description: string;
-  // start_time: string;
-  // end_time: string;
-  other_phone: any;
-  times: any;
+  categories:number[];
+  cities:number[];
   gallery:sendGalery[];
   positions:sendPositions[];
-  // week_days:any;
-  cities:number[];
-  dropsImages: any[];
-  categories:number[];
-  imagesList	:Imagen[];
   icon:sendGalery;
-
-
-
+  other_phone: any;
+  email: string;
+  url: string;
+  times: any;
+  // start_time: string;
+  // end_time: string;
+  // week_days:any;
+  dropsImages: any[];
+  imagesList	:Imagen[];
 }
 

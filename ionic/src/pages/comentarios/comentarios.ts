@@ -57,7 +57,6 @@ export class ComentariosPage {
             this.comentarios = data['data'].servicecommentsList;
           },
           (err: HttpErrorResponse) => {
-          console.log(err)
           });
     }
     else {
@@ -66,7 +65,6 @@ export class ComentariosPage {
             this.comentarios = data['data'].servicecommentsList;
           },
           (err: HttpErrorResponse) => {
-          console.log(err)
           });
     }
   }

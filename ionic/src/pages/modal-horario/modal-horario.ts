@@ -23,7 +23,6 @@ export class ModalHorarioPage {
     {title: 'Domingo', value: 6},
   ];
   days ={
-
     0:"Lun",
     1:"Mar",
     2:"Mie",
@@ -39,17 +38,20 @@ export class ModalHorarioPage {
   }
 
   ionViewDidLoad() {
-    //this.service.week_days = [false, false, false, false, false, false, false];
     this.tempDay = [];
   }
 
   close() {
-    let data = {'horarios': this.horarios};
+    let data = {'horarios': []};
     this.viewCtrl.dismiss(data);
   }
 
   addHorario() {
-    this.horarios.push({weekdays: this.tempDay, end_time: this.end_time, start_time: this.start_time});
+    let sendDayArray = [false, false, false, false, false, false, false];
+    for (let day of this.tempDay) {
+      sendDayArray[day] =!sendDayArray[day]
+    }
+    this.horarios.push({weekdays: sendDayArray, end_time: this.end_time, start_time: this.start_time,days:this.tempDay});
     this.tempDay = [];
     this.end_time = null;
     this.start_time = null;
@@ -58,6 +60,10 @@ export class ModalHorarioPage {
   deleteHorario(pos: number) {
     this.horarios.splice(pos, 1);
 
+  }
+  aceptar() {
+    let data = {'horarios': this.horarios};
+    this.viewCtrl.dismiss(data);
   }
 
 }

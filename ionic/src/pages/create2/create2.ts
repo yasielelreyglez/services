@@ -23,7 +23,7 @@ export class Create2Page {
    preview:any;
 
   //  photos: any;
-   base64Image: string;
+  //  base64Image: string;
   constructor(public navCtrl: NavController,
      public navParams: NavParams,
      public viewCtrl: ViewController,
@@ -74,7 +74,7 @@ export class Create2Page {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       sourceType: source
-    }
+    };
     this.camera.getPicture(options).then((imageData) => {
 
       if (this.edit) {
@@ -83,7 +83,6 @@ export class Create2Page {
       this.photos.push({filename:"imageData",filetype:"image/jpeg",value:imageData});
       // this.photos.reverse();
     }, (err) => {
-      console.log(err);
     });
   }
 
@@ -129,6 +128,7 @@ export class Create2Page {
   }
   goToCreate3(){
       this.service.gallery=this.photos;
+      // this.service.icon=this.service.gallery[0];
       this.navCtrl.push(Create3Page, {
         service: this.service
       });

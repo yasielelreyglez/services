@@ -114,7 +114,7 @@ export class TabMapaPage {
   addInfoWindow(marker, content) {
 
     google.maps.event.addListener(marker, 'click', () => {
-      this.infowindow.setContent(content)
+      this.infowindow.setContent(content);
       this.infowindow.open(this.map, marker);
     });
 
@@ -123,7 +123,6 @@ export class TabMapaPage {
   getUserPosition() {
 
     this.geolocation.getCurrentPosition().then((pos) => {
-      console.log("entro a bucar");
       this.latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
       this.addMap(pos.coords.latitude, pos.coords.longitude);
 
@@ -142,7 +141,7 @@ export class TabMapaPage {
         });
     }, (err: PositionError) => {
       console.log("error : " + err.message);
-      ;
+
     })
   }
 

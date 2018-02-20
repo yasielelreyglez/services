@@ -1,3 +1,11 @@
 app-header {
-
+  ion-searchbar {
+    .searchbar-search-icon {
+      display: none;
+    }
+    input.searchbar-input {
+      padding-left: 5px !important;
+      padding-right: 5px !important;
+    }
+  }
 }

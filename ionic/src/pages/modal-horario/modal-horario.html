@@ -50,7 +50,7 @@
   <ion-item *ngFor="let item of horarios; let i =index;">
 
     <ion-icon style="display: inline-block;" class="fs-25" name="calendar" color="azul-claro"></ion-icon>
-    &nbsp;<p style="display: inline-block;" text-wrap><span *ngFor="let day of item.weekdays; let i = index">
+    &nbsp;<p style="display: inline-block;" text-wrap><span *ngFor="let day of item.days; let i = index">
                   <ng-container *ngIf="item.weekdays.length > 1 && i != item.weekdays.length-1; else elseTemplate">
                       {{ days[day]}},
                   </ng-container>
@@ -63,5 +63,7 @@
       <ion-icon name="close"></ion-icon>
     </button>
   </ion-item>
-
+  <button [disabled]= "horarios.length <= 0" color="azul-claro" (click)="aceptar()" ion-button block margin-bottom="1" margin-top="2">
+    Aceptar
+  </button>
 </ion-content>

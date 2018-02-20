@@ -26,7 +26,6 @@ export class PagarPage {
   pagar()
   {
     this.navCtrl.pop().then((valor) =>{
-      console.log("atras "+valor);
     });
   }
 

@@ -87,6 +87,7 @@ export class HomePage {
       });
 
 
+
   }
   ionViewDidLoad() {
 
@@ -156,6 +157,11 @@ export class HomePage {
           this.connetionDown = true;
         }
       });
+  }
+
+  buscar(){
+    this.busqueda = true;
+    this.searchServices(this.search.value);
   }
 
   goSearch(keyCode) {

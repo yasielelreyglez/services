@@ -39,7 +39,8 @@ export class ServiceProvider {
       (response) => {
         // if (response['error']){
            return response;
-        // return true;
+        // console.log(response);
+        //  return true;
       }
     ).catch(this.handleError);
   }

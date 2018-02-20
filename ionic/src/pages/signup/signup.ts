@@ -59,7 +59,6 @@ export class SignupPage {
         }
       ).catch(
         (error) => {
-          console.log(error);
           let toast = this.toastCtrl.create({
             message:error ,
             duration: 5000,

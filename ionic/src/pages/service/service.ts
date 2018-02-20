@@ -36,8 +36,9 @@ export class ServicePage {
     this.servPro.getService(this.navParams.get("serviceId")).then(data => {
       this.response = data;
       this.service = data['data'];
-      this.passedService.servicecommentsList = this.service.servicecommentsList;
-      this.cant_c = this.passedService.servicecommentsList.length ? this.passedService.servicecommentsList.length : 0
+      this.passedService.servicecommentsList = this.service.servicecommentsList ? this.service.servicecommentsList :[];
+      // this.cant_c = this.passedService.servicecommentsList.length ? this.passedService.servicecommentsList.length : 0;
+      this.cant_c = this.passedService.servicecommentsList ? this.passedService.servicecommentsList.length : 0;
     });
 
   }

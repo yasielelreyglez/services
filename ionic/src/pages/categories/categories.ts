@@ -18,6 +18,7 @@ import {CategoryProvider} from '../../providers/category/category.service';
 })
 export class CategoriesPage {
   private categories = [];
+  private categoriesTemp = [];
 
 
   constructor(public navCtrl: NavController,
@@ -31,6 +32,7 @@ export class CategoriesPage {
       .then(
         (cat) => {
           this.categories = cat['data'];
+          this.categoriesTemp = cat['data'];
           loading.dismiss();
         }
       ).catch((error) => {
@@ -38,18 +40,29 @@ export class CategoriesPage {
     });
   }
 
-  presentPopover(ev) {
-    let popover = this.popCtrl.create(PopoverPage);
-    popover.present({
-      ev: ev
-    });
-  }
+  // presentPopover(ev) {
+  //   let popover = this.popCtrl.create(PopoverPage);
+  //   popover.present({
+  //     ev: ev
+  //   });
+  // }
 
   openSubcategories(catId, title) {
     this.navCtrl.push(SubcategoriesPage, {
       categoryId: catId,
       title: title
     });
+  }
+  getSearchValue(value) {
+    this.categories=this.categoriesTemp;
+    if (value && value.trim() == '') {
+      this.categories = this.categoriesTemp;
+    }
+    if (value && value.trim() != '' ) {
+      this.categories = this.categories.filter((item) => {
+        return (item.title.toLowerCase().indexOf(value.toLowerCase()) > -1);
+      })
+    }
   }
 
 }

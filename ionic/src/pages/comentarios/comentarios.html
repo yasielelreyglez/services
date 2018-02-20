@@ -1,24 +1,22 @@
 <ion-header>
 
-    <ion-navbar>
-        <ion-title>Comentarios</ion-title>
-    </ion-navbar>
+  <app-header [showInput]="false" [showSearch]="false"></app-header>
 
 </ion-header>
 
 
 <ion-content padding>
     <serv-up-info [passedService]="service" [cantComentarios]="cant_c" (rateService)="rateService($event)"></serv-up-info>
-    <div *ngIf="currentUser">
-        <ion-label text-center color="azul-claro">
-            Escribe tu comentario
-        </ion-label>
-        <ion-textarea name="comentario" [(ngModel)]="comentario" #com="ngModel" rows="3" placeholder="Escribe tu comentario"></ion-textarea>
-        <button (click)="comentar()" [disabled]="!comentario" class="btn-text-left" text-left color="azul-claro" ion-button block margin-bottom="1">
-        <ion-icon class="fs-30" name="chatboxes" ></ion-icon>
-        &nbsp;Comentar
-      </button>
-    </div>
+    <!--<div *ngIf="currentUser">-->
+        <!--<ion-label text-center color="azul-claro">-->
+            <!--Escribe tu comentario-->
+        <!--</ion-label>-->
+        <!--<ion-textarea name="comentario" [(ngModel)]="comentario" #com="ngModel" rows="3" placeholder="Escribe tu comentario"></ion-textarea>-->
+        <!--<button (click)="comentar()" [disabled]="!comentario" class="btn-text-left" text-left color="azul-claro" ion-button block margin-bottom="1">-->
+        <!--<ion-icon class="fs-30" name="chatboxes" ></ion-icon>-->
+        <!--&nbsp;Comentar-->
+      <!--</button>-->
+    <!--</div>-->
     <ion-label text-center color="azul-claro">
         Comentarios anterioles
     </ion-label>

@@ -39,8 +39,8 @@
       <ion-input name="title" [(ngModel)]="service.title" placeholder="Título ..." required></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label stacked>Subtítulo <span class="requerido"><sup>*</sup></span></ion-label>
-      <ion-input name="subtitle" [(ngModel)]="service.subtitle" placeholder="Subtítulo..." required></ion-input>
+      <ion-label stacked>slogan <span class="requerido"><sup>*</sup></span></ion-label>
+      <ion-input name="subtitle" [(ngModel)]="service.subtitle" placeholder="slogan..." required></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Dirección <span class="requerido"><sup>*</sup></span></ion-label>
@@ -50,7 +50,7 @@
     </ion-item>
     <ion-item>
       <ion-label stacked>Teléfono <span class="requerido"><sup>*</sup></span></ion-label>
-      <ion-input required type="tel" name="phone" [(ngModel)]="service.phone" #Sphone="ngModel" placeholder="Teléfono..."></ion-input>
+      <ion-input required type="tel" name="phone" [(ngModel)]="service.phone" #Sphone="ngModel" placeholder="Teléfono..." tel></ion-input>
     </ion-item>
 
     <ion-label class="azul-claro label-centro" text-center>Ubicación</ion-label>
@@ -72,14 +72,14 @@
     <ion-label class="azul-claro label-centro"  text-center>Categorías</ion-label>
 
     <ion-item>
-      <ion-select required multiple="true" #C (ionChange)="onChangeCountry(C.value)" name="categories" [(ngModel)]="service.categories"
+      <ion-select required multiple="true" #C (ionChange)="onChangeCountry(C.value)" name="categories" [(ngModel)]="asd"
                   placeholder="Selecciona la categoria">
         <ion-option *ngFor="let c of categories" [value]="c.id">{{c.title}}</ion-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
-      <ion-select [disabled]="!service.categories " required multiple="true" name="subCategories" [(ngModel)]="choosedSub"
+      <ion-select  required multiple="true" name="subCategories" [(ngModel)]="service.categories"
                   placeholder="Selecciona la subcategoria">
         <ion-option *ngFor="let c of subCategories" [value]="c.id">{{c.title}}</ion-option>
       </ion-select>

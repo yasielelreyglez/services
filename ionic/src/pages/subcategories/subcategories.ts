@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {LoadingController} from 'ionic-angular';
 import {SubCategoryProvider} from '../../providers/sub-category/sub-category';
 import {ServicesPage} from '../services/services';
+import {Service} from "../../models/service";
 
 
 /**
@@ -23,6 +24,7 @@ export class SubcategoriesPage {
   private parentId: any;
   private subCategories = [];
   private loading: any;
+  private subCategoriesTemp =[];
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -39,6 +41,7 @@ export class SubcategoriesPage {
       .then(
         (subCat) => {
           this.subCategories = subCat['data'];
+          this.subCategoriesTemp = subCat["data"];
           this.loading.dismiss();
         }
       ).catch(
@@ -48,6 +51,18 @@ export class SubcategoriesPage {
       }
     );
 
+  }
+
+  getSearchValue(value) {
+    this.subCategories=this.subCategoriesTemp;
+    if (value && value.trim() == '') {
+      this.subCategories = this.subCategoriesTemp;
+    }
+    if (value && value.trim() != '' ) {
+      this.subCategories = this.subCategories.filter((item) => {
+        return (item.title.toLowerCase().indexOf(value.toLowerCase()) > -1);
+      })
+    }
   }
 
   // abre la vista de los servicios asociados a la categoria en dada

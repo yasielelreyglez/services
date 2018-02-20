@@ -44,7 +44,6 @@ export class MyApp {
       // .filter((p) => p.coords !== undefined)
       .subscribe(position => {
         let newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        console.log(newPosition.lat(),"-",newPosition.lng());
         this.events.publish('current:position',newPosition)
       });
   }

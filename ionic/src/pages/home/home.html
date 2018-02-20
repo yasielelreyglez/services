@@ -1,27 +1,42 @@
 <ion-header>
-    <app-header [showSearch]="false" [show]="!connetionDown"></app-header>
+  <app-header [showInput]="false" [showSearch]="false" [show]="!connetionDown"></app-header>
 </ion-header>
 
 <ion-content padding>
-    <ng-container *ngIf="!connetionDown; else elseTemplate">
-        <ion-searchbar id="search" (ionInput)="onInput($event)" (ionClear)="onCancel($event)" (keypress)="goSearch($event.keyCode)" placeholder="¿Que buscas?" #search></ion-searchbar>
-        <ng-container *ngIf="busqueda; else topCategories">
-            <p *ngIf="noFound">No hay resultados </p>
-            <ion-list>
-                <ion-item *ngFor="let serv of services; let i = index">
-                    <ion-grid>
-                        <ion-row>
-                            <ion-col col-4>
-                                <img (tap)="viewImg(serv.icon)" [src]="serv.icon ? serv.icon : 'assets/imgs/service_img.png' ">
-                            </ion-col>
+  <ng-container *ngIf="!connetionDown; else elseTemplate">
+    <ion-grid no-padding>
+      <ion-row>
 
-                            <ion-col col-8 (tap)='openServicePage(serv.id,i)'>
-                                <h2 class="serv-title ">{{serv.title }} </h2>
-                                <hr class="hr-separador">
-                                <ion-row>
-                                    <ion-col col-12>
-                                        <p>Distancia: 5 km</p>
-                                        <p text-wrap><span *ngFor="let cat of serv.subcategoriesList; let i = index">
+        <ion-col col-10>
+          <ion-searchbar  id="search" (ionInput)="onInput($event)" (ionClear)="onCancel($event)"
+                         (keypress)="goSearch($event.keyCode)" placeholder="¿Qué estas buscando?" #search></ion-searchbar>
+        </ion-col>
+        <ion-col col-2>
+          <button color="azul-claro" class="buscar-btn" ion-button icon-only (click)="buscar()">
+            <ion-icon
+              name="search"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ng-container *ngIf="busqueda; else topCategories">
+      <p *ngIf="noFound">No hay resultados </p>
+      <ion-list>
+        <ion-item *ngFor="let serv of services; let i = index">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-4>
+                <img (tap)="viewImg(serv.icon)" [src]="serv.icon ? serv.icon : 'assets/imgs/service_img.png' ">
+              </ion-col>
+
+              <ion-col col-8 (tap)='openServicePage(serv.id,i)'>
+                <h2 class="serv-title ">{{serv.title }} </h2>
+                <hr class="hr-separador">
+                <ion-row>
+                  <ion-col col-12>
+                    <p>Distancia: 5 km</p>
+                    <p text-wrap><span *ngFor="let cat of serv.subcategoriesList; let i = index">
                           <ng-container *ngIf="i > 0; else elseTemplate">
                               ,{{ cat.title}}
                           </ng-container>
@@ -29,61 +44,65 @@
                               {{ cat.title}}
                           </ng-template>
                         </span>
-                                        </p>
-                                        <ion-rating [readOnly]="true" [numStars]="5" [value]="serv.globalrate"></ion-rating>
+                    </p>
+                    <ion-rating [readOnly]="true" [numStars]="5" [value]="serv.globalrate"></ion-rating>
 
-                                    </ion-col>
+                  </ion-col>
 
-                                </ion-row>
+                </ion-row>
 
-                            </ion-col>
+              </ion-col>
 
-                        </ion-row>
+            </ion-row>
 
-                    </ion-grid>
-                    <hr class="hr-separador">
-                </ion-item>
+          </ion-grid>
+          <hr class="hr-separador">
+        </ion-item>
 
-            </ion-list>
-        </ng-container>
-
+      </ion-list>
     </ng-container>
 
-    <ng-template #elseTemplate>
-        <ion-label class="fs-20" text-center text-wrap>No tienes conexión a Internet. Activa el Wi-Fi o los datos móviles, y vuelve a intentarlo.</ion-label>
+  </ng-container>
 
-        <button color="azul-claro" ion-button block margin-bottom="2" (click)="reConnect()">
+  <ng-template #elseTemplate>
+    <ion-label class="fs-20" text-center text-wrap>No tienes conexión a Internet. Activa el Wi-Fi o los datos móviles, y
+      vuelve a intentarlo.
+    </ion-label>
+
+    <button color="azul-claro" ion-button block margin-bottom="2" (click)="reConnect()">
       Reintentar
     </button>
-    </ng-template>
-    <ng-template #topCategories>
+  </ng-template>
+  <ng-template #topCategories>
 
-        <ion-label text-center color="azul-claro">Principales tendencias</ion-label>
-        <ion-list>
-            <button *ngFor="let sub of subCategories" class="specific-button" text-left color="azul-claro" ion-button block margin-bottom="1" (click)='openServicesPage(sub.id)'>
+    <ion-label text-center color="azul-claro">Principales tendencias</ion-label>
+    <ion-list>
+      <button *ngFor="let sub of subCategories" class="specific-button" text-left color="azul-claro" ion-button block
+              margin-bottom="1" (click)='openServicesPage(sub.id)'>
         <img src="{{sub.icon}}" alt="" height="36">
         &nbsp;{{sub.title}}
       </button>
 
-        </ion-list>
+    </ion-list>
 
-        <ion-grid>
-            <ion-row>
-                <ion-col>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
 
-                </ion-col>
-                <ion-col col-10>
-                    <button color="azul-oscuro" float-left class="btn-text-left specific-button" ion-button block margin-bottom="2" (click)="openCategoriesPage()">
+        </ion-col>
+        <ion-col col-10>
+          <button color="azul-oscuro" float-left class="btn-text-left specific-button" ion-button block
+                  margin-bottom="2" (click)="openCategoriesPage()">
             <ion-icon name="search" class="fs-25"></ion-icon>
             &nbsp;Buscar por categoria
           </button>
-                </ion-col>
-                <ion-col>
+        </ion-col>
+        <ion-col>
 
-                </ion-col>
-            </ion-row>
+        </ion-col>
+      </ion-row>
 
-        </ion-grid>
+    </ion-grid>
 
-    </ng-template>
+  </ng-template>
 </ion-content>

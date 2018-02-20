@@ -42,7 +42,7 @@ export class Create3Page {
       horarios:this.service.times
     });
     profileModal.onDidDismiss(data => {
-      this.service.times = data;
+      this.service.times = data.horarios;
     });
 
     profileModal.present();

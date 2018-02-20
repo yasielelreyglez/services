@@ -1,8 +1,6 @@
 <ion-header>
 
-    <ion-navbar>
-        <ion-title>Galeria</ion-title>
-    </ion-navbar>
+  <app-header [showInput]="false" [showSearch]="false"></app-header>
 
 </ion-header>
 
@@ -15,13 +13,13 @@
     </ion-label>
     <ion-grid>
         <ion-row>
-            <!--<ion-col col-4 *ngFor="let imagen of galeria">-->
-                <!--<img (tap)="viewImg(imagen.title)" style="min-width: 100%;min-height: 100%" src="{{ imagen.title}}">-->
-            <!--</ion-col>-->
-            <!--<p class="fs-20" *ngIf="!havePhoto">No hay galeria </p>-->
-          <ion-col col-4 *ngFor="let imagen of [1,1,1,1,1,1,1,1,1]">
-            <img src="assets/imgs/service_img.png">
-          </ion-col>
+            <ion-col col-4 *ngFor="let imagen of galeria">
+                <img (tap)="viewImg(imagen.title)" style="min-width: 100%;min-height: 100%" src="{{ imagen.title}}">
+            </ion-col>
+            <p class="fs-20" *ngIf="!havePhoto">No hay galeria </p>
+          <!--<ion-col col-4 *ngFor="let imagen of [1,1,1,1,1,1,1,1,1]">-->
+            <!--<img src="assets/imgs/service_img.png">-->
+          <!--</ion-col>-->
 
 
 

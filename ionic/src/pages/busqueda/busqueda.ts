@@ -51,9 +51,13 @@ export class BusquedaPage {
         }
       });
   }
+
   getSearchValue(value) {
 
     this.services=this.temp;
+    if (value && value.trim() == '') {
+      this.services = this.temp;
+    }
     if (value && value.trim() != '' ) {
       this.services = this.services.filter((item) => {
         return (item.title.toLowerCase().indexOf(value.toLowerCase()) > -1);

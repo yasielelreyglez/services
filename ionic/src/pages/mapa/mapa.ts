@@ -88,7 +88,6 @@ export class MapaPage {
           .filter((p) => p.coords !== undefined)
           .subscribe(position => {
               this.wacthed=true;
-              console.log("CAMBIO");
                let newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                if(!this.latLng.equals( newPosition ))
                {
