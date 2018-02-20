@@ -1019,8 +1019,18 @@ class Api extends REST_Controller
         $em->flush();
         //GALERIA DE FOTOS
         $fotos = $this->post('gallery', TRUE);
+		if (count($fotos) > 0) {
+			$service->addFotos($fotos, base_url());	
+			
+			$path = "./resources/services/" . $fotos[0]['filename'];
+			$save = "/resources/services/" . $fotos[0]['filename'];
+			file_put_contents($path, base64_decode($fotos[0]['value']));
+			$service->setIcon(site_url($save));
+			$service->setThumb($fotos[0]['filename']);
+            
+		}
 
-        $service->addFotos($fotos, base_url());
+        
         $em->persist($service);
         $em->flush();
         $this->set_response($service, REST_Controller::HTTP_OK);
