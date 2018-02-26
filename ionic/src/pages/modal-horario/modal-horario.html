@@ -51,8 +51,8 @@
 
     <ion-icon style="display: inline-block;" class="fs-25" name="calendar" color="azul-claro"></ion-icon>
     &nbsp;<p style="display: inline-block;" text-wrap><span *ngFor="let day of item.days; let i = index">
-                  <ng-container *ngIf="item.weekdays.length > 1 && i != item.weekdays.length-1; else elseTemplate">
-                      {{ days[day]}},
+                  <ng-container *ngIf="item.weekdays.length > 1 && i > 0; else elseTemplate">
+                      ,{{ days[day]}}
                   </ng-container>
                   <ng-template #elseTemplate>
                       {{ days[day]}}

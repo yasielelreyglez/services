@@ -57,6 +57,7 @@ import { ModalDenunciaPage } from '../pages/modal-denuncia/modal-denuncia';
 import { ChangePassPage } from '../pages/change-pass/change-pass';
 import {ModalHorarioPage} from "../pages/modal-horario/modal-horario";
 import { SocialSharing } from '@ionic-native/social-sharing';
+import {SearchPage} from "../pages/search/search";
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
     MyApp,
     TabPage,
     HomePage,
+    SearchPage,
     PopoverPage,
     CategoriesPage,
     SubcategoriesPage,
@@ -112,6 +114,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
     TabPage,
     HomePage,
     PopoverPage,
+    SearchPage,
     CategoriesPage,
     SubcategoriesPage,
     AppHeaderComponent,

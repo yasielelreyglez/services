@@ -8,8 +8,7 @@
       <ion-row>
 
         <ion-col col-10>
-          <ion-searchbar  id="search" (ionInput)="onInput($event)" (ionClear)="onCancel($event)"
-                         (keypress)="goSearch($event.keyCode)" placeholder="¿Qué estas buscando?" #search></ion-searchbar>
+          <ion-searchbar  id="search" (keypress)="goSearch($event.keyCode)" placeholder="¿Qué estas buscando?" #search></ion-searchbar>
         </ion-col>
         <ion-col col-2>
           <button color="azul-claro" class="buscar-btn" ion-button icon-only (click)="buscar()">

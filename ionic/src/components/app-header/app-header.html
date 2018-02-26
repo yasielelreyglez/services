@@ -10,7 +10,7 @@
 
     <ion-navbar>
 
-        <ion-title text-center *ngIf="!toggled">{{title}}</ion-title>
+        <!--<ion-title text-center *ngIf="!toggled">{{entrada}}</ion-title>-->
         <ion-searchbar *ngIf="showInput" id="buscar" placeholder="Buscar..." [(ngModel)]="searchTerm"  (ionClear)="onCancel($event)" (ionInput)="onInput($event)" (keypress)="goSearch($event.keyCode)" (ionCancel)="toggleSearch()" ></ion-searchbar>
         <ion-buttons end>
             <button *ngIf="showSearch" ion-button icon-only (click)="buscar()"><ion-icon

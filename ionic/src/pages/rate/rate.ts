@@ -15,6 +15,7 @@ import {
 })
 export class RatePage {
   value: number;
+  comment: any;
 
   constructor( public keyboard: Keyboard,public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams) {
   }
@@ -35,7 +36,7 @@ export class RatePage {
   }
 
   sendRate() {
-    let data = {'rate': this.value};
+    let data = {'rate': this.value,'comment':this.comment};
     this.viewCtrl.dismiss(data);
   }
 

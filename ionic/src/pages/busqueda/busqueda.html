@@ -1,36 +1,35 @@
 <ion-header>
-    <app-header (searchValue)="getSearchValue($event)"></app-header>
+  <app-header (searchValue)="getSearchValue($event)"></app-header>
 </ion-header>
 
 
-
 <ion-content padding>
-    <ion-label text-center color="azul-claro">Mis busquedas realizadas</ion-label>
+  <ion-label text-center color="azul-claro">Mis busquedas realizadas</ion-label>
 
-    <hr class="hr-separador">
+  <hr class="hr-separador">
 
-    <ion-list>
+  <ion-list>
+    <div *ngFor="let serv of services; let i = index" [class]="serv.professional == 1 ? 'pagado' :'no_pago'">
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-4>
+              <ng-container *ngIf="serv.icon; else imgTemplate">
+                <img (tap)="viewImg(serv.icon)" src="{{serv.icon}}">
+              </ng-container>
+              <ng-template #imgTemplate>
+                <img (tap)="viewImg(assets/imgs/service_img.png)" src="assets/imgs/service_img.png">
+              </ng-template>
+            </ion-col>
 
-        <ion-item *ngFor="let serv of services; let i = index">
-            <ion-grid>
-                <ion-row>
-                    <ion-col col-4>
-                        <ng-container *ngIf="serv.icon; else imgTemplate">
-                            <img (tap)="viewImg(serv.icon)" src="{{serv.icon}}">
-                        </ng-container>
-                        <ng-template #imgTemplate>
-                            <img (tap)="viewImg(assets/imgs/service_img.png)" src="assets/imgs/service_img.png">
-                        </ng-template>
-                    </ion-col>
-
-                    <ion-col col-8 (click)='openServicePage(serv.id,i)'>
-                        <h2 class="azul-claro">{{serv.title }} </h2>
-                        <hr class="hr-separador">
-                        <ion-row>
-                            <ion-col col-9 style="margin-left: -10px;">
-                                <p>Calificación: {{serv.globalrate}}/10</p>
-                                <p>Distancia: {{serv.globalrate/2}} km</p>
-                                <p text-wrap>Categoria: <span *ngFor="let cat of serv.subcategoriesList; let i = index">
+            <ion-col col-8 (click)='openServicePage(serv.id,i)'>
+              <h2 class="azul-claro">{{serv.title }} </h2>
+              <hr class="hr-separador">
+              <ion-row>
+                <ion-col col-9 style="margin-left: -10px;">
+                  <p>Calificación: {{serv.globalrate}}/10</p>
+                  <p>Distancia: {{serv.globalrate/2}} km</p>
+                  <p text-wrap>Categoria: <span *ngFor="let cat of serv.subcategoriesList; let i = index">
                                     <ng-container *ngIf="i > 0; else elseTemplate">
                                        ,{{ cat.title}}
                                     </ng-container>
@@ -38,52 +37,52 @@
                                        {{ cat.title}}
                                     </ng-template>
                                  </span>
-                                </p>
-                                <p>Visualización: 2017-02-25</p>
-                                <ng-container *ngIf="serv.contacted==1; else contactSetion">
-                                    <div class="text-center fw-600 contact-section bc-green">
-                                        <p>Contactado</p>
-                                    </div>
-                                </ng-container>
-                                <ng-template #contactSetion>
-                                    <div class="text-center fw-600 contact-section bc-red">
-                                        <p>Sin contactar</p>
-                                    </div>
-                                </ng-template>
-                            </ion-col>
-                            <ion-col col-3 style="margin-left: 7px;">
-                                <button (click)="delete(serv.id)" color="danger" ion-button icon-only>
-                                                <ion-icon name="close"></ion-icon>
-                                            </button>
-                            </ion-col>
-                        </ion-row>
-                        <!-- <p style="margin-left: -6px; margin-top: -10px;" text-wrap text-left>Categoria: <span *ngFor="let cat of serv.subcategoriesList; let i = index">
-                                            <ng-container *ngIf="i > 0; else elseTemplate">
-                                               ,{{ cat.title}}
-                                            </ng-container>
-                                            <ng-template #elseTemplate>
-                                               {{ cat.title}}
-                                            </ng-template>
-                                         </span>
-                        </p> -->
-                        <!-- <ng-container *ngIf="serv.contacted==1; else contactSetion">
-                            <div class="text-center fw-600 contact-section bc-green">
-                                <p>Contactado</p>
-                            </div>
-                        </ng-container>
-                        <ng-template #contactSetion>
-                            <div class="text-center fw-600 contact-section bc-red">
-                                <p>Sin contactar</p>
-                            </div>
-                        </ng-template> -->
+                  </p>
+                  <p>Visualización: 2017-02-25</p>
+                  <ng-container *ngIf="serv.contacted==1; else contactSetion">
+                    <div class="text-center fw-600 contact-section bc-green">
+                      <p>Contactado</p>
+                    </div>
+                  </ng-container>
+                  <ng-template #contactSetion>
+                    <div class="text-center fw-600 contact-section bc-red">
+                      <p>Sin contactar</p>
+                    </div>
+                  </ng-template>
+                </ion-col>
+                <ion-col col-3 style="margin-left: 7px;">
+                  <button (click)="delete(serv.id)" color="danger" ion-button icon-only>
+                    <ion-icon name="close"></ion-icon>
+                  </button>
+                </ion-col>
+              </ion-row>
+              <!-- <p style="margin-left: -6px; margin-top: -10px;" text-wrap text-left>Categoria: <span *ngFor="let cat of serv.subcategoriesList; let i = index">
+                                  <ng-container *ngIf="i > 0; else elseTemplate">
+                                     ,{{ cat.title}}
+                                  </ng-container>
+                                  <ng-template #elseTemplate>
+                                     {{ cat.title}}
+                                  </ng-template>
+                               </span>
+              </p> -->
+              <!-- <ng-container *ngIf="serv.contacted==1; else contactSetion">
+                  <div class="text-center fw-600 contact-section bc-green">
+                      <p>Contactado</p>
+                  </div>
+              </ng-container>
+              <ng-template #contactSetion>
+                  <div class="text-center fw-600 contact-section bc-red">
+                      <p>Sin contactar</p>
+                  </div>
+              </ng-template> -->
 
-                    </ion-col>
+            </ion-col>
 
-                </ion-row>
+          </ion-row>
 
-            </ion-grid>
-        </ion-item>
-
-    </ion-list>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-list>
 
 </ion-content>

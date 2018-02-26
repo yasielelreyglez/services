@@ -11,7 +11,7 @@
     <ion-grid>
         <ion-row align-items-center>
             <ion-col col-4 text-center *ngFor="let cat of categories">
-                <img src="{{cat.icon}}" (tap)="openSubcategories(cat.id,cat.title)" />
+                <img src="{{cat.icon}}" (click)="openSubcategories(cat.id,cat.title)" />
                 <ion-label>{{cat.title}}</ion-label>
             </ion-col>
         </ion-row>

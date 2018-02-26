@@ -1,19 +1,19 @@
 // componetes angular
 
-import { Component, ViewChild } from "@angular/core";
+import {Component, ViewChild} from "@angular/core";
 // providers
-import  {SubCategoryProvider} from  '../../providers/sub-category/sub-category';
-import  {AuthProvider} from  '../../providers/auth/auth';
-import { ServiceProvider } from "../../providers/service/service.service";
-import { ApiProvider } from "../../providers/api/api";
+import {SubCategoryProvider} from '../../providers/sub-category/sub-category';
+import {AuthProvider} from '../../providers/auth/auth';
+import {ServiceProvider} from "../../providers/service/service.service";
+import {ApiProvider} from "../../providers/api/api";
 
 // Paginas
-import  {PopoverPage} from  '../pop-over/pop-over';
+import {PopoverPage} from '../pop-over/pop-over';
 import {ServicesPage} from '../services/services';
-import  {CategoriesPage} from  '../categories/categories';
+import {CategoriesPage} from '../categories/categories';
 import 'rxjs/add/operator/map';
 // componetes ionic
-import {IonicPage,PopoverController,NavController, AlertController,} from 'ionic-angular';
+import {IonicPage, PopoverController, NavController, AlertController,} from 'ionic-angular';
 import {
   NavParams,
   LoadingController,
@@ -21,11 +21,12 @@ import {
   Platform
 } from "ionic-angular";
 // native components
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { ServicePage } from "../service/service";
-import { HttpErrorResponse } from "@angular/common/http";
-import { PhotoViewer } from '@ionic-native/photo-viewer';
-import { StatusBar } from "@ionic-native/status-bar";
+import {SplashScreen} from '@ionic-native/splash-screen';
+import {ServicePage} from "../service/service";
+import {HttpErrorResponse} from "@angular/common/http";
+import {PhotoViewer} from '@ionic-native/photo-viewer';
+import {StatusBar} from "@ionic-native/status-bar";
+import {SearchPage} from "../search/search";
 
 @IonicPage({
   priority: 'high'
@@ -42,79 +43,75 @@ export class HomePage {
   loggedIn: boolean;
   noFound: boolean;
 
-  busqueda:boolean;
+  busqueda: boolean;
   loading: any;
   @ViewChild('search') search;
 
 
-  constructor(
-    private alertCtrl: AlertController,
-     public auth: AuthProvider,
-     private popoverCtrl: PopoverController,
-     public subCat: SubCategoryProvider,
-     public navCtrl: NavController ,
-     public api: ApiProvider,
-     public servProv: ServiceProvider,
-     private load: LoadingController,
-     private photoViewer: PhotoViewer,
-     public keyboard: Keyboard,
-     public navParams: NavParams,public splashScreen: SplashScreen,public platform: Platform,  statusBar: StatusBar,) {
+  constructor(private alertCtrl: AlertController,
+              public auth: AuthProvider,
+              private popoverCtrl: PopoverController,
+              public subCat: SubCategoryProvider,
+              public navCtrl: NavController,
+              public api: ApiProvider,
+              public servProv: ServiceProvider,
+              private load: LoadingController,
+              private photoViewer: PhotoViewer,
+              public keyboard: Keyboard,
+              public navParams: NavParams, public splashScreen: SplashScreen, public platform: Platform, statusBar: StatusBar,) {
 
-      this.platform.ready().then(() => {
-        //statusBar.hide();
-        //statusBar.backgroundColorByHexString('#ffffff');
-        this.platform.registerBackButtonAction((readySource) => {
-          this.exitApp()
+    this.platform.ready().then(() => {
+      //statusBar.hide();
+      //statusBar.backgroundColorByHexString('#ffffff');
+      this.platform.registerBackButtonAction((readySource) => {
+        this.exitApp()
 
-        });
-
-        this.subCat.topSubcategories().then(
-          data => {
-            this.subCategories =data['data'];
-            this.splashScreen.hide();
-            this.connetionDown = false;
-          },
-          (err: HttpErrorResponse) => {
-            if (err.error instanceof Error) {
-              this.connetionDown = true;
-              this.splashScreen.hide();
-            } else {
-              this.connetionDown = true;
-              this.splashScreen.hide();
-
-            }
-          });
       });
 
-
-
+      this.subCat.topSubcategories().then(
+        data => {
+          this.subCategories = data['data'];
+          this.splashScreen.hide();
+          this.connetionDown = false;
+        },
+        (err: HttpErrorResponse) => {
+          if (err.error instanceof Error) {
+            this.connetionDown = true;
+            this.splashScreen.hide();
+          } else {
+            this.connetionDown = true;
+            this.splashScreen.hide();
+          }
+        });
+    });
   }
+
   ionViewDidLoad() {
 
     this.platform.ready().then(() => {
-
-
-      this.busqueda = false;
-      this.noFound = false;
-
-      this.auth.currentUser.subscribe(user=>{
-        this.loggedIn = !!user;
+      this.auth.currentUser.subscribe(user => {
+        this.loggedIn = user;
       });
-
     });
   }
+
   ionViewDidEnter() {
-    if(this.navParams.get('connetionDown')){
+    if (this.navParams.get('connetionDown')) {
       this.connetionDown = true;
     }
   }
+  ionViewWillEnter() {
+    this.search.value ="";
+
+  }
+
   viewImg(img) {
     this.platform.ready().then(() => {
-    this.photoViewer.show(img);
+      this.photoViewer.show(img);
     });
   }
 
-  exitApp(){
+  exitApp() {
     let confirm = this.alertCtrl.create({
       title: "¿Desea salir de la aplicación? ",
       message: "",
@@ -135,72 +132,28 @@ export class HomePage {
     confirm.present();
   }
 
-
-  searchServices(query){
-
-    this.loading = this.load.create({
-      content:"Buscando..."
+  buscar() {
+    this.navCtrl.push(SearchPage, {
+      buscar: this.search.value
     });
-    this.loading.present();
-    this.servProv.getServiceBySearch(query).then(
-      data => {
-        this.services =data['data'];
-        this.noFound = this.services.length == 0 ? true : false;
-        this.loading.dismiss();
-      },
-      (err: HttpErrorResponse) => {
-        if (err.error instanceof Error) {
-          this.connetionDown = true;
-          this.loading.dismiss();
-        } else {
-          this.loading.dismiss();
-          this.connetionDown = true;
-        }
-      });
-  }
-
-  buscar(){
-    this.busqueda = true;
-    this.searchServices(this.search.value);
   }
 
   goSearch(keyCode) {
-    if (keyCode === 13){
-     this.busqueda = true;
-     this.searchServices(this.search.value);
-     this.keyboard.close();
+    if (keyCode === 13) {
+      this.navCtrl.push(SearchPage, {
+        buscar: this.search.value
+      });
     }
   }
 
-  onCancel(e){
-    this.services = [];
-    this.busqueda = false;
-    this.noFound =  false;
-  }
-  // openServicePage(id,serv){
-  //   this.navCtrl.push(ServicePage,{
-  //      serviceId:id,
-  //      service:serv
-  //   })
-  // }
-  openServicePage(id,index) {
+  openServicePage(id, index) {
     this.navCtrl.push(ServicePage, {
       service: this.services[index], //paso el service
       serviceId: id,  //si paso el id del servicio para la peticion
       parentPage: this
-
     });
   }
 
-  onInput(e){
-
-    if( this.search.value == "" )
-      {
-      this.busqueda = false;
-      this.services = [];
-      this.noFound =  false;
-     }
-  }
   delete(chip: Element) {
     chip.remove();
   }
@@ -212,44 +165,48 @@ export class HomePage {
 
     });
   }
-  openCategoriesPage(){
+
+  openCategoriesPage() {
     this.navCtrl.push(CategoriesPage)
   }
-  openServicesPage(id){
+
+  openServicesPage(id) {
     // this.api.test().then(
     //   () => {
-        this.navCtrl.push(ServicesPage,{
-          subCatId:id
-        });
-      // },
-      // (err: HttpErrorResponse) => {
-      //   // no hay conexion
-      //     this.connetionDown = true;
-      // });
+    this.navCtrl.push(ServicesPage, {
+      subCatId: id
+    });
+    // },
+    // (err: HttpErrorResponse) => {
+    //   // no hay conexion
+    //     this.connetionDown = true;
+    // });
 
   }
-  reConnect(){
+
+  reConnect() {
     this.subCat.topSubcategories()
-    .then(
-      (cat) => {
-        this.busqueda = false;
-        this.connetionDown = false;
-        this.subCategories = cat['data'];
-      }
-    ).catch(
+      .then(
+        (cat) => {
+          this.busqueda = false;
+          this.connetionDown = false;
+          this.subCategories = cat['data'];
+        }
+      ).catch(
       (error) => {
         this.connetionDown = true;
       }
     );
   }
-  toogleFavorite(index,id){
-    if(this.services[index].favorite == 1){
+
+  toogleFavorite(index, id) {
+    if (this.services[index].favorite == 1) {
       this.servProv.diskMarkfavorite(id).then(
         data => {
           this.services[index].favorite = 0;
-        } );
+        });
     }
-    else{
+    else {
       this.servProv.markfavorite(id).then(
         data => {
           this.services[index].favorite = 1;

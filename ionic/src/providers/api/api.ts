@@ -13,6 +13,7 @@ import {  HttpClient,  HttpHeaders } from "@angular/common/http";
 export class ApiProvider {
   // private apiBaseUrl = 'http://192.168.137.1/services/';
   private apiBaseUrl = 'http://localhost/services/';
+  // private apiBaseUrl = 'http://a610bb61.ngrok.io/seriovices/';
   // private apiBaseUrl = 'http://php-yoidel86941305.codeanyapp.com/services/';
   public days : object;
   user:any;

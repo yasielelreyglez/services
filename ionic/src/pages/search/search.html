@@ -1,0 +1,57 @@
+<!--
+  Generated template for the SearchPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <app-header [entrada]="busqueda" (searchValue)="SearchValue($event)"></app-header>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <p *ngIf="noFound">No hay resultados </p>
+  <ion-list>
+    <div *ngFor="let serv of services; let i = index" [class]="serv.professional == 1 ? 'pagado' :'no_pago'">
+    <ion-item >
+      <ion-grid>
+        <ion-row>
+          <ion-col col-4>
+            <img (tap)="viewImg(serv.icon)" [src]="serv.icon ? serv.icon : 'assets/imgs/service_img.png' ">
+          </ion-col>
+
+          <ion-col col-8 (tap)='openServicePage(serv.id,i)'>
+            <h2 class="serv-title ">{{serv.title }} </h2>
+            <hr class="hr-separador">
+            <ion-row>
+              <ion-col col-12>
+                <p>Distancia: 5 km</p>
+                <p text-wrap><span *ngFor="let cat of serv.subcategoriesList; let i = index">
+                          <ng-container *ngIf="i > 0; else elseTemplate">
+                              ,{{ cat.title}}
+                          </ng-container>
+                          <ng-template #elseTemplate>
+                              {{ cat.title}}
+                          </ng-template>
+                        </span>
+                </p>
+                <ion-rating [readOnly]="true" [numStars]="5" [value]="serv.globalrate"></ion-rating>
+
+              </ion-col>
+
+            </ion-row>
+
+          </ion-col>
+
+        </ion-row>
+
+      </ion-grid>
+      <hr class="hr-separador">
+    </ion-item>
+    </div>
+  </ion-list>
+</ion-content>

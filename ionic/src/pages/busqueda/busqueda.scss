@@ -1,38 +1,52 @@
 page-busqueda {
-    .item-block .item-inner {
-        border-bottom: none !important;
+  .pagado {
+    .input-wrapper {
+      border: 2px solid #009045;
+      border-radius: 3px;
+      margin-bottom: 5px;
     }
-    .serv-title {
-        color: #0092b6;
-        // border-bottom: 1px solid #dedede
+  }
+  .no_pago {
+    .input-wrapper {
+      border: 2px solid #005790;
+      border-radius: 3px;
+      margin-bottom: 5px;
     }
-    .item {
-        border-bottom: 1px solid #dedede;
-        padding-left: 10px;
+  }
+  .item-block .item-inner {
+    border-bottom: none !important;
+  }
+  .serv-title {
+    color: #0092b6;
+    // border-bottom: 1px solid #dedede
+  }
+  .item {
+    border-bottom: 1px solid #dedede;
+    padding-left: 10px;
+  }
+  .item-md ion-thumbnail[item-start],
+  .item-ios ion-thumbnail[item-start] {
+    margin: -50px 16px 8px 0;
+    & img {
+      width: 90px !important;
+      height: 90px !important;
     }
-    .item-md ion-thumbnail[item-start],
-    .item-ios ion-thumbnail[item-start] {
-        margin: -50px 16px 8px 0;
-        & img {
-            width: 90px !important;
-            height: 90px !important;
-        }
+  }
+  .contact-section {
+    width: 100px;
+    height: 25px;
+    font-weight: 600;
+    font-size: 11px;
+    padding: 4px 2px;
+    & p {
+      color: white;
+      text-align: center;
     }
-    .contact-section {
-        width: 100px;
-        height: 25px;
-        font-weight: 600;
-        font-size: 11px;
-        padding: 4px 2px;
-        & p {
-            color: white;
-            text-align: center;
-        }
-        &.bc-red {
-            background-color: red;
-        }
-        &.bc-green {
-            background-color: #44AB6C;
-        }
+    &.bc-red {
+      background-color: red;
     }
+    &.bc-green {
+      background-color: #44AB6C;
+    }
+  }
 }

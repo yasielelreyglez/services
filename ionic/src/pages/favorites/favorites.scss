@@ -1,22 +1,32 @@
 page-favorites {
-    .item-block .item-inner {
-        border-bottom: none !important;
-    }
-    // .item {
-    //     border-bottom: 1px solid #dedede;
-    //     padding-left: 10px;
-    // }
-    // .item-md ion-thumbnail[item-start],
-    // .item-ios ion-thumbnail[item-start] {
-    //     margin: -50px 16px 8px 0;
-    //     & img {
-    //         width: 90px !important;
-    //         height: 90px !important;
-    //     }
-    // }
+  .item-block .item-inner {
+    border-bottom: none !important;
+  }
+  // .item {
+  //     border-bottom: 1px solid #dedede;
+  //     padding-left: 10px;
+  // }
+  // .item-md ion-thumbnail[item-start],
+  // .item-ios ion-thumbnail[item-start] {
+  //     margin: -50px 16px 8px 0;
+  //     & img {
+  //         width: 90px !important;
+  //         height: 90px !important;
+  //     }
+  // }
+  .pagado {
     .input-wrapper {
-        border: 2px solid #009045;
-        border-radius: 3px;
-        margin-bottom: 5px;
+      border: 2px solid #009045;
+      border-radius: 3px;
+      margin-bottom: 5px;
     }
+  }
+  .no_pago {
+    .input-wrapper {
+      border: 2px solid #005790;
+      border-radius: 3px;
+      margin-bottom: 5px;
+    }
+  }
+
 }

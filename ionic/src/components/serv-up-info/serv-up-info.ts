@@ -40,7 +40,7 @@ export class ServUpInfoComponent{
     const profileModal = this.modalCtrl.create(RatePage,{rated:rated});
     profileModal.onDidDismiss(data => {
       if(data.rate !== "cancel")
-      this.servPro.rateservice(id,data.rate).then(
+      this.servPro.rateservice(id,data.rate,data.comment).then(
         data => {
           //  this.rateService.emit({globalRate:data['data'].globalrate,rated:data['data'].rated});
           this.passedService['globalrate'] = data['data'].globalrate;

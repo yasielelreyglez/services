@@ -19,7 +19,8 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 export class Create2Page {
   edit: boolean =false;
    service: sendService;
-   photos: sendGalery[];
+   photos: sendGalery[]=[];
+   restantes: any[]=[];
    preview:any;
 
   //  photos: any;
@@ -41,6 +42,7 @@ export class Create2Page {
     if(this.navParams.get("service").id){
       this.edit=true;
     }
+    this.restantes= new Array(9 - this.photos.length);
   }
 
   uploadPhoto(){
@@ -79,8 +81,10 @@ export class Create2Page {
 
       if (this.edit) {
         this.service.imagesList.push({title:'data:image/jpeg;base64,' + imageData});
+        this.restantes= new Array(9 - this.photos.length);
       }
       this.photos.push({filename:"imageData",filetype:"image/jpeg",value:imageData});
+      this.restantes= new Array(9 - this.photos.length);
       // this.photos.reverse();
     }, (err) => {
     });
@@ -104,10 +108,11 @@ export class Create2Page {
                   if (this.edit) {
                     this.service.dropsImages.push(this.service.imagesList[index].id);
                     this.service.imagesList.splice(index, 1);
+                    this.restantes= new Array(9 - this.photos.length);
                   }else{
                     this.service.dropsImages.push(this.photos[index].id);
                     this.photos.splice(index, 1);
-
+                    this.restantes= new Array(9 - this.photos.length);
                   }
 
                   console.log(this.service);
@@ -128,7 +133,7 @@ export class Create2Page {
   }
   goToCreate3(){
       this.service.gallery=this.photos;
-      // this.service.icon=this.service.gallery[0];
+      this.service.icon=this.service.gallery[0];
       this.navCtrl.push(Create3Page, {
         service: this.service
       });

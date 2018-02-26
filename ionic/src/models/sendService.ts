@@ -9,6 +9,11 @@ export class sendGalery{
   value	:string;
 
 }
+export class getHorarios{
+  end_time: string;
+  start_time: string;
+  week_days: number[];
+}
 export class sendPositions{
   title: string;
   latitude: any;

@@ -21,8 +21,8 @@
   <ion-rating [readOnly]="false" [numStars]="5" [pcolor]="'azul-claro'" [value]="value" (clicked)="starClicked($event)">
   </ion-rating>
   <br>
-  <ion-textarea style="border: 1px solid #0092b6" rows="4" placeholder="Escribe tu comentario aqui"></ion-textarea>
-  <button color="azul-oscuro" class="btn-text-left" ion-button block margin-bottom="2" (tap)="sendRate()">
+  <ion-textarea style="border: 1px solid #0092b6" rows="4" [(ngModel)]="comment" placeholder="Escribe tu comentario aqui"></ion-textarea>
+  <button color="azul-oscuro" class="btn-text-left" ion-button block margin-bottom="2" (click)="sendRate()">
     <ion-icon class="fs-30" name="star"></ion-icon>
     &nbsp; Calificar
   </button>
