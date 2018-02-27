@@ -230,19 +230,24 @@ class Api extends REST_Controller
         $em = $this->doctrine->em;
 //        $subcategory = $em->find('Entities\Sub',$id);
         $subcategoriesRepo = $em->getRepository('Entities\Subcategory');
+
         $subcategory = $subcategoriesRepo->find($id);
 //        $subcategory->services->doInitialize();
         if ($subcategory) {
             $response["desc"] = "Servicios pertenecientes a la subcategoria: $subcategory->title";
             $services = $subcategory->getServices()->toArray();
             $user = $this->getCurrentUser();
-
             foreach ($services as $service) {
                 $service->loadRelatedData();
                 if ($user) {
                     $service->loadRelatedUserData($user);
                 }
             }
+            $category = $subcategory->getCategory();
+            $response["category"]=array();
+            $response["category"][]=$category->getTitle();
+            $response["subcategory"]=array();
+            $response["subcategory"][]=$subcategory->getTitle();
             $response["data"] = $services;
         } else {
             $response["desc"] = "Subcategoria no encontrada";
@@ -316,7 +321,8 @@ class Api extends REST_Controller
         $filtered = false;
         if ($categorias) {
             $filtered = true;
-            $services = $this->filterBySubcategories($categorias);
+            $result1 =  $this->filterBySubcategories($categorias);
+            $services = $result1[0];
             if ($ciudades) {
                 $services = $this->filterByCitiesFiltered($ciudades, $filtered, $services);
             }
@@ -346,6 +352,7 @@ class Api extends REST_Controller
                 $services_a[$service->getId()] = $service;
             }
         }
+
         $result["services"] = array_values($services_a);
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
@@ -562,7 +569,9 @@ class Api extends REST_Controller
                 $obj->setUser($user);
             }
             $obj->setRate($rate);
+
             $comment_param = $this->post("comment", true);
+            $this->addComent($service,$user,$comment_param);
             $obj->setRatecomment($comment_param);
             $em->persist($obj);
             $em->flush();
@@ -676,6 +685,17 @@ class Api extends REST_Controller
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
+    private function addComent($service,$user,$comment_param){
+        $em = $this->doctrine->em;
+        $comment = new \Entities\Comments();
+        $comment->setUser($user);
+        $comment->setService($service);
+        if($comment_param){
+            $comment->setComment($comment_param);
+            $em->persist($comment);
+            $em->flush();
+        }
+    }
     public function addcomment_get($id)
     {
         $comment = $this->input->get("comment", true);
@@ -1325,11 +1345,13 @@ class Api extends REST_Controller
         $expresion = new \Doctrine\Common\Collections\Expr\Comparison("id", \Doctrine\Common\Collections\Expr\Comparison::IN, $subcategories);
         $criteria->where($expresion);
         $subcategoriesObj = $sub_repo->matching($criteria)->toArray();
+        $subcatego_r = array();
         foreach ($subcategoriesObj as $subcategory) {
+            $subcatego_r[] = $subcategory->getTitle();
             $services = $subcategory->getServices()->toArray();
             $result_subcategories = array_merge($result_subcategories, $services);
         }
-        return $result_subcategories;
+        return array($result_subcategories,$subcatego_r);
     }
 
     private function filterByDistance($distance, $current_position, $filtered, $services_filtered)

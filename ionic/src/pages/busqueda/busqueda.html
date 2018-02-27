@@ -27,7 +27,7 @@
               <hr class="hr-separador">
               <ion-row>
                 <ion-col col-9 style="margin-left: -10px;">
-                  <p>Calificación: {{serv.globalrate}}/10</p>
+                  <p>Calificación: {{serv.globalrate}}</p>
                   <p>Distancia: {{serv.globalrate/2}} km</p>
                   <p text-wrap>Categoria: <span *ngFor="let cat of serv.subcategoriesList; let i = index">
                                     <ng-container *ngIf="i > 0; else elseTemplate">

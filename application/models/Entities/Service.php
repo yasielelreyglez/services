@@ -921,12 +921,10 @@ namespace Entities {
         function calculateGlobalRate()
         {
 
-            $globalRate = 0;
             $sum = 0;
             $countRates = 0;
             $rates = $this->getServiceusers();
             foreach ($rates as $rel) {
-//            $rel = new UserService();
                 if ($rel->getRate()) {
                     $sum += $rel->getRate();
                     $countRates += 1;
