@@ -16,7 +16,6 @@ import 'rxjs/add/operator/map';
 import {IonicPage, PopoverController, NavController, AlertController,} from 'ionic-angular';
 import {
   NavParams,
-  LoadingController,
   Keyboard,
   Platform
 } from "ionic-angular";
@@ -44,7 +43,6 @@ export class HomePage {
   noFound: boolean;
 
   busqueda: boolean;
-  loading: any;
   @ViewChild('search') search;
 
 
@@ -55,7 +53,6 @@ export class HomePage {
               public navCtrl: NavController,
               public api: ApiProvider,
               public servProv: ServiceProvider,
-              private load: LoadingController,
               private photoViewer: PhotoViewer,
               public keyboard: Keyboard,
               public navParams: NavParams, public splashScreen: SplashScreen, public platform: Platform, statusBar: StatusBar,) {

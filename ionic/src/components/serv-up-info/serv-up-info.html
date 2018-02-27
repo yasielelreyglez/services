@@ -25,7 +25,7 @@
         {{passedService.globalrate}}
         <ion-icon color="favorite_on" name="star"></ion-icon>
       </ion-label>
-      <button style="margin-left: -5px;" class="fs-10" *ngIf="passedService.rated != null"
+      <button style="margin-left: -5px;" class="fs-10" *ngIf="passedService.rated == null"
               (click)="openRate(passedService.id,passedService.rated,passedService)" color="azul-claro" ion-button>
         Evaluar
       </button>
