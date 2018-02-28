@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {HttpErrorResponse} from "@angular/common/http";
 import {ServiceProvider} from "../../providers/service/service.service";
+import {ServicePage} from "../service/service";
 
 /**
  * Generated class for the SearchPage page.
@@ -31,6 +32,13 @@ export class SearchPage {
   }
   ionViewDidLoad() {
     this.searchServices(this.busqueda);
+  }
+
+  openServicePage(id, index) {
+    this.navCtrl.push(ServicePage, {
+      service: this.services[index], //paso el service
+      serviceId: id,  //si paso el id del servicio para la peticion
+    });
   }
 
   searchServices(query) {

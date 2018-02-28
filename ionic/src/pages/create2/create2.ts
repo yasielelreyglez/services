@@ -91,10 +91,10 @@ export class Create2Page {
 
       if (this.edit) {
         // this.service.imagesList.push({title: 'data:image/jpeg;base64,' + imageData});
-        this.service.imagesList.push({filename: "imageData"+, filetype: "image/jpeg", value: imageData});
+        this.service.imagesList.push({filename: "imageData", filetype: "image/jpeg", value: imageData});
         this.restantes = new Array(9 - this.service.imagesList.length);
       }
-      this.photos.push({filename: "imageData"+, filetype: "image/jpeg", value: imageData});
+      this.photos.push({filename: "imageData", filetype: "image/jpeg", value: imageData});
       this.restantes = new Array(9 - this.photos.length);
     }, (err) => {
     });
