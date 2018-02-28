@@ -1008,7 +1008,7 @@ class Api extends REST_Controller
         $service->addSubCategories($this->post('categories', TRUE), $em);
         $service->addCities($this->post('cities', TRUE), $em);
         $icon = $this->post('icon');
-        if ($icon) {
+        if ($icon){
             if (isset($icon['filename'])) {
                 $path = "./resources/services/" . $icon['filename'];
                 $save = "/resources/services/" . $icon['filename'];
@@ -1032,6 +1032,10 @@ class Api extends REST_Controller
         $old_positions = $service->getPositions()->toArray();
         foreach ($old_positions as $old_position) {
             $em->remove($old_position);
+        }
+        $times = $service->getTimes();
+        foreach ($times as $old_time) {
+            $em->remove($old_time);
         }
         $em->flush();
         $service->addPositions($positions);
