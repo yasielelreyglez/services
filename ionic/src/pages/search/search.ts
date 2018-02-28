@@ -30,6 +30,7 @@ export class SearchPage {
   SearchValue(value) {
     this.searchServices(value);
   }
+
   ionViewDidLoad() {
     this.searchServices(this.busqueda);
   }
