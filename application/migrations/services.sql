@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-01-2018 a las 19:43:48
--- Versión del servidor: 10.1.16-MariaDB
--- Versión de PHP: 7.0.9
+-- Tiempo de generación: 28-02-2018 a las 23:18:11
+-- Versión del servidor: 10.1.9-MariaDB
+-- Versión de PHP: 7.0.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -37,15 +37,8 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `title`, `icon`) VALUES
-(29, 'Bares', 'http://localhost/services/resources/image/categories/bares.png'),
-(30, 'Cafeterias', 'http://localhost/services/resources/image/categories/cafeterias.png'),
-(31, 'Eventos', 'http://localhost/services/resources/image/categories/eventos.png'),
-(32, 'Fontaneria', 'http://localhost/services/resources/image/categories/fontaneria.png'),
-(33, 'Hogar', 'http://localhost/services/resources/image/categories/hogar.png'),
-(34, 'MecÃ¡nica', 'http://localhost/services/resources/image/categories/mecanica.png'),
-(35, 'Medicina', 'http://localhost/services/resources/image/categories/medicina.png'),
-(36, 'TecnologÃ­a', 'http://localhost/services/resources/image/categories/tecnologia.png'),
-(37, 'Viajes', 'http://localhost/services/resources/image/categories/viajes.png');
+(30, 'Tecnologia', 'http://localhost/services/resources/image/categories/tecnologia.png'),
+(31, 'Medicina', 'http://localhost/services/resources/image/categories/medicina.png');
 
 -- --------------------------------------------------------
 
@@ -65,9 +58,9 @@ CREATE TABLE `cities` (
 --
 
 INSERT INTO `cities` (`id`, `title`, `created_at`, `updated_at`) VALUES
-(4, 'La HabanÃ³n', '2017-12-13 03:39:24', '2017-12-15 04:40:30'),
-(5, 'Pinar del Rio', '2017-12-13 03:39:52', '0000-00-00 00:00:00'),
-(6, 'Matanzas', '2017-12-13 03:40:00', '0000-00-00 00:00:00');
+(1, 'Quito', '2017-11-08 05:11:40', '0000-00-00 00:00:00'),
+(2, 'Lima', '2017-11-08 05:13:28', '0000-00-00 00:00:00'),
+(3, 'La paz', '2017-11-08 05:13:37', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -91,7 +84,7 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `user_id`, `service_id`, `comment`, `parent`, `created`, `reportuser_id`, `hided`) VALUES
-(2, 6, 2, 'Este servicio a salvado mi telefono de lo insalvable', NULL, '2017-12-15 05:08:32', NULL, NULL);
+(2, 3, 92, 'mi comentario', NULL, '2018-02-28 22:58:53', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -106,9 +99,9 @@ CREATE TABLE `facturacion` (
   `direccion` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `telefono` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `state` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `state` int(11) NOT NULL
+  `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -149,35 +142,13 @@ CREATE TABLE `images` (
 --
 
 INSERT INTO `images` (`id`, `service_id`, `title`, `thumb`) VALUES
-(3, 2, 'http://localhost/services//resources/services/2/product.jpg', ''),
-(4, 2, 'http://localhost/services//resources/services/2/IMG_20171109_151148.jpg', ''),
-(5, 4, 'http://localhost/services//resources/services/4/about-thumbnail.png', ''),
-(6, 4, 'http://localhost/services//resources/services/4/photostream1.jpg', ''),
-(7, 4, 'http://localhost/services//resources/services/4/photostream3.jpg', ''),
-(8, 4, 'http://localhost/services//resources/services/4/lv6_thumbnail_5.png', ''),
-(9, 4, 'http://localhost/services//resources/services/4/lv6_thumbnail_1.png', ''),
-(10, 4, 'http://localhost/services//resources/services/4/lv6_thumbnail_4.png', ''),
-(11, 5, 'http://localhost/services//resources/services/5/blog-image-3.jpg', ''),
-(12, 5, 'http://localhost/services//resources/services/5/photostream1.jpg', ''),
-(13, 5, 'http://localhost/services//resources/services/5/listing-single-business.png', ''),
-(14, 5, 'http://localhost/services//resources/services/5/listing-offer-thumbnail3.png', ''),
-(15, 6, 'http://localhost/services//resources/services/6/blog-image-1.jpg', ''),
-(16, 6, 'http://localhost/services//resources/services/6/photostream3.jpg', ''),
-(17, 6, 'http://localhost/services//resources/services/6/about-thumbnail.png', ''),
-(18, 17, 'http://localhost/services//resources/services/17/banner-mission.jpg', ''),
-(19, 17, 'http://localhost/services//resources/services/17/blog-image-4.jpg', ''),
-(20, 18, 'http://localhost/services//resources/services/18/banner-mission.jpg', ''),
-(21, 18, 'http://localhost/services//resources/services/18/blog-image-3.png', ''),
-(22, 18, 'http://localhost/services//resources/services/18/blog-header.jpg', ''),
-(23, 19, 'http://localhost/services//resources/services/19/banner-mission.jpg', ''),
-(24, 19, 'http://localhost/services//resources/services/19/blog-image-2.png', ''),
-(25, 19, 'http://localhost/services//resources/services/19/blog-image-3.jpg', ''),
-(26, 20, 'http://localhost/services//resources/services/20/banner-mission.jpg', ''),
-(27, 20, 'http://localhost/services//resources/services/20/blog-image-1.jpg', ''),
-(28, 20, 'http://localhost/services//resources/services/20/blog-image-3.jpg', ''),
-(29, 21, 'http://localhost/services//resources/services/21/blog-image-3.jpg', ''),
-(30, 21, 'http://localhost/services//resources/services/21/blog-image-2.jpg', ''),
-(31, 21, 'http://localhost/services//resources/services/21/about-bg.jpg', '');
+(10, 90, 'http://localhost/services//resources/services/90/imageData', 'http://localhost/services//resources/services/90/thumbs/imageData'),
+(11, 90, 'http://localhost/services//resources/services/90/imageData', 'http://localhost/services//resources/services/90/thumbs/imageData'),
+(12, 90, 'http://localhost/services//resources/services/90/imageData', 'http://localhost/services//resources/services/90/thumbs/imageData'),
+(13, 91, 'http://localhost/services//resources/services/91/imageData', 'http://localhost/services//resources/services/91/thumbs/imageData'),
+(15, 92, 'http://localhost/services//resources/services/92/Servicio 3', 'http://localhost/services//resources/services/92/thumbs/Servicio 3'),
+(16, 92, 'http://localhost/services//resources/services/92/Servicio 3', 'http://localhost/services//resources/services/92/thumbs/Servicio 3'),
+(17, 91, 'http://localhost/services//resources/services/91/Servicio Pro', 'http://localhost/services//resources/services/91/thumbs/Servicio Pro');
 
 -- --------------------------------------------------------
 
@@ -207,13 +178,6 @@ CREATE TABLE `membership` (
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Volcado de datos para la tabla `membership`
---
-
-INSERT INTO `membership` (`id`, `title`, `price`, `days`, `created_at`, `updated_at`) VALUES
-(1, 'Membresia mensual', 30, 30, '2017-12-15 03:49:08', '2017-12-15 03:49:08');
-
 -- --------------------------------------------------------
 
 --
@@ -225,9 +189,9 @@ CREATE TABLE `mensaje` (
   `author_id` int(11) DEFAULT NULL,
   `destinatario_id` int(11) DEFAULT NULL,
   `mensaje` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `estado` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `estado` int(11) NOT NULL
+  `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -244,25 +208,16 @@ CREATE TABLE `payments` (
   `evidence` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `country` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `phone` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `state` int(11) NOT NULL,
   `updated_at` datetime NOT NULL,
   `created_at` datetime NOT NULL,
   `payed_at` datetime DEFAULT NULL,
-  `state` int(11) NOT NULL,
   `expiration_date` datetime DEFAULT NULL,
   `nombre` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `numero` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `caducidad` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `cvv` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `payments`
---
-
-INSERT INTO `payments` (`id`, `membership_id`, `service_id`, `type`, `evidence`, `country`, `phone`, `updated_at`, `created_at`, `payed_at`, `state`, `expiration_date`, `nombre`, `numero`, `caducidad`, `cvv`) VALUES
-(1, 1, 3, 2, 'http://localhost/services/resources/evidences/completadas.png', '53', '56738276', '2017-12-19 16:08:55', '2017-12-19 16:08:55', NULL, 0, NULL, NULL, NULL, NULL, NULL),
-(2, 1, 3, 1, 'http://localhost/services/resources/evidences/completadas.png', NULL, NULL, '2017-12-19 16:10:51', '2017-12-19 16:10:51', '2017-12-20 17:32:30', 1, '2018-01-19 17:32:30', NULL, NULL, NULL, NULL),
-(3, 1, 4, 1, 'http://localhost/services/resources/evidences/avatar.png', NULL, NULL, '2017-12-19 18:19:36', '2017-12-19 18:19:36', NULL, 0, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -285,12 +240,10 @@ CREATE TABLE `positions` (
 --
 
 INSERT INTO `positions` (`id`, `title`, `latitude`, `longitude`, `service_id`, `created_at`, `updated_at`) VALUES
-(1, 'Casa matrix', 23.139728585024, -82.358665466309, 4, '2017-12-19 18:17:50', '2017-12-19 18:17:50'),
-(2, 'Oficina Central', 23.117061897313, -82.340841307305, 5, '2017-12-20 20:08:21', '2017-12-20 20:08:21'),
-(3, 'Sucursal 1', 23.156209849636, -82.257070544874, 5, '2017-12-20 20:08:21', '2017-12-20 20:08:21'),
-(4, 'Sucursal 2', 23.051368719914, -82.25157738605, 5, '2017-12-20 20:08:21', '2017-12-20 20:08:21'),
-(5, 'mi casa', 23.109483550812, -82.333669667132, 6, '2017-12-20 20:14:00', '2017-12-20 20:14:00'),
-(6, '2', 22.992166475298, -82.375478746835, 18, '2018-01-11 21:30:58', '2018-01-11 21:30:58');
+(22, 'position 22', 23.068498545114, -82.408364106445, 91, '2018-02-28 23:09:02', '2018-02-28 23:09:02'),
+(23, 'position 33', 23.100081801606, -82.292321015625, 91, '2018-02-28 23:09:02', '2018-02-28 23:09:02'),
+(28, 'position 1', 23.064708055805, -82.404244233398, 90, '2018-02-28 23:15:36', '2018-02-28 23:15:36'),
+(29, 'position 2', 23.103871293637, -82.266228486328, 90, '2018-02-28 23:15:36', '2018-02-28 23:15:36');
 
 -- --------------------------------------------------------
 
@@ -316,39 +269,22 @@ CREATE TABLE `services` (
   `globalrate` double NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `professional` int(11) DEFAULT NULL,
-  `ratereviews` double NOT NULL,
-  `imagesList_id` int(11) DEFAULT NULL,
+  `thumb` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `domicilio` int(11) NOT NULL,
   `visit_at` datetime DEFAULT NULL,
   `todopais` int(11) NOT NULL,
-  `thumb` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+  `ratereviews` double NOT NULL,
+  `imagesList_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `services`
 --
 
-INSERT INTO `services` (`id`, `author_id`, `title`, `subtitle`, `phone`, `address`, `other_phone`, `email`, `url`, `created`, `visits`, `created_at`, `updated_at`, `icon`, `globalrate`, `description`, `professional`, `ratereviews`, `imagesList_id`, `domicilio`, `visit_at`, `todopais`, `thumb`) VALUES
-(2, 6, 'Taller La virgen ', 'Taller de electronica y telefonia', '438038123', 'Calle mayor e/ calzada y rio,Virgen del camino', '', 'iservice@gmail.com', 'http://iservicecuba.emprende.cu', '2017-12-15 05:06:14', 11, '2017-12-15 05:06:14', '2017-12-15 05:06:14', 'http://localhost/services/resources/product.jpg', 7.5, 'Taller de electronica y telefonia, especializado en tecnologia de Apple, con expecialistas de primer nivel con mas de 5 aÃ±os de experiencia en el campo.', NULL, 0, NULL, 0, '0000-00-00 00:00:00', 0, NULL),
-(3, 3, 'Pruba 1', 'Prueba 1', '312343543', 'Pruba 1', '98656890', 'algo@gmail.com', 'http://algo.url', '2017-12-15 20:48:28', 4, '2017-12-15 20:48:28', '2017-12-15 20:48:28', 'http://localhost/services/resources/perfil.png', 0, 'Pruba 1', 1, 0, NULL, 0, '0000-00-00 00:00:00', 0, NULL),
-(4, 3, 'Tapas y copas ', 'Un lugar para compartir', '728201391', 'Prado e/ Positos y Aguiar, Habana Vieja', '23234234', 'pepe@algo.com', 'http://url.maslarga.com', '2017-12-19 18:17:50', 2, '2017-12-19 18:17:50', '2017-12-19 18:17:50', 'http://localhost/services/resources/lv3_thumbnail_4.png', 8, 'Un lugar para compartir esos momentos que no se olvidan en la vida, con la mejor musica, ambiente y por supuesto degustando de unsa tapas que no pasaran inadvertidas', NULL, 1, NULL, 0, '0000-00-00 00:00:00', 0, NULL),
-(5, 3, 'TRAXION', 'Servicios de transporte de personal', '3562812613', '5ta ave, e/ 70 y 74 Mexico df', NULL, 'correo@traxiona.mx', 'http://www.ejemplos.com', '2017-12-20 20:08:21', 1, '2017-12-20 20:08:21', '2017-12-20 20:08:21', 'http://localhost/services/resources/blog-image-1.jpg', 0, 'Servicios de transportacion de personal, rapido, seguro y confortable a cualquier lugar, en cualquier momento.', NULL, 0, NULL, 0, '0000-00-00 00:00:00', 0, NULL),
-(6, 3, 'Atelier Mamita', 'Servicios Atelier ', '379947201', 'calle x e/ J y K, vedado, La habana', NULL, NULL, NULL, '2017-12-20 20:14:00', 1, '2017-12-20 20:14:00', '2017-12-20 20:14:00', 'http://localhost/services/resources/blog-image-3.png', 0, 'Brindamos un servicio personalizado, hogareÃ±o y de calidad artesanal.', NULL, 0, NULL, 0, '0000-00-00 00:00:00', 0, NULL),
-(7, 3, 'ddd', 'ddd', '234234', 'das', '234234', '234', '234', '2018-01-11 21:11:09', 0, '2018-01-11 21:11:09', '2018-01-11 21:11:09', 'http://localhost/services/resources/about-thumbnail.png', 0, '234', 0, 0, NULL, 0, NULL, 0, NULL),
-(8, 3, 'ddd', 'ddd', '234234', 'das', '234234', '234', '234', '2018-01-11 21:12:03', 0, '2018-01-11 21:12:03', '2018-01-11 21:12:03', 'http://localhost/services/resources/about-thumbnail.png', 0, '234', 0, 0, NULL, 0, NULL, 0, NULL),
-(9, 3, 'ddd', 'ddd', '234234', 'das', '234234', '234', '234', '2018-01-11 21:14:08', 0, '2018-01-11 21:14:08', '2018-01-11 21:14:08', 'http://localhost/services/resources/about-thumbnail.png', 0, '234', 0, 0, NULL, 0, NULL, 0, NULL),
-(10, 3, 'ddd', 'ddd', '234234', 'das', '234234', '234', '234', '2018-01-11 21:15:00', 0, '2018-01-11 21:15:00', '2018-01-11 21:15:00', 'http://localhost/services/resources/about-thumbnail.png', 0, '234', 0, 0, NULL, 0, NULL, 0, NULL),
-(11, 3, 'ddd', 'ddd', '234234', 'das', '234234', '234', '234', '2018-01-11 21:15:25', 0, '2018-01-11 21:15:25', '2018-01-11 21:15:25', 'http://localhost/services/resources/about-thumbnail.png', 0, '234', 0, 0, NULL, 0, NULL, 0, NULL),
-(12, 3, 'ddd', 'ddd', '234234', 'das', '234234', '234', '234', '2018-01-11 21:17:49', 0, '2018-01-11 21:17:49', '2018-01-11 21:17:49', 'http://localhost/services/resources/about-thumbnail.png', 0, '234', 0, 0, NULL, 0, NULL, 0, NULL),
-(13, 3, 'ddd', 'ddd', '234234', 'das', '234234', '234', '234', '2018-01-11 21:18:53', 0, '2018-01-11 21:18:53', '2018-01-11 21:18:53', 'http://localhost/services/resources/about-thumbnail.png', 0, '234', 0, 0, NULL, 0, NULL, 0, NULL),
-(14, 3, 'ddd', 'ddd', '234234', 'das', '234234', '234', '234', '2018-01-11 21:19:33', 0, '2018-01-11 21:19:33', '2018-01-11 21:19:33', 'http://localhost/services/resources/about-thumbnail.png', 0, '234', 0, 0, NULL, 0, NULL, 0, NULL),
-(15, 3, 'ddd', 'ddd', '234234', 'das', '234234', '234', '234', '2018-01-11 21:19:52', 0, '2018-01-11 21:19:52', '2018-01-11 21:19:52', 'http://localhost/services/resources/about-thumbnail.png', 0, '234', 0, 0, NULL, 0, NULL, 0, NULL),
-(16, 3, 'ddd', 'ddd', '234234', 'das', '234234', '234', '234', '2018-01-11 21:20:10', 0, '2018-01-11 21:20:10', '2018-01-11 21:20:10', 'http://localhost/services/resources/about-thumbnail.png', 0, '234', 0, 0, NULL, 0, NULL, 0, NULL),
-(17, 3, 'ddd', 'ddd', '234234', 'das', '234234', '234', '234', '2018-01-11 21:21:01', 1, '2018-01-11 21:21:01', '2018-01-11 21:21:01', 'http://localhost/services/resources/about-thumbnail.png', 0, '234', 0, 0, NULL, 0, '2018-01-11 21:21:02', 0, NULL),
-(18, 3, '1', '2', '2', '2', '2', '2', NULL, '2018-01-11 21:30:58', 1, '2018-01-11 21:30:58', '2018-01-11 21:30:58', 'http://localhost/services/resources/about-thumbnail.png', 0, '2', 0, 0, NULL, 0, '2018-01-11 21:31:00', 0, NULL),
-(19, 3, '1', '1', '1', '1', NULL, NULL, NULL, '2018-01-11 21:34:10', 1, '2018-01-11 21:34:10', '2018-01-11 21:34:10', NULL, 0, '1', 0, 0, NULL, 0, '2018-01-11 21:34:11', 0, NULL),
-(20, 3, '1', '1', '1', '1', NULL, NULL, NULL, '2018-01-11 21:36:00', 1, '2018-01-11 21:36:00', '2018-01-11 21:36:00', NULL, 0, '1', 0, 0, NULL, 0, '2018-01-11 21:36:02', 0, NULL),
-(21, 3, '3', '3', '3', '3', NULL, NULL, NULL, '2018-01-11 21:37:46', 1, '2018-01-11 21:37:46', '2018-01-11 21:37:46', NULL, 0, '3', 0, 0, NULL, 0, '2018-01-11 21:37:47', 0, NULL);
+INSERT INTO `services` (`id`, `author_id`, `title`, `subtitle`, `phone`, `address`, `other_phone`, `email`, `url`, `created`, `visits`, `created_at`, `updated_at`, `icon`, `globalrate`, `description`, `professional`, `thumb`, `domicilio`, `visit_at`, `todopais`, `ratereviews`, `imagesList_id`) VALUES
+(90, 3, 'Servicio 1', 'Slogan ', '14785236', 'Direccion ', '123456', 'ejemplo@correo.com', 'google.com', '2018-02-28 22:35:00', 18, '2018-02-28 22:35:00', '2018-02-28 22:35:00', 'http://localhost/services/resources/services/imageData', 0, NULL, 0, 'http://localhost/services//resources/services/thumbs/imageData', 0, '2018-02-28 23:15:40', 0, 0, NULL),
+(91, 3, 'Servicio Pro', 'Pro servicio ', '999999', 'Address', '252525', 'otro@email.com', 'google.com', '2018-02-28 22:37:49', 13, '2018-02-28 22:37:49', '2018-02-28 22:37:49', 'http://localhost/services/resources/services/Servicio Pro', 0, NULL, 1, 'http://localhost/services//resources/services/thumbs/Servicio Pro', 0, '2018-02-28 23:14:46', 0, 0, NULL),
+(92, 3, 'Servicio 3', 'Slogan 3', '7777777', 'Dir 3', '258147', 'otro@esk.com', 'pop.nauta.cu', '2018-02-28 22:55:47', 7, '2018-02-28 22:55:47', '2018-02-28 22:55:47', 'http://localhost/services/resources/services/Servicio 3', 3, NULL, 1, 'http://localhost/services//resources/services/thumbs/Servicio 3', 0, '2018-02-28 23:14:51', 0, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -366,28 +302,10 @@ CREATE TABLE `service_city` (
 --
 
 INSERT INTO `service_city` (`service_id`, `city_id`) VALUES
-(2, 4),
-(3, 4),
-(4, 4),
-(5, 4),
-(5, 5),
-(5, 6),
-(6, 6),
-(7, 4),
-(8, 4),
-(9, 4),
-(10, 4),
-(11, 4),
-(12, 4),
-(13, 4),
-(14, 4),
-(15, 4),
-(16, 4),
-(17, 4),
-(18, 5),
-(19, 5),
-(20, 6),
-(21, 5);
+(90, 1),
+(91, 2),
+(92, 1),
+(92, 2);
 
 -- --------------------------------------------------------
 
@@ -413,17 +331,9 @@ CREATE TABLE `service_user` (
 --
 
 INSERT INTO `service_user` (`user_id`, `service_id`, `favorite`, `rate`, `contacted`, `complaint`, `complaint_created`, `visited`, `ratecomment`, `visited_at`) VALUES
-(3, 2, NULL, 10, NULL, NULL, NULL, 1, NULL, NULL),
-(3, 3, 1, NULL, NULL, NULL, NULL, 1, NULL, NULL),
-(3, 4, NULL, 8, NULL, NULL, NULL, 1, NULL, NULL),
-(3, 5, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
-(3, 6, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
-(3, 17, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-01-11 21:21:03'),
-(3, 18, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-01-11 21:31:00'),
-(3, 19, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-01-11 21:34:11'),
-(3, 20, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-01-11 21:36:02'),
-(3, 21, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-01-11 21:37:48'),
-(6, 2, 1, 5, NULL, NULL, NULL, 1, NULL, NULL);
+(3, 90, 1, NULL, NULL, NULL, NULL, 1, NULL, '2018-02-28 23:15:40'),
+(3, 91, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-02-28 23:14:46'),
+(3, 92, 1, 3, NULL, NULL, NULL, 1, 'mi comentario', '2018-02-28 23:14:52');
 
 -- --------------------------------------------------------
 
@@ -446,14 +356,9 @@ CREATE TABLE `subcategories` (
 --
 
 INSERT INTO `subcategories` (`id`, `category_id`, `title`, `icon`, `visits`, `created_at`, `updated_at`) VALUES
-(5, 29, 'Cuidado de niÃ±os', 'http://localhost/services/resources/image/subcategories/completadas.png', 4, '2017-12-13 02:10:43', '2017-12-13 03:08:44'),
-(6, 33, 'Electricidad', 'http://localhost/services/resources/image/subcategories/electricidad.png', 17, '2017-12-13 02:11:38', '2017-12-13 03:09:19'),
-(7, 33, 'Servicios de limpieza', 'http://localhost/services/resources/image/subcategories/servicios_limpieza.png', 6, '2017-12-13 02:12:08', '2017-12-13 03:09:26'),
-(8, 35, 'Servicios medicos', 'http://localhost/services/resources/image/subcategories/servicios_medicos.png', 5, '2017-12-13 02:12:30', '2017-12-13 03:09:36'),
-(9, 36, 'Servicios tecnologicos', 'http://localhost/services/resources/image/subcategories/servicios_tecnologicos.png', 24, '2017-12-13 03:36:03', '2017-12-13 03:09:43'),
-(10, 35, 'Servicios veterinarios', 'http://localhost/services/resources/image/subcategories/servicios_veterinarios.png', 11, '2017-12-13 03:36:30', '2017-12-13 03:09:51'),
-(11, 29, 'TelefonÃ­a celular', 'http://localhost/services/resources/image/subcategories/telefonia_celular.png', 15, '2017-12-13 03:37:42', '2017-12-13 03:09:58'),
-(12, 29, 'TransportaciÃ³n', 'http://localhost/services/resources/image/subcategories/transportacion.png', 7, '2017-12-13 03:38:06', '2017-12-13 03:10:04');
+(18, 30, 'Televisores', 'http://localhost/services/resources/image/subcategories/servicios_tecnologicos.png', 735, '2017-12-12 10:08:24', '0000-00-00 00:00:00'),
+(19, 30, 'Telefonos', 'http://localhost/services/resources/image/subcategories/telefonia_celular.png', 121, '2017-12-12 10:08:47', '0000-00-00 00:00:00'),
+(20, 31, 'Hospitales', 'http://localhost/services/resources/image/subcategories/servicios_medicos.png', 7, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -471,46 +376,10 @@ CREATE TABLE `subcategory_service` (
 --
 
 INSERT INTO `subcategory_service` (`service_id`, `subcategory_id`) VALUES
-(2, 6),
-(2, 9),
-(2, 11),
-(3, 6),
-(3, 7),
-(3, 8),
-(3, 9),
-(3, 10),
-(3, 11),
-(3, 12),
-(4, 5),
-(4, 12),
-(5, 12),
-(6, 8),
-(7, 6),
-(7, 9),
-(8, 6),
-(8, 9),
-(9, 6),
-(9, 9),
-(10, 6),
-(10, 9),
-(11, 6),
-(11, 9),
-(12, 6),
-(12, 9),
-(13, 6),
-(13, 9),
-(14, 6),
-(14, 9),
-(15, 6),
-(15, 9),
-(16, 6),
-(16, 9),
-(17, 6),
-(17, 9),
-(18, 9),
-(19, 6),
-(20, 7),
-(21, 7);
+(90, 18),
+(91, 18),
+(91, 19),
+(92, 20);
 
 -- --------------------------------------------------------
 
@@ -521,10 +390,21 @@ INSERT INTO `subcategory_service` (`service_id`, `subcategory_id`) VALUES
 CREATE TABLE `times` (
   `id` int(11) NOT NULL,
   `service_id` int(11) DEFAULT NULL,
+  `week_days` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `start_time` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `end_time` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `week_days` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+  `end_time` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `times`
+--
+
+INSERT INTO `times` (`id`, `service_id`, `week_days`, `start_time`, `end_time`) VALUES
+(52, 92, '0', '04:55', '21:55'),
+(53, 92, '1', '17:55', '21:57'),
+(54, 92, '2,3,4', '05:55', '21:55'),
+(56, 90, '0,1', '22:15', '12:15'),
+(57, 90, '3', '15:15', '22:15');
 
 -- --------------------------------------------------------
 
@@ -551,10 +431,16 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `created_on`, `role`, `active`, `last_login`, `ip_address`, `salt`, `remember_code`) VALUES
-(3, 'admin@gmail.com', 'admin@gmail.com', '$2y$08$/JOwPbrPJgJ344FmUMvFye7ZCgyMv9zmL4mRlSAZrZva/z2hqtcWa', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '::1', '', 'V1cyDpIx1Bo68NKKY.2xXO'),
-(4, 'yasielelreyglez@gmail.com', 'yasielelreyglez@gmail.com', '$2y$08$FU/czFK9TjggjVmUuql.KeMpwFtYSYQViPBvCVXWGO3N33SGgF4WC', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '::1', '', '8sxvwziDGm9XNo3pMcDW7u'),
-(5, 'davidrm901503@gmail.com', 'davidrm901503@gmail.com', '$2y$08$UkYNx/XfW61nLKL6gAA77OojeifQ0WgVWZ486iyI6jvivjTyKqVl6', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '::1', '', 'MYVV6u.HYV3J/p4egejz7.'),
-(6, 'yoidel@gmail.com', 'yoidel@gmail.com', '$2y$08$SGA3Bapqnr411loEyMzOse9jv0JYnVGW8Oosoz8cQpiWs4GlOEoMq', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '::1', '', '');
+(3, 'admin@gmail.com', 'admin@gmail.com', '$2y$08$/JOwPbrPJgJ344FmUMvFye7ZCgyMv9zmL4mRlSAZrZva/z2hqtcWa', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '::1', '', 'ERbf8fTv.b81qK6Sg4cBrO'),
+(4, 'a@a.a', 'a@a.a', '$2y$08$flu/kroGf6/Q9FiumJQ/yeet7hjozcuZ3z12sNsHiFzks6yoa5zb6', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '192.168.137.1', '', 'v2QiD9otkeROJnopJMHDie'),
+(5, 'b@b.b', 'b@b.b', '$2y$08$HkgWdg81cSgld5GW5wNQretKV23D751u5jBpgBhfZubeYd0x17NVq', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '192.168.137.1', '', ''),
+(6, 'aasd@d.d', 'aasd@d.d', '$2y$08$WwWqDjhIzsKBQRlobgyrq.z28UZsLjvGZAlZN3mgwC0Ye2wCK5Tge', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '192.168.137.1', '', ''),
+(7, 'zxc@asd.a', 'zxc@asd.a', '$2y$08$OX76Us9B1tAwrIGyK1DR7.mkvNU5KGDFuasyV9eNghrG22l1aZTeW', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '192.168.1.194', '', ''),
+(8, 'yoidel87@gmail.com', 'yoidel87@gmail.com', '$2y$08$2mW/Ugj5HIscvP4.V9huVeysGKDUABbIVVE71g317mqQG0QpxpP0O', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '192.168.1.74', '', ''),
+(9, 'yoidel86@gmail.com', 'yoidel86@gmail.com', '$2y$08$IPQFruzuVMWK3x59pAccYeWCHvybskVPsZ.WRoj9g4K3GBBO1hV7C', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '192.168.1.74', '', ''),
+(10, 'asd@asd.ad', 'asd@asd.ad', '$2y$08$6zPET6Q8Of3WcTpS4zOikOyu.5Wb7No0nt6Pqh8Q5w5fYCtZA5vHG', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '::1', '', ''),
+(11, 'asd@ads.asd', 'asd@ads.asd', '$2y$08$Q0XbHZD00GpgOnUUKmgbQugInsFxPKK8LuLvpPQtjUiUkDzicJf0y', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '::1', '', ''),
+(12, 'yrmtnez@nauta.cu', 'yrmtnez@nauta.cu', '$2y$08$F5GKkkbU63PCXzcBDFMv3e6caqZobGsf7k37nofnYNLUekW6QMWpy', '0000-00-00 00:00:00', 0, 1, '0000-00-00 00:00:00', '192.168.137.160', '', '');
 
 -- --------------------------------------------------------
 
@@ -576,7 +462,13 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (1, 3, 2),
 (2, 4, 2),
 (3, 5, 2),
-(4, 6, 2);
+(4, 6, 2),
+(5, 7, 2),
+(7, 8, 2),
+(8, 9, 2),
+(9, 10, 2),
+(10, 11, 2),
+(11, 12, 2);
 
 --
 -- Índices para tablas volcadas
@@ -726,12 +618,12 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT de la tabla `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT de la tabla `cities`
 --
 ALTER TABLE `cities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `comments`
 --
@@ -751,7 +643,7 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT de la tabla `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT de la tabla `login_attempts`
 --
@@ -761,7 +653,7 @@ ALTER TABLE `login_attempts`
 -- AUTO_INCREMENT de la tabla `membership`
 --
 ALTER TABLE `membership`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `mensaje`
 --
@@ -771,37 +663,37 @@ ALTER TABLE `mensaje`
 -- AUTO_INCREMENT de la tabla `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `positions`
 --
 ALTER TABLE `positions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT de la tabla `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 --
 -- AUTO_INCREMENT de la tabla `subcategories`
 --
 ALTER TABLE `subcategories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT de la tabla `times`
 --
 ALTER TABLE `times`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- Restricciones para tablas volcadas
 --
