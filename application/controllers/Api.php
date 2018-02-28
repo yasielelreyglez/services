@@ -352,7 +352,6 @@ class Api extends REST_Controller
                 $services_a[$service->getId()] = $service;
             }
         }
-
         $result["services"] = array_values($services_a);
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
