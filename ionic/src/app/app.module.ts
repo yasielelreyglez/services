@@ -28,6 +28,7 @@ import { Create1Page } from "../pages/create1/create1";
 import { Create2Page } from "../pages/create2/create2";
 import {  TabPage} from "../pages/tab/tab";
 import {  TabMapaPage} from "../pages/tab-mapa/tab-mapa";
+import {CondicionesPage} from "../pages/condiciones/condiciones";
 
 
 // Componentes
@@ -67,6 +68,7 @@ import { Diagnostic } from '@ionic-native/diagnostic';
     HomePage,
     SearchPage,
     PopoverPage,
+    CondicionesPage,
     CategoriesPage,
     SubcategoriesPage,
     AppHeaderComponent,
@@ -113,6 +115,7 @@ import { Diagnostic } from '@ionic-native/diagnostic';
     HomePage,
     PopoverPage,
     SearchPage,
+    CondicionesPage,
     CategoriesPage,
     SubcategoriesPage,
     AppHeaderComponent,

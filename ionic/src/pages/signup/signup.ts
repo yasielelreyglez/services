@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams ,ToastController, LoadingController
 import {User} from '../../models/user';
 import {AuthProvider} from '../../providers/auth/auth';
  import { HomePage } from "../home/home";
+import {CondicionesPage} from "../condiciones/condiciones";
 
 @IonicPage()
 @Component({
@@ -25,6 +26,9 @@ export class SignupPage {
 
   ionViewDidLoad() {
 
+  }
+  openCondiciones(){
+    this.navCtrl.push(CondicionesPage);
   }
 
   doSignUp(){
