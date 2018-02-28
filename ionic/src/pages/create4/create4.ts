@@ -74,14 +74,23 @@ export class Create4Page {
   }
 
   crearService() {
-    let loading = this.load.create({
-      content: "Creando servicio..."
-    });
+    var loading;
+    if(!this.edit){
+      loading = this.load.create({
+        content: "Creando el servicio..."
+      });
+    }
+    else{
+      loading = this.load.create({
+        content: "Editando el servicio..."
+      });
+    }
+
     loading.present();
     this.service.positions = this.positions;
     this.servProv.createFullService(this.service).then(
       (data) => {
-
+        console.log(data);
         this.navCtrl.setRoot(HomePage);
         loading.dismiss();
         // openServicePage(id, index) {

@@ -2,13 +2,11 @@ import {Component} from '@angular/core';
 import {
   IonicPage,
   NavController,
-  ActionSheetController,
   Platform,
-  NavParams,
+  NavParams, LoadingController,
 
 } from "ionic-angular";
 
-import {Camera, CameraOptions} from '@ionic-native/camera';
 import {ViewChild} from '@angular/core';
 import {ApiProvider} from '../../providers/api/api';
 import {Create2Page} from '../create2/create2';
@@ -34,30 +32,38 @@ export class Create1Page {
   service: sendService;
   cities: City[];
   categories: any[];
+  category: any;
   allCities: boolean;
   public CValue: String;
   private subCategories: any;
-  private choosedSub:any;
+  private loading: any;
 
 
   constructor(public subCat: SubCategoryProvider, public navParams: NavParams, public navCtrl: NavController,
-              private camera: Camera,
-              public actionSheetCtrl: ActionSheetController,
+              public load: LoadingController,
               public api: ApiProvider,
               public photoViewer: PhotoViewer, private platform: Platform) {
     this.service = new sendService();
     this.loadSelect();
 
+
   }
 
-  onChangeCountry(CValue) {
+  onChangeCategory(CValue) {
+    this.loading = this.load.create({
+      content: "Cargando..."
+    });
+    this.loading.present();
+
     this.subCat.getsubcategories(CValue)
       .then(
         (subCat) => {
           this.subCategories = subCat['data'];
+          this.loading.dismiss();
         }
       ).catch(
       (error) => {
+        this. loading.dismiss();
       }
     );
   }
@@ -85,22 +91,20 @@ export class Create1Page {
   }
 
   loadSelect() {
+    // this.loading = this.load.create({
+    //   content: "Cargando..."
+    // });
     this.api.getCities().then(
       data => {
         this.cities = data["data"];
+        this.api.allCategories().then(
+          data => {
+            this.categories = data["data"];
+            // this. loading.dismiss();
+          }
+        );
       },
       (err: HttpErrorResponse) => {
-      }
-    );
-
-    this.api.allCategories().then(
-      data => {
-        this.categories = data["data"];
-      },
-      (err: HttpErrorResponse) => {
-        if (err.error instanceof Error) {
-        } else {
-        }
       }
     );
   }
@@ -115,60 +119,20 @@ export class Create1Page {
         citiesId.push(this.navParams.get("service").citiesList[i].id);
       }
       this.service.cities = citiesId;
+      this.category = this.service.subcategoriesList[0].category.id
+
+      this.onChangeCategory(this.category);
 
       let subcategoriesId = [];
       for (let i = 0; i < this.navParams.get("service").subcategoriesList.length; i++) {
         subcategoriesId.push(this.navParams.get("service").subcategoriesList[i].id);
       }
-      // this.service.categories = subcategoriesId;
+      this.service.categories = subcategoriesId;
       if (this.service.icon)
         this.preview = this.service.icon;
     }
   }
 
-  // public presentActionSheet() {
-  //   let actionSheet = this.actionSheetCtrl.create({
-  //     title: 'Seleccione la imagen',
-  //     buttons: [
-  //       {
-  //         text: 'Cargar desde la galeria',
-  //         handler: () => {
-  //           this.getImage(this.camera.PictureSourceType.PHOTOLIBRARY);
-  //         }
-  //       },
-  //       {
-  //         text: 'Usar la Camara',
-  //         handler: () => {
-  //           this.getImage(this.camera.PictureSourceType.CAMERA);
-  //         }
-  //       },
-  //       {
-  //         text: 'Cancelar',
-  //         role: 'cancel'
-  //       }
-  //     ]
-  //   });
-  //   actionSheet.present();
-  // }
-
-  // getImage(source) {
-  //   const options: CameraOptions = {
-  //     quality: 100,
-  //     destinationType: this.camera.DestinationType.DATA_URL,
-  //     sourceType: source
-  //   };
-  //
-  //   this.camera.getPicture(options).then((imageData) => {
-  //     this.preview = 'data:image/jpeg;base64,' + imageData;
-  //     this.service.icon = {
-  //       filename: Date.now() + this.service.title + "imageData.jpg",
-  //       filetype: "image/jpeg",
-  //       value: imageData
-  //     };
-  //   }, (err) => {
-  //     console.log(err);
-  //   });
-  // }
 
   viewImg() {
     this.platform.ready().then(() => {
@@ -178,7 +142,6 @@ export class Create1Page {
 
   goToCreate2() {
     if (this.f.form.valid) {
-      // this.service.categories=this.choosedSub;
       this.navCtrl.push(Create2Page, {
         service: this.service, //paso el service
       });

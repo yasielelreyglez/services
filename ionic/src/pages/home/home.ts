@@ -26,6 +26,8 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {PhotoViewer} from '@ionic-native/photo-viewer';
 import {StatusBar} from "@ionic-native/status-bar";
 import {SearchPage} from "../search/search";
+import {OpenNativeSettings} from '@ionic-native/open-native-settings';
+import {Diagnostic} from '@ionic-native/diagnostic';
 
 @IonicPage({
   priority: 'high'
@@ -47,6 +49,8 @@ export class HomePage {
 
 
   constructor(private alertCtrl: AlertController,
+              private openNativeSettings: OpenNativeSettings,
+              private diagnostic: Diagnostic,
               public auth: AuthProvider,
               private popoverCtrl: PopoverController,
               public subCat: SubCategoryProvider,
@@ -58,10 +62,20 @@ export class HomePage {
               public navParams: NavParams, public splashScreen: SplashScreen, public platform: Platform, statusBar: StatusBar,) {
 
     this.platform.ready().then(() => {
+
+      // if (this.diagnostic.isLocationAvailable() && this.diagnostic.isLocationEnabled()) {
+      //   // this.openNativeSettings.open('location');
+      //   this.diagnostic.switchToLocationSettings();
+      // }
       //statusBar.hide();
       //statusBar.backgroundColorByHexString('#ffffff');
       this.platform.registerBackButtonAction((readySource) => {
-        this.exitApp()
+        if(this.navCtrl.canGoBack()){
+          this.navCtrl.pop();
+        }
+        else{
+        this.exitApp();
+        }
 
       });
 
@@ -97,8 +111,9 @@ export class HomePage {
       this.connetionDown = true;
     }
   }
+
   ionViewWillEnter() {
-    this.search.value ="";
+    this.search.value = "";
 
   }
 

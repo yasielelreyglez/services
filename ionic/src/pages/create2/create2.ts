@@ -1,9 +1,17 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, ActionSheetController, AlertController } from 'ionic-angular';
-import { Create3Page } from '../create3/create3';
-import { sendService, sendGalery } from '../../models/sendService';
-import { Camera, CameraOptions } from '@ionic-native/camera';
-import { PhotoViewer } from '@ionic-native/photo-viewer';
+import {Component} from '@angular/core';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  ViewController,
+  ActionSheetController,
+  AlertController
+} from 'ionic-angular';
+import {Create3Page} from '../create3/create3';
+import {sendService, sendGalery} from '../../models/sendService';
+import {Camera, CameraOptions} from '@ionic-native/camera';
+import {PhotoViewer} from '@ionic-native/photo-viewer';
+
 /**
  * Generated class for the Create2Page page.
  *
@@ -17,35 +25,37 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
   templateUrl: 'create2.html',
 })
 export class Create2Page {
-  edit: boolean =false;
-   service: sendService;
-   photos: sendGalery[]=[];
-   restantes: any[]=[];
-   preview:any;
-
+  edit: boolean = false;
+  service: sendService;
+  photos: sendGalery[] = [];
+  restantes: any[] = [];
+  preview: any;
   //  photos: any;
   //  base64Image: string;
   constructor(public navCtrl: NavController,
-     public navParams: NavParams,
-     public viewCtrl: ViewController,
-      public actionSheetCtrl: ActionSheetController ,
-      private camera: Camera,public photoViewer: PhotoViewer, private alertCtrl: AlertController,
-    ) {
+              public navParams: NavParams,
+              public viewCtrl: ViewController,
+              public actionSheetCtrl: ActionSheetController,
+              private camera: Camera, public photoViewer: PhotoViewer, private alertCtrl: AlertController,) {
     this.service = this.navParams.get("service");
-    this.service.gallery=[];
-    this.service.dropsImages=[];
+    this.service.gallery = [];
+    this.service.dropsImages = [];
   }
 
   ionViewDidLoad() {
     this.photos = [];
     this.preview = "as";
-    if(this.navParams.get("service").id){
-      this.edit=true;
+    if (this.navParams.get("service").id) {
+      this.edit = true;
+      this.restantes = new Array(9 - this.service.imagesList.length);
+
     }
-    this.restantes= new Array(9 - this.photos.length);
+    else {
+      this.restantes = new Array(9 - this.photos.length);
+    }
   }
 
-  uploadPhoto(){
+  uploadPhoto() {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Seleccione la imagen',
       buttons: [
@@ -70,75 +80,80 @@ export class Create2Page {
     actionSheet.present();
   }
 
-
   getImage(source) {
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
-      sourceType: source
+      sourceType: source,
+      allowEdit:true,
     };
     this.camera.getPicture(options).then((imageData) => {
 
       if (this.edit) {
-        this.service.imagesList.push({title:'data:image/jpeg;base64,' + imageData});
-        this.restantes= new Array(9 - this.photos.length);
+        // this.service.imagesList.push({title: 'data:image/jpeg;base64,' + imageData});
+        this.service.imagesList.push({filename: "imageData"+, filetype: "image/jpeg", value: imageData});
+        this.restantes = new Array(9 - this.service.imagesList.length);
       }
-      this.photos.push({filename:"imageData",filetype:"image/jpeg",value:imageData});
-      this.restantes= new Array(9 - this.photos.length);
-      // this.photos.reverse();
+      this.photos.push({filename: "imageData"+, filetype: "image/jpeg", value: imageData});
+      this.restantes = new Array(9 - this.photos.length);
     }, (err) => {
     });
   }
 
-  deletePhoto(index){
+  deletePhoto(index) {
 
-          let confirm = this.alertCtrl.create({
-            title: "¿Esta seguro que desea eliminar la imagen? ",
-            message: "",
-            buttons: [
-              {
-                text: "No",
-                handler: () => {
-                }
-              },
-              {
-                text: "Si",
-                handler: () => {
+    let confirm = this.alertCtrl.create({
+      title: "¿Esta seguro que desea eliminar la imagen? ",
+      message: "",
+      buttons: [
+        {
+          text: "No",
+          handler: () => {
+          }
+        },
+        {
+          text: "Si",
+          handler: () => {
 
-                  if (this.edit) {
-                    this.service.dropsImages.push(this.service.imagesList[index].id);
-                    this.service.imagesList.splice(index, 1);
-                    this.restantes= new Array(9 - this.photos.length);
-                  }else{
-                    this.service.dropsImages.push(this.photos[index].id);
-                    this.photos.splice(index, 1);
-                    this.restantes= new Array(9 - this.photos.length);
-                  }
+            if (this.edit) {
+              this.service.dropsImages.push(this.service.imagesList[index].id);
+              this.service.imagesList.splice(index, 1);
+              this.restantes = new Array(9 - this.service.imagesList.length);
+            } else {
+              this.service.dropsImages.push(this.photos[index].id);
+              this.photos.splice(index, 1);
+              this.restantes = new Array(9 - this.photos.length);
+            }
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
 
-                  console.log(this.service);
-                }
-              }
-            ]
-          });
-          confirm.present();
-      }
-      viewImg(data) {
-        // this.platform.ready().then(() => {
-        this.photoViewer.show( 'data:image/jpeg;base64,' + data);
-        // });
-      }
+  viewImg(data) {
+    this.photoViewer.show('data:image/jpeg;base64,' + data);
+  }
 
-  goToCreate1(){
+  goToCreate1() {
     this.viewCtrl.dismiss();
   }
-  goToCreate3(){
-      this.service.gallery=this.photos;
-      this.service.icon=this.service.gallery[0];
-      this.navCtrl.push(Create3Page, {
-        service: this.service
-      });
-  }
 
+  goToCreate3() {
+    this.service.gallery = this.photos;
+    if (this.service.gallery.length > 0 && !this.edit) {
+      this.service.icon = this.service.gallery[0];
+    }
+    else if (this.edit && this.service.imagesList.length > 0) {
+      this.service.icon = this.service.gallery[0];
+    }
+    else {
+      this.service.icon = null;
+    }
+    this.navCtrl.push(Create3Page, {
+      service: this.service
+    });
+  }
 
 
 }

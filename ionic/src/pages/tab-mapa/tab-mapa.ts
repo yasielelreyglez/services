@@ -2,13 +2,9 @@ import {Component, ViewChild, ElementRef} from '@angular/core';
 import {Events, IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
 import {Geolocation, GeolocationOptions, Geoposition, PositionError} from '@ionic-native/geolocation'
 import {ServicePage} from "../service/service";
+import {FavoritesPage} from "../favorites/favorites";
 
-/**
- * Generated class for the TabMapaPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 declare var google;
 
 @IonicPage()
@@ -31,6 +27,9 @@ export class TabMapaPage {
 
   constructor(public events: Events, platform: Platform, public navCtrl: NavController,
               public navParams: NavParams, private geolocation: Geolocation) {
+
+
+
     platform.ready().then(() => {
     });
     events.subscribe('current:position', (position) => {
@@ -39,7 +38,7 @@ export class TabMapaPage {
       console.log("YA HAY!! ademas de que cambio !!");
     });
 
-    if (!this.latLng){
+    if (!this.latLng) {
       this.getUserPosition();
     }
     else {
@@ -67,7 +66,7 @@ export class TabMapaPage {
     this.getRestaurants(latLng).then((results: Array<any>) => {
       this.places = results;
       for (let i = 0; i < results.length; i++) {
-        this.createMarker(results[i]);
+        this.createMarker(results[i],i);
       }
     }, (status) => console.log(status));
 
@@ -88,6 +87,7 @@ export class TabMapaPage {
       content: content
     });
 
+
     google.maps.event.addListener(this.currentP, 'click', () => {
       infoWindow.open(this.map, this.currentP);
     });
@@ -106,26 +106,20 @@ export class TabMapaPage {
     });
     let content = "<h4>Mi posición</h4>";
     this.addInfoWindow(this.currentP, content);
-
-    // });
-
   }
 
   addInfoWindow(marker, content) {
-
     google.maps.event.addListener(marker, 'click', () => {
       this.infowindow.setContent(content);
       this.infowindow.open(this.map, marker);
+      // this.openService(86);
     });
 
   }
-
   getUserPosition() {
-
     this.geolocation.getCurrentPosition().then((pos) => {
       this.latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
       this.addMap(pos.coords.latitude, pos.coords.longitude);
-
       this.watch = this.geolocation.watchPosition({maximumAge: 60000, timeout: 60000})
         .filter((p) => p.coords !== undefined)
         .subscribe(position => {
@@ -141,7 +135,6 @@ export class TabMapaPage {
         });
     }, (err: PositionError) => {
       console.log("error : " + err.message);
-
     })
   }
 
@@ -149,7 +142,7 @@ export class TabMapaPage {
     var service = new google.maps.places.PlacesService(this.map);
     let request = {
       location: latLng,
-      radius: 800000,
+      radius: 2000,
       types: ["restaurant"]
     };
     return new Promise((resolve, reject) => {
@@ -159,24 +152,26 @@ export class TabMapaPage {
         } else {
           reject(status);
         }
-
       });
     });
 
   }
 
   openService(id) {
-    this.navCtrl.push(ServicePage);
+    this.navCtrl.push(FavoritesPage);
   }
 
-  createMarker(place) {
+  createMarker(place,i) {
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
       position: place.geometry.location,
       name
     });
-    let content = "<a (click)='this.bind(this.openService(1))' )>" + place.name + "</a>";
+
+    let content = "<a id='"+i+"' class='custom-marker' >" + place.name + "</a>";
+    // let content = "<a onclick=\"this.bind(this.openService(86))\" class='custom-marker' >" + place.name + "</a>"
     this.addInfoWindow(marker, content);
   }
+
 }

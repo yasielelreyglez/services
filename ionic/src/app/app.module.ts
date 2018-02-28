@@ -58,8 +58,8 @@ import { ChangePassPage } from '../pages/change-pass/change-pass';
 import {ModalHorarioPage} from "../pages/modal-horario/modal-horario";
 import { SocialSharing } from '@ionic-native/social-sharing';
 import {SearchPage} from "../pages/search/search";
-
-
+import { OpenNativeSettings } from '@ionic-native/open-native-settings';
+import { Diagnostic } from '@ionic-native/diagnostic';
 @NgModule({
   declarations: [
     MyApp,
@@ -73,8 +73,6 @@ import {SearchPage} from "../pages/search/search";
     IonRating,
     ServUpInfoComponent,
     ServicesPage,
-    // LoginPage,
-    // SignupPage,
     FiltroModalPage,
     ModalHorarioPage,
     FavoritesPage,
@@ -152,6 +150,8 @@ import {SearchPage} from "../pages/search/search";
     Camera,
     CallNumber,
     Keyboard,
+    OpenNativeSettings,
+    Diagnostic,
     Geolocation,
     PhotoViewer,
     {provide: ErrorHandler, useClass: IonicErrorHandler},

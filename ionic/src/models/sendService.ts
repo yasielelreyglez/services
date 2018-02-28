@@ -39,5 +39,7 @@ export class sendService {
   // week_days:any;
   dropsImages: any[];
   imagesList	:Imagen[];
+  subcategoriesList: any[];
+  timesList: any[];
 }
 
