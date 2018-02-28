@@ -8,6 +8,7 @@ import {AuthProvider} from  '../../providers/auth/auth';
 import { Create1Page } from "../create1/create1";
 import { ModalDenunciaPage } from '../modal-denuncia/modal-denuncia';
 import { ChangePassPage } from '../change-pass/change-pass';
+import {AyudaPage} from "../ayuda/ayuda";
 
 
 
@@ -61,6 +62,10 @@ export class PopoverPage implements OnInit {
   openSignUpPage(){
     this.close();
     this.appCtrl.getActiveNavs()[0].push("SignupPage");
+  }
+  openAyuda(){
+    this.close();
+    this.appCtrl.getActiveNavs()[0].push("AyudaPage");
   }
   openFavoritesPage(){
     this.close();

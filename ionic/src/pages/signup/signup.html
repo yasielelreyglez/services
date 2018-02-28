@@ -1,64 +1,79 @@
 <ion-header>
-    <ion-navbar>
-        <ion-title text-center>
-            LOGO
-        </ion-title>
+  <ion-navbar>
+    <ion-title text-center>
+      LOGO
+    </ion-title>
 
-    </ion-navbar>
+  </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
 
 
-    <ion-label text-center color="azul-claro">Crear cuenta</ion-label>
+  <ion-label text-center color="azul-claro">Crear cuenta</ion-label>
 
-    <hr class="hr-separador">
+  <hr class="hr-separador">
 
-    <!-- <form (submit)="doLogin()"> -->
-    <form (submit)="f.form.valid && user.password == user.confirmpassword? doSignUp() : llenarCampos()" #f="ngForm">
-        <ion-list>
+  <!-- <form (submit)="doLogin()"> -->
+  <form (submit)="f.form.valid && user.password == user.confirmpassword? doSignUp() : llenarCampos()" #f="ngForm">
+    <ion-list>
 
-            <ion-item>
-                <ion-label stacked>Nombres y apellidos</ion-label>
-                <ion-input type="text" name="name" class="form-control" [(ngModel)]="user.name" placeholder="Escriba su nombre y apellidos..." required></ion-input>
+      <ion-item>
+        <ion-label stacked>Nombres y apellidos</ion-label>
+        <ion-input type="text" name="name" class="form-control" [(ngModel)]="user.name"
+                   placeholder="Escriba su nombre y apellidos..." required></ion-input>
 
-            </ion-item>
+      </ion-item>
 
-            <ion-item>
-                <ion-label stacked>Correo electrónico</ion-label>
-                <ion-input type="email" name="email" class="form-control" [(ngModel)]="user.email" placeholder="Escriba su correo..." required email></ion-input>
+      <ion-item>
+        <ion-label stacked>Correo electrónico</ion-label>
+        <ion-input type="email" name="email" class="form-control" [(ngModel)]="user.email"
+                   placeholder="Escriba su correo..." required email></ion-input>
 
-            </ion-item>
-            <ion-item>
-                <ion-label stacked>Contraseña</ion-label>
-                <ion-input type="password" name="password" class="form-control" [(ngModel)]="user.password" placeholder="Escriba su contraseña..." required></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label stacked>Repetir contraseña</ion-label>
-                <ion-input type="password" name="confirmpassword" class="form-control" [(ngModel)]="user.confirmpassword" placeholder="Escriba su contraseña..." required></ion-input>
-            </ion-item>
-            <ion-item no-lines>
-                <ion-label>Acepto las condiciones del servicio</ion-label>
-                <ion-checkbox [(ngModel)]="condiciones" name="condiciones"></ion-checkbox>
-            </ion-item>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Contraseña</ion-label>
+        <ion-input type="password" name="password" class="form-control" [(ngModel)]="user.password"
+                   placeholder="Escriba su contraseña..." required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Repetir contraseña</ion-label>
+        <ion-input type="password" name="confirmpassword" class="form-control" [(ngModel)]="user.confirmpassword"
+                   placeholder="Escriba su contraseña..." required></ion-input>
+      </ion-item>
+      <ion-grid>
+        <ion-row justify-content-start>
+          <ion-col col-2>
+            <ion-checkbox style="top: 12px;left: 10px;" [(ngModel)]="condiciones" name="condiciones"></ion-checkbox>
+          </ion-col>
+          <ion-col col-10>
+            <ion-label>Acepto las <a (click)="openCondiciones()">condiciones del servicio</a></ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <!--<ion-item no-lines>-->
+      <!--<ion-checkbox [(ngModel)]="condiciones" name="condiciones"></ion-checkbox>-->
+      <!--<ion-label style="display: inline-block;">Acepto las <a>condiciones del servicio</a></ion-label>-->
+      <!--</ion-item>-->
 
-            <div padding>
-                <button [disabled]="!condiciones || !f.form.valid" class="btn-text-left" text-left color="azul-claro" ion-button block margin-bottom="1" margin-top="2">
-                    <i class="fa fa-list-alt" aria-hidden="true"></i>
-                    &nbsp;  Crear cuenta
+      <div padding>
+        <button [disabled]="!condiciones || !f.form.valid" class="btn-text-left" text-left color="azul-claro" ion-button
+                block margin-bottom="1" margin-top="2">
+          <i class="fa fa-list-alt" aria-hidden="true"></i>
+          &nbsp; Crear cuenta
 
-                </button>
-            </div>
+        </button>
+      </div>
 
-        </ion-list>
-    </form>
+    </ion-list>
+  </form>
 
-    <ion-label text-center color="azul-claro"><b>Si quieres puedes crear una cuenta con::</b></ion-label>
-    <button class="btn-text-left" text-left color="azul-facebook" ion-button block margin-bottom="1">
-        <i class="fa fa-facebook-official" aria-hidden="true"></i>&nbsp;
-        facebook
-    </button>
+  <ion-label text-center color="azul-claro"><b>Si quieres puedes crear una cuenta con::</b></ion-label>
+  <button class="btn-text-left" text-left color="azul-facebook" ion-button block margin-bottom="1">
+    <i class="fa fa-facebook-official" aria-hidden="true"></i>&nbsp;
+    facebook
+  </button>
 
 
 </ion-content>
