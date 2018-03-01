@@ -31,7 +31,7 @@
         <ion-label stacked>Título<span class="requerido"><sup>*</sup></span></ion-label>
         <ion-input name="title" [(ngModel)]="titulo" placeholder="Título ..."></ion-input>
     </ion-item>
-    <button [disabled]="!titulo && !longitude" (click)="addPosition()" color="azul-claro" ion-button block margin-bottom="1" margin-top="2">
+    <button [disabled]="titulo== '' || !longitude" (click)="addPosition()" color="azul-claro" ion-button block margin-bottom="1" margin-top="2">
        Agregar ubicación
       </button>
     <ion-list>

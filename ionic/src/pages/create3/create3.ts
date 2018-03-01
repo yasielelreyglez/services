@@ -50,7 +50,7 @@ export class Create3Page {
   }
 
   ionViewDidLoad() {
-
+    this.service.times=[];
     if (this.navParams.get("service").id) {
       this.edit = true;
     }
@@ -61,6 +61,7 @@ export class Create3Page {
   }
 
   goToCreate4() {
+    console.log(this.service);
     this.navCtrl.push(Create4Page, {
       service: this.service
     });

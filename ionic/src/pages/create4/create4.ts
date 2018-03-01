@@ -6,6 +6,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {Position} from "../../models/position";
 import {HomePage} from '../home/home';
 import {ServicePage} from "../service/service";
+import {Geolocation, PositionError} from "@ionic-native/geolocation";
 
 /**
  * Generated class for the Create4Page page.
@@ -45,7 +46,7 @@ export class Create4Page {
   longitude: number;
   flagPosition = false;
 
-  constructor(public load: LoadingController, public navCtrl: NavController, public navParams: NavParams, public servProv: ServiceProvider) {
+  constructor(private geolocation: Geolocation, public load: LoadingController, public navCtrl: NavController, public navParams: NavParams, public servProv: ServiceProvider) {
     this.service = this.navParams.get("service");
     this.service.positions = [];
     this.markers = [];
@@ -53,14 +54,14 @@ export class Create4Page {
       this.edit = true;
       this.positions = this.navParams.get("service").positionsList;
     }
-    if (typeof google !== 'undefined') {
-      this.latLng = new google.maps.LatLng(23.126606, -82.32528);
-
-      this.infowindow = new google.maps.InfoWindow;
-      this.directionsService = new google.maps.DirectionsService;
-      this.directionsDisplay = new google.maps.DirectionsRenderer;
-      this.distanceM = new google.maps.DistanceMatrixService();
-    }
+    // if (typeof google !== 'undefined') {
+    //   this.latLng = new google.maps.LatLng(23.126606, -82.32528);
+    //
+    //   this.infowindow = new google.maps.InfoWindow;
+    //   this.directionsService = new google.maps.DirectionsService;
+    //   this.directionsDisplay = new google.maps.DirectionsRenderer;
+    //   this.distanceM = new google.maps.DistanceMatrixService();
+    // }
   }
 
   goToCreate3() {
@@ -69,29 +70,34 @@ export class Create4Page {
 
   ionViewDidLoad() {
     if (typeof google !== 'undefined') {
-      this.initMap();
+      this.geolocation.getCurrentPosition().then((pos) => {
+        this.latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+        // this.latLng = new google.maps.LatLng(23.126606, -82.32528);
+
+        this.infowindow = new google.maps.InfoWindow;
+        this.directionsService = new google.maps.DirectionsService;
+        this.directionsDisplay = new google.maps.DirectionsRenderer;
+        this.distanceM = new google.maps.DistanceMatrixService();
+
+        this.initMap();
+
+      }, (err: PositionError) => {
+        console.log("error : " + err.message);
+      });
+      // this.initMap();
     }
   }
 
   crearService() {
-    var loading;
-    if(!this.edit){
-      loading = this.load.create({
-        content: "Creando el servicio..."
-      });
-    }
-    else{
-      loading = this.load.create({
-        content: "Editando el servicio..."
-      });
-    }
-
+    let loading = this.load.create({
+      content: "Creando servicio..."
+    });
     loading.present();
     this.service.positions = this.positions;
     this.servProv.createFullService(this.service).then(
       (data) => {
         console.log(data);
-        this.navCtrl.setRoot(HomePage);
+        //this.navCtrl.setRoot(HomePage);
         loading.dismiss();
         // openServicePage(id, index) {
           this.navCtrl.push(ServicePage, {
@@ -99,10 +105,10 @@ export class Create4Page {
             serviceId: data.id,  //si paso el id del servicio para la peticion
           });
         // }
-
       },
       (err: HttpErrorResponse) => {
-        this.navCtrl.setRoot(HomePage);
+        // this.navCtrl.setRoot(HomePage);
+        console.log("error en el servidor");
         loading.dismiss();
       }
     );
@@ -124,7 +130,7 @@ export class Create4Page {
     if (typeof google !== 'undefined') {
       let mapOptions = {
         center: this.latLng,
-        zoom: 10,
+        zoom: 14,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         zoomControl: true,
         mapTypeControl: false,
