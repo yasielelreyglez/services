@@ -1021,7 +1021,9 @@ class Api extends REST_Controller
         $service->setEmail($this->post('email', TRUE));
         $service->setUrl($this->post('url', TRUE));
         $times = $this->post('times', TRUE);
-        $service->addTimes($times);
+       if(is_array($times)) {
+           $service->addTimes($times);
+       }
         $service->setDescription($this->post('description', TRUE));
 //        $service->setWeekDays(substr($string_week, 1, strlen($string_week) - 1));
 //        $service->setStartTime($this->post('start_time', TRUE));
@@ -1056,6 +1058,9 @@ class Api extends REST_Controller
         
         $em->persist($service);
         $em->flush();
+        $service->loadRelatedData($this->getCurrentUser());
+        $service->loadRelatedUserData($this->getCurrentUser());
+
         $this->set_response($service, REST_Controller::HTTP_OK);
     }
 

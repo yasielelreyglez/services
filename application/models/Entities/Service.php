@@ -706,6 +706,7 @@ namespace Entities {
             }
             return $this;
         }
+
         public function loadRelatedData($user = null,$current=null){
             $this->subcategoriesList = $this->getSubcategories()->toArray();
             $this->servicecommentsList = [];
@@ -743,6 +744,8 @@ namespace Entities {
                 $this->loadRelatedUserData($user);
             }
         }
+
+        //relacionar la info con el usuario y salvarlo en la bd
         public function relateUserData($user,$em){
             $criteria = new \Doctrine\Common\Collections\Criteria();
             //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
@@ -768,6 +771,7 @@ namespace Entities {
             $em->flush();
 
         }
+       //carga la informacion relacionada con el usuario en la bd para devolver en la api
         public function loadRelatedUserData($user)
         {
             $criteria = new \Doctrine\Common\Collections\Criteria();
@@ -952,6 +956,7 @@ namespace Entities {
         }
         public function addTimes(Array $times)
         {
+
             foreach ($times as $time_p) {
                 $time = new Times();
                 $poss = 0;
