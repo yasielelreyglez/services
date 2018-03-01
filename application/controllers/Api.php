@@ -1066,7 +1066,7 @@ class Api extends REST_Controller
 
         $this->set_response($service, REST_Controller::HTTP_OK);
     }
-
+    //CREANDO UN SERVICIO
     function createservice_post()
     {
         $id = $this->input->post('id', TRUE);
