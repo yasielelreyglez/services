@@ -1007,7 +1007,7 @@ class Api extends REST_Controller
         $service->addSubCategories($this->post('categories', TRUE), $em);
         $service->addCities($this->post('cities', TRUE), $em);
         $icon = $this->post('icon');
-        if ($icon){
+        if ($icon) {
             if (isset($icon['filename'])) {
                 $path = "./resources/services/" . $icon['filename'];
                 $save = "/resources/services/" . $icon['filename'];
@@ -1020,8 +1020,16 @@ class Api extends REST_Controller
         $service->setOtherPhone($this->post('other_phone', TRUE));
         $service->setEmail($this->post('email', TRUE));
         $service->setUrl($this->post('url', TRUE));
+        $times_old = $service->getTimes()->toArray();
+        if (is_array($times_old)){
+            foreach ($times_old as $old_time) {
+                $em->remove($old_time);
+            }
+        }
         $times = $this->post('times', TRUE);
-        $service->addTimes($times);
+       if(is_array($times)) {
+           $service->addTimes($times);
+       }
         $service->setDescription($this->post('description', TRUE));
 //        $service->setWeekDays(substr($string_week, 1, strlen($string_week) - 1));
 //        $service->setStartTime($this->post('start_time', TRUE));
@@ -1032,10 +1040,7 @@ class Api extends REST_Controller
         foreach ($old_positions as $old_position) {
             $em->remove($old_position);
         }
-        $times = $service->getTimes();
-        foreach ($times as $old_time) {
-            $em->remove($old_time);
-        }
+
         $em->flush();
         $service->addPositions($positions);
         $em->persist($service);
@@ -1056,6 +1061,9 @@ class Api extends REST_Controller
         
         $em->persist($service);
         $em->flush();
+        $service->loadRelatedData($this->getCurrentUser());
+        $service->loadRelatedUserData($this->getCurrentUser());
+
         $this->set_response($service, REST_Controller::HTTP_OK);
     }
 
