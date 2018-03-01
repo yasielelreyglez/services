@@ -1,33 +1,52 @@
 <ng-container *ngIf="denuncia; else elseTemplate">
-    <ion-list>
-
-        <button (click)="denunciar()" ion-item><ion-icon name="megaphone"></ion-icon>&nbsp;Denunciar</button>
-
-    </ion-list>
+  <ion-list>
+    <button (click)="denunciar()" ion-item>
+      <ion-icon name="megaphone"></ion-icon>&nbsp;Denunciar
+    </button>
+  </ion-list>
 </ng-container>
 <ng-template #elseTemplate>
-    <ion-list *ngIf="!loggedIn">
-        <button ion-item (click)="openLoginPage()">
-        <ion-icon class="fs-20" name="unlock"></ion-icon>&nbsp;
-          Autenticarse</button>
-        <button ion-item (click)="openSignUpPage()">
-        <i class="fs-20 fa fa-list-alt" aria-hidden="true"></i>
-        &nbsp; Registrarse
-      </button>
-        <button ion-item (click)="openAyuda()">
-        <ion-icon class="fs-20" name="help-circle"></ion-icon>&nbsp;
-        Ayuda</button>
+  <ion-list *ngIf="!loggedIn">
+    <button ion-item (click)="openLoginPage()">
+      <ion-icon class="fs-20" name="unlock"></ion-icon>&nbsp;
+      Autenticarse
+    </button>
+    <button ion-item (click)="openSignUpPage()">
+      <i class="fs-20 fa fa-list-alt" aria-hidden="true"></i>
+      &nbsp; Registrarse
+    </button>
+    <button ion-item (click)="openAyuda()">
+      <ion-icon class="fs-20" name="help-circle"></ion-icon>&nbsp;
+      Ayuda
+    </button>
 
-    </ion-list>
+  </ion-list>
 
-    <ion-list *ngIf="loggedIn">
-        <button ion-item (click)="openFavoritesPage()"><ion-icon class="fs-20" color="azul-claro"  name="heart"></ion-icon >&nbsp;Mis favoritos</button>
-        <button ion-item (click)="openBusquedaPage()"><ion-icon class="fs-20" name="search"></ion-icon >&nbsp; Mis búsquedas</button>
-        <button ion-item (click)="openCreatePage()"> <ion-icon class="fs-20" name="add"></ion-icon>&nbsp;Crear anuncio</button>
-        <button ion-item (click)="openMyServicesPage()"><ion-icon class="fs-20" name="megaphone"></ion-icon>&nbsp;Mis anuncios</button>
-        <button ion-item (click)="openBuzon()"><ion-icon class="fs-20" name="notifications-outline"></ion-icon>&nbsp; Buzón <ion-badge  color="danger">2</ion-badge></button>
-        <button ion-item (click)="openChangePassPage()"><ion-icon class="fs-20" name="settings"></ion-icon>&nbsp; Cambiar contraseña</button>
-        <button ion-item (click)="openAyuda()"><ion-icon class="fs-20" name="help-circle"></ion-icon>&nbsp; Ayuda</button>
-        <button ion-item (click)="logout()"><ion-icon class="fs-20" name="lock"></ion-icon> &nbsp;Cerrar sesión</button>
-    </ion-list>
+  <ion-list *ngIf="loggedIn">
+    <button ion-item (click)="openFavoritesPage()">
+      <ion-icon class="fs-20" color="azul-claro" name="heart"></ion-icon>&nbsp;Mis favoritos
+    </button>
+    <button ion-item (click)="openBusquedaPage()">
+      <ion-icon class="fs-20" name="search"></ion-icon>&nbsp; Mis búsquedas
+    </button>
+    <button ion-item (click)="openCreatePage()">
+      <ion-icon class="fs-20" name="add"></ion-icon>&nbsp;Crear anuncio
+    </button>
+    <button ion-item (click)="openMyServicesPage()">
+      <ion-icon class="fs-20" name="megaphone"></ion-icon>&nbsp;Mis anuncios
+    </button>
+    <button ion-item (click)="openBuzon()">
+      <ion-icon class="fs-20" name="notifications-outline"></ion-icon>&nbsp; Buzón
+      <ion-badge color="danger">2</ion-badge>
+    </button>
+    <button ion-item (click)="openChangePassPage()">
+      <ion-icon class="fs-20" name="settings"></ion-icon>&nbsp; Cambiar contraseña
+    </button>
+    <button ion-item (click)="openAyuda()">
+      <ion-icon class="fs-20" name="help-circle"></ion-icon>&nbsp; Ayuda
+    </button>
+    <button ion-item (click)="logout()">
+      <ion-icon class="fs-20" name="lock"></ion-icon> &nbsp;Cerrar sesión
+    </button>
+  </ion-list>
 </ng-template>

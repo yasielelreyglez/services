@@ -22,9 +22,9 @@
             <ion-icon class="fs-35" name="time" color="azul-claro"></ion-icon>
           </ion-col>
           <ion-col col-11>
-            <ion-label class="fs-15 info-label" text-wrap color="azul-claro">{{service.phone}} <span
+            <ion-label  class="fs-15 info-label" text-wrap color="azul-claro"><a (click)="Llamar(service.phone)">{{service.phone}}</a> <span
               *ngIf="service.other_phone">|</span>
-              {{service.other_phone}}
+              <a (click)="Llamar(service.other_phone)">{{service.other_phone}}</a>
             </ion-label>
           </ion-col>
         </ion-row>

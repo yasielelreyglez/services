@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavParams} from "ionic-angular";
 import {getHorarios} from "../../models/sendService";
+import {CallNumber} from "@ionic-native/call-number";
+import {ApiProvider} from "../../providers/api/api";
 
 
 /**
@@ -30,7 +32,7 @@ export class InfoPage {
    6:"Dom",
   };
 
-  constructor(public navParams: NavParams) {
+  constructor(public navParams: NavParams, private callNumber: CallNumber,public api: ApiProvider) {
   }
 
   ionViewDidLoad() {
@@ -41,6 +43,13 @@ export class InfoPage {
       let str_to_array = element.week_days.split(',');
       this.timesList.push({start_time:element.start_time,end_time:element.end_time,week_days:str_to_array})
     }
+  }
+  Llamar(number){
+    this.callNumber.callNumber(number, true)
+      .then(() => {
+        this.api.contactservice(this.service.id);
+      })
+      .catch(() => console.log('Error launching dialer'));
   }
 
 }
