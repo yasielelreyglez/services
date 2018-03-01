@@ -9,6 +9,7 @@ import { Create1Page } from "../create1/create1";
 import { ModalDenunciaPage } from '../modal-denuncia/modal-denuncia';
 import { ChangePassPage } from '../change-pass/change-pass';
 import {AyudaPage} from "../ayuda/ayuda";
+import {BuzonPage} from "../buzon/buzon";
 
 
 
@@ -67,6 +68,11 @@ export class PopoverPage implements OnInit {
     this.close();
     this.appCtrl.getActiveNavs()[0].push("AyudaPage");
   }
+  openBuzon(){
+    this.close();
+    this.appCtrl.getActiveNavs()[0].push("BuzonPage");
+  }
+
   openFavoritesPage(){
     this.close();
     this.appCtrl.getActiveNavs()[0].push(FavoritesPage);
