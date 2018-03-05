@@ -1,48 +1,4 @@
-<!--<div class="col-12">-->
-<!--<h4 class="text-center tc-blue">Lista de servicios</h4>-->
-<!--<hr class="bc-grei">-->
-<!--<form [formGroup]="filterForm" name="form" (ngSubmit)="filterForm.valid && filter()">-->
-<!--<div class="row">-->
-
-<!--<mat-form-field class="col-12">-->
-<!--<mat-select placeholder="Ciudades" [(ngModel)]="model.cities"-->
-<!--name="cities" [formControl]="filterForm.controls['cities']">-->
-<!--<mat-option *ngFor="let city of cities" [value]="city.id">-->
-<!--{{ city.title }}-->
-<!--</mat-option>-->
-<!--</mat-select>-->
-<!--</mat-form-field>-->
-
-<!--<mat-form-field class="col-12">-->
-<!--<mat-select placeholder="Subcategorias" [(ngModel)]="model.subcategory"-->
-<!--name="subcategories" [formControl]="filterForm.controls['subcategory']">-->
-<!--<mat-option *ngFor="let subcategory of subcategories" [value]="subcategory.id">-->
-<!--{{ subcategory.title }}-->
-<!--</mat-option>-->
-<!--</mat-select>-->
-<!--</mat-form-field>-->
-
-<!--<mat-form-field class="col-12">-->
-<!--<input matInput placeholder="Distancia (km)" name="distance1" [(ngModel)]="model.distance" type="number"-->
-<!--[formControl]="filterForm.controls['distance']"-->
-<!--min="1">-->
-<!--<mat-error *ngIf="filterForm.controls['distance'].invalid">{{getErrorMessage()}}</mat-error>-->
-<!--</mat-form-field>-->
-
-<!--<div class="form-group text-center col-12">-->
-<!--<button mat-raised-button color="primary" class="tc-white col-12" [disabled]="filterForm.invalid">-->
-<!--Filtrar-->
-<!--</button>-->
-<!--</div>-->
-<!--</div>-->
-<!--</form>-->
-<!--<br>-->
-
-<!--<app-services [services]=services></app-services>-->
-<!--</div>-->
-
-
-<div class="main-content content-business has-bg-image" data-bg-color="f5f5f5">
+<div class="main-content content-business has-bg-image" data-bg-color="f5f5f5" style="background-color: #f5f5f5;">
     <div class="container">
         <div class="row">
             <div class="col-md-3">
@@ -66,8 +22,8 @@
                         <h6>Subcategorias:</h6>
                         <ul>
                             <!--<li *ngIf="listSubcategories?.length > 0">-->
-                                <!--<input type="checkbox" [checked]="allSub" (change)="changeAllSub()">-->
-                                <!--<span class="title" style="max-width: 70%;">{{allSub ? 'Desmarcar todas' : 'Marcar todas'}}</span>-->
+                            <!--<input type="checkbox" [checked]="allSub" (change)="changeAllSub()">-->
+                            <!--<span class="title" style="max-width: 70%;">{{allSub ? 'Desmarcar todas' : 'Marcar todas'}}</span>-->
                             <!--</li>-->
                             <li *ngFor="let subcategory of listSubcategories">
                                 <input class="subcategories" type="checkbox" id="{{subcategory.id}}">
@@ -80,8 +36,8 @@
                         <h6>Ciudades:</h6>
                         <ul>
                             <!--<li *ngIf="cities?.length > 0">-->
-                                <!--<input type="checkbox" [checked]="allCit" (change)="changeAllCit()">-->
-                                <!--<span class="title" style="max-width: 70%;">{{allCit ? 'Desmarcar todas' : 'Marcar todas'}}</span>-->
+                            <!--<input type="checkbox" [checked]="allCit" (change)="changeAllCit()">-->
+                            <!--<span class="title" style="max-width: 70%;">{{allCit ? 'Desmarcar todas' : 'Marcar todas'}}</span>-->
                             <!--</li>-->
                             <li *ngFor="let city of cities">
                                 <input type="checkbox" class="cities" id="{{city.id}}">
@@ -93,12 +49,12 @@
                     <div class="sidebar-scrollbars">
                         <h6>Distancia:</h6>
                         <!--<div class="slider-range-container">-->
-                            <!--<div class="slider-range" data-min="1" data-max="50" data-step="1" data-default-min="1"-->
-                                 <!--data-default-max="50" data-currency="&nbsp;"></div>-->
-                            <!--<div class="clearfix">-->
-                                <!--<input type="text" class="range-from" value="1">-->
-                                <!--<input type="text" class="range-to" value="50">-->
-                            <!--</div>-->
+                        <!--<div class="slider-range" data-min="1" data-max="50" data-step="1" data-default-min="1"-->
+                        <!--data-default-max="50" data-currency="&nbsp;"></div>-->
+                        <!--<div class="clearfix">-->
+                        <!--<input type="text" class="range-from" value="1">-->
+                        <!--<input type="text" class="range-to" value="50">-->
+                        <!--</div>-->
                         <!--</div>-->
                         <div class="field custom-select-box">
                             <select id="distance" name="distance" class="custom-select">

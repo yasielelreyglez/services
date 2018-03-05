@@ -1020,12 +1020,13 @@ class Api extends REST_Controller
         $service->setOtherPhone($this->post('other_phone', TRUE));
         $service->setEmail($this->post('email', TRUE));
         $service->setUrl($this->post('url', TRUE));
-        $times_old = $service->getTimes()->toArray();
+        $times_old = $service->getTimes();
+		if($times_old){
         if (is_array($times_old)){
             foreach ($times_old as $old_time) {
                 $em->remove($old_time);
             }
-        }
+        }}
         $times = $this->post('times', TRUE);
        if(is_array($times)) {
            $service->addTimes($times);

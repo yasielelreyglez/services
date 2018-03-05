@@ -9,6 +9,5 @@ import 'hammerjs';
 if (environment.production) {
   enableProdMode();
 }
-var basepath = 'login/';
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.log(err));

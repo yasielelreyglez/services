@@ -1,124 +1,102 @@
-<!--<div class="col-12">-->
-<!--<form name="form" (ngSubmit)="f.form.valid && searchQuery()" #f="ngForm">-->
-<!--<mat-form-field class="text-center">-->
-<!--<input matInput placeholder="¿Que buscas?" name="query" [(ngModel)]="query">-->
-<!--</mat-form-field>-->
-<!--</form>-->
-<!--<p id="yasiel"></p>-->
-<!--<br>-->
-<!--<div class="mb-20">-->
-<!--<h5 class="text-center tc-blue">Principales Tendencias</h5>-->
-<!--</div>-->
-
-<!--<app-subcategories [subcategories]=subcategories></app-subcategories>-->
-
-<!--<div class="text-center">-->
-<!--<button mat-raised-button color="primary" class="tc-white" routerLink="/categories">-->
-<!--<mat-icon>search</mat-icon>-->
-<!--Buscar por categoría-->
-<!--</button>-->
-<!--</div>-->
-<!--<br><br>-->
-<!--</div>-->
-
-<div class="homepage-banner has-bg-image" data-bg-image="../../assets/img/homepage-banner.jpg">
+<div class="homepage-banner has-bg-image" data-bg-image="../../assets/img/homepage-banner.jpg"
+     style="background-image: url('../../assets/img/homepage-banner.jpg')">
     <div class="advanced-search">
         <div class="close">
             <i class="fa fa-close"></i>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="search-category">
-                        <div class="row">
-                            <div class="col-md-3 col-sm-3">
-                                <label>Cost</label>
-                            </div>
-                            <div class="col-md-9 col-sm-9 col-sm-9">
-                                <div class="slider-range-container">
-                                    <div class="slider-range" data-min="1" data-max="10000" data-step="2"
-                                         data-default-min="500" data-default-max="8000" data-currency="$"></div>
-                                    <div class="clearfix">
-                                        <input type="text" class="range-from" value="1">
-                                        <input type="text" class="range-to" value="60">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="search-category">
-                        <div class="row">
-                            <div class="col-md-3 col-sm-3">
-                                <label>Rating</label>
-                            </div>
-                            <div class="col-md-9 col-sm-9">
-                                <div class="slider-range-container">
-                                    <div class="slider-range" data-min="1" data-max="6" data-step="1"
-                                         data-default-min="1" data-default-max="6" data-currency=" &nbsp; "></div>
-                                    <div class="clearfix">
-                                        <input type="text" class="range-from" value="1">
-                                        <input type="text" class="range-to" value="6">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="search-category">
-                        <div class="row">
-                            <div class="col-md-3 col-sm-3">
-                                <label>Days published</label>
-                            </div>
-                            <div class="col-md-9 col-sm-9">
-                                <div class="slider-range-container">
-                                    <div class="slider-range" data-min="1" data-max="30" data-step="1"
-                                         data-default-min="4" data-default-max="10" data-currency=" &nbsp; "></div>
-                                    <div class="clearfix">
-                                        <input type="text" class="range-from" value="2">
-                                        <input type="text" class="range-to" value="30">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="search-category">
-                        <div class="row">
-                            <div class="col-md-3 col-sm-3">
-                                <label>Location</label>
-                            </div>
-                            <div class="col-md-9 col-sm-9">
-                                <input type="text" placeholder="Switzerland">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="search-category">
-                        <div class="row">
-                            <div class="col-md-3 col-sm-3">
-                                <label>Keywords</label>
-                            </div>
-                            <div class="col-md-9 col-sm-9">
-                                <input type="text" placeholder="Freelance">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="search-category">
-                        <div class="row">
-                            <div class="col-md-3 col-sm-3">
-                                <label>Industry</label>
-                            </div>
-                            <div class="col-md-9 col-sm-9">
-                                <div class="custom-select-box">
-                                    <select name="industry" class="custom-select">
-                                        <option value="0">IT</option>
-                                        <option value="1">Hobby</option>
-                                        <option value="2">Sport</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!--<div class="container">-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+        <!--<div class="search-category">-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-3 col-sm-3">-->
+        <!--<label>Cost</label>-->
+        <!--</div>-->
+        <!--<div class="col-md-9 col-sm-9 col-sm-9">-->
+        <!--<div class="slider-range-container">-->
+        <!--<div class="slider-range" data-min="1" data-max="10000" data-step="2"-->
+        <!--data-default-min="500" data-default-max="8000" data-currency="$"></div>-->
+        <!--<div class="clearfix">-->
+        <!--<input type="text" class="range-from" value="1">-->
+        <!--<input type="text" class="range-to" value="60">-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="search-category">-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-3 col-sm-3">-->
+        <!--<label>Rating</label>-->
+        <!--</div>-->
+        <!--<div class="col-md-9 col-sm-9">-->
+        <!--<div class="slider-range-container">-->
+        <!--<div class="slider-range" data-min="1" data-max="6" data-step="1"-->
+        <!--data-default-min="1" data-default-max="6" data-currency=" &nbsp; "></div>-->
+        <!--<div class="clearfix">-->
+        <!--<input type="text" class="range-from" value="1">-->
+        <!--<input type="text" class="range-to" value="6">-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="search-category">-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-3 col-sm-3">-->
+        <!--<label>Days published</label>-->
+        <!--</div>-->
+        <!--<div class="col-md-9 col-sm-9">-->
+        <!--<div class="slider-range-container">-->
+        <!--<div class="slider-range" data-min="1" data-max="30" data-step="1"-->
+        <!--data-default-min="4" data-default-max="10" data-currency=" &nbsp; "></div>-->
+        <!--<div class="clearfix">-->
+        <!--<input type="text" class="range-from" value="2">-->
+        <!--<input type="text" class="range-to" value="30">-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="search-category">-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-3 col-sm-3">-->
+        <!--<label>Location</label>-->
+        <!--</div>-->
+        <!--<div class="col-md-9 col-sm-9">-->
+        <!--<input type="text" placeholder="Switzerland">-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="search-category">-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-3 col-sm-3">-->
+        <!--<label>Keywords</label>-->
+        <!--</div>-->
+        <!--<div class="col-md-9 col-sm-9">-->
+        <!--<input type="text" placeholder="Freelance">-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="search-category">-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-3 col-sm-3">-->
+        <!--<label>Industry</label>-->
+        <!--</div>-->
+        <!--<div class="col-md-9 col-sm-9">-->
+        <!--<div class="custom-select-box">-->
+        <!--<select name="industry" class="custom-select">-->
+        <!--<option value="0">IT</option>-->
+        <!--<option value="1">Hobby</option>-->
+        <!--<option value="2">Sport</option>-->
+        <!--</select>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
     </div>
     <div class="container">
         <div class="row">
@@ -169,7 +147,7 @@
     </div>
 </div>
 
-<div class="listing-objects has-bg-image" data-bg-color="f5f5f5">
+<div class="listing-objects has-bg-image" data-bg-color="f5f5f5" style="background-color: #f5f5f5;">
     <div class="container">
         <div class="row">
             <div class="col-md-9">
@@ -256,7 +234,8 @@
     </div>
 </div>
 
-<div class="about about-section has-bg-image" data-bg-image="../../assets/img/about-bg.jpg">
+<div class="about about-section has-bg-image" data-bg-image="../../assets/img/about-bg.jpg"
+     style="background-image: url('../../assets/img/about-bg.jpg') ">
     <div class="triangle"></div>
     <div class="container">
         <div class="row">
@@ -431,6 +410,7 @@
 </div>
 
 <div class="sponsors sponsors-2 has-bg-image" data-bg-image="../../assets/img/banner-mission.jpg" data-bg-color="00D793"
+     style="background-color: #00D793; background-image: url('../../assets/img/banner-mission.jpg')"
      data-bg-opacity=".20">
     <div class="container">
         <div class="row">
