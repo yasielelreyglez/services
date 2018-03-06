@@ -710,14 +710,28 @@ namespace Entities {
         public function loadRelatedData($user = null,$current=null){
             $this->subcategoriesList = $this->getSubcategories()->toArray();
             $this->servicecommentsList = [];
+
              $temp = $this->getServicecomments()->toArray();
             foreach ($temp as $comment){
-                $comment->getUser()->getUsername();
+                $usuario = $comment->getUser();
+                $usuario->getUsername();
+                $criteria = Criteria::create();
+                $criteria->where(Criteria::expr()->eq('user_id', $usuario));
+                $userservice = $this->serviceusers->matching($criteria);
+
                 if($this->professional){
                     if(!$comment->hided||$user==$this->author){
+                        if(count($userservice)>0) {
+                            $us_obj = $userservice[0];
+                            $comment->rate = $us_obj->getRate();
+                        }
                         $this->servicecommentsList[] = $comment;
                     }
                 }else{
+                    if(count($userservice)>0) {
+                        $us_obj = $userservice[0];
+                        $comment->rate = $us_obj->getRate();
+                    }
                     $this->servicecommentsList[] = $comment;
                 }
             }

@@ -32,11 +32,13 @@ class Comments
      **/
     public $hided;
 
+
     /**
      * Many Features have One Product.
      * @ManyToOne(targetEntity="Service", inversedBy="servicecomments")
      */
     protected $service;
+    public $rate;
 
     /**
      * @Column(type="string")
