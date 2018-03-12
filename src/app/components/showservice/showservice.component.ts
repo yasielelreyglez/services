@@ -72,7 +72,7 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        // window.scrollTo(0, 0);
+        window.scrollTo(0, 0);
 
         this.apiServices.recentVisits().subscribe(result => this.recentvisits = result);
 

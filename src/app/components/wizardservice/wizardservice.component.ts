@@ -1,4 +1,7 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, NgZone, OnInit, ViewChild} from '@angular/core';
+import {
+    AfterContentChecked, AfterViewInit, Component, ElementRef, EventEmitter, NgZone, OnInit,
+    ViewChild
+} from '@angular/core';
 import {ApiService} from '../../_services/api.service';
 import {Service} from '../../_models/service';
 import {City} from '../../_models/city';
@@ -9,8 +12,7 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 import {TimesComponent} from '../_modals/times/times.component';
 
 declare const google;
-
-// declare const $;
+declare const $: any;
 
 @Component({
     selector: 'app-wizardservice',
@@ -201,8 +203,14 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        this.apiServices.cities().subscribe(result => this.cities = result);
-        this.apiServices.allSubCategories().subscribe(result => this.categories = result);
+        this.apiServices.cities().subscribe(result => {
+            this.cities = result;
+            $('#cities').select2();
+        });
+        this.apiServices.allSubCategories().subscribe(result => {
+            this.categories = result;
+            $('#categories').select2();
+        });
         this.createForms();
     }
 
@@ -210,9 +218,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         if (typeof google !== 'undefined') {
             this.initMap();
         }
-        // this.scripts();
     }
-
 
     onChangeTab(event) {
         // if (event.selectedIndex === 3) {
@@ -789,7 +795,9 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
 //             ).rangeslider({
 //                 polyfill: false,
 //                 onInit: function () {
-//                     this.$range.wrap('<div class="uou-rangeslider"></div>').parent().append('<div class="tooltip">' + this.$element.data('unit-before') + '<span></span>' + this.$element.data('unit-after') + '</div>');
+//                     this.$range.wrap('<div class="uou-rangeslider"></div>').parent()
+// .append('<div class="tooltip">' + this.$element.data('unit-before') + '<span></span>' +
+// this.$element.data('unit-after') + '</div>');
 //                 },
 //                 onSlide: function (value, position) {
 //                     const $span = this.$range.parent().find('.tooltip span');
