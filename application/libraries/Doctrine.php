@@ -20,12 +20,14 @@ class Doctrine {
 
         //utilizamos el namespace Proxies para mapear el directorio models/proxies
         $proxiesClassLoader = new ClassLoader('Proxies', APPPATH.'models/proxies');
+
         $proxiesClassLoader->register();
 
         // Configuración y chaché
         $config = new Configuration;
         $cache = new ArrayCache;
         $config->setMetadataCacheImpl($cache);
+
         $driverImpl = $config->newDefaultAnnotationDriver(array(APPPATH.'models/Entities'));
         $config->setMetadataDriverImpl($driverImpl);
         $config->setQueryCacheImpl($cache);
@@ -40,8 +42,8 @@ class Doctrine {
         $logger = new EchoSQLLogger;
         //$config->setSQLLogger($logger);
 
-        $config->setAutoGenerateProxyClasses( TRUE );
-
+//        $config->setAutoGenerateProxyClasses( TRUE );
+        $config->setAutoGenerateProxyClasses(2);
         //configuramos la conexión con la base de datos utilizando las credenciales de nuestra app
         $connectionOptions = array(
             'driver' => 'pdo_mysql',

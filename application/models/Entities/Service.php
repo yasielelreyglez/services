@@ -715,8 +715,8 @@ namespace Entities {
             foreach ($temp as $comment){
                 $usuario = $comment->getUser();
                 $usuario->getUsername();
-                $criteria = Criteria::create();
-                $criteria->where(Criteria::expr()->eq('user_id', $usuario));
+                $criteria =  \Doctrine\Common\Collections\Criteria::create();
+                $criteria->where( \Doctrine\Common\Collections\Criteria::expr()->eq('user', $usuario));
                 $userservice = $this->serviceusers->matching($criteria);
 
                 if($this->professional){

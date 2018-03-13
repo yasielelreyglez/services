@@ -27,7 +27,7 @@ export class PayserviceComponent implements OnInit {
         this.loading = false;
         this.error = '';
         this.type = false;
-        this.previewvalue = '../../../assets/service_img.png';
+        this.previewvalue = '../assets/service_img.png';
         this.model.namepay = '';
         this.model.numberpay = '';
         this.model.caducidadpay = '';
