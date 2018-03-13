@@ -107,11 +107,16 @@ class Pagos extends CI_Controller {
 
     public function aceptar($id){
         $em = $this->doctrine->em;
+
+        /** @var \Entities\Payments $payment */
         $payment = $em->find("\Entities\Payments", $id);
         $paymentsRepo = $em->getRepository('Entities\Payments');
         $service = $payment->getService();
         $service->setProfessional(1);
         $payment->autorizar();
+        $mensaje = $service->notificarPagoAceptado();
+        $em->persist($mensaje);
+
         $em->persist($service);
         $em->persist($payment);
         $em->flush();

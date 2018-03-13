@@ -239,6 +239,33 @@ namespace Entities {
             $this->globalrate = 0;
             $this->ratereviews = 0;
         }
+        //notificaciones
+        /**
+         * @return Mensaje
+         */
+        public function notificarComentario(){
+           return $this->getAuthor()->notificarComentario($this);
+        }
+
+        /**
+         * @return Mensaje
+         */
+        public function notificarDenuncia(){
+            return $this->getAuthor()->notificarDenuncia($this);
+        }
+        /**
+         * @return Mensaje
+         */
+        public function notificarBloqueo(){
+            return $this->getAuthor()->notificarBloqueo($this);
+        }
+        /**
+         * @return Mensaje
+         */
+        public function notificarPagoAceptado(){
+            return $this->getAuthor()->notificarPagoAceptado($this);
+
+        }
 
         public function getId()
         {
@@ -264,7 +291,9 @@ namespace Entities {
         {
             $this->email = $email;
         }
-
+        /**
+        * @return User
+        */
        public function getAuthor()
         {
             return $this->author;
@@ -935,7 +964,9 @@ namespace Entities {
         {
             return $this->ratereviews;
         }
-
+        /**
+         * @return Service
+         */
         function calculateGlobalRate()
         {
 
@@ -1175,5 +1206,7 @@ namespace Entities {
 
         return true;
     }
+
+
 
 }

@@ -320,4 +320,63 @@ class User
         return $this;
     }
 
+    /**
+     * Add $mensaje
+     *
+     * @param \Entities\Mensaje $mensaje
+     *
+     * @return User
+     */
+    public function addMensajeCreado(\Entities\Mensaje $mensaje)
+    {
+        $this->mensajesc[] = $mensaje;
+
+        return $this;
+    }
+
+    /**
+     * @param Service $servicio
+     * @return Mensaje
+     */
+    public function notificarComentario(Service $servicio){
+        return $this->sendMessageTo($this,"Comentario recibido","Se realizo un nuevo comentario sobre su anuncio {$servicio->getTitle()}");
+    }
+
+    /**
+     * @param Service $servicio
+     * @return Mensaje
+     */
+    public function notificarDenuncia(Service $servicio){
+        return $this->sendMessageTo($this,"Denuncia recibida","El anuncio {$servicio->getTitle()} ha sido denunciado");
+    }
+    /**
+     * @param Service $servicio
+     * @return Mensaje
+     */
+    public function notificarBloqueo(Service $servicio){
+        return $this->sendMessageTo($this,"Servicio bloqueado","El anuncio {$servicio->getTitle()} ha sido bloqueado");
+    }
+    /**
+     * @param Service $servicio
+     * @return Mensaje
+     */
+    public function notificarPagoAceptado(Service $servicio){
+        return $this->sendMessageTo($this,"Pago aceptado","El pago sobre el anuncio {$servicio->getTitle()} ha sido aceptado");
+    }
+    /**
+     * @param User $destinatario
+     * @param String $titulo
+     * @param String $cuerpo
+     * @return Mensaje
+     */
+    public function sendMessageTo(User $destinatario,$titulo="title",$cuerpo=""){
+        $mensaje = new Mensaje();
+        $mensaje->author = $this;
+        $mensaje->destinatario = $destinatario;
+        $mensaje->setTitle($titulo);
+        $mensaje->mensaje=$cuerpo;
+        $this->addMensajeCreado($mensaje);
+        return $mensaje;
+    }
+
 }

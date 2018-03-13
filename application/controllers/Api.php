@@ -361,6 +361,8 @@ class Api extends REST_Controller
     {
         $queja = $this->input->get("complaint", true);
         $em = $this->doctrine->em;
+
+        /** @var \Entities\Service $service */
         $service = $em->find("Entities\Service", $id);
         $user = $this->getCurrentUser();
         if ($user) {
@@ -378,9 +380,12 @@ class Api extends REST_Controller
             }
             $obj->setComplaint($queja);
             $obj->setComplaintCreated(new DateTime("now"));
+            $mensaje = $service->notificarDenuncia();
+            $em->persist($mensaje);
             $em->persist($obj);
             $em->flush();
             $service->loadRelatedData();
+
             $result["data"] = $service;
         } else {
             $result["error"] = 'Debe estar autenticado para realizar esta acción';
@@ -389,7 +394,7 @@ class Api extends REST_Controller
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
-    //denunciar un servicio
+    //contactar un servicio
     public function contactservice_get($id)
     {
         $em = $this->doctrine->em;
@@ -549,6 +554,7 @@ class Api extends REST_Controller
     public function rateservice_post($id, $rate)
     {
         $em = $this->doctrine->em;
+        /** @var \Entities\Service $service */
         $service = $em->find("Entities\Service", $id);
 
         if ($service) {
@@ -575,6 +581,8 @@ class Api extends REST_Controller
             $em->persist($obj);
             $em->flush();
             $service = $service->calculateGlobalRate();
+            $autor = $service->getAuthor();
+            $autor->notificarComentario($service);
             $em->persist($obj);
             $em->flush();
             $service->loadRelatedUserData($user);
@@ -1201,6 +1209,17 @@ class Api extends REST_Controller
         }
     }
 
+    function mensajes_get(){
+        $user = $this->getCurrentUser();
+        if ($user) {
+            $em = $this->doctrine->em;
+            $mensajes = $user->getMensajes()->toArray();
+            $result["data"] = $mensajes;
+        } else {
+            $result["error"] = "El usuario debe estar autenticado";
+        }
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
     // FUNCIONES CAMBIOS
     function mensajesNoleidos_get()
     {
