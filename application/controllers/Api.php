@@ -394,6 +394,44 @@ class Api extends REST_Controller
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
+    //denunciar un servicio
+    public function complaint_post($id)
+    {
+        $queja = $this->post("complaint", true);
+        $em = $this->doctrine->em;
+
+        /** @var \Entities\Service $service */
+        $service = $em->find("Entities\Service", $id);
+        $user = $this->getCurrentUser();
+        if ($user) {
+            $criteria = new \Doctrine\Common\Collections\Criteria();
+            //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
+            $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user", \Doctrine\Common\Collections\Expr\Comparison::EQ, $user);
+            $criteria->where($expresion);
+            $relacion = $service->getServiceusers()->matching($criteria)->toArray();
+            if (count($relacion) > 0) {
+                $obj = $relacion[0];
+            } else {
+                $obj = new \Entities\UserService();
+                $obj->setService($service);
+                $obj->setUser($user);
+            }
+            $obj->setComplaint($queja);
+            $obj->setComplaintCreated(new DateTime("now"));
+            $mensaje = $service->notificarDenuncia();
+            $em->persist($mensaje);
+            $em->persist($obj);
+            $em->flush();
+            $service->loadRelatedData();
+
+            $result["data"] = $service;
+        } else {
+            $result["error"] = 'Debe estar autenticado para realizar esta acción';
+        }
+
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
+
     //contactar un servicio
     public function contactservice_get($id)
     {

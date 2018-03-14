@@ -116,7 +116,6 @@ class Pagos extends CI_Controller {
         $payment->autorizar();
         $mensaje = $service->notificarPagoAceptado();
         $em->persist($mensaje);
-
         $em->persist($service);
         $em->persist($payment);
         $em->flush();
