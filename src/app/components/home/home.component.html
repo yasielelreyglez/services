@@ -384,7 +384,8 @@
                                             <li class="mitad" data-tooltip="Ver detalles"
                                                 [routerLink]="['service', service.id]"><a><i class="fa fa-eye"></i></a>
                                             </li>
-                                            <li class="mitad" data-tooltip="Denunciar" (click)="reportDialog(service.id)"><a><i
+                                            <li class="mitad" data-tooltip="Denunciar"
+                                                (click)="loggedIn ? reportDialog(service.id): openSnackBar('Debe iniciar sesión', 2500);"><a><i
                                                     class="fa fa-bullhorn"></i></a></li>
                                         </ul>
                                     </div>

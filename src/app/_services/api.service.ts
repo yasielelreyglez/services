@@ -340,10 +340,11 @@ export class ApiService {
         }
     }
 
-    report(report: any): Observable<any> {
+    reportService(report: any): Observable<any> {
+        console.log('en la api', report);
         const currentUser = localStorage.getItem('currentUser');
         if (currentUser) {
-            return this.http.get(this.getBaseURL() + 'api/complaint/' + report.id + '?complaint=' + report.report, {headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)}).map((response) => {
+            return this.http.post(this.getBaseURL() + 'api/complaint/' + report.id, {complaint: report.complaint}, {headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)}).map((response) => {
                     console.log(response);
                     if (!response['error']) {
                         return true;

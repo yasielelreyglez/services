@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {ReportServiceComponent} from '../_modals/reportservice/reportservice.component';
+import {AuthService} from '../../_services/auth.service';
 
 declare const $;
 declare const google;
@@ -30,8 +31,10 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
     positions: any;
     infoWindow: any;
     markers: any;
+    loggedIn = false;
 
-    constructor(private apiServices: ApiService, private router: Router, public dialog: MatDialog, private snackBar: MatSnackBar) {
+    constructor(private apiServices: ApiService, private router: Router, public dialog: MatDialog, private snackBar: MatSnackBar,
+                private authServices: AuthService) {
         if (typeof google !== 'undefined') {
             this.latLng = new google.maps.LatLng(23.13302, -82.38304);
             this.infoWindow = new google.maps.InfoWindow;
@@ -56,6 +59,10 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
         // document.addEventListener('DOMContentLoaded', function () {
         // // this.scripts();
         // });
+
+        this.authServices.currentUser.subscribe(user => {
+            this.loggedIn = !!user;
+        });
 
         $('#filterDis').select2();
 

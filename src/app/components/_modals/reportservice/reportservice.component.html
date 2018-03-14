@@ -3,10 +3,10 @@
 <div class="modal-body">
     <form (ngSubmit)="rate()">
 
-        <textarea rows="4" name="textcomment" placeholder="Escribe tu comentario aqui" [(ngModel)]="comment"
+        <textarea rows="4" name="textcomplaint" placeholder="Escribe tu comentario aqui" [(ngModel)]="model.complaint"
                   maxlength="250"></textarea>
         <div class="form-group">
-            <input class="btn btn-primary" (click)="rate()" [disabled]="loading || value === 0 || comment?.length === 0"
+            <input class="btn btn-primary" (click)="enviar()" [disabled]="loading || value === 0 || model.complaint?.length === 0"
                    value="Denunciar"
                    type="button">
             <img *ngIf="loading"

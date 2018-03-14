@@ -16,25 +16,22 @@ export class ReportServiceComponent implements OnInit {
     constructor(public dialogRef: MatDialogRef<ReportServiceComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: any,
                 private apiServices: ApiService, private snackBar: MatSnackBar) {
-        this.model = {id: this.data.id};
+        this.model = {};
+        this.model.complaint = '';
+        this.model.id = this.data.id;
         this.loading = false;
     }
 
     ngOnInit() {
-        this.createForm();
-    }
-
-    private createForm() {
-        this.reportForm = new FormGroup({
-            report: new FormControl('', [Validators.required])
-        });
     }
 
     enviar() {
         this.loading = true;
-        this.apiServices.report(this.model).subscribe(result => {
+        this.apiServices.reportService(this.model).subscribe(result => {
+            console.log('respuesta', result);
             if (result === true) {
                 this.dialogRef.close();
+                this.openSnackBar('El servicio a sido denunciado correctamente', 2500);
             } else {
                 this.loading = false;
                 this.openSnackBar(result, 2500);
