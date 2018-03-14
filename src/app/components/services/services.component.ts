@@ -29,6 +29,8 @@ export class ServicesComponent implements OnInit, AfterViewInit, AfterViewChecke
     }
 
     ngOnInit() {
+        window.scrollTo(0, 0);
+
         this.authServices.currentUser.subscribe(user => {
             this.loggedIn = !!user;
         });

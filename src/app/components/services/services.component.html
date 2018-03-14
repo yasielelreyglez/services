@@ -55,10 +55,10 @@
                         </li>
                     </ul> <!-- end .uou-accordions -->
                     <div class="info-footer">
-                        <!--<i class="fa fa-map-marker location"></i>-->
-                        <!--<h6>{{service.subcategoriesList[0].title}}</h6>-->
-                        <a *ngIf="!myservices" [routerLink]="['service', service.id]">Ver detalles</a>
-                        <!--<i *ngIf="service.professional" class="fa fa-bookmark bookmark pull-right"></i>-->
+                        <ul *ngIf="!myservices" class="bookmark list-inline">
+                            <li class="mitad" data-tooltip="Ver detalles" [routerLink]="['service', service.id]"><a><i class="fa fa-eye"></i></a></li>
+                            <li class="mitad" data-tooltip="Editar" [routerLink]="'./' + service.id + '/edit'"><a><i class="fa fa-pencil-square-o"></i></a></li>
+                        </ul>
                         <ul *ngIf="myservices" class="bookmark list-inline">
                             <li data-tooltip="Ver detalles" [routerLink]="['service', service.id]"><a><i class="fa fa-eye"></i></a></li>
                             <li data-tooltip="Editar" [routerLink]="'./' + service.id + '/edit'"><a><i class="fa fa-pencil-square-o"></i></a></li>

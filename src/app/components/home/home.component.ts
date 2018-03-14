@@ -40,6 +40,8 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
     }
 
     ngOnInit() {
+        window.scrollTo(0, 0);
+
         this.apiServices.moreVisits().subscribe(result => this.morevisits = result);
         this.apiServices.recentVisits().subscribe(result => this.recentvisits = result);
         this.apiServices.categoriesLoaded().subscribe(result => this.categories = result);
@@ -67,6 +69,7 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
     }
 
     ngAfterContentChecked(): void {
+
         if ($.fn.uouAccordions) {
             $('.uou-accordions').uouAccordions();
         } else {

@@ -165,22 +165,6 @@
                                     <br>
                                     <div #map id="map-top" style="width: 100%; height: 531px; margin-bottom: 0;"></div>
                                 </div>
-                                <!--<div class="col-md-4">-->
-                                <!--<ul class="locations-list list-unstyled mb0">-->
-                                <!--<li><a href="#"><i class="fa fa-angle-right"></i>Australia & New Zeland <span-->
-                                <!--class="count">(5)</span></a></li>-->
-                                <!--<li><a href="#"><i class="fa fa-angle-right"></i>Northern America <span-->
-                                <!--class="count">(5)</span></a></li>-->
-                                <!--</ul>-->
-                                <!--</div>-->
-                                <!--<div class="col-md-4">-->
-                                <!--<ul class="locations-list list-unstyled mb0">-->
-                                <!--<li><a href="#"><i class="fa fa-angle-right"></i>Southern Asia <span-->
-                                <!--class="count">(5)</span></a></li>-->
-                                <!--<li><a href="#"><i class="fa fa-angle-right"></i>Southern Europe <span-->
-                                <!--class="count">(5)</span></a></li>-->
-                                <!--</ul>-->
-                                <!--</div>-->
                             </div>
                         </div>
 
@@ -190,8 +174,9 @@
                                     <h5 class="industry-title">{{category.title}}</h5>
                                     <ul class="industry-list list-unstyled mb0">
                                         <li *ngFor="let subcategory of category.subcategoriesLists">
-                                            <a href="">{{subcategory.title}} <span
-                                                    class="count">({{subcategory.count}})</span></a>
+                                            <a [routerLink]="'categories/' + category.id + '/subcategories/' + subcategory.id">{{subcategory.title}}
+                                                <span
+                                                        class="count">({{subcategory.count}})</span></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -394,7 +379,15 @@
                                         <!--<i class="fa fa-map-marker location"></i>-->
                                         <!--<h6>{{service.subcategoriesList[0].title}}</h6>-->
                                         <!--<i *ngIf="service.professional" class="fa fa-bookmark bookmark pull-right"></i>-->
-                                        <a [routerLink]="['service', service.id]">Ver detalles</a>
+                                        <!--<a [routerLink]="['service', service.id]">Ver detalles</a>-->
+                                        <ul class="bookmark list-inline">
+                                            <li class="mitad" data-tooltip="Ver detalles"
+                                                [routerLink]="['service', service.id]"><a><i class="fa fa-eye"></i></a>
+                                            </li>
+                                            <li class="mitad" data-tooltip="Editar"
+                                                [routerLink]="'./' + service.id + '/edit'"><a><i
+                                                    class="fa fa-pencil-square-o"></i></a></li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>

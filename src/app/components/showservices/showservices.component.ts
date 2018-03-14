@@ -14,7 +14,7 @@ declare const $;
     templateUrl: './showservices.component.html',
     styleUrls: ['./showservices.component.css']
 })
-export class ShowservicesComponent implements OnInit, AfterViewInit, AfterViewChecked, AfterContentInit {
+export class ShowservicesComponent implements OnInit, AfterViewInit, AfterViewChecked, AfterContentInit, AfterContentChecked {
     services: any;
     cities: City[];
     subcategories: any;
@@ -47,7 +47,13 @@ export class ShowservicesComponent implements OnInit, AfterViewInit, AfterViewCh
         this.flagDis = false;
     }
 
+
+    ngAfterContentChecked(): void {
+    }
+
     ngOnInit() {
+        window.scrollTo(0, 0);
+
         $('#distance').select2();
 
         this.route.params.subscribe((params: Params) => {

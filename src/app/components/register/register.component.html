@@ -54,7 +54,7 @@
                                 <!--</mat-error>-->
 
                                 <div class="form-group">
-                                    <input color="primary" class="btn btn-primary"
+                                    <input color="primary" class="btn btn-primary" (click)="register()"
                                            [disabled]="loading || registerForm.invalid" value="Registrarse">
 
                                     <img *ngIf="loading"

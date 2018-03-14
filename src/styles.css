@@ -53,6 +53,10 @@
     display: inline-block;
 }
 
+.listing.listing-3 .listing-grid-4 .info-footer .bookmark li.mitad, .listing.listing-3 .listing-grid-3 .info-footer .bookmark li.mitad{
+    width: 50%;
+}
+
 @media (max-width: 1200px) {
     .content-business .sidebar .sidebar-subcategories ul li .title {
         font-size: 11px;

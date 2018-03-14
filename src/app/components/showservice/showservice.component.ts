@@ -1,4 +1,7 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {
+    AfterContentChecked, AfterContentInit, AfterViewInit, Component, ElementRef, OnInit,
+    ViewChild
+} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../../_services/api.service';
 import {RatingComponent} from '../_modals/rating/rating.component';
@@ -16,7 +19,7 @@ declare const $: any;
     styleUrls: ['./showservice.component.css']
 })
 
-export class ShowserviceComponent implements OnInit, AfterViewInit {
+export class ShowserviceComponent implements OnInit, AfterViewInit, AfterContentChecked, AfterContentInit {
     service: any;
     images: any[] = [];
     days: string[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
@@ -107,8 +110,14 @@ export class ShowserviceComponent implements OnInit, AfterViewInit {
         });
     }
 
+    ngAfterContentChecked(): void {
+    }
+
     ngAfterViewInit() {
         // this.scripts();
+    }
+
+    ngAfterContentInit(): void {
     }
 
 //     scripts() {
