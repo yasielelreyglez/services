@@ -384,9 +384,8 @@
                                             <li class="mitad" data-tooltip="Ver detalles"
                                                 [routerLink]="['service', service.id]"><a><i class="fa fa-eye"></i></a>
                                             </li>
-                                            <li class="mitad" data-tooltip="Editar"
-                                                [routerLink]="'./' + service.id + '/edit'"><a><i
-                                                    class="fa fa-pencil-square-o"></i></a></li>
+                                            <li class="mitad" data-tooltip="Denunciar" (click)="reportDialog(service.id)"><a><i
+                                                    class="fa fa-bullhorn"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>

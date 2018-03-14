@@ -5,6 +5,8 @@ import {
 import {ApiService} from '../../_services/api.service';
 import {Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
+import {MatDialog, MatSnackBar} from '@angular/material';
+import {ReportServiceComponent} from '../_modals/reportservice/reportservice.component';
 
 declare const $;
 declare const google;
@@ -15,8 +17,6 @@ declare const google;
     styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, AfterContentChecked, AfterContentInit {
-
-
     morevisits: any;
     recentvisits: any;
     categories: any;
@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
     infoWindow: any;
     markers: any;
 
-    constructor(private apiServices: ApiService, private router: Router) {
+    constructor(private apiServices: ApiService, private router: Router, public dialog: MatDialog, private snackBar: MatSnackBar) {
         if (typeof google !== 'undefined') {
             this.latLng = new google.maps.LatLng(23.13302, -82.38304);
             this.infoWindow = new google.maps.InfoWindow;
@@ -91,6 +91,29 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
             items: 6
         });
 
+    }
+
+    reportDialog(id: number): void {
+        const dialogRef = this.dialog.open(ReportServiceComponent, {
+            width: '60%',
+            height: '360px',
+            data: {id: id}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                // this.service = result;
+                this.openSnackBar('El servicio ha sido evaluado satisfactoriamente', 2500);
+                this.apiServices.recentVisits().subscribe(response => this.recentvisits = response);
+            }
+        });
+    }
+
+    openSnackBar(message: string, duration: number, action ?: string) {
+        this.snackBar.open(message, action, {
+            duration: duration,
+            horizontalPosition: 'center',
+        });
     }
 
     ngAfterContentInit(): void {
@@ -515,7 +538,9 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
 //             ).rangeslider({
 //                 polyfill: false,
 //                 onInit: function () {
-//                     this.$range.wrap('<div class="uou-rangeslider"></div>').parent().append('<div class="tooltip">' + this.$element.data('unit-before') + '<span></span>' + this.$element.data('unit-after') + '</div>');
+//                     this.$range.wrap('<div class="uou-rangeslider"></div>').parent()
+// .append('<div class="tooltip">' + this.$element.data('unit-before') + '<span></span>' +
+// this.$element.data('unit-after') + '</div>');
 //                 },
 //                 onSlide: function (value, position) {
 //                     const $span = this.$range.parent().find('.tooltip span');
