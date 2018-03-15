@@ -9,7 +9,7 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 import {ReportServiceComponent} from '../_modals/reportservice/reportservice.component';
 import {AuthService} from '../../_services/auth.service';
 
-declare const $;
+declare const $: any;
 declare const google;
 
 @Component({

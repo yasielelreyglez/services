@@ -32,7 +32,7 @@ export class ReportComponent implements OnInit {
 
     enviar() {
         this.loading = true;
-        this.apiServices.report(this.model).subscribe(result => {
+        this.apiServices.reportComment(this.model).subscribe(result => {
             if (result === true) {
                 this.dialogRef.close();
             } else {

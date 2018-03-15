@@ -1,23 +1,25 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, OnInit, Inject, AfterContentChecked} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from '@angular/material';
 
+declare const $: any;
 
 @Component({
     selector: 'app-times',
     templateUrl: './times.component.html',
     styleUrls: ['./times.component.css']
 })
-export class TimesComponent implements OnInit {
+export class TimesComponent implements OnInit, AfterContentChecked {
     week_days: any;
     week_daysValue: any;
     start_time: any;
     end_time: any;
     previewsTimes: any;
+    days: string[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
     constructor(public dialogRef: MatDialogRef<TimesComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: any, private snackBar: MatSnackBar) {
         this.week_daysValue = [false, false, false, false, false, false, false];
-        this.previewsTimes = new Array();
+        this.previewsTimes = this.data.timesList;
         this.week_days = [
             {title: 'Lunes'},
             {title: 'Martes'},
@@ -34,6 +36,9 @@ export class TimesComponent implements OnInit {
     ngOnInit() {
     }
 
+    ngAfterContentChecked(): void {
+    }
+
     onNoClick(): void {
         this.dialogRef.close();
     }
@@ -43,6 +48,10 @@ export class TimesComponent implements OnInit {
             duration: duration,
             horizontalPosition: 'center',
         });
+    }
+
+    deleteTime(pos: number) {
+        this.previewsTimes.splice(pos, 1);
     }
 
     addTime() {
@@ -60,6 +69,20 @@ export class TimesComponent implements OnInit {
 
     done() {
         this.dialogRef.close(this.previewsTimes);
+    }
+
+    result_week_days(weekdays: string) {
+        if (weekdays !== '') {
+            const days = weekdays.split(',');
+            let result = '';
+            for (const day of days) {
+                result += this.days[day] + ', ';
+            }
+            return result.substring(0, (result.length - 2));
+        }
+        else {
+            return '';
+        }
     }
 
 
