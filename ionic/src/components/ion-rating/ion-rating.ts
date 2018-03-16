@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'ion-rating',
@@ -7,26 +7,28 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class IonRating {
 
   @Input() numStars: number = 10;
-  @Input() pcolor: string =  "favorite_on";
-	@Input() readOnly: boolean = true;
-	@Input() value: number = 0;
+  @Input() pcolor: string = "favorite_on";
+  @Input() readOnly: boolean = true;
+  @Input() value: number = 0;
+  @Input() fsize: string = "fs-25";
 
-	@Output() clicked: EventEmitter<number> = new EventEmitter<number>();
- color :string;
-	stars: string[] = [];
+  @Output() clicked: EventEmitter<number> = new EventEmitter<number>();
+  color: string;
+  stars: string[] = [];
 
-  constructor() {}
+  constructor() {
+  }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.calc();
   }
 
-  calc(){
+  calc() {
     setTimeout(() => {
       this.stars = [];
       let tmp = this.value;
-      for(let i=0; i < this.numStars; i++, tmp--)
-        if(tmp >= 1)
+      for (let i = 0; i < this.numStars; i++, tmp--)
+        if (tmp >= 1)
           this.stars.push("star");
         else if (tmp < 1 && tmp > 0)
           this.stars.push("star-half");
@@ -35,11 +37,11 @@ export class IonRating {
     }, 0);
   }
 
-  starClicked(index){
-  	if(!this.readOnly) {
-		  this.value = index + 1;
-		  this.calc();
-		  this.clicked.emit(this.value);
-	  }
+  starClicked(index) {
+    if (!this.readOnly) {
+      this.value = index + 1;
+      this.calc();
+      this.clicked.emit(this.value);
+    }
   }
 }

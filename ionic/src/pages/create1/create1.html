@@ -40,7 +40,11 @@
     </ion-item>
     <ion-item>
       <ion-label stacked>slogan <span class="requerido"><sup>*</sup></span></ion-label>
-      <ion-input name="subtitle" [(ngModel)]="service.subtitle" placeholder="slogan..." required></ion-input>
+      <ion-input name="subtitle" maxlength="50"  [(ngModel)]="service.subtitle" placeholder="slogan..." required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Descripción <span class="requerido"><sup>*</sup></span></ion-label>
+      <ion-textarea row="5" name="subtitle" maxlength="200"  [(ngModel)]="service.description" placeholder="Descripción..." required></ion-textarea>
     </ion-item>
     <ion-item>
       <ion-label stacked>Dirección <span class="requerido"><sup>*</sup></span></ion-label>

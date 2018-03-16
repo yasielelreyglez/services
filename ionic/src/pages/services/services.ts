@@ -24,7 +24,7 @@ import {FiltroModalPage} from '../filtro-modal/filtro-modal';
   templateUrl: "services.html"
 })
 export class ServicesPage {
-  filtro: boolean;
+  filtro: boolean = false;
   catOptions: { title: string };
   citiestOptions: { title: string };
   cities: any;
@@ -169,7 +169,6 @@ export class ServicesPage {
       service: this.services[index], //paso el service
       serviceId: id,  //si paso el id del servicio para la peticion
       parentPage: this
-
     });
   }
 
@@ -218,6 +217,7 @@ export class ServicesPage {
         this.deleteFilter();
       }
       if (data.filter_category != undefined || data.filter_city != undefined || data.filter_distance != undefined) {
+        this.filtro = true;
         let loading = this.load.create({
           content: "Cargando..."
         });
