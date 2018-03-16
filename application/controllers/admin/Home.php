@@ -25,6 +25,14 @@ class Home extends CI_Controller {
         if (!$this->ion_auth->logged_in()){
             $data["showlogin"]=true;
         }
+        $em = $this->doctrine->em;
+        $morevisitsRepo = $em->getRepository('Entities\Service');
+        $morevisits = $morevisitsRepo->findBy(array(), array('visit_at' => 'DESC'), 4);
+
+        foreach ($morevisits as $service) {
+            $service->loadRelatedData();
+        }
+        $data['morevisits'] = $morevisits;
 		$this->load->view('/includes/backend', $data);
 	}
 
