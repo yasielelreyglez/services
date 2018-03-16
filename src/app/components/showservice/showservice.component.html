@@ -152,30 +152,33 @@
                             <div id="hours" class="tab-pane fade in hours">
                                 <div class="listing-inner">
                                     <div class="listing-content">
-                                        <h6 class="main-title">Opening Hours</h6>
+                                        <h6 class="main-title">Horario</h6>
                                         <div class="row">
-                                            <div class="col-md-5">
-                                                <ul class="schedule">
-                                                    <li><span class="day">Monday</span> <span class="hours">10:00 AM - 7:00 PM</span>
-                                                    </li>
-                                                    <li><span class="day">Tuesday</span> <span class="hours">10:00 AM - 7:00 PM</span>
-                                                    </li>
-                                                    <li><span class="day">Wednesday</span> <span class="hours">10:00 AM - 7:00 PM</span>
-                                                    </li>
-                                                    <li class="sunday"><span class="day">Sunday</span> <span
-                                                            class="hours">Closed</span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <ul class="schedule">
-                                                    <li><span class="day">Thursday</span><span class="hours">10:00 AM - 7:00 PM</span>
-                                                    </li>
-                                                    <li><span class="day">Friday</span><span class="hours">10:00 AM - 7:00 PM</span>
-                                                    </li>
-                                                    <li><span class="day">Saturday</span><span class="hours">10:00 AM - 7:00 PM</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                            <ul class="schedule" *ngFor="let time of service.timesList">
+                                                <li><span class="" [innerHTML]="result_week_days(time.week_days)"></span><span class="hours">{{time.start_time}} AM - {{time.end_time}} PM</span></li>
+                                            </ul>
+                                            <!--<div class="col-md-5">-->
+                                            <!--<ul class="schedule">-->
+                                            <!--<li><span class="day">Monday</span> <span class="hours">10:00 AM - 7:00 PM</span>-->
+                                            <!--</li>-->
+                                            <!--<li><span class="day">Tuesday</span> <span class="hours">10:00 AM - 7:00 PM</span>-->
+                                            <!--</li>-->
+                                            <!--<li><span class="day">Wednesday</span> <span class="hours">10:00 AM - 7:00 PM</span>-->
+                                            <!--</li>-->
+                                            <!--<li class="sunday"><span class="day">Sunday</span> <span-->
+                                            <!--class="hours">Closed</span></li>-->
+                                            <!--</ul>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-5">-->
+                                            <!--<ul class="schedule">-->
+                                            <!--<li><span class="day">Thursday</span><span class="hours">10:00 AM - 7:00 PM</span>-->
+                                            <!--</li>-->
+                                            <!--<li><span class="day">Friday</span><span class="hours">10:00 AM - 7:00 PM</span>-->
+                                            <!--</li>-->
+                                            <!--<li><span class="day">Saturday</span><span class="hours">10:00 AM - 7:00 PM</span>-->
+                                            <!--</li>-->
+                                            <!--</ul>-->
+                                            <!--</div>-->
                                         </div>
                                     </div>
                                 </div>
@@ -248,30 +251,30 @@
                 </div>
 
                 <!--<div class="advertiser-info">-->
-                    <!--<div class="advertiser-header">-->
-                        <!--<h5>Insertar comentario</h5>-->
-                    <!--</div>-->
-                    <!--<div class="advertiser-inner">-->
-                        <!--<div class="row">-->
-                            <!--<form *ngIf="loggedIn" [formGroup]="commentForm"-->
-                                  <!--(ngSubmit)="commentForm.valid && sendComment()">-->
-                                <!--<span *ngIf="commentForm.controls['textcomment'].invalid" class="tc-red">-->
-                                    <!--{{getErrorMessage()}}-->
-                                <!--</span>-->
-                                <!--<textarea rows="4" name="textcomment" placeholder="Escribe tu comentario" #textcomment-->
-                                          <!--[formControl]="commentForm.controls['textcomment']"-->
-                                          <!--[(ngModel)]="model.textcomment"></textarea>-->
+                <!--<div class="advertiser-header">-->
+                <!--<h5>Insertar comentario</h5>-->
+                <!--</div>-->
+                <!--<div class="advertiser-inner">-->
+                <!--<div class="row">-->
+                <!--<form *ngIf="loggedIn" [formGroup]="commentForm"-->
+                <!--(ngSubmit)="commentForm.valid && sendComment()">-->
+                <!--<span *ngIf="commentForm.controls['textcomment'].invalid" class="tc-red">-->
+                <!--{{getErrorMessage()}}-->
+                <!--</span>-->
+                <!--<textarea rows="4" name="textcomment" placeholder="Escribe tu comentario" #textcomment-->
+                <!--[formControl]="commentForm.controls['textcomment']"-->
+                <!--[(ngModel)]="model.textcomment"></textarea>-->
 
-                                <!--<div class="form-group">-->
-                                    <!--<input class="btn btn-primary" [disabled]="loading || !submitAttempt" value="Enviar"-->
-                                           <!--type="submit">-->
-                                    <!--<img *ngIf="loading"-->
-                                         <!--src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="-->
-                                    <!--/>-->
-                                <!--</div>-->
-                            <!--</form>-->
-                        <!--</div>-->
-                    <!--</div>-->
+                <!--<div class="form-group">-->
+                <!--<input class="btn btn-primary" [disabled]="loading || !submitAttempt" value="Enviar"-->
+                <!--type="submit">-->
+                <!--<img *ngIf="loading"-->
+                <!--src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="-->
+                <!--/>-->
+                <!--</div>-->
+                <!--</form>-->
+                <!--</div>-->
+                <!--</div>-->
                 <!--</div>-->
             </div>
             <div class="col-md-3">

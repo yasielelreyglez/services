@@ -289,6 +289,11 @@
     display: block !important;
 }
 
+.mat-position h6 {
+    margin-top: -2px;
+    margin-bottom: 5px;
+}
+
 .mat-categories img {
     width: 110px;
     padding-bottom: 5px;
