@@ -85,22 +85,7 @@ $('.custom-select').select2();
             title:title
         });
     }
-    if (typeof google !== 'undefined') {
-      console.log(google);
-        // the variable is defined
-        var map = $("#map-top").gmap3({
-            center: [48.8620722, 2.352047],
-            zoom: 4
-        }).on('click', function (p, e) {
-            console.log(p);
-            console.log(e);
-            placeMarker(e.latLng, p, "title");
-        }).marker(markers2)
-            .on('click', function (marker) {
-                marker.setIcon('http://maps.google.com/mapfiles/marker_green.png');
-                console.log(marker);
-            });
-    }
+
 // gmap3({
 //   map:{
 //     address:"New York, USA",
@@ -259,41 +244,6 @@ var subtleOptions = {
 
 
 // Google Maps Markers Array (for demo)
-var markers = [
-  {
-    lat: 37.780823,
-    lng: -122.4231,
-    title: 'Marker 1'
-  },
-    {
-    lat: 37.768068680454725,
-    lng: -122.430739402771,
-    title: 'Marker 2'
-  },
-    {
-    lat: 37.7791272169824,
-    lng: -122.4296236038208,
-    title: 'Marker 3'
-  },
-    {
-    lat: 37.770715,
-    lng: -122.392631,
-    title: 'Marker 4'
-  },
-    {
-    lat: 37.78197638783258,
-    lng: -122.45829105377197,
-    title: 'Marker 5'
-  },
-    {
-    lat: 37.769629187677,
-    lng: -122.46798992156982,
-    title: 'Marker 6'
-  }
-];
-
-
-
 // Touch
 // ---------------------------------------------------------
 var dragging = false;

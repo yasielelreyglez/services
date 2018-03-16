@@ -183,8 +183,8 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
                         this.previews[i].id = result.data.imagesList[i].id;
                     }
 
-                    // $('#categories').select2('val', this.service.categories.map(String));
-                    // $('#cities').select2('val', this.service.cities.map(String));
+                    $('#categories').select2('val', this.service.categories.map(String));
+                    $('#cities').select2('val', this.service.cities.map(String));
 
                     // let daysId = result.data.week_days.split(',');
                     // this.service.week_days = [false, false, false, false, false, false, false];
@@ -221,14 +221,14 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     }
 
     onChangeTab(event) {
-        // if (event.selectedIndex === 3) {
-        //     const categories = $('#categories').select2('val');
-        //     const cities = $('#cities').select2('val');
-        //     if (!isNull(categories))
-        //         this.service.categories = categories.map(Number);
-        //     if (!isNull(cities))
-        //         this.service.cities = cities.map(Number);
-        // }
+        if (event.selectedIndex === 3) {
+            const categories = $('#categories').select2('val');
+            const cities = $('#cities').select2('val');
+            if (!isNull(categories))
+                this.service.categories = categories.map(Number);
+            if (!isNull(cities))
+                this.service.cities = cities.map(Number);
+        }
     }
 
 
@@ -255,7 +255,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         const dialogRef = this.dialog.open(TimesComponent, {
             width: '60%',
             height: '450px',
-            data: {service: this.service}
+            data: this.service
         });
 
         dialogRef.afterClosed().subscribe(result => {

@@ -752,14 +752,23 @@ namespace Entities {
                     if(!$comment->hided||$user==$this->author){
                         if(count($userservice)>0) {
                             $us_obj = $userservice[0];
+                            if($us_obj!=null)
                             $comment->rate = $us_obj->getRate();
                         }
                         $this->servicecommentsList[] = $comment;
                     }
                 }else{
                     if(count($userservice)>0) {
-                        $us_obj = $userservice[0];
-                        $comment->rate = $us_obj->getRate();
+                        $arr = $userservice->toArray();
+                        echo "aqui si llega";
+                        echo count($arr);
+//                        print_r($arr);
+
+                        if(count($arr)>0) {
+                            $us_obj = $arr[0];
+
+                            $comment->rate = $us_obj->getRate();
+                        }
                     }
                     $this->servicecommentsList[] = $comment;
                 }

@@ -91,11 +91,10 @@ export class ShowserviceComponent implements OnInit, AfterViewInit, AfterContent
         this.route.params.subscribe(params => {
             const id = params['id'];
             this.apiServices.service(id).subscribe(result => {
+                console.log('Servicio: ', result.data);
                 this.service = result.data;
                 this.images = result.data.imagesList;
                 this.comment = result.data.servicecommentsList.length;
-
-                this.result_week_days();
             });
         });
 
@@ -269,18 +268,18 @@ export class ShowserviceComponent implements OnInit, AfterViewInit, AfterContent
         });
     }
 
-    result_week_days() {
-        // if (this.service.week_days !== '') {
-        //     const days = this.service.week_days.split(',');
-        //     let result = '';
-        //     for (const day of days) {
-        //         result += this.days[day] + ', ';
-        //     }
-        //     this.week_days = result.substring(0, (result.length - 2));
-        // }
-        // else {
-        //     this.week_days = '';
-        // }
+    result_week_days(week_days: string) {
+        if (week_days !== '') {
+            const days = week_days.split(',');
+            let result = '';
+            for (const day of days) {
+                result += this.days[day] + ', ';
+            }
+            return result.substring(0, (result.length - 2));
+        }
+        else {
+            return '';
+        }
     }
 
 // hasClass(element, cls) {
@@ -679,7 +678,9 @@ export class ShowserviceComponent implements OnInit, AfterViewInit, AfterContent
 //             ).rangeslider({
 //                 polyfill: false,
 //                 onInit: function () {
-//                     this.$range.wrap('<div class="uou-rangeslider"></div>').parent().append('<div class="tooltip">' + this.$element.data('unit-before') + '<span></span>' + this.$element.data('unit-after') + '</div>');
+//                     this.$range.wrap('<div class="uou-rangeslider"></div>').parent().
+// append('<div class="tooltip">' + this.$element.data('unit-before') + '<span></span>' +
+// this.$element.data('unit-after') + '</div>');
 //                 },
 //                 onSlide: function (value, position) {
 //                     const $span = this.$range.parent().find('.tooltip span');
