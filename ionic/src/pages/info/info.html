@@ -13,7 +13,10 @@
   <!--</ion-label>-->
   <!--<p text-wrap>{{service.description}}</p>-->
   <ion-grid no-padding>
-    <ion-row>
+    <ion-row align-items-start>
+      <ion-col col-12>
+       <p text-wrap style="padding-left: 5px;">{{service.description}}</p>
+      </ion-col>
 
       <ion-col col-12>
         <!--Telefonos-->
@@ -22,8 +25,9 @@
             <ion-icon class="fs-35" name="time" color="azul-claro"></ion-icon>
           </ion-col>
           <ion-col col-11>
-            <ion-label  class="fs-15 info-label" text-wrap color="azul-claro"><a (click)="Llamar(service.phone)">{{service.phone}}</a> <span
-              *ngIf="service.other_phone">|</span>
+            <ion-label class="fs-15 info-label" text-wrap color="azul-claro"><a (click)="Llamar(service.phone)">{{service.phone}}</a>
+              <span
+                *ngIf="service.other_phone">|</span>
               <a (click)="Llamar(service.other_phone)">{{service.other_phone}}</a>
             </ion-label>
           </ion-col>
@@ -49,12 +53,13 @@
       <ion-col col-12 *ngIf="service.email">
         <ion-row align-items-center>
           <ion-col col-1>
-            <ion-icon  class="fs-35" name="at" color="azul-claro"></ion-icon>
+            <ion-icon class="fs-35" name="at" color="azul-claro"></ion-icon>
           </ion-col>
           <ion-col col-11>
-            <a style="text-decoration: none;margin-left: 5px;" class="fs-15 azul-claro" target="_blank" href="mailto:{{service.email}}">{{service.email}}</a>
+            <a style="text-decoration: none;margin-left: 5px;" class="fs-15 azul-claro" target="_blank"
+               href="mailto:{{service.email}}">{{service.email}}</a>
             <!--<ion-label class="fs-15 info-label" text-wrap color="azul-claro"><a href="mailto:{{service.email}}"></a>-->
-              <!--{{service.email}}-->
+            <!--{{service.email}}-->
             <!--</ion-label>-->
           </ion-col>
         </ion-row>
@@ -64,10 +69,11 @@
       <ion-col col-12 *ngIf="service.url">
         <ion-row align-items-center>
           <ion-col col-1>
-            <ion-icon  class="fs-35" name="globe" color="azul-claro"></ion-icon>
+            <ion-icon class="fs-35" name="globe" color="azul-claro"></ion-icon>
           </ion-col>
           <ion-col col-11>
-            <a style="text-decoration: none;margin-left: 5px;" class="fs-15 azul-claro" target="_blank" href="http://{{service.url}}">{{service.url}}</a>
+            <a style="text-decoration: none;margin-left: 5px;" class="fs-15 azul-claro" target="_blank"
+               href="http://{{service.url}}">{{service.url}}</a>
             <!--<ion-label class="fs-15 info-label" text-wrap color="azul-claro">{{service.url}}</ion-label>-->
           </ion-col>
         </ion-row>

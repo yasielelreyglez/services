@@ -10,8 +10,8 @@
     <title>Servicios-Administración</title>
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,600,700%7CDroid+Serif:300,400,700,400italic">
-    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<!--    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,600,700%7CDroid+Serif:300,400,700,400italic">-->
+<!--    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>-->
     <?php echo link_tag("/resources/ajax/libs/select2/4.0.0/css/select2.min.css") ?>
     <?php echo link_tag("/resources/css/owl.carousel.css") ?>
     <?php echo link_tag("/resources/css/style.css") ?>
@@ -226,18 +226,18 @@
                             <i class="fa fa-bars"></i>
                         </div>
                         <div class="map-search-fields">
-                            <div class="field">
-                                <input type="text" placeholder="Filter by keyword">
+                            <div class="field custom-select-box">
+                                <select name="cities" class="custom-select" id="cities2" multiple="true"
+                                        data-placeholder="Ciudades">
+                                </select>
                             </div>
                             <div class="field">
                                 <i class="fa fa-map-marker"></i>
                                 <input type="text" placeholder="Location" class="location">
                             </div>
                             <div class="field custom-select-box">
-                                <select name="categories" class="custom-select">
-                                    <option value="0">Categories</option>
-                                    <option value="1">Spa</option>
-                                    <option value="2">Cinema</option>
+                                <select name="categories" class="custom-select"  multiple="true"
+                                        data-placeholder="Categorias" id="categories">
                                 </select>
                             </div>
                         </div>
@@ -256,10 +256,9 @@
                 <div class="col-md-9">
                     <div class="uou-tabs">
                         <ul class="tabs">
-                            <li class="active"><a href="#uou-tab-1">Map</a></li>
-                            <li><a href="#uou-tab-2">Industry</a></li>
-                            <li><a href="#uou-tab-3">Type</a></li>
-                            <li><a href="#uou-tab-4">Country</a></li>
+                            <li class="active"><a href="#uou-tab-1">Mapa</a></li>
+                            <li><a href="#uou-tab-2">Categorias</a></li>
+                            <li><a href="#uou-tab-3">Ciudades</a></li>
                         </ul>
 
                         <div class="content">
@@ -295,136 +294,19 @@
 
                             <div id="uou-tab-2">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <h5 class="industry-title">Administrative and support services</h5>
-                                        <ul class="industry-list list-unstyled mb0">
-                                            <li><a href="#">Support Devices <span class="count">(453)</span></a></li>
-                                            <li><a href="#">Consulting Services <span class="count">(54)</span></a></li>
-                                            <li><a href="#">Customer Service <span class="count">(95)</span></a></li>
-                                            <li><a href="#">Employment Placement <span class="count">(87)</span></a></li>
-                                            <li><a href="#">Agencies/Recruiting <span class="count">(32)</span></a></li>
-                                            <li><a href="#">Administration <span class="count">(52)</span></a></li>
-                                            <li><a href="#">Secretarial <span class="count">(554)</span></a></li>
-                                            <li><a href="#">Contracts/Purchasing <span class="count">(23)</span></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h5 class="industry-title">Manufacturing and instrustrials</h5>
-                                        <ul class="industry-list list-unstyled mb0">
-                                            <li><a href="#">Installation/Maintenance  <span class="count">(453)</span></a></li>
-                                            <li><a href="#">Manufacturing and Production <span class="count">(54)</span></a></li>
-                                            <li><a href="#">Mining  <span class="count">(95)</span></a></li>
-                                            <li><a href="#">Safety/Environment <span class="count">(87)</span></a></li>
-                                            <li><a href="#">Industrial  <span class="count">(32)</span></a></li>
-                                            <li><a href="#">Manufacturing  <span class="count">(52)</span></a></li>
-                                            <li><a href="#">Mechanical  <span class="count">(554)</span></a></li>
-                                            <li><a href="#">Technical/Maintenance <span class="count">(23)</span></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h5 class="industry-title">Administrative and support services</h5>
-                                        <ul class="industry-list list-unstyled mb0">
-                                            <li><a href="#">Support Devices <span class="count">(453)</span></a></li>
-                                            <li><a href="#">Consulting Services <span class="count">(54)</span></a></li>
-                                            <li><a href="#">Customer Service <span class="count">(95)</span></a></li>
-                                            <li><a href="#">Employment Placement <span class="count">(87)</span></a></li>
-                                            <li><a href="#">Agencies/Recruiting <span class="count">(32)</span></a></li>
-                                            <li><a href="#">Administration <span class="count">(52)</span></a></li>
-                                            <li><a href="#">Secretarial <span class="count">(554)</span></a></li>
-                                            <li><a href="#">Contracts/Purchasing <span class="count">(23)</span></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h5 class="industry-title">Manufacturing and instrustrials</h5>
-                                        <ul class="industry-list list-unstyled mb0">
-                                            <li><a href="#">Installation/Maintenance  <span class="count">(453)</span></a></li>
-                                            <li><a href="#">Manufacturing and Production <span class="count">(54)</span></a></li>
-                                            <li><a href="#">Mining  <span class="count">(95)</span></a></li>
-                                            <li><a href="#">Safety/Environment <span class="count">(87)</span></a></li>
-                                            <li><a href="#">Industrial  <span class="count">(32)</span></a></li>
-                                            <li><a href="#">Manufacturing  <span class="count">(52)</span></a></li>
-                                            <li><a href="#">Mechanical  <span class="count">(554)</span></a></li>
-                                            <li><a href="#">Technical/Maintenance <span class="count">(23)</span></a></li>
-                                        </ul>
-                                    </div>
+                                    <div id="listado_categoria"></div>
+
                                 </div>
                             </div>
 
                             <div id="uou-tab-3">
-                                <p class="type-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque placeat consectetur sit. Excepturi saepe dolorem nisi incidunt magni reprehenderit reiciendis odio temporibus minima? Veniam, asperiores voluptatem facilis autem mollitia alias.</p>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <ul class="type-list list-unstyled mb0">
-                                            <li><a href="#">Support Devices <span class="count">(453)</span></a></li>
-                                            <li><a href="#">Consulting Services <span class="count">(54)</span></a></li>
-                                            <li><a href="#">Customer Service <span class="count">(95)</span></a></li>
-                                            <li><a href="#">Employment Placement <span class="count">(87)</span></a></li>
-                                            <li><a href="#">Agencies/Recruiting <span class="count">(32)</span></a></li>
-                                            <li><a href="#">Administration <span class="count">(52)</span></a></li>
-                                            <li><a href="#">Secretarial <span class="count">(554)</span></a></li>
-                                            <li><a href="#">Contracts/Purchasing <span class="count">(23)</span></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <ul class="type-list list-unstyled mb0">
-                                            <li><a href="#">Support Devices <span class="count">(453)</span></a></li>
-                                            <li><a href="#">Consulting Services <span class="count">(54)</span></a></li>
-                                            <li><a href="#">Customer Service <span class="count">(95)</span></a></li>
-                                            <li><a href="#">Employment Placement <span class="count">(87)</span></a></li>
-                                            <li><a href="#">Agencies/Recruiting <span class="count">(32)</span></a></li>
-                                            <li><a href="#">Administration <span class="count">(52)</span></a></li>
-                                            <li><a href="#">Secretarial <span class="count">(554)</span></a></li>
-                                            <li><a href="#">Contracts/Purchasing <span class="count">(23)</span></a></li>
-                                        </ul>
-                                    </div>
+                                <br>
+                                <div id="listado_ciudades">
+
                                 </div>
+
                             </div>
-                            <div id="uou-tab-4">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <ul class="country-list list-unstyled mb0">
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/af.html") ?>" alt=""> Afghanistan <span>(7)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/lt.html") ?>" alt=""> Lithuania <span>(6)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/ie.html") ?>" alt=""> Ireland <span>(2)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/gb.html") ?>" alt=""> Great Britain <span>(7)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/fr.html") ?>" alt=""> France <span>(3)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/bd.html") ?>" alt=""> Bangladesh <span>(4)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/be.html") ?>" alt=""> Belgium <span>(3)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/ua.html") ?>" alt=""> Ukraine <span>(5)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/us.html") ?>" alt=""> United Stanes <span>(3)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/ve.html") ?>" alt=""> Venezuela <span>(8)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/pl.html") ?>" alt=""> Poland <span>(3)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/ro.html") ?>" alt=""> Romania <span>(6)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/no.html") ?>" alt=""> Norway <span>(3)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/lu.html") ?>" alt=""> Luxemburg <span>(2)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/jp.html") ?>" alt=""> Japan <span>(3)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/id.html") ?>" alt=""> Indonesia <span>(8)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/de.html") ?>" alt=""> Germany <span>(3)</span></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <ul class="country-list list-unstyled mb0">
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/af.html") ?>" alt=""> Afghanistan <span>(7)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/lt.html") ?>" alt=""> Lithuania <span>(6)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/ie.html") ?>" alt=""> Ireland <span>(2)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/gb.html") ?>" alt=""> Great Britain <span>(7)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/fr.html") ?>" alt=""> France <span>(3)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/bd.html") ?>" alt=""> Bangladesh <span>(4)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/be.html") ?>" alt=""> Belgium <span>(3)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/ua.html") ?>" alt=""> Ukraine <span>(5)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/us.html") ?>" alt=""> United Stanes <span>(3)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/ve.html") ?>" alt=""> Venezuela <span>(8)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/pl.html") ?>" alt=""> Poland <span>(3)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/ro.html") ?>" alt=""> Romania <span>(6)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/no.html") ?>" alt=""> Norway <span>(3)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/lu.html") ?>" alt=""> Luxemburg <span>(2)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/jp.html") ?>" alt=""> Japan <span>(3)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/id.html") ?>" alt=""> Indonesia <span>(8)</span></a></li>
-                                            <li><a href="#"><img src="<?=site_url("/resources/img/flags/16/de.html") ?>" alt=""> Germany <span>(3)</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div> <!-- end .uou-tabs -->
                 </div>
@@ -978,48 +860,11 @@
     <hr>
 
 </div>
-<script>
-    var markers2 = [
-        {position:[48.8620722, 2.352047]},
-        {address:"86000 Poitiers, France"},
-        {address:"66000 Perpignan, France", icon: "http://maps.google.com/mapfiles/marker_grey.png"}
-    ];
-    var markers3 = [
-        {
-            lat: 37.780823,
-            lng: -122.4231,
-            title: 'Marker 1'
-        },
-        {
-            lat: 37.768068680454725,
-            lng: -122.430739402771,
-            title: 'Marker 2'
-        },
-        {
-            lat: 37.7791272169824,
-            lng: -122.4296236038208,
-            title: 'Marker 3'
-        },
-        {
-            lat: 37.770715,
-            lng: -122.392631,
-            title: 'Marker 4'
-        },
-        {
-            lat: 37.78197638783258,
-            lng: -122.45829105377197,
-            title: 'Marker 5'
-        },
-        {
-            lat: 37.769629187677,
-            lng: -122.46798992156982,
-            title: 'Marker 6'
-        }
-    ];
-</script>
+
 <!-- Scripts --><!--<script src="--><?//=site_url("/resources/js/googlemaplocal.js") ?><!--"></script>-->
 <script src="<?=site_url("/resources/js/jquery-2.1.3.min.js") ?>"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxooB5CXv3oWSzKldWJzStShRvWE8X1MA&callback=initMap"></script>
+
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxooB5CXv3oWSzKldWJzStShRvWE8X1MA"></script>-->
 
 <script src="<?=site_url("/resources/js/plugins/superfish.min.js") ?>"></script>
 <script src="<?=site_url("/resources/js/jquery.ui.min.js") ?>"></script>
@@ -1032,11 +877,12 @@
 <script src="<?=site_url("/resources/js/uou-tabs.js") ?>"></script>
 <script src="<?=site_url("/resources/js/plugins/select2.min.js") ?>"></script>
 <script src="<?=site_url("/resources/js/owl.carousel.min.js") ?>"></script>
-<script src="<?=site_url("/resources/js/gmap3.min.js") ?>"></script>
-<script src="<?=site_url("/resources/js/scripts.js") ?>"></script>
+<!--<script src="--><?//=site_url("/resources/js/gmap3.min.js") ?><!--"></script>-->
+
 <script src="<?=site_url("/resources/js/bootstrap.js") ?>"></script>
-
-
+<script src="<?=site_url("/resources/js/bootstrap.js") ?>"></script>
+<script src="<?=site_url("/resources/js/admin.js") ?>"></script>
+<script src="<?=site_url("/resources/js/scripts.js") ?>"></script>
 <!--<script src="--><?//=site_url("/resources/js/scripts.js") ?><!--"></script>-->
 
 </body>

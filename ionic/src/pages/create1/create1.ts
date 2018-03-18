@@ -78,7 +78,6 @@ export class Create1Page {
     else {
       this.service.cities = [];
     }
-
   }
 
   backToHome() {
@@ -146,6 +145,7 @@ export class Create1Page {
         service: this.service, //paso el service
       });
     }
+    console.log(this.f.form.errors)
 
   }
 }

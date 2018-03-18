@@ -20,7 +20,7 @@ export class sendPositions{
   longitude: any;
 }
 export class sendService {
-  id?: number
+  id?: number;
   title	: string;
   subtitle: string;
   address: string;
