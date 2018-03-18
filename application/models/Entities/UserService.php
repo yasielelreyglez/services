@@ -18,13 +18,13 @@ class UserService
     * Many Features have One Product.
     * @Id @ManyToOne(targetEntity="User", inversedBy="userservices")
      */
-    public $user;
+    private $user;
 
     /**
      * Many Features have One Product.
      * @Id @ManyToOne(targetEntity="Service", inversedBy="serviceusers",cascade={"persist", "remove"})
      */
-    public $service;
+    private $service;
 
     /**
      * @Column(type="integer", nullable=true)

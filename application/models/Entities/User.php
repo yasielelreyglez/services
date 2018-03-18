@@ -82,13 +82,13 @@ class User
 
     /**
      * One User has Many UserService.
-     * @OneToMany(targetEntity="Mensaje", mappedBy="author")
+     * @OneToMany(targetEntity="Mensaje", mappedBy="author",cascade={"persist"})
      */
     private $mensajesc;
 
     /**
      * One User has Many UserService.
-     * @OneToMany(targetEntity="Mensaje", mappedBy="destinatario")
+     * @OneToMany(targetEntity="Mensaje", mappedBy="destinatario",cascade={"persist"})
      */
     private $mensajes;
 
@@ -371,8 +371,8 @@ class User
      */
     public function sendMessageTo(User $destinatario,$titulo="title",$cuerpo=""){
         $mensaje = new Mensaje();
-        $mensaje->author = $this;
-        $mensaje->destinatario = $destinatario;
+        $mensaje->setAuthor($this);
+        $mensaje->setDestinatario($destinatario);
         $mensaje->setTitle($titulo);
         $mensaje->mensaje=$cuerpo;
         $this->addMensajeCreado($mensaje);

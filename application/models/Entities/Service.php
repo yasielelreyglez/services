@@ -760,10 +760,6 @@ namespace Entities {
                 }else{
                     if(count($userservice)>0) {
                         $arr = $userservice->toArray();
-                        echo "aqui si llega";
-                        echo count($arr);
-//                        print_r($arr);
-
                         if(count($arr)>0) {
                             $us_obj = $arr[0];
 

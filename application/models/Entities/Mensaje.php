@@ -45,12 +45,12 @@ class Mensaje
     /**
      * @ManyToOne(targetEntity="User", inversedBy="mensajesc")
      */
-    public $author;
+    private $author;
 
     /**
      * @ManyToOne(targetEntity="User", inversedBy="mensajes")
      */
-    public $destinatario;
+    private $destinatario;
     public function __construct()
     {
         $this->services = new \Doctrine\Common\Collections\ArrayCollection();
@@ -59,6 +59,13 @@ class Mensaje
         $this->updated_at = new \DateTime("now");
     }
 
+    public function setAuthor(User $user){
+        $this->author = $user;
+    }
+
+    public function setDestinatario(User $user){
+        $this->destinatario = $user;
+    }
     public function getId()
     {
         return $this->id;
