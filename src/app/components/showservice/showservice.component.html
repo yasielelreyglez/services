@@ -155,30 +155,11 @@
                                         <h6 class="main-title">Horario</h6>
                                         <div class="row">
                                             <ul class="schedule" *ngFor="let time of service.timesList">
-                                                <li><span class="" [innerHTML]="result_week_days(time.week_days)"></span><span class="hours">{{time.start_time}} AM - {{time.end_time}} PM</span></li>
+                                                <li><span class=""
+                                                          [innerHTML]="result_week_days(time.week_days)"></span><span
+                                                        class="hours">{{time.start_time}} - {{time.end_time}}</span>
+                                                </li>
                                             </ul>
-                                            <!--<div class="col-md-5">-->
-                                            <!--<ul class="schedule">-->
-                                            <!--<li><span class="day">Monday</span> <span class="hours">10:00 AM - 7:00 PM</span>-->
-                                            <!--</li>-->
-                                            <!--<li><span class="day">Tuesday</span> <span class="hours">10:00 AM - 7:00 PM</span>-->
-                                            <!--</li>-->
-                                            <!--<li><span class="day">Wednesday</span> <span class="hours">10:00 AM - 7:00 PM</span>-->
-                                            <!--</li>-->
-                                            <!--<li class="sunday"><span class="day">Sunday</span> <span-->
-                                            <!--class="hours">Closed</span></li>-->
-                                            <!--</ul>-->
-                                            <!--</div>-->
-                                            <!--<div class="col-md-5">-->
-                                            <!--<ul class="schedule">-->
-                                            <!--<li><span class="day">Thursday</span><span class="hours">10:00 AM - 7:00 PM</span>-->
-                                            <!--</li>-->
-                                            <!--<li><span class="day">Friday</span><span class="hours">10:00 AM - 7:00 PM</span>-->
-                                            <!--</li>-->
-                                            <!--<li><span class="day">Saturday</span><span class="hours">10:00 AM - 7:00 PM</span>-->
-                                            <!--</li>-->
-                                            <!--</ul>-->
-                                            <!--</div>-->
                                         </div>
                                     </div>
                                 </div>
