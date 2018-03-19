@@ -9,6 +9,7 @@ import {MatDialog, MatSnackBar, MatTabChangeEvent} from '@angular/material';
 import {AuthService} from '../../_services/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
+import {ReportServiceComponent} from '../_modals/reportservice/reportservice.component';
 
 declare const google;
 declare const $: any;
@@ -119,10 +120,26 @@ export class ShowserviceComponent implements OnInit, AfterViewInit, AfterContent
     ngAfterContentInit(): void {
     }
 
+    reportDialog(id: number): void {
+        const dialogRef = this.dialog.open(ReportServiceComponent, {
+            width: '60%',
+            height: '360px',
+            data: {id: id}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                // this.service = result;
+                this.openSnackBar('El servicio ha sido evaluado satisfactoriamente', 2500);
+                this.apiServices.recentVisits().subscribe(response => this.recentvisits = response);
+            }
+        });
+    }
+
     result_rate(service) {
         let result = '';
         for (const value of [1, 2, 3, 4, 5]) {
-            if (value <= service.globalrate) {
+            if (value <= service) {
                 result += '<li><i class="fa fa-star"></i></li> ';
             }
             else {

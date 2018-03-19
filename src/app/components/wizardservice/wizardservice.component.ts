@@ -203,6 +203,8 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
+        window.scrollTo(0, 0);
+
         this.apiServices.cities().subscribe(result => {
             this.cities = result;
             $('#cities').select2();
@@ -261,7 +263,6 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.service.times = result;
-                console.log(this.service);
                 // this.openSnackBar('El servicio ha sido evaluado satisfactoriamente', 2500);
             }
         });

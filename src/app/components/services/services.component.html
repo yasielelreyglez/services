@@ -1,6 +1,7 @@
 <div id="listing-3" class="listing listing-3">
     <div class="row">
-        <div *ngFor="let service of services" [ngClass]="(!mysearch && !myfavorites && !myservices) ? 'col-md-6': 'col-md-4'">
+        <div *ngFor="let service of services"
+             [ngClass]="(!mysearch && !myfavorites && !myservices) ? 'col-md-6': 'col-md-4'">
             <div class="listing-grid listing-grid-3">
                 <div class="listing-heading">
                     <div *ngIf="service.professional" class="marker-ribbon">
@@ -40,10 +41,10 @@
                                     <!--<li><i class="fa fa-map-marker"></i> {{service.address.substr(0,30)}}...</li>-->
                                     <!--</ng-template>-->
                                     <!--<li *ngIf="service.address.length > 35"><i class="fa fa-map-marker"></i>-->
-                                        <!--{{service.address.substring(0,35)}}...-->
+                                    <!--{{service.address.substring(0,35)}}...-->
                                     <!--</li>-->
                                     <!--<li *ngIf="service.address.length <= 35"><i class="fa fa-map-marker"></i>-->
-                                        <!--{{service.address}}-->
+                                    <!--{{service.address}}-->
                                     <!--</li>-->
 
                                     <li><i class="fa fa-envelope-o"></i> {{service.email}}</li>
@@ -56,14 +57,21 @@
                     </ul> <!-- end .uou-accordions -->
                     <div class="info-footer">
                         <ul *ngIf="!myservices" class="bookmark list-inline">
-                            <li class="mitad" data-tooltip="Ver detalles" [routerLink]="['service', service.id]"><a><i class="fa fa-eye"></i></a></li>
-                            <li class="mitad" data-tooltip="Denunciar"><a><i class="fa fa-bullhorn"></i></a></li>
+                            <li class="mitad" data-tooltip="Ver detalles" [routerLink]="['service', service.id]"><a><i
+                                    class="fa fa-eye"></i></a></li>
+                            <li class="mitad" data-tooltip="Denunciar"
+                                (click)="loggedIn ? reportDialog(service.id): openSnackBar('Debe iniciar sesión', 2500);">
+                                <a><i class="fa fa-bullhorn"></i></a></li>
                         </ul>
                         <ul *ngIf="myservices" class="bookmark list-inline">
-                            <li data-tooltip="Ver detalles" [routerLink]="['service', service.id]"><a><i class="fa fa-eye"></i></a></li>
-                            <li data-tooltip="Editar" [routerLink]="'./' + service.id + '/edit'"><a><i class="fa fa-pencil-square-o"></i></a></li>
-                            <li data-tooltip="Pagar" [routerLink]="'./' + service.id + '/pay'"><a><i class="fa fa-dollar"></i></a></li>
-                            <li data-tooltip="Eliminar" (click)="delete(service.id)"><a><i class="fa fa-remove"></i></a></li>
+                            <li data-tooltip="Ver detalles" [routerLink]="['service', service.id]"><a><i
+                                    class="fa fa-eye"></i></a></li>
+                            <li data-tooltip="Editar" [routerLink]="'./' + service.id + '/edit'"><a><i
+                                    class="fa fa-pencil-square-o"></i></a></li>
+                            <li data-tooltip="Pagar" [routerLink]="'./' + service.id + '/pay'"><a><i
+                                    class="fa fa-dollar"></i></a></li>
+                            <li data-tooltip="Eliminar" (click)="delete(service.id)"><a><i class="fa fa-remove"></i></a>
+                            </li>
                         </ul>
                     </div>
                 </div>
