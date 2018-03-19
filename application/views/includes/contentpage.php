@@ -12,17 +12,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Quickfinder Homepage Landing ver2</title>
+    <title>Servicios-Administración</title>
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,600,700%7CDroid+Serif:300,400,700,400italic">
-    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<!--    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,600,700%7CDroid+Serif:300,400,700,400italic">-->
+<!--    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>-->
     <?php echo link_tag("/resources/ajax/libs/select2/4.0.0/css/select2.min.css") ?>
     <?php echo link_tag("/resources/css/owl.carousel.css") ?>
     <?php echo link_tag("/resources/css/bootstrap.min.css") ?>
     <?php echo link_tag("/resources/css/style.css") ?>
-
-
+    <?php echo link_tag("/resources/css/services.css") ?>
 </head>
 
 <body>
@@ -30,12 +29,12 @@
     <div class="toolbar">
         <div class="uou-block-1a blog">
             <div class="container">
-                <ul class="quick-nav">
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                </ul>
+<!--                <ul class="quick-nav">-->
+<!--                    <li><a href="about.html">Acerca de</a></li>-->
+<!--                    <li><a href="blog.html">Blog</a></li>-->
+<!--                    <li><a href="contact.html">Contacto</a></li>-->
+<!--                    <li><a href="#">Pol&iacute;ticas</a></li>-->
+<!--                </ul>-->
 
                 <ul class="social">
                     <li><a href="#" class="fa fa-facebook"></a></li>
@@ -45,22 +44,22 @@
 
                 <ul class="authentication">
                     <?php if(isset($showlogin)==true){?>
-                        <li><a href="<?=site_url("admin/auth/login") ?>">Login</a></li>
-                        <li><a href="<?=site_url("admin/auth/register") ?>">Register</a></li>
+                        <li><a href="<?=site_url("admin/auth/login") ?>">Iniciar</a></li>
+                        <li><a href="<?=site_url("admin/auth/register") ?>">Registrarse</a></li>
                     <?php }else{?>
-                        <li><a href="<?=site_url("admin/auth/logout") ?>">Logout</a></li>
+                        <li><a href="<?=site_url("admin/auth/logout") ?>">Salir</a></li>
                     <?php } ?>
                 </ul>
 
-                <div class="language">
-                    <a href="#" class="toggle"><img src="<?=site_url("/resources/img/flags/32/NL.png") ?>" alt=""> NDL</a>
-
-                    <ul>
-                        <li><a href="#"><img src="<?=site_url("/resources/img/flags/32/PT.png") ?>" alt=""> PT</a></li>
-                        <li><a href="#"><img src="<?=site_url("/resources/img/flags/32/FR.png") ?>" alt=""> FR</a></li>
-                        <li><a href="#"><img src="<?=site_url("/resources/img/flags/32/ES.png") ?>" alt=""> ES</a></li>
-                    </ul>
-                </div>
+<!--                <div class="language">-->
+<!--                    <a href="#" class="toggle"><img src="--><?//=site_url("/resources/img/flags/32/NL.png") ?><!--" alt=""> NDL</a>-->
+<!---->
+<!--                    <ul>-->
+<!--                        <li><a href="#"><img src="--><?//=site_url("/resources/img/flags/32/PT.png") ?><!--" alt=""> PT</a></li>-->
+<!--                        <li><a href="#"><img src="--><?//=site_url("/resources/img/flags/32/FR.png") ?><!--" alt=""> FR</a></li>-->
+<!--                        <li><a href="#"><img src="--><?//=site_url("/resources/img/flags/32/ES.png") ?><!--" alt=""> ES</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
             </div>
         </div> <!-- end .uou-block-1a -->
     </div> <!-- end toolbar -->
@@ -75,11 +74,11 @@
 
                     <nav class="nav">
                         <ul class="sf-menu">
-                            <li class="<?=$tab=="home"?"active":""?>"><a href="<?=site_url("admin/home") ?>"><i class="fa fa-home"></i> Home</a>
+                            <li class="<?=$tab=="home"?"active":""?>"><a href="<?=site_url("admin/home") ?>"><i class="fa fa-home"></i> Inicio</a>
 
                             </li>
                             <li class="<?=$tab=="pagos"?"active":""?>">
-                                <a href="<?=site_url("admin/pagos") ?>"><i class="fa fa-search-plus"></i> Pagos</a>
+                                <a href="<?=site_url("admin/pagos") ?>"><i class="fa fa-dollar"></i> Pagos</a>
                                 <ul class="demo-menu">
                                     <li><a href="<?=site_url("admin/pagos/solicitados") ?>">Pagos solicitados</a></li>
                                     <li><a href="<?=site_url("admin/pagos/activos") ?>">Pagos activos</a></li>
@@ -89,7 +88,7 @@
                                 </ul>
                             </li>
                             <li class="<?=$tab=="services"?"active":""?>">
-                                <a href="<?=site_url("admin/services") ?>"><i class="fa fa-search-plus"></i> Servicios </a>
+                                <a href="<?=site_url("admin/services") ?>"><i class="fa fa-cogs"></i> Servicios </a>
                                 <ul class="demo-menu">
                                     <li><a href="<?=site_url("admin/services/denunciados") ?>">Mostrar Servicios Denunciados</a></li>
 
@@ -98,21 +97,21 @@
                                 </ul>
                             </li>
                             <li class="<?=$tab=="category"?"active":""?>">
-                                <a href="<?=site_url("admin/categories") ?>"><i class="fa fa-search-plus"></i> Categorias</a>
+                                <a href="<?=site_url("admin/categories") ?>"><i class="fa fa-tag"></i> Categorias</a>
                                 <ul class="demo-menu">
                                     <li><a href="<?=site_url("admin/categories") ?>">Mostrar Categorias Existentes</a></li>
                                     <li><a href="<?=site_url("admin/categories/create") ?>">Crear Categorias</a></li>
                                 </ul>
                             </li>
                             <li class="<?=$tab=="subcategory"?"active":""?>">
-                                <a href="<?=site_url("admin/subcategory") ?>"><i class="fa fa-search-plus"></i> Sub-Categorias</a>
+                                <a href="<?=site_url("admin/subcategory") ?>"><i class="fa fa-tags"></i> Sub-Categorias</a>
                                 <ul class="demo-menu">
                                     <li><a href="<?=site_url("admin/subcategory") ?>">Mostrar Sub-Categorias Existentes</a></li>
                                     <li><a href="<?=site_url("admin/subcategory/create") ?>">Crear Sub-Categorias</a></li>
                                 </ul>
 
                             <li  class="<?=$tab=="cities"?"active":""?>">
-                                <a href="<?=site_url("admin/cities") ?>"><i class="fa fa-search-plus"></i> Ciudades </a>
+                                <a href="<?=site_url("admin/cities") ?>"><i class="fa fa-map-marker"></i> Ciudades </a>
                                 <ul class="demo-menu">
                                     <li><a href="<?=site_url("admin/cities") ?>">Mostrar Ciudades</a></li>
                                     <li><a href="<?=site_url("admin/cities/create") ?>">Agregar Ciudad</a></li>
@@ -261,8 +260,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h1 class="block-title"><?=$tab?></h1>
-                    <p class="block-secondary-title invert">We are driven by our mission</p>
+                    <h1 class="block-title"><?=$tabTitle?></h1>
+<!--                    <p class="block-secondary-title invert">We are driven by our mission</p>-->
                 </div>
             </div>
         </div>
@@ -286,45 +285,32 @@
     <a href="#" class="mobile-sidebar-close">&times;</a>
     <nav class="main-nav">
         <ul>
-            <li class="active"><a href="#">Home</a></li>
+            <li class="<?=$tab=="home"?"active":""?>"><a href="<?=site_url("admin/home") ?>"><i class="fa fa-home"></i> Inicio</a></li>
+            <li class="<?=$tab=="pagos"?"active":""?>"><a href="<?=site_url("admin/pagos") ?>"><i class="fa fa-dollar"></i> Pagos</a></li>
+            <li class="pl10 <?=$tab=="solicitados"?"active":""?>"><a href="<?=site_url("admin/pagos/solicitados") ?>">Pagos solicitados</a></li>
+            <li class="pl10 <?=$tab=="activos"?"active":""?>"><a href="<?=site_url("admin/pagos/activos") ?>">Pagos activos</a></li>
+            <li class="pl10 <?=$tab=="expirados"?"active":""?>"><a href="<?=site_url("admin/pagos/expirados") ?>">Pagos expirados</a></li>
+            <li class="pl10 <?=$tab=="denegados"?"active":""?>"><a href="<?=site_url("admin/pagos/denegados") ?>">Pagos denegados</a></li>
+            <li class="pl10 <?=$tab=="membresias"?"active":""?>"><a href="<?=site_url("admin/pagos/membresias") ?>">Pagos membres&iacute;as</a></li>
 
-            <li class="pl10"><a href="index.html">Home 1</a></li>
-            <li class="pl10 active"><a href="index2.html">Home 2</a></li>
+            <li class="<?=$tab=="services"?"active":""?>"><a href="<?=site_url("admin/services") ?>"><i class="fa fa-cogs"></i> Servicios </a></li>
+            <li class="pl10 <?=$tab=="denunciados"?"active":""?>"><a href="<?=site_url("admin/services/denunciados") ?>">Mostrar Servicios Denunciados</a></li>
+            <li class="pl10 <?=$tab=="services"?"active":""?>"><a href="<?=site_url("admin/services") ?>">Mostrar Servicios Existentes</a></li>
+            <li class="pl10 <?=$tab=="crearservicio"?"active":""?>"><a href="<?=site_url("admin/services/create") ?>">Crear Servicio</a></li>
 
-            <li class="active"><a href="#">Jobs</a></li>
-            <li class="pl10"><a href="index_jobs.html">Jobs Index(Default)</a></li>
-            <li class="pl10"><a href="single_job.html">Job Single</a></li>
-            <li class="pl10"><a href="profile_company.html">Company Profile</a></li>
-            <li class="pl10"><a href="profile_company2.html">Company Profile (2)</a></li>
+            <li class="<?=$tab=="category"?"active":""?>"><a href="<?=site_url("admin/categories") ?>"><i class="fa fa-tag"></i> Categorias</a></li>
+            <li class="pl10 <?=$tab=="category"?"active":""?>"><a href="<?=site_url("admin/categories") ?>">Mostrar Categorias Existentes</a></li>
+            <li class="pl10 <?=$tab=="crearcategoria"?"active":""?>"><a href="<?=site_url("admin/categories/create") ?>">Crear Categorias</a></li>
 
-            <li class="active"><a href="#">Businesses</a></li>
-            <li class="pl10"><a href="index_business1.html">Business Index(Default)</a></li>
-            <li class="pl10"><a href="index_business2.html">Business Index(2)</a></li>
-            <li class="pl10"><a href="index_business3.html">Business Index(3)</a></li>
-            <li class="pl10"><a href="index_business4.html">Business Index(4)</a></li>
-            <li class="pl10"><a href="index_business5.html">Business Index(5)</a></li>
-            <li class="pl10"><a href="single_business.html">Business Single</a></li>
+            <li class="<?=$tab=="subcategory"?"active":""?>"><a href="<?=site_url("admin/subcategory") ?>"><i class="fa fa-tags"></i> Sub-Categorias</a></li>
+            <li class="pl10 <?=$tab=="subcategory"?"active":""?>"><a href="<?=site_url("admin/subcategory") ?>">Mostrar Sub-Categorias Existentes</a></li>
+            <li class="pl10 <?=$tab=="crearsubcategoria"?"active":""?>"><a href="<?=site_url("admin/subcategory/create") ?>">Crear Sub-Categorias</a></li>
 
-            <li class="active"><a href="#">Restaurants</a></li>
-            <li class="p10"><a href="index_restaurant.html">Restaurant Index</a></li>
-            <li class="p10"><a href="single_restaurant.html">Restaurant Single</a></li>
-
-            <li class="active"><a href="#">Features</a></li>
-            <li class="p10"><a href="box-variation1.html">Box Variation 1</a></li>
-            <li class="p10"><a href="box-variation2.html">Box Variation 2</a></li>
-            <li class="p10"><a href="box-variation3.html">Box Variation 1</a></li>
-            <li class="p10"><a href="gui-kit.html">GUI kit</a></li>
-
-            <li class="active"><a href="about.html"></a></li>
-            <li class="active"><a href="blog.html"></a></li>
-            <li class="active"><a href="contact.html">Contact</a></li>
-
-
+            <li class="<?=$tab=="cities"?"active":""?>"><a href="<?=site_url("admin/cities") ?>"><i class="fa fa-map-marker"></i> Ciudades </a></li>
+            <li class="pl10 <?=$tab=="cities"?"active":""?>"><a href="<?=site_url("admin/cities") ?>">Mostrar Ciudades</a></li>
+            <li class="pl10 <?=$tab=="crearciudad"?"active":""?>"><a href="<?=site_url("admin/cities/create") ?>">Agregar Ciudad</a></li>
         </ul>
     </nav>
-
-    <hr>
-
 </div>
 
 <!-- Scripts -->
@@ -343,6 +329,7 @@
 <script src="<?=site_url("/resources/js/owl.carousel.min.js") ?>"></script>
 <!--<script src="--><?//=site_url("/resources/js/gmap3.min.js") ?><!--"></script>-->
 <script src="<?=site_url("/resources/js/bootstrap.js") ?>"></script>
+<script src="<?=site_url("/resources/js/admin.js") ?>"></script>
 <script src="<?=site_url("/resources/js/scripts.js") ?>"></script>
 
 </body>

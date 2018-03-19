@@ -1135,6 +1135,45 @@ class Api extends REST_Controller
         $config['max_width'] = 9024;
         $config['max_height'] = 2768;
         $this->load->library('upload', $config);
+//        mi codigo
+//        if ($this->upload->do_upload('userfile')) {
+//            $data["upload_data"] = $this->upload->data();
+//            $service->setIcon('resources/image/service/' . $data["upload_data"]["file_name"]);
+//        }
+//        $service = new \Entities\Service();
+//        $data["upload_data"] = $this->upload->data();
+//        $service->title = $this->input->post('title', TRUE);
+//        $service->subtitle = $this->input->post('subtitle', TRUE);
+//        $service->phone = $this->input->post('phone', TRUE);
+//        $service->address = $this->input->post('address', TRUE);
+//        $service->other_phone = $this->input->post('other_phone', TRUE);
+//        $service->email = $this->input->post('email', TRUE);
+//        $service->url = $this->input->post('url', TRUE);
+//        $service->start_time = $this->input->post('start_time', TRUE);
+//        $service->end_time = $this->input->post('end_time', TRUE);
+//        $subcategories = $this->input->post('subcategories', TRUE);
+////        echo '<pre>';
+////        print_r($service);
+////        echo '</pre>';die;
+//        if (is_array($subcategories)) {
+//            foreach ($subcategories as $subcategory) {
+//                $subcategory_obj = $em->find('\Entities\Subcategory', $subcategory);
+//                if ($subcategory_obj) {
+//                    $service->addSubCategory($subcategory_obj);
+//                }
+//            }
+//        } else {
+//            $subcategory_obj = $em->find('\Entities\Subcategory', $subcategories);
+//            if ($subcategory_obj) {
+//                $service->addSubCategory($subcategory_obj);
+//            }
+//        }
+//        $service->visits = 0;
+//        $service->setWeekDays($this->input->post('end_time', TRUE));
+////        $service->setIcon('resources/image/service/' . $data["upload_data"]["file_name"]);
+//        $em->persist($service);
+//        $em->flush();
+//        end of cod
         if (!$this->upload->do_upload('userfile')) {
             $error = array('error' => $this->upload->display_errors());
             $this->load->view('upload_form', $error);

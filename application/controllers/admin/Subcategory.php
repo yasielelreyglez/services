@@ -8,7 +8,8 @@ class Subcategory extends CI_Controller {
 	function __construct() {
 		parent::__construct();
         $this->load->helper('html');
-	}
+        $this->load->model('Subcategory_model');
+    }
 
 	# GET /subcategory
 	function index() {
@@ -17,6 +18,7 @@ class Subcategory extends CI_Controller {
 		$data['subcategory'] = $relacion->findAll();
 		$data['content'] = '/subcategory/index';
         $data["tab"]="subcategory";
+        $data["tabTitle"]="subcategor&iacute;as";
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -26,6 +28,8 @@ class Subcategory extends CI_Controller {
         $relacion = $em->getRepository('Entities\Category');
         $data['categories'] = $relacion->findAll();
 		$data['content'] = '/subcategory/create';
+        $data["tab"]="subcategory";
+        $data["tabTitle"]="crear subcategor&iacute;a";
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -36,23 +40,22 @@ class Subcategory extends CI_Controller {
 		$data['categories'] = $relacion->findAll();
 		$data['subcategory'] = $em->find('Entities\Subcategory',$id);
 		$data['content'] = '/subcategory/create';
+        $data["tab"]="subcategory";
+        $data["tabTitle"]="editar subcategor&iacute;a";
         $this->load->view('/includes/contentpage', $data);
 	}
 
 	# GET /subcategory/destroy/1
-	function destroy() {
-		$id = $this->uri->segment(3);
-		$data['subcategory'] = $this->Subcategory_model->destroy($id);
+	function destroy($id) {
+//		$id = $this->uri->segment(3);
+        echo $data['subcategory'] = $this->Subcategory_model->destroy($id);
 		redirect('admin/subcategory/index', 'refresh');
 	}
 
 	# POST /subcategory/save
 	function save() {
-		
 		$this->form_validation->set_rules('title', 'Title', 'required');
-
 		if ($this->form_validation->run()) {
-
             $id = $this->input->post('id', TRUE);
             $em = $this->doctrine->em;
             if($id){

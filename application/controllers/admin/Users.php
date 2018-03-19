@@ -1,5 +1,6 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php use Doctrine\Common\Collections\Criteria;
 
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Users Controller.
  */
@@ -9,31 +10,35 @@ class Users extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Users_model');
         $this->load->helper('html');
-
 	}
 
 	# GET /users
 	function index() {
-		$data['users'] = $this->Users_model->find();
-		$data['content'] = '/users/index';
-        $data['tab'] = "user";
-            $this->load->view('/includes/template', $data);
+        $em= $this->doctrine->em;
+        $servicesRepo = $em->getRepository('Entities\User');
+        $data['users'] = $servicesRepo->findAll();
+        $data['content'] = '/users/index';
+        $data["tab"]="user";
+        $data["tabTitle"]="usuarios";
+        $this->load->view('/includes/contentpage', $data);
 
 	}
 
 	# GET /users/create
 	function create() {
 		$data['content'] = '/users/create';
-        $data['tab'] = "user";
-		$this->load->view('/includes/template', $data);
+        $data["tab"]="user";
+        $data["tabTitle"]="usuarios";
+        $this->load->view('/includes/contentpage', $data);
 	}
 
 	# GET /users/edit/1
 	function edit($id) {
 		$data['users'] = $this->Users_model->find($id);
 		$data['content'] = '/users/create';
-        $data['tab'] = "user";
-		$this->load->view('/includes/template', $data);
+        $data["tab"]="user";
+        $data["tabTitle"]="usuarios";
+        $this->load->view('/includes/contentpage', $data);
 	}
 
 	# GET /users/destroy/1

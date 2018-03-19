@@ -10,12 +10,12 @@
     <title>Servicios-Administración</title>
 
     <!-- Stylesheets -->
-<!--    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,600,700%7CDroid+Serif:300,400,700,400italic">-->
-<!--    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>-->
+    <!--    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,600,700%7CDroid+Serif:300,400,700,400italic">-->
+    <!--    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>-->
     <?php echo link_tag("/resources/ajax/libs/select2/4.0.0/css/select2.min.css") ?>
     <?php echo link_tag("/resources/css/owl.carousel.css") ?>
     <?php echo link_tag("/resources/css/style.css") ?>
-
+    <?php echo link_tag("/resources/css/services.css") ?>
 </head>
 
 <body>
@@ -23,36 +23,39 @@
     <div class="toolbar">
         <div class="uou-block-1a blog">
             <div class="container">
-                <ul class="quick-nav">
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                </ul>
+                <!--                <ul class="quick-nav">-->
+                <!--                    <li><a href="about.html">Acerca de</a></li>-->
+                <!--                    <li><a href="blog.html">Blog</a></li>-->
+                <!--                    <li><a href="contact.html">Contacto</a></li>-->
+                <!--                    <li><a href="#">Pol&iacute;ticas</a></li>-->
+                <!--                </ul>-->
 
-                <ul class="social"  >
+                <ul class="social">
                     <li><a href="#" class="fa fa-facebook"></a></li>
                     <li><a href="#" class="fa fa-twitter"></a></li>
                     <li><a href="#" class="fa fa-google-plus"></a></li>
                 </ul>
 
                 <ul class="authentication">
-                   <?php if(isset($showlogin)==true){?>
-                    <li><a href="<?=site_url("admin/auth/login") ?>">Login</a></li>
-                       <li><a href="<?=site_url("admin/auth/register") ?>">Register</a></li>
-                    <?php }else{?>
-                    <li><a href="<?=site_url("admin/auth/logout") ?>">Logout</a></li>
+                    <?php if (isset($showlogin) == true) { ?>
+                        <li><a href="<?= site_url("admin/auth/login") ?>">Iniciar</a></li>
+                        <li><a href="<?= site_url("admin/auth/register") ?>">Registrarse</a></li>
+                    <?php } else { ?>
+                        <li><a href="<?= site_url("admin/auth/logout") ?>">Salir</a></li>
                     <?php } ?>
                 </ul>
 
-                <div class="language">
-                    <a href="#" class="toggle"><img src="<?=site_url("/resources/img/flags/32/ES.png") ?>" alt=""> ES</a>
-
-                    <ul>
-                        <li><a href="#"><img src="<?=site_url("/resources/img/flags/32/PT.png") ?>" alt=""> PT</a></li>
-                        <li><a href="#"><img src="<?=site_url("/resources/img/flags/32/FR.png") ?>" alt=""> FR</a></li>
-                    </ul>
-                </div>
+                <!--                <div class="language">-->
+                <!--                    <a href="#" class="toggle"><img src="-->
+                <? //=site_url("/resources/img/flags/32/ES.png") ?><!--" alt=""> ES</a>-->
+                <!---->
+                <!--                    <ul>-->
+                <!--                        <li><a href="#"><img src="-->
+                <? //=site_url("/resources/img/flags/32/PT.png") ?><!--" alt=""> PT</a></li>-->
+                <!--                        <li><a href="#"><img src="-->
+                <? //=site_url("/resources/img/flags/32/FR.png") ?><!--" alt=""> FR</a></li>-->
+                <!--                    </ul>-->
+                <!--                </div>-->
             </div>
         </div> <!-- end .uou-block-1a -->
     </div> <!-- end toolbar -->
@@ -62,52 +65,58 @@
 
             <div class="uou-block-2b icons">
                 <div class="container">
-                    <a href="#" class="logo"><img src="<?=site_url("/resources/img/logo.png") ?>" alt=""></a>
+                    <a href="#" class="logo"><img src="<?= site_url("/resources/img/logo.png") ?>" alt=""></a>
                     <a href="#" class="mobile-sidebar-button mobile-sidebar-toggle"><span></span></a>
 
                     <nav class="nav">
                         <ul class="sf-menu">
-                            <li class="<?=$tab=="home"?"active":""?>"><a href="<?=site_url("admin/home") ?>"><i class="fa fa-home"></i> Home</a>
+                            <li class="<?= $tab == "home" ? "active" : "" ?>"><a href="<?= site_url("admin/home") ?>"><i
+                                            class="fa fa-home"></i> Inicio</a>
 
                             </li>
-                            <li class="<?=$tab=="pagos"?"active":""?>">
-                                <a href="<?=site_url("admin/pagos") ?>"><i class="fa fa-search-plus"></i> Pagos</a>
+                            <li class="<?= $tab == "pagos" ? "active" : "" ?>">
+                                <a href="<?= site_url("admin/pagos") ?>"><i class="fa fa-dollar"></i> Pagos</a>
                                 <ul class="demo-menu">
-                                    <li><a href="<?=site_url("admin/pagos/solicitados") ?>">Pagos solicitados</a></li>
-                                    <li><a href="<?=site_url("admin/pagos/activos") ?>">Pagos activos</a></li>
-                                    <li><a href="<?=site_url("admin/pagos/expirados") ?>">Pagos expirados</a></li>
-                                    <li><a href="<?=site_url("admin/pagos/denegados") ?>">Pagos denegados</a></li>
-                                    <li><a href="<?=site_url("admin/pagos/membresias") ?>">Pagos membresias</a></li>
+                                    <li><a href="<?= site_url("admin/pagos/solicitados") ?>">Pagos solicitados</a></li>
+                                    <li><a href="<?= site_url("admin/pagos/activos") ?>">Pagos activos</a></li>
+                                    <li><a href="<?= site_url("admin/pagos/expirados") ?>">Pagos expirados</a></li>
+                                    <li><a href="<?= site_url("admin/pagos/denegados") ?>">Pagos denegados</a></li>
+                                    <li><a href="<?= site_url("admin/pagos/membresias") ?>">Pagos membresias</a></li>
                                 </ul>
                             </li>
-                            <li class="<?=$tab=="services"?"active":""?>">
-                                <a href="<?=site_url("admin/services") ?>"><i class="fa fa-search-plus"></i> Servicios </a>
+                            <li class="<?= $tab == "services" ? "active" : "" ?>">
+                                <a href="<?= site_url("admin/services") ?>"><i class="fa fa-cogs"></i> Servicios </a>
                                 <ul class="demo-menu">
-                                    <li><a href="<?=site_url("admin/services/denunciados") ?>">Mostrar Servicios Denunciados</a></li>
+                                    <li><a href="<?= site_url("admin/services/denunciados") ?>">Mostrar Servicios
+                                            Denunciados</a></li>
 
-                                    <li><a href="<?=site_url("admin/services") ?>">Mostrar Servicios Existentes</a></li>
-                                    <li><a href="<?=site_url("admin/services/create") ?>">Crear Servicio</a></li>
+                                    <li><a href="<?= site_url("admin/services") ?>">Mostrar Servicios Existentes</a>
+                                    </li>
+                                    <li><a href="<?= site_url("admin/services/create") ?>">Crear Servicio</a></li>
                                 </ul>
                             </li>
-                            <li class="<?=$tab=="category"?"active":""?>">
-                                <a href="<?=site_url("admin/categories") ?>"><i class="fa fa-search-plus"></i> Categorias</a>
+                            <li class="<?= $tab == "category" ? "active" : "" ?>">
+                                <a href="<?= site_url("admin/categories") ?>"><i class="fa fa-tag"></i> Categorias</a>
                                 <ul class="demo-menu">
-                                    <li><a href="<?=site_url("admin/categories") ?>">Mostrar Categorias Existentes</a></li>
-                                    <li><a href="<?=site_url("admin/categories/create") ?>">Crear Categorias</a></li>
+                                    <li><a href="<?= site_url("admin/categories") ?>">Mostrar Categorias Existentes</a>
+                                    </li>
+                                    <li><a href="<?= site_url("admin/categories/create") ?>">Crear Categorias</a></li>
                                 </ul>
                             </li>
-                            <li class="<?=$tab=="subcategory"?"active":""?>">
-                                <a href="<?=site_url("admin/subcategory") ?>"><i class="fa fa-search-plus"></i> Sub-Categorias</a>
+                            <li class="<?= $tab == "subcategory" ? "active" : "" ?>">
+                                <a href="<?= site_url("admin/subcategory") ?>"><i class="fa fa-tags"></i> Sub-Categorias</a>
                                 <ul class="demo-menu">
-                                    <li><a href="<?=site_url("admin/subcategory") ?>">Mostrar Sub-Categorias Existentes</a></li>
-                                    <li><a href="<?=site_url("admin/subcategory/create") ?>">Crear Sub-Categorias</a></li>
+                                    <li><a href="<?= site_url("admin/subcategory") ?>">Mostrar Sub-Categorias
+                                            Existentes</a></li>
+                                    <li><a href="<?= site_url("admin/subcategory/create") ?>">Crear Sub-Categorias</a>
+                                    </li>
                                 </ul>
 
-                            <li  class="<?=$tab=="cities"?"active":""?>">
-                                <a href="<?=site_url("admin/cities") ?>"><i class="fa fa-search-plus"></i> Ciudades </a>
+                            <li class="<?= $tab == "cities" ? "active" : "" ?>">
+                                <a href="<?= site_url("admin/cities") ?>"><i class="fa fa-map-marker"></i> Ciudades </a>
                                 <ul class="demo-menu">
-                                    <li><a href="<?=site_url("admin/cities") ?>">Mostrar Ciudades</a></li>
-                                    <li><a href="<?=site_url("admin/cities/create") ?>">Agregar Ciudad</a></li>
+                                    <li><a href="<?= site_url("admin/cities") ?>">Mostrar Ciudades</a></li>
+                                    <li><a href="<?= site_url("admin/cities/create") ?>">Agregar Ciudad</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -118,131 +127,150 @@
         </div>
     </div> <!-- edn header-navm -->
 
-    <div class="homepage-banner has-bg-image" data-bg-image="<?=site_url("/resources/img/homepage-banner.jpg") ?>">
-        <div class="advanced-search">
-            <div class="close">
-                <i class="fa fa-close"></i>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="search-category">
-                            <div class="row">
-                                <div class="col-md-3 col-sm-3">
-                                    <label>Cost</label>
-                                </div>
-                                <div class="col-md-9 col-sm-9 col-sm-9">
-                                    <div class="slider-range-container">
-                                        <div class="slider-range" data-min="1" data-max="10000" data-step="2" data-default-min="500" data-default-max="8000" data-currency="$"></div>
-                                        <div class="clearfix">
-                                            <input type="text" class="range-from" value="1">
-                                            <input type="text" class="range-to" value="60">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="search-category">
-                            <div class="row">
-                                <div class="col-md-3 col-sm-3">
-                                    <label>Rating</label>
-                                </div>
-                                <div class="col-md-9 col-sm-9">
-                                    <div class="slider-range-container">
-                                        <div class="slider-range" data-min="1" data-max="6" data-step="1" data-default-min="1" data-default-max="6" data-currency=" &nbsp; "></div>
-                                        <div class="clearfix">
-                                            <input type="text" class="range-from" value="1">
-                                            <input type="text" class="range-to" value="6">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="search-category">
-                            <div class="row">
-                                <div class="col-md-3 col-sm-3">
-                                    <label>Days published</label>
-                                </div>
-                                <div class="col-md-9 col-sm-9">
-                                    <div class="slider-range-container">
-                                        <div class="slider-range" data-min="1" data-max="30" data-step="1" data-default-min="4" data-default-max="10" data-currency=" &nbsp; "></div>
-                                        <div class="clearfix">
-                                            <input type="text" class="range-from" value="2">
-                                            <input type="text" class="range-to" value="30">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="search-category">
-                            <div class="row">
-                                <div class="col-md-3 col-sm-3">
-                                    <label>Location</label>
-                                </div>
-                                <div class="col-md-9 col-sm-9">
-                                    <input type="text" placeholder="Switzerland">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="search-category">
-                            <div class="row">
-                                <div class="col-md-3 col-sm-3">
-                                    <label>Keywords</label>
-                                </div>
-                                <div class="col-md-9 col-sm-9">
-                                    <input type="text" placeholder="Freelance">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="search-category">
-                            <div class="row">
-                                <div class="col-md-3 col-sm-3">
-                                    <label>Industry</label>
-                                </div>
-                                <div class="col-md-9 col-sm-9">
-                                    <div class="custom-select-box">
-                                        <select name="industry" class="custom-select">
-                                            <option value="0">IT</option>
-                                            <option value="1">Hobby</option>
-                                            <option value="2">Sport</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="homepage-banner has-bg-image" data-bg-image="<?= site_url("/resources/img/homepage-banner.jpg") ?>">
+
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <h3>Looking for something?<br> let us help you.</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem ad eius consequatur nulla commodi inventore mollitia esse totam minima error, doloremque placeat deleniti suscipit, ipsam maxime.</p>
+                    <h1 class="block-title">Servicios</h1>
+                    <p class="block-secondary-title invert">Administraci&oacute;n</p>
                 </div>
                 <div class="col-md-12">
-                    <div class="map-search">
-                        <div class="map-toggleButton">
-                            <i class="fa fa-bars"></i>
+                    <form id="filter" action="<?= site_url('api/filter'); ?>" method="post">
+                        <div class="map-search">
+                            <!--                        <div class="map-toggleButton">-->
+                            <!--                            <i class="fa fa-bars" title="Aplicar filtro"></i>-->
+                            <!--                        </div>-->
+                            <div class="map-search-fields">
+                                <div class="field custom-select-box">
+                                    <select name="cities" class="custom-select" id="cities2" multiple="true"
+                                            data-placeholder="Ciudades">
+                                    </select>
+                                </div>
+                                <!--                            <div class="field">-->
+                                <!--                                <i class="fa fa-map-marker"></i>-->
+                                <!--                                <input type="text" placeholder="Location" class="location">-->
+                                <!--                            </div>-->
+                                <div class="field custom-select-box">
+                                    <select name="distance" class="custom-select"
+                                            data-placeholder="Distancia" id="distancia">
+                                        <option value="5">5 Km</option>
+                                        <option value="10">10 Km</option>
+                                        <option value="15">15 Km</option>
+                                        <option value="20">20 Km</option>
+                                        <option value="25">25 Km</option>
+                                    </select>
+                                </div>
+                                <div class="field custom-select-box">
+                                    <select name="categories" class="custom-select" multiple="true"
+                                            data-placeholder="Categorias" id="categories">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="search-button">
+                                <button type="submit" class="btn btn-medium btn-primary">Buscar servicio</button>
+                            </div>
                         </div>
-                        <div class="map-search-fields">
-                            <div class="field custom-select-box">
-                                <select name="cities" class="custom-select" id="cities2" multiple="true"
-                                        data-placeholder="Ciudades">
-                                </select>
+                    </form>
+                    <div class="advanced-search">
+                        <!--<div class="close">
+                            <i class="fa fa-check"></i>
+                        </div>-->
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="search-category">
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-3">
+                                                <label>Costo</label>
+                                            </div>
+                                            <div class="col-md-9 col-sm-9 col-sm-9">
+                                                <div class="slider-range-container">
+                                                    <div class="slider-range" data-min="1" data-max="10000"
+                                                         data-step="2" data-default-min="500" data-default-max="8000"
+                                                         data-currency="$"></div>
+                                                    <div class="clearfix">
+                                                        <input type="text" class="range-from" value="1">
+                                                        <input type="text" class="range-to" value="60">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="search-category">
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-3">
+                                                <label>Rating</label>
+                                            </div>
+                                            <div class="col-md-9 col-sm-9">
+                                                <div class="slider-range-container">
+                                                    <div class="slider-range" data-min="1" data-max="6" data-step="1"
+                                                         data-default-min="1" data-default-max="6"
+                                                         data-currency=" &nbsp; "></div>
+                                                    <div class="clearfix">
+                                                        <input type="text" class="range-from" value="1">
+                                                        <input type="text" class="range-to" value="6">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="search-category">
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-3">
+                                                <label>D&iacute;as publicados</label>
+                                            </div>
+                                            <div class="col-md-9 col-sm-9">
+                                                <div class="slider-range-container">
+                                                    <div class="slider-range" data-min="1" data-max="30" data-step="1"
+                                                         data-default-min="4" data-default-max="10"
+                                                         data-currency=" &nbsp; "></div>
+                                                    <div class="clearfix">
+                                                        <input type="text" class="range-from" value="2">
+                                                        <input type="text" class="range-to" value="30">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="search-category">
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-3">
+                                                <label>Lugar</label>
+                                            </div>
+                                            <div class="col-md-9 col-sm-9">
+                                                <input type="text" placeholder="Switzerland">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="search-category">
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-3">
+                                                <label>Palabras claves</label>
+                                            </div>
+                                            <div class="col-md-9 col-sm-9">
+                                                <input type="text" placeholder="Freelance">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="search-category">
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-3">
+                                                <label>Industria</label>
+                                            </div>
+                                            <div class="col-md-9 col-sm-9">
+                                                <div class="custom-select-box">
+                                                    <select name="industry" class="custom-select">
+                                                        <option value="0">IT</option>
+                                                        <option value="1">Hobby</option>
+                                                        <option value="2">Sport</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="field">
-                                <i class="fa fa-map-marker"></i>
-                                <input type="text" placeholder="Location" class="location">
-                            </div>
-                            <div class="field custom-select-box">
-                                <select name="categories" class="custom-select"  multiple="true"
-                                        data-placeholder="Categorias" id="categories">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="search-button">
-                            <button class="btn btn-medium btn-primary">Search business</button>
                         </div>
                     </div>
                 </div>
@@ -250,8 +278,17 @@
         </div>
     </div>
 
+
+
     <div class="listing-objects has-bg-image" data-bg-color="f5f5f5">
         <div class="container">
+            <div id="filterresult" class="listing listing-3 listing-variation hide">
+                <h5>Resultados de b&uacute;squeda</h5>
+                <div class="container">
+                    <div id="filterresultcontent" class="row">
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-9">
                     <div class="uou-tabs">
@@ -279,14 +316,18 @@
                                     </div>
                                     <div class="col-md-4">
                                         <ul class="locations-list list-unstyled mb0">
-                                            <li><a href="#"><i class="fa fa-angle-right"></i>Australia & New Zeland <span class="count">(5)</span></a></li>
-                                            <li><a href="#"><i class="fa fa-angle-right"></i>Northern America <span class="count">(5)</span></a></li>
+                                            <li><a href="#"><i class="fa fa-angle-right"></i>Australia & New Zeland
+                                                    <span class="count">(5)</span></a></li>
+                                            <li><a href="#"><i class="fa fa-angle-right"></i>Northern America <span
+                                                            class="count">(5)</span></a></li>
                                         </ul>
                                     </div>
                                     <div class="col-md-4">
                                         <ul class="locations-list list-unstyled mb0">
-                                            <li><a href="#"><i class="fa fa-angle-right"></i>Southern Asia <span class="count">(5)</span></a></li>
-                                            <li><a href="#"><i class="fa fa-angle-right"></i>Southern Europe <span class="count">(5)</span></a></li>
+                                            <li><a href="#"><i class="fa fa-angle-right"></i>Southern Asia <span
+                                                            class="count">(5)</span></a></li>
+                                            <li><a href="#"><i class="fa fa-angle-right"></i>Southern Europe <span
+                                                            class="count">(5)</span></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -312,82 +353,48 @@
                 </div>
                 <div class="col-md-3">
                     <div class="sidebar-listing">
-                        <h5 class="sidebar-listing-title">Recently Reviewed</h5>
-                        <div class="listing-offer">
-                            <h6 class="title"><a href="#">Urban Escape Spa</a></h6>
-                            <div class="listing-offer-thumbnail">
-                                <img src="<?=site_url("/resources/img/listing-offer-thumbnail1.png") ?>" alt="">
-                            </div>
-                            <div class="listing-offer-content">
-                                <span class="location"><i class="fa fa-map-marker"></i> Manila, Philippines</span>
-                                <ul class="rate">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
-                                <span class="count">208 reviews</span>
-                            </div>
-                        </div>
-                        <div class="listing-offer">
-                            <h6 class="title"><a href="#">Shear Studio</a></h6>
-                            <div class="listing-offer-thumbnail">
-                                <img src="<?=site_url("/resources/img/listing-offer-thumbnail2.png") ?>" alt="">
-                            </div>
-                            <div class="listing-offer-content">
-                                <span class="location"><i class="fa fa-map-marker"></i> Dhaka, Bangladesh</span>
-                                <ul class="rate">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
-                                <span class="count">208 reviews</span>
-                            </div>
-                        </div>
-                        <div class="listing-offer">
-                            <h6 class="title"><a href="#">Derma Spa</a></h6>
-                            <div class="listing-offer-thumbnail">
-                                <img src="<?=site_url("/resources/img/listing-offer-thumbnail3.png") ?>" alt="">
-                            </div>
-                            <div class="listing-offer-content">
-                                <span class="location"><i class="fa fa-map-marker"></i> Manila, Philippines</span>
-                                <ul class="rate">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
-                                <span class="count">208 reviews</span>
-                            </div>
-                        </div>
-                        <div class="listing-offer">
-                            <h6 class="title"><a href="#">Kelly’s Spa</a></h6>
-                            <div class="listing-offer-thumbnail">
-                                <img src="<?=site_url("/resources/img/listing-offer-thumbnail4.png") ?>" alt="">
-                            </div>
-                            <div class="listing-offer-content">
-                                <span class="location"><i class="fa fa-map-marker"></i> Manila, Philippines</span>
-                                <ul class="rate">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
-                                <span class="count">208 reviews</span>
-                            </div>
-                        </div>
+                        <h5 class="sidebar-listing-title">Visitados recientemente</h5>
+                        <?php if (count($morevisits)) : ?>
+                            <?php foreach ($morevisits as $object) : ?>
+                                <div class="listing-offer">
+                                    <h6 class="title"><a
+                                                href="<?= site_url('admin/services/show/') . $object->id ?>"><?= $object->title ?></a>
+                                    </h6>
+                                    <div class="listing-offer-thumbnail">
+                                        <?php if(count($object->getImages()->toArray())>0){ ?>
+                                        <img src="<?= $object->getImages()->toArray()[0]->getTitle() ?>" alt="">
+                                        <?php }?>
+                                    </div>
+                                    <div class="listing-offer-content">
+                                        <?php if ($object->address) : ?>
+                                            <span class="location"><i
+                                                        class="fa fa-map-marker"></i> <?= $object->address ?></span>
+                                        <?php endif; ?>
+                                        <ul class="rate">
+                                            <?php $rate = $object->getGlobalrate();
+                                            for ($pos = 0; $pos < 10; $pos++) {
+                                                if ($pos < $rate) {
+                                                    echo '<li><i class="fa fa-star"></i></li>';
+                                                } else {
+                                                    echo ' <li><i class="fa fa-star-o"></i></li>';
+                                                }
+                                            }
+                                            ?>
+                                        </ul>
+                                        <?php if ($object->visits) : ?>
+                                            <span class="count"><?= $object->visits ?> visitas</span>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="about about-section has-bg-image" data-bg-image="<?=site_url("/resources/img/about-bg.jpg") ?>">
+    <div class="about about-section has-bg-image" data-bg-image="<?= site_url("/resources/img/about-bg.jpg") ?>">
         <div class="triangle"></div>
         <div class="container">
             <div class="row">
@@ -403,14 +410,23 @@
                         <div class="content">
                             <div class="active" id="uou-tab-1v">
                                 <div class="col-md-5">
-                                    <img src="<?=site_url("/resources/img/about-thumbnail.png") ?>" alt="" class="img-responsive">
+                                    <img src="<?= site_url("/resources/img/about-thumbnail.png") ?>" alt=""
+                                         class="img-responsive">
                                 </div>
                                 <div class="col-md-7">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa in placeat voluptates omnis vel quod maiores perferendis, eaque quasi expedita, adipisci dolorum porro itaque quia nesciunt atque earum consequatur ex.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa in placeat
+                                        voluptates omnis vel quod maiores perferendis, eaque quasi expedita, adipisci
+                                        dolorum porro itaque quia nesciunt atque earum consequatur ex.</p>
                                     <ul class="list-unstyled mb0">
-                                        <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span></li>
-                                        <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span></li>
-                                        <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span></li>
+                                        <li>
+                                            <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                        </li>
                                         <li><i class="fa fa-angle-right"></i><span>Mauris in erat justo.</span></li>
                                     </ul>
                                 </div>
@@ -418,14 +434,23 @@
 
                             <div id="uou-tab-2v">
                                 <div class="col-md-5">
-                                    <img src="<?=site_url("/resources/img/about-thumbnail.png") ?>" alt="" class="img-responsive">
+                                    <img src="<?= site_url("/resources/img/about-thumbnail.png") ?>" alt=""
+                                         class="img-responsive">
                                 </div>
                                 <div class="col-md-7">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa in placeat voluptates omnis vel ddquod maiores perferendis, eaque quasi expedita, adipisci dolorum porro itaque quia nesciunt atque earum consequatur ex.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa in placeat
+                                        voluptates omnis vel ddquod maiores perferendis, eaque quasi expedita, adipisci
+                                        dolorum porro itaque quia nesciunt atque earum consequatur ex.</p>
                                     <ul class="list-unstyled mb0">
-                                        <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span></li>
-                                        <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span></li>
-                                        <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span></li>
+                                        <li>
+                                            <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                        </li>
                                         <li><i class="fa fa-angle-right"></i><span>Mauris in erat justo.</span></li>
                                     </ul>
                                 </div>
@@ -433,14 +458,23 @@
 
                             <div id="uou-tab-3v">
                                 <div class="col-md-5">
-                                    <img src="<?=site_url("/resources/img/about-thumbnail.png") ?>" alt="" class="img-responsive">
+                                    <img src="<?= site_url("/resources/img/about-thumbnail.png") ?>" alt=""
+                                         class="img-responsive">
                                 </div>
                                 <div class="col-md-7">
-                                    <p>Lorem ipsuddm dolor sit amet, consectetur adipisicing elit. Ipsa in placeat voluptates omnis vel quod maiores perferendis, eaque quasi expedita, adipisci dolorum porro itaque quia nesciunt atque earum consequatur ex.</p>
+                                    <p>Lorem ipsuddm dolor sit amet, consectetur adipisicing elit. Ipsa in placeat
+                                        voluptates omnis vel quod maiores perferendis, eaque quasi expedita, adipisci
+                                        dolorum porro itaque quia nesciunt atque earum consequatur ex.</p>
                                     <ul class="list-unstyled mb0">
-                                        <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span></li>
-                                        <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span></li>
-                                        <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span></li>
+                                        <li>
+                                            <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                        </li>
                                         <li><i class="fa fa-angle-right"></i><span>Mauris in erat justo.</span></li>
                                     </ul>
                                 </div>
@@ -480,10 +514,18 @@
                                     <div class="listing-inner">
                                         <div class="flexslider default-slider">
                                             <ul class="slides">
-                                                <li><img src="<?=site_url("/resources/img/slider-img/lv3_thumbnail_5.png") ?>" alt=""></li>
-                                                <li><img src="<?=site_url("/resources/img/slider-img/lv3_thumbnail_6.png") ?>" alt=""></li>
-                                                <li><img src="<?=site_url("/resources/img/slider-img/lv3_thumbnail_7.png") ?>" alt=""></li>
-                                                <li><img src="<?=site_url("/resources/img/slider-img/lv3_thumbnail_8.png") ?>" alt=""></li>
+                                                <li>
+                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_5.png") ?>"
+                                                         alt=""></li>
+                                                <li>
+                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_6.png") ?>"
+                                                         alt=""></li>
+                                                <li>
+                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_7.png") ?>"
+                                                         alt=""></li>
+                                                <li>
+                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_8.png") ?>"
+                                                         alt=""></li>
                                             </ul>
                                             <div class="reviews">
                                                 <ul>
@@ -538,10 +580,18 @@
                                     <div class="listing-inner">
                                         <div class="flexslider default-slider">
                                             <ul class="slides">
-                                                <li><img src="<?=site_url("/resources/img/slider-img/lv3_thumbnail_6.png") ?>" alt=""></li>
-                                                <li><img src="<?=site_url("/resources/img/slider-img/lv3_thumbnail_7.png") ?>" alt=""></li>
-                                                <li><img src="<?=site_url("/resources/img/slider-img/lv3_thumbnail_8.png") ?>" alt=""></li>
-                                                <li><img src="<?=site_url("/resources/img/slider-img/lv3_thumbnail_9.png") ?>" alt=""></li>
+                                                <li>
+                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_6.png") ?>"
+                                                         alt=""></li>
+                                                <li>
+                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_7.png") ?>"
+                                                         alt=""></li>
+                                                <li>
+                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_8.png") ?>"
+                                                         alt=""></li>
+                                                <li>
+                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_9.png") ?>"
+                                                         alt=""></li>
                                             </ul>
                                             <div class="reviews">
                                                 <ul>
@@ -596,10 +646,18 @@
                                     <div class="listing-inner">
                                         <div class="flexslider default-slider">
                                             <ul class="slides">
-                                                <li><img src="<?=site_url("/resources/img/slider-img/lv3_thumbnail_7.png") ?>" alt=""></li>
-                                                <li><img src="<?=site_url("/resources/img/slider-img/lv3_thumbnail_8.png") ?>" alt=""></li>
-                                                <li><img src="<?=site_url("/resources/img/slider-img/lv3_thumbnail_9.png") ?>" alt=""></li>
-                                                <li><img src="<?=site_url("/resources/img/slider-img/lv3_thumbnail_10.png") ?>" alt=""></li>
+                                                <li>
+                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_7.png") ?>"
+                                                         alt=""></li>
+                                                <li>
+                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_8.png") ?>"
+                                                         alt=""></li>
+                                                <li>
+                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_9.png") ?>"
+                                                         alt=""></li>
+                                                <li>
+                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_10.png") ?>"
+                                                         alt=""></li>
                                             </ul>
                                             <div class="reviews">
                                                 <ul>
@@ -654,10 +712,18 @@
                                     <div class="listing-inner">
                                         <div class="flexslider default-slider">
                                             <ul class="slides">
-                                                <li><img src="<?=site_url("/resources/img/slider-img/lv3_thumbnail_8.png") ?>" alt=""></li>
-                                                <li><img src="<?=site_url("/resources/img/slider-img/lv3_thumbnail_10.png") ?>" alt=""></li>
-                                                <li><img src="<?=site_url("/resources/img/slider-img/lv3_thumbnail_9.png") ?>" alt=""></li>
-                                                <li><img src="<?=site_url("/resources/img/slider-img/lv3_thumbnail_7.png") ?>" alt=""></li>
+                                                <li>
+                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_8.png") ?>"
+                                                         alt=""></li>
+                                                <li>
+                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_10.png") ?>"
+                                                         alt=""></li>
+                                                <li>
+                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_9.png") ?>"
+                                                         alt=""></li>
+                                                <li>
+                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_7.png") ?>"
+                                                         alt=""></li>
                                             </ul>
                                             <div class="reviews">
                                                 <ul>
@@ -714,19 +780,27 @@
         </div>
     </div>
 
-    <div class="sponsors sponsors-2 has-bg-image" data-bg-image="<?=site_url("/resources/img/banner-mission.jpg") ?>" data-bg-color="00D793" data-bg-opacity=".20">
+    <div class="sponsors sponsors-2 has-bg-image" data-bg-image="<?= site_url("/resources/img/banner-mission.jpg") ?>"
+         data-bg-color="00D793" data-bg-opacity=".20">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <h3 class="section-title">Our Sponsors</h3>
                     <div class="sponsors-slider">
-                        <div class="item"><img src="<?=site_url("/resources/img/sponsor_logo1_1.png") ?>" alt="" class="img-responsive"></div>
-                        <div class="item"><img src="<?=site_url("/resources/img/sponsor_logo2_2.png") ?>" alt="" class="img-responsive"></div>
-                        <div class="item"><img src="<?=site_url("/resources/img/sponsor_logo3_3.png") ?>" alt="" class="img-responsive"></div>
-                        <div class="item"><img src="<?=site_url("/resources/img/sponsor_logo4_4.png") ?>" alt="" class="img-responsive"></div>
-                        <div class="item"><img src="<?=site_url("/resources/img/sponsor_logo5_5.png") ?>" alt="" class="img-responsive"></div>
-                        <div class="item"><img src="<?=site_url("/resources/img/sponsor_logo6_6.png") ?>" alt="" class="img-responsive"></div>
-                        <div class="item"><img src="<?=site_url("/resources/img/sponsor_logo4_4.png") ?>" alt="" class="img-responsive"></div>
+                        <div class="item"><img src="<?= site_url("/resources/img/sponsor_logo1_1.png") ?>" alt=""
+                                               class="img-responsive"></div>
+                        <div class="item"><img src="<?= site_url("/resources/img/sponsor_logo2_2.png") ?>" alt=""
+                                               class="img-responsive"></div>
+                        <div class="item"><img src="<?= site_url("/resources/img/sponsor_logo3_3.png") ?>" alt=""
+                                               class="img-responsive"></div>
+                        <div class="item"><img src="<?= site_url("/resources/img/sponsor_logo4_4.png") ?>" alt=""
+                                               class="img-responsive"></div>
+                        <div class="item"><img src="<?= site_url("/resources/img/sponsor_logo5_5.png") ?>" alt=""
+                                               class="img-responsive"></div>
+                        <div class="item"><img src="<?= site_url("/resources/img/sponsor_logo6_6.png") ?>" alt=""
+                                               class="img-responsive"></div>
+                        <div class="item"><img src="<?= site_url("/resources/img/sponsor_logo4_4.png") ?>" alt=""
+                                               class="img-responsive"></div>
                     </div>
                 </div>
             </div>
@@ -737,9 +811,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3 col-sm-6">
-                    <a href="#" class="logo"><img src="<?=site_url("/resources/img/logo.png") ?>" alt=""></a>
+                    <a href="#" class="logo"><img src="<?= site_url("/resources/img/logo.png") ?>" alt=""></a>
 
-                    <ul style="background-image: url(_<?=site_url("/resources/img/footer-map-bg.png")?>);" class="contact-info has-bg-image contain" data-bg-image="<?=site_url("/resources/img/footer-map-bg.png") ?>">
+                    <ul style="background-image: url(<?= site_url("/resources/img/footer-map-bg.png") ?>);"
+                        class="contact-info has-bg-image contain"
+                        data-bg-image="<?= site_url("/resources/img/footer-map-bg.png") ?>">
                         <li>
                             <i class="fa fa-map-marker"></i>
                             <address>795 Folsom Ave, Suite 600, San Francisco, CA 94107</address>
@@ -762,7 +838,8 @@
 
                     <ul class="twitter-feed">
                         <li>
-                            RT <a href="#">@no1son</a>: Now this <a href="#">http://t.co/TSfMW1qMAW</a> is one hell of a stunning site!!! Awesome work guys <a href="#">@AIRNAUTS</a>
+                            RT <a href="#">@no1son</a>: Now this <a href="#">http://t.co/TSfMW1qMAW</a> is one hell of a
+                            stunning site!!! Awesome work guys <a href="#">@AIRNAUTS</a>
                             <a href="#" class="time">May 25</a>
                         </li>
 
@@ -777,12 +854,12 @@
                     <h5>Photostream</h5>
 
                     <ul class="photos-list">
-                        <li><img src="<?=site_url("/resources/img/photostream4.jpg") ?>" alt=""></li>
-                        <li><img src="<?=site_url("/resources/img/photostream6.jpg") ?>" alt=""></li>
-                        <li><img src="<?=site_url("/resources/img/photostream3.jpg") ?>" alt=""></li>
-                        <li><img src="<?=site_url("/resources/img/photostream2.jpg") ?>" alt=""></li>
-                        <li><img src="<?=site_url("/resources/img/photostream1.jpg") ?>" alt=""></li>
-                        <li><img src="<?=site_url("/resources/img/photostream.jpg") ?>" alt=""></li>
+                        <li><img src="<?= site_url("/resources/img/photostream4.jpg") ?>" alt=""></li>
+                        <li><img src="<?= site_url("/resources/img/photostream6.jpg") ?>" alt=""></li>
+                        <li><img src="<?= site_url("/resources/img/photostream3.jpg") ?>" alt=""></li>
+                        <li><img src="<?= site_url("/resources/img/photostream2.jpg") ?>" alt=""></li>
+                        <li><img src="<?= site_url("/resources/img/photostream1.jpg") ?>" alt=""></li>
+                        <li><img src="<?= site_url("/resources/img/photostream.jpg") ?>" alt=""></li>
                     </ul>
                 </div>
 
@@ -820,70 +897,77 @@
     <a href="#" class="mobile-sidebar-close">&times;</a>
     <nav class="main-nav">
         <ul>
-            <li class="active"><a href="#">Home</a></li>
+            <li class="<?= $tab == "home" ? "active" : "" ?>"><a href="<?= site_url("admin/home") ?>"><i
+                            class="fa fa-home"></i> Inicio</a></li>
+            <li class="<?= $tab == "pagos" ? "active" : "" ?>"><a href="<?= site_url("admin/pagos") ?>"><i
+                            class="fa fa-dollar"></i> Pagos</a></li>
+            <li class="pl10 <?= $tab == "solicitados" ? "active" : "" ?>"><a
+                        href="<?= site_url("admin/pagos/solicitados") ?>">Pagos solicitados</a></li>
+            <li class="pl10 <?= $tab == "activos" ? "active" : "" ?>"><a href="<?= site_url("admin/pagos/activos") ?>">Pagos
+                    activos</a></li>
+            <li class="pl10 <?= $tab == "expirados" ? "active" : "" ?>"><a
+                        href="<?= site_url("admin/pagos/expirados") ?>">Pagos expirados</a></li>
+            <li class="pl10 <?= $tab == "denegados" ? "active" : "" ?>"><a
+                        href="<?= site_url("admin/pagos/denegados") ?>">Pagos denegados</a></li>
+            <li class="pl10 <?= $tab == "membresias" ? "active" : "" ?>"><a
+                        href="<?= site_url("admin/pagos/membresias") ?>">Pagos membres&iacute;as</a></li>
 
-            <li class="pl10"><a href="index.html">Home 1</a></li>
-            <li class="pl10 active"><a href="index2.html">Home 2</a></li>
+            <li class="<?= $tab == "services" ? "active" : "" ?>"><a href="<?= site_url("admin/services") ?>"><i
+                            class="fa fa-cogs"></i> Servicios </a></li>
+            <li class="pl10 <?= $tab == "denunciados" ? "active" : "" ?>"><a
+                        href="<?= site_url("admin/services/denunciados") ?>">Mostrar Servicios Denunciados</a></li>
+            <li class="pl10 <?= $tab == "services" ? "active" : "" ?>"><a href="<?= site_url("admin/services") ?>">Mostrar
+                    Servicios Existentes</a></li>
+            <li class="pl10 <?= $tab == "crearservicio" ? "active" : "" ?>"><a
+                        href="<?= site_url("admin/services/create") ?>">Crear Servicio</a></li>
 
-            <li class="active"><a href="#">Jobs</a></li>
-            <li class="pl10"><a href="index_jobs.html">Jobs Index(Default)</a></li>
-            <li class="pl10"><a href="single_job.html">Job Single</a></li>
-            <li class="pl10"><a href="profile_company.html">Company Profile</a></li>
-            <li class="pl10"><a href="profile_company2.html">Company Profile (2)</a></li>
+            <li class="<?= $tab == "category" ? "active" : "" ?>"><a href="<?= site_url("admin/categories") ?>"><i
+                            class="fa fa-tag"></i> Categorias</a></li>
+            <li class="pl10 <?= $tab == "category" ? "active" : "" ?>"><a href="<?= site_url("admin/categories") ?>">Mostrar
+                    Categorias Existentes</a></li>
+            <li class="pl10 <?= $tab == "crearcategoria" ? "active" : "" ?>"><a
+                        href="<?= site_url("admin/categories/create") ?>">Crear Categorias</a></li>
 
-            <li class="active"><a href="#">Businesses</a></li>
-            <li class="pl10"><a href="index_business1.html">Business Index(Default)</a></li>
-            <li class="pl10"><a href="index_business2.html">Business Index(2)</a></li>
-            <li class="pl10"><a href="index_business3.html">Business Index(3)</a></li>
-            <li class="pl10"><a href="index_business4.html">Business Index(4)</a></li>
-            <li class="pl10"><a href="index_business5.html">Business Index(5)</a></li>
-            <li class="pl10"><a href="single_business.html">Business Single</a></li>
+            <li class="<?= $tab == "subcategory" ? "active" : "" ?>"><a href="<?= site_url("admin/subcategory") ?>"><i
+                            class="fa fa-tags"></i> Sub-Categorias</a></li>
+            <li class="pl10 <?= $tab == "subcategory" ? "active" : "" ?>"><a
+                        href="<?= site_url("admin/subcategory") ?>">Mostrar Sub-Categorias Existentes</a></li>
+            <li class="pl10 <?= $tab == "crearsubcategoria" ? "active" : "" ?>"><a
+                        href="<?= site_url("admin/subcategory/create") ?>">Crear Sub-Categorias</a></li>
 
-            <li class="active"><a href="#">Restaurants</a></li>
-            <li class="p10"><a href="index_restaurant.html">Restaurant Index</a></li>
-            <li class="p10"><a href="single_restaurant.html">Restaurant Single</a></li>
-
-            <li class="active"><a href="#">Features</a></li>
-            <li class="p10"><a href="box-variation1.html">Box Variation 1</a></li>
-            <li class="p10"><a href="box-variation2.html">Box Variation 2</a></li>
-            <li class="p10"><a href="box-variation3.html">Box Variation 1</a></li>
-            <li class="p10"><a href="gui-kit.html">GUI kit</a></li>
-
-            <li class="active"><a href="about.html"></a></li>
-            <li class="active"><a href="blog.html"></a></li>
-            <li class="active"><a href="contact.html">Contact</a></li>
-
-
+            <li class="<?= $tab == "cities" ? "active" : "" ?>"><a href="<?= site_url("admin/cities") ?>"><i
+                            class="fa fa-map-marker"></i> Ciudades </a></li>
+            <li class="pl10 <?= $tab == "cities" ? "active" : "" ?>"><a href="<?= site_url("admin/cities") ?>">Mostrar
+                    Ciudades</a></li>
+            <li class="pl10 <?= $tab == "crearciudad" ? "active" : "" ?>"><a
+                        href="<?= site_url("admin/cities/create") ?>">Agregar Ciudad</a></li>
         </ul>
     </nav>
-
-    <hr>
-
 </div>
 
-<!-- Scripts --><!--<script src="--><?//=site_url("/resources/js/googlemaplocal.js") ?><!--"></script>-->
-<script src="<?=site_url("/resources/js/jquery-2.1.3.min.js") ?>"></script>
+<!-- Scripts --><!--<script src="--><? //=site_url("/resources/js/googlemaplocal.js") ?><!--"></script>-->
+<script src="<?= site_url("/resources/js/jquery-2.1.3.min.js") ?>"></script>
 
 <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxooB5CXv3oWSzKldWJzStShRvWE8X1MA"></script>-->
 
-<script src="<?=site_url("/resources/js/plugins/superfish.min.js") ?>"></script>
-<script src="<?=site_url("/resources/js/jquery.ui.min.js") ?>"></script>
-<script src="<?=site_url("/resources/js/plugins/rangeslider.min.js") ?>"></script>
+<script src="<?= site_url("/resources/js/plugins/superfish.min.js") ?>"></script>
+<script src="<?= site_url("/resources/js/jquery.ui.min.js") ?>"></script>
+<script src="<?= site_url("/resources/js/plugins/rangeslider.min.js") ?>"></script>
 
-<script src="<?=site_url("/resources/js/plugins/jquery.flexslider-min.js") ?>"></script>
+<script src="<?= site_url("/resources/js/plugins/jquery.flexslider-min.js") ?>"></script>
 
-<script src="<?=site_url("/resources/js/uou-accordions.js") ?>"></script>
+<script src="<?= site_url("/resources/js/uou-accordions.js") ?>"></script>
 
-<script src="<?=site_url("/resources/js/uou-tabs.js") ?>"></script>
-<script src="<?=site_url("/resources/js/plugins/select2.min.js") ?>"></script>
-<script src="<?=site_url("/resources/js/owl.carousel.min.js") ?>"></script>
-<!--<script src="--><?//=site_url("/resources/js/gmap3.min.js") ?><!--"></script>-->
+<script src="<?= site_url("/resources/js/uou-tabs.js") ?>"></script>
+<script src="<?= site_url("/resources/js/plugins/select2.min.js") ?>"></script>
+<script src="<?= site_url("/resources/js/owl.carousel.min.js") ?>"></script>
+<!--<script src="--><? //=site_url("/resources/js/gmap3.min.js") ?><!--"></script>-->
 
-<script src="<?=site_url("/resources/js/bootstrap.js") ?>"></script>
-<script src="<?=site_url("/resources/js/bootstrap.js") ?>"></script>
-<script src="<?=site_url("/resources/js/admin.js") ?>"></script>
-<script src="<?=site_url("/resources/js/scripts.js") ?>"></script>
-<!--<script src="--><?//=site_url("/resources/js/scripts.js") ?><!--"></script>-->
+<script src="<?= site_url("/resources/js/bootstrap.js") ?>"></script>
+<!--<script src="--><? //=site_url("/resources/js/bootstrap.js") ?><!--"></script>-->
+<script src="<?= site_url("/resources/js/admin.js") ?>"></script>
+<script src="<?= site_url("/resources/js/scripts.js") ?>"></script>
+<!--<script src="--><? //=site_url("/resources/js/scripts.js") ?><!--"></script>-->
 
 </body>
 

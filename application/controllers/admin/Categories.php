@@ -25,6 +25,7 @@ class Categories extends CI_Controller {
 		$data['categories'] = $categoriesRepo->findAll();
 		$data['content'] = '/categories/index';
         $data["tab"]="category";
+        $data["tabTitle"]="categor&iacute;as";
 		$this->load->view('/includes/contentpage', $data);
 	}
 
@@ -32,6 +33,7 @@ class Categories extends CI_Controller {
 	function create() {
 		$data['content'] = '/categories/create';
         $data["tab"]="category";
+        $data["tabTitle"]="crear categor&iacute;a";
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -41,6 +43,7 @@ class Categories extends CI_Controller {
 		$data['categories'] = $em->find('Entities\Category',$id);
 		$data['content'] = '/categories/create';
         $data["tab"]="category";
+        $data["tabTitle"]="editar categor&iacute;a";
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -96,22 +99,14 @@ class Categories extends CI_Controller {
             $config['max_width']            = 9024;
             $config['max_height']           = 2768;
             $this->load->library('upload', $config);
-            if ( ! $this->upload->do_upload('userfile'))
-            {
-                $error = array('error' => $this->upload->display_errors());
-                $this->load->view('upload_form', $error);
-                print_r($error);
-            }
-            else
-            {
-
-                $data["upload_data"] =$this->upload->data();
-                $category->setTitle($this->input->post('title', TRUE));
+            if ($this->upload->do_upload('userfile')) {
+                $data["upload_data"] = $this->upload->data();
                 $category->setIcon(site_url('resources/image/categories/'.$data["upload_data"]["file_name"]));
-                $em->persist($category);
-                $em->flush();
-//                $this->load->view('upload_success', $data);
             }
+            $data["upload_data"] = $this->upload->data();
+            $category->setTitle($this->input->post('title', TRUE));
+            $em->persist($category);
+            $em->flush();
             redirect('admin/categories/index', 'refresh');
 		}else{
             $data['categories'] =	$this->rebuild();

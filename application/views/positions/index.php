@@ -5,6 +5,7 @@
 			<th>Title</th>
 			<th>Latitude</th>
 			<th>Longitude</th>
+			<th>Service</th>
 			<th colspan="2"></th>
 		</tr>
 		<?php foreach ($positions as $object) { ?>
@@ -13,6 +14,7 @@
 			<td><?= $object->title ?></td>
 			<td><?= $object->latitude ?></td>
 			<td><?= $object->longitude ?></td>
+			<td><?= $object->getService()->getTitle(); ?></td>
 			<td width="80"><?= anchor('admin/positions/edit/'.$object->id, 'Edit','class="btn btn-warning"'); ?></td>
 			<td width="80"><?= anchor('admin/positions/destroy/'.$object->id, 'Destroy','class="btn btn-danger"'); ?></td>
 		</tr><?php } ?>

@@ -20,6 +20,7 @@ class Services extends CI_Controller {
         $data['services'] = $servicesRepo->findAll();
 		$data['content'] = '/services/index';
         $data["tab"]="services";
+        $data["tabTitle"]="servicios";
 
         $this->load->view('/includes/contentpage', $data);
 	}
@@ -28,6 +29,7 @@ class Services extends CI_Controller {
 	function create() {
 		$data['content'] = '/services/create';
         $data["tab"]="services";
+        $data["tabTitle"]="crear servicios";
 
         $this->load->view('/includes/contentpage', $data);
 	}
@@ -37,15 +39,24 @@ class Services extends CI_Controller {
 		$data['services'] = $this->Services_model->find($id);
 		$data['content'] = '/services/create';
         $data["tab"]="services";
+        $data["tabTitle"]="editar servicios";
 
         $this->load->view('/includes/contentpage', $data);
 	}
     function show($id) {
-        $data['services'] = $this->Services_model->find($id);
+        $em= $this->doctrine->em;
+        $relacion = $em->getRepository('Entities\Subcategory');
+        $data['subcategories'] = $relacion->findAll();
+        $times = $em->getRepository('Entities\Times');
+        $data['times'] = $times->findBy(array('service' => $id));;
+
+        $data['services'] = $em->find('Entities\Service',$id);
+//        $data['times'] = $result;
         $data['content'] = '/services/show';
         $data["tab"]="services";
-
-        $this->load->view('/includes/contentpage', $data);
+        $data["tabTitle"]="servicio";
+//        print_r($data['categories']);die;
+ 		$this->load->view('/includes/contentpage', $data);
     }
 
     /**
@@ -66,6 +77,7 @@ class Services extends CI_Controller {
         $data["complaints"]=$result;
         $data['content'] = '/services/denunciados';
         $data["tab"]="services";
+        $data["tabTitle"]="servicios denunciados";
         $this->load->view('/includes/contentpage', $data);
 	}
 

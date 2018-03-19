@@ -1,5 +1,6 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php use Doctrine\Common\Collections\Criteria;
 
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Positions Controller.
  */
@@ -19,29 +20,36 @@ class Positions extends CI_Controller {
 
 	# GET /positions
 	function index() {
-		$data['positions'] = $this->Positions_model->find();
+        $em= $this->doctrine->em;
+        $relacion = $em->getRepository('Entities\Position');
+        $data['positions'] = $relacion->findAll();
 		$data['content'] = '/positions/index';
         $data["tab"]="position";
-		$this->load->view('/includes/template', $data);
+        $data["tabTitle"]="positions";
+        $this->load->view('/includes/contentpage', $data);
 	}
 
 	# GET /positions/create
 	function create() {
+        $em= $this->doctrine->em;
+        $relacion = $em->getRepository('Entities\Service');
+        $data['services'] = $relacion->findAll();
 		$data['content'] = '/positions/create';
         $data["tab"]="position";
-
-        $this->load->view('/includes/template', $data);
-	}
+        $data["tabTitle"]="positions";
+        $this->load->view('/includes/contentpage', $data);		}
 
 	# GET /positions/edit/1
-	function edit() {
-		$id = $this->uri->segment(3);
-		$data['positions'] = $this->Positions_model->find($id);
+	function edit($id) {
+        $em= $this->doctrine->em;
+        $relacion = $em->getRepository('Entities\Service');
+        $data['services'] = $relacion->findAll();
+        $data['positions'] = $em->find('Entities\Position', $id);
+//		$data['positions'] = $this->Positions_model->find($id);
         $data["tab"]="position";
-
         $data['content'] = '/positions/create';
-		$this->load->view('/includes/template', $data);
-	}
+        $data["tabTitle"]="positions";
+        $this->load->view('/includes/contentpage', $data);		}
 
 	# GET /positions/destroy/1
 	function destroy() {

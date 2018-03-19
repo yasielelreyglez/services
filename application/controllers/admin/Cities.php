@@ -18,6 +18,7 @@ class Cities extends CI_Controller {
         $data['cities'] = $citiesRepo->findAll();
 		$data['content'] = '/cities/index';
         $data["tab"]="cities";
+        $data["tabTitle"]="ciudades";
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -25,6 +26,7 @@ class Cities extends CI_Controller {
 	function create() {
 		$data['content'] = '/cities/create';
         $data["tab"]="cities";
+        $data["tabTitle"]="crear ciudad";
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -34,12 +36,12 @@ class Cities extends CI_Controller {
         $data['cities'] = $em->find('Entities\City',$id);
 		$data['content'] = '/cities/create';
         $data["tab"]="cities";
+        $data["tabTitle"]="editar ciudad";
         $this->load->view('/includes/contentpage', $data);
 	}
 
 	# GET /cities/destroy/1
-	function destroy() {
-		$id = $this->uri->segment(3);
+	function destroy($id) {
 		$data['cities'] = $this->Cities_model->destroy($id);
 		redirect('admin/cities/index', 'refresh');
 	}

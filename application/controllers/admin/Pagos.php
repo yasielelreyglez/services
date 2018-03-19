@@ -14,7 +14,12 @@ class Pagos extends CI_Controller {
         $this->load->model('Entities\Payments');
         $this->load->helper('url_helper');
         $this->load->helper('html');
-
+        $this->load->library('ion_auth');
+        if (!$this->ion_auth->logged_in())
+        {
+            // redirect them to the login page
+            redirect('admin/auth/login', 'refresh');
+        }
     }
     public function index()
     {
@@ -25,7 +30,11 @@ class Pagos extends CI_Controller {
         $data["pagos"]=$payments;
         $data['content'] = '/pagos/index';
         $data["tab"]="pagos";
+        $data["tabTitle"]="pagos";
         $data["Tipo"]="Realizados";
+        if (!$this->ion_auth->logged_in()){
+            $data["showlogin"]=true;
+        }
         $this->load->view('/includes/contentpage', $data);
 
     }
@@ -53,6 +62,7 @@ class Pagos extends CI_Controller {
         $data["title"] = "Pagos";
         $data['content'] = '/pagos/index';
         $data["tab"]="pagos";
+        $data["tabTitle"]="pagos solicitados";
         $data["Tipo"]="solicitados";
         $this->load->view('/includes/contentpage', $data);
 
@@ -66,6 +76,7 @@ class Pagos extends CI_Controller {
         $data["title"] = "Pagos";
         $data['content'] = '/pagos/index';
         $data["tab"]="pagos";
+        $data["tabTitle"]="pagos activos";
         $data["Tipo"]="activos";
         $this->load->view('/includes/contentpage', $data);
     }
@@ -78,6 +89,7 @@ class Pagos extends CI_Controller {
         $data["title"] = "Pagos";
         $data['content'] = '/pagos/facturaciones';
         $data["tab"]="pagos";
+        $data["tabTitle"]="pagos facturados";
         $data["Tipo"]="activos";
         $this->load->view('/includes/contentpage', $data);
     }
@@ -89,6 +101,7 @@ class Pagos extends CI_Controller {
         $data["pagos"]=$payments;
         $data['content'] = '/pagos/index';
         $data["tab"]="pagos";
+        $data["tabTitle"]="pagos expirados";
         $data["Tipo"]="expirados";
         $this->load->view('/includes/contentpage', $data);
     }
@@ -100,10 +113,19 @@ class Pagos extends CI_Controller {
         $data["pagos"]=$payments;
         $data['content'] = '/pagos/index';
         $data["tab"]="pagos";
+        $data["tabTitle"]="pagos denegados";
         $data["Tipo"]="denegados";
         $this->load->view('/includes/contentpage', $data);
     }
-
+    public function show($id)
+    {
+        $em= $this->doctrine->em;
+        $data['payment']=$em->find('Entities\Payments',$id);;
+        $data['content'] = '/pagos/show';
+        $data["tab"]="pagos";
+        $data["tabTitle"]="show pagos";
+        $this->load->view('/includes/contentpage', $data);
+    }
 
     public function aceptar($id){
         $em = $this->doctrine->em;
@@ -147,6 +169,7 @@ class Pagos extends CI_Controller {
         $data["memberships"]=$memberships;
         $data['content'] = '/pagos/membresias';
         $data["tab"]="pagos";
+        $data["tabTitle"]="pagos membres&iacute;as";
         $this->load->view('/includes/contentpage', $data);
     }
     public function crearmembresia()
@@ -155,16 +178,17 @@ class Pagos extends CI_Controller {
         $data["memberships"]=$memberships;
         $data['content'] = '/pagos/create';
         $data["tab"]="pagos";
+        $data["tabTitle"]="crear membres&iacute;a";
         $this->load->view('/includes/contentpage', $data);
     }
     public function editarmembresia($id)
     {
         $em= $this->doctrine->em;
-
         $memberships =$em->find('Entities\Membership',$id);
         $data["memberships"]=$memberships;
         $data['content'] = '/pagos/create';
         $data["tab"]="pagos";
+        $data["tabTitle"]="editar membres&iacute;a";
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -184,7 +208,7 @@ class Pagos extends CI_Controller {
             $membership->setPrice($this->input->post('price', TRUE));
             $em->persist($membership);
             $em->flush($membership);
-            redirect('admin/pagos/index', 'refresh');
+            redirect('admin/pagos/membresias', 'refresh');
         }
         $data['membership'] =	$membership;
         $data['content'] = '/pagos/create';

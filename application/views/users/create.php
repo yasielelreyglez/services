@@ -13,12 +13,18 @@
 			<input type="text" class="form-control" name="email" placeholder="Enter Email" value="<?= isset($users)?$users->email:''?>"/>
 			
 		</div>
+        <?php if (!isset($users)):?>
 		<div class="form-group">
 			<label for="password">Password:</label><br/>
 			<input type="password" class="form-control" name="password" placeholder="Enter Password" value="<?= isset($users)?$users->password:''?>"/>
 			
 		</div>
+        <div class="form-group">
+			<label for="password">Repeat Password:</label><br/>
+			<input type="password" class="form-control" name="password2" placeholder="Repeat Password" value=""/>
 
+		</div>
+        <?php endif;?>
 		<div class="form-group">
 			<label for="role">Role:</label><br/>
 			<input type="text" class="form-control" name="role" placeholder="Enter Role" value="<?= isset($users)?$users->role:''?>"/>
