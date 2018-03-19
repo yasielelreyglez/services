@@ -17,13 +17,13 @@
                         </div>
                         <div class="listing-tabs">
                             <ul>
-                                <li class="active"><a href="#basic" data-toggle="tab"><i class="fa fa-info"></i></a>
+                                <li class="active tab"><a href="#basic" data-target="basic" data-toggle="tab"><i class="fa fa-info"></i></a>
                                 </li>
-                                <li><a href="#moreinfo" data-toggle="tab"><i class="fa fa-plus"></i></a></li>
-                                <li><a href="#contact" (click)="MapPos()" data-toggle="tab"><i
+                                <li><a class="tab" href="#moreinfo" data-target="moreinfo" data-toggle="tab"><i class="fa fa-plus"></i></a></li>
+                                <li><a class="tab" href="#contact" data-target="contact" (click)="MapPos()" data-toggle="tab"><i
                                         class="fa fa-map-marker"></i></a></li>
                                 <!--<li><a href="#report" data-toggle="tab"><i class="fa fa-comments"></i></a></li>-->
-                                <li><a href="#hours" data-toggle="tab"><i class="fa fa-clock-o"></i></a></li>
+                                <li><a class="tab" href="#hours" data-target="hours" data-toggle="tab"><i class="fa fa-clock-o"></i></a></li>
                             </ul>
                         </div>
                         <div class="tab-content">
@@ -36,17 +36,20 @@
                                             </div>
                                             <div class="listing-content-description margin-description">
                                                 <p>{{service.description}}</p>
-
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
+                                <!--<button class="pull-right" [disabled]="!loggedIn" mat-raised-button color="primary"-->
+                                        <!--(click)="loggedIn ? reportDialog(service.id): openSnackBar('Debe iniciar sesión', 2500);">-->
+                                    <!--Favorito-->
+                                <!--</button>-->
                                 <button class="pull-right" [disabled]="!loggedIn" mat-raised-button color="primary"
                                         (click)="loggedIn ? reportDialog(service.id): openSnackBar('Debe iniciar sesión', 2500);">
                                     Denunciar
                                 </button>
-                                <button class="pull-right  mr-10" [disabled]="!loggedIn" mat-raised-button color="primary"
+                                <button class="pull-right mr-10" [disabled]="!loggedIn" mat-raised-button
+                                        color="primary"
                                         (click)="ratingDialog(service.id)">
                                     Evaluar
                                 </button>
@@ -130,31 +133,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--<div id="report" class="tab-pane fade in report">-->
-                                <!--<div class="listing-inner">-->
-                                    <!--<div class="listing-content">-->
-                                        <!--<h6 class="main-title">Report / Claim Listing</h6>-->
-                                        <!--<div class="row">-->
-                                            <!--<div class="col-md-3">-->
-                                                <!--<select class="custom-select">-->
-                                                    <!--<option value="0" selected>Report Category</option>-->
-                                                    <!--<option value="1">Prior</option>-->
-                                                    <!--<option value="2">Standard</option>-->
-                                                <!--</select>-->
-                                                <!--<select class="custom-select">-->
-                                                    <!--<option value="0" selected>Reasons for report</option>-->
-                                                    <!--<option value="1">Illegal anons</option>-->
-                                                    <!--<option value="2">Cheater employee</option>-->
-                                                <!--</select>-->
-                                            <!--</div>-->
-                                            <!--<div class="col-md-9">-->
-                                                <!--<textarea name="message" placeholder="Your Message"></textarea>-->
-                                                <!--<input type="button" class="btn btn-primary" value="Submit">-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
                             <div id="hours" class="tab-pane fade in hours">
                                 <div class="listing-inner">
                                     <div class="listing-content">
@@ -191,7 +169,8 @@
                                         </mat-grid-tile>
                                         <mat-grid-tile class="comment-date" [colspan]="4" [rowspan]="1">
                                             <!--<span class="">{{currentcomment.created.date | date: 'mediumDate'}}</span>-->
-                                            <span class="showrate" [innerHTML]="result_rate(currentcomment.rate)"></span>
+                                            <span class="showrate"
+                                                  [innerHTML]="result_rate(currentcomment.rate)"></span>
                                         </mat-grid-tile>
                                     </mat-grid-list>
                                     <div>

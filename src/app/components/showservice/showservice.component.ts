@@ -109,16 +109,32 @@ export class ShowserviceComponent implements OnInit, AfterViewInit, AfterContent
             }
         });
 
-        // UOU Tabs
-// ---------------------------------------------------------
-        if ($.fn.uouTabs) {
-            $('.uou-tabs').uouTabs();
-        } else {
-            console.warn('not loaded -> uou-tabs.js');
-        }
+        $('.listing-tabs').each(function () {
+            const $block = $(this), $tabs = $block.find('ul > li');
+
+            $tabs.on('click', function () {
+                const $this = $(this);
+                const target = $this.find('a').data('target');
+                $('.tab-pane').removeClass('active');
+                $('#' + target).addClass('active');
+
+                $tabs.removeClass('active');
+                $this.addClass('active');
+
+                return false;
+            });
+        });
+
     }
 
     ngAfterContentChecked(): void {
+//         // UOU Tabs
+// // ---------------------------------------------------------
+//         if ($.fn.uouTabs) {
+//             $('.uou-tabs').uouTabs();
+//         } else {
+//             console.warn('not loaded -> uou-tabs.js');
+//         }
     }
 
     ngAfterViewInit() {
@@ -126,6 +142,8 @@ export class ShowserviceComponent implements OnInit, AfterViewInit, AfterContent
 
     ngAfterContentInit(): void {
     }
+
+
 
     reportDialog(id: number): void {
         const dialogRef = this.dialog.open(ReportServiceComponent, {

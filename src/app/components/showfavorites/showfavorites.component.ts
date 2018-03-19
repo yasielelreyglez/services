@@ -13,6 +13,7 @@ export class ShowfavoritesComponent implements OnInit {
     }
 
     ngOnInit() {
+        window.scrollTo(0, 0);
         this.apiServices.myfavorites().subscribe(result => this.services = result);
     }
 

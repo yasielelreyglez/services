@@ -15,6 +15,7 @@ export class ShowcategoriesComponent implements OnInit, AfterViewInit, AfterView
     }
 
     ngOnInit() {
+        window.scrollTo(0, 0);
         return this.apiServices.categoriesLoaded().subscribe(result => this.categories = result);
     }
 

@@ -13,6 +13,7 @@ export class ShowmysearchsComponent implements OnInit {
     }
 
     ngOnInit() {
+        window.scrollTo(0, 0);
         this.apiServices.mySearchs().subscribe(result => this.services = result);
     }
 

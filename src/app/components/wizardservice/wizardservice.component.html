@@ -52,23 +52,23 @@
                                 <option *ngFor="let category of categories" value="{{category.id}}">{{category.title}}
                                 </option>
                             </select>
-                            <div style="height: 25px;"></div>
-                            <div class="">
-                                <div style="width: 133px; height: 122.891px;">
-                                    <img name="preview" class="d-flex align-self-center" width="115"
-                                         [src]="previewvalue" alt=""
-                                         style="border: 1px solid #bcbcbc; padding: 5px; width: 90%; height: 100%;"
-                                         appImageZoom>
-                                </div>
-                                <label class="fileContainer cp">
-                                    <button mat-raised-button color="primary">
-                                        <mat-icon>camera</mat-icon>
-                                        Subir foto
-                                    </button>
-                                    <input type="file" class="" name="icon" size="20"
-                                           (change)="onFileChange($event)" #fileInput/>
-                                </label>
-                            </div>
+                            <div style="height: 50px;"></div>
+                            <!--<div class="">-->
+                                <!--<div style="width: 133px; height: 122.891px;">-->
+                                    <!--<img name="preview" class="d-flex align-self-center" width="115"-->
+                                         <!--[src]="previewvalue" alt=""-->
+                                         <!--style="border: 1px solid #bcbcbc; padding: 5px; width: 90%; height: 100%;"-->
+                                         <!--appImageZoom>-->
+                                <!--</div>-->
+                                <!--<label class="fileContainer cp">-->
+                                    <!--<button mat-raised-button color="primary">-->
+                                        <!--<mat-icon>camera</mat-icon>-->
+                                        <!--Subir foto-->
+                                    <!--</button>-->
+                                    <!--<input type="file" class="" name="icon" size="20"-->
+                                           <!--(change)="onFileChange($event)" #fileInput/>-->
+                                <!--</label>-->
+                            <!--</div>-->
                             <div style="text-align: right">
                                 <button [disabled]="" mat-raised-button color="primary" matStepperNext>
                                     Siguiente paso
@@ -120,6 +120,7 @@
                                 </div>
                             </mat-grid-tile>
                         </mat-grid-list>
+                        <br>
                         <br>
 
                         <div class="row">
@@ -275,6 +276,7 @@
                             </mat-grid-list>
                         </div>
                         <br>
+                        <br>
 
                         <div class="row">
                             <div class="col-6">
@@ -306,6 +308,10 @@
                                                     service.cities?.length === 0">
                                     <mat-icon>done</mat-icon>
                                 </button>
+                                <div *ngIf="loading" class="pull-right" style="margin-right: 10px; margin-top: 5px;">
+                                    <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                                         alt="">
+                                </div>
                             </div>
                         </div>
                         <br>

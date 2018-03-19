@@ -38,6 +38,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     edit: boolean;
     dropsImages: any;
     citiesList: any;
+    loading: boolean;
 
     @ViewChild('map') mapElement: ElementRef;
     map: any;
@@ -47,7 +48,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
 
     constructor(private apiServices: ApiService, private router: Router, private route: ActivatedRoute,
                 private snackBar: MatSnackBar, public zone: NgZone, public dialog: MatDialog) {
-
+        this.loading = false;
         if (typeof google !== 'undefined') {
             this.latLng = new google.maps.LatLng(23.13302, -82.38304);
             this.infoWindow = new google.maps.InfoWindow;
@@ -223,6 +224,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     }
 
     onChangeTab(event) {
+        window.scrollTo(0, 0);
         if (event.selectedIndex === 3) {
             const categories = $('#categories').select2('val');
             const cities = $('#cities').select2('val');
@@ -433,6 +435,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
 
 
     finishFunction() {
+        this.loading = true;
         if (this.previews.length > 0) {
 
             this.service.gallery = new Array();
@@ -462,12 +465,9 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         }
 
         this.service.dropsImages = this.dropsImages;
-        // this.service.times = new Array();
 
-        // this.service.categories = $('#categories').select2('val').map(Number);
-        // this.service.cities = $('#cities').select2('val').map(Number);
-        console.log('al final', this.service);
         this.apiServices.createFullService(this.service).subscribe(result => {
+            this.loading = false;
             if (result) {
                 this.router.navigate(['myservices/service', result.id]);
                 if (this.edit) {
