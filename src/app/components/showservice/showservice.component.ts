@@ -108,13 +108,20 @@ export class ShowserviceComponent implements OnInit, AfterViewInit, AfterContent
                 this.submitAttempt = false;
             }
         });
+
+        // UOU Tabs
+// ---------------------------------------------------------
+        if ($.fn.uouTabs) {
+            $('.uou-tabs').uouTabs();
+        } else {
+            console.warn('not loaded -> uou-tabs.js');
+        }
     }
 
     ngAfterContentChecked(): void {
     }
 
     ngAfterViewInit() {
-        // this.scripts();
     }
 
     ngAfterContentInit(): void {
