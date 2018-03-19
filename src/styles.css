@@ -41,8 +41,18 @@
     margin-bottom: 5px;
 }
 
+.not-exist{
+    background-color: white;
+    padding: 8px;
+    text-align: center;
+}
+
 .mr-10{
     margin-right: 10px !important;
+}
+
+.showservices .select2-container .select2-selection--single{
+    height: 35px !important;
 }
 
 .content-business .sidebar .sidebar-subcategories ul li input {

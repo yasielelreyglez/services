@@ -199,7 +199,10 @@
             </div>
             <div class="col-md-3">
                 <div class="sidebar-listing">
-                    <h5 class="sidebar-listing-title">Visitados recientemente</h5>
+                    <h5 class="sidebar-listing-title text-center">Visitados recientemente</h5>
+                    <div *ngIf="recentvisits?.length === 0" class="not-exist">
+                        <span class="tc-grei">No existen servicios</span>
+                    </div>
                     <div *ngFor="let service of recentvisits" class="listing-offer">
                         <h6 class="title"><a [routerLink]="['service', service.id]">{{service.title}}</a></h6>
                         <div class="listing-offer-thumbnail">
@@ -305,6 +308,9 @@
         <div class="row">
             <div class="col-md-12">
                 <h3 class="section-title">Servicios populares</h3>
+                <div *ngIf="morevisits?.length === 0" class="not-exist">
+                    <span class="tc-grei">No existen servicios</span>
+                </div>
                 <!--<div class="header-listing">-->
                 <!--<h6>Sort by</h6>-->
                 <!--<div class="custom-select-box">-->

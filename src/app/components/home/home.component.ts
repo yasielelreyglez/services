@@ -73,6 +73,10 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
         } else {
             console.warn('not loaded -> uou-tabs.js');
         }
+
+        $('.sponsors-slider').owlCarousel({
+            items: 6
+        });
     }
 
     ngAfterContentChecked(): void {
@@ -94,9 +98,6 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
             console.warn('not loaded -> jquery.flexslider-min.js');
         }
 
-        $('.sponsors-slider').owlCarousel({
-            items: 6
-        });
 
     }
 

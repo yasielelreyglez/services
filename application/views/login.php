@@ -23,6 +23,7 @@ base_url()
     <script src="<?php echo base_url()?>dist/assets/js/uou-accordions.js"></script>
     <script src="<?php echo base_url()?>dist/assets/js/plugins/jquery.flexslider-min.js"></script>
     <?php echo link_tag("resources/css/Styles.css"); ?>
+    <?php echo link_tag("dist/assets/css/owl.carousel.css"); ?>
     <?php echo link_tag("dist/assets/css/style.css"); ?>
     <!--    <script>document.write('<base href="' + document.location + '" />');</script>-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
