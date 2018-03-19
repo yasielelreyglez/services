@@ -945,10 +945,10 @@
     </nav>
 </div>
 
-<!-- Scripts --><!--<script src="--><? //=site_url("/resources/js/googlemaplocal.js") ?><!--"></script>-->
+<script src="<? //=site_url("/resources/js/googlemaplocal.js") ?>"></script>
 <script src="<?= site_url("/resources/js/jquery-2.1.3.min.js") ?>"></script>
 
-<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxooB5CXv3oWSzKldWJzStShRvWE8X1MA"></script>-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxooB5CXv3oWSzKldWJzStShRvWE8X1MA"></script>
 
 <script src="<?= site_url("/resources/js/plugins/superfish.min.js") ?>"></script>
 <script src="<?= site_url("/resources/js/jquery.ui.min.js") ?>"></script>
@@ -961,13 +961,11 @@
 <script src="<?= site_url("/resources/js/uou-tabs.js") ?>"></script>
 <script src="<?= site_url("/resources/js/plugins/select2.min.js") ?>"></script>
 <script src="<?= site_url("/resources/js/owl.carousel.min.js") ?>"></script>
-<!--<script src="--><? //=site_url("/resources/js/gmap3.min.js") ?><!--"></script>-->
+<script src="<?=site_url("/resources/js/gmap3.min.js") ?>"></script>
 
 <script src="<?= site_url("/resources/js/bootstrap.js") ?>"></script>
-<!--<script src="--><? //=site_url("/resources/js/bootstrap.js") ?><!--"></script>-->
 <script src="<?= site_url("/resources/js/admin.js") ?>"></script>
 <script src="<?= site_url("/resources/js/scripts.js") ?>"></script>
-<!--<script src="--><? //=site_url("/resources/js/scripts.js") ?><!--"></script>-->
 
 </body>
 

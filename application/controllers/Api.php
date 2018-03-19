@@ -1073,10 +1073,12 @@ class Api extends REST_Controller
                 $em->remove($old_time);
             }
         }}
+        $em->flush();
         $times = $this->post('times', TRUE);
        if(is_array($times)) {
            $service->addTimes($times);
        }
+        $em->flush();
         $service->setDescription($this->post('description', TRUE));
 //        $service->setWeekDays(substr($string_week, 1, strlen($string_week) - 1));
 //        $service->setStartTime($this->post('start_time', TRUE));
