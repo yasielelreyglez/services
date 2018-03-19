@@ -4,6 +4,7 @@ import {ReportComponent} from '../_modals/report/report.component';
 import {AuthService} from '../../_services/auth.service';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {isNull} from 'util';
+import {ReportServiceComponent} from "../_modals/reportservice/reportservice.component";
 
 declare const $: any;
 declare const google;
@@ -60,6 +61,20 @@ export class ServicesComponent implements OnInit, AfterViewInit, AfterViewChecke
 
     ngAfterViewInit(): void {
         // this.scripts();
+    }
+
+    reportDialog(id: number): void {
+        const dialogRef = this.dialog.open(ReportServiceComponent, {
+            width: '60%',
+            height: '360px',
+            data: {id: id}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.openSnackBar('El servicio ha sido evaluado satisfactoriamente', 2500);
+            }
+        });
     }
 
 

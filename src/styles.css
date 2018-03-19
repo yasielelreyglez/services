@@ -41,6 +41,10 @@
     margin-bottom: 5px;
 }
 
+.mr-10{
+    margin-right: 10px !important;
+}
+
 .content-business .sidebar .sidebar-subcategories ul li input {
     margin-top: 7px;
     margin-right: 5px;

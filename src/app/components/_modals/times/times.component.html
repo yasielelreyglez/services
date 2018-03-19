@@ -46,7 +46,7 @@
 
     <div class="row">
         <button class="col-xs-12" (click)="addTime()" mat-raised-button color="primary"
-                [disabled]="start_time?.length === 0 || end_time?.length === 0">
+                [disabled]="start_time?.length === 0 || end_time?.length === 0 || !week_daysValue.includes(true)">
             Adicionar horario
         </button>
     </div>
