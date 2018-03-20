@@ -293,47 +293,14 @@
                 <div class="col-md-9">
                     <div class="uou-tabs">
                         <ul class="tabs">
-                            <li class="active"><a href="#uou-tab-1">Mapa</a></li>
-                            <li><a href="#uou-tab-2">Categorias</a></li>
+                            <li class="active"><a href="#uou-tab-2">Categorias</a></li>
                             <li><a href="#uou-tab-3">Ciudades</a></li>
                         </ul>
 
                         <div class="content">
-                            <div class="active" id="uou-tab-1">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="row">
-                                            <div class="map">
-                                                <div id="map-top">
-                                                    <div class="map-container .">
-                                                        <div class="map">
 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="locations-list list-unstyled mb0">
-                                            <li><a href="#"><i class="fa fa-angle-right"></i>Australia & New Zeland
-                                                    <span class="count">(5)</span></a></li>
-                                            <li><a href="#"><i class="fa fa-angle-right"></i>Northern America <span
-                                                            class="count">(5)</span></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="locations-list list-unstyled mb0">
-                                            <li><a href="#"><i class="fa fa-angle-right"></i>Southern Asia <span
-                                                            class="count">(5)</span></a></li>
-                                            <li><a href="#"><i class="fa fa-angle-right"></i>Southern Europe <span
-                                                            class="count">(5)</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div id="uou-tab-2">
+                            <div class="active"  id="uou-tab-2">
                                 <div class="row">
                                     <div id="listado_categoria"></div>
 
