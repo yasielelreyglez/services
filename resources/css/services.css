@@ -1,0 +1,128 @@
+.homepage-banner .block-title {
+    margin: 0;
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+    line-height: 120px;
+    font-size: 100px;
+    color: #e5e5e5;
+}
+
+.homepage-banner .block-secondary-title {
+    margin: 15px 0 15px 0 !important;
+    font-size: 30px !important;
+    color: #fff !important;
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+}
+
+.header-nav .nav .sf-menu {
+    margin-bottom: 0;
+}
+
+.map-search-fields {
+    padding-left: 15px !important;
+}
+
+.select2-selection {
+    height: 45px;
+}
+
+.select2-selection .select2-search__field {
+    margin-top: 0 !important;
+}
+
+.advanced-search {
+    position: relative !important;
+}
+
+.advanced-search .container {
+    padding-right: 55px;
+}
+
+.header-listing {
+    padding: 13px 20px;
+    /*margin-bottom: 30px;*/
+    width: 100%;
+    display: inline-block;
+    /*background: #fff;*/
+    /*box-shadow: 0 0 3px rgba(206, 206, 206, 0.36);*/
+}
+
+.header-listing .listing-views {
+    padding: 0;
+    margin: 4px 0 0 0;
+    float: right;
+    list-style: none;
+    display: inline-block;
+}
+
+.header-listing .listing-views li {
+    margin-left: 2px;
+    display: inline-block;
+    width: 27px;
+    height: 27px;
+    text-align: center;
+    line-height: 27px;
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+}
+
+.header-listing .listing-views li.active {
+    background: #00d793;
+    border: 1px solid #00d793;
+}
+
+.header-listing .listing-views li .fa {
+    color: #e6e6e6;
+}
+
+.header-listing .listing-views li.active .fa {
+    color: #fff;
+}
+
+.floating-button {
+    background-color: #00d793;
+    padding: 20px 25px;
+    color: white;
+    font-size: 30px;
+    border-radius: 50%;
+    opacity: .4;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    transition: opacity .5s;
+}
+
+.floating-button:hover, .floating-button:visited {
+    text-decoration: none;
+    color: white;
+    opacity: 1;
+    transition: opacity .5s;
+}
+
+.floating-button:visited {
+    opacity: .4;
+}
+
+.listing .gridview + .floating-button {
+    display: block;
+}
+
+.listing .gridview.hide + .floating-button {
+    display: none;
+}
+
+.listing.listing-3 .listing-grid .flexslider {
+    min-height: 208px;
+}
+
+@media (max-width: 569px) {
+    .homepage-banner {
+        padding: 60px 0 110px 0;
+    }
+
+    .homepage-banner .block-title {
+        font-size: 45px;
+    }
+}
