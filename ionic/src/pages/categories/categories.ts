@@ -3,7 +3,6 @@ import {IonicPage, NavController, PopoverController} from 'ionic-angular';
 import {LoadingController} from 'ionic-angular';
 
 // pages
-import {PopoverPage} from '../pop-over/pop-over';
 import {SubcategoriesPage} from '../subcategories/subcategories';
 
 // providers

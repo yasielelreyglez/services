@@ -225,7 +225,7 @@ export class ServiceProvider {
   }
 
   filterService(cities, categories, distance, current) {
-    return this.http.post(this.api.getbaseUrl() + 'api/filter', {cities, categories})
+    return this.http.post(this.api.getbaseUrl() + 'api/filter', {cities, categories,distance,current})
       .toPromise()
       .then(
         (response) => {

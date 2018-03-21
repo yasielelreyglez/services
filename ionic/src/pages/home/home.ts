@@ -28,6 +28,7 @@ import {StatusBar} from "@ionic-native/status-bar";
 import {SearchPage} from "../search/search";
 import {OpenNativeSettings} from '@ionic-native/open-native-settings';
 import {Diagnostic} from '@ionic-native/diagnostic';
+import {Geoposition} from "@ionic-native/geolocation";
 
 @IonicPage({
   priority: 'high'
@@ -63,6 +64,13 @@ export class HomePage {
 
     this.platform.ready().then(() => {
 
+      // if(this.diagnostic.isLocationAuthorized())
+      // {
+      //   alert("isLocationAvailable");
+      // }
+      // else{
+      //   alert("no esta avaliable");
+      // }
       // if (this.diagnostic.isLocationAvailable() && this.diagnostic.isLocationEnabled()) {
       //   // this.openNativeSettings.open('location');
       //   this.diagnostic.switchToLocationSettings();
@@ -103,6 +111,12 @@ export class HomePage {
       this.auth.currentUser.subscribe(user => {
         this.loggedIn = user;
       });
+      // this.auth.currentPosition.subscribe(
+      //   (data: Geoposition) => {
+      //     console.log(data.coords.latitude);
+      //     },
+      //   (error: Geoposition) => { alert(error); },
+      // );
     });
   }
 
@@ -114,7 +128,6 @@ export class HomePage {
 
   ionViewWillEnter() {
     this.search.value = "";
-
   }
 
   viewImg(img) {

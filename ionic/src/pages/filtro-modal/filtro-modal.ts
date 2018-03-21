@@ -18,7 +18,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class FiltroModalPage {
   categories: any;
   cities: any;
-  filter_distance: number;
+  filter_distance=5;
   filter_category: any="";
   filter_city: any="";
 
@@ -27,7 +27,7 @@ export class FiltroModalPage {
   }
 
   ionViewDidLoad() {
-    this.filter_distance = 5;
+    this.filter_distance = this.navParams.get("filter_distance");
     this.filter_category =this.navParams.get("filter_category");
     this.filter_city =this.navParams.get("filter_city");
   }

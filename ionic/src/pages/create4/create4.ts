@@ -4,7 +4,6 @@ import {sendService} from '../../models/sendService';
 import {ServiceProvider} from '../../providers/service/service.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Position} from "../../models/position";
-import {HomePage} from '../home/home';
 import {ServicePage} from "../service/service";
 import {Geolocation, PositionError} from "@ionic-native/geolocation";
 
@@ -89,9 +88,17 @@ export class Create4Page {
   }
 
   crearService() {
-    let loading = this.load.create({
-      content: "Creando servicio..."
-    });
+    let loading;
+    if(this.edit){
+      loading = this.load.create({
+        content: "Editando servicio..."
+      });
+    }else {
+      loading = this.load.create({
+        content: "Creando servicio..."
+      });
+    }
+
     loading.present();
     this.service.positions = this.positions;
     this.servProv.createFullService(this.service).then(

@@ -3,7 +3,6 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {LoadingController} from 'ionic-angular';
 import {SubCategoryProvider} from '../../providers/sub-category/sub-category';
 import {ServicesPage} from '../services/services';
-import {Service} from "../../models/service";
 
 
 /**

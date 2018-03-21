@@ -1,8 +1,10 @@
 import {Component, ViewChild, ElementRef} from '@angular/core';
 import {Events, IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
 import {Geolocation, GeolocationOptions, Geoposition, PositionError} from '@ionic-native/geolocation'
-import {ServicePage} from "../service/service";
 import {FavoritesPage} from "../favorites/favorites";
+import {HttpErrorResponse} from "@angular/common/http";
+import {AuthProvider} from "../../providers/auth/auth";
+import {ServiceProvider} from "../../providers/service/service.service";
 
 
 declare var google;
@@ -14,7 +16,6 @@ declare var google;
 })
 export class TabMapaPage {
   options: GeolocationOptions;
-  currentPos: Geoposition;
   infowindow = new google.maps.InfoWindow;
   wacthed: any;
   watch: any;
@@ -26,17 +27,7 @@ export class TabMapaPage {
   places: Array<any>;
 
   constructor(public events: Events, platform: Platform, public navCtrl: NavController,
-              public navParams: NavParams, private geolocation: Geolocation) {
-
-
-
-    platform.ready().then(() => {
-    });
-    events.subscribe('current:position', (position) => {
-      // user and time are the same arguments passed in `events.publish(user, time)`
-      //this.latLng=position
-      console.log("YA HAY!! ademas de que cambio !!");
-    });
+              public navParams: NavParams,  public servProv: ServiceProvider,private geolocation: Geolocation, public auth: AuthProvider) {
 
     if (!this.latLng) {
       this.getUserPosition();
@@ -45,11 +36,6 @@ export class TabMapaPage {
       console.log("si hay");
     }
   }
-
-  // ionViewDidLoad() {
-  //   this.getUserPosition();
-  // }
-
 
   addMap(lat, long) {
 
@@ -62,22 +48,49 @@ export class TabMapaPage {
     };
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+    this.servProv.filterService(
+      {},
+      {},
+      6,
+      {latitude: lat,longitude: long
+    })
+      .then(data => {
+          let services = data["services"];
+          for (let i = 0; i < services.length; i++) {
+            for (let j = 0; j < services[i].positionsList.length; j++) {
+              let marker = new google.maps.Marker({
+                map: this.map,
+                animation: google.maps.Animation.DROP,
+                position: new google.maps.LatLng(services[i].positionsList[j].latitude, services[i].positionsList[j].longitude),
+                name:services[i].positionsList[j].title
+              });
 
-    this.getRestaurants(latLng).then((results: Array<any>) => {
-      this.places = results;
-      for (let i = 0; i < results.length; i++) {
-        this.createMarker(results[i],i);
-      }
-    }, (status) => console.log(status));
+              let content = "<a id='"+j+"' class='custom-marker' >" + services[i].positionsList[j].title+ "</a>";
+              this.addInfoWindow(marker, content);
+            }
+          }
+        },
+        (err: HttpErrorResponse) => {
+          if (err.error instanceof Error) {
+            console.log("error");
+          }
+        }
+      );
 
-    this.addMarker(latLng);
-
+    // this.getRestaurants(latLng).then((results: Array<any>) => {
+    //   this.places = results;
+    //   for (let i = 0; i < results.length; i++) {
+    //     this.createMarker(results[i],i);
+    //   }
+    // }, (status) => console.log(status));
+      this.addMarker(latLng);
   }
 
   addMarker(latLng) {
 
     this.currentP = new google.maps.Marker({
       map: this.map,
+      icon: "http://www.googlemapsmarkers.com/v1/009900/",
       animation: google.maps.Animation.DROP,
       position: latLng
     });
@@ -116,23 +129,23 @@ export class TabMapaPage {
     });
 
   }
+
   getUserPosition() {
     this.geolocation.getCurrentPosition().then((pos) => {
       this.latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
       this.addMap(pos.coords.latitude, pos.coords.longitude);
-      this.watch = this.geolocation.watchPosition({maximumAge: 60000, timeout: 60000})
-        .filter((p) => p.coords !== undefined)
-        .subscribe(position => {
-          this.wacthed = true;
-          console.log("CAMBIO");
-          let newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-          if (!this.latLng.equals(newPosition)) {
-            console.log("muevete");
-            this.latLng = newPosition;
-            this.map.setZoom(this.map.getZoom());
-            this.currentP.setPosition(this.latLng);
-          }
-        });
+      this.auth.currentPosition.subscribe(
+        (data: Geoposition) => {
+          console.log("cambio");
+          this.latLng = new google.maps.LatLng(data.coords.latitude, data.coords.longitude);
+          this.map.setZoom(this.map.getZoom());
+          this.currentP.setPosition(this.latLng);
+        },
+        (error: Geoposition) => {
+          alert(error);
+        },
+      );
+
     }, (err: PositionError) => {
       console.log("error : " + err.message);
     })

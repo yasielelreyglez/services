@@ -31,7 +31,7 @@ export class ServicesPage {
   categories: any;
   filter_city: any = [];
   filter_category: any = [];
-  filter_distance: number = 0;
+  filter_distance: number = 5;
   subCatId: any;
   services: Service[] = [];
   servTemp: Service[] = [];
@@ -77,7 +77,6 @@ export class ServicesPage {
         {
           name: 'denuncia',
           type: 'textarea',
-
         },
       ],
       buttons: [
@@ -173,7 +172,6 @@ export class ServicesPage {
   }
 
   doRefresh(refresher) {
-
     this.servProv.getServiceBySubCat(this.subCatId).then(
       data => {
         this.services = data["data"];
@@ -219,22 +217,45 @@ export class ServicesPage {
       if (data.filter_category != undefined || data.filter_city != undefined || data.filter_distance != undefined) {
         this.filtro = true;
         let loading = this.load.create({
-          content: "Cargando..."
+          content: "Filtrando..."
         });
         loading.present();
-        this.servProv.filterService(this.filter_city, this.filter_category, this.filter_distance, 'currentPosition').then(
-          data => {
-            this.services = data["services"];
-            loading.dismiss();
-          },
-          (err: HttpErrorResponse) => {
-            if (err.error instanceof Error) {
-              loading.dismiss();
-            } else {
-              loading.dismiss();
-            }
-          }
-        );
+        if (this.auth.getLongitud() != null) {
+          this.servProv.filterService(this.filter_city, this.filter_category, this.filter_distance, {
+            latitude: this.auth.getLatitud(),
+            longitude: this.auth.getLongitud()
+          })
+            .then(data => {
+                this.services = data["services"];
+                loading.dismiss();
+              },
+              (err: HttpErrorResponse) => {
+                if (err.error instanceof Error) {
+                  loading.dismiss();
+                } else {
+                  loading.dismiss();
+                }
+              }
+            );
+
+        } else {
+          this.servProv.filterService(this.filter_city, this.filter_category, this.filter_distance, {
+            latitude: 23.106131899999998,
+            longitude: -82.33370029999999
+          })
+            .then(data => {
+                this.services = data["services"];
+                loading.dismiss();
+              },
+              (err: HttpErrorResponse) => {
+                if (err.error instanceof Error) {
+                  loading.dismiss();
+                } else {
+                  loading.dismiss();
+                }
+              }
+            );
+        }
       }
     });
 

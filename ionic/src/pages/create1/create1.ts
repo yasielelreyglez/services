@@ -12,7 +12,6 @@ import {ApiProvider} from '../../providers/api/api';
 import {Create2Page} from '../create2/create2';
 import {City} from '../../models/city';
 import {HttpErrorResponse} from '@angular/common/http';
-import {SubCategory} from '../../models/subCategory';
 import {sendService} from '../../models/sendService';
 import {PhotoViewer} from '@ionic-native/photo-viewer';
 import {ServicesPage} from '../services/services';
@@ -145,8 +144,6 @@ export class Create1Page {
         service: this.service, //paso el service
       });
     }
-    console.log(this.f.form.errors)
-
   }
 }
 
