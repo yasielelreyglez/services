@@ -40,6 +40,8 @@ class City
     public function __construct()
     {
         $this->services = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->updated_at = new \DateTime("now");
+        $this->created_at = new \DateTime("now");
     }
 
     public function getId()
