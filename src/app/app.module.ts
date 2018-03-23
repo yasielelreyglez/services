@@ -37,7 +37,8 @@ import {ImageComponent} from './components/_modals/image/image.component';
 import { ImageZoomDirective } from './_directives/image-zoom.directive';
 import { PayserviceComponent } from './components/payservice/payservice.component';
 import { TimesComponent } from './components/_modals/times/times.component';
-import {ReportServiceComponent} from "./components/_modals/reportservice/reportservice.component";
+import {ReportServiceComponent} from './components/_modals/reportservice/reportservice.component';
+import {ChangepasswordComponent} from './components/_modals/changepassword/changepassword.component';
 
 @NgModule({
     declarations: [
@@ -64,7 +65,8 @@ import {ReportServiceComponent} from "./components/_modals/reportservice/reports
         ImageZoomDirective,
         PayserviceComponent,
         TimesComponent,
-        ReportServiceComponent
+        ReportServiceComponent,
+        ChangepasswordComponent
     ],
     entryComponents: [
         ForgotpassComponent,
@@ -72,7 +74,8 @@ import {ReportServiceComponent} from "./components/_modals/reportservice/reports
         RatingComponent,
         ImageComponent,
         TimesComponent,
-        ReportServiceComponent
+        ReportServiceComponent,
+        ChangepasswordComponent
     ],
     imports: [
         BrowserAnimationsModule,
