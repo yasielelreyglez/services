@@ -36,9 +36,12 @@ export class AuthService {
     }
 
     forgotPassword(email): Observable<any> {
-        return this.http.post(this.getBaseURL() + 'auth/forgot_password/', {identity: email}).map(response => response).map(result => {
+        return this.http.post(this.getBaseURL() + 'auth/forgot_password/', {identity: email}).map(result => {
             if (!result['error']) {
+                console.log("va a dar true");
                 return true;
+            }else{
+                console.log("dio false");
             }
             return result['error'];
         });

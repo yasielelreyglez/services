@@ -1,0 +1,28 @@
+<div class="main-content content-business single-business has-bg-image" data-bg-color="f5f5f5"
+     style="background-color: #f5f5f5;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="container">
+                    <h1 class="text-center">Listado de Notificaciones</h1>
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            <ul>
+                                <li *ngFor="let mensaje of mensajes" style="list-style: none">
+                                    <div class="bc-white" style="padding: 10px;margin-bottom: 5px">
+                                    {{mensaje.mensaje}}
+                                    </div>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

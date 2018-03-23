@@ -15,6 +15,7 @@ import {RegisterComponent} from './components/register/register.component';
 import {EqualValidator} from './_directives/validate-password.directive';
 import {ForgotpassComponent} from './components/_modals/forgotpass/forgotpass.component';
 import {ApiService} from './_services/api.service';
+
 import {ShowcategoriesComponent} from './components/showcategories/showcategories.component';
 import {SubcategoriesComponent} from './components/subcategories/subcategories.component';
 import {ShowsubcateroriesComponent} from './components/showsubcaterories/showsubcaterories.component';
@@ -37,8 +38,9 @@ import {ImageComponent} from './components/_modals/image/image.component';
 import { ImageZoomDirective } from './_directives/image-zoom.directive';
 import { PayserviceComponent } from './components/payservice/payservice.component';
 import { TimesComponent } from './components/_modals/times/times.component';
-import {ReportServiceComponent} from './components/_modals/reportservice/reportservice.component';
 import {ChangepasswordComponent} from './components/_modals/changepassword/changepassword.component';
+import {ReportServiceComponent} from './components/_modals/reportservice/reportservice.component';
+import {MensajesComponent} from './components/mensajes/mensajes.component';
 
 @NgModule({
     declarations: [
@@ -66,7 +68,8 @@ import {ChangepasswordComponent} from './components/_modals/changepassword/chang
         PayserviceComponent,
         TimesComponent,
         ReportServiceComponent,
-        ChangepasswordComponent
+        ChangepasswordComponent,
+        MensajesComponent
     ],
     entryComponents: [
         ForgotpassComponent,

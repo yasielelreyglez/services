@@ -169,35 +169,11 @@ class Auth extends REST_Controller
     /**
      * Forgot password
      */
-    public function forgot_password()
+    public function forgot_password_post()
     {
-        // setting validation rules by checking whether identity is username or email
-        if ($this->config->item('identity', 'ion_auth') != 'email') {
-            $this->form_validation->set_rules('identity', $this->lang->line('forgot_password_identity_label'), 'required');
-        } else {
-            $this->form_validation->set_rules('identity', $this->lang->line('forgot_password_validation_email_label'), 'required|valid_email');
-        }
-
-
-        if ($this->form_validation->run() === FALSE) {
-            $this->data['type'] = $this->config->item('identity', 'ion_auth');
-            // setup the input
-            $this->data['identity'] = array('name' => 'identity',
-                'id' => 'identity',
-            );
-
-            if ($this->config->item('identity', 'ion_auth') != 'email') {
-                $this->data['identity_label'] = $this->lang->line('forgot_password_identity_label');
-            } else {
-                $this->data['identity_label'] = $this->lang->line('forgot_password_email_identity_label');
-            }
-
-            // set any errors and display the form
-            $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-            $this->_render_page('auth/forgot_password', $this->data);
-        } else {
+            $result = array();
             $identity_column = $this->config->item('identity', 'ion_auth');
-            $identity = $this->ion_auth->where($identity_column, $this->input->post('identity'))->users()->row();
+            $identity = $this->ion_auth->where($identity_column, $this->post('identity'))->users()->row();
 
             if (empty($identity)) {
 
@@ -208,21 +184,21 @@ class Auth extends REST_Controller
                 }
 
                 $this->session->set_flashdata('message', $this->ion_auth->errors());
-                redirect("auth/forgot_password", 'refresh');
+              $result["error"] =$this->ion_auth->errors();
             }
-
             // run the forgotten password method to email an activation code to the user
             $forgotten = $this->ion_auth->forgotten_password($identity->{$this->config->item('identity', 'ion_auth')});
 
             if ($forgotten) {
                 // if there were no errors
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
-                redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
+                $this->set_response($forgotten, REST_Controller::HTTP_OK);
             } else {
                 $this->session->set_flashdata('message', $this->ion_auth->errors());
-                redirect("auth/forgot_password", 'refresh');
+                $result = array();
+                $result["error"]=$this->ion_auth->errors();
+                $this->set_response($result, REST_Controller::HTTP_OK);
             }
-        }
     }
 
     /**
@@ -230,7 +206,7 @@ class Auth extends REST_Controller
      *
      * @param string|null $code The reset code
      */
-    public function reset_password($code = NULL)
+    public function reset_password_get($code = NULL)
     {
         if (!$code) {
             show_404();
@@ -303,6 +279,67 @@ class Auth extends REST_Controller
             // if the code is invalid then send them back to the forgot password page
             $this->session->set_flashdata('message', $this->ion_auth->errors());
             redirect("auth/forgot_password", 'refresh');
+        }
+    }
+
+    /**
+     * Change password
+     */
+    public function change_password_post()
+    {
+        $user = $this->ion_auth->user()->row();
+
+        if ($this->form_validation->run() === FALSE)
+        {
+            // display the form
+            // set the flash data error message if there is one
+            $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+
+            $this->data['min_password_length'] = $this->config->item('min_password_length', 'ion_auth');
+            $this->data['old_password'] = array(
+                'name' => 'old',
+                'id' => 'old',
+                'type' => 'password',
+            );
+            $this->data['new_password'] = array(
+                'name' => 'new',
+                'id' => 'new',
+                'type' => 'password',
+                'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
+            );
+            $this->data['new_password_confirm'] = array(
+                'name' => 'new_confirm',
+                'id' => 'new_confirm',
+                'type' => 'password',
+                'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
+            );
+            $this->data['user_id'] = array(
+                'name' => 'user_id',
+                'id' => 'user_id',
+                'type' => 'hidden',
+                'value' => $user->id,
+            );
+
+            // render
+            $this->_render_page('auth/change_password', $this->data);
+        }
+        else
+        {
+            $identity = $this->session->userdata('identity');
+
+            $change = $this->ion_auth->change_password($identity, $this->input->post('old'), $this->input->post('new'));
+
+            if ($change)
+            {
+                //if the password was successfully changed
+                $this->session->set_flashdata('message', $this->ion_auth->messages());
+                $this->logout();
+            }
+            else
+            {
+                $this->session->set_flashdata('message', $this->ion_auth->errors());
+                redirect('auth/change_password', 'refresh');
+            }
         }
     }
 }
