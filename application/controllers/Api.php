@@ -1305,6 +1305,15 @@ class Api extends REST_Controller
             $em->flush();
         }
     }
+    function  borrarmensaje_get($pos){
+        $user = $this->getCurrentUser();
+        if ($user) {
+            $em = $this->doctrine->em;
+            $mensajes = $em->find("Entities\Mensaje", $pos);
+            $em->remove($mensajes);
+            $em->flush();
+        }
+    }
     function mensajes_get(){
         $user = $this->getCurrentUser();
         if ($user) {
