@@ -305,4 +305,65 @@ class Auth extends REST_Controller
             redirect("auth/forgot_password", 'refresh');
         }
     }
+
+    /**
+     * Change password
+     */
+    public function change_password()
+    {
+        $user = $this->ion_auth->user()->row();
+
+        if ($this->form_validation->run() === FALSE)
+        {
+            // display the form
+            // set the flash data error message if there is one
+            $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+
+            $this->data['min_password_length'] = $this->config->item('min_password_length', 'ion_auth');
+            $this->data['old_password'] = array(
+                'name' => 'old',
+                'id' => 'old',
+                'type' => 'password',
+            );
+            $this->data['new_password'] = array(
+                'name' => 'new',
+                'id' => 'new',
+                'type' => 'password',
+                'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
+            );
+            $this->data['new_password_confirm'] = array(
+                'name' => 'new_confirm',
+                'id' => 'new_confirm',
+                'type' => 'password',
+                'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
+            );
+            $this->data['user_id'] = array(
+                'name' => 'user_id',
+                'id' => 'user_id',
+                'type' => 'hidden',
+                'value' => $user->id,
+            );
+
+            // render
+            $this->_render_page('auth/change_password', $this->data);
+        }
+        else
+        {
+            $identity = $this->session->userdata('identity');
+
+            $change = $this->ion_auth->change_password($identity, $this->input->post('old'), $this->input->post('new'));
+
+            if ($change)
+            {
+                //if the password was successfully changed
+                $this->session->set_flashdata('message', $this->ion_auth->messages());
+                $this->logout();
+            }
+            else
+            {
+                $this->session->set_flashdata('message', $this->ion_auth->errors());
+                redirect('auth/change_password', 'refresh');
+            }
+        }
+    }
 }
