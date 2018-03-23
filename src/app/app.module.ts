@@ -38,7 +38,8 @@ import {ImageComponent} from './components/_modals/image/image.component';
 import { ImageZoomDirective } from './_directives/image-zoom.directive';
 import { PayserviceComponent } from './components/payservice/payservice.component';
 import { TimesComponent } from './components/_modals/times/times.component';
-import {ReportServiceComponent} from "./components/_modals/reportservice/reportservice.component";
+import {ChangepasswordComponent} from './components/_modals/changepassword/changepassword.component';
+import {ReportServiceComponent} from './components/_modals/reportservice/reportservice.component';
 import {MensajesComponent} from './components/mensajes/mensajes.component';
 
 @NgModule({
@@ -67,6 +68,7 @@ import {MensajesComponent} from './components/mensajes/mensajes.component';
         PayserviceComponent,
         TimesComponent,
         ReportServiceComponent,
+        ChangepasswordComponent,
         MensajesComponent
     ],
     entryComponents: [
@@ -75,7 +77,8 @@ import {MensajesComponent} from './components/mensajes/mensajes.component';
         RatingComponent,
         ImageComponent,
         TimesComponent,
-        ReportServiceComponent
+        ReportServiceComponent,
+        ChangepasswordComponent
     ],
     imports: [
         BrowserAnimationsModule,

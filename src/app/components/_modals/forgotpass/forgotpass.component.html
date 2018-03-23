@@ -26,8 +26,8 @@
 <h4 class="text-center">Recuperar contraseña</h4>
 
 <div class="modal-body">
-    <form (ngSubmit)="rate()">
-
+    <form>
+        <label for="email">Correo electrónico</label>
         <input autofocus id="email" placeholder="Escriba su correo" name="email" type="email"
                [(ngModel)]="model.email"
                [formControl]="forgotForm.controls['email']"

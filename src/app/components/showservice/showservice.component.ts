@@ -92,7 +92,6 @@ export class ShowserviceComponent implements OnInit, AfterViewInit, AfterContent
         this.route.params.subscribe(params => {
             const id = params['id'];
             this.apiServices.service(id).subscribe(result => {
-                console.log('Servicio: ', result.data);
                 this.service = result.data;
                 this.images = result.data.imagesList;
                 this.comment = result.data.servicecommentsList.length;

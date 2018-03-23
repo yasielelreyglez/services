@@ -38,10 +38,23 @@ export class AuthService {
     forgotPassword(email): Observable<any> {
         return this.http.post(this.getBaseURL() + 'auth/forgot_password/', {identity: email}).map(result => {
             if (!result['error']) {
-                console.log("va a dar true");
                 return true;
-            }else{
-                console.log("dio false");
+            } else {
+            }
+            return result['error'];
+        });
+    }
+
+    changePassword(model) {
+        console.log(model);
+        return this.http.post(this.getBaseURL() + 'auth/change_password/', {
+            old_password: model.old_password,
+            new_password: model.new_password,
+            new_password_confirm: model.new_password_confirm
+        }).map(result => {
+            if (!result['error']) {
+                return true;
+            } else {
             }
             return result['error'];
         });

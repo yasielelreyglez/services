@@ -1,7 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from '../../_services/auth.service';
 import {Router} from '@angular/router';
-import {MatMenuTrigger, MatSnackBar} from '@angular/material';
+import {MatDialog, MatMenuTrigger, MatSnackBar} from '@angular/material';
+import {ChangepasswordComponent} from '../_modals/changepassword/changepassword.component';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class MenuComponent implements OnInit {
     @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
 
-    constructor(public authServices: AuthService, private router: Router, private snackBar: MatSnackBar) {
+    constructor(public dialog: MatDialog, public authServices: AuthService, private router: Router, private snackBar: MatSnackBar) {
 
     }
 
@@ -32,6 +33,16 @@ export class MenuComponent implements OnInit {
 
     menu() {
         this.trigger.openMenu();
+    }
+
+    openDialog(): void {
+        const dialogRef = this.dialog.open(ChangepasswordComponent, {
+            width: '70%',
+            height: '500px'
+        });
+
+        dialogRef.afterClosed().subscribe(() => {
+        });
     }
 
     openSnackBar(message: string, duration: number, action?: string ) {

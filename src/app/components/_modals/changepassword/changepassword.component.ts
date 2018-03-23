@@ -4,41 +4,40 @@ import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from '@angular/material';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
-    selector: 'app-forgotpass',
-    templateUrl: './forgotpass.component.html',
-    styleUrls: ['./forgotpass.component.css']
+    selector: 'app-changepassword',
+    templateUrl: './changepassword.component.html',
+    styleUrls: ['./changepassword.component.css']
 })
-export class ForgotpassComponent implements OnInit {
+export class ChangepasswordComponent implements OnInit {
     model: any;
     loading: boolean;
     error: string;
     forgotForm: FormGroup;
 
-    constructor(public dialogRef: MatDialogRef<ForgotpassComponent>,
+    constructor(public dialogRef: MatDialogRef<ChangepasswordComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: any,
                 private authService: AuthService, private snackBar: MatSnackBar) {
         this.model = {};
-        this.model.email = '';
         this.loading = false;
         this.error = '';
     }
 
     ngOnInit() {
-        this.createForm();
+        // this.createForm();
     }
 
-    private createForm() {
-        this.forgotForm = new FormGroup({
-            email: new FormControl('', [Validators.required, Validators.email])
-        });
-    }
+    // private createForm() {
+    //     this.forgotForm = new FormGroup({
+    //         email: new FormControl('', [Validators.required, Validators.email])
+    //     });
+    // }
 
     enviar() {
         this.loading = true;
-        this.authService.forgotPassword(this.model.email).subscribe(result => {
+        this.authService.changePassword(this.model).subscribe(result => {
             if (result === true) {
                 this.dialogRef.close();
-                this.openSnackBar('Revice su correo electrónico.', 2500);
+                this.openSnackBar('Su contraseña ha sido modificada correctamente.', 2500);
             }
             else {
                 this.loading = false;

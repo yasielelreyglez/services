@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {ApiProvider} from "../../providers/api/api";
+import {HttpErrorResponse} from "@angular/common/http";
 
 /**
  * Generated class for the BuzonPage page.
@@ -15,11 +17,30 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class BuzonPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  mensajes : any;
+
+  constructor(public api: ApiProvider, public navCtrl: NavController, public navParams: NavParams) {
+    this.api.mensajes().then(
+      data => {
+        this.mensajes = data;
+      },
+      (err: HttpErrorResponse) => {
+        if (err.error instanceof Error) {
+          console.log(err)
+        }
+      }
+    );
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad BuzonPage');
+
+  }
+  deleteMensajes(id){
+    this.api.deleteMensajes(id);
+    this.mensajes = this.mensajes.filter(function (item) {
+      return item.id !== id;
+    });
+
   }
 
 }
