@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {AuthService} from '../../../_services/auth.service';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from '@angular/material';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
@@ -16,8 +16,9 @@ export class ForgotpassComponent implements OnInit {
 
     constructor(public dialogRef: MatDialogRef<ForgotpassComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: any,
-                private authService: AuthService) {
+                private authService: AuthService, private snackBar: MatSnackBar) {
         this.model = {};
+        this.model.email = '';
         this.loading = false;
         this.error = '';
     }
@@ -32,18 +33,18 @@ export class ForgotpassComponent implements OnInit {
         });
     }
 
-    // enviar() {
-    //     this.loading = true;
-    //     this.authService.forgotPassword(this.model.email).subscribe(result => {
-    //         if (result === true) {
-    //             this.dialogRef.close();
-    //         }
-    //         else {
-    //             this.error = result.error;
-    //             this.loading = false;
-    //         }
-    //     });
-    // }
+    enviar() {
+        this.loading = true;
+        this.authService.forgotPassword(this.model.email).subscribe(result => {
+            if (result === true) {
+                this.dialogRef.close();
+            }
+            else {
+                this.loading = false;
+                this.openSnackBar('Ha ocurrido un error en la operación.', 2500);
+            }
+        });
+    }
 
     getErrorMessage() {
         return this.forgotForm.controls['email'].hasError('required') ? 'Debe escribir un valor' :
@@ -53,5 +54,12 @@ export class ForgotpassComponent implements OnInit {
 
     onNoClick(): void {
         this.dialogRef.close();
+    }
+
+    openSnackBar(message: string, duration: number, action?: string ) {
+        this.snackBar.open(message, action, {
+            duration: duration,
+            horizontalPosition: 'center',
+        });
     }
 }

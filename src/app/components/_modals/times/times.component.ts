@@ -46,7 +46,7 @@ export class TimesComponent implements OnInit, AfterContentChecked {
         this.previewsTime = new Array();
         this.previewsTimes = new Array();
 
-
+        console.log('antes', this.data);
         if (this.data.timesList) {
             for (const time of this.data.timesList) {
                 const days = time.week_days.split(',').map(Number);

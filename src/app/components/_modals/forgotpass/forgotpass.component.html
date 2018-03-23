@@ -1,24 +1,48 @@
-<h4 class="text-center tc-blue">Olvido de cotraseña</h4>
+<!--<h4 class="text-center tc-blue">Olvido de cotraseña</h4>-->
+
+<!--<div class="modal-body">-->
+<!--<form [formGroup]="forgotForm" (ngSubmit)="forgotForm.valid && enviar()">-->
+<!--<mat-form-field>-->
+<!--<input matInput placeholder="Correo electrónico" [(ngModel)]="model.email"-->
+<!--[formControl]="forgotForm.controls['email']"-->
+<!--required>-->
+<!--<mat-error *ngIf="forgotForm.controls['email'].invalid">{{getErrorMessage()}}</mat-error>-->
+<!--</mat-form-field>-->
+
+<!--<div *ngIf="error" class="alert alert-danger">{{error}}</div>-->
+<!--<br>-->
+<!--<div class="form-group text-center">-->
+<!--<button mat-raised-button color="primary" [disabled]="loading" class="col-12 tc-white">-->
+<!--Enviarme contraseña-->
+<!--</button>-->
+<!--<img *ngIf="loading"-->
+<!--src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="-->
+<!--/>-->
+<!--</div>-->
+<!--</form>-->
+<!--</div>-->
+
+
+<h4 class="text-center">Recuperar contraseña</h4>
 
 <div class="modal-body">
-    <form [formGroup]="forgotForm" (ngSubmit)="forgotForm.valid && enviar()">
-        <mat-form-field>
-            <input matInput placeholder="Correo electrónico" [(ngModel)]="model.email"
-                   [formControl]="forgotForm.controls['email']"
-                   required>
-            <mat-error *ngIf="forgotForm.controls['email'].invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
+    <form (ngSubmit)="rate()">
 
-        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-        <br>
-        <div class="form-group text-center">
-            <button mat-raised-button color="primary" [disabled]="loading" class="col-12 tc-white">
-                Enviarme contraseña
-            </button>
+        <input autofocus id="email" placeholder="Escriba su correo" name="email" type="email"
+               [(ngModel)]="model.email"
+               [formControl]="forgotForm.controls['email']"
+               required>
+        <div class="form-group">
+            <input class="btn btn-primary" (click)="enviar()"
+                   [disabled]="loading || model.email?.length === 0"
+                   value="Enviar"
+                   type="button">
             <img *ngIf="loading"
                  src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
             />
         </div>
     </form>
 </div>
+
+
 

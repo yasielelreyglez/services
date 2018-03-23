@@ -35,6 +35,15 @@ export class AuthService {
         });
     }
 
+    forgotPassword(email): Observable<any> {
+        return this.http.post(this.getBaseURL() + 'auth/forgot_password/', {identity: email}).map(response => response).map(result => {
+            if (!result['error']) {
+                return true;
+            }
+            return result['error'];
+        });
+    }
+
     register(user: User): Observable<any> {
         const body = JSON.stringify({name: user.name, email: user.email, password: user.password});
         return this.http.post(this.getBaseURL() + 'auth/register', body).map(response => response).map(result => {
