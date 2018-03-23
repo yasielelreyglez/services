@@ -12,6 +12,7 @@ import {ShowmysearchsComponent} from './components/showmysearchs/showmysearchs.c
 import {ShowserviceComponent} from './components/showservice/showservice.component';
 import {WizardserviceComponent} from './components/wizardservice/wizardservice.component';
 import {PayserviceComponent} from './components/payservice/payservice.component';
+import {MensajesComponent} from './components/mensajes/mensajes.component';
 
 const routes: Routes = [
     {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -34,6 +35,7 @@ const routes: Routes = [
     {path: 'mysearchs/service/:id', component: ShowserviceComponent, canActivate: [AuthGuard]},
     {path: 'myservices/service/:id', component: ShowserviceComponent, canActivate: [AuthGuard]},
     {path: 'createservice', component: WizardserviceComponent, canActivate: [AuthGuard]},
+    {path: 'mensajes', component: MensajesComponent, canActivate: [AuthGuard]},
 
 
     // otherwise redirect to home

@@ -109,6 +109,14 @@ class User
      * @var string
      **/
     protected $forgotten_password_code;
+
+    /**
+     * @Column(type="string")
+     * @var string
+     **/
+    protected $forgotten_password_time;
+
+
     /**
      * Bidirectional - One-To-Many (INVERSE SIDE)
      *

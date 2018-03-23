@@ -126,6 +126,17 @@ export class ApiService {
             }
         });
     }
+    mensajes(): Observable<any> {
+        const currentUser = localStorage.getItem('currentUser');
+        return this.http.get(this.getBaseURL() + 'api/mensajes',{headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)}).map((response) => {
+            if (response['data'])
+                return response['data'];
+            else {
+                return new Array();
+            }
+        });
+    }
+
 
     subCategories(id: number): Observable<Subcategory[]> {
         return this.http.get(this.getBaseURL() + 'api/subcategories/' + id).map((response) => {
