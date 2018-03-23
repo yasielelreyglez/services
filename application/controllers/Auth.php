@@ -319,9 +319,10 @@ class Auth extends REST_Controller
                 'type' => 'hidden',
                 'value' => $user->id,
             );
-
+            $this->data["error"]="faltan datos en el formulario";
             // render
-            $this->_render_page('auth/change_password', $this->data);
+            $this->set_response($this->data, REST_Controller::HTTP_OK);
+
         }
         else
         {
@@ -333,12 +334,13 @@ class Auth extends REST_Controller
             {
                 //if the password was successfully changed
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
-                $this->logout();
+                $this->set_response($this->ion_auth->messages(), REST_Controller::HTTP_OK);
             }
             else
             {
                 $this->session->set_flashdata('message', $this->ion_auth->errors());
-                redirect('auth/change_password', 'refresh');
+                $data["error"]=$this->ion_auth->errors();
+                $this->set_response($data["error"], REST_Controller::HTTP_OK);
             }
         }
     }
