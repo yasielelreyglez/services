@@ -89,6 +89,10 @@
     .content-business .sidebar .sidebar-subcategories ul li .title {
         font-size: 13px;
     }
+
+    .authentication{
+        margin-bottom: 15px !important;
+    }
 }
 
 .content-business .sidebar .sidebar-subcategories ul li .count {
