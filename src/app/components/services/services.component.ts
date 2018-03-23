@@ -77,8 +77,94 @@ export class ServicesComponent implements OnInit, AfterViewInit, AfterViewChecke
         });
     }
 
+    openDialog(id): void {
+        const dialogRef = this.dialog.open(ReportComponent, {
+            width: '70%',
+            height: '303px',
+            data: {id: id}
+        });
 
-//     scripts() {
+        dialogRef.afterClosed().subscribe(() => {
+            console.log('The dialog was closed');
+        });
+    }
+
+    result_rate(service) {
+        let result = '';
+        for (const value of [1, 2, 3, 4, 5]) {
+            if (value <= service.globalrate) {
+                result += '<li><i class="fa fa-star"></i></li> ';
+            }
+            else {
+                result += '<li><i class="fa fa-star-o"></i></li> ';
+            }
+        }
+        return result;
+    }
+
+    delete(id) {
+        this.apiServices.deleteService(id).subscribe(result => {
+            this.services = this.services.filter(service => service.id !== id);
+            this.openSnackBar('El servicio fue eliminado satisfactoriamente', 2500);
+        });
+    }
+
+    result_cities(service: any) {
+        if (!isNull(service.citiesList)) {
+            let result = '';
+            for (let city of service.citiesList) {
+                result += city.title + ', ';
+            }
+            return result.substring(0, (result.length - 2));
+        }
+        return '';
+    }
+
+    result_subcategories(service: any) {
+        if (!isNull(service.subcategoriesList)) {
+            let result = '';
+            // if (service.subcategoriesList.length > 1) {
+            //     result = service.subcategoriesList[0].title + ', (...)';
+            // }
+            // else {
+            //     result = service.subcategoriesList[0].title;
+            // }
+
+            for (let city of service.subcategoriesList) {
+                result += city.title + ', ';
+            }
+
+            return result.substring(0, (result.length - 2));
+        }
+        return '';
+    }
+
+    markFavorite(id, state, pos) {
+        let results: any;
+        if (state === 1) {
+            this.apiServices.disMarkfavorite(id).subscribe(() => {
+                this.services[pos].favorite = 0;
+                this.openSnackBar('El servicio fue eliminado de "Mis favoritos" satisfactoriamente', 2500);
+
+                if (this.myfavorites)
+                    this.services = this.services.filter(service => service.id !== id);
+            });
+        } else {
+            this.apiServices.markfavorite(id).subscribe(result => results = result);
+            this.services[pos].favorite = 1;
+            this.openSnackBar('El servicio fue añadido a "Mis favoritos" satisfactoriamente', 2500);
+        }
+    }
+
+    openSnackBar(message: string, duration: number, action ?: string) {
+        this.snackBar.open(message, action, {
+            duration: duration,
+            horizontalPosition: 'center',
+        });
+    }
+
+
+    //     scripts() {
 //         'use strict';
 //
 //         const $body = $('body');
@@ -734,91 +820,5 @@ export class ServicesComponent implements OnInit, AfterViewInit, AfterViewChecke
 // //         });
 //
 //     }
-
-    openDialog(id): void {
-        const dialogRef = this.dialog.open(ReportComponent, {
-            width: '70%',
-            height: '303px',
-            data: {id: id}
-        });
-
-        dialogRef.afterClosed().subscribe(() => {
-            console.log('The dialog was closed');
-        });
-    }
-
-    result_rate(service) {
-        let result = '';
-        for (const value of [1, 2, 3, 4, 5]) {
-            if (value <= service.globalrate) {
-                result += '<li><i class="fa fa-star"></i></li> ';
-            }
-            else {
-                result += '<li><i class="fa fa-star-o"></i></li> ';
-            }
-        }
-        return result;
-    }
-
-    delete(id) {
-        this.apiServices.deleteService(id).subscribe(result => {
-            this.services = this.services.filter(service => service.id !== id);
-            this.openSnackBar('El servicio fue eliminado satisfactoriamente', 2500);
-        });
-    }
-
-    result_cities(service: any) {
-        if (!isNull(service.citiesList)) {
-            let result = '';
-            for (let city of service.citiesList) {
-                result += city.title + ', ';
-            }
-            return result.substring(0, (result.length - 2));
-        }
-        return '';
-    }
-
-    result_subcategories(service: any) {
-        if (!isNull(service.subcategoriesList)) {
-            let result = '';
-            // if (service.subcategoriesList.length > 1) {
-            //     result = service.subcategoriesList[0].title + ', (...)';
-            // }
-            // else {
-            //     result = service.subcategoriesList[0].title;
-            // }
-
-            for (let city of service.subcategoriesList) {
-                result += city.title + ', ';
-            }
-
-            return result.substring(0, (result.length - 2));
-        }
-        return '';
-    }
-
-    markFavorite(id, state, pos) {
-        let results: any;
-        if (state === 1) {
-            this.apiServices.disMarkfavorite(id).subscribe(() => {
-                this.services[pos].favorite = 0;
-                this.openSnackBar('El servicio fue eliminado de "Mis favoritos" satisfactoriamente', 2500);
-
-                if (this.myfavorites)
-                    this.services = this.services.filter(service => service.id !== id);
-            });
-        } else {
-            this.apiServices.markfavorite(id).subscribe(result => results = result);
-            this.services[pos].favorite = 1;
-            this.openSnackBar('El servicio fue añadido a "Mis favoritos" satisfactoriamente', 2500);
-        }
-    }
-
-    openSnackBar(message: string, duration: number, action ?: string) {
-        this.snackBar.open(message, action, {
-            duration: duration,
-            horizontalPosition: 'center',
-        });
-    }
 
 }
