@@ -287,48 +287,9 @@ class Auth extends REST_Controller
      */
     public function change_password_post()
     {
-        $user = $this->ion_auth->user()->row();
-
-        if ($this->form_validation->run() === FALSE)
-        {
-            // display the form
-            // set the flash data error message if there is one
-            $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-
-            $this->data['min_password_length'] = $this->config->item('min_password_length', 'ion_auth');
-            $this->data['old_password'] = array(
-                'name' => 'old',
-                'id' => 'old',
-                'type' => 'password',
-            );
-            $this->data['new_password'] = array(
-                'name' => 'new',
-                'id' => 'new',
-                'type' => 'password',
-                'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
-            );
-            $this->data['new_password_confirm'] = array(
-                'name' => 'new_confirm',
-                'id' => 'new_confirm',
-                'type' => 'password',
-                'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
-            );
-            $this->data['user_id'] = array(
-                'name' => 'user_id',
-                'id' => 'user_id',
-                'type' => 'hidden',
-                'value' => $user->id,
-            );
-            $this->data["error"]="faltan datos en el formulario";
-            // render
-            $this->set_response($this->data, REST_Controller::HTTP_OK);
-
-        }
-        else
-        {
             $identity = $this->session->userdata('identity');
 
-            $change = $this->ion_auth->change_password($identity, $this->input->post('old'), $this->input->post('new'));
+            $change = $this->ion_auth->change_password($identity, $this->post('old_password'), $this->post('new_password'));
 
             if ($change)
             {
@@ -340,8 +301,7 @@ class Auth extends REST_Controller
             {
                 $this->session->set_flashdata('message', $this->ion_auth->errors());
                 $data["error"]=$this->ion_auth->errors();
-                $this->set_response($data["error"], REST_Controller::HTTP_OK);
+                $this->set_response($data, REST_Controller::HTTP_OK);
             }
-        }
     }
 }
