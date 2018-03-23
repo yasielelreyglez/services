@@ -309,7 +309,7 @@ class Auth extends REST_Controller
     /**
      * Change password
      */
-    public function change_password()
+    public function change_password_post()
     {
         $user = $this->ion_auth->user()->row();
 
