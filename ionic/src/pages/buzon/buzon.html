@@ -9,16 +9,16 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item>
-      <h2>Finn</h2>
-      <h3>Don't Know What To Do!</h3>
-      <p>I've had a pretty messed up day. If we just.</p>
-    </ion-item>
-    <ion-item>
-      <h2>Pepe</h2>
-      <h3>What</h3>
-      <p>Lorem ipsum dolor sit amet</p>
-    </ion-item>
+    <ion-item-sliding *ngFor="let msg of mensajes">
+      <ion-item >
+        <p text-wrap [class]="msg.estado == 0 ? 'sin-leer' :'leido'">{{msg.mensaje}}.</p>
+      </ion-item>
 
+      <ion-item-options side="right">
+        <button (click)="deleteMensajes(msg.id)" ion-button icon-only color="danger">
+          <ion-icon color="" name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>
