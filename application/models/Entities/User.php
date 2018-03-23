@@ -104,7 +104,11 @@ class User
      */
     private $reportcomments;
 
-
+    /**
+     * @Column(type="string")
+     * @var string
+     **/
+    protected $forgotten_password_code;
     /**
      * Bidirectional - One-To-Many (INVERSE SIDE)
      *
