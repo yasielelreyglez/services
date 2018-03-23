@@ -59,6 +59,10 @@ class Subcategory
     public function __construct()
     {
 //        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->visits =0;
+        $this->created_at = new \DateTime("now");
+        $this->updated_at = new \DateTime("now");
+
     }
 
     public function getId()

@@ -17,4 +17,4 @@ crear DB schema y llenarla con los datos bases
 acceder a la url base de la aplicacion
 
 **Administracion**
-La administracion es accesible en `url_base/admin`
+La administracion es accesible en `url_base/admin/home`

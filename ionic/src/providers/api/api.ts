@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
-import {  HttpClient,  HttpHeaders } from "@angular/common/http";
-
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 
 /*
@@ -15,38 +14,38 @@ export class ApiProvider {
   private apiBaseUrl = 'http://localhost/services/';
   // private apiBaseUrl = 'http://a610bb61.ngrok.io/seriovices/';
   // private apiBaseUrl = 'http://php-yoidel86941305.codeanyapp.com/services/';
-  public days : object;
-  user:any;
+  public days: object;
+  user: any;
 
   constructor(public http: HttpClient) {
-    this.days ={
-      0:"Lunes",
-      1:"Martes",
-      2:"Miercoles",
-      3:"Jueves",
-      4:"Viernes",
-      5:"Sábado",
-      6:"Domingo"
+    this.days = {
+      0: "Lunes",
+      1: "Martes",
+      2: "Miercoles",
+      3: "Jueves",
+      4: "Viernes",
+      5: "Sábado",
+      6: "Domingo"
     };
-    this.user =JSON.parse(localStorage.getItem('ServCurrentUser')) ;
+    this.user = JSON.parse(localStorage.getItem('ServCurrentUser'));
   }
 
-  contactservice(id):Promise<any>{
+  contactservice(id): Promise<any> {
 
-    if (this.user){
-    return this.http.get(this.apiBaseUrl + 'api/contactservice/'+id,{
-      headers: new HttpHeaders().set('Authorization', this.user.token)
-     })
-      .toPromise()
-      .then(
-        (response) => {
-          return response;
-        }
-      ).catch(this.handleError);
+    if (this.user) {
+      return this.http.get(this.apiBaseUrl + 'api/contactservice/' + id, {
+        headers: new HttpHeaders().set('Authorization', this.user.token)
+      })
+        .toPromise()
+        .then(
+          (response) => {
+            return response;
+          }
+        ).catch(this.handleError);
     }
   }
 
-  test():Promise<any>{
+  test(): Promise<any> {
     return this.http.get(this.apiBaseUrl + 'api/test')
       .toPromise()
       .then(
@@ -55,7 +54,8 @@ export class ApiProvider {
         }
       ).catch(this.handleError);
   }
-  getCities():Promise<Object>{
+
+  getCities(): Promise<Object> {
     return this.http.get(this.apiBaseUrl + 'api/cities')
       .toPromise()
       .then(
@@ -64,7 +64,8 @@ export class ApiProvider {
         }
       ).catch(this.handleError);
   }
-  getAllSubCategories():Promise<Object>{
+
+  getAllSubCategories(): Promise<Object> {
     return this.http.get(this.apiBaseUrl + 'api/allsubcategories')
       .toPromise()
       .then(
@@ -73,7 +74,8 @@ export class ApiProvider {
         }
       ).catch(this.handleError);
   }
-  allCategories():Promise<Object>{
+
+  allCategories(): Promise<Object> {
     return this.http.get(this.apiBaseUrl + 'api/categories')
       .toPromise()
       .then(
@@ -82,60 +84,91 @@ export class ApiProvider {
         }
       ).catch()
   }
-  addComment(id, comment){
-    if (this.user){
-    return this.http.post(this.apiBaseUrl + 'api/addcomment/'+id,{comment}, {
+
+  addComment(id, comment) {
+    if (this.user) {
+      return this.http.post(this.apiBaseUrl + 'api/addcomment/' + id, {comment}, {
+        headers: new HttpHeaders().set('Authorization', this.user.token)
+      })
+        .toPromise()
+        .then(
+          (response) => {
+            return response;
+          }
+        ).catch(this.handleError);
+    }
+  }
+
+  showComment(id) {
+    return this.http.get(this.apiBaseUrl + 'api/showcomment/' + id, {
       headers: new HttpHeaders().set('Authorization', this.user.token)
-     })
+    })
       .toPromise()
       .then(
         (response) => {
           return response;
         }
       ).catch(this.handleError);
-    }
-  }
-  showComment(id){
-    return this.http.get(this.apiBaseUrl+ 'api/showcomment/'+id,{
-      headers: new HttpHeaders().set('Authorization', this.user.token)
-      })
-    .toPromise()
-    .then(
-      (response) => {
-        return response;
-      }
-    ).catch(this.handleError);
-  }
-  hideComment(id){
-    return this.http.get(this.apiBaseUrl+ 'api/hidecomment/'+id,{
-      headers: new HttpHeaders().set('Authorization', this.user.token)
-      })
-    .toPromise()
-    .then(
-      (response) => {
-        return response;
-      }
-    ).catch(this.handleError);
   }
 
-  reportComment(id,data){
-    return this.http.get(this.apiBaseUrl+ 'api/reportcomment/'+id,{
+  hideComment(id) {
+    return this.http.get(this.apiBaseUrl + 'api/hidecomment/' + id, {
       headers: new HttpHeaders().set('Authorization', this.user.token)
-      })
-    .toPromise()
-    .then(
-      (response) => {
-        return response;
-      }
-    ).catch(this.handleError);
+    })
+      .toPromise()
+      .then(
+        (response) => {
+          return response;
+        }
+      ).catch(this.handleError);
   }
 
-  getbaseUrl(): string{
+  reportComment(id, data) {
+    return this.http.get(this.apiBaseUrl + 'api/reportcomment/' + id, {
+      headers: new HttpHeaders().set('Authorization', this.user.token)
+    })
+      .toPromise()
+      .then(
+        (response) => {
+          return response;
+        }
+      ).catch(this.handleError);
+  }
+
+
+  mensajes() {
+    return this.http.get(this.apiBaseUrl + 'api/mensajes', {
+      headers: new HttpHeaders().set('Authorization', this.user.token)
+    })
+      .toPromise()
+      .then(
+        (response) => {
+          return response['data'];
+        }
+      ).catch(this.handleError);
+  }
+
+  deleteMensajes(pos) {
+    return this.http.post(this.apiBaseUrl + 'api/borrarmensaje/', {pos}, {
+    // return this.http.get(this.apiBaseUrl + 'api/mensajes', {
+      headers: new HttpHeaders().set('Authorization', this.user.token)
+    })
+      .toPromise()
+      .then(
+        (response) => {
+          return response;
+        }
+      ).catch(this.handleError);
+  }
+
+  getbaseUrl(): string {
     return this.apiBaseUrl;
   }
-  getDays(): string{
+
+  getDays(): string {
     return this.apiBaseUrl;
   }
+
   private handleError(error: any): Promise<any> {
     return Promise.reject(error.message || error);
   }

@@ -1296,6 +1296,15 @@ class Api extends REST_Controller
         }
     }
 
+    function  borrarmensaje_post($pos){
+        $user = $this->getCurrentUser();
+        if ($user) {
+            $em = $this->doctrine->em;
+            $mensajes = $em->find("Entities\Mensaje", $pos);
+            $em->remove($mensajes);
+            $em->flush();
+        }
+    }
     function mensajes_get(){
         $user = $this->getCurrentUser();
         if ($user) {
@@ -1309,7 +1318,11 @@ class Api extends REST_Controller
     }
     function leermensaje_get($id){
         $em = $this->doctrine->em;
-        $mensaje = $em->find("Entities\User", $usuario);
+        /** @var Entities\Mensaje $mensaje */
+        $mensaje = $em->find("Entities\Mensaje", $id);
+        $mensaje->setEstado(1);
+        $em->persist($mensaje);
+        $em->flush();
     }
     // FUNCIONES CAMBIOS
     function mensajesNoleidos_get()
