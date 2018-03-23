@@ -1069,7 +1069,12 @@ class Api extends REST_Controller
         $service->setOtherPhone($this->post('other_phone', TRUE));
         $service->setEmail($this->post('email', TRUE));
         $service->setUrl($this->post('url', TRUE));
-        $times_old = $service->getTimes()->toArray();
+        $timesoldobj = $service->getTimes();
+        if($timesoldobj) {
+            $times_old = $timesoldobj->toArray();
+        }else{
+            $times_old = false;
+        }
 		if($times_old){
         if (is_array($times_old)){
             foreach ($times_old as $old_time) {
