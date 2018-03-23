@@ -67,6 +67,7 @@ export class ShowservicesComponent implements OnInit, AfterViewInit, AfterViewCh
             }
             else {
                 const services = localStorage.getItem('searchServices');
+                console.log(JSON.parse(services));
                 if (services)
                     this.services = JSON.parse(services);
             }
@@ -151,7 +152,6 @@ export class ShowservicesComponent implements OnInit, AfterViewInit, AfterViewCh
         // }
 
         document.addEventListener('DOMContentLoaded', function () {
-
 
         });
     }

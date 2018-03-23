@@ -82,7 +82,6 @@ export class TimesComponent implements OnInit, AfterContentChecked {
 
     deleteTime(pos: number) {
         this.previewsTimes.splice(pos, 1);
-        console.log('eliminar', this.previewsTimes);
     }
 
     addTime() {
@@ -100,7 +99,6 @@ export class TimesComponent implements OnInit, AfterContentChecked {
     }
 
     done() {
-        console.log('al final', this.previewsTimes);
         this.dialogRef.close(this.previewsTimes);
     }
 

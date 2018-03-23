@@ -1,5 +1,5 @@
 import {
-    AfterContentChecked, AfterViewInit, Component, ElementRef, EventEmitter, NgZone, OnInit,
+    AfterContentChecked, AfterContentInit, AfterViewInit, Component, ElementRef, EventEmitter, NgZone, OnInit,
     ViewChild
 } from '@angular/core';
 import {ApiService} from '../../_services/api.service';
@@ -48,6 +48,9 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
 
     constructor(private apiServices: ApiService, private router: Router, private route: ActivatedRoute,
                 private snackBar: MatSnackBar, public zone: NgZone, public dialog: MatDialog) {
+        $('#categories').select2();
+        $('#cities').select2();
+
         this.loading = false;
         if (typeof google !== 'undefined') {
             this.latLng = new google.maps.LatLng(23.13302, -82.38304);
@@ -203,6 +206,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         });
     }
 
+
     ngOnInit() {
         window.scrollTo(0, 0);
 
@@ -215,12 +219,15 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
             $('#categories').select2();
         });
         this.createForms();
+
+
     }
 
     ngAfterViewInit() {
         if (typeof google !== 'undefined') {
             this.initMap();
         }
+
     }
 
     onChangeTab(event) {
@@ -435,6 +442,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
 
 
     finishFunction() {
+        console.log('al final', this.service);
         this.loading = true;
         if (this.previews.length > 0) {
 
@@ -497,7 +505,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         }
     }
 
-    openSnackBar(message: string, duration: number, action?: string) {
+    openSnackBar(message: string, duration: number, action ?: string) {
         this.snackBar.open(message, action, {
             duration: duration,
             horizontalPosition: 'center',

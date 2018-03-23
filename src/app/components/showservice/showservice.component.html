@@ -51,7 +51,7 @@
                                         (click)="loggedIn ? reportDialog(service.id): openSnackBar('Debe iniciar sesión', 2500);">
                                     Denunciar
                                 </button>
-                                <button class="pull-right mr-10" [disabled]="!loggedIn" mat-raised-button
+                                <button class="pull-right mr-10" [disabled]="!loggedIn || service.rated != null" mat-raised-button
                                         color="primary"
                                         (click)="ratingDialog(service.id)">
                                     Evaluar
