@@ -1300,7 +1300,7 @@ class Api extends REST_Controller
         $user = $this->getCurrentUser();
         if ($user) {
             $em = $this->doctrine->em;
-            $mensajes = $em->find("Entities\User", $pos);
+            $mensajes = $em->find("Entities\Mensaje", $pos);
             $em->remove($mensajes);
             $em->flush();
         }
