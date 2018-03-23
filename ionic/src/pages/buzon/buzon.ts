@@ -17,7 +17,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 })
 export class BuzonPage {
 
-  mensajes : any;
+  mensajes: any;
 
   constructor(public api: ApiProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.api.mensajes().then(
@@ -35,12 +35,11 @@ export class BuzonPage {
   ionViewDidLoad() {
 
   }
-  deleteMensajes(id){
+
+  deleteMensajes(id) {
     this.api.deleteMensajes(id);
     this.mensajes = this.mensajes.filter(function (item) {
       return item.id !== id;
     });
-
   }
-
 }

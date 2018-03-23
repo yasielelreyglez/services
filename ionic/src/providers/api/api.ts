@@ -148,17 +148,11 @@ export class ApiProvider {
       ).catch(this.handleError);
   }
 
-  deleteMensajes(pos) {
-    return this.http.post(this.apiBaseUrl + 'api/borrarmensaje/', {pos}, {
-    // return this.http.get(this.apiBaseUrl + 'api/mensajes', {
+  deleteMensajes(id) {
+    return this.http.get(this.apiBaseUrl + 'api/borrarmensaje/'+id,  {
       headers: new HttpHeaders().set('Authorization', this.user.token)
     })
-      .toPromise()
-      .then(
-        (response) => {
-          return response;
-        }
-      ).catch(this.handleError);
+
   }
 
   getbaseUrl(): string {
