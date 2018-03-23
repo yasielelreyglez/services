@@ -442,7 +442,6 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
 
 
     finishFunction() {
-        console.log('al final', this.service);
         this.loading = true;
         if (this.previews.length > 0) {
 

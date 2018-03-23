@@ -12,7 +12,8 @@
 
         <!--<div *ngIf="error" class="alert alert-danger">{{error}}</div>-->
         <br>
-        <textarea rows="4" name="textcomment" placeholder="Escribe tu comentario aqui" [(ngModel)]="comment" maxlength="250"></textarea>
+        <label for="textcomment">Comentario</label>
+        <textarea rows="4" id="textcomment" name="textcomment" placeholder="Escribe tu comentario aqui" [(ngModel)]="comment" maxlength="250"></textarea>
 
         <!--<textarea rows="4" name="textcomment" placeholder="Escribe tu comentario" #textcomment-->
         <!--[formControl]="commentForm.controls['textcomment']"-->

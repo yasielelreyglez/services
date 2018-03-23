@@ -38,6 +38,7 @@ export class ForgotpassComponent implements OnInit {
         this.authService.forgotPassword(this.model.email).subscribe(result => {
             if (result === true) {
                 this.dialogRef.close();
+                this.openSnackBar('Revice su correo electrónico.', 2500);
             }
             else {
                 this.loading = false;

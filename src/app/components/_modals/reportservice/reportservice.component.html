@@ -2,8 +2,8 @@
 
 <div class="modal-body">
     <form (ngSubmit)="rate()">
-
-        <textarea rows="4" name="textcomplaint" placeholder="Escribe tu comentario aqui" [(ngModel)]="model.complaint"
+        <label for="textcomplaint">Comentario</label>
+        <textarea rows="4" id="textcomplaint" name="textcomplaint" placeholder="Escribe tu comentario aqui" [(ngModel)]="model.complaint"
                   maxlength="250"></textarea>
         <div class="form-group">
             <input class="btn btn-primary" (click)="enviar()" [disabled]="loading || value === 0 || model.complaint?.length === 0"

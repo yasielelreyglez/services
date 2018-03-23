@@ -18,26 +18,26 @@ export class ChangepasswordComponent implements OnInit {
                 @Inject(MAT_DIALOG_DATA) public data: any,
                 private authService: AuthService, private snackBar: MatSnackBar) {
         this.model = {};
-        this.model.email = '';
         this.loading = false;
         this.error = '';
     }
 
     ngOnInit() {
-        this.createForm();
+        // this.createForm();
     }
 
-    private createForm() {
-        this.forgotForm = new FormGroup({
-            email: new FormControl('', [Validators.required, Validators.email])
-        });
-    }
+    // private createForm() {
+    //     this.forgotForm = new FormGroup({
+    //         email: new FormControl('', [Validators.required, Validators.email])
+    //     });
+    // }
 
     enviar() {
         this.loading = true;
-        this.authService.forgotPassword(this.model.email).subscribe(result => {
+        this.authService.changePassword(this.model).subscribe(result => {
             if (result === true) {
                 this.dialogRef.close();
+                this.openSnackBar('Su contraseña ha sido modificada correctamente.', 2500);
             }
             else {
                 this.loading = false;

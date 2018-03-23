@@ -38,7 +38,7 @@ export class MenuComponent implements OnInit {
     openDialog(): void {
         const dialogRef = this.dialog.open(ChangepasswordComponent, {
             width: '70%',
-            height: '400px'
+            height: '500px'
         });
 
         dialogRef.afterClosed().subscribe(() => {
