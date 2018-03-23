@@ -7,7 +7,9 @@
                     <div class="listing-ver-1">
                         <div class="listing-heading">
                             <div class="row">
-                                <div class="col-xs-6 col-sm-8"><h5>{{service.title}}</h5></div>
+                                <div class="col-xs-6 col-sm-8"><h5>{{service.title}}
+                                    <span *ngIf="service.professional" href="#" class="c-red">(PRO)</span>
+                                </h5></div>
                                 <!--<a *ngIf="service.professional" href="#" class="c-red"><i class="fa fa-bookmark"></i></a>-->
                                 <div class="col-xs-6 col-sm-4">
                                     <ul class="showrate pull-right" [innerHTML]="result_rate(service.globalrate)">
@@ -35,6 +37,7 @@
                                                 <img src="{{service.icon}}" alt="">
                                             </div>
                                             <div class="listing-content-description margin-description">
+                                                <p>{{service.subtitle}}</p>
                                                 <p>{{service.description}}</p>
                                             </div>
                                         </div>

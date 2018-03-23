@@ -18,4 +18,5 @@ export class Service {
     positions: any[];
     dropsImages: any;
     times: any;
+    rated: number;
 }

@@ -1299,6 +1299,10 @@ class Api extends REST_Controller
         }
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
+    function leermensaje_get($id){
+        $em = $this->doctrine->em;
+        $mensaje = $em->find("Entities\User", $usuario);
+    }
     // FUNCIONES CAMBIOS
     function mensajesNoleidos_get()
     {

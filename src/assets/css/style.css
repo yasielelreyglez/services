@@ -85,6 +85,7 @@ TABLE OF CONTENT
 ======================================================
 */
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+
 html {
     font-family: sans-serif;
     -ms-text-size-adjust: 100%;
@@ -25065,4 +25066,7 @@ CANVAS PAGE STYLE
     display: block;
     color: #cccccc;
     font-size: 18px;
+}
+.c-red {
+    color: #00d793 !important;
 }
