@@ -52,8 +52,7 @@ class Positions extends CI_Controller {
         $this->load->view('/includes/contentpage', $data);		}
 
 	# GET /positions/destroy/1
-	function destroy() {
-		$id = $this->uri->segment(3);
+	function destroy($id) {
 		$data['positions'] = $this->Positions_model->destroy($id);
 		redirect('admin/positions/index', 'refresh');
 	}
