@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {AuthService} from '../../../_services/auth.service';
 import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from '@angular/material';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-changepassword',
@@ -16,7 +17,7 @@ export class ChangepasswordComponent implements OnInit {
 
     constructor(public dialogRef: MatDialogRef<ChangepasswordComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: any,
-                private authService: AuthService, private snackBar: MatSnackBar) {
+                private authService: AuthService, private snackBar: MatSnackBar, private router: Router) {
         this.model = {};
         this.loading = false;
         this.error = '';
@@ -37,6 +38,8 @@ export class ChangepasswordComponent implements OnInit {
         this.authService.changePassword(this.model).subscribe(result => {
             if (result === true) {
                 this.dialogRef.close();
+                this.authService.logout();
+                this.router.navigate(['login']);
                 this.openSnackBar('Su contraseña ha sido modificada correctamente.', 2500);
             }
             else {

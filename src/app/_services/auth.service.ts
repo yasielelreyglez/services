@@ -40,8 +40,8 @@ export class AuthService {
             if (!result['error']) {
                 return true;
             } else {
+                return result['error'];
             }
-            return result['error'];
         });
     }
 
@@ -55,8 +55,8 @@ export class AuthService {
             if (!result['error']) {
                 return true;
             } else {
+                return result['error'];
             }
-            return result['error'];
         });
     }
 
