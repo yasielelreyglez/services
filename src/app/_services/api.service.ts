@@ -102,16 +102,16 @@ export class ApiService {
     }
 
     filter(cities?: any, categories?: any, distance?: number, current?: any): Observable<any> {
+        const currentUser = localStorage.getItem('currentUser');
         return this.http.post(this.getBaseURL() + 'api/filter', {
             cities,
             categories,
             distance,
             current
-        }).map((response) => {
+        },{headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)}).map((response) => {
             if (response['services']) {
                 return response['services'];
-            }
-            else {
+            } else {
                 return new Array();
             }
         });

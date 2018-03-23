@@ -310,6 +310,7 @@ class Api extends REST_Controller
     public function filter_post()
     {
         //obteniendo parametros filtro
+        $user = $this->getCurrentUser();
         $ciudades = $this->post("cities", true);
         $categorias = $this->post("categories", true);
         if ($categorias && count($categorias) == 0) {
@@ -336,7 +337,7 @@ class Api extends REST_Controller
             $services = $this->filterByDistance($distance, $current_position, $filtered, $services);
             $filtered = true;
         }
-        $user = $this->getCurrentUser();
+
         if (!$filtered) {
             $em = $this->doctrine->em;
             $services_repo = $em->getRepository('Entities\Service');
@@ -345,9 +346,11 @@ class Api extends REST_Controller
         $services_a = array();
         foreach ($services as $service) {
             if (!array_key_exists($service->getId(), $services_a)) {
-                $service->loadRelatedData();
+                $service->loadRelatedData($user);
                 if ($user) {
                     $service->loadRelatedUserData($user);
+                }else{
+                    echo "dice esto que NO ve el usuario";
                 }
                 $services_a[$service->getId()] = $service;
             }
