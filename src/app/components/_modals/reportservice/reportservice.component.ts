@@ -28,7 +28,6 @@ export class ReportServiceComponent implements OnInit {
     enviar() {
         this.loading = true;
         this.apiServices.reportService(this.model).subscribe(result => {
-            console.log('respuesta', result);
             if (result === true) {
                 this.dialogRef.close();
                 this.openSnackBar('El servicio a sido denunciado correctamente', 2500);

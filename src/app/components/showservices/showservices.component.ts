@@ -67,7 +67,7 @@ export class ShowservicesComponent implements OnInit, AfterViewInit, AfterViewCh
             }
             else {
                 const services = localStorage.getItem('searchServices');
-                console.log(JSON.parse(services));
+                console.log('este', JSON.parse(services));
                 if (services)
                     this.services = JSON.parse(services);
             }
@@ -85,7 +85,6 @@ export class ShowservicesComponent implements OnInit, AfterViewInit, AfterViewCh
 
     ngAfterViewInit(): void {
         // this.scripts();
-
         const $viewtype = $('.view-type');
         $viewtype.click(function (event) {
             event.preventDefault();
@@ -101,7 +100,6 @@ export class ShowservicesComponent implements OnInit, AfterViewInit, AfterViewCh
     }
 
     ngAfterContentInit(): void {
-
     }
 
     ngAfterViewChecked(): void {
@@ -192,8 +190,66 @@ export class ShowservicesComponent implements OnInit, AfterViewInit, AfterViewCh
         }
     }
 
+    createForm() {
+        this.filterForm = new FormGroup({
+            cities: new FormControl(''),
+            subcategory: new FormControl(''),
+            distance: new FormControl('', [Validators.min(1)])
+        });
+    }
 
-//     scripts() {
+    onCheckCategory(id: number) {
+        const pos = this.listCategories.indexOf(id);
+
+        if (pos === -1) {
+            this.listCategories.push(id);
+            this.listSubcategories = this.subcategories.filter(item => this.exclude(item, this));
+        } else {
+            this.listCategories.splice(pos, 1);
+            if (this.listCategories.length === 0) {
+                this.listSubcategories = this.subcategories;
+            } else {
+                this.listSubcategories = this.subcategories.filter(item => this.exclude(item, this));
+            }
+        }
+    }
+
+    exclude(element, that) {
+        if (that.listCategories.indexOf(element.category.id) !== -1)
+            return element;
+    }
+
+    getErrorMessage() {
+        return this.filterForm.controls['distance'].hasError('min') ? 'Not a valid number' :
+            '';
+    }
+
+
+    filter() {
+        window.scrollTo(0, 0);
+        const selectSub = new Array();
+        const selectCit = new Array();
+        const sub = this.elRef.nativeElement.querySelectorAll('.subcategories:checked');
+        sub.forEach(function (item) {
+            selectSub.push($(item).attr('id'));
+        });
+
+        const cit = this.elRef.nativeElement.querySelectorAll('.cities:checked');
+        cit.forEach(function (item) {
+            selectCit.push($(item).attr('id'));
+        });
+
+        const selectDis = $('#distance').val();
+
+        localStorage.setItem('searchParams', JSON.stringify({selectCit, selectSub, selectDis}));
+        this.apiServices.filter(selectCit, selectSub).subscribe(result => {
+            this.services = result;
+            localStorage.setItem('searchServices', JSON.stringify(result));
+            this.router.navigate(['/search']);
+        });
+    }
+
+    //     scripts() {
 //         'use strict';
 //
 //         const $body = $('body');
@@ -847,63 +903,4 @@ export class ShowservicesComponent implements OnInit, AfterViewInit, AfterViewCh
 //
 // //             });
 //     }
-
-
-    createForm() {
-        this.filterForm = new FormGroup({
-            cities: new FormControl(''),
-            subcategory: new FormControl(''),
-            distance: new FormControl('', [Validators.min(1)])
-        });
-    }
-
-    onCheckCategory(id: number) {
-        const pos = this.listCategories.indexOf(id);
-
-        if (pos === -1) {
-            this.listCategories.push(id);
-            this.listSubcategories = this.subcategories.filter(item => this.exclude(item, this));
-        } else {
-            this.listCategories.splice(pos, 1);
-            if (this.listCategories.length === 0) {
-                this.listSubcategories = this.subcategories;
-            } else {
-                this.listSubcategories = this.subcategories.filter(item => this.exclude(item, this));
-            }
-        }
-    }
-
-    exclude(element, that) {
-        if (that.listCategories.indexOf(element.category.id) !== -1)
-            return element;
-    }
-
-    getErrorMessage() {
-        return this.filterForm.controls['distance'].hasError('min') ? 'Not a valid number' :
-            '';
-    }
-
-
-    filter() {
-        const selectSub = new Array();
-        const selectCit = new Array();
-        const sub = this.elRef.nativeElement.querySelectorAll('.subcategories:checked');
-        sub.forEach(function (item) {
-            selectSub.push($(item).attr('id'));
-        });
-
-        const cit = this.elRef.nativeElement.querySelectorAll('.cities:checked');
-        cit.forEach(function (item) {
-            selectCit.push($(item).attr('id'));
-        });
-
-        const selectDis = $('#distance').val();
-
-        localStorage.setItem('searchParams', JSON.stringify({selectCit, selectSub, selectDis}));
-        this.apiServices.filter(selectCit, selectSub).subscribe(result => {
-            this.services = result;
-            localStorage.setItem('searchServices', JSON.stringify(result));
-            this.router.navigate(['/search']);
-        });
-    }
 }

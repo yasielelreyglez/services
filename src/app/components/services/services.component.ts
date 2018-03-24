@@ -66,7 +66,7 @@ export class ServicesComponent implements OnInit, AfterViewInit, AfterViewChecke
     reportDialog(id: number): void {
         const dialogRef = this.dialog.open(ReportServiceComponent, {
             width: '60%',
-            height: '360px',
+            height: '400px',
             data: {id: id}
         });
 

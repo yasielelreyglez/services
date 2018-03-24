@@ -3,9 +3,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <form action="">
+                    <form (ngSubmit)="searchQuery()">
                         <input type="text" class="pull-left" style="margin-bottom: 0; width: 60%; margin-top: 1px;"
-                               placeholder="Buscar">
+                               placeholder="Buscar" [(ngModel)]="query" name="query">
                     </form>
                 </div>
                 <div class="col-md-6">
