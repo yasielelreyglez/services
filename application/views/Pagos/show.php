@@ -34,19 +34,18 @@
             <input disabled type="text" class="form-control" name="phone" placeholder="Enter Phone" value="<?= isset($payment)?$payment->phone:''?>"/>
 
             <label for="payed_at">Payed at:</label><br/>
-            <input disabled type="text" class="form-control" name="payed_at" placeholder="Enter Pay Date" value="<?= isset($payment)? $payment->getPayedAt():''?>"/>
-
+            <input disabled type="text" class="form-control" name="payed_at" placeholder="Enter Pay Date" value="<?= isset($payment)? date('Y-m-d', strtotime( $payment->getPayedAt()->format('Y-m-d'))):''?>"/>
             <label for="expiration_date">Expiration date at:</label><br/>
-            <input disabled type="text" class="form-control" name="expiration_date" placeholder="Enter Pay Date" value="<?= isset($payment)? $payment->getExpirationDate():''?>"/>
+            <input disabled type="text" class="form-control" name="expiration_date" placeholder="Enter Pay Date" value="<?= isset($payment)? $payment->getExpirationDate()->format('Y-m-d'):''?>"/>
 
 
 
         </div>
-		<div class="form-group">
+		<!--div class="form-group">
 			<label for="start_time">Start_time:</label><br/>
 			<input disabled type="text" class="form-control" name="start_time" placeholder="Enter Start_time" value="<?= isset($services)?$services->start_time:''?>"/>
 			
-		</div>
+		</div-->
 
     <div class="form-group">
         <label for="icon">Icon:</label><br/>

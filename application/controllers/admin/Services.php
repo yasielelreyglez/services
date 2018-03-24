@@ -27,6 +27,9 @@ class Services extends CI_Controller {
 
 	# GET /services/create
 	function create() {
+        $em= $this->doctrine->em;
+        $subcategories = $em->getRepository('Entities\Subcategory');
+        $data['subcategories'] = $subcategories->findAll();
 		$data['content'] = '/services/create';
         $data["tab"]="services";
         $data["tabTitle"]="crear servicios";
@@ -36,6 +39,10 @@ class Services extends CI_Controller {
 
 	# GET /services/edit/1
 	function edit($id) {
+        $em= $this->doctrine->em;
+        $subcategories = $em->getRepository('Entities\Subcategory');
+        $data['subcategories'] = $subcategories->findAll();
+        $data['currenSubCategories '] = $subcategories->findAll();
 		$data['services'] = $this->Services_model->find($id);
 		$data['content'] = '/services/create';
         $data["tab"]="services";

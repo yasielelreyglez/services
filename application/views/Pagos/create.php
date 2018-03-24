@@ -5,17 +5,17 @@
 		
 		<div class="form-group">
 			<label for="title">Title:</label><br/>
-			<input type="text" class="form-control" name="title" placeholder="Escriba el titulo" value="<?= isset($memberships)?$memberships->title:''?>"/>
+			<input type="text" required class="form-control" name="title" placeholder="Escriba el titulo" value="<?= isset($memberships)?$memberships->title:''?>"/>
 			
 		</div>
 		<div class="form-group">
 			<label for="days">Dias:</label><br/>
-			<input type="text" class="form-control" name="days" placeholder="Cantidad de dias" value="<?= isset($memberships)?$memberships->days:''?>"/>
+			<input type="text" required class="form-control" name="days" placeholder="Cantidad de dias" value="<?= isset($memberships)?$memberships->days:''?>"/>
 			
 		</div>
 		<div class="form-group">
 			<label for="price">Price:</label><br/>
-			<input type="text" class="form-control" name="price" placeholder="Precio de la membresia" value="<?= isset($memberships)?$memberships->price:''?>"/>
+			<input type="text" required class="form-control" name="price" placeholder="Precio de la membresia" value="<?= isset($memberships)?$memberships->price:''?>"/>
 			
 		</div>
 

@@ -9,7 +9,6 @@ class Subcategory extends CI_Controller {
 		parent::__construct();
         $this->load->helper('html');
         $this->load->model('Subcategory_model');
-
     }
 
 	# GET /subcategory

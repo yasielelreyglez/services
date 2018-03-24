@@ -14,8 +14,9 @@
     <!--    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>-->
     <?php echo link_tag("/resources/ajax/libs/select2/4.0.0/css/select2.min.css") ?>
     <?php echo link_tag("/resources/css/owl.carousel.css") ?>
-    <?php echo link_tag("/resources/css/style.css") ?>
     <?php echo link_tag("/resources/css/services.css") ?>
+    <?php echo link_tag("/resources/css/font-awesome.css") ?>
+    <?php echo link_tag("/resources/css/style.css") ?>
 </head>
 
 <body>
@@ -119,6 +120,14 @@
                                     <li><a href="<?= site_url("admin/cities/create") ?>">Agregar Ciudad</a></li>
                                 </ul>
                             </li>
+
+                            <li class="<?= $tab == "user" ? "active" : "" ?>">
+                                <a href="<?= site_url("admin/users") ?>"><i class="fa fa-user"></i> Usuarios </a>
+                                <ul class="demo-menu">
+                                    <li><a href="<?= site_url("admin/users") ?>">Mostrar Usuarios</a></li>
+                                    <li><a href="<?= site_url("admin/users/create") ?>">Agregar Usuario</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </nav>
                 </div>
@@ -168,7 +177,9 @@
                                 </div>
                             </div>
                             <div class="search-button">
-                                <button type="submit" class="btn btn-medium btn-primary">Buscar servicio</button>
+                                <button type="submit" class="btn btn-medium btn-primary" title="Buscar"><i
+                                            class="fa fa-search"></i> <i class="fa fa-spinner fa-pulse hide"></i>
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -300,7 +311,7 @@
                         <div class="content">
 
 
-                            <div class="active"  id="uou-tab-2">
+                            <div class="active" id="uou-tab-2">
                                 <div class="row">
                                     <div id="listado_categoria"></div>
 
@@ -328,9 +339,9 @@
                                                 href="<?= site_url('admin/services/show/') . $object->id ?>"><?= $object->title ?></a>
                                     </h6>
                                     <div class="listing-offer-thumbnail">
-                                        <?php if(count($object->getImages()->toArray())>0){ ?>
-                                        <img src="<?= $object->getImages()->toArray()[0]->getTitle() ?>" alt="">
-                                        <?php }?>
+                                        <?php if (count($object->getImages()->toArray()) > 0) { ?>
+                                            <img src="<?= $object->getImages()->toArray()[0]->getTitle() ?>" alt="">
+                                        <?php } ?>
                                     </div>
                                     <div class="listing-offer-content">
                                         <?php if ($object->address) : ?>
@@ -908,6 +919,13 @@
                     Ciudades</a></li>
             <li class="pl10 <?= $tab == "crearciudad" ? "active" : "" ?>"><a
                         href="<?= site_url("admin/cities/create") ?>">Agregar Ciudad</a></li>
+
+            <li class="<?= $tab == "user" ? "active" : "" ?>"><a href="<?= site_url("admin/users") ?>"><i
+                            class="fa fa-map-marker"></i> Usuarios </a></li>
+            <li class="pl10 <?= $tab == "user" ? "active" : "" ?>"><a href="<?= site_url("admin/users") ?>">Mostrar
+                    Usuarios</a></li>
+            <li class="pl10 <?= $tab == "crearuser" ? "active" : "" ?>"><a href="<?= site_url("admin/users/create") ?>">Agregar
+                    Usuario</a></li>
         </ul>
     </nav>
 </div>
@@ -928,7 +946,7 @@
 <script src="<?= site_url("/resources/js/uou-tabs.js") ?>"></script>
 <script src="<?= site_url("/resources/js/plugins/select2.min.js") ?>"></script>
 <script src="<?= site_url("/resources/js/owl.carousel.min.js") ?>"></script>
-<script src="<?=site_url("/resources/js/gmap3.min.js") ?>"></script>
+<!--<script src="--><?//=site_url("/resources/js/gmap3.min.js") ?><!--"></script>-->
 
 <script src="<?= site_url("/resources/js/bootstrap.js") ?>"></script>
 <script src="<?= site_url("/resources/js/admin.js") ?>"></script>

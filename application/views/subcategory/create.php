@@ -4,18 +4,18 @@
 		<input type="hidden" name="id" value="<?= isset($subcategory)?$subcategory->id:''?>"/>
 		<div class="form-group">
 			<label for="title">Title:</label><br/>
-			<input type="text" class="form-control" name="title" placeholder="Enter Title" value="<?= isset($subcategory)?$subcategory->title:''?>"/>
+			<input type="text" required class="form-control" name="title" placeholder="Enter Title" value="<?= isset($subcategory)?$subcategory->title:''?>"/>
 		</div>
         <div class="form-group">
             <label for="icon">Icon:</label><br/>
             <?php if(isset($subcategory)){ ?>
                 <img src="<?=$subcategory->icon?>" width="80px" height="70px"/>
             <?php } ?>
-            <input type="file" name="userfile" size="20" />
+            <input type="file" required name="userfile" size="20" value="<?= isset($subcategory)?$subcategory->icon:''?>"/>
         </div>
     <div class="form-group">
         <label for="category_id">Category:</label><br/>
-        <select type="text" class="form-control" name="category_id" placeholder="Escoja la categoria" value="<?= isset($subcategory)?$subcategory->category_id:''?>">
+        <select type="text" class="custom-select" name="category_id" placeholder="Escoja la categoria" value="<?= isset($subcategory)?$subcategory->category_id:''?>">
             <?php
             foreach ($categories as $category) {
                 $is_selected = ($subcategory->category_id==$category->id)?"selected":"";
