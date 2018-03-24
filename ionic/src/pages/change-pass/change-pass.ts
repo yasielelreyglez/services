@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, ToastController, NavController} from 'ionic-angular';
-import { ApiProvider } from '../../providers/api/api';
+import {AuthProvider} from "../../providers/auth/auth";
 
 /**
  * Generated class for the ChangePassPage page.
@@ -19,20 +19,35 @@ export class ChangePassPage {
   anterior_pass:string;
   new_pass:string;
   confirm_new_pass:string;
-  constructor(public navCtrl: NavController,public api: ApiProvider,public toastCtrl: ToastController) {
+  constructor( public authService: AuthProvider ,public navCtrl: NavController,public toastCtrl: ToastController) {
 
   }
   cambiar_password(){
-        let toast = this.toastCtrl.create({
-          message: "Contraseña cambiada ",
-          duration: 5000,
-          position: 'bottom',
-        });
-        toast.present();
-        this.anterior_pass=null;
-        this.new_pass=null;
-        this.confirm_new_pass=null;
-        this.navCtrl.pop();
+    this.authService.change_pass(this.anterior_pass,this.new_pass).then(
+      result=>{
+        if (result){
+          let toast = this.toastCtrl.create({
+            message: "Contraseña cambiada ",
+            duration: 5000,
+            position: 'bottom',
+          });
+          toast.present();
+          this.anterior_pass=null;
+          this.new_pass=null;
+          this.confirm_new_pass=null;
+          this.navCtrl.pop();
+        }
+        else {
+          let toast = this.toastCtrl.create({
+            message: "Las contraseñas no coinciden",
+            duration: 5000,
+            position: 'bottom',
+          });
+          toast.present();
+        }
+      }
+    )
+
   }
 
 }

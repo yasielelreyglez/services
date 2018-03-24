@@ -1,5 +1,5 @@
 import {Component, ViewChild, ElementRef} from '@angular/core';
-import {Events, IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
+import {Events, IonicPage, NavController, NavParams, Platform, ToastController} from 'ionic-angular';
 import {Geolocation, GeolocationOptions, Geoposition, PositionError} from '@ionic-native/geolocation'
 import {FavoritesPage} from "../favorites/favorites";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -16,7 +16,7 @@ declare var google;
 })
 export class TabMapaPage {
   options: GeolocationOptions;
-  infowindow = new google.maps.InfoWindow;
+  infowindow: any;
   wacthed: any;
   watch: any;
   latLng: any;
@@ -26,14 +26,24 @@ export class TabMapaPage {
   map: any;
   places: Array<any>;
 
-  constructor(public events: Events, platform: Platform, public navCtrl: NavController,
-              public navParams: NavParams,  public servProv: ServiceProvider,private geolocation: Geolocation, public auth: AuthProvider) {
-
-    if (!this.latLng) {
-      this.getUserPosition();
+  constructor(public toastCtrl: ToastController, public events: Events, platform: Platform, public navCtrl: NavController,
+              public navParams: NavParams, public servProv: ServiceProvider, private geolocation: Geolocation, public auth: AuthProvider) {
+    if (typeof google !== 'undefined') {
+      this.infowindow = new google.maps.InfoWindow;
+      if (!this.latLng) {
+        this.getUserPosition();
+      }
+      else {
+        console.log("si hay");
+      }
     }
     else {
-      console.log("si hay");
+      let toast = this.toastCtrl.create({
+        message: "No hay conexion a internet",
+        duration: 5000,
+        position: 'bottom',
+      });
+      toast.present();
     }
   }
 
@@ -52,8 +62,9 @@ export class TabMapaPage {
       {},
       {},
       6,
-      {latitude: lat,longitude: long
-    })
+      {
+        latitude: lat, longitude: long
+      })
       .then(data => {
           let services = data["services"];
           for (let i = 0; i < services.length; i++) {
@@ -62,10 +73,10 @@ export class TabMapaPage {
                 map: this.map,
                 animation: google.maps.Animation.DROP,
                 position: new google.maps.LatLng(services[i].positionsList[j].latitude, services[i].positionsList[j].longitude),
-                name:services[i].positionsList[j].title
+                name: services[i].positionsList[j].title
               });
 
-              let content = "<a id='"+j+"' class='custom-marker' >" + services[i].positionsList[j].title+ "</a>";
+              let content = "<a id='" + j + "' class='custom-marker' >" + services[i].positionsList[j].title + "</a>";
               this.addInfoWindow(marker, content);
             }
           }
@@ -83,7 +94,7 @@ export class TabMapaPage {
     //     this.createMarker(results[i],i);
     //   }
     // }, (status) => console.log(status));
-      this.addMarker(latLng);
+    this.addMarker(latLng);
   }
 
   addMarker(latLng) {
@@ -174,7 +185,7 @@ export class TabMapaPage {
     this.navCtrl.push(FavoritesPage);
   }
 
-  createMarker(place,i) {
+  createMarker(place, i) {
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
@@ -182,7 +193,7 @@ export class TabMapaPage {
       name
     });
 
-    let content = "<a id='"+i+"' class='custom-marker' >" + place.name + "</a>";
+    let content = "<a id='" + i + "' class='custom-marker' >" + place.name + "</a>";
     // let content = "<a onclick=\"this.bind(this.openService(86))\" class='custom-marker' >" + place.name + "</a>"
     this.addInfoWindow(marker, content);
   }

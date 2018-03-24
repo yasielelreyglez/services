@@ -1303,7 +1303,10 @@ class Api extends REST_Controller
             $mensajes = $em->find("Entities\Mensaje", $pos);
             $em->remove($mensajes);
             $em->flush();
-        }
+			$this->set_response(['status'=>true]);
+        }else {
+			 $this->set_response(['status'=>false]);
+		}
     }
     function  borrarmensaje_get($pos){
         $user = $this->getCurrentUser();

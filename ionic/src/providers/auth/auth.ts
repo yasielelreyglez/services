@@ -64,6 +64,38 @@ export class AuthProvider {
         }
       ).catch(this.handleError);
   }
+  change_pass(old_password,new_password): Promise<any> {
+    return this.http.post(this.api.getbaseUrl() + 'auth/change_password', {old_password,new_password})
+      .toPromise()
+      .then(
+        (response) => {
+          console.log(response);
+          if (response['error']) {
+            return false;
+          }
+          else {
+            console.log(response);
+          }
+          return true;
+        }
+      ).catch(this.handleError);
+  }
+  forgot_password(identity): Promise<any> {
+    return this.http.post(this.api.getbaseUrl() + 'auth/forgot_password', {identity})
+      .toPromise()
+      .then(
+        (response) => {
+          console.log(response);
+          if (response['error']) {
+            return false;
+          }
+          else {
+            console.log(response);
+          }
+          return true;
+        }
+      ).catch(this.handleError);
+  }
 
   getLatitud(): number {
     return this.latitud;
@@ -126,11 +158,8 @@ export class AuthProvider {
       .toPromise()
       .then(
         (response) => {
-          console.log(response);
-          if (response['error']) {
-            return false;
-          }
-          return true;
+          return !response['error'];
+
         }
       ).catch(this.handleError);
 
