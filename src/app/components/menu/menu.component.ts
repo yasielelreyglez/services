@@ -1,8 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, NgZone, OnInit, Output, ViewChild} from '@angular/core';
 import {AuthService} from '../../_services/auth.service';
 import {Router} from '@angular/router';
 import {MatDialog, MatMenuTrigger, MatSnackBar} from '@angular/material';
 import {ChangepasswordComponent} from '../_modals/changepassword/changepassword.component';
+import {ApiService} from '../../_services/api.service';
 
 
 @Component({
@@ -12,11 +13,11 @@ import {ChangepasswordComponent} from '../_modals/changepassword/changepassword.
 })
 export class MenuComponent implements OnInit {
     loggedIn = false;
+    query: any;
     @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
 
-    constructor(public dialog: MatDialog, public authServices: AuthService, private router: Router, private snackBar: MatSnackBar) {
-
+    constructor(public dialog: MatDialog, public zone: NgZone, private apiServices: ApiService, public authServices: AuthService, private router: Router, private snackBar: MatSnackBar) {
     }
 
     ngOnInit() {
@@ -45,7 +46,17 @@ export class MenuComponent implements OnInit {
         });
     }
 
-    openSnackBar(message: string, duration: number, action?: string ) {
+    searchQuery() {
+        this.apiServices.searchService(this.query).subscribe(result => {
+            localStorage.setItem('searchServices', JSON.stringify(result));
+            console.log('al guardar', JSON.parse(localStorage.getItem('searchServices')));
+            this.zone.run(() => {
+            });
+            this.router.navigate(['/search']);
+        });
+    }
+
+    openSnackBar(message: string, duration: number, action?: string) {
         this.snackBar.open(message, action, {
             duration: duration,
             horizontalPosition: 'center',

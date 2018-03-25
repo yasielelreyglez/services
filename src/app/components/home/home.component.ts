@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
     categories: any;
     subcategories: any;
     cities: any;
-    query: any;
     search = new FormControl('');
     @ViewChild('map') mapElement: ElementRef;
     map: any;
@@ -230,15 +229,6 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
             localStorage.setItem('searchServices', JSON.stringify(result));
             this.router.navigate(['/search']);
         });
-    }
-
-    searchQuery() {
-        if (this.query !== undefined) {
-            this.apiServices.searchService(this.query).subscribe(result => {
-                localStorage.setItem('searchServices', JSON.stringify(result));
-                this.router.navigate(['/search']);
-            });
-        }
     }
 
     ngAfterViewInit(): void {

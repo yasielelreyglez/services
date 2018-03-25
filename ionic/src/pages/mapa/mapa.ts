@@ -54,8 +54,9 @@ export class MapaPage {
       this.longitude = this.auth.getLongitud();
       this.havePosition = true;
     }
-    this.getLocation(this.latitude, this.longitude);
-
+    if (typeof google !== 'undefined') {
+      this.getLocation(this.latitude, this.longitude);
+    }
     this.auth.currentPosition.subscribe(
       (data: Geoposition) => {
 
@@ -72,7 +73,9 @@ export class MapaPage {
     this.cant_c = this.navParams.get("cant_c");
     this.positions = this.service.positions;
     //cargar mapa con posiciones
-    this.loadMap();
+    if (typeof google !== 'undefined') {
+      this.loadMap();
+    }
   }
 
 
@@ -176,30 +179,30 @@ export class MapaPage {
 
   getLocation(latitude, longitude) {
 
-      this.geolocation.getCurrentPosition().then((resp) => {
-        this.havePosition = true;
-        this.latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
-        this.map.setCenter(this.latLng);
-        this.map.setZoom(15);
-        this.currentP = new google.maps.Marker({
-          map: this.map,
-          icon: "http://www.googlemapsmarkers.com/v1/009900/",
-          position: this.latLng
-        });
-        let content = "<h4>Mi posición</h4>";
-        this.addInfoWindow(this.currentP, content);
-
-        this.destinos = [];
-        for (let i = 0; i < this.positions.length; i++) {
-          this.destinos.push(new google.maps.LatLng(this.positions[i].latitude, this.positions[i].longitude));
-        }
-        this.distanceM.getDistanceMatrix(
-          {
-            origins: [this.latLng],
-            destinations: this.destinos,
-            travelMode: 'DRIVING'
-          }, this.showDistance(this.events));
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.havePosition = true;
+      this.latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
+      this.map.setCenter(this.latLng);
+      this.map.setZoom(15);
+      this.currentP = new google.maps.Marker({
+        map: this.map,
+        icon: "http://www.googlemapsmarkers.com/v1/009900/",
+        position: this.latLng
       });
+      let content = "<h4>Mi posición</h4>";
+      this.addInfoWindow(this.currentP, content);
+
+      this.destinos = [];
+      for (let i = 0; i < this.positions.length; i++) {
+        this.destinos.push(new google.maps.LatLng(this.positions[i].latitude, this.positions[i].longitude));
+      }
+      this.distanceM.getDistanceMatrix(
+        {
+          origins: [this.latLng],
+          destinations: this.destinos,
+          travelMode: 'DRIVING'
+        }, this.showDistance(this.events));
+    });
   }
 
   addInfoWindow(marker, content) {

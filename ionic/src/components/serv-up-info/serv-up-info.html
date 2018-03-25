@@ -22,7 +22,7 @@
     </ion-col>
     <ion-col col-3>
       <ion-label style="overflow: visible;margin: 0;" class="fs-25" color="azul-claro">
-        {{passedService.globalrate.toFixed(1)}}
+        {{passedService.globalrate}}
         <ion-icon color="favorite_on" name="star"></ion-icon>
       </ion-label>
       <button style="margin-left: -5px;" class="fs-10" *ngIf="passedService.rated == null && loggedIn"

@@ -37,9 +37,16 @@ export class BuzonPage {
   }
 
   deleteMensajes(id) {
-    this.api.deleteMensajes(id);
-    this.mensajes = this.mensajes.filter(function (item) {
-      return item.id !== id;
-    });
+    this.api.deleteMensajes(id).then(
+      respose=>{
+        if (respose)
+          this.mensajes = this.mensajes.filter(function (item) {
+            return item.id !== id;
+          });
+        else
+          console.log("error");
+      }
+    );
+
   }
 }

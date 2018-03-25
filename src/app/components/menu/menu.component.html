@@ -1,20 +1,31 @@
 <div class="toolbar">
     <div class="uou-block-1a blog">
         <div class="container">
-            <ul class="social">
-                <li><a href="#" class="fa fa-facebook"></a></li>
-                <li><a href="#" class="fa fa-twitter"></a></li>
-                <li><a href="#" class="fa fa-google-plus"></a></li>
-            </ul>
+            <div class="row">
+                <div class="col-md-6">
+                    <form (ngSubmit)="searchQuery()">
+                        <input type="text" class="pull-left" style="margin-bottom: 0; width: 60%; margin-top: 1px;"
+                               placeholder="Buscar" [(ngModel)]="query" name="query">
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <ul class="social">
+                        <li><a href="#" class="fa fa-facebook"></a></li>
+                        <li><a href="#" class="fa fa-twitter"></a></li>
+                        <li><a href="#" class="fa fa-google-plus"></a></li>
+                    </ul>
+                    <ul *ngIf="!loggedIn" class="authentication">
+                        <li><a routerLink="/login">Iniciar sesión</a></li>
+                        <li><a routerLink="/register">Crear cuenta</a></li>
+                    </ul>
+                    <ul *ngIf="loggedIn" class="authentication">
+                        <li (click)="logout()"><a>Cerrar sesión</a></li>
+                        <li (click)="openDialog()"><a>Cambiar contraseña</a></li>
+                    </ul>
+                </div>
+            </div>
 
-            <ul *ngIf="!loggedIn" class="authentication">
-                <li><a routerLink="/login">Iniciar sesión</a></li>
-                <li><a routerLink="/register">Crear cuenta</a></li>
-            </ul>
-            <ul *ngIf="loggedIn" class="authentication">
-                <li (click)="logout()"><a>Cerrar sesión</a></li>
-                <li (click)="openDialog()"><a>Cambiar contraseña</a></li>
-            </ul>
+
         </div>
     </div> <!-- end .uou-block-1a -->
 </div> <!-- end toolbar -->
@@ -39,7 +50,7 @@
     <nav class="nav">
         <ul class="sf-menu">
             <li class="" routerLink="/">
-            <a><i class="fa fa-home"></i>Inicio</a>
+                <a><i class="fa fa-home"></i>Inicio</a>
             </li>
             <li routerLink="categories">
                 <a><i class="fa fa-search-plus"></i>Categorías</a>
@@ -73,12 +84,12 @@
                 <a><i class="fa fa-bell"></i>Buzón</a>
             </li>
             <!--<li routerLink="/">-->
-                <!--<a><i class="fa fa-bell"></i>Buzón</a>-->
+            <!--<a><i class="fa fa-bell"></i>Buzón</a>-->
             <!--<li routerLink="/">-->
-                <!--<a><i class="fa fa-cog"></i>Cambiar contraseña</a>-->
+            <!--<a><i class="fa fa-cog"></i>Cambiar contraseña</a>-->
             <!--</li>-->
             <!--<li routerLink="/">-->
-                <!--<a><i class="fa fa-question-circle-o"></i>Ayuda</a>-->
+            <!--<a><i class="fa fa-question-circle-o"></i>Ayuda</a>-->
             <!--</li>-->
         </ul>
     </nav>
