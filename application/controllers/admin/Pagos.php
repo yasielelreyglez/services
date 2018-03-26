@@ -15,7 +15,7 @@ class Pagos extends CI_Controller {
         $this->load->helper('url_helper');
         $this->load->helper('html');
         $this->load->library('ion_auth');
-        if (!$this->ion_auth->logged_in())
+        if (!$this->ion_auth->is_admin())
         {
             // redirect them to the login page
             redirect('admin/auth/login', 'refresh');

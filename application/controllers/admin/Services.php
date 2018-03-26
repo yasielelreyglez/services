@@ -6,11 +6,25 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
  * Services Controller.
  */
 class Services extends CI_Controller {
-
+    private $days_of_weak = array(
+        'Lunes',
+        'Martes',
+        'Miercoles',
+        'Jueves',
+        'Viernes',
+        'Sabado',
+        'Domingo',
+    );
 	function __construct() {
 		parent::__construct();
 		$this->load->model('Services_model');
         $this->load->helper('html');
+        $this->load->library('ion_auth');
+        if (!$this->ion_auth->is_admin())
+        {
+            // redirect them to the login page
+            redirect('admin/auth/login', 'refresh');
+        }
 	}
 
 	# GET /services
@@ -29,11 +43,17 @@ class Services extends CI_Controller {
 	function create() {
         $em= $this->doctrine->em;
         $subcategories = $em->getRepository('Entities\Subcategory');
+        $cities = $em->getRepository('Entities\City');
+        $images = $em->getRepository('Entities\Image');
+        $positions = $em->getRepository('Entities\Position');
         $data['subcategories'] = $subcategories->findAll();
+        $data['cities'] = $cities->findAll();
+        $data['images'] = $images->findAll();
+        $data['positions'] = $positions->findAll();
+        $data['days_of_weak'] = $this->days_of_weak;
 		$data['content'] = '/services/create';
         $data["tab"]="services";
         $data["tabTitle"]="crear servicios";
-
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -41,8 +61,15 @@ class Services extends CI_Controller {
 	function edit($id) {
         $em= $this->doctrine->em;
         $subcategories = $em->getRepository('Entities\Subcategory');
+        $cities = $em->getRepository('Entities\City');
+        $images = $em->getRepository('Entities\Image');
+        $positions = $em->getRepository('Entities\Position');
         $data['subcategories'] = $subcategories->findAll();
         $data['currenSubCategories '] = $subcategories->findAll();
+        $data['cities'] = $cities->findAll();
+        $data['images'] = $images->findAll();
+        $data['positions'] = $positions->findAll();
+        $data['days_of_weak'] = $this->days_of_weak;
 		$data['services'] = $this->Services_model->find($id);
 		$data['content'] = '/services/create';
         $data["tab"]="services";
@@ -125,23 +152,113 @@ class Services extends CI_Controller {
 		$this->form_validation->set_rules('phone', 'Phone', 'required');
 
 		if ($this->form_validation->run()) {
+//		    echo '<pre>';
+//            print_r($this->input->post());
+//
+//            echo '</pre>';
+//		    die;
+            $id =  $this->input->post('id', TRUE);
+            $em = $this->doctrine->em;
+            if(!$id) {
+                $service = new \Entities\Service();
+            }else{
+                $userRepo = $em->getRepository('Entities\Service');
+                $service= $userRepo->findOneBy(array("id"=>$id));
+                if(count($service)<=0){
+                    $service = new \Entities\Service();
+                }
+            }
+            //DATOS BASICOS
+            $service->setAthor($this->getCurrentUser());
+            $service->title = $this->input->post('title', TRUE);
+            $service->subtitle = $this->input->post('subtitle', TRUE);
+            $service->phone = $this->input->post('phone', TRUE);
+            $service->address = $this->input->post('address', TRUE);
+            $service->addSubCategories($this->input->post('categories', TRUE), $em);
+            $service->addCities($this->input->post('cities', TRUE), $em);
+            $icon = $this->input->post('icon');
+            if ($icon) {
+                if (isset($icon['filename'])) {
+                    $path = "./resources/services/" . $icon['filename'];
+                    $save = "/resources/services/" . $icon['filename'];
+                    file_put_contents($path, base64_decode($icon['value']));
+                    $service->setIcon(site_url($save));
+                    $service->setThumb($icon['filename']);
+                }
+            }
+            //OTROS DATOS
+            $service->setOtherPhone($this->input->post('other_phone', TRUE));
+            $service->setEmail($this->input->post('email', TRUE));
+            $service->setUrl($this->input->post('url', TRUE));
+            //arreglar los times
+//            $times_old = $service->getTimes()->toArray();
+//            if($times_old){
+//                if (is_array($times_old)){
+//                    foreach ($times_old as $old_time) {
+//                        $em->remove($old_time);
+//                    }
+//                }}
+//            $em->flush();
+//            $times = $this->post('times', TRUE);
+//            if(is_array($times)) {
+//                $service->addTimes($times);
+//            }
+//            $em->flush();
+            $service->setDescription($this->input->post('description', TRUE));
+//        $service->setWeekDays(substr($string_week, 1, strlen($string_week) - 1));
+//        $service->setStartTime($this->post('start_time', TRUE));
+//        $service->setEndTime($this->post('end_time', TRUE));
+            //UBICACIONES
+            $positions = $this->input->post('positions', TRUE);
+            $old_positions = $service->getPositions()->toArray();
+            foreach ($old_positions as $old_position) {
+                $em->remove($old_position);
+            }
 
-			$data[] = array();
-			$data['id'] = $this->input->post('id', TRUE);
-			$data['title'] = $this->input->post('title', TRUE);
-			$data['subtitle'] = $this->input->post('subtitle', TRUE);
-			$data['phone'] = $this->input->post('phone', TRUE);
-			$data['address'] = $this->input->post('address', TRUE);
-			$data['other_phone'] = $this->input->post('other_phone', TRUE);
-			$data['email'] = $this->input->post('email', TRUE);
-			$data['url'] = $this->input->post('url', TRUE);
-			$data['week_days'] = $this->input->post('week_days', TRUE);
-			$data['start_time'] = $this->input->post('start_time', TRUE);
-			$data['end_time'] = $this->input->post('end_time', TRUE);
-			$data['visits'] = $this->input->post('visits', TRUE);
+            $em->flush();
+            $service->addPositions($positions);
+            $em->persist($service);
+            $em->flush();
+            //GALERIA DE FOTOS
+            $fotos = $this->input->post('thumbs', TRUE);
+            if (count($fotos) > 0) {
+                $service->addFotos($fotos, base_url());
 
-			$this->Services_model->save($data);
-			redirect('/services/index', 'refresh');
+                $path = "./resources/services/" . $fotos[0]['filename'];
+                $save = "/resources/services/" . $fotos[0]['filename'];
+                file_put_contents($path, base64_decode($fotos[0]['value']));
+                $service->setIcon(site_url($save));
+                $service->setThumb($fotos[0]['filename']);
+
+            }
+            $em->persist($service);
+            $em->flush();
+            $service->loadRelatedData($this->getCurrentUser());
+            $service->loadRelatedUserData($this->getCurrentUser());
+
+//            print_r($service);
+//            die;
+            redirect('admin/services/index', 'refresh');
+
+
+        //viejo
+
+//			$data[] = array();
+//			$data['id'] = $this->input->post('id', TRUE);
+//			$data['title'] = $this->input->post('title', TRUE);
+//			$data['subtitle'] = $this->input->post('subtitle', TRUE);
+//			$data['phone'] = $this->input->post('phone', TRUE);
+//			$data['address'] = $this->input->post('address', TRUE);
+//			$data['other_phone'] = $this->input->post('other_phone', TRUE);
+//			$data['email'] = $this->input->post('email', TRUE);
+//			$data['url'] = $this->input->post('url', TRUE);
+//			$data['week_days'] = $this->input->post('week_days', TRUE);
+//			$data['start_time'] = $this->input->post('start_time', TRUE);
+//			$data['end_time'] = $this->input->post('end_time', TRUE);
+////			$data['visits'] = $this->input->post('visits', TRUE);
+//
+//			$this->Services_model->save($data);
+//			redirect('/services/index', 'refresh');
 		}
 		$data['services'] =	$this->rebuild();
 		$data['content'] = '/services/create';
@@ -167,6 +284,32 @@ class Services extends CI_Controller {
 
 		return $object;
 	}
+    /**
+     * @return Entities/User
+     */
+    function getCurrentUser()
+    {
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+                $em = $this->doctrine->em;
+                $usuario = $decodedToken->userid;
+                $user = $em->find("Entities\User", $usuario);
+                return $user;
+            }
+        }
+        if (array_key_exists('authorization', $headers) && !empty($headers['authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['authorization']);
+            if ($decodedToken != false) {
+                $em = $this->doctrine->em;
+                $usuario = $decodedToken->userid;
+                $user = $em->find("Entities\User", $usuario);
+                return $user;
+            }
+        }
+    }
 }
 
 ?>

@@ -24,6 +24,10 @@
     padding-left: 15px !important;
 }
 
+.form-group .select2 {
+    width: 100% !important;
+}
+
 .select2-selection {
     height: 45px;
 }
@@ -115,6 +119,28 @@
 
 .listing.listing-3 .listing-grid .flexslider {
     min-height: 208px;
+}
+
+.uou-block-11a {
+    z-index: 0;
+    transition: z-index 0s .3s;
+}
+
+.mobile-sidebar-active > .uou-block-11a {
+    z-index: 10 !important;
+    transition: z-index 0s .1s;
+}
+
+.popular_listings .listing .row {
+    min-height: 250px;
+}
+
+.loading_popular_listings {
+    height: 250px;
+    position: absolute;
+    z-index: 999999;
+    left: 15px;
+    right: 15px;
 }
 
 @media (max-width: 569px) {

@@ -3,16 +3,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <table class="table">
     <thead>
-    <th>Tipo</th>
-    <th>Dias</th>
+    <th>#</th>
+    <th>Título</th>
+    <th>Días</th>
     <th>Precio</th>
     <th>Creado</th>
-    <th>Editar</th>
-    <th>Eliminar</th>
+    <th colspan="2">Acciones</th>
     </thead>
     <tbody>
-    <?php foreach ($memberships as $membership): ?>
+    <?php foreach ($memberships as $key=>$membership): ?>
         <tr>
+            <td><?= $key+1; ?></td>
             <td><?= $membership->getTitle(); ?></td>
             <td><?= $membership->getDays(); ?></td>
             <td><?= $membership->getPrice(); ?></td>

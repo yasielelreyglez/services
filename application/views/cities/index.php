@@ -1,23 +1,22 @@
-	<h2>Cities</h2>
 	<table class="table">
 		<thead>
         <tr>
             <th>#</th>
-            <th>Title</th>
-            <th colspan="2"></th>
+            <th>Título</th>
+            <th colspan="2">Acciones</th>
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($cities as $object):?>
+        <?php foreach ($cities as $key=>$object):?>
             <tr>
-            <td><?=$object->id ?></td>
+            <td><?=$key+1 ?></td>
             <td><?= $object->title ?></td>
-            <td width="80"><?= anchor('admin/cities/edit/'.$object->id, 'Edit','class="btn btn-warning"'); ?></td>
-            <td width="80"><?= anchor('admin/cities/destroy/'.$object->id, 'Destroy','class="btn btn-danger"'); ?></td>
+            <td width="80"><?= anchor('admin/cities/edit/'.$object->id, 'Editar','class="btn btn-warning"'); ?></td>
+            <td width="80"><?= anchor('admin/cities/destroy/'.$object->id, 'Eliminar','class="btn btn-danger"'); ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
 
 	</table>
 	
-	<?= anchor('admin/cities/create','Create','class="btn btn-primary"'); ?>
+	<?= anchor('admin/cities/create','Crear','class="btn btn-primary"'); ?>

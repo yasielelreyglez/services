@@ -10,11 +10,11 @@ class Home extends CI_Controller {
 		$this->load->model('Categories_model');
         $this->load->helper(array('url', 'language','html'));
         $this->load->library('ion_auth');
-//        if (!$this->ion_auth->logged_in())
-//        {
-//            // redirect them to the login page
-//            redirect('admin/auth/login', 'refresh');
-//        }
+        if (!$this->ion_auth->is_admin())
+        {
+            // redirect them to the login page
+            redirect('admin/auth/login', 'refresh');
+        }
 	}
 
 	# GET /categories
@@ -27,12 +27,17 @@ class Home extends CI_Controller {
         }
         $em = $this->doctrine->em;
         $morevisitsRepo = $em->getRepository('Entities\Service');
-        $morevisits = $morevisitsRepo->findBy(array(), array('visit_at' => 'DESC'), 4);
+        $lastvisited = $morevisitsRepo->findBy(array(), array('visit_at' => 'DESC'), 4);
+        $mostvisited = $morevisitsRepo->findBy(array(), array('visits' => 'DESC'), 3);
 
-        foreach ($morevisits as $service) {
+        foreach ($lastvisited as $service) {
             $service->loadRelatedData();
         }
-        $data['morevisits'] = $morevisits;
+        foreach ($mostvisited as $service) {
+            $service->loadRelatedData();
+        }
+        $data['lastvisited'] = $lastvisited;
+        $data['mostvisited'] = $mostvisited;
 		$this->load->view('/includes/backend', $data);
 	}
 
@@ -136,6 +141,62 @@ class Home extends CI_Controller {
 		$object->icon = $this->input->post('icon', TRUE);
 		return $object;
 	}
+	function servicesbycategories($category_id, $subcategories_id){
+        $em = $this->doctrine->em;
+        $subcategoriesRepo = $em->getRepository('Entities\Subcategory');
+        $subcategory = $subcategoriesRepo->find($subcategories_id);
+        if ($subcategory) {
+            $response["desc"] = "Servicios pertenecientes a la subcategoria: $subcategory->title";
+            $services = $subcategory->getServices()->toArray();
+            foreach ($services as $service) {
+                $service->loadRelatedData();
+            }
+            $category = $subcategory->getCategory();
+            $response["category"]=array();
+            $response["category"][]=$category->getTitle();
+            $response["subcategory"]=array();
+            $response["subcategory"][]=$subcategory->getTitle();
+            $response["services"] = $services;
+        } else {
+            $response["desc"] = "Subcategoria no encontrada";
+        }
+
+        $data['services'] = $services;
+        $data['content'] = '/services/index';
+        $data["tab"]="services";
+        $data["tabTitle"]="servicios de ".$subcategory->title;
+        $this->load->view('/includes/contentpage', $data);
+    }
+    function servicesbyfilter($filter){
+        $em = $this->doctrine->em;
+        $servicesRepo = $em->getRepository('Entities\Service');
+
+        switch ($filter){
+            case 'moreVisits':{
+                $services = $servicesRepo->findBy(array(), array('visits' => 'DESC'));
+                break;
+            }
+            case 'mostRecent':{
+                $services = $servicesRepo->findBy(array(), array('created' => 'DESC'));
+                break;
+            }
+            case 'bestRated':{
+                $services = $servicesRepo->findBy(array(), array('globalrate' => 'DESC'));
+                break;
+            }
+            default:{
+                $services = $servicesRepo->findBy(array(), array('visits' => 'DESC'));
+            }
+        }
+        foreach ($services as $service) {
+            $service->loadRelatedData();
+        }
+        $data['services'] = $services;
+        $data['content'] = '/services/index';
+        $data["tab"]="services";
+        $data["tabTitle"]="filtro ".$filter;
+        $this->load->view('/includes/contentpage', $data);
+    }
 }
 
 ?>

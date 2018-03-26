@@ -152,7 +152,7 @@
                             <!--                        </div>-->
                             <div class="map-search-fields">
                                 <div class="field custom-select-box">
-                                    <select name="cities" class="custom-select" id="cities2" multiple="true"
+                                    <select name="cities[]" class="custom-select" id="cities2" multiple="true"
                                             data-placeholder="Ciudades">
                                     </select>
                                 </div>
@@ -171,7 +171,7 @@
                                     </select>
                                 </div>
                                 <div class="field custom-select-box">
-                                    <select name="categories" class="custom-select" multiple="true"
+                                    <select name="categories[]" class="custom-select" multiple="true"
                                             data-placeholder="Categorias" id="categories">
                                     </select>
                                 </div>
@@ -332,8 +332,8 @@
                 <div class="col-md-3">
                     <div class="sidebar-listing">
                         <h5 class="sidebar-listing-title">Visitados recientemente</h5>
-                        <?php if (count($morevisits)) : ?>
-                            <?php foreach ($morevisits as $object) : ?>
+                        <?php if (count($lastvisited)) : ?>
+                            <?php foreach ($lastvisited as $object) : ?>
                                 <div class="listing-offer">
                                     <h6 class="title"><a
                                                 href="<?= site_url('admin/services/show/') . $object->id ?>"><?= $object->title ?></a>
@@ -468,285 +468,113 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="section-title">Popular Listings</h3>
+                    <h3 class="section-title">Servicios m&aacute;s populares</h3>
                     <div class="header-listing">
-                        <h6>Sort by</h6>
+                        <h6>Ordernar por</h6>
                         <div class="custom-select-box">
                             <select name="order" class="custom-select">
-                                <option value="0">Most popular</option>
-                                <option value="1">The latest</option>
-                                <option value="2">The best rating</option>
+                                <option value="moreVisits">M&aacute;s visitados</option>
+                                <option value="mostRecent">M&aacute;s recientes</option>
+                                <option value="bestRated">Mejores evaluados</option>
                             </select>
                         </div>
-                        <ul class="listing-views">
-                            <li class="active"><a href="#"><i class="fa fa-th"></i></a></li>
-                        </ul>
                     </div>
                     <div class="listing listing-3">
                         <div class="row">
-                            <div class="col-md-3">
-                                <div class="listing-grid listing-grid-1">
-                                    <div class="listing-heading">
-                                        <h5><a href="single_business.html">The Spa Wellness</a></h5>
-                                    </div>
-                                    <div class="listing-inner">
-                                        <div class="flexslider default-slider">
-                                            <ul class="slides">
-                                                <li>
-                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_5.png") ?>"
-                                                         alt=""></li>
-                                                <li>
-                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_6.png") ?>"
-                                                         alt=""></li>
-                                                <li>
-                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_7.png") ?>"
-                                                         alt=""></li>
-                                                <li>
-                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_8.png") ?>"
-                                                         alt=""></li>
-                                            </ul>
-                                            <div class="reviews">
-                                                <ul>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                </ul>
-                                                <span class="count">208 reviews</span>
+                            <?php if (count($mostvisited)) : ?>
+                                <?php foreach ($mostvisited as $object) : ?>
+                                    <div class="col-md-4 item">
+                                        <div class="listing-grid listing-grid-1">
+                                            <div class="listing-heading">
+                                                <?php if ($object->professional == 1) { ?>
+                                                    <div class="marker-ribbon">
+                                                        <div class="ribbon-banner">
+                                                            <div class="ribbon-text">Profesional</div>
+                                                        </div>
+                                                    </div>
+                                                <?php } ?>
+                                                <h5>
+                                                    <a href="<?= site_url('admin/services/show/') . $object->id ?>"><?= $object->title ?></a>
+                                                </h5>
                                             </div>
-                                        </div>
-                                        <ul class="uou-accordions">
-                                            <li class="">
-                                                <a href="#"><i class="fa fa-user main-icon"></i> Information</a>
-                                                <div>
-                                                    <h5 class="title">Secondary Heading</h5>
-                                                    <p>Consequat ipsum, nec sagit sem nibh id elit duis sed odio</p>
-                                                    <div class="price">
-                                                        <span class="currency">$</span>
-                                                        <span class="price-inner">
-                              59.00
-                            </span>
+                                            <div class="listing-inner">
+                                                <div class="flexslider default-slider">
+                                                    <ul class="slides">
+                                                        <li class="flex-active-slide"
+                                                            style="width: 100%; float: left; margin-right: -100%; position: relative; opacity:1; display: block; z-index: 2;">
+                                                            <img src="<?= $object->icon ?>" alt="" draggable="false">
+                                                        </li>
+                                                        <?php
+                                                        $images = $object->getImages()->toArray();
+                                                        foreach ($images as $image) {
+                                                            echo '<li class="" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;"><img src="' . $image->getTitle() . '" alt="" draggable="false"></li>';
+                                                        }
+                                                        ?>
+                                                    </ul>
+                                                    <div class="reviews">
+                                                        <ul>
+                                                            <?php $rate = $object->getGlobalrate();
+
+                                                            for ($pos = 0; $pos < 10; $pos++) {
+                                                                if ($pos < $rate) {
+                                                                    echo '<li><i class="fa fa-star "></i></li>';
+                                                                } else {
+                                                                    echo ' <li><i class="fa fa-star-o"></i></li>';
+                                                                }
+                                                            }
+                                                            ?>
+                                                        </ul>
+                                                        <span class="count"><?= $object->getReviews() ?> reviews</span>
                                                     </div>
                                                 </div>
-                                            </li>
-                                            <li class="active">
-                                                <a href="#"><i class="fa fa-envelope main-icon"></i> Services</a>
-                                                <div>
-                                                    <ul class="contact-info list-unstyled mb0">
-                                                        <li>Toning Bamboo Revival</li>
-                                                        <li>The Spa Reflexology</li>
-                                                        <li>Oriental Acupressure</li>
-                                                        <li>Sea Salt Body Scrub</li>
-                                                    </ul>
+                                                <ul class="uou-accordions">
+                                                    <li class="">
+                                                        <a href="#"><i class="fa fa-user main-icon"></i> Información</a>
+                                                        <div>
+                                                            <h5 class="title"><?= $object->subtitle ?></h5>
+                                                            <p><?= $object->description ?></p>
+                                                        </div>
+                                                    </li>
+                                                    <li class="active">
+
+                                                        <a href="#"><i class="fa fa-envelope main-icon"></i> Información adicional</a>
+                                                        <div>
+                                                            <ul class="contact-info list-unstyled mb0">
+
+                                                                <?php if ($object->address) { ?>
+                                                                    <li><i class="fa fa-map-marker"></i> <?= $object->address ?></li><?php } ?>
+                                                                <?php if ($object->email) { ?>
+                                                                    <li><i class="fa fa-envelope-o"></i> <?= $object->email ?></li><?php } ?>
+                                                                <?php if ($object->url) { ?>
+                                                                    <li><i class="fa fa-globe"></i><?= $object->url ?></li><?php } ?>
+                                                                <?php if ($object->phone) { ?>
+                                                                    <li><i class="fa fa-phone"></i><?= $object->phone ?></li><?php } ?>
+                                                                <?php if ($object->other_phone) { ?>
+                                                                    <li><i class="fa fa-fax"></i> <?= $object->other_phone ?></li> <?php } ?>
+                                                            </ul>
+                                                        </div>
+                                                    </li>
+                                                </ul> <!-- end .uou-accordions -->
+                                                <div class="info-footer">
+                                                    <img height="20" width="20" src="<?= $object->getSubcategories()->toArray()[0]->getIcon() ?>">
+                                                    <h6><?= $object->getSubcategories()->toArray()[0]->getTitle() ?></h6>
+                                                    <a class="pull-right pl10" title="Destruir"
+                                                       href="<?= site_url('admin/services/destroy/') . $object->id ?>"><i
+                                                                class="fa fa-trash bookmark"></i></a>
+                                                    <a class="pull-right pl10" title="Editar"
+                                                       href="<?= site_url('admin/services/edit/') . $object->id ?>"><i
+                                                                class="fa fa-edit bookmark"></i></a>
+                                                    <a class="pull-right" title="Ver"
+                                                       href="<?= site_url('admin/services/show/') . $object->id ?>"><i
+                                                                class="fa fa-eye bookmark"></i></a>
                                                 </div>
-                                            </li>
-                                        </ul> <!-- end .uou-accordions -->
-                                        <div class="info-footer">
-                                            <i class="fa fa-map-marker location"></i>
-                                            <h6>Paris, France</h6>
-                                            <i class="fa fa-bookmark bookmark pull-right"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="listing-grid listing-grid-1">
-                                    <div class="listing-heading">
-                                        <h5><a href="single_business.html">Sharene Hair & Beauty</a></h5>
-                                    </div>
-                                    <div class="listing-inner">
-                                        <div class="flexslider default-slider">
-                                            <ul class="slides">
-                                                <li>
-                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_6.png") ?>"
-                                                         alt=""></li>
-                                                <li>
-                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_7.png") ?>"
-                                                         alt=""></li>
-                                                <li>
-                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_8.png") ?>"
-                                                         alt=""></li>
-                                                <li>
-                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_9.png") ?>"
-                                                         alt=""></li>
-                                            </ul>
-                                            <div class="reviews">
-                                                <ul>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                </ul>
-                                                <span class="count">208 reviews</span>
                                             </div>
                                         </div>
-                                        <ul class="uou-accordions">
-                                            <li class="">
-                                                <a href="#"><i class="fa fa-user main-icon"></i> Information</a>
-                                                <div>
-                                                    <h5 class="title">Secondary Heading</h5>
-                                                    <p>Consequat ipsum, nec sagit sem nibh id elit duis sed odio</p>
-                                                    <div class="price">
-                                                        <span class="currency">$</span>
-                                                        <span class="price-inner">
-                              59.00
-                            </span>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="active">
-                                                <a href="#"><i class="fa fa-envelope main-icon"></i> Services</a>
-                                                <div>
-                                                    <ul class="contact-info list-unstyled mb0">
-                                                        <li>Toning Bamboo Revival</li>
-                                                        <li>The Spa Reflexology</li>
-                                                        <li>Oriental Acupressure</li>
-                                                        <li>Sea Salt Body Scrub</li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                        </ul> <!-- end .uou-accordions -->
-                                        <div class="info-footer">
-                                            <i class="fa fa-map-marker location"></i>
-                                            <h6>Paris, France</h6>
-                                            <i class="fa fa-bookmark bookmark pull-right"></i>
-                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="listing-grid listing-grid-1">
-                                    <div class="listing-heading">
-                                        <h5><a href="single_business.html">The Director’s Club</a></h5>
-                                    </div>
-                                    <div class="listing-inner">
-                                        <div class="flexslider default-slider">
-                                            <ul class="slides">
-                                                <li>
-                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_7.png") ?>"
-                                                         alt=""></li>
-                                                <li>
-                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_8.png") ?>"
-                                                         alt=""></li>
-                                                <li>
-                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_9.png") ?>"
-                                                         alt=""></li>
-                                                <li>
-                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_10.png") ?>"
-                                                         alt=""></li>
-                                            </ul>
-                                            <div class="reviews">
-                                                <ul>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                </ul>
-                                                <span class="count">208 reviews</span>
-                                            </div>
-                                        </div>
-                                        <ul class="uou-accordions">
-                                            <li class="">
-                                                <a href="#"><i class="fa fa-user main-icon"></i> Information</a>
-                                                <div>
-                                                    <h5 class="title">Secondary Heading</h5>
-                                                    <p>Consequat ipsum, nec sagit sem nibh id elit duis sed odio</p>
-                                                    <div class="price">
-                                                        <span class="currency">$</span>
-                                                        <span class="price-inner">
-                              59.00
-                            </span>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="active">
-                                                <a href="#"><i class="fa fa-envelope main-icon"></i> Services</a>
-                                                <div>
-                                                    <ul class="contact-info list-unstyled mb0">
-                                                        <li>Toning Bamboo Revival</li>
-                                                        <li>The Spa Reflexology</li>
-                                                        <li>Oriental Acupressure</li>
-                                                        <li>Sea Salt Body Scrub</li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                        </ul> <!-- end .uou-accordions -->
-                                        <div class="info-footer">
-                                            <i class="fa fa-map-marker location"></i>
-                                            <h6>Paris, France</h6>
-                                            <i class="fa fa-bookmark bookmark pull-right"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="listing-grid listing-grid-1">
-                                    <div class="listing-heading">
-                                        <h5><a href="single_business.html">Authentic Massage</a></h5>
-                                    </div>
-                                    <div class="listing-inner">
-                                        <div class="flexslider default-slider">
-                                            <ul class="slides">
-                                                <li>
-                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_8.png") ?>"
-                                                         alt=""></li>
-                                                <li>
-                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_10.png") ?>"
-                                                         alt=""></li>
-                                                <li>
-                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_9.png") ?>"
-                                                         alt=""></li>
-                                                <li>
-                                                    <img src="<?= site_url("/resources/img/slider-img/lv3_thumbnail_7.png") ?>"
-                                                         alt=""></li>
-                                            </ul>
-                                            <div class="reviews">
-                                                <ul>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                </ul>
-                                                <span class="count">208 reviews</span>
-                                            </div>
-                                        </div>
-                                        <ul class="uou-accordions">
-                                            <li class="">
-                                                <a href="#"><i class="fa fa-user main-icon"></i> Information</a>
-                                                <div>
-                                                    <h5 class="title">Secondary Heading</h5>
-                                                    <p>Consequat ipsum, nec sagit sem nibh id elit duis sed odio</p>
-                                                    <div class="price">
-                                                        <span class="currency">$</span>
-                                                        <span class="price-inner">
-                              59.00
-                            </span>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="active">
-                                                <a href="#"><i class="fa fa-envelope main-icon"></i> Services</a>
-                                                <div>
-                                                    <ul class="contact-info list-unstyled mb0">
-                                                        <li>Toning Bamboo Revival</li>
-                                                        <li>The Spa Reflexology</li>
-                                                        <li>Oriental Acupressure</li>
-                                                        <li>Sea Salt Body Scrub</li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                        </ul> <!-- end .uou-accordions -->
-                                        <div class="info-footer">
-                                            <i class="fa fa-map-marker location"></i>
-                                            <h6>Paris, France</h6>
-                                            <i class="fa fa-bookmark bookmark pull-right"></i>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                            <div class="loading_popular_listings hide">
+                                <p class="text-center" style="padding: 100px 0"><i class="fa fa-spinner fa-pulse"></i></p>
                             </div>
                         </div>
                     </div>

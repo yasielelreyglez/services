@@ -96,7 +96,7 @@
                         <h6><?= $object->getSubcategories()->toArray()[0]->getTitle() ?></h6>
                         <a class="pull-right pl10" title="Destruir"
                            href="<?= site_url('admin/services/destroy/') . $object->id ?>"><i
-                                    class="fa fa-minus-square-o bookmark"></i></a>
+                                    class="fa fa-trash bookmark"></i></a>
                         <a class="pull-right pl10" title="Editar"
                            href="<?= site_url('admin/services/edit/') . $object->id ?>"><i
                                     class="fa fa-edit bookmark"></i></a>
@@ -113,13 +113,13 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Nombre</th>
+                    <th>Título</th>
                     <th>Direcci&oacute;n</th>
                     <th>&Iacute;cono</th>
                     <th>Email</th>
                     <th>Url</th>
                     <th>Tel&eacute;fono</th>
-                    <th colspan="2"></th>
+                    <th colspan="2">Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -128,7 +128,7 @@
                         <td colspan="9">No hay servicios creados.</td>
                     </tr>
                 <?php endif; ?>
-                <?php foreach ($services as $object) : ?>
+                <?php foreach ($services as $key=> $object) : ?>
                     <tr>
                         <td>
                             <?= $object->id ?>
@@ -163,13 +163,13 @@
                                 <?= $object->phone ?>
                             <?php endif; ?>
                         </td>
-                        <td width="80"><?= anchor('admin/services/edit/' . $object->id, 'Edit', 'class="btn btn-warning"'); ?></td>
-                        <td width="80"><?= anchor('admin/services/destroy/' . $object->id, 'Destroy', 'class="btn btn-danger"'); ?></td>
+                        <td width="80"><?= anchor('admin/services/edit/' . $object->id, 'Editar', 'class="btn btn-warning"'); ?></td>
+                        <td width="80"><?= anchor('admin/services/destroy/' . $object->id, 'Eliminar', 'class="btn btn-danger"'); ?></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
             </table>
-            <?= anchor('admin/services/create', 'Create', 'class="btn btn-primary"'); ?>
+            <?= anchor('admin/services/create', 'Crear', 'class="btn btn-primary"'); ?>
         </div>
     </div>
 </div>

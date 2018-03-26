@@ -1,30 +1,29 @@
-<h1>Create</h1>
 <?= form_open('admin/users/save', 'role="form"'); ?><?php if (validation_errors() != NULL && validation_errors() != '') { ?>
     <div class="alert alert-danger"><?= validation_errors(); ?></div><?php } ?>
 <input type="hidden" name="id" value="<?= isset($users) ? $users->id : '' ?>"/>
 
 <div class="form-group">
-    <label for="username">Username:</label><br/>
-    <input type="text" required class="form-control" name="username" placeholder="Enter Username"
+    <label for="username">Usuario:</label><br/>
+    <input type="text" required class="form-control" name="username" placeholder="Escriba el nombre de usuario"
            value="<?= isset($users) ? $users->username : '' ?>"/>
 
 </div>
 <div class="form-group">
-    <label for="email">Email:</label><br/>
-    <input type="text" required class="form-control" name="email" placeholder="Enter Email"
+    <label for="email">Correo:</label><br/>
+    <input type="text" required class="form-control" name="email" placeholder="Correo"
            value="<?= isset($users) ? $users->email : '' ?>"/>
 
 </div>
 <?php if (!isset($users)): ?>
     <div class="form-group">
-        <label for="password">Password:</label><br/>
-        <input type="password" required class="form-control" name="password" placeholder="Enter Password"
+        <label for="password">Contraseña:</label><br/>
+        <input type="password" required class="form-control" name="password" placeholder="Contraseña"
                value="<?= isset($users) ? $users->password : '' ?>"/>
 
     </div>
     <div class="form-group">
-        <label for="password">Repeat Password:</label><br/>
-        <input type="password" required class="form-control" name="password2" placeholder="Repeat Password" value=""/>
+        <label for="password">Repita Contraseña:</label><br/>
+        <input type="password" required class="form-control" name="password2" placeholder="Repita Contraseña" value=""/>
 
     </div>
 <?php endif; ?>
@@ -57,7 +56,7 @@
            value="<?= isset($users) ? $users->role : '' ?>"/>
 
 </div-->
-<input type="submit" value="Save" class="btn btn-primary"/>
-<?= anchor('admin/users/index', 'Back', 'class="btn btn-link"'); ?>
+<input type="submit" value="Guardar" class="btn btn-primary"/>
+<?= anchor('admin/users/index', 'Atras', 'class="btn btn-link"'); ?>
 </form>
 

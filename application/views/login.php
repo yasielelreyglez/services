@@ -15,7 +15,7 @@ base_url()
     <meta charset="utf-8">
     <title>Angular App</title>
 
-   <base href="http://localhost/services/">
+   <base href="<?php echo base_url()?>">
     <script src="<?php echo base_url()?>dist/assets/js/jquery-2.1.3.min.js"></script>
     <script src="<?php echo base_url()?>dist/assets/js/owl.carousel.min.js"></script>
     <script src="<?php echo base_url()?>dist/assets/select2/4.0.0/js/select2.min.js"></script>

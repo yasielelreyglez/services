@@ -42,9 +42,9 @@
                     <li><a href="#" class="fa fa-google-plus"></a></li>
                 </ul>
 
-                <ul class="authentication">
-                    <li><a href="<?=site_url("admin/auth/register") ?>">Registrarse</a></li>
-                </ul>
+<!--                <ul class="authentication">-->
+<!--                    <li><a href="--><?//=site_url("admin/auth/register") ?><!--">Registrarse</a></li>-->
+<!--                </ul>-->
 
 <!--                <div class="language">-->
 <!--                    <a href="#" class="toggle"><img src="--><?//=site_url("/resources/img/flags/32/NL.png") ?><!--" alt=""> NDL</a>-->
@@ -65,55 +65,55 @@
             <div class="uou-block-2b icons">
                 <div class="container">
                     <a href="#" class="logo"><img src="<?=site_url("/resources/img/logo.png") ?>" alt=""></a>
-                    <a href="#" class="mobile-sidebar-button mobile-sidebar-toggle"><span></span></a>
+<!--                    <a href="#" class="mobile-sidebar-button mobile-sidebar-toggle"><span></span></a>-->
 
-                    <nav class="nav">
-                        <ul class="sf-menu">
-                            <li class="<?=$tab=="home"?"active":""?>"><a href="<?=site_url("admin/home") ?>"><i class="fa fa-home"></i> Inicio</a>
-
-                            </li>
-                            <li class="<?=$tab=="pagos"?"active":""?>">
-                                <a href="<?=site_url("admin/pagos") ?>"><i class="fa fa-dollar"></i> Pagos</a>
-                                <ul class="demo-menu">
-                                    <li><a href="<?=site_url("admin/pagos/solicitados") ?>">Pagos solicitados</a></li>
-                                    <li><a href="<?=site_url("admin/pagos/activos") ?>">Pagos activos</a></li>
-                                    <li><a href="<?=site_url("admin/pagos/expirados") ?>">Pagos expirados</a></li>
-                                    <li><a href="<?=site_url("admin/pagos/denegados") ?>">Pagos denegados</a></li>
-                                    <li><a href="<?=site_url("admin/pagos/membresias") ?>">Pagos membresias</a></li>
-                                </ul>
-                            </li>
-                            <li class="<?=$tab=="services"?"active":""?>">
-                                <a href="<?=site_url("admin/services") ?>"><i class="fa fa-cogs"></i> Servicios </a>
-                                <ul class="demo-menu">
-                                    <li><a href="<?=site_url("admin/services/denunciados") ?>">Mostrar Servicios Denunciados</a></li>
-
-                                    <li><a href="<?=site_url("admin/services") ?>">Mostrar Servicios Existentes</a></li>
-                                    <li><a href="<?=site_url("admin/services/create") ?>">Crear Servicio</a></li>
-                                </ul>
-                            </li>
-                            <li class="<?=$tab=="category"?"active":""?>">
-                                <a href="<?=site_url("admin/categories") ?>"><i class="fa fa-tag"></i> Categorias</a>
-                                <ul class="demo-menu">
-                                    <li><a href="<?=site_url("admin/categories") ?>">Mostrar Categorias Existentes</a></li>
-                                    <li><a href="<?=site_url("admin/categories/create") ?>">Crear Categorias</a></li>
-                                </ul>
-                            </li>
-                            <li class="<?=$tab=="subcategory"?"active":""?>">
-                                <a href="<?=site_url("admin/subcategory") ?>"><i class="fa fa-tags"></i> Sub-Categorias</a>
-                                <ul class="demo-menu">
-                                    <li><a href="<?=site_url("admin/subcategory") ?>">Mostrar Sub-Categorias Existentes</a></li>
-                                    <li><a href="<?=site_url("admin/subcategory/create") ?>">Crear Sub-Categorias</a></li>
-                                </ul>
-
-                            <li  class="<?=$tab=="cities"?"active":""?>">
-                                <a href="<?=site_url("admin/cities") ?>"><i class="fa fa-map-marker"></i> Ciudades </a>
-                                <ul class="demo-menu">
-                                    <li><a href="<?=site_url("admin/cities") ?>">Mostrar Ciudades</a></li>
-                                    <li><a href="<?=site_url("admin/cities/create") ?>">Agregar Ciudad</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
+<!--                    <nav class="nav">-->
+<!--                        <ul class="sf-menu">-->
+<!--                            <li class="--><?//=$tab=="home"?"active":""?><!--"><a href="--><?//=site_url("admin/home") ?><!--"><i class="fa fa-home"></i> Inicio</a>-->
+<!---->
+<!--                            </li>-->
+<!--                            <li class="--><?//=$tab=="pagos"?"active":""?><!--">-->
+<!--                                <a href="--><?//=site_url("admin/pagos") ?><!--"><i class="fa fa-dollar"></i> Pagos</a>-->
+<!--                                <ul class="demo-menu">-->
+<!--                                    <li><a href="--><?//=site_url("admin/pagos/solicitados") ?><!--">Pagos solicitados</a></li>-->
+<!--                                    <li><a href="--><?//=site_url("admin/pagos/activos") ?><!--">Pagos activos</a></li>-->
+<!--                                    <li><a href="--><?//=site_url("admin/pagos/expirados") ?><!--">Pagos expirados</a></li>-->
+<!--                                    <li><a href="--><?//=site_url("admin/pagos/denegados") ?><!--">Pagos denegados</a></li>-->
+<!--                                    <li><a href="--><?//=site_url("admin/pagos/membresias") ?><!--">Pagos membresias</a></li>-->
+<!--                                </ul>-->
+<!--                            </li>-->
+<!--                            <li class="--><?//=$tab=="services"?"active":""?><!--">-->
+<!--                                <a href="--><?//=site_url("admin/services") ?><!--"><i class="fa fa-cogs"></i> Servicios </a>-->
+<!--                                <ul class="demo-menu">-->
+<!--                                    <li><a href="--><?//=site_url("admin/services/denunciados") ?><!--">Mostrar Servicios Denunciados</a></li>-->
+<!---->
+<!--                                    <li><a href="--><?//=site_url("admin/services") ?><!--">Mostrar Servicios Existentes</a></li>-->
+<!--                                    <li><a href="--><?//=site_url("admin/services/create") ?><!--">Crear Servicio</a></li>-->
+<!--                                </ul>-->
+<!--                            </li>-->
+<!--                            <li class="--><?//=$tab=="category"?"active":""?><!--">-->
+<!--                                <a href="--><?//=site_url("admin/categories") ?><!--"><i class="fa fa-tag"></i> Categorias</a>-->
+<!--                                <ul class="demo-menu">-->
+<!--                                    <li><a href="--><?//=site_url("admin/categories") ?><!--">Mostrar Categorias Existentes</a></li>-->
+<!--                                    <li><a href="--><?//=site_url("admin/categories/create") ?><!--">Crear Categorias</a></li>-->
+<!--                                </ul>-->
+<!--                            </li>-->
+<!--                            <li class="--><?//=$tab=="subcategory"?"active":""?><!--">-->
+<!--                                <a href="--><?//=site_url("admin/subcategory") ?><!--"><i class="fa fa-tags"></i> Sub-Categorias</a>-->
+<!--                                <ul class="demo-menu">-->
+<!--                                    <li><a href="--><?//=site_url("admin/subcategory") ?><!--">Mostrar Sub-Categorias Existentes</a></li>-->
+<!--                                    <li><a href="--><?//=site_url("admin/subcategory/create") ?><!--">Crear Sub-Categorias</a></li>-->
+<!--                                </ul>-->
+<!---->
+<!--                            <li  class="--><?//=$tab=="cities"?"active":""?><!--">-->
+<!--                                <a href="--><?//=site_url("admin/cities") ?><!--"><i class="fa fa-map-marker"></i> Ciudades </a>-->
+<!--                                <ul class="demo-menu">-->
+<!--                                    <li><a href="--><?//=site_url("admin/cities") ?><!--">Mostrar Ciudades</a></li>-->
+<!--                                    <li><a href="--><?//=site_url("admin/cities/create") ?><!--">Agregar Ciudad</a></li>-->
+<!--                                </ul>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </nav>-->
                 </div>
             </div> <!-- end .uou-block-2b -->
 

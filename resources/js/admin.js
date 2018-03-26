@@ -46,9 +46,38 @@ $(document).ready(function ($) {
 
     $('#filter').submit(function (ev) {
         ev.preventDefault();
-        $.post('../api/filter', function (data) {
+        console.log($(this).find('i'));
+        $(this).find('i').first().addClass('hide');
+        $(this).find('i').last().removeClass('hide');
+        $.post('../api/filter', $('#filter').serialize(), function (data) {
             showFilterResult(data.services);
+            $('#filter button').find('i').last().addClass('hide');
+            $('#filter button').find('i').first().removeClass('hide');
         });
+    });
+
+    $('select[name="order"]').change(function () {
+        $('.popular_listings .item').remove();
+        $('.loading_popular_listings').removeClass('hide');
+        $.get('../api/' + $(this).val(), function (data) {
+            $('.loading_popular_listings').addClass('hide');
+            $.each(data.data, function () {
+                $('.loading_popular_listings').parent().append(getFilterResultElement(this));
+            });
+        });
+    });
+
+    $('.popular_listings button').click(function () {
+        window.location.href = 'home/servicesbyfilter/' + $('select[name="order"]').val();
+    })
+
+    $('.step-views .step a').click(function (ev) {
+        ev.preventDefault();
+        $('.step-views .step').removeClass('active');
+        $(this).parent().addClass('active');
+        $('.item-step').addClass('hide');
+        console.log($('#' + $(this).attr('name')));
+        $('#' + $(this).attr('name')).removeClass('hide');
     });
 });
 
@@ -81,7 +110,7 @@ function loadCategorias() {
                 '            <h5 class="industry-title">' + category.title + '</h5>' +
                 '        <ul class="industry-list list-unstyled mb0">';
             $(category.subcategoriesLists).each(function (pos2, subcategory) {
-                elemento += '<li><a href="categories/' + category.id + '/subcategories/' + subcategory.id + '">' + subcategory.title +
+                elemento += '<li><a href="home/servicesbycategories/' + category.id + '/' + subcategory.id + '">' + subcategory.title +
                     '<span class="count">' + subcategory.count + '</span></a></li>'
             });
             elemento += '</ul></div>';
@@ -101,12 +130,17 @@ function loadCiudades() {
 }
 
 function showFilterResult(services) {
-    console.log(services);
     $('#filterresult').removeClass('hide');
     $('#filterresultcontent').children().remove();
-    $.each(services, function () {
-        $('#filterresultcontent').append(getFilterResultElement(this));
-    });
+    if (!services.length) {
+        $('#filterresultcontent').append('<p>No hay servicios con esas características.</p>')
+    } else {
+        $.each(services, function () {
+            $('#filterresultcontent').append(getFilterResultElement(this));
+        });
+        $('#filterresultcontent .uou-accordions').uouAccordions();
+    }
+    $("html, body").animate({scrollTop:$('#filterresult').offset().top - 50},800)
 }
 
 function getFilterResultElement(service) {
@@ -129,10 +163,10 @@ function getFilterResultElement(service) {
     $.each(service.imagesList, function () {
         images+= '<li class="" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;"><img src="' + this.title + '" alt="" draggable="false"></li>';
     });
-    var element = '<div class="col-md-4 listing-grid listing-grid-2">' +
+    var element = '<div class="col-md-4 listing-grid listing-grid-2 item">' +
         '<div class="listing-heading">' +
         prof +
-        '<h5>' + service.title + '</h5>' +
+        '<h5><a href="services/show/' + service.id + '">' + service.title + '</h5>' +
         '</div>' +
         '<div class="listing-inner">' +
         '<div class="flexslider default-slider">' +
@@ -160,14 +194,14 @@ function getFilterResultElement(service) {
         '</ul>' +
         '</div>' +
         '<ul class="uou-accordions">' +
-        '<li class="active">' +
+        '<li class="">' +
         '<a href="#"><i class="fa fa-info main-icon"></i> Información</a>' +
         '<div>' +
         '<h5 class="title">' + service.subtitle + '</h5>' +
         '<p>' + service.description + '</p>' +
         '</div>' +
         '</li>' +
-        '<li class="">' +
+        '<li class="active">' +
         '<a href="#"><i class="fa fa-envelope main-icon"></i> Información adicional</a>' +
         '<div>' +
         '<ul class="contact-info list-unstyled mb0">' +
@@ -185,7 +219,7 @@ function getFilterResultElement(service) {
         '<img height="20" width="20" src="' + service.subcategoriesList[0].icon + '"> ' +
         '<h6>' + service.subcategoriesList[0].title + '</h6>' +
         '<a class="pull-right pl10" title="Destruir" href="services/destroy/' + service.id + '">' +
-        '<i class="fa fa-minus-square-o bookmark"></i></a>' +
+        '<i class="fa fa-trash bookmark"></i></a>' +
         '<a class="pull-right pl10" title="Editar" href="services/edit/' + service.id + '">' +
         '<i class="fa fa-edit bookmark"></i></a>' +
         '<a class="pull-right" title="Ver" href="services/show/' + service.id + '">' +
