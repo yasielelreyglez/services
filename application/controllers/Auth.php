@@ -288,7 +288,10 @@ class Auth extends REST_Controller
     public function change_password_post()
     {
             $identity = $this->session->userdata('identity');
-
+            if(!$identity){
+                $user = $this->getCurrentUser();
+                $identity = $user->getEmail();
+            }
             $change = $this->ion_auth->change_password($identity, $this->post('old_password'), $this->post('new_password'));
 
             if ($change)
@@ -303,5 +306,32 @@ class Auth extends REST_Controller
                 $data["error"]=$this->ion_auth->errors();
                 $this->set_response($data, REST_Controller::HTTP_OK);
             }
+    }
+
+    /**
+     * @return Entities\User
+     */
+    function getCurrentUser()
+    {
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+                $em = $this->doctrine->em;
+                $usuario = $decodedToken->userid;
+                $user = $em->find("Entities\User", $usuario);
+                return $user;
+            }
+        }
+        if (array_key_exists('authorization', $headers) && !empty($headers['authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['authorization']);
+            if ($decodedToken != false) {
+                $em = $this->doctrine->em;
+                $usuario = $decodedToken->userid;
+                $user = $em->find("Entities\User", $usuario);
+                return $user;
+            }
+        }
     }
 }
