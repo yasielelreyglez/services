@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import {User} from '../../models/user';
@@ -65,7 +65,7 @@ export class AuthProvider {
       ).catch(this.handleError);
   }
   change_pass(old_password,new_password): Promise<any> {
-      const currentUser = localStorage.getItem('currentUser');
+    const currentUser = localStorage.getItem('currentUser');
     return this.http.post(this.api.getbaseUrl() + 'auth/change_password', {old_password,new_password},{headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)})
       .toPromise()
       .then(

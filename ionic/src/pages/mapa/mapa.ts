@@ -65,7 +65,7 @@ export class MapaPage {
         this.longitude = data.coords.longitude;
       },
       (error: Geoposition) => {
-        alert(error);
+        // alert(error);
       },
     );
     this.wacthed = false;
@@ -95,7 +95,7 @@ export class MapaPage {
         }
 
       } else {
-        alert("Error: " + status);
+        // alert("Error: " + status);
       }
     }
   }
@@ -120,7 +120,7 @@ export class MapaPage {
             this.calculateAndDisplayRoute(this.destino);
           },
           (error: Geoposition) => {
-            alert(error);
+            // alert(error);
           },
         );
 
@@ -141,7 +141,7 @@ export class MapaPage {
 
 
       } else {
-        window.alert('Directions request failed due to ' + status);
+        // window.alert('Directions request failed due to ' + status);
       }
     });
   }
