@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 
 @Injectable()
@@ -46,12 +46,14 @@ export class AuthService {
     }
 
     changePassword(model) {
+
+        const currentUser = localStorage.getItem('currentUser');
         console.log(model);
         return this.http.post(this.getBaseURL() + 'auth/change_password/', {
             old_password: model.old_password,
             new_password: model.new_password,
             new_password_confirm: model.new_password_confirm
-        }).map(result => {
+        },{headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)}).map(result => {
             if (!result['error']) {
                 return true;
             } else {
