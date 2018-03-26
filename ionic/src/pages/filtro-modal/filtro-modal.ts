@@ -18,7 +18,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class FiltroModalPage {
   categories: any;
   cities: any;
-  filter_distance=5;
+  filter_distance=0;
   filter_category: any="";
   filter_city: any="";
 

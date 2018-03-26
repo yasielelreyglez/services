@@ -31,7 +31,7 @@ export class ServicesPage {
   categories: any;
   filter_city: any = [];
   filter_category: any = [];
-  filter_distance: number = 5;
+  filter_distance: number = 0;
   subCatId: any;
   services: Service[] = [];
   servTemp: Service[] = [];
@@ -197,7 +197,7 @@ export class ServicesPage {
     this.filtro = false;
     this.filter_city = [];
     this.filter_category = [];
-    this.filter_distance = 5;
+    this.filter_distance = 0;
     this.services = this.servTemp;
   }
 

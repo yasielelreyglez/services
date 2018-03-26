@@ -32,6 +32,7 @@ class Api extends REST_Controller
         $this->set_response($response, REST_Controller::HTTP_OK);
     }
 
+    //LISTADO DE SERVICIOS MAS VISITADOS
     public function moreVisits_get()
     {
         $em = $this->doctrine->em;
@@ -54,6 +55,53 @@ class Api extends REST_Controller
         $this->set_response($response, REST_Controller::HTTP_OK);
     }
 
+    //LISTADO DE SERVICIOS AÑADIDOS RECIENTEMENTE
+    public function mostRecent_get()
+    {
+        $em = $this->doctrine->em;
+        $serviceRepo = $em->getRepository('Entities\Service');
+        $mostRecent = $serviceRepo->findBy(array(), array('created' => 'DESC'), 3);
+
+        foreach ($mostRecent as $service) {
+            $service->loadRelatedData();
+        }
+
+        if ($mostRecent) {
+            $response["desc"] = "Servicios más recientes";
+            $response["count"] = count($mostRecent);
+            $response["data"] = $mostRecent;
+        } else {
+            $response["desc"] = 'No existen servicios recientes';
+            $response["count"] = 0;
+            $response["data"] = array();
+        }
+        $this->set_response($response, REST_Controller::HTTP_OK);
+    }
+
+    //LISTADO DE SERVICIOS MEJORES EVALUADOS
+    public function bestRated_get()
+    {
+        $em = $this->doctrine->em;
+        $serviceRepo = $em->getRepository('Entities\Service');
+        $bestRated = $serviceRepo->findBy(array(), array('globalrate' => 'DESC'), 3);
+
+        foreach ($bestRated as $service) {
+            $service->loadRelatedData();
+        }
+
+        if ($bestRated) {
+            $response["desc"] = "Servicios mejores evaluados";
+            $response["count"] = count($bestRated);
+            $response["data"] = $bestRated;
+        } else {
+            $response["desc"] = 'No existen servicios evaluados';
+            $response["count"] = 0;
+            $response["data"] = array();
+        }
+        $this->set_response($response, REST_Controller::HTTP_OK);
+    }
+
+    //LISTADO DE SERVICIOS VISITADOS RECIENTEMENTE
     public function recentVisits_get()
     {
         $em = $this->doctrine->em;
@@ -349,8 +397,6 @@ class Api extends REST_Controller
                 $service->loadRelatedData($user);
                 if ($user) {
                     $service->loadRelatedUserData($user);
-                }else{
-                    echo "dice esto que NO ve el usuario";
                 }
                 $services_a[$service->getId()] = $service;
             }
