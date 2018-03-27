@@ -193,16 +193,13 @@ class Services extends CI_Controller {
             }
 
             $em->flush();
-            if($positions) {
-                $service->addPositions(json_decode($positions), true);
-            }
+
+            $service->addPositions(json_decode($positions),true);
             $service->addTimes(json_decode($this->input->post("times")),true);
-//            $em->persist($service);
+            $em->persist($service);
             $em->flush();
             //GALERIA DE FOTOS
             $fotos = $this->input->post('userfile[]', TRUE);
-            print_r($fotos);
-            print_r($this->input->post());
             if (count($fotos) > 0) {
                 echo "ENTRA A VER QUE SON MAS FOTOS";
                 $service->addFotos($fotos, base_url());
@@ -215,14 +212,14 @@ class Services extends CI_Controller {
             }else{
                 echo"NO VE LAS FOTOS";
             }
-//            $em->persist($service);
+            $em->persist($service);
             $em->flush();
             $service->loadRelatedData($this->getCurrentUser());
             $service->loadRelatedUserData($this->getCurrentUser());
 
 //            print_r($service);
-            die;
-//            redirect('admin/services/index', 'refresh');
+//            die;
+            redirect('admin/services/index', 'refresh');
 
 
 
