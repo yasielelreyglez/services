@@ -10,8 +10,11 @@
             <?php if(isset($categories)){ ?>
             <img src="<?=$categories->icon?>" width="80px" height="70px"/>
             <?php } ?>
-            <input type="file" <?php if(!isset($categories)){ ?>required<?php } ?> name="userfile" size="20" />
+            <input type="file" <?php if(!isset($categories)){ ?>required<?php } ?> name="userfile" id="userfile" size="20" />
         </div>
+    <div id="image_preview" style="height: 80px;width:70px;" >
+
+    </div>
 		<input type="submit" value="Guardar" class="btn btn-primary"/>
 		<?= anchor('admin/categories/index','Atras','class="btn btn-link"'); ?>
 	</form>

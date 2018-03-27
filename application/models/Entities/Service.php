@@ -723,15 +723,23 @@ namespace Entities {
             }
             return $this;
         }
-        public function addPositions(Array $positions)
+        public function addPositions(Array $positions,$admin = false)
         {
             foreach ($positions as $position) {
                 $poss = new Position();
-                $poss->setTitle($position["title"]);
-                $poss->setLatitude($position["latitude"]);
-                $poss->setLongitude($position["longitude"]);
-                $poss->setService($this);
-                $this->addPosition($poss);
+                if($admin) {
+                    $poss->setTitle($position->title);
+                    $poss->setLatitude($position->latitude);
+                    $poss->setLongitude($position->longitude);
+                    $poss->setService($this);
+                    $this->addPosition($poss);
+                }else{
+                    $poss->setTitle($position["title"]);
+                    $poss->setLatitude($position["latitude"]);
+                    $poss->setLongitude($position["longitude"]);
+                    $poss->setService($this);
+                    $this->addPosition($poss);
+                }
             }
             return $this;
         }

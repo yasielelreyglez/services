@@ -152,11 +152,6 @@ class Services extends CI_Controller {
 		$this->form_validation->set_rules('phone', 'Phone', 'required');
 
 		if ($this->form_validation->run()) {
-//		    echo '<pre>';
-//            print_r($this->input->post());
-//
-//            echo '</pre>';
-//		    die;
             $id =  $this->input->post('id', TRUE);
 
             if(!$id) {
@@ -190,25 +185,7 @@ class Services extends CI_Controller {
             $service->setOtherPhone($this->input->post('other_phone', TRUE));
             $service->setEmail($this->input->post('email', TRUE));
             $service->setUrl($this->input->post('url', TRUE));
-            //arreglar los times
-//            $times_old = $service->getTimes()->toArray();
-//            if($times_old){
-//                if (is_array($times_old)){
-//                    foreach ($times_old as $old_time) {
-//                        $em->remove($old_time);
-//                    }
-//                }}
-//            $em->flush();
-//            $times = $this->post('times', TRUE);
-//            if(is_array($times)) {
-//                $service->addTimes($times);
-//            }
-//            $em->flush();
             $service->setDescription($this->input->post('description', TRUE));
-//        $service->setWeekDays(substr($string_week, 1, strlen($string_week) - 1));
-//        $service->setStartTime($this->post('start_time', TRUE));
-//        $service->setEndTime($this->post('end_time', TRUE));
-            //UBICACIONES
             $positions = $this->input->post('positions', TRUE);
             $old_positions = $service->getPositions()->toArray();
             foreach ($old_positions as $old_position) {
@@ -216,52 +193,39 @@ class Services extends CI_Controller {
             }
 
             $em->flush();
-            if(is_array($positions)) {
-                $service->addPositions($positions);
+            if($positions) {
+                $service->addPositions(json_decode($positions), true);
             }
             $service->addTimes(json_decode($this->input->post("times")),true);
-            $em->persist($service);
+//            $em->persist($service);
             $em->flush();
             //GALERIA DE FOTOS
-            $fotos = $this->input->post('thumbs', TRUE);
+            $fotos = $this->input->post('userfile[]', TRUE);
+            print_r($fotos);
+            print_r($this->input->post());
             if (count($fotos) > 0) {
+                echo "ENTRA A VER QUE SON MAS FOTOS";
                 $service->addFotos($fotos, base_url());
-
                 $path = "./resources/services/" . $fotos[0]['filename'];
                 $save = "/resources/services/" . $fotos[0]['filename'];
                 file_put_contents($path, base64_decode($fotos[0]['value']));
                 $service->setIcon(site_url($save));
                 $service->setThumb($fotos[0]['filename']);
 
+            }else{
+                echo"NO VE LAS FOTOS";
             }
-            $em->persist($service);
+//            $em->persist($service);
             $em->flush();
             $service->loadRelatedData($this->getCurrentUser());
             $service->loadRelatedUserData($this->getCurrentUser());
 
 //            print_r($service);
-//            die;
+            die;
 //            redirect('admin/services/index', 'refresh');
 
 
-        //viejo
 
-//			$data[] = array();
-//			$data['id'] = $this->input->post('id', TRUE);
-//			$data['title'] = $this->input->post('title', TRUE);
-//			$data['subtitle'] = $this->input->post('subtitle', TRUE);
-//			$data['phone'] = $this->input->post('phone', TRUE);
-//			$data['address'] = $this->input->post('address', TRUE);
-//			$data['other_phone'] = $this->input->post('other_phone', TRUE);
-//			$data['email'] = $this->input->post('email', TRUE);
-//			$data['url'] = $this->input->post('url', TRUE);
-//			$data['week_days'] = $this->input->post('week_days', TRUE);
-//			$data['start_time'] = $this->input->post('start_time', TRUE);
-//			$data['end_time'] = $this->input->post('end_time', TRUE);
-////			$data['visits'] = $this->input->post('visits', TRUE);
-//
-//			$this->Services_model->save($data);
-//			redirect('/services/index', 'refresh');
 		}
 		$data['services'] =	$this->rebuild();
 		$data['content'] = '/services/create';

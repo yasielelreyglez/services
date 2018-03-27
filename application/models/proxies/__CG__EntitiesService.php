@@ -720,12 +720,12 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function addPositions(array $positions)
+    public function addPositions(array $positions, $admin = false)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addPositions', [$positions]);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addPositions', [$positions, $admin]);
 
-        return parent::addPositions($positions);
+        return parent::addPositions($positions, $admin);
     }
 
     /**

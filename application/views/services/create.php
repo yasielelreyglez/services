@@ -43,7 +43,7 @@
                        value="<?= isset($services) ? $services->phone : '' ?>"/>
             </div>
             <div class="form-group">
-                <label for="phone">Descripción*:</label><br/>
+                <label for="phone">Descripción:</label><br/>
                 <textarea rows="3" cols="50" class="form-control" name="description"
                           placeholder="Descripción del servicio"
                           value="<?= isset($services) ? $services->description : '' ?>">
@@ -74,14 +74,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
-                <label for="icon">Foto*:</label><br/>
-                <?php if (isset($services)) { ?>
-                    <img src="<?= $services->icon ?>" width="80px" height="70px"/>
-                <?php } ?>
-                <input type="file" required name="userfile" size="20"
-                       value="<?= isset($services) ? $services->icon : '' ?>"/>
-            </div>
+
             <div class="f1-buttons">
                 <button type="button" class="btn btn-next bg-tema">Proximo</button>
             </div>
@@ -104,12 +97,11 @@
 <!--                --><?php //endfor; ?>
                                     <div class="form-group">
                                         <label for="icon">Imagen2:</label><br/>
-                                        <input type="file"  name="thumbs1" size="20" value=""/>
+                                        <input type="file" id="userfile" name="userfile[]" size="20" value="" multiple/>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="icon">Imagen2:</label><br/>
-                                        <input type="file"  name="thumbs2" size="20" value=""/>
-                                    </div>
+                <div id="image_preview" class="row" >
+
+                </div>
             <?php endif; ?>
             <div class="f1-buttons">
                 <button type="button" class="btn btn-previous bg-tema">Anterior</button>
@@ -124,7 +116,7 @@
             </div>
             <div class="form-group">
                 <label for="email">Correo electrónico:</label><br/>
-                <input type="email" required class="form-control" name="email"
+                <input type="email" class="form-control" name="email"
                        placeholder="Escriba su Correo electrónico"
                        value="<?= isset($services) ? $services->email : '' ?>"/>
             </div>
@@ -135,7 +127,7 @@
             </div>
             <div class="f1-buttons">
                 <button type="button" class="btn btn-previous bg-tema">Anterior</button>
-                <button type="button" class="btn btn-next bg-tema">Proximo</button>
+                <button type="button" class="btn btn-next bg-tema" onclick="initMap()">Proximo</button>
             </div>
         </div>
         <div id="step4" class="item-step ">
@@ -150,14 +142,16 @@
                 <!--{{getErrorMessage()}}-->
                 <!--</mat-error>-->
                 <!--</mat-form-field>-->
-                <label for="positiontitle">Nombre ubicación *</label>
-                <input type="text" id="positiontitle" name="positiontitle" type="text"
-                       minlength="1"
-                       required>
+                <label for="positiontitle">Nombre ubicación</label>
+                <input type="text" id="positiontitle" name="positiontitle" type="text">
                 <div id="map_create"></div>
                 <br>
                 <input type="button"
-                        class="col-12" value="Agregar posiciones" />
+                        class="col-12" value="Agregar posiciones" id="addPosition" />
+                <input type="hidden" value="[]" name="positions" id="positions"/>
+                <div id="visual_positions">
+
+                </div>
             </div>
             <div class="f1-buttons">
                 <button type="button" class="btn btn-previous bg-tema">Anterior</button>
@@ -167,6 +161,7 @@
         <div id="step5" class="item-step ">
             <h2>Gestión de horarios</h2>
             <label>Días de atención</label>
+            <br/>
             <?php foreach ($days_of_weak as $key => $day): ?>
                 <label class="checkbox">
                     <?php
@@ -182,6 +177,7 @@
                     <?php echo htmlspecialchars($day, ENT_QUOTES, 'UTF-8'); ?>
                 </label>
             <?php endforeach; ?>
+            <br/>
             <!--div class="form-group">
                 <label for="week_days">Week_days:</label><br/>
                 <input type="text" class="form-control" name="week_days" placeholder="Enter Week_days"
@@ -205,12 +201,12 @@
             </div>
             <div class="f1-buttons">
                 <button type="button" class="btn btn-previous">Anterior</button>
-                <button type="submit" class="btn btn-submit  btn-primary">Submit</button>
+                <button type="submit" class="btn btn-submit  btn-primary" id="submitform">Submit</button>
             </div>
         </div>
     </div>
 </div>
-<!--<input type="submit" value="Save" class="btn btn-primary"/>-->
+<input type="submit" value="Save" class="btn btn-primary"/>
 <?= anchor('admin/services/index', 'Atras', 'class="btn btn-link"'); ?>
 </form>
 

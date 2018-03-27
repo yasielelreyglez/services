@@ -4184,11 +4184,12 @@ input[type="search"] {
 .radio,
 .checkbox {
   position: relative;
-  display: block;
+  display: inline-block;
   margin-bottom: 24px;
   font-weight: normal;
   cursor: pointer;
   user-select: none;
+
 }
 .radio input[type="radio"],
 .radio-inline input[type="radio"],
@@ -20870,4 +20871,9 @@ CANVAS PAGE STYLE
   height: 400px;
   width: 100%;
   background: #4b5257;
+}
+#image_preview img{
+  margin: 10px;
+  float: left;
+    height: 80px;
 }
