@@ -146,7 +146,7 @@ class Services extends CI_Controller {
 
 	# POST /services/save
 	function save() {
-		
+        $em = $this->doctrine->em;
 		$this->form_validation->set_rules('title', 'Title', 'required');
 		$this->form_validation->set_rules('subtitle', 'Subtitle', 'required');
 		$this->form_validation->set_rules('phone', 'Phone', 'required');
@@ -158,7 +158,7 @@ class Services extends CI_Controller {
 //            echo '</pre>';
 //		    die;
             $id =  $this->input->post('id', TRUE);
-            $em = $this->doctrine->em;
+
             if(!$id) {
                 $service = new \Entities\Service();
             }else{
@@ -216,7 +216,10 @@ class Services extends CI_Controller {
             }
 
             $em->flush();
-            $service->addPositions($positions);
+            if(is_array($positions)) {
+                $service->addPositions($positions);
+            }
+            $service->addTimes(json_decode($this->input->post("times")),true);
             $em->persist($service);
             $em->flush();
             //GALERIA DE FOTOS
@@ -238,7 +241,7 @@ class Services extends CI_Controller {
 
 //            print_r($service);
 //            die;
-            redirect('admin/services/index', 'refresh');
+//            redirect('admin/services/index', 'refresh');
 
 
         //viejo
@@ -289,26 +292,10 @@ class Services extends CI_Controller {
      */
     function getCurrentUser()
     {
-        $headers = $this->input->request_headers();
-
-        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
-            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-            if ($decodedToken != false) {
-                $em = $this->doctrine->em;
-                $usuario = $decodedToken->userid;
-                $user = $em->find("Entities\User", $usuario);
-                return $user;
-            }
-        }
-        if (array_key_exists('authorization', $headers) && !empty($headers['authorization'])) {
-            $decodedToken = AUTHORIZATION::validateToken($headers['authorization']);
-            if ($decodedToken != false) {
-                $em = $this->doctrine->em;
-                $usuario = $decodedToken->userid;
-                $user = $em->find("Entities\User", $usuario);
-                return $user;
-            }
-        }
+        $usuario = $this->session->userdata('user_id');
+        $em = $this->doctrine->em;
+        $user = $em->find("Entities\User", $usuario);
+       return $user;
     }
 }
 

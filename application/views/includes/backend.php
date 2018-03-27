@@ -10,7 +10,7 @@
     <title>Servicios-Administración</title>
 
     <!-- Stylesheets -->
-    <!--    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,600,700%7CDroid+Serif:300,400,700,400italic">-->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,600,700%7CDroid+Serif:300,400,700,400italic">
     <!--    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>-->
     <?php echo link_tag("/resources/ajax/libs/select2/4.0.0/css/select2.min.css") ?>
     <?php echo link_tag("/resources/css/owl.carousel.css") ?>
@@ -758,7 +758,7 @@
     </nav>
 </div>
 
-<script src="<? //=site_url("/resources/js/googlemaplocal.js") ?>"></script>
+<script src="<?= site_url("/resources/js/googlemaplocal.js") ?>"></script>
 <script src="<?= site_url("/resources/js/jquery-2.1.3.min.js") ?>"></script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxooB5CXv3oWSzKldWJzStShRvWE8X1MA"></script>
@@ -774,10 +774,14 @@
 <script src="<?= site_url("/resources/js/uou-tabs.js") ?>"></script>
 <script src="<?= site_url("/resources/js/plugins/select2.min.js") ?>"></script>
 <script src="<?= site_url("/resources/js/owl.carousel.min.js") ?>"></script>
-<!--<script src="--><?//=site_url("/resources/js/gmap3.min.js") ?><!--"></script>-->
+<script src="<?=site_url("/resources/js/gmap3.min.js") ?>"></script>
 
 <script src="<?= site_url("/resources/js/bootstrap.js") ?>"></script>
 <script src="<?= site_url("/resources/js/admin.js") ?>"></script>
+
+<script src="<?= site_url("/resources/js/jquery.backstretch.min.js") ?>"></script>
+<script src="<?= site_url("/resources/js/retina-1.1.0.min.js") ?>"></script>
+
 <script src="<?= site_url("/resources/js/scripts.js") ?>"></script>
 
 </body>

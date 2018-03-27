@@ -1004,26 +1004,40 @@ namespace Entities {
         {
             $this->times = $times;
         }
-        public function addTimes(Array $times)
+        public function addTimes(Array $times,$admin=false)
         {
 
             foreach ($times as $time_p) {
                 $time = new Times();
                 $poss = 0;
                 $string_week = "";
-                $weekdays = $time_p["weekdays"];
+                if($admin){
+                    $weekdays = $time_p->weekdays;
+                }else {
+                    $weekdays = $time_p["weekdays"];
+                }
                 foreach ($weekdays as $weekday) {
                     if ($poss > 6) {
                         $poss = 0;
                     }
-                    if ($weekday) {
-                        $string_week = $string_week . "," . $poss;
+                    if($admin){
+                        $string_week = $string_week . ",".$weekday;
+                    }else {
+                        if ($weekday) {
+
+                            $string_week = $string_week . "," . $poss;
+                        }
                     }
                     $poss++;
                 }
                 $time->setWeekDays(substr($string_week,1));
-                $time->setEndTime($time_p["end_time"]);
-                $time->setStartTime($time_p["start_time"]);
+                if($admin) {
+                    $time->setEndTime($time_p->end_time);
+                    $time->setStartTime($time_p->start_time);
+                }else{
+                    $time->setEndTime($time_p["end_time"]);
+                    $time->setStartTime($time_p["start_time"]);
+                }
                 $time->setService($this);
                 $this->addTime($time);
             }

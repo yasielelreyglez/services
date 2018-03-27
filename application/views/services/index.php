@@ -12,7 +12,10 @@
             <?php if (!count($services)) : ?>
                 No hay servicios creados.
             <?php endif; ?>
-            <?php foreach ($services as $object) { ?>
+            <?php
+
+            foreach ($services as $object) {
+                ?>
                 <div class="col-md-4 listing-grid listing-grid-2">
                     <div class="listing-heading">
                         <?php if ($object->professional == 1) { ?>
@@ -107,7 +110,7 @@
                 </div>
             <?php } ?>
         </div>
-        <?= anchor('admin/services/create/' . $object->id, '+', 'class="floating-button" title="Crear servicio"'); ?>
+        <?= anchor('admin/services/create/', '+', 'class="floating-button" title="Crear servicio"'); ?>
         <div class="row listview hide">
             <table class="table">
                 <thead>

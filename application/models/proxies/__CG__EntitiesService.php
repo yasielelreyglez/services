@@ -962,12 +962,12 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function addTimes(array $times)
+    public function addTimes(array $times, $admin = false)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addTimes', [$times]);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addTimes', [$times, $admin]);
 
-        return parent::addTimes($times);
+        return parent::addTimes($times, $admin);
     }
 
     /**

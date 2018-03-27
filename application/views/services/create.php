@@ -1,32 +1,31 @@
+<?= form_open_multipart('admin/services/save', array('role'=>'form','class'=>'f1')); ?><?php if (validation_errors() != NULL && validation_errors() != '') { ?>
+    <div class="alert alert-danger"><?= validation_errors(); ?></div><?php } ?>
 <nav aria-label="Page navigation">
     <ul class="pagination step-views">
-        <li>
-            <a href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-        <li class="step active"><a name="step1" href="#">1</a></li>
-        <li class="step"><a name="step2" href="#">2</a></li>
-        <li class="step"><a name="step3" href="#">3</a></li>
-        <li class="step"><a name="step4" href="#">4</a></li>
-        <li class="step"><a name="step5" href="#">5</a></li>
-        <li>
-            <a href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
+        <div class="f1-progress">
+            <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="5" style="width: 16.66%;"></div>
+        </div>
+        <li class="f1-step active"><a name="step1" href="#">1</a></li>
+        <li class="f1-step"><a name="step2" href="#">2</a></li>
+        <li class="f1-step"><a name="step3" href="#">3</a></li>
+        <li class="f1-step"><a name="step4" href="#">4</a></li>
+        <li class="f1-step"><a name="step5" href="#">5</a></li>
+
     </ul>
 </nav>
-<?= form_open_multipart('admin/services/save', 'role="form"'); ?><?php if (validation_errors() != NULL && validation_errors() != '') { ?>
-    <div class="alert alert-danger"><?= validation_errors(); ?></div><?php } ?>
+
+
+
+
 <div class="step listing-3 listing-variation">
     <div class="container">
-        <div id="step1" class="item-step">
-            <input type="hidden" name="id" value="<?= isset($services) ? $services->id : '' ?>"/>
+        <div id="step1" class="item-step active">
+            <div class="form-group">
+                <input type="hidden" name="id" value="<?= isset($services) ? $services->id : '' ?>"/>
+            </div>
             <div class="form-group">
                 <label for="title">Título*:</label><br/>
-                <input type="text" required class="form-control" name="title" placeholder="Escribe el Título"
-                       value="<?= isset($services) ? $services->title : '' ?>"/>
+                <input type="text" required class="form-control" name="title" placeholder="Escribe el Título" value="<?= isset($services) ? $services->title : '' ?>" />
             </div>
             <div class="form-group">
                 <label for="subtitle">Slogan*:</label><br/>
@@ -74,6 +73,7 @@
                     ?>
                 </select>
             </div>
+
             <div class="form-group">
                 <label for="icon">Foto*:</label><br/>
                 <?php if (isset($services)) { ?>
@@ -82,8 +82,11 @@
                 <input type="file" required name="userfile" size="20"
                        value="<?= isset($services) ? $services->icon : '' ?>"/>
             </div>
+            <div class="f1-buttons">
+                <button type="button" class="btn btn-next bg-tema">Proximo</button>
+            </div>
         </div>
-        <div id="step2" class="item-step hide">
+        <div id="step2" class="item-step ">
             <?php if (isset($services)): ?>
                 <?php foreach ($images as $key => $image): ?>
                     <div class="form-group">
@@ -108,8 +111,12 @@
                                         <input type="file"  name="thumbs2" size="20" value=""/>
                                     </div>
             <?php endif; ?>
+            <div class="f1-buttons">
+                <button type="button" class="btn btn-previous bg-tema">Anterior</button>
+                <button type="button" class="btn btn-next bg-tema">Proximo</button>
+            </div>
         </div>
-        <div id="step3" class="item-step hide">
+        <div id="step3" class="item-step ">
             <div class="form-group">
                 <label for="other_phone">Teléfono adicional:</label><br/>
                 <input type="text" class="form-control" name="other_phone" placeholder="Escriba un Teléfono adicional"
@@ -126,23 +133,38 @@
                 <input type="url" class="form-control" name="url" placeholder="Escriba su dirección web"
                        value="<?= isset($services) ? $services->url : '' ?>"/>
             </div>
-        </div>
-        <div id="step4" class="item-step hide">
-            <h2>Gestión de Ubicación</h2>
-            <div class="form-group">
-                <label for="positions_id">Posiciones*:</label><br/>
-                <select multiple="true" class="custom-select" name="positions[]"
-                        placeholder="Escoja la pocisión">
-                    <?php
-                    foreach ($positions as $position) {
-                        echo "<option value='$position->id'>$position->title </option>";
-                    }
-                    ?>
-                </select>
+            <div class="f1-buttons">
+                <button type="button" class="btn btn-previous bg-tema">Anterior</button>
+                <button type="button" class="btn btn-next bg-tema">Proximo</button>
             </div>
-
         </div>
-        <div id="step5" class="item-step hide">
+        <div id="step4" class="item-step ">
+            <h2>Gestión de Ubicación</h2>
+            <div class="posiciones">
+                <!--<mat-form-field>-->
+                <!--<input matInput placeholder="Nombre ubicación" name="positiontitle"-->
+                <!--[(ngModel)]="positiontitle"-->
+                <!--[formControl]="positionsForm.controls['positiontitle']"-->
+                <!--minlength="1">-->
+                <!--<mat-error *ngIf="positionsForm.controls['positiontitle'].invalid">-->
+                <!--{{getErrorMessage()}}-->
+                <!--</mat-error>-->
+                <!--</mat-form-field>-->
+                <label for="positiontitle">Nombre ubicación *</label>
+                <input type="text" id="positiontitle" name="positiontitle" type="text"
+                       minlength="1"
+                       required>
+                <div id="map_create"></div>
+                <br>
+                <input type="button"
+                        class="col-12" value="Agregar posiciones" />
+            </div>
+            <div class="f1-buttons">
+                <button type="button" class="btn btn-previous bg-tema">Anterior</button>
+                <button type="button" class="btn btn-next bg-tema">Proximo</button>
+            </div>
+        </div>
+        <div id="step5" class="item-step ">
             <h2>Gestión de horarios</h2>
             <label>Días de atención</label>
             <?php foreach ($days_of_weak as $key => $day): ?>
@@ -156,7 +178,7 @@
                     //                            }
                     //                        }
                     ?>
-                    <input type="checkbox" name="week_days[]" value="<?php echo $key; ?>">
+                    <input type="checkbox" name="week_days[]" value="<?php echo $key; ?>" data-day="<?= $day ?>" />
                     <?php echo htmlspecialchars($day, ENT_QUOTES, 'UTF-8'); ?>
                 </label>
             <?php endforeach; ?>
@@ -169,17 +191,26 @@
             <div class="form-group">
                 <label for="start_time">Desde::</label><br/>
                 <input type="time" class="form-control" name="start_time" placeholder="Enter Start_time"
-                       value="<?= isset($services) ? $services->start_time : '' ?>"/>
+                       value="<?= isset($services) ? $services->start_time : '08:00' ?>"/>
             </div>
             <div class="form-group">
                 <label for="end_time">Hasta:</label><br/>
                 <input type="time" class="form-control" name="end_time" placeholder="Enter End_time"
-                       value="<?= isset($services) ? $services->end_time : '' ?>"/>
+                       value="<?= isset($services) ? $services->end_time : '16:00' ?>"/>
+            </div>
+            <input type="hidden" value="[]" name="times" id="times"/>
+            <input type="button" class="btn btn-info" id="add_time" value="Agregar Horario" style="margin-bottom: 20px"/>
+            <div id="visual_horarios">
+
+            </div>
+            <div class="f1-buttons">
+                <button type="button" class="btn btn-previous">Anterior</button>
+                <button type="submit" class="btn btn-submit  btn-primary">Submit</button>
             </div>
         </div>
     </div>
 </div>
-<input type="submit" value="Save" class="btn btn-primary"/>
-<?= anchor('admin/services/index', 'Back', 'class="btn btn-link"'); ?>
+<!--<input type="submit" value="Save" class="btn btn-primary"/>-->
+<?= anchor('admin/services/index', 'Atras', 'class="btn btn-link"'); ?>
 </form>
 
