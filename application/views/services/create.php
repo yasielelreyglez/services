@@ -44,10 +44,7 @@
             </div>
             <div class="form-group">
                 <label for="phone">Descripción:</label><br/>
-                <textarea rows="3" cols="50" class="form-control" name="description"
-                          placeholder="Descripción del servicio"
-                          value="<?= isset($services) ? $services->description : '' ?>">
-                </textarea>
+                <textarea rows="3" cols="50" class="form-control" name="description" placeholder="Descripción del servicio" value="<?= isset($services) ? $services->getDescription() : '' ?>"></textarea>
             </div>
             <div class="form-group">
                 <label for="cities">Cuidades*:</label><br/>
@@ -55,7 +52,16 @@
                         placeholder="Escoja la ciudad">
                     <?php
                     foreach ($cities as $city) {
-                        echo "<option value='$city->id'>$city->title </option>";
+                        $selected = '';
+                        if (isset($currenCities)) {
+                            foreach ($currenCities as $cCity) {
+                                if ($city->id == $cCity->id) {
+                                    $selected = "selected ='selected'";
+                                    break;
+                                }
+                            }
+                        }
+                        echo "<option value='$city->id' $selected>$city->title </option>";
                     }
                     ?>
                 </select>
@@ -64,13 +70,18 @@
                 <label for="categories">Categorías*:</label><br/>
                 <select multiple="true" class="custom-select" name="categories[]"
                         placeholder="Escoja la categoría">
-                    <?php
-                    foreach ($subcategories as $subcategory) {
-//                $is_selected = ($subcategory->category_id==$category->id)?"selected":"";
-//            echo "<option value='$subcategory->id' $is_selected>$subcategory->title </option>";
-                        echo "<option value='$subcategory->id'>$subcategory->title </option>";
-                    }
-                    ?>
+                    <?php foreach ($subcategories as $subcategory): $selected = '';?>
+                        <?php if (isset($currenSubCategories)) {
+                            foreach ($currenSubCategories as $cSubcat) {
+                                if ($subcategory->id == $cSubcat->id) {
+                                    $selected = "selected ='selected'";
+                                    break;
+                                }
+                            }
+                        }
+                        echo "<option value='$subcategory->id' $selected>$subcategory->title </option>";
+                        ?>
+                    <?php endforeach; ?>
                 </select>
             </div>
 
@@ -81,28 +92,21 @@
         </div>
         <div id="step2" class="item-step ">
             <?php if (isset($services)): ?>
-                <?php foreach ($images as $key => $image): ?>
+                <?php foreach ($currenImages as $key => $image): ?>
                     <div class="form-group">
                         <label for="icon">Imagen:</label><br/>
-                        <img src="<?= $image->thumb ?>" width="80px" height="70px"/>
-                        <input type="file"  name="thumbs[]" size="20" value="<?= $image->thumb ?>"/>
+                        <img src="<?= $image->title ?>" width="80px" height="70px"/>
                     </div>
                 <?php endforeach; ?>
-            <?php else: ?>
-<!--                --><?php //for ($i = 0; $i < 9; $i++): ?>
-<!--                    <div class="form-group">-->
-<!--                        <label for="icon">Imagen2:</label><br/>-->
-<!--                        <input type="file"  name="thumbs[]" size="20" value=""/>-->
-<!--                    </div>-->
-<!--                --><?php //endfor; ?>
-                                    <div class="form-group">
-                                        <label for="icon">Imagen2:</label><br/>
-                                        <input type="file" id="userfile" name="userfile[]" size="20" value="" multiple/>
-                                    </div>
-                <div id="image_preview" class="row" >
-
-                </div>
+                <input type="hidden" name="images_deleted" id="images_deleted"/>
             <?php endif; ?>
+            <div class="form-group">
+                <label for="icon">Imagen2:</label><br/>
+                <input type="file" id="userfile" name="userfile[]" size="20" value="" multiple/>
+            </div>
+            <div id="image_preview" class="row" >
+
+            </div>
             <div class="f1-buttons">
                 <button type="button" class="btn btn-previous bg-tema">Anterior</button>
                 <button type="button" class="btn btn-next bg-tema">Proximo</button>
@@ -111,9 +115,7 @@
         <div id="step3" class="item-step ">
             <div class="form-group">
                 <label for="other_phone">Teléfono adicional:</label><br/>
-                <input type="text" class="form-control" name="other_phone" placeholder="Escriba un Teléfono adicional"
-                       value="<?= isset($services) ? $services->other_phone : '' ?>"/>
-            </div>
+                <input type="text" class="form-control" name="other_phone" placeholder="Escriba un Teléfono adicional" value="<?= isset($services) ? $services->other_phone : '' ?>"/></div>
             <div class="form-group">
                 <label for="email">Correo electrónico:</label><br/>
                 <input type="email" class="form-control" name="email"
@@ -147,7 +149,7 @@
                 <div id="map_create"></div>
                 <br>
                 <input type="button"
-                        class="col-12" value="Agregar posiciones" id="addPosition" />
+                       class="col-12" value="Agregar posiciones" id="addPosition" />
                 <input type="hidden" value="[]" name="positions" id="positions"/>
                 <div id="visual_positions">
 
@@ -187,12 +189,12 @@
             <div class="form-group">
                 <label for="start_time">Desde::</label><br/>
                 <input type="time" class="form-control" name="start_time" placeholder="Enter Start_time"
-                       value="<?= isset($services) ? $services->start_time : '08:00' ?>"/>
+                       value="<?= '08:00' ?>"/>
             </div>
             <div class="form-group">
                 <label for="end_time">Hasta:</label><br/>
                 <input type="time" class="form-control" name="end_time" placeholder="Enter End_time"
-                       value="<?= isset($services) ? $services->end_time : '16:00' ?>"/>
+                       value="<?=  '16:00' ?>"/>
             </div>
             <input type="hidden" value="[]" name="times" id="times"/>
             <input type="button" class="btn btn-info" id="add_time" value="Agregar Horario" style="margin-bottom: 20px"/>
@@ -201,10 +203,12 @@
             </div>
             <div class="f1-buttons">
                 <button type="button" class="btn btn-previous">Anterior</button>
-                <button type="submit" class="btn btn-submit  btn-primary" id="submitform">Crear</button>
+                <button type="submit" class="btn btn-submit  btn-primary" id="submitform">Submit</button>
             </div>
         </div>
     </div>
 </div>
+<input type="submit" value="Save" class="btn btn-primary"/>
+<?= anchor('admin/services/index', 'Atras', 'class="btn btn-link"'); ?>
 </form>
 

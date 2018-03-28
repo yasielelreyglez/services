@@ -102,8 +102,9 @@ export class ApiService {
     }
 
     filter(cities?: any, categories?: any, distance?: number, current?: any): Observable<any> {
-        const currentUser = localStorage.getItem('currentUser');
-        return this.http.post(this.getBaseURL() + 'api/filter', {
+        const currentUser = localStorage.getItem('currentUser')
+        if(currentUser != null){
+            return this.http.post(this.getBaseURL() + 'api/filter', {
             cities,
             categories,
             distance,
@@ -115,6 +116,20 @@ export class ApiService {
                 return new Array();
             }
         });
+        }else{
+            return this.http.post(this.getBaseURL() + 'api/filter', {
+                cities,
+                categories,
+                distance,
+                current
+            }).map((response) => {
+                if (response['services']) {
+                    return response['services'];
+                } else {
+                    return new Array();
+                }
+            });
+        }
     }
 
     allSubCategories(): Observable<any> {

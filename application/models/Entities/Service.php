@@ -244,7 +244,7 @@ namespace Entities {
          * @return Mensaje
          */
         public function notificarComentario(){
-           return $this->getAuthor()->notificarComentario($this);
+            return $this->getAuthor()->notificarComentario($this);
         }
 
         /**
@@ -292,9 +292,9 @@ namespace Entities {
             $this->email = $email;
         }
         /**
-        * @return User
-        */
-       public function getAuthor()
+         * @return User
+         */
+        public function getAuthor()
         {
             return $this->author;
         }
@@ -702,7 +702,7 @@ namespace Entities {
         {
             return $this->images;
         }
-        public function addFotos(Array $fotos,$site_url)
+        public function addFotos(Array $fotos,$site_url, $backend = false)
         {
             if (!is_dir("./resources/services/" . $this->id . "/")) {
                 mkdir("./resources/services/" . $this->id . "/");
@@ -713,7 +713,11 @@ namespace Entities {
                 $save_path = "$site_url/resources/services/{$this->id}/{$icon['filename']}";
                 $save_thumb = "$site_url/resources/services/{$this->id}/thumbs/{$icon['filename']}";
 
-                file_put_contents($path, base64_decode($icon['value']));
+                if ($backend==true){
+                    move_uploaded_file($icon['value'], $path);
+                }else{
+                    file_put_contents($path, base64_decode($icon['value']));
+                }
                 $image = new Image();
                 $image->setTitle($save_path);
                 createThumb($path,700,500);
@@ -748,7 +752,7 @@ namespace Entities {
             $this->subcategoriesList = $this->getSubcategories()->toArray();
             $this->servicecommentsList = [];
 
-             $temp = $this->getServicecomments()->toArray();
+            $temp = $this->getServicecomments()->toArray();
             foreach ($temp as $comment){
                 $usuario = $comment->getUser();
                 $usuario->getUsername();
@@ -761,7 +765,7 @@ namespace Entities {
                         if(count($userservice)>0) {
                             $us_obj = $userservice[0];
                             if($us_obj!=null)
-                            $comment->rate = $us_obj->getRate();
+                                $comment->rate = $us_obj->getRate();
                         }
                         $this->servicecommentsList[] = $comment;
                     }
@@ -785,7 +789,7 @@ namespace Entities {
             $this->positionsList = $this->getPositions()->toArray();
             $times = $this->getTimes();
             if($times)
-             $this->timesList = $this->getTimes()->toArray();
+                $this->timesList = $this->getTimes()->toArray();
             else
                 $this->timesList = [];
             if ($current) {
@@ -827,7 +831,7 @@ namespace Entities {
             $em->flush();
 
         }
-       //carga la informacion relacionada con el usuario en la bd para devolver en la api
+        //carga la informacion relacionada con el usuario en la bd para devolver en la api
         public function loadRelatedUserData($user)
         {
             $criteria = new \Doctrine\Common\Collections\Criteria();
@@ -1128,7 +1132,7 @@ namespace Entities {
         $sPath = dirname( $sImagen ) . '/';
         // Obtenemos la extension de la imagen
 
-        $sExt = mime_content_type( $sImagen );
+        $sExt = mime_content_type2( $sImagen );
 
         // Creamos el directorio thumbs
         if( ! is_dir( $sPath . 'thumbs/' ) )
@@ -1232,6 +1236,10 @@ namespace Entities {
         imageDestroy( $aThumb );
 
         return true;
+    }
+    function mime_content_type2 ( $sImagen )
+    {
+        return trim ( exec ('file -bi ' . escapeshellarg ( $sImagen ) ) ) ;
     }
 
 
