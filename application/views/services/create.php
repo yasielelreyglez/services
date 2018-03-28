@@ -201,12 +201,10 @@
             </div>
             <div class="f1-buttons">
                 <button type="button" class="btn btn-previous">Anterior</button>
-                <button type="submit" class="btn btn-submit  btn-primary" id="submitform">Submit</button>
+                <button type="submit" class="btn btn-submit  btn-primary" id="submitform">Crear</button>
             </div>
         </div>
     </div>
 </div>
-<input type="submit" value="Save" class="btn btn-primary"/>
-<?= anchor('admin/services/index', 'Atras', 'class="btn btn-link"'); ?>
 </form>
 
