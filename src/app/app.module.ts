@@ -41,6 +41,7 @@ import { TimesComponent } from './components/_modals/times/times.component';
 import {ChangepasswordComponent} from './components/_modals/changepassword/changepassword.component';
 import {ReportServiceComponent} from './components/_modals/reportservice/reportservice.component';
 import {MensajesComponent} from './components/mensajes/mensajes.component';
+import {Globals} from './_models/globals';
 
 @NgModule({
     declarations: [
@@ -108,6 +109,7 @@ import {MensajesComponent} from './components/mensajes/mensajes.component';
         AuthGuard,
         AuthService,
         ApiService,
+        Globals
     ],
     bootstrap: [AppComponent]
 })

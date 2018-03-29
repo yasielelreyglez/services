@@ -1,9 +1,10 @@
-import {Component, EventEmitter, NgZone, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from '../../_services/auth.service';
 import {Router} from '@angular/router';
-import {MatDialog, MatMenuTrigger, MatSnackBar} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {ChangepasswordComponent} from '../_modals/changepassword/changepassword.component';
 import {ApiService} from '../../_services/api.service';
+import {Globals} from '../../_models/globals';
 
 
 @Component({
@@ -11,13 +12,12 @@ import {ApiService} from '../../_services/api.service';
     templateUrl: './menu.component.html',
     styleUrls: ['./menu.component.css']
 })
+
 export class MenuComponent implements OnInit {
     loggedIn = false;
     query: any;
-    @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
-
-    constructor(public dialog: MatDialog, public zone: NgZone, private apiServices: ApiService, public authServices: AuthService, private router: Router, private snackBar: MatSnackBar) {
+    constructor(public dialog: MatDialog, private globals: Globals, private apiServices: ApiService, public authServices: AuthService, private router: Router, private snackBar: MatSnackBar) {
     }
 
     ngOnInit() {
@@ -30,10 +30,6 @@ export class MenuComponent implements OnInit {
         this.authServices.logout();
         this.router.navigate(['']);
         this.openSnackBar('Ha cerrado la session correctamente.', 2500);
-    }
-
-    menu() {
-        this.trigger.openMenu();
     }
 
     openDialog(): void {
@@ -49,9 +45,10 @@ export class MenuComponent implements OnInit {
     searchQuery() {
         this.apiServices.searchService(this.query).subscribe(result => {
             localStorage.setItem('searchServices', JSON.stringify(result));
-            console.log('al guardar', JSON.parse(localStorage.getItem('searchServices')));
-            this.zone.run(() => {
-            });
+            this.globals.search.next(true);
+            localStorage.setItem('searchParams', JSON.stringify({selectCit: [], selectSub: [], selectDis: []}));
+            // this.zone.run(() => {
+            // });
             this.router.navigate(['/search']);
         });
     }
