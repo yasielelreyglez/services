@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
     openDialog(): void {
         const dialogRef = this.dialog.open(ForgotpassComponent, {
             width: '70%',
-            height: '285px'
+            height: '330px'
         });
 
         dialogRef.afterClosed().subscribe(() => {
