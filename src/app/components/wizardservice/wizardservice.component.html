@@ -46,28 +46,52 @@
                                 <option *ngFor="let city of cities" value="{{city.id}}">{{city.title}}</option>
                             </select>
                             <div style="height: 15px;"></div>
-                            <label for="categories">Categorias *</label>
-                            <select id="categories" name="categories" class="custom-select" multiple="true"
-                                    required>
-                                <option *ngFor="let category of categories" value="{{category.id}}">{{category.title}}
-                                </option>
-                            </select>
+                            <div *ngIf="!edit"><label for="categ">Categoria *</label>
+                                <select id="categ" name="categ" class="custom-select"
+                                        style="margin-bottom: 15px;"
+                                        required>
+                                    <option *ngFor="let category of categ" value="{{category.id}}">{{category.title}}
+                                    </option>
+                                </select>
+
+                                <label for="categories">Categorias *</label>
+                                <select id="categories" name="categories" class="custom-select" multiple="true"
+                                        required>
+                                    <option *ngFor="let category of categories" value="{{category.id}}">
+                                        {{category.title}}
+                                    </option>
+                                </select></div>
+                            <div *ngIf="edit"><label for="categedit">Categoria *</label>
+                                <select id="categedit" name="categedit" class="custom-select"
+                                        style="margin-bottom: 15px;"
+                                        required>
+                                    <option *ngFor="let category of categ" value="{{category.id}}">{{category.title}}
+                                    </option>
+                                </select>
+                                <label for="categoriesedit">Categorias *</label>
+                                <select id="categoriesedit" name="categoriesedit" class="custom-select"
+                                        multiple="true"
+                                        required>
+                                    <option *ngFor="let category of categories" value="{{category.id}}">
+                                        {{category.title}}
+                                    </option>
+                                </select></div>
                             <div style="height: 50px;"></div>
                             <!--<div class="">-->
-                                <!--<div style="width: 133px; height: 122.891px;">-->
-                                    <!--<img name="preview" class="d-flex align-self-center" width="115"-->
-                                         <!--[src]="previewvalue" alt=""-->
-                                         <!--style="border: 1px solid #bcbcbc; padding: 5px; width: 90%; height: 100%;"-->
-                                         <!--appImageZoom>-->
-                                <!--</div>-->
-                                <!--<label class="fileContainer cp">-->
-                                    <!--<button mat-raised-button color="primary">-->
-                                        <!--<mat-icon>camera</mat-icon>-->
-                                        <!--Subir foto-->
-                                    <!--</button>-->
-                                    <!--<input type="file" class="" name="icon" size="20"-->
-                                           <!--(change)="onFileChange($event)" #fileInput/>-->
-                                <!--</label>-->
+                            <!--<div style="width: 133px; height: 122.891px;">-->
+                            <!--<img name="preview" class="d-flex align-self-center" width="115"-->
+                            <!--[src]="previewvalue" alt=""-->
+                            <!--style="border: 1px solid #bcbcbc; padding: 5px; width: 90%; height: 100%;"-->
+                            <!--appImageZoom>-->
+                            <!--</div>-->
+                            <!--<label class="fileContainer cp">-->
+                            <!--<button mat-raised-button color="primary">-->
+                            <!--<mat-icon>camera</mat-icon>-->
+                            <!--Subir foto-->
+                            <!--</button>-->
+                            <!--<input type="file" class="" name="icon" size="20"-->
+                            <!--(change)="onFileChange($event)" #fileInput/>-->
+                            <!--</label>-->
                             <!--</div>-->
                             <div style="text-align: right">
                                 <button [disabled]="" mat-raised-button color="primary" matStepperNext>
@@ -167,7 +191,7 @@
                         <br>
                         <div class="row">
                             <button class="pull-left col-xs-12" mat-raised-button color="primary"
-                            (click)="timesDialog()">
+                                    (click)="timesDialog()">
                                 Gestión de horarios
                             </button>
                         </div>

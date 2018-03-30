@@ -28,6 +28,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     positiontitle: string;
     cities: City[];
     categories: any;
+    categ: any;
     latitude: number;
     longitude: number;
     positions: any;
@@ -50,7 +51,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
                 private snackBar: MatSnackBar, public zone: NgZone, public dialog: MatDialog) {
         $('#categories').select2();
         $('#cities').select2();
-
+        this.edit = false;
         this.loading = false;
         if (typeof google !== 'undefined') {
             this.latLng = new google.maps.LatLng(23.13302, -82.38304);
@@ -160,12 +161,46 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         this.markers = new Array();
         this.previewvalue = 'assets/service_img.png';
 
+    }
+
+
+    ngOnInit() {
+        window.scrollTo(0, 0);
+
+        this.apiServices.cities().subscribe(result => {
+            this.cities = result;
+            $('#cities').select2();
+        });
+
+        this.apiServices.allSubCategories().subscribe(result => {
+            this.categories = result;
+            $('#categories').select2();
+            $('#categoriesedit').select2();
+        });
+
+        this.apiServices.categories().subscribe(result => {
+            this.categ = result;
+            $('#categedit').select2();
+
+            $('#categ').select2();
+            $('#categ')
+                .on('change', (e) => {
+                    const id = $('#categ').select2('val');
+
+                    this.apiServices.subCategories(id).subscribe(result => {
+                        this.categories = result;
+                        $('#categories').select2();
+                    });
+                });
+        });
+
+        this.createForms();
+
         this.route.params.subscribe(params => {
             if (params['id']) {
                 this.apiServices.service(params['id']).subscribe(result => {
                     this.edit = true;
                     this.service = result.data;
-
                     if (this.service.icon)
                         this.previewvalue = this.service.icon;
 
@@ -174,12 +209,29 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
                         citiesId.push(result.data.citiesList[i].id);
                     }
                     this.service.cities = citiesId;
+                    const subList = result.data.subcategoriesList;
 
-                    const subcategoriesId = [];
-                    for (let i = 0; i < result.data.subcategoriesList.length; i++) {
-                        subcategoriesId.push(result.data.subcategoriesList[i].id);
-                    }
-                    this.service.categories = subcategoriesId;
+                    this.apiServices.subCategories(result.data.subcategoriesList[0].category.id).subscribe(result => {
+                        this.categories = result;
+                        $('#categoriesedit').select2();
+                        const subcategoriesId = [];
+                        for (let i = 0; i < subList.length; i++) {
+                            subcategoriesId.push(subList[i].id);
+                        }
+                        this.service.categories = subcategoriesId;
+                        $('#categoriesedit').select2('val', subcategoriesId.map(String));
+                        $('#categedit').select2();
+                        $('#categedit').select2('val', subList[0].category.id);
+                        $('#categedit')
+                            .on('change', (e) => {
+                                const id = $('#categedit').select2('val');
+
+                                this.apiServices.subCategories(id).subscribe(result => {
+                                    this.categories = result;
+                                    $('#categoriesedit').select2();
+                                });
+                            });
+                    });
 
                     for (let i = 0; i < result.data.imagesList.length; i++) {
                         this.previews[i].src = result.data.imagesList[i].title;
@@ -187,8 +239,9 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
                         this.previews[i].id = result.data.imagesList[i].id;
                     }
 
-                    $('#categories').select2('val', this.service.categories.map(String));
+                    // $('#categ').select2('val', result.data.subcategoriesList[0].category.id);
                     $('#cities').select2('val', this.service.cities.map(String));
+
 
                     // let daysId = result.data.week_days.split(',');
                     // this.service.week_days = [false, false, false, false, false, false, false];
@@ -204,21 +257,6 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
                 });
             }
         });
-    }
-
-
-    ngOnInit() {
-        window.scrollTo(0, 0);
-
-        this.apiServices.cities().subscribe(result => {
-            this.cities = result;
-            $('#cities').select2();
-        });
-        this.apiServices.allSubCategories().subscribe(result => {
-            this.categories = result;
-            $('#categories').select2();
-        });
-        this.createForms();
 
 
     }
@@ -228,12 +266,19 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
             this.initMap();
         }
 
+
     }
 
     onChangeTab(event) {
         window.scrollTo(0, 0);
         if (event.selectedIndex === 3) {
-            const categories = $('#categories').select2('val');
+            let categories: any;
+            if (this.edit === true) {
+                categories = $('#categoriesedit').select2('val');
+            }
+            else {
+                categories = $('#categories').select2('val');
+            }
             const cities = $('#cities').select2('val');
             if (!isNull(categories))
                 this.service.categories = categories.map(Number);
@@ -472,7 +517,6 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         }
 
         this.service.dropsImages = this.dropsImages;
-
         this.apiServices.createFullService(this.service).subscribe(result => {
             this.loading = false;
             if (result) {
