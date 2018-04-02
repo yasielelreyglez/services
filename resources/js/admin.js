@@ -7,7 +7,7 @@ $(document).ready(function ($) {
     if (typeof google !== 'undefined') {
         console.log(google);
         // the variable is defined
-        var initialLocation = new google.maps.LatLng(23.13302, -82.38304);
+        var initialLocation = new google.maps.LatLng(-0.1911519, -78.4820116);
         if ($("#map_create").length > 0) {
             initMap();
         }
@@ -295,7 +295,7 @@ function showFilterResult(services) {
 }
 
 function initMap() {
-    var initialLocation = new google.maps.LatLng(23.13302, -82.38304);
+    var initialLocation = new google.maps.LatLng(-0.1911519, -78.4820116);
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);

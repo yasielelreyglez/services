@@ -54,7 +54,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         this.edit = false;
         this.loading = false;
         if (typeof google !== 'undefined') {
-            this.latLng = new google.maps.LatLng(-1.831239, -78.183403);
+            this.latLng = new google.maps.LatLng(-0.1911519, -78.4820116);
             this.infoWindow = new google.maps.InfoWindow;
         }
         this.flagPosition = false;
