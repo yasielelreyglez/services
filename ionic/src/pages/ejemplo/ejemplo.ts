@@ -41,11 +41,11 @@ export class EjemploPage {
 
 
     // pa la distancia entre 2 puntos
-    var from = new google.maps.LatLng(23.12806, -82.31579);
+    var from = new google.maps.LatLng(-0.1911519, -78.4820116);
     // var from = new google.maps.LatLng(46.5610058, 26.9098054);
 
-    var dest = new google.maps.LatLng(23.13884, -82.30518);
-    var dest2 = new google.maps.LatLng(23.13884, -82.40518);
+    var dest = new google.maps.LatLng(-0.1911519, -78.4820116);
+    var dest2 = new google.maps.LatLng(-0.1911519, -78.4820116);
     // var dest = new google.maps.LatLng(44.391403, 26.1157184);
 
 
@@ -65,9 +65,9 @@ callbakc (response, status){
 
 // mostrar ruta entre 2 puntos
   calculateAndDisplayRoute() {
-    var start = new google.maps.LatLng(23.11941, -82.32134);
+    var start = new google.maps.LatLng(-0.1911519, -78.4820116);
     //var end = new google.maps.LatLng(38.334818, -181.884886);
-    var end = new google.maps.LatLng(23.10229, -82.34885);
+    var end = new google.maps.LatLng(-0.1911519, -78.4820116);
     this.directionsService.route({
       origin: start,
       destination:  end,

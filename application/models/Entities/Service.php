@@ -785,6 +785,12 @@ namespace Entities {
             $this->imagesList = [];
             if($this->getProfessional()) {
                 $this->imagesList  = $this->getImages()->toArray();
+            }else{
+                $image = new Image();
+                $image->setTitle($this->getIcon());
+                $image->setThumb($this->getThumb());
+                $this->imagesList  = [];
+                $this->imagesList[]=$image;
             }
             $this->positionsList = $this->getPositions()->toArray();
             $times = $this->getTimes();

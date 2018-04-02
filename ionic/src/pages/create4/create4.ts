@@ -115,7 +115,7 @@ export class Create4Page {
     this.servProv.createFullService(this.service).then(
       (data) => {
         console.log(data);
-        //this.navCtrl.setRoot(HomePage);
+        this.navCtrl.setRoot(HomePage);
         loading.dismiss();
         // openServicePage(id, index) {
         this.navCtrl.push(ServicePage, {

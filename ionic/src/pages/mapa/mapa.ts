@@ -154,7 +154,7 @@ export class MapaPage {
 
   loadMap() {
     let mapOptions = {
-      center: new google.maps.LatLng(23.13302, -82.38304),
+      center: new google.maps.LatLng(-0.1911519, -78.4820116),
       disableDefaultUI: true,
       zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP

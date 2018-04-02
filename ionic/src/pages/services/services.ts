@@ -240,8 +240,8 @@ export class ServicesPage {
 
         } else {
           this.servProv.filterService(this.filter_city, this.filter_category, this.filter_distance, {
-            latitude: 23.106131899999998,
-            longitude: -82.33370029999999
+            latitude: -0.1911519,
+            longitude: -78.4820116
           })
             .then(data => {
                 this.services = data["services"];
