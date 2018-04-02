@@ -4,9 +4,9 @@ import {sendService} from '../../models/sendService';
 import {ServiceProvider} from '../../providers/service/service.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Position} from "../../models/position";
+import {HomePage} from '../home/home';
 import {ServicePage} from "../service/service";
 import {Geolocation, PositionError} from "@ionic-native/geolocation";
-import {AuthProvider} from "../../providers/auth/auth";
 
 /**
  * Generated class for the Create4Page page.
@@ -34,10 +34,6 @@ export class Create4Page {
 
   cant_c: any;
   latLng: any;
-  // infowindow = new google.maps.InfoWindow;
-  // directionsService = new google.maps.DirectionsService;
-  // directionsDisplay = new google.maps.DirectionsRenderer;
-  // distanceM = new google.maps.DistanceMatrixService();
   @ViewChild('map') mapElement: ElementRef;
   map: any;
   currentPosition: any;
@@ -46,10 +42,7 @@ export class Create4Page {
   longitude: number;
   flagPosition = false;
 
-  constructor(private geolocation: Geolocation, public auth: AuthProvider,
-              public load: LoadingController,
-              public navCtrl: NavController,
-              public navParams: NavParams, public servProv: ServiceProvider) {
+  constructor(private geolocation: Geolocation, public load: LoadingController, public navCtrl: NavController, public navParams: NavParams, public servProv: ServiceProvider) {
     this.service = this.navParams.get("service");
     this.service.positions = [];
     this.markers = [];
@@ -57,14 +50,7 @@ export class Create4Page {
       this.edit = true;
       this.positions = this.navParams.get("service").positionsList;
     }
-    // if (typeof google !== 'undefined') {
-    //   this.latLng = new google.maps.LatLng(23.126606, -82.32528);
-    //
-    //   this.infowindow = new google.maps.InfoWindow;
-    //   this.directionsService = new google.maps.DirectionsService;
-    //   this.directionsDisplay = new google.maps.DirectionsRenderer;
-    //   this.distanceM = new google.maps.DistanceMatrixService();
-    // }
+
   }
 
   goToCreate3() {
@@ -72,44 +58,29 @@ export class Create4Page {
   }
 
   ionViewDidLoad() {
-    if (this.auth.getLatitud() != null) {
-      this.latLng = new google.maps.LatLng(this.auth.getLatitud(), this.auth.getLongitud());
-      console.log("tenia longitud")
-    }
-    else{
-      console.log("no tenia longitud")
-      if (typeof google !== 'undefined') {
-        this.geolocation.getCurrentPosition().then((pos) => {
-          this.latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-          // this.latLng = new google.maps.LatLng(23.126606, -82.32528);
+    if (typeof google !== 'undefined') {
+      this.geolocation.getCurrentPosition().then((pos) => {
+        this.latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+        // this.latLng = new google.maps.LatLng(23.126606, -82.32528);
 
-          this.infowindow = new google.maps.InfoWindow;
-          this.directionsService = new google.maps.DirectionsService;
-          this.directionsDisplay = new google.maps.DirectionsRenderer;
-          this.distanceM = new google.maps.DistanceMatrixService();
+        this.infowindow = new google.maps.InfoWindow;
+        this.directionsService = new google.maps.DirectionsService;
+        this.directionsDisplay = new google.maps.DirectionsRenderer;
+        this.distanceM = new google.maps.DistanceMatrixService();
 
-          this.initMap();
+        this.initMap();
 
-        }, (err: PositionError) => {
-          console.log("error : " + err.message);
-        });
-        // this.initMap();
-      }
+      }, (err: PositionError) => {
+        console.log("error : " + err.message);
+      });
+      // this.initMap();
     }
   }
 
   crearService() {
-    let loading;
-    if (this.edit) {
-      loading = this.load.create({
-        content: "Editando servicio..."
-      });
-    } else {
-      loading = this.load.create({
-        content: "Creando servicio..."
-      });
-    }
-
+    let loading = this.load.create({
+      content: "Creando servicio..."
+    });
     loading.present();
     this.service.positions = this.positions;
     this.servProv.createFullService(this.service).then(
@@ -117,15 +88,12 @@ export class Create4Page {
         console.log(data);
         this.navCtrl.setRoot(HomePage);
         loading.dismiss();
-        // openServicePage(id, index) {
         this.navCtrl.push(ServicePage, {
           service: data, //paso el service
           serviceId: data.id,  //si paso el id del servicio para la peticion
         });
-        // }
       },
       (err: HttpErrorResponse) => {
-        // this.navCtrl.setRoot(HomePage);
         console.log("error en el servidor");
         loading.dismiss();
       }
