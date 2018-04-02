@@ -31,7 +31,7 @@ export class EjemploPage {
   }
 
   initMap() {
-    let cuba = new google.maps.LatLng(23.11941, -82.32134);
+    let cuba = new google.maps.LatLng(-0.1911519, -78.4820116);
     this.map = new google.maps.Map(this.mapElement.nativeElement, {
       zoom: 7,
       center: cuba

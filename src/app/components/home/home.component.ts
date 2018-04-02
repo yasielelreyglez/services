@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
     constructor(private apiServices: ApiService, private router: Router, public dialog: MatDialog, private snackBar: MatSnackBar,
                 private authServices: AuthService) {
         if (typeof google !== 'undefined') {
-            this.latLng = new google.maps.LatLng(23.13302, -82.38304);
+            this.latLng = new google.maps.LatLng(-0.1911519, -78.4820116);
             this.infoWindow = new google.maps.InfoWindow;
             this.markers = new Array();
         }

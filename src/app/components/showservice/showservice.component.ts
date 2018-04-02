@@ -60,7 +60,7 @@ export class ShowserviceComponent implements OnInit, AfterViewInit, AfterContent
 
         this.submitAttempt = false;
         if (typeof google !== 'undefined') {
-            this.latLng = new google.maps.LatLng(23.13302, -82.38304);
+            this.latLng = new google.maps.LatLng(-0.1911519, -78.4820116);
             this.infoWindow = new google.maps.InfoWindow;
 
             this.image = new google.maps.MarkerImage('https://upload.wikimedia.org/wikipedia/commons/a/a2/Location_dot_cyan.svg', null, null, null, new google.maps.Size(15, 15));
