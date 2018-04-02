@@ -108,10 +108,10 @@ class User extends \Entities\User implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'username', 'email', 'password', 'ip_address', 'remember_code', 'salt', 'created_on', 'last_login', 'active', 'role', '' . "\0" . 'Entities\\User' . "\0" . 'userservices', '' . "\0" . 'Entities\\User' . "\0" . 'mensajesc', '' . "\0" . 'Entities\\User' . "\0" . 'mensajes', '' . "\0" . 'Entities\\User' . "\0" . 'usercomments', '' . "\0" . 'Entities\\User' . "\0" . 'reportcomments', 'services'];
+            return ['__isInitialized__', 'id', 'username', 'email', 'password', 'ip_address', 'remember_code', 'salt', 'created_on', 'last_login', 'active', 'role', '' . "\0" . 'Entities\\User' . "\0" . 'userservices', '' . "\0" . 'Entities\\User' . "\0" . 'mensajesc', '' . "\0" . 'Entities\\User' . "\0" . 'mensajes', '' . "\0" . 'Entities\\User' . "\0" . 'usercomments', '' . "\0" . 'Entities\\User' . "\0" . 'reportcomments', 'forgotten_password_code', 'forgotten_password_time', 'services'];
         }
 
-        return ['__isInitialized__', 'id', 'password', 'ip_address', 'remember_code', 'salt', 'created_on', 'last_login', 'active', 'role', '' . "\0" . 'Entities\\User' . "\0" . 'userservices', '' . "\0" . 'Entities\\User' . "\0" . 'mensajesc', '' . "\0" . 'Entities\\User' . "\0" . 'mensajes', '' . "\0" . 'Entities\\User' . "\0" . 'usercomments', '' . "\0" . 'Entities\\User' . "\0" . 'reportcomments', 'services'];
+        return ['__isInitialized__', 'id', 'password', 'ip_address', 'remember_code', 'salt', 'created_on', 'last_login', 'active', 'role', '' . "\0" . 'Entities\\User' . "\0" . 'userservices', '' . "\0" . 'Entities\\User' . "\0" . 'mensajesc', '' . "\0" . 'Entities\\User' . "\0" . 'mensajes', '' . "\0" . 'Entities\\User' . "\0" . 'usercomments', '' . "\0" . 'Entities\\User' . "\0" . 'reportcomments', 'forgotten_password_code', 'forgotten_password_time', 'services'];
     }
 
     /**
