@@ -1132,7 +1132,7 @@ namespace Entities {
         $sPath = dirname( $sImagen ) . '/';
         // Obtenemos la extension de la imagen
 
-        $sExt = mime_content_type2( $sImagen );
+        $sExt = mime_content_type( $sImagen );
 
         // Creamos el directorio thumbs
         if( ! is_dir( $sPath . 'thumbs/' ) )

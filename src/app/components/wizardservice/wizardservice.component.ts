@@ -54,7 +54,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         this.edit = false;
         this.loading = false;
         if (typeof google !== 'undefined') {
-            this.latLng = new google.maps.LatLng(23.13302, -82.38304);
+            this.latLng = new google.maps.LatLng(-1.831239, -78.183403);
             this.infoWindow = new google.maps.InfoWindow;
         }
         this.flagPosition = false;
@@ -189,7 +189,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
 
                     this.apiServices.subCategories(id).subscribe(result => {
                         this.categories = result;
-                        $('#categories').select2();
+                       // $('#categories').select2();
                     });
                 });
         });
@@ -228,7 +228,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
 
                                 this.apiServices.subCategories(id).subscribe(result => {
                                     this.categories = result;
-                                    $('#categoriesedit').select2();
+                                    // $('#categoriesedit').select2();
                                 });
                             });
                     });
