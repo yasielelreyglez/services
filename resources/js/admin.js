@@ -222,7 +222,14 @@ function listPositions(){
 function removePosition(i){
     var value = $('#positions').val(); //retrieve array
     value = JSON.parse(value);
-    value.splice(i,1);
+    $.each(gmarkers, function (indexInArray) {
+        if (this.name == value[i].title) {
+            this.setMap(null);
+            gmarkers.splice(indexInArray, 1);
+            return;
+        }
+    });
+    value.splice(i, 1);
     $('#positions').val(JSON.stringify(value));
     listPositions();
 }
@@ -345,28 +352,30 @@ function initMap() {
                 addMarker2(algo1,algo2);
                 google.maps.event.clearListeners(algo1, 'click');
             });
+            $("#positiontitle").val('');
+            $("#positiontitle").removeClass('input-error');
         }
 
     })
 }
 var lastPosition= null;
-function addMarker2(map,location) {
-    console.log("esto es algo 1",map);
-    console.log("esto es algo 2",location);
+function addMarker2(map, location) {
     var lattn = location.latLng;
     lastPosition = lattn;
     var ltn = lattn.lat();
-    var lng =  lattn.lng();
-    var initialLocation = new google.maps.LatLng(ltn,lng)
+    var lng = lattn.lng();
+    var initialLocation = new google.maps.LatLng(ltn, lng)
     var marker = new google.maps.Marker({
+        name: $("#positiontitle").val(),
         position: initialLocation,
-        map:map,
+        map: map,
         draggable: true
     });
+    gmarkers.push(marker);
     map.panTo(initialLocation);
     google.maps.event.addListener(marker, 'dragend', function () {
         lastPosition = marker.getPosition();
-        console.log("ueeeeoooo",lastPosition);
+        console.log("ueeeeoooo", lastPosition);
     });
 }
 
