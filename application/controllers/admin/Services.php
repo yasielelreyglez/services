@@ -233,17 +233,14 @@ class Services extends CI_Controller {
                         $image = $em->find("\Entities\Image", $fotoold);
                         $imageName = explode('/', $image->title);
                         $path = "./resources/services/" . $id . "/" . $imageName[count($imageName)-1];
-                        ;
 //                        echo $path;
 //                        @unlink($path);
-//                        print_r($service->removeImage($image));
-                        $em->remove($image);
-                        $em->persist($image);
-                        $em->persist($service);
-//                        die;
                         try {
                             if (@unlink($path)) {
                                 $service->removeImage($image);
+                                $em->persist($image);
+                                $em->remove($image);
+                                $em->flush();
                             }
                         } catch (Exception $e) {
                             echo $path;
