@@ -1,4 +1,4 @@
-<?= form_open_multipart('admin/services/save', array('role'=>'form','class'=>'f1')); ?><?php if (validation_errors() != NULL && validation_errors() != '') { ?>
+<?= form_open_multipart('admin/services/save', array('role' => 'form', 'class' => 'f1')); ?><?php if (validation_errors() != NULL && validation_errors() != '') { ?>
     <div class="alert alert-danger"><?= validation_errors(); ?></div><?php } ?>
 <nav aria-label="Page navigation">
     <ul class="pagination step-views">
@@ -15,8 +15,6 @@
 </nav>
 
 
-
-
 <div class="step listing-3 listing-variation">
     <div class="container">
         <div id="step1" class="item-step active">
@@ -25,7 +23,8 @@
             </div>
             <div class="form-group">
                 <label for="title">Título*:</label><br/>
-                <input type="text" required class="form-control" name="title" placeholder="Escribe el Título" value="<?= isset($services) ? $services->title : '' ?>" />
+                <input type="text" required class="form-control" name="title" placeholder="Escribe el Título"
+                       value="<?= isset($services) ? $services->title : '' ?>"/>
             </div>
             <div class="form-group">
                 <label for="subtitle">Slogan*:</label><br/>
@@ -44,7 +43,9 @@
             </div>
             <div class="form-group">
                 <label for="phone">Descripción:</label><br/>
-                <textarea rows="3" cols="50" class="form-control" name="description" placeholder="Descripción del servicio" value="<?= isset($services) ? $services->getDescription() : '' ?>"></textarea>
+                <textarea rows="3" cols="50" class="form-control" name="description"
+                          placeholder="Descripción del servicio"
+                          value="<?= isset($services) ? $services->getDescription() : '' ?>"></textarea>
             </div>
             <div class="form-group">
                 <label for="cities">Cuidades*:</label><br/>
@@ -70,7 +71,7 @@
                 <label for="categories">Categorías*:</label><br/>
                 <select multiple="true" class="custom-select" name="categories[]"
                         placeholder="Escoja la categoría">
-                    <?php foreach ($subcategories as $subcategory): $selected = '';?>
+                    <?php foreach ($subcategories as $subcategory): $selected = ''; ?>
                         <?php if (isset($currenSubCategories)) {
                             foreach ($currenSubCategories as $cSubcat) {
                                 if ($subcategory->id == $cSubcat->id) {
@@ -92,19 +93,26 @@
         </div>
         <div id="step2" class="item-step ">
             <?php if (isset($services)): ?>
-                <?php foreach ($currenImages as $key => $image): ?>
-                    <div class="form-group">
-                        <label for="icon">Imagen:</label><br/>
-                        <img src="<?= $image->title ?>" width="80px" height="70px"/>
-                    </div>
-                <?php endforeach; ?>
-                <input type="hidden" name="images_deleted" id="images_deleted"/>
+                <div class="row">
+                    <?php foreach ($currenImages as $key => $image): ?>
+                        <div class="card m-3 disabled" style="width: 18rem;">
+                            <img class="card-img-top" src="<?= $image->title ?>" alt="Card image cap">
+                            <div class="card-body align-bottom"
+                                 style="height: 25px; position: absolute; right: 5px; bottom: 5px;">
+                                <a id="<?= $image->id ?>" href="#" title="Eliminar" class="card-link delete-image align-right remove-icon">
+                                    <i class="fa fa-trash" style="color: white"></i>
+                                </a>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                    <input type="hidden" name="images_deleted" id="images_deleted" value="[]"/>
+                </div>
             <?php endif; ?>
             <div class="form-group">
-                <label for="icon">Imagen2:</label><br/>
-                <input type="file" id="userfile" name="userfile[]" size="20" value="" multiple/>
+                <label for="icon">Im&aacute;genes:</label><br/>
+                <input type="file" id="userfile" name="userfile[]" size="20" multiple/>
             </div>
-            <div id="image_preview" class="row" >
+            <div id="image_preview" class="row">
 
             </div>
             <div class="f1-buttons">
@@ -115,7 +123,8 @@
         <div id="step3" class="item-step ">
             <div class="form-group">
                 <label for="other_phone">Teléfono adicional:</label><br/>
-                <input type="text" class="form-control" name="other_phone" placeholder="Escriba un Teléfono adicional" value="<?= isset($services) ? $services->other_phone : '' ?>"/></div>
+                <input type="text" class="form-control" name="other_phone" placeholder="Escriba un Teléfono adicional"
+                       value="<?= isset($services) ? $services->other_phone : '' ?>"/></div>
             <div class="form-group">
                 <label for="email">Correo electrónico:</label><br/>
                 <input type="email" class="form-control" name="email"
@@ -149,7 +158,7 @@
                 <div id="map_create"></div>
                 <br>
                 <input type="button"
-                       class="col-12" value="Agregar posiciones" id="addPosition" />
+                       class="col-12" value="Agregar posiciones" id="addPosition"/>
                 <input type="hidden" value="[]" name="positions" id="positions"/>
                 <div id="visual_positions">
 
@@ -175,7 +184,7 @@
                     //                            }
                     //                        }
                     ?>
-                    <input type="checkbox" name="week_days[]" value="<?php echo $key; ?>" data-day="<?= $day ?>" />
+                    <input type="checkbox" name="week_days[]" value="<?php echo $key; ?>" data-day="<?= $day ?>"/>
                     <?php echo htmlspecialchars($day, ENT_QUOTES, 'UTF-8'); ?>
                 </label>
             <?php endforeach; ?>
@@ -194,10 +203,11 @@
             <div class="form-group">
                 <label for="end_time">Hasta:</label><br/>
                 <input type="time" class="form-control" name="end_time" placeholder="Enter End_time"
-                       value="<?=  '16:00' ?>"/>
+                       value="<?= '16:00' ?>"/>
             </div>
             <input type="hidden" value="[]" name="times" id="times"/>
-            <input type="button" class="btn btn-info" id="add_time" value="Agregar Horario" style="margin-bottom: 20px"/>
+            <input type="button" class="btn btn-info" id="add_time" value="Agregar Horario"
+                   style="margin-bottom: 20px"/>
             <div id="visual_horarios">
 
             </div>

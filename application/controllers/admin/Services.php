@@ -76,8 +76,8 @@ class Services extends CI_Controller {
         $data['images'] = $images->findAll();
         $data['positions'] = $positions->findAll();
         $data['days_of_weak'] = $this->days_of_weak;
-        $data['services'] = $service;
-        $data['content'] = '/services/create';
+		$data['services'] = $service;
+		$data['content'] = '/services/create';
         $data["tab"]="services";
         $data["tabTitle"]="editar servicios";
 
@@ -157,7 +157,7 @@ class Services extends CI_Controller {
 //        $this->form_validation->set_rules('subtitle', 'Subtitle', 'required');
 //        $this->form_validation->set_rules('phone', 'Phone', 'required');
 
-        if ($this->form_validation->run()) {
+		if ($this->form_validation->run()) {
             $this->load->helper("file");
 //            echo '<pre>';
 //            print_r($this->input->post('thumbs', TRUE));
@@ -225,13 +225,24 @@ class Services extends CI_Controller {
             //si estoy editando borro fotos anteriores
             if(isset($service->id)) {
                 $images_deleted = $this->input->post('images_deleted', TRUE);
+//                print_r(json_decode($images_deleted));
+//                die;
                 if (isset($images_deleted)){
                     $images_deletedArr = json_decode($images_deleted);
                     foreach ($images_deletedArr as $fotoold) {
-                        $path = "./resources/services/" . $id . "/" . $fotoold->filename;
+                        $image = $em->find("\Entities\Image", $fotoold);
+                        $imageName = explode('/', $image->title);
+                        $path = "./resources/services/" . $id . "/" . $imageName[count($imageName)-1];
+                        ;
+//                        echo $path;
+//                        @unlink($path);
+//                        print_r($service->removeImage($image));
+                        $em->remove($image);
+                        $em->persist($image);
+                        $em->persist($service);
+//                        die;
                         try {
-                            if (delete_files($path)) {
-                                $image = $em->find("\Entities\Image", $fotoold->id);
+                            if (@unlink($path)) {
                                 $service->removeImage($image);
                             }
                         } catch (Exception $e) {
@@ -243,17 +254,21 @@ class Services extends CI_Controller {
             }
 //            print_r($_FILES['userfile']);
             $fotos = $_FILES['userfile'];
-            if (count($_FILES["userfile"]["tmp_name"]) > 0) {
+            if (count($_FILES["userfile"]["tmp_name"]) > 0 && $_FILES["userfile"]["tmp_name"][0]!=null) {
+//                print_r($_FILES["userfile"]["tmp_name"]);
+//                die;
 //                echo "ENTRA A VER QUE SON MAS FOTOS";
                 $fotoSubir = array();
                 for($i=0; $i < count($_FILES["userfile"]["tmp_name"]); $i++){
                     $fotoSubir[$i]['filename'] = $fotos['name'][$i];
                     $fotoSubir[$i]['value'] = $fotos['tmp_name'][$i];
                 }
-                $service->addFotos($fotoSubir, site_url(), true);
-                //guardo la primera foto
-                $service->setIcon(site_url('resources/services/'.$fotoSubir[0]["filename"]));
-                $service->setThumb($fotoSubir[0]['filename']);
+                if(count($fotoSubir)> 0){
+                    $service->addFotos($fotoSubir, site_url(), true);
+                    //guardo la primera foto
+                    $service->setIcon(site_url('resources/services/'.$fotoSubir[0]["filename"]));
+                    $service->setThumb($fotoSubir[0]['filename']);
+                }
             }else{
 //                echo"NO VE LAS FOTOS";
             }

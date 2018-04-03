@@ -198,8 +198,6 @@ class Auth extends CI_Controller
 		}
 	}
 
-
-
 	/**
 	 * Forgot password
 	 */
