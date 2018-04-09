@@ -40,7 +40,7 @@ class Api extends REST_Controller
         $morevisits = $morevisitsRepo->findBy(array(), array('visits' => 'DESC'), 3);
 
         foreach ($morevisits as $service) {
-            $service->loadRelatedData();
+            $service->loadRelatedData(null, null, site_url());
         }
 
         if ($morevisits) {
@@ -63,7 +63,7 @@ class Api extends REST_Controller
         $mostRecent = $serviceRepo->findBy(array(), array('created' => 'DESC'), 3);
 
         foreach ($mostRecent as $service) {
-            $service->loadRelatedData();
+            $service->loadRelatedData(null, null, site_url());
         }
 
         if ($mostRecent) {
@@ -86,7 +86,7 @@ class Api extends REST_Controller
         $bestRated = $serviceRepo->findBy(array(), array('globalrate' => 'DESC'), 3);
 
         foreach ($bestRated as $service) {
-            $service->loadRelatedData();
+            $service->loadRelatedData(null, null, site_url());
         }
 
         if ($bestRated) {
@@ -109,7 +109,7 @@ class Api extends REST_Controller
         $morevisits = $morevisitsRepo->findBy(array(), array('visit_at' => 'DESC'), 4);
 
         foreach ($morevisits as $service) {
-            $service->loadRelatedData();
+            $service->loadRelatedData(null, null, site_url());
         }
 
         if ($morevisits) {
@@ -262,7 +262,7 @@ class Api extends REST_Controller
 
         $respuesta = $serviceRepo->matching($criteria);
         foreach ($respuesta as $service) {
-            $service->loadRelatedData();
+            $service->loadRelatedData(null, null, site_url());
         }
         $response["desc"] = "Resultados de la busqueda";
         $response["query"] = $query;
@@ -286,16 +286,16 @@ class Api extends REST_Controller
             $services = $subcategory->getServices()->toArray();
             $user = $this->getCurrentUser();
             foreach ($services as $service) {
-                $service->loadRelatedData();
+                $service->loadRelatedData(null, null, site_url());
                 if ($user) {
                     $service->loadRelatedUserData($user);
                 }
             }
             $category = $subcategory->getCategory();
-            $response["category"]=array();
-            $response["category"][]=$category->getTitle();
-            $response["subcategory"]=array();
-            $response["subcategory"][]=$subcategory->getTitle();
+            $response["category"] = array();
+            $response["category"][] = $category->getTitle();
+            $response["subcategory"] = array();
+            $response["subcategory"][] = $subcategory->getTitle();
             $response["data"] = $services;
         } else {
             $response["desc"] = "Subcategoria no encontrada";
@@ -321,8 +321,9 @@ class Api extends REST_Controller
                 $service->loadRelatedUserData($user);
             }
             $service->subcategoriesList = $service->getSubcategories()->toArray();
-            $service->loadRelatedData($user);
+            $service->loadRelatedData($user, null, site_url());
         }
+
         $result["data"] = $service;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
@@ -370,7 +371,7 @@ class Api extends REST_Controller
         $filtered = false;
         if ($categorias) {
             $filtered = true;
-            $result1 =  $this->filterBySubcategories($categorias);
+            $result1 = $this->filterBySubcategories($categorias);
             $services = $result1[0];
             if ($ciudades) {
                 $services = $this->filterByCitiesFiltered($ciudades, $filtered, $services);
@@ -394,7 +395,7 @@ class Api extends REST_Controller
         $services_a = array();
         foreach ($services as $service) {
             if (!array_key_exists($service->getId(), $services_a)) {
-                $service->loadRelatedData($user);
+                $service->loadRelatedData($user, null, site_url());
                 if ($user) {
                     $service->loadRelatedUserData($user);
                 }
@@ -433,7 +434,7 @@ class Api extends REST_Controller
             $em->persist($mensaje);
             $em->persist($obj);
             $em->flush();
-            $service->loadRelatedData();
+            $service->loadRelatedData(null, null, site_url());
 
             $result["data"] = $service;
         } else {
@@ -471,7 +472,7 @@ class Api extends REST_Controller
             $em->persist($mensaje);
             $em->persist($obj);
             $em->flush();
-            $service->loadRelatedData();
+            $service->loadRelatedData(null, null, site_url());
 
             $result["data"] = $service;
         } else {
@@ -501,7 +502,7 @@ class Api extends REST_Controller
                 $obj->setUser($user);
             }
             $obj->setContacted(1);
-            $obj->loadRelatedData();
+            $obj->loadRelatedData(null, null, site_url());
             $em->persist($obj);
             $em->flush();
             $this->set_response($obj, REST_Controller::HTTP_OK);
@@ -530,7 +531,7 @@ class Api extends REST_Controller
         $em->persist($obj);
         $em->flush();
         $result["desc"] = "Marcado como favorito el servicio {$service->getTitle()}";
-        $service->loadRelatedData();
+        $service->loadRelatedData(null, null, site_url());
         $result["data"] = $service;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
@@ -553,7 +554,7 @@ class Api extends REST_Controller
         $em->persist($obj);
         $em->flush();
         $result["desc"] = "Desmarcado como favorito el servicio {$service->getTitle()}";
-        $service->loadRelatedData();
+        $service->loadRelatedData(null, null, site_url());
         $result["data"] = $service;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
@@ -571,7 +572,7 @@ class Api extends REST_Controller
         $result["data"] = array();
         foreach ($relacion as $servicerel) {
             $service_obj = $servicerel->getService();
-            $service_obj->loadRelatedData();
+            $service_obj->loadRelatedData(null, null, site_url());
             $result["test"] = $service_obj->loadRelatedUserData($user);
             $result["data"][] = $service_obj;
         }
@@ -590,7 +591,7 @@ class Api extends REST_Controller
         $result["desc"] = "Listado de los servicios creados por el usuario";
         $result["data"] = array();
         foreach ($relacion as $service) {
-            $service->loadRelatedData();
+            $service->loadRelatedData(null, null, site_url());
             $service->loadRelatedUserData($user);
             $result["data"][] = $service;
         }
@@ -627,9 +628,9 @@ class Api extends REST_Controller
             $em->persist($obj);
             $em->flush();
             $service->loadRelatedUserData($user);
-            $service->loadRelatedData();
+            $service->loadRelatedData(null, null, site_url());
             $result["desc"] = "Evaluando al anuncio $id con $rate puntos";
-            $service->loadRelatedData();
+            $service->loadRelatedData(null, null, site_url());
             $result["data"] = $service;
         } else {
             $result["desc"] = "El servicio no existe";
@@ -663,7 +664,7 @@ class Api extends REST_Controller
             $obj->setRate($rate);
 
             $comment_param = $this->post("comment", true);
-            $this->addComent($service,$user,$comment_param);
+            $this->addComent($service, $user, $comment_param);
             $obj->setRatecomment($comment_param);
             $em->persist($obj);
             $em->flush();
@@ -673,9 +674,9 @@ class Api extends REST_Controller
             $em->persist($obj);
             $em->flush();
             $service->loadRelatedUserData($user);
-            $service->loadRelatedData();
+            $service->loadRelatedData(null, null, site_url());
             $result["desc"] = "Evaluando al anuncio $id con $rate puntos";
-            $service->loadRelatedData();
+            $service->loadRelatedData(null, null, site_url());
             $result["data"] = $service;
         } else {
             $result["desc"] = "El servicio no existe";
@@ -698,7 +699,7 @@ class Api extends REST_Controller
         foreach ($relacion as $servicerel) {
             $service_obj = $servicerel->getService();
             $service_obj->loadRelatedUserData($user);
-            $service_obj->loadRelatedData();
+            $service_obj->loadRelatedData(null, null, site_url());
             $result["data"][] = $service_obj;
         }
 
@@ -721,7 +722,8 @@ class Api extends REST_Controller
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
-    public function mvPositions_get(){
+    public function mvPositions_get()
+    {
         $em = $this->doctrine->em;
         $morevisitsRepo = $em->getRepository('Entities\Service');
         $morevisits = $morevisitsRepo->findBy(array(), array('visits' => 'DESC'), 5);
@@ -736,6 +738,7 @@ class Api extends REST_Controller
         $this->set_response($response, REST_Controller::HTTP_OK);
 
     }
+
     //obtener las posiciones de un servicio
     public function positions_get($id)
     {
@@ -779,17 +782,19 @@ class Api extends REST_Controller
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
-    private function addComent($service,$user,$comment_param){
+    private function addComent($service, $user, $comment_param)
+    {
         $em = $this->doctrine->em;
         $comment = new \Entities\Comments();
         $comment->setUser($user);
         $comment->setService($service);
-        if($comment_param){
+        if ($comment_param) {
             $comment->setComment($comment_param);
             $em->persist($comment);
             $em->flush();
         }
     }
+
     public function addcomment_get($id)
     {
         $comment = $this->input->get("comment", true);
@@ -809,7 +814,7 @@ class Api extends REST_Controller
             $result["desc"] = "ERROR COMENTANDO EL SERVICIO $service->getTitle()";
             $result["error"] = "No esta autenticado o no existe el servicio";
         }
-        $service->loadRelatedData();
+        $service->loadRelatedData(null, null, site_url());
         $result["data"] = $service;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
@@ -1107,7 +1112,7 @@ class Api extends REST_Controller
                 $path = "./resources/services/" . $icon['filename'];
                 $save = "/resources/services/" . $icon['filename'];
                 file_put_contents($path, base64_decode($icon['value']));
-                $service->setIcon(site_url($save));
+                $service->setIcon($save);
                 $service->setThumb($icon['filename']);
             }
         }
@@ -1116,22 +1121,23 @@ class Api extends REST_Controller
         $service->setEmail($this->post('email', TRUE));
         $service->setUrl($this->post('url', TRUE));
         $timesoldobj = $service->getTimes();
-        if($timesoldobj) {
+        if ($timesoldobj) {
             $times_old = $timesoldobj->toArray();
-        }else{
+        } else {
             $times_old = false;
         }
-		if($times_old){
-        if (is_array($times_old)){
-            foreach ($times_old as $old_time) {
-                $em->remove($old_time);
+        if ($times_old) {
+            if (is_array($times_old)) {
+                foreach ($times_old as $old_time) {
+                    $em->remove($old_time);
+                }
             }
-        }}
+        }
         $em->flush();
         $times = $this->post('times', TRUE);
-       if(is_array($times)) {
-           $service->addTimes($times);
-       }
+        if (is_array($times)) {
+            $service->addTimes($times);
+        }
         $em->flush();
         $service->setDescription($this->post('description', TRUE));
 //        $service->setWeekDays(substr($string_week, 1, strlen($string_week) - 1));
@@ -1150,25 +1156,26 @@ class Api extends REST_Controller
         $em->flush();
         //GALERIA DE FOTOS
         $fotos = $this->post('gallery', TRUE);
-		if (count($fotos) > 0) {
-			$service->addFotos($fotos, base_url());	
-			
-			$path = "./resources/services/" . $fotos[0]['filename'];
-			$save = "/resources/services/" . $fotos[0]['filename'];
-			file_put_contents($path, base64_decode($fotos[0]['value']));
-			$service->setIcon(site_url($save));
-			$service->setThumb($fotos[0]['filename']);
-            
-		}
+        if (count($fotos) > 0) {
+            $service->addFotos($fotos, base_url());
 
-        
+            $path = "./resources/services/" . $fotos[0]['filename'];
+            $save = "/resources/services/" . $fotos[0]['filename'];
+            file_put_contents($path, base64_decode($fotos[0]['value']));
+            $service->setIcon($save);
+            $service->setThumb($fotos[0]['filename']);
+
+        }
+
+
         $em->persist($service);
         $em->flush();
-        $service->loadRelatedData($this->getCurrentUser());
+        $service->loadRelatedData($this->getCurrentUser(), null, site_url());
         $service->loadRelatedUserData($this->getCurrentUser());
 
         $this->set_response($service, REST_Controller::HTTP_OK);
     }
+
     //CREANDO UN SERVICIO
     function createservice_post()
     {
@@ -1342,19 +1349,22 @@ class Api extends REST_Controller
         }
     }
 
-    function  borrarmensaje_post($pos){
+    function borrarmensaje_post($pos)
+    {
         $user = $this->getCurrentUser();
         if ($user) {
             $em = $this->doctrine->em;
             $mensajes = $em->find("Entities\Mensaje", $pos);
             $em->remove($mensajes);
             $em->flush();
-			$this->set_response(['status'=>true]);
-        }else {
-			 $this->set_response(['status'=>false]);
-		}
+            $this->set_response(['status' => true]);
+        } else {
+            $this->set_response(['status' => false]);
+        }
     }
-    function  borrarmensaje_get($pos){
+
+    function borrarmensaje_get($pos)
+    {
         $user = $this->getCurrentUser();
         if ($user) {
             $em = $this->doctrine->em;
@@ -1363,7 +1373,9 @@ class Api extends REST_Controller
             $em->flush();
         }
     }
-    function mensajes_get(){
+
+    function mensajes_get()
+    {
         $user = $this->getCurrentUser();
         if ($user) {
             $em = $this->doctrine->em;
@@ -1374,7 +1386,9 @@ class Api extends REST_Controller
         }
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
-    function leermensaje_get($id){
+
+    function leermensaje_get($id)
+    {
         $em = $this->doctrine->em;
         /** @var Entities\Mensaje $mensaje */
         $mensaje = $em->find("Entities\Mensaje", $id);
@@ -1382,6 +1396,7 @@ class Api extends REST_Controller
         $em->persist($mensaje);
         $em->flush();
     }
+
     // FUNCIONES CAMBIOS
     function mensajesNoleidos_get()
     {
@@ -1544,7 +1559,7 @@ class Api extends REST_Controller
             $services = $subcategory->getServices()->toArray();
             $result_subcategories = array_merge($result_subcategories, $services);
         }
-        return array($result_subcategories,$subcatego_r);
+        return array($result_subcategories, $subcatego_r);
     }
 
     private function filterByDistance($distance, $current_position, $filtered, $services_filtered)

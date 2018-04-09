@@ -1,4 +1,5 @@
 <?php
+
 namespace Entities {
 
     use Doctrine\Common\Collections\ArrayCollection;
@@ -14,7 +15,6 @@ namespace Entities {
          * @var int
          **/
         public $id;
-
 
 
         /**
@@ -198,7 +198,6 @@ namespace Entities {
         private $images;
 
 
-
         /**
          * @ManyToOne(targetEntity="User", inversedBy="mensajes")
          */
@@ -217,6 +216,7 @@ namespace Entities {
          * @OneToMany(targetEntity="Payments", mappedBy="service",cascade={"persist", "remove"})
          */
         protected $payments;
+
         /**
          * Service constructor.
          */
@@ -240,29 +240,36 @@ namespace Entities {
             $this->ratereviews = 0;
         }
         //notificaciones
+
         /**
          * @return Mensaje
          */
-        public function notificarComentario(){
+        public function notificarComentario()
+        {
             return $this->getAuthor()->notificarComentario($this);
         }
 
         /**
          * @return Mensaje
          */
-        public function notificarDenuncia(){
+        public function notificarDenuncia()
+        {
             return $this->getAuthor()->notificarDenuncia($this);
         }
+
         /**
          * @return Mensaje
          */
-        public function notificarBloqueo(){
+        public function notificarBloqueo()
+        {
             return $this->getAuthor()->notificarBloqueo($this);
         }
+
         /**
          * @return Mensaje
          */
-        public function notificarPagoAceptado(){
+        public function notificarPagoAceptado()
+        {
             return $this->getAuthor()->notificarPagoAceptado($this);
 
         }
@@ -291,6 +298,7 @@ namespace Entities {
         {
             $this->email = $email;
         }
+
         /**
          * @return User
          */
@@ -587,7 +595,7 @@ namespace Entities {
             foreach ($cities as $city_id) {
                 $city = $em->find('\Entities\City', $city_id);
                 if ($city) {
-                    if(!in_array($city,$actuales)) {
+                    if (!in_array($city, $actuales)) {
                         $this->addCity($city);
                     }
                 }
@@ -608,7 +616,7 @@ namespace Entities {
             $actuales = $this->getSubcategories()->toArray();
             foreach ($subcategories as $subcategory_id) {
                 $subcategory = $em->find('\Entities\Subcategory', $subcategory_id);
-                if(!in_array($subcategory,$actuales)) {
+                if (!in_array($subcategory, $actuales)) {
                     if ($subcategory) {
                         $this->addSubCategory($subcategory);
                     }
@@ -630,6 +638,7 @@ namespace Entities {
 
             return $this;
         }
+
         /**
          * Remove city
          *
@@ -639,6 +648,7 @@ namespace Entities {
         {
             $this->cities->removeElement($city);
         }
+
         /**
          * Get cities
          *
@@ -648,6 +658,7 @@ namespace Entities {
         {
             return $this->cities;
         }
+
         /**
          * Add serviceuser
          *
@@ -661,6 +672,7 @@ namespace Entities {
 
             return $this;
         }
+
         /**
          * Remove serviceuser
          *
@@ -670,6 +682,7 @@ namespace Entities {
         {
             $this->serviceusers->removeElement($serviceuser);
         }
+
         /**
          * Add Image
          *
@@ -684,6 +697,7 @@ namespace Entities {
 
             return $this;
         }
+
         /**
          * Remove image
          *
@@ -693,6 +707,7 @@ namespace Entities {
         {
             $this->images->removeElement($image);
         }
+
         /**
          * Get images
          *
@@ -702,7 +717,8 @@ namespace Entities {
         {
             return $this->images;
         }
-        public function addFotos(Array $fotos,$site_url, $backend = false)
+
+        public function addFotos(Array $fotos, $site_url, $backend = false)
         {
             if (!is_dir("./resources/services/" . $this->id . "/")) {
                 mkdir("./resources/services/" . $this->id . "/");
@@ -710,34 +726,35 @@ namespace Entities {
 
             foreach ($fotos as $icon) {
                 $path = "./resources/services/" . $this->id . "/" . $icon['filename'];
-                $save_path = "$site_url/resources/services/{$this->id}/{$icon['filename']}";
-                $save_thumb = "$site_url/resources/services/{$this->id}/thumbs/{$icon['filename']}";
+                $save_path = "resources/services/{$this->id}/{$icon['filename']}";
+                $save_thumb = "resources/services/{$this->id}/thumbs/{$icon['filename']}";
 
-                if ($backend==true){
+                if ($backend == true) {
                     move_uploaded_file($icon['value'], $path);
-                }else{
+                } else {
                     file_put_contents($path, base64_decode($icon['value']));
                 }
                 $image = new Image();
                 $image->setTitle($save_path);
-                createThumb($path,700,500);
+                createThumb($path, 700, 500);
                 $image->setThumb($save_thumb);
 
                 $this->addImage($image);
             }
             return $this;
         }
-        public function addPositions(Array $positions,$admin = false)
+
+        public function addPositions(Array $positions, $admin = false)
         {
             foreach ($positions as $position) {
                 $poss = new Position();
-                if($admin) {
+                if ($admin) {
                     $poss->setTitle($position->title);
                     $poss->setLatitude($position->latitude);
                     $poss->setLongitude($position->longitude);
                     $poss->setService($this);
                     $this->addPosition($poss);
-                }else{
+                } else {
                     $poss->setTitle($position["title"]);
                     $poss->setLatitude($position["latitude"]);
                     $poss->setLongitude($position["longitude"]);
@@ -748,31 +765,32 @@ namespace Entities {
             return $this;
         }
 
-        public function loadRelatedData($user = null,$current=null){
+        public function loadRelatedData($user = null, $current = null, $site_url)
+        {
             $this->subcategoriesList = $this->getSubcategories()->toArray();
             $this->servicecommentsList = [];
 
             $temp = $this->getServicecomments()->toArray();
-            foreach ($temp as $comment){
+            foreach ($temp as $comment) {
                 $usuario = $comment->getUser();
                 $usuario->getUsername();
-                $criteria =  \Doctrine\Common\Collections\Criteria::create();
-                $criteria->where( \Doctrine\Common\Collections\Criteria::expr()->eq('user', $usuario));
+                $criteria = \Doctrine\Common\Collections\Criteria::create();
+                $criteria->where(\Doctrine\Common\Collections\Criteria::expr()->eq('user', $usuario));
                 $userservice = $this->serviceusers->matching($criteria);
 
-                if($this->professional){
-                    if(!$comment->hided||$user==$this->author){
-                        if(count($userservice)>0) {
+                if ($this->professional) {
+                    if (!$comment->hided || $user == $this->author) {
+                        if (count($userservice) > 0) {
                             $us_obj = $userservice[0];
-                            if($us_obj!=null)
+                            if ($us_obj != null)
                                 $comment->rate = $us_obj->getRate();
                         }
                         $this->servicecommentsList[] = $comment;
                     }
-                }else{
-                    if(count($userservice)>0) {
+                } else {
+                    if (count($userservice) > 0) {
                         $arr = $userservice->toArray();
-                        if(count($arr)>0) {
+                        if (count($arr) > 0) {
                             $us_obj = $arr[0];
 
                             $comment->rate = $us_obj->getRate();
@@ -783,36 +801,39 @@ namespace Entities {
             }
             $this->citiesList = $this->getCities()->toArray();
             $this->imagesList = [];
-            if($this->getProfessional()) {
-                $this->imagesList  = $this->getImages()->toArray();
-            }else{
+            if ($this->getProfessional()) {
+                $this->imagesList = $this->getImages()->toArray();
+            } else {
                 $image = new Image();
-                $image->setTitle($this->getIcon());
-                $image->setThumb($this->getThumb());
-                $this->imagesList  = [];
-                $this->imagesList[]=$image;
+                $image->setTitle($site_url . $this->getIcon());
+                $image->setThumb($site_url . $this->getThumb());
+                $this->imagesList = [];
+                $this->imagesList[] = $image;
             }
             $this->positionsList = $this->getPositions()->toArray();
             $times = $this->getTimes();
-            if($times)
+            if ($times)
                 $this->timesList = $this->getTimes()->toArray();
             else
                 $this->timesList = [];
             if ($current) {
-                foreach ($this->positionsList as $position){
-                    $position_distance = $position->Distance($current["latitude"],$current["longitude"]);
-                    if(!$this->minorDistance||$this->minorDistance >$position_distance){
+                foreach ($this->positionsList as $position) {
+                    $position_distance = $position->Distance($current["latitude"], $current["longitude"]);
+                    if (!$this->minorDistance || $this->minorDistance > $position_distance) {
                         $this->minorDistance = $position_distance;
                     }
                 }
             }
-            if($user){
+            if ($user) {
                 $this->loadRelatedUserData($user);
             }
+            $this->icon = $site_url . $this->icon;
+            $this->thumb = $site_url . $this->thumb;
         }
 
         //relacionar la info con el usuario y salvarlo en la bd
-        public function relateUserData($user,$em){
+        public function relateUserData($user, $em)
+        {
             $criteria = new \Doctrine\Common\Collections\Criteria();
             //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
             $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user", \Doctrine\Common\Collections\Expr\Comparison::EQ, $user);
@@ -822,7 +843,7 @@ namespace Entities {
             if (count($relacion) > 0) {
 //
                 $userservice = array_pop($relacion);
-            }else{
+            } else {
                 $userservice = new UserService();
 
             }
@@ -837,6 +858,7 @@ namespace Entities {
             $em->flush();
 
         }
+
         //carga la informacion relacionada con el usuario en la bd para devolver en la api
         public function loadRelatedUserData($user)
         {
@@ -848,7 +870,7 @@ namespace Entities {
             $relacion = $this->getServiceusers()->matching($criteria)->toArray();
             if (count($relacion) > 0) {
 //
-                $relacion = array_pop($relacion) ;
+                $relacion = array_pop($relacion);
                 $this->visited = $relacion->getVisited();
                 $this->visited_at = $relacion->getVisitedAt();
                 $this->rated = $relacion->getRate();
@@ -983,10 +1005,12 @@ namespace Entities {
         {
             return $this->globalrate;
         }
+
         public function getReviews()
         {
             return $this->ratereviews;
         }
+
         /**
          * @return Service
          */
@@ -1022,25 +1046,26 @@ namespace Entities {
         {
             $this->times = $times;
         }
-        public function addTimes(Array $times,$admin=false)
+
+        public function addTimes(Array $times, $admin = false)
         {
 
             foreach ($times as $time_p) {
                 $time = new Times();
                 $poss = 0;
                 $string_week = "";
-                if($admin){
+                if ($admin) {
                     $weekdays = $time_p->weekdays;
-                }else {
+                } else {
                     $weekdays = $time_p["weekdays"];
                 }
                 foreach ($weekdays as $weekday) {
                     if ($poss > 6) {
                         $poss = 0;
                     }
-                    if($admin){
-                        $string_week = $string_week . ",".$weekday;
-                    }else {
+                    if ($admin) {
+                        $string_week = $string_week . "," . $weekday;
+                    } else {
                         if ($weekday) {
 
                             $string_week = $string_week . "," . $poss;
@@ -1048,11 +1073,11 @@ namespace Entities {
                     }
                     $poss++;
                 }
-                $time->setWeekDays(substr($string_week,1));
-                if($admin) {
+                $time->setWeekDays(substr($string_week, 1));
+                if ($admin) {
                     $time->setEndTime($time_p->end_time);
                     $time->setStartTime($time_p->start_time);
-                }else{
+                } else {
                     $time->setEndTime($time_p["end_time"]);
                     $time->setStartTime($time_p["start_time"]);
                 }
@@ -1061,6 +1086,7 @@ namespace Entities {
             }
             return $this;
         }
+
         /**
          * Add time
          *
@@ -1112,10 +1138,11 @@ namespace Entities {
          */
         public function setThumb($thumb)
         {
-            createThumb("./resources/services/$thumb",700,500);
-            $this->thumb = site_url() . "/resources/services/thumbs/$thumb";
+            createThumb("./resources/services/$thumb", 700, 500);
+            $this->thumb = "/resources/services/thumbs/$thumb";
         }
     }
+
     function createThumb($sImagen, $nWidth = false, $nHeight = false)
     {
         // Variables
@@ -1133,35 +1160,34 @@ namespace Entities {
         $nY = false;
 
         // Obtenemos el nombre de la imagen
-        $sNombre = basename( $sImagen );
+        $sNombre = basename($sImagen);
         // Obtenemos la ruta especificada para buscar la imagen
-        $sPath = dirname( $sImagen ) . '/';
+        $sPath = dirname($sImagen) . '/';
         // Obtenemos la extension de la imagen
 
-        $sExt = mime_content_type( $sImagen );
+        $sExt = mime_content_type($sImagen);
 
         // Creamos el directorio thumbs
-        if( ! is_dir( $sPath . 'thumbs/' ) )
-            @mkdir( $sPath . 'thumbs/', 0777, true ) or die( 'No se ha podido crear el directorio "' . $sPath . 'thumbs/".' );
+        if (!is_dir($sPath . 'thumbs/'))
+            @mkdir($sPath . 'thumbs/', 0777, true) or die('No se ha podido crear el directorio "' . $sPath . 'thumbs/".');
 
         // Creamos la imagen a partir del tipo
-        switch( $sExt )
-        {
+        switch ($sExt) {
             // Imagen JPG
             case 'image/jpeg':
-                $aImage = @imageCreateFromJpeg( $sImagen );
+                $aImage = @imageCreateFromJpeg($sImagen);
                 break;
             // Imagen GIF
             case 'image/gif':
-                $aImage = @imageCreateFromGif( $sImagen );
+                $aImage = @imageCreateFromGif($sImagen);
                 break;
             // Imagen PNG
             case 'image/png':
-                $aImage = @imageCreateFromPng( $sImagen );
+                $aImage = @imageCreateFromPng($sImagen);
                 break;
             // Imagen BMP
             case 'image/wbmp':
-                $aImage = @imageCreateFromWbmp( $sImagen );
+                $aImage = @imageCreateFromWbmp($sImagen);
                 break;
             default:
                 return 'No se conoce el tipo de imagen enviado, por favor cambie el formato. Sólo se permiten imágenes *.jpg, *.gif, *.png ó *.bmp.';
@@ -1169,19 +1195,18 @@ namespace Entities {
         }
 
         // Obtenemos el tamaño de la imagen original
-        $aSize = getImageSize( $sImagen );
+        $aSize = getImageSize($sImagen);
 
         // Calculamos las proporciones de la imagen //
 
         // Obteniendo el alto (Recogiendo ancho y no alto)
-        if( $nWidth !== false && $nHeight === false )
-            $nHeight = round( ( $aSize[1] * $nWidth ) / $aSize[0] );
+        if ($nWidth !== false && $nHeight === false)
+            $nHeight = round(($aSize[1] * $nWidth) / $aSize[0]);
         // Obteniendo el ancho (Recogiendo alto y no ancho)
-        elseif( $nWidth === false && $nHeight !== false )
-            $nWidth = round( ( $aSize[0] * $nHeight ) / $aSize[1] );
+        elseif ($nWidth === false && $nHeight !== false)
+            $nWidth = round(($aSize[0] * $nHeight) / $aSize[1]);
         // Obteniendo proporciones (Recogiendo alto y ancho)
-        elseif( $nWidth !== false && $nHeight !== false )
-        {
+        elseif ($nWidth !== false && $nHeight !== false) {
             // Guardamos las dimensiones del marco
             $nWidthMarco = $nWidth;
             $nHeightMarco = $nHeight;
@@ -1200,16 +1225,15 @@ namespace Entities {
 //                $nX = round( ( $nWidthMarco - $nWidth ) / 2 );;
 //                $nY = 0;
 //            }
-        }
-        // El ancho y el alto no se han enviado, informamos del error
-        elseif( $nWidth === false && $nHeight === false )
+        } // El ancho y el alto no se han enviado, informamos del error
+        elseif ($nWidth === false && $nHeight === false)
             return 'No se ha especificado ningún valor para el ancho y el alto de la imágen.';
 
         // La nueva imagen reescalada
-        $aThumb = imageCreateTrueColor( $nWidth, $nHeight );
+        $aThumb = imageCreateTrueColor($nWidth, $nHeight);
 
         // Reescalamos
-        imageCopyResampled( $aThumb, $aImage, 0, 0, 0, 0, $nWidth, $nHeight, $aSize[0], $aSize[1] );
+        imageCopyResampled($aThumb, $aImage, 0, 0, 0, 0, $nWidth, $nHeight, $aSize[0], $aSize[1]);
 
         // Si tenemos que crear el marco
         /*if( $nWidthMarco !== false && $nHeightMarco !== false )
@@ -1235,19 +1259,19 @@ namespace Entities {
         }*/
 
         // Salvamos
-        imagePng( $aThumb, $sPath . 'thumbs/' . $sNombre );
+        imagePng($aThumb, $sPath . 'thumbs/' . $sNombre);
 
         // Liberamos
-        imageDestroy( $aImage );
-        imageDestroy( $aThumb );
+        imageDestroy($aImage);
+        imageDestroy($aThumb);
 
         return true;
     }
-    function mime_content_type2 ( $sImagen )
-    {
-        return trim ( exec ('file -bi ' . escapeshellarg ( $sImagen ) ) ) ;
-    }
 
+    function mime_content_type2($sImagen)
+    {
+        return trim(exec('file -bi ' . escapeshellarg($sImagen)));
+    }
 
 
 }
