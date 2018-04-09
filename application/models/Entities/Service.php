@@ -765,7 +765,7 @@ namespace Entities {
             return $this;
         }
 
-        public function loadRelatedData($user = null, $current = null, $site_url)
+        public function loadRelatedData($user = null, $current = null, $site_url = null)
         {
             $this->subcategoriesList = $this->getSubcategories()->toArray();
             $this->servicecommentsList = [];

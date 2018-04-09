@@ -731,12 +731,12 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function loadRelatedData($user = NULL, $current = NULL)
+    public function loadRelatedData($user = NULL, $current = NULL, $site_url = null)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'loadRelatedData', [$user, $current]);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'loadRelatedData', [$user, $current, $site_url]);
 
-        return parent::loadRelatedData($user, $current);
+        return parent::loadRelatedData($user, $current, $site_url);
     }
 
     /**
