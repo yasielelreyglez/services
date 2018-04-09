@@ -90,7 +90,7 @@
         font-size: 13px;
     }
 
-    .authentication{
+    .authentication {
         margin-bottom: 15px !important;
     }
 }
@@ -644,6 +644,15 @@ button:hover, a {
 
 .favorite-1 i {
     color: yellow;
+}
+
+form {
+    margin-bottom: 0;
+}
+
+form {
+    padding: 0;
+    border: none;
 }
 
 
