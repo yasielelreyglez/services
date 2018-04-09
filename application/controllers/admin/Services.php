@@ -130,17 +130,26 @@ class Services extends CI_Controller {
         $service->getServicecomments()->toArray();
         $service->getPositions()->toArray();
         $fotos = $service->getImages()->toArray();//TODO VER SI SE BORRAN LOS FICHEROS
+        $path = "./resources/services/" . $id . "/";
+
         foreach ($fotos as $foto) {
             try{
+                $imageName = explode('/', $foto->getTitle());
+                $path = "./resources/services/" . $id . "/" . $imageName[count($imageName)-1];
+                $pathThumbs = "./resources/services/" . $id . "/thumbs/" . $imageName[count($imageName)-1];
                 if(is_file($foto->getTitle())) {
-                    echo $foto->getTitle();
-                    delete_files($foto->getTitle());
+                    unlink($path);
+                    unlink($pathThumbs);
                 }
             }catch (Exception $e){
                 echo $foto->getTitle();
                 print_r($e);
             }
         }
+
+        rmdir("./resources/services/" . $id . "/thumbs");
+        rmdir("./resources/services/" . $id);
+
         $service->getServiceusers()->toArray();
         $service->getPayments()->toArray();
 
@@ -233,10 +242,11 @@ class Services extends CI_Controller {
                         $image = $em->find("\Entities\Image", $fotoold);
                         $imageName = explode('/', $image->title);
                         $path = "./resources/services/" . $id . "/" . $imageName[count($imageName)-1];
+                        $pathThumbs = "./resources/services/" . $id . "/thumbs/" . $imageName[count($imageName)-1];
 //                        echo $path;
 //                        @unlink($path);
                         try {
-                            if (@unlink($path)) {
+                            if (@unlink($path) && @unlink($pathThumbs)) {
                                 $service->removeImage($image);
                                 $em->persist($image);
                                 $em->remove($image);
