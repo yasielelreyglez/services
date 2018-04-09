@@ -646,11 +646,9 @@ button:hover, a {
     color: yellow;
 }
 
-form {
-    margin-bottom: 0;
-}
 
 form {
+    margin-bottom: 0;
     padding: 0;
     border: none;
 }

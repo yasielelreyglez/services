@@ -263,7 +263,7 @@ class Services extends CI_Controller {
                 if(count($fotoSubir)> 0){
                     $service->addFotos($fotoSubir, site_url(), true);
                     //guardo la primera foto
-                    $service->setIcon(site_url('resources/services/'.$fotoSubir[0]["filename"]));
+                    $service->setIcon('resources/services/'.$fotoSubir[0]["filename"]);
                     $service->setThumb($fotoSubir[0]['filename']);
                 }
             }else{
@@ -272,7 +272,7 @@ class Services extends CI_Controller {
 
             $em->persist($service);
             $em->flush();
-            $service->loadRelatedData($this->getCurrentUser());
+            $service->loadRelatedData($this->getCurrentUser(), null, site_url());
             $service->loadRelatedUserData($this->getCurrentUser());
 
 //            print_r($service);
