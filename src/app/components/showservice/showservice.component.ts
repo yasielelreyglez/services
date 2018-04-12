@@ -1,5 +1,5 @@
 import {
-    AfterContentChecked, AfterContentInit, AfterViewInit, Component, ElementRef, OnInit,
+    AfterContentChecked, AfterContentInit, AfterViewInit, Component, ElementRef, NgZone, OnInit,
     ViewChild
 } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
@@ -50,7 +50,7 @@ export class ShowserviceComponent implements OnInit, AfterViewInit, AfterContent
     flagMap: boolean;
 
     constructor(private route: ActivatedRoute, private apiServices: ApiService,
-                public dialog: MatDialog, private authServices: AuthService, private snackBar: MatSnackBar) {
+                public dialog: MatDialog, private authServices: AuthService, private snackBar: MatSnackBar, private zone: NgZone) {
         this.model = {};
         this.loading = false;
         this.flagMap = false;
@@ -95,6 +95,8 @@ export class ShowserviceComponent implements OnInit, AfterViewInit, AfterContent
                 this.service = result.data;
                 this.images = result.data.imagesList;
                 this.comment = result.data.servicecommentsList.length;
+                // this.zone.run(() => {
+                // });
             });
         });
 
@@ -141,7 +143,6 @@ export class ShowserviceComponent implements OnInit, AfterViewInit, AfterContent
 
     ngAfterContentInit(): void {
     }
-
 
 
     reportDialog(id: number): void {
@@ -396,6 +397,7 @@ export class ShowserviceComponent implements OnInit, AfterViewInit, AfterContent
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.service = result;
+                this.comment = result.servicecommentsList.length;
                 this.openSnackBar('El servicio ha sido evaluado satisfactoriamente', 2500);
                 this.apiServices.recentVisits().subscribe(response => this.recentvisits = response);
             }

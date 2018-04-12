@@ -177,7 +177,7 @@
                                         </mat-grid-tile>
                                     </mat-grid-list>
                                     <div>
-                                        <p class="tc-grei">{{currentcomment.comment}}</p>
+                                        <p class="tc-grei" style="word-wrap: break-word !important;">{{currentcomment.comment}}</p>
                                         <mat-grid-list *ngIf="(service.author.email === currentUser) && loggedIn"
                                                        cols="10"
                                                        rowHeight="26px">
