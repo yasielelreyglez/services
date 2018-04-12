@@ -676,7 +676,7 @@ class Api extends REST_Controller
             $service->loadRelatedUserData($user);
             $service->loadRelatedData(null, null, site_url());
             $result["desc"] = "Evaluando al anuncio $id con $rate puntos";
-            $service->loadRelatedData(null, null, site_url());
+           // $service->loadRelatedData(null, null, site_url());
             $result["data"] = $service;
         } else {
             $result["desc"] = "El servicio no existe";
