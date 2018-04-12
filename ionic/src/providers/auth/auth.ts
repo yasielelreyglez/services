@@ -16,28 +16,27 @@ import {Geolocation, Geoposition} from "@ionic-native/geolocation";
 export class AuthProvider {
   public currentUser = new BehaviorSubject(false);
   public currentPosition = null;
+  public lastPosition = null;
   latitud = null;
   longitud = null;
   watch = null;
-
+  cantidad=0;
   constructor(public http: HttpClient, public api: ApiProvider, private geolocation: Geolocation) {
     this.currentUser.next(this.getUser());
     this.currentPosition = Observable.create((observer: Observer<Geoposition>) => {
       this.watch = this.geolocation.watchPosition({maximumAge: 60000, timeout: 60000})
         .filter((p) => p.coords !== undefined)
         .subscribe(position => {
-          if (this.latitud != null) {
-            if (this.latitud != position.coords.latitude || this.longitud != position.coords.longitude) {
-              this.latitud = position.coords.latitude;
-              this.longitud = position.coords.longitude;
-              observer.next(position);
-            }
-          }
-          if (this.latitud == null) {
+          console.log("latitud iguales: ", this.latitud == position.coords.latitude);
+          this.cantidad++
+          if (this.latitud != position.coords.latitude || this.longitud != position.coords.longitude) {
+            this.lastPosition = position;
             this.latitud = position.coords.latitude;
             this.longitud = position.coords.longitude;
             observer.next(position);
           }
+          if (this.cantidad == 10)
+            observer.next(position);
         });
     });
   }
@@ -64,9 +63,13 @@ export class AuthProvider {
         }
       ).catch(this.handleError);
   }
-  change_pass(old_password,new_password): Promise<any> {
+
+  change_pass(old_password, new_password): Promise<any> {
     const currentUser = localStorage.getItem('currentUser');
-    return this.http.post(this.api.getbaseUrl() + 'auth/change_password', {old_password,new_password},{headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)})
+    return this.http.post(this.api.getbaseUrl() + 'auth/change_password', {
+      old_password,
+      new_password
+    }, {headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)})
       .toPromise()
       .then(
         (response) => {
@@ -81,6 +84,7 @@ export class AuthProvider {
         }
       ).catch(this.handleError);
   }
+
   forgot_password(identity): Promise<any> {
     return this.http.post(this.api.getbaseUrl() + 'auth/forgot_password', {identity})
       .toPromise()
@@ -101,8 +105,13 @@ export class AuthProvider {
   getLatitud(): number {
     return this.latitud;
   }
+
   getLongitud(): number {
     return this.longitud;
+  }
+
+  getlastPosition() {
+    return this.lastPosition ? this.lastPosition : false;
   }
 
   // regista y autentica al usuario si todo sale bien
@@ -135,15 +144,6 @@ export class AuthProvider {
     return user ? JSON.parse(user) : false;
   }
 
-  getCurrentPosition() {
-    return this.currentPosition;
-
-  }
-
-  setCurrentPosition() {
-    return this.currentPosition;
-
-  }
 
   logout(): void {
     localStorage.removeItem('ServCurrentUser');

@@ -62,7 +62,17 @@ export class HomePage {
               public keyboard: Keyboard,
               public navParams: NavParams, public splashScreen: SplashScreen, public platform: Platform, statusBar: StatusBar,) {
 
+
+
     this.platform.ready().then(() => {
+      // this.auth.currentPosition.subscribe(
+      //   (data: Geoposition) => {
+      //     console.log(data.coords);
+      //   },
+      //   (error: Geoposition) => {
+      //     alert(error);
+      //   },
+      // );
 
       // if(this.diagnostic.isLocationAuthorized())
       // {
@@ -78,11 +88,11 @@ export class HomePage {
       //statusBar.hide();
       //statusBar.backgroundColorByHexString('#ffffff');
       this.platform.registerBackButtonAction((readySource) => {
-        if(this.navCtrl.canGoBack()){
+        if (this.navCtrl.canGoBack()) {
           this.navCtrl.pop();
         }
-        else{
-        this.exitApp();
+        else {
+          this.exitApp();
         }
 
       });
@@ -111,12 +121,12 @@ export class HomePage {
       this.auth.currentUser.subscribe(user => {
         this.loggedIn = user;
       });
-      // this.auth.currentPosition.subscribe(
-      //   (data: Geoposition) => {
-      //     console.log(data.coords.latitude);
-      //     },
-      //   (error: Geoposition) => { alert(error); },
-      // );
+      this.auth.currentPosition.subscribe(
+        (data: Geoposition) => {
+          console.log("cambio coorrdenadas");
+          },
+        (error: Geoposition) => { alert(error); },
+      );
     });
   }
 

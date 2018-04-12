@@ -117,7 +117,7 @@ export class Create1Page {
         citiesId.push(this.navParams.get("service").citiesList[i].id);
       }
       this.service.cities = citiesId;
-      this.category = this.service.subcategoriesList[0].category.id
+      this.category = this.service.subcategoriesList[0].category.id;
 
       this.onChangeCategory(this.category);
 

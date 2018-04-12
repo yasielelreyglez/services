@@ -6,14 +6,9 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {Position} from "../../models/position";
 import {HomePage} from '../home/home';
 import {ServicePage} from "../service/service";
+import {AuthProvider} from "../../providers/auth/auth";
 import {Geolocation, PositionError} from "@ionic-native/geolocation";
 
-/**
- * Generated class for the Create4Page page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 declare var google;
 
 @IonicPage()
@@ -34,6 +29,10 @@ export class Create4Page {
 
   cant_c: any;
   latLng: any;
+  // infowindow = new google.maps.InfoWindow;
+  // directionsService = new google.maps.DirectionsService;
+  // directionsDisplay = new google.maps.DirectionsRenderer;
+  // distanceM = new google.maps.DistanceMatrixService();
   @ViewChild('map') mapElement: ElementRef;
   map: any;
   currentPosition: any;
@@ -42,7 +41,7 @@ export class Create4Page {
   longitude: number;
   flagPosition = false;
 
-  constructor(private geolocation: Geolocation, public load: LoadingController, public navCtrl: NavController, public navParams: NavParams, public servProv: ServiceProvider) {
+  constructor(public auth: AuthProvider,private geolocation: Geolocation, public load: LoadingController, public navCtrl: NavController, public navParams: NavParams, public servProv: ServiceProvider) {
     this.service = this.navParams.get("service");
     this.service.positions = [];
     this.markers = [];
@@ -50,7 +49,6 @@ export class Create4Page {
       this.edit = true;
       this.positions = this.navParams.get("service").positionsList;
     }
-
   }
 
   goToCreate3() {
@@ -59,28 +57,39 @@ export class Create4Page {
 
   ionViewDidLoad() {
     if (typeof google !== 'undefined') {
-      this.geolocation.getCurrentPosition().then((pos) => {
-        this.latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-        // this.latLng = new google.maps.LatLng(23.126606, -82.32528);
-
-        this.infowindow = new google.maps.InfoWindow;
-        this.directionsService = new google.maps.DirectionsService;
-        this.directionsDisplay = new google.maps.DirectionsRenderer;
-        this.distanceM = new google.maps.DistanceMatrixService();
-
-        this.initMap();
-
-      }, (err: PositionError) => {
-        console.log("error : " + err.message);
+      this.infowindow = new google.maps.InfoWindow;
+      this.directionsService = new google.maps.DirectionsService;
+      this.directionsDisplay = new google.maps.DirectionsRenderer;
+      this.distanceM = new google.maps.DistanceMatrixService();
+      let loading = this.load.create({
+        content: "Cargando mapa..."
       });
-      // this.initMap();
+      loading.present();
+
+      if (this.auth.getlastPosition()) {
+        this.latLng =new google.maps.LatLng(this.auth.getlastPosition().coords.latitude, this.auth.getlastPosition().coords.longitude);
+      }
+      else {
+        this.latLng =new google.maps.LatLng(-0.22985,-78.52495 );
+      }
+      this.initMap();
+      loading.dismiss();
+
     }
   }
 
   crearService() {
-    let loading = this.load.create({
-      content: "Creando servicio..."
-    });
+    let loading;
+    if (this.edit) {
+      loading = this.load.create({
+        content: "Editando servicio..."
+      });
+    }
+    else {
+      loading = this.load.create({
+        content: "Creando servicio..."
+      });
+    }
     loading.present();
     this.service.positions = this.positions;
     this.servProv.createFullService(this.service).then(
@@ -113,7 +122,7 @@ export class Create4Page {
 
 
   initMap() {
-    if (typeof google !== 'undefined') {
+    // if (typeof google !== 'undefined') {
       let mapOptions = {
         center: this.latLng,
         zoom: 14,
@@ -136,7 +145,7 @@ export class Create4Page {
         this.addInfoWindow(marker, content);
       }
       google.maps.event.addListener(this.map, 'click', this.addMarker(this));
-    }
+    // }
   }
 
   addMarker(that) {
@@ -182,7 +191,7 @@ export class Create4Page {
 
       this.flagPosition = false;
 
-      this.titulo = '';
+      this.titulo = null;
       this.longitude = null;
       this.latitude = null;
     }

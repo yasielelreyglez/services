@@ -6,7 +6,6 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {AuthProvider} from "../../providers/auth/auth";
 import {ServiceProvider} from "../../providers/service/service.service";
 
-
 declare var google;
 
 @IonicPage()
@@ -28,13 +27,39 @@ export class TabMapaPage {
 
   constructor(public toastCtrl: ToastController, public events: Events, platform: Platform, public navCtrl: NavController,
               public navParams: NavParams, public servProv: ServiceProvider, private geolocation: Geolocation, public auth: AuthProvider) {
+    //   if (typeof google !== 'undefined') {
+    //     this.infowindow = new google.maps.InfoWindow;
+    //     if (!this.latLng) {
+    //       console.log("no hay");
+    //       this.addMap(1, 2);
+    //       // this.getUserPosition();
+    //     }
+    //     else {
+    //       console.log("si hay");
+    //     }
+    //   }
+    //   else {
+    //     let toast = this.toastCtrl.create({
+    //       message: "No hay conexion a internet",
+    //       duration: 5000,
+    //       position: 'bottom',
+    //     });
+    //     toast.present();
+    //   }
+  }
+
+  ionViewDidLoad() {
+
     if (typeof google !== 'undefined') {
       this.infowindow = new google.maps.InfoWindow;
-      if (!this.latLng) {
-        this.getUserPosition();
+      if (this.auth.getlastPosition()) {
+        this.latLng =new google.maps.LatLng(this.auth.getlastPosition().coords.latitude, this.auth.getlastPosition().coords.longitude);
+        this.addMap(this.auth.getlastPosition().coords.latitude, this.auth.getlastPosition().coords.longitude);
       }
       else {
-        console.log("si hay");
+
+        this.latLng =new google.maps.LatLng(-0.22985,);
+        this.addMap(-0.22985, -78.52495);
       }
     }
     else {
@@ -45,12 +70,30 @@ export class TabMapaPage {
       });
       toast.present();
     }
+    // this.auth.currentPosition.subscribe(
+    //   (data: Geoposition) => {
+    //     console.log("cambio position");
+    //     // this.latLng = new google.maps.LatLng(data.coords.latitude, data.coords.longitude);
+    //     this.latLng = new google.maps.LatLng(-0.22985, -78.52495);
+    //     this.map.setCenter(this.latLng);
+    //     this.map.setZoom(15);
+    //     this.currentP = new google.maps.Marker({
+    //       map: this.map,
+    //       icon: "http://www.googlemapsmarkers.com/v1/009900/",
+    //       position: this.latLng
+    //     });
+    //     let content = "<h4>Mi posición</h4>";
+    //     this.addInfoWindow(this.currentP, content);
+    //   },
+    //   (error: Geoposition) => {
+    //     alert(error);
+    //   },
+    // );
   }
 
   addMap(lat, long) {
 
     let latLng = new google.maps.LatLng(lat, long);
-
     let mapOptions = {
       center: latLng,
       zoom: 15,
@@ -118,20 +161,6 @@ export class TabMapaPage {
 
   }
 
-  getLocation() {
-    // this.geolocation.getCurrentPosition({ enableHighAccuracy : false}).then((resp) => {
-    // this.latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
-    this.map.setCenter(this.latLng);
-    this.map.setZoom(15);
-    this.currentP = new google.maps.Marker({
-      map: this.map,
-      icon: "http://www.googlemapsmarkers.com/v1/009900/",
-      position: this.latLng
-    });
-    let content = "<h4>Mi posición</h4>";
-    this.addInfoWindow(this.currentP, content);
-  }
-
   addInfoWindow(marker, content) {
     google.maps.event.addListener(marker, 'click', () => {
       this.infowindow.setContent(content);
@@ -145,18 +174,6 @@ export class TabMapaPage {
     this.geolocation.getCurrentPosition().then((pos) => {
       this.latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
       this.addMap(pos.coords.latitude, pos.coords.longitude);
-      this.auth.currentPosition.subscribe(
-        (data: Geoposition) => {
-          console.log("cambio");
-          this.latLng = new google.maps.LatLng(data.coords.latitude, data.coords.longitude);
-          this.map.setZoom(this.map.getZoom());
-          this.currentP.setPosition(this.latLng);
-        },
-        (error: Geoposition) => {
-          alert(error);
-        },
-      );
-
     }, (err: PositionError) => {
       console.log("error : " + err.message);
     })
