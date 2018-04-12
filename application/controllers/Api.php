@@ -1292,6 +1292,24 @@ class Api extends REST_Controller
                 delete_files($foto->getTitle());
             }
 
+            foreach ($fotos as $foto) {
+                try{
+                    $imageName = explode('/', $foto->getTitle());
+                    $path = "./resources/services/" . $id . "/" . $imageName[count($imageName)-1];
+                    $pathThumbs = "./resources/services/" . $id . "/thumbs/" . $imageName[count($imageName)-1];
+                    if(is_file($foto->getTitle())) {
+                        unlink($path);
+                        unlink($pathThumbs);
+                    }
+                }catch (Exception $e){
+                    echo $foto->getTitle();
+                    print_r($e);
+                }
+            }
+
+            rmdir("./resources/services/" . $id . "/thumbs");
+            rmdir("./resources/services/" . $id);
+
             $service->getServiceusers()->toArray();
             $service->getPayments()->toArray();
 
