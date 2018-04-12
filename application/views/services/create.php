@@ -1,4 +1,4 @@
-<?= form_open_multipart('admin/services/save', array('role' => 'form', 'class' => 'f1')); ?><?php if (validation_errors() != NULL && validation_errors() != '') { ?>
+<?= form_open_multipart('admin/services/save', array('role' => 'form', 'class' => 'f1', 'id' => 'form-service')); ?><?php if (validation_errors() != NULL && validation_errors() != '') { ?>
     <div class="alert alert-danger"><?= validation_errors(); ?></div><?php } ?>
 <nav aria-label="Page navigation">
     <ul class="pagination step-views">
@@ -96,7 +96,7 @@
                 <div class="row">
                     <?php foreach ($currenImages as $key => $image): ?>
                         <div class="card m-3 disabled" style="width: 18rem;">
-                            <img class="card-img-top" src="<?= $image->title ?>" alt="Card image cap">
+                            <img class="card-img-top" src="<?= site_url(). $image->title ?>" alt="Card image cap">
                             <div class="card-body align-bottom"
                                  style="height: 25px; position: absolute; right: 5px; bottom: 5px;">
                                 <a id="<?= $image->id ?>" href="#" title="Eliminar" class="card-link delete-image align-right remove-icon">
@@ -218,7 +218,5 @@
         </div>
     </div>
 </div>
-<input type="submit" value="Save" class="btn btn-primary"/>
-<?= anchor('admin/services/index', 'Atras', 'class="btn btn-link"'); ?>
 </form>
 

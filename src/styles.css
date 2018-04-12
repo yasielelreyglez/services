@@ -646,12 +646,13 @@ button:hover, a {
     color: yellow;
 }
 
-
 form {
     margin-bottom: 0;
     padding: 0;
     border: none;
 }
 
-
+.homepage .homepage-banner .map-search .map-search-fields .field input{
+    padding: 2px 16px;
+}
 
