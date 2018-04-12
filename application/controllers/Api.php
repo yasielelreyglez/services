@@ -1288,9 +1288,6 @@ class Api extends REST_Controller
             $service->getPositions()->toArray();
             $fotos = $service->getImages()->toArray();//TODO VER SI SE BORRAN LOS FICHEROS
             $this->load->helper("file");
-            foreach ($fotos as $foto) {
-                delete_files($foto->getTitle());
-            }
 
             foreach ($fotos as $foto) {
                 try{
