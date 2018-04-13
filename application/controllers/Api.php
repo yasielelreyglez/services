@@ -1288,14 +1288,15 @@ class Api extends REST_Controller
             $service->getPositions()->toArray();
             $fotos = $service->getImages()->toArray();//TODO VER SI SE BORRAN LOS FICHEROS
             $this->load->helper("file");
+            $path = "./resources/services/";
 
             foreach ($fotos as $foto) {
                 try{
                     $imageName = explode('/', $foto->getTitle());
-                    $path = "./resources/services/" . $id . "/" . $imageName[count($imageName)-1];
-                    $pathThumbs = "./resources/services/" . $id . "/thumbs/" . $imageName[count($imageName)-1];
+                    $pathImage = $path . $id . "/" . $imageName[count($imageName)-1];
+                    $pathThumbs = $path . $id . "/thumbs/" . $imageName[count($imageName)-1];
                     if(is_file($foto->getTitle())) {
-                        unlink($path);
+                        unlink($pathImage);
                         unlink($pathThumbs);
                     }
                 }catch (Exception $e){
@@ -1309,8 +1310,8 @@ class Api extends REST_Controller
             unlink($service->getThumb());
 
             //borrar los directorios
-            rmdir("./resources/services/" . $id . "/thumbs");
-            rmdir("./resources/services/" . $id);
+            rmdir($path . $id . "/thumbs");
+            rmdir($path . $id);
 
             $service->getServiceusers()->toArray();
             $service->getPayments()->toArray();
