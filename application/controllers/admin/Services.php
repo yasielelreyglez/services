@@ -129,16 +129,16 @@ class Services extends CI_Controller {
 
         $service->getServicecomments()->toArray();
         $service->getPositions()->toArray();
-        $fotos = $service->getImages()->toArray();//TODO VER SI SE BORRAN LOS FICHEROS
-        $path = "./resources/services/" . $id . "/";
+        $fotos = $service->getImages()->toArray();
+        $path = "./resources/services/";
 
         foreach ($fotos as $foto) {
             try{
                 $imageName = explode('/', $foto->getTitle());
-                $path = "./resources/services/" . $id . "/" . $imageName[count($imageName)-1];
-                $pathThumbs = "./resources/services/" . $id . "/thumbs/" . $imageName[count($imageName)-1];
+                $pathImage = $path . $id . "/" . $imageName[count($imageName)-1];
+                $pathThumbs = $path . $id . "/thumbs/" . $imageName[count($imageName)-1];
                 if(is_file($foto->getTitle())) {
-                    unlink($path);
+                    unlink($pathImage);
                     unlink($pathThumbs);
                 }
             }catch (Exception $e){
@@ -146,9 +146,13 @@ class Services extends CI_Controller {
                 print_r($e);
             }
         }
+        //borrar los thumbs y los icons
+        unlink($service->getIcon());
+        unlink($service->getThumb());
 
-        rmdir("./resources/services/" . $id . "/thumbs");
-        rmdir("./resources/services/" . $id);
+        //borrar los directorios
+        rmdir($path . $id . "/thumbs");
+        rmdir($path . $id);
 
         $service->getServiceusers()->toArray();
         $service->getPayments()->toArray();
@@ -273,7 +277,7 @@ class Services extends CI_Controller {
                 if(count($fotoSubir)> 0){
                     $service->addFotos($fotoSubir, site_url(), true);
                     //guardo la primera foto
-                    $service->setIcon('resources/services/'.$fotoSubir[0]["filename"]);
+                    $service->setIcon('resources/services/'.$id.'/'.$fotoSubir[0]["filename"]);
                     $service->setThumb($fotoSubir[0]['filename']);
                 }
             }else{

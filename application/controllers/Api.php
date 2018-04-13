@@ -1304,6 +1304,11 @@ class Api extends REST_Controller
                 }
             }
 
+            //borrar los thumbs y los icons
+            unlink($service->getIcon());
+            unlink($service->getThumb());
+
+            //borrar los directorios
             rmdir("./resources/services/" . $id . "/thumbs");
             rmdir("./resources/services/" . $id);
 
