@@ -1288,24 +1288,30 @@ class Api extends REST_Controller
             $service->getPositions()->toArray();
             $fotos = $service->getImages()->toArray();//TODO VER SI SE BORRAN LOS FICHEROS
             $this->load->helper("file");
+            $path = "./resources/services/";
 
             foreach ($fotos as $foto) {
-                try {
+                try{
                     $imageName = explode('/', $foto->getTitle());
-                    $path = "./resources/services/" . $id . "/" . $imageName[count($imageName) - 1];
-                    $pathThumbs = "./resources/services/" . $id . "/thumbs/" . $imageName[count($imageName) - 1];
-                    if (is_file($foto->getTitle())) {
-                        unlink($path);
+                    $pathImage = $path . $id . "/" . $imageName[count($imageName)-1];
+                    $pathThumbs = $path . $id . "/thumbs/" . $imageName[count($imageName)-1];
+                    if(is_file($foto->getTitle())) {
+                        unlink($pathImage);
                         unlink($pathThumbs);
                     }
-                } catch (Exception $e) {
+                }catch (Exception $e){
                     echo $foto->getTitle();
                     print_r($e);
                 }
             }
 
-            rmdir("./resources/services/" . $id . "/thumbs");
-            rmdir("./resources/services/" . $id);
+            //borrar los thumbs y los icons
+            unlink($service->getIcon());
+            unlink($service->getThumb());
+
+            //borrar los directorios
+            rmdir($path . $id . "/thumbs");
+            rmdir($path . $id);
 
             $service->getServiceusers()->toArray();
             $service->getPayments()->toArray();
