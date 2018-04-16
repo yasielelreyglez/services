@@ -676,7 +676,7 @@ class Api extends REST_Controller
             $service->loadRelatedUserData($user);
             $service->loadRelatedData(null, null, site_url());
             $result["desc"] = "Evaluando al anuncio $id con $rate puntos";
-           // $service->loadRelatedData(null, null, site_url());
+            // $service->loadRelatedData(null, null, site_url());
             $result["data"] = $service;
         } else {
             $result["desc"] = "El servicio no existe";
@@ -1290,15 +1290,15 @@ class Api extends REST_Controller
             $this->load->helper("file");
 
             foreach ($fotos as $foto) {
-                try{
+                try {
                     $imageName = explode('/', $foto->getTitle());
-                    $path = "./resources/services/" . $id . "/" . $imageName[count($imageName)-1];
-                    $pathThumbs = "./resources/services/" . $id . "/thumbs/" . $imageName[count($imageName)-1];
-                    if(is_file($foto->getTitle())) {
+                    $path = "./resources/services/" . $id . "/" . $imageName[count($imageName) - 1];
+                    $pathThumbs = "./resources/services/" . $id . "/thumbs/" . $imageName[count($imageName) - 1];
+                    if (is_file($foto->getTitle())) {
                         unlink($path);
                         unlink($pathThumbs);
                     }
-                }catch (Exception $e){
+                } catch (Exception $e) {
                     echo $foto->getTitle();
                     print_r($e);
                 }
@@ -1386,7 +1386,12 @@ class Api extends REST_Controller
             $mensajes = $em->find("Entities\Mensaje", $pos);
             $em->remove($mensajes);
             $em->flush();
+            $mensajes = $user->getMensajes()->toArray();
+            $result["data"] = $mensajes;
+        } else {
+            $result["error"] = "El usuario debe estar autenticado";
         }
+        $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
     function mensajes_get()
@@ -1404,12 +1409,20 @@ class Api extends REST_Controller
 
     function leermensaje_get($id)
     {
-        $em = $this->doctrine->em;
-        /** @var Entities\Mensaje $mensaje */
-        $mensaje = $em->find("Entities\Mensaje", $id);
-        $mensaje->setEstado(1);
-        $em->persist($mensaje);
-        $em->flush();
+        $user = $this->getCurrentUser();
+        if ($user) {
+            $em = $this->doctrine->em;
+            /** @var Entities\Mensaje $mensaje */
+            $mensaje = $em->find("Entities\Mensaje", $id);
+            $mensaje->setEstado(1);
+            $em->persist($mensaje);
+            $em->flush();
+            $mensajes = $user->getMensajes()->toArray();
+            $result["data"] = $mensajes;
+        } else {
+            $result["error"] = "El usuario debe estar autenticado";
+        }
+        $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
     // FUNCIONES CAMBIOS

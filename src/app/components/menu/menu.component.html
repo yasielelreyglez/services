@@ -62,9 +62,6 @@
 <ng-template #login>
     <nav class="nav">
         <ul class="sf-menu">
-            <!--<li class="active" routerLink="/">-->
-            <!--<a><i class="fa fa-home"></i>Home</a>-->
-            <!--</li>-->
             <li class="" routerLink="/">
                 <a><i class="fa fa-home"></i>Inicio</a>
             </li>
@@ -83,17 +80,9 @@
             <li routerLink="/createservice">
                 <a><i class="fa fa-plus"></i>Crear anuncio</a>
             </li>
-            <li routerLink="/mensajes">
+            <li routerLink="/mensajes" [ngClass]="globals.mensajes.getValue() ? 'buzon-tc-red' : ''">
                 <a><i class="fa fa-bell"></i>Buzón</a>
             </li>
-            <!--<li routerLink="/">-->
-            <!--<a><i class="fa fa-bell"></i>Buzón</a>-->
-            <!--<li routerLink="/">-->
-            <!--<a><i class="fa fa-cog"></i>Cambiar contraseña</a>-->
-            <!--</li>-->
-            <!--<li routerLink="/">-->
-            <!--<a><i class="fa fa-question-circle-o"></i>Ayuda</a>-->
-            <!--</li>-->
         </ul>
     </nav>
 </ng-template>

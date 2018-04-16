@@ -277,6 +277,10 @@
     color: #E0040B !important;
 }
 
+.buzon-tc-red a, .buzon-tc-red i{
+    color: #E0040B !important;
+}
+
 .tc-blue {
     color: #0092B5;
 }
@@ -455,6 +459,24 @@
     width: 25px;
     height: 25px;
     line-height: 25px;
+}
+
+.delete-mensaje.mat-icon-button {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+}
+
+.leer-mensaje.mat-icon-button {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    position: absolute;
+    top: -7px;
+    right: 25px;
 }
 
 .md-40 {
@@ -652,7 +674,18 @@ form {
     border: none;
 }
 
-.homepage .homepage-banner .map-search .map-search-fields .field input{
+.homepage .homepage-banner .map-search .map-search-fields .field input {
     padding: 2px 16px;
 }
 
+.pl-0 {
+    padding-left: 0 !important;
+}
+
+.sinleer {
+    font-weight: bold;
+}
+
+.border-green {
+    border: 1px solid #00d793;
+}

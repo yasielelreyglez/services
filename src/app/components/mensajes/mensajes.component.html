@@ -6,13 +6,27 @@
                 <div class="container">
                     <h1 class="text-center">Listado de Notificaciones</h1>
                     <div class="row">
-                        <div class="col-md-6 col-md-offset-3">
-                            <ul>
+                        <div class="col-md-8 col-md-offset-2">
+                            <ul class="pl-0">
                                 <li *ngFor="let mensaje of mensajes" style="list-style: none">
-                                    <div class="bc-white" style="padding: 10px;margin-bottom: 5px">
-                                    {{mensaje.mensaje}}
+                                    <div [ngClass]="mensaje.estado === 0 ? 'sinleer': ''"
+                                         style="padding: 10px;margin-bottom: 5px" class="bc-white row border-green">
+                                        <div class="col-xs-10">
+                                            {{mensaje.mensaje}}
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <div *ngIf="mensaje.estado !== 1"><button mat-icon-button
+                                                    (click)="leermensaje(mensaje.id)"
+                                                    class="tc-white bc-green leer-mensaje">
+                                                <mat-icon>visibility_off</mat-icon>
+                                            </button></div>
+                                            <button mat-icon-button
+                                                    (click)="borrarmensaje(mensaje.id)"
+                                                    class="tc-white bc-red delete-mensaje">
+                                                <mat-icon>clear</mat-icon>
+                                            </button>
+                                        </div>
                                     </div>
-
                                 </li>
                             </ul>
                         </div>

@@ -258,7 +258,7 @@
                         <div class="listing-offer-content">
                             <span class="location"><i
                                     class="fa fa-map-marker"></i> {{service.citiesList[0].title}}</span>
-                            <ul class="rate" [innerHTML]="result_rate(service)">
+                            <ul class="rate" [innerHTML]="result_rate(service.globalrate)">
                             </ul>
                             <span class="count">{{service.visits}} vistas</span>
                         </div>
