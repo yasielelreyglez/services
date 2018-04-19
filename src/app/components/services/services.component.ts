@@ -5,6 +5,7 @@ import {AuthService} from '../../_services/auth.service';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {isNull} from 'util';
 import {ReportServiceComponent} from "../_modals/reportservice/reportservice.component";
+import {DeletedialogComponent} from '../_modals/deletedialog/deletedialog.component';
 
 declare const $: any;
 declare const google;
@@ -103,9 +104,19 @@ export class ServicesComponent implements OnInit, AfterViewInit, AfterViewChecke
     }
 
     delete(id) {
-        this.apiServices.deleteService(id).subscribe(result => {
-            this.services = this.services.filter(service => service.id !== id);
-            this.openSnackBar('El servicio fue eliminado satisfactoriamente', 2500);
+        let dialogRef = this.dialog.open(DeletedialogComponent, {
+            width: '300px',
+            height: '180px',
+            data: { name:'este servicio' }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed',result);
+            if(result) {
+                this.apiServices.deleteService(id).subscribe(result => {
+                    this.services = this.services.filter(service => service.id !== id);
+                    this.openSnackBar('El servicio fue eliminado satisfactoriamente', 2500);
+                });
+            }
         });
     }
 

@@ -1283,7 +1283,8 @@ class Api extends REST_Controller
         $user = $this->getCurrentUser();
         $em = $this->doctrine->em;
         $service = $em->find("\Entities\Service", $id);
-        if ($user == $service->author) {
+        if($service){
+          if ($user == $service->author) {
             $service->getServicecomments()->toArray();
             $service->getPositions()->toArray();
             $fotos = $service->getImages()->toArray();//TODO VER SI SE BORRAN LOS FICHEROS
@@ -1306,12 +1307,12 @@ class Api extends REST_Controller
             }
 
             //borrar los thumbs y los icons
-            unlink($service->getIcon());
-            unlink($service->getThumb());
+            @unlink(substr($service->getIcon(),1));
+            @unlink(substr($service->getThumb(),1));
 
             //borrar los directorios
-            rmdir($path . $id . "/thumbs");
-            rmdir($path . $id);
+            @rmdir($path . $id . "/thumbs");
+            @rmdir($path . $id);
 
             $service->getServiceusers()->toArray();
             $service->getPayments()->toArray();
@@ -1320,6 +1321,9 @@ class Api extends REST_Controller
             $em->remove($service);
             $em->flush();
             $this->set_response("OK", REST_Controller::HTTP_OK);
+        }
+        }else{
+            $this->set_response("OK", REST_Controller::HTTP_ACCEPTED);
         }
     }
 
