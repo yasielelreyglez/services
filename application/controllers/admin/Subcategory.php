@@ -55,7 +55,8 @@ class Subcategory extends CI_Controller {
 	function destroy($id) {
 //		$id = $this->uri->segment(3);
         echo $data['subcategory'] = $this->Subcategory_model->destroy($id);
-		redirect('admin/subcategory/index', 'refresh');
+        $this->session->set_flashdata('item', array('message'=>'El elemento ha sido eliminado correctamente.', 'class'=>'success', 'icon'=>'fa fa-warning', 'title'=>"<strong>Bien!:</strong>"));
+        redirect('admin/subcategory/index', 'refresh');
 	}
 
 	# POST /subcategory/save
@@ -86,7 +87,8 @@ class Subcategory extends CI_Controller {
 			$subcategory->setCategory($em->find("\Entities\Category",$this->input->post('category_id', TRUE)));
 			$em->persist($subcategory);
 			$em->flush();
-			redirect('admin/subcategory/index', 'refresh');
+            $this->session->set_flashdata('item', array('message'=>'Se han guardado sus cambios correctamente.', 'class'=>'success', 'icon'=>'fa fa-thumbs-up', 'title'=>"<strong>Bien!:</strong>"));
+            redirect('admin/subcategory/index', 'refresh');
 		}
         $data['categories'] = $this->Category_model->find();
 		$data['subcategory'] =	$this->rebuild();

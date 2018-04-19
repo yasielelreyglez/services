@@ -294,6 +294,7 @@
                     <?php } ?>
                 </div>
             <?php } ?>
+
             <?php $this->load->view($content); ?>
         </div>
     </div>
@@ -358,13 +359,12 @@
         </ul>
     </nav>
 </div>
-
 <!-- Scripts -->
 <script src="<?= site_url("/resources/js/jquery-2.1.3.min.js") ?>"></script>
 <script src="<?= site_url("/resources/js/plugins/superfish.min.js") ?>"></script>
 <script src="<?= site_url("/resources/js/jquery.ui.min.js") ?>"></script>
 <script src="<?= site_url("/resources/js/plugins/rangeslider.min.js") ?>"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxooB5CXv3oWSzKldWJzStShRvWE8X1MA"></script>
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxooB5CXv3oWSzKldWJzStShRvWE8X1MA"></script>-->
 
 <script src="<?= site_url("/resources/js/plugins/jquery.flexslider-min.js") ?>"></script>
 
@@ -377,7 +377,28 @@
 <script src="<?= site_url("/resources/js/bootstrap.js") ?>"></script>
 <script src="<?= site_url("/resources/js/admin.js") ?>"></script>
 <script src="<?= site_url("/resources/js/scripts.js") ?>"></script>
-
+<script src="<?= site_url("/resources/js/bootstrap-notify.min.js") ?>"></script>
+<?php if(!empty($this->session->flashdata('item'))):?>
+    <?php $msg = $this->session->flashdata('item');?>
+    <!--div class="alert <?php echo $msg['class']?>" id="notify-id">
+        <a class="close" href="#" data-dismiss="alert">x</a>
+        <strong>Información!</strong> <?php //echo $msg['message']?>
+    </div-->
+    <script>
+            $.notify(
+                {	// options
+                    icon: "<?php echo $msg['icon'];?>",
+                    title: "<?php echo $msg['title'];?>",
+                    message: '<?php echo $msg['message'];?>',
+                    target: '_blank'
+                    },
+                    {
+                        // settings
+                        type: '<?php echo $msg['class'];?>'
+                    }
+            );
+    </script>
+<?php endif;?>
 </body>
 
 <!-- Mirrored from new.uouapps.com/quick-finder/index2.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 Nov 2017 14:43:23 GMT -->

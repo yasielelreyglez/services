@@ -55,7 +55,8 @@ class Positions extends CI_Controller {
 	function destroy() {
 		$id = $this->uri->segment(3);
 		$data['positions'] = $this->Positions_model->destroy($id);
-		redirect('admin/positions/index', 'refresh');
+        $this->session->set_flashdata('item', array('message'=>'El elemento ha sido eliminado correctamente.', 'class'=>'success', 'icon'=>'fa fa-warning', 'title'=>"<strong>Bien!:</strong>"));
+        redirect('admin/positions/index', 'refresh');
 	}
 
 	# POST /positions/save
@@ -73,7 +74,8 @@ class Positions extends CI_Controller {
 			$data['latitude'] = $this->input->post('latitude', TRUE);
 			$data['longitude'] = $this->input->post('longitude', TRUE);
 			$this->Positions_model->save($data);
-			redirect('admin/positions/index', 'refresh');
+            $this->session->set_flashdata('item', array('message'=>'Se han guardado sus cambios correctamente.', 'class'=>'success', 'icon'=>'fa fa-thumbs-up', 'title'=>"<strong>Bien!:</strong>"));
+            redirect('admin/positions/index', 'refresh');
 		}
 		$data['positions'] =	$this->rebuild();
 		$data['content'] = '/positions/create';

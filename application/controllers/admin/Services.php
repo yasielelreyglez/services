@@ -160,6 +160,7 @@ class Services extends CI_Controller {
         //CARGADA LA RELACION PARA DESPUES ELIMINARLAS CON EL SERVICIO
         $em->remove($service);
         $em->flush();
+        $this->session->set_flashdata('item', array('message'=>'El elemento ha sido eliminado correctamente.', 'class'=>'success', 'icon'=>'fa fa-warning', 'title'=>"<strong>Bien!:</strong>"));
         redirect('admin/services/index', 'refresh');
     }
 
@@ -197,24 +198,6 @@ class Services extends CI_Controller {
             $service->address = $this->input->post('address', TRUE);
             $service->addSubCategories($this->input->post('categories', TRUE), $em);
             $service->addCities($this->input->post('cities', TRUE), $em);
-            //si estoy editando, verificar k no de palo
-//            if($id) {
-//                $icon_old = $this->input->post('icon_old');
-//            }
-
-////            /salvando icon
-//            $config['upload_path']          = './resources/services';
-//            $config['allowed_types']        = 'gif|jpg|png';
-//            $config['max_size']             = 1000;
-//            $config['max_width']            = 9024;
-//            $config['max_height']           = 2768;
-//            $this->load->library('upload', $config);
-//            echo $icon = $this->input->post('icon');
-//            if ($this->upload->do_upload('icon')) {
-//                $data["upload_data"] = $this->upload->data();
-//                $service->setIcon(site_url('resources/services/'.$data["upload_data"]["file_name"]));
-//                $service->setThumb($data["upload_data"]["file_name"]);
-//            }
 
             //OTROS DATOS
             $service->setOtherPhone($this->input->post('other_phone', TRUE));
@@ -288,19 +271,12 @@ class Services extends CI_Controller {
             $em->flush();
             $service->loadRelatedData($this->getCurrentUser(), null, site_url());
             $service->loadRelatedUserData($this->getCurrentUser());
+            $this->session->set_flashdata('item', array('message'=>'Se han guardado sus cambios correctamente.', 'class'=>'success', 'icon'=>'fa fa-thumbs-up', 'title'=>"<strong>Bien!:</strong>"));
 
 //            print_r($service);
 //            die;
             redirect('admin/services/index', 'refresh');
-
-
-
         }
-//        $data['services'] =	$this->rebuild();
-//        $data['content'] = '/services/create';
-//        $data["tab"]="services";
-//
-//        $this->load->view('/includes/contentpage', $data);
     }
 
     function rebuild() {

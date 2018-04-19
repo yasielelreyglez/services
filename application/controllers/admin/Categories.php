@@ -57,18 +57,20 @@ class Categories extends CI_Controller {
             try{
                 $em->remove($categories[0]);
                 $em->flush();
+                $this->session->set_flashdata('item', array('message'=>'El elemento ha sido eliminado correctamente.', 'class'=>'success', 'icon'=>'fa fa-warning', 'title'=>"<strong>Bien!:</strong>"));
                 redirect('admin/categories/index', 'refresh');
             }catch (Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException  $exception){
                 $segments = array('admin','subcategory', 'category', $id);
                 $url_subs =  site_url($segments);
-                $data["errors"]= array("Subcategorias asociadas"=>"No se puede eliminar esta categoria porque existen categorias asociadas <a href='".$url_subs."' class=\"alert-link\">ver</a>");
+//                $data["errors"]= array("Subcategorias asociadas"=>"No se puede eliminar esta categoria porque existen categorias asociadas <a href='".$url_subs."' class=\"alert-link\">ver</a>");
+                $this->session->set_flashdata('item', array('message'=>"No se puede eliminar esta categoria porque existen categorias asociadas <a href='".$url_subs."' class=\"alert-link\">ver</a>", 'class'=>'danger', 'icon'=>'fa fa-warning', 'title'=>"<strong>Alerta!:</strong>"));
                 $data['categories'] = $this->Categories_model->find();
                 $data['content'] = '/categories/index';
                 $this->load->view('/includes/contentpage', $data);
             }
-
         }else{
-            $data["errors"]= array("Error eliminando el elemento"=>"No se encontro la categoria a eliminar");
+//            $data["errors"]= array("Error eliminando el elemento"=>"No se encontro la categoria a eliminar");
+            $this->session->set_flashdata('item', array('message'=>"No se encontro la categoria a eliminar", 'class'=>'danger'));
             $data['categories'] = $this->Categories_model->find();
             $data['content'] = '/categories/index';
             $this->load->view('/includes/contentpage', $data);
@@ -107,6 +109,7 @@ class Categories extends CI_Controller {
             $category->setTitle($this->input->post('title', TRUE));
             $em->persist($category);
             $em->flush();
+            $this->session->set_flashdata('item', array('message'=>'Se han guardado sus cambios correctamente.', 'class'=>'success', 'icon'=>'fa fa-thumbs-up', 'title'=>"<strong>Bien!:</strong>"));
             redirect('admin/categories/index', 'refresh');
 		}else{
             $data['categories'] =	$this->rebuild();

@@ -69,6 +69,7 @@ class Users extends CI_Controller
     {
         $data['users'] = $this->Users_model->destroy($id);
         $data['tab'] = "user";
+        $this->session->set_flashdata('item', array('message'=>'El elemento ha sido eliminado correctamente.', 'class'=>'success', 'icon'=>'fa fa-warning', 'title'=>"<strong>Bien!:</strong>"));
         redirect('admin/users/index', 'refresh');
     }
 
@@ -119,6 +120,7 @@ class Users extends CI_Controller
             }
             $em->persist($user);
             $em->flush();
+            $this->session->set_flashdata('item', array('message'=>'Se han guardado sus cambios correctamente.', 'class'=>'success', 'icon'=>'fa fa-thumbs-up', 'title'=>"<strong>Bien!:</strong>"));
             redirect('admin/users/index', 'refresh');
         }
         $data['users'] = $this->rebuild();

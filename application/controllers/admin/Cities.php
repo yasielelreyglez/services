@@ -49,7 +49,8 @@ class Cities extends CI_Controller {
 	# GET /cities/destroy/1
 	function destroy($id) {
 		$data['cities'] = $this->Cities_model->destroy($id);
-		redirect('admin/cities/index', 'refresh');
+        $this->session->set_flashdata('item', array('message'=>'El elemento ha sido eliminado correctamente.', 'class'=>'success', 'icon'=>'fa fa-warning', 'title'=>"<strong>Bien!:</strong>"));
+        redirect('admin/cities/index', 'refresh');
 	}
 
 	# POST /cities/save
@@ -70,7 +71,8 @@ class Cities extends CI_Controller {
             $city->setTitle($this->input->post('title', TRUE));
             $em->persist($city);
             $em->flush();
-			redirect('admin/cities/index', 'refresh');
+            $this->session->set_flashdata('item', array('message'=>'Se han guardado sus cambios correctamente.', 'class'=>'success', 'icon'=>'fa fa-thumbs-up', 'title'=>"<strong>Bien!:</strong>"));
+            redirect('admin/cities/index', 'refresh');
 		}
 
         $this->load->view('/includes/contentpage', $data);
