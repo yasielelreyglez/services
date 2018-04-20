@@ -118,6 +118,8 @@ class Users extends CI_Controller
 
                 }
             }
+//            print_r($this->input->post('ip_address', TRUE));
+//            die;
             $em->persist($user);
             $em->flush();
             $this->session->set_flashdata('item', array('message'=>'Se han guardado sus cambios correctamente.', 'class'=>'success', 'icon'=>'fa fa-thumbs-up', 'title'=>"<strong>Bien!:</strong>"));
