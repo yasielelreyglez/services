@@ -178,3 +178,15 @@ span.start_time_s {
     color: #1a2b2a;
     padding: 10px;
 }
+
+.modal.fade.in {
+    opacity: 1;
+}
+
+.modal .modal-dialog {
+    z-index: 1041 !important;
+}
+
+body.modal-open {
+    padding-right: 0 !important;
+}

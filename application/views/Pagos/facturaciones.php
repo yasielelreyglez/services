@@ -8,16 +8,16 @@
 		</tr>
 		<?php foreach ($pagos as $object) {
 		    ?>
-		<tr>
+		<tr class="element">
 			<td><?=$object->id ?></td>
-            <td><?= $object->nombre ?></td>
+            <td class="element-title"><?= $object->nombre ?></td>
             <td><?= $object->cedula ?></td>
             <td><?= $object->direccion ?></td>
             <td><?= $object->telefono ?></td>
             <td><?= $object->email ?></td>
-			<td width="80"><?= anchor('admin/pagos/editfactura/'.$object->id, 'Edit','class="btn btn-warning"'); ?></td>
-			<td width="80"><?= anchor('admin/pagos/destroyfactura/'.$object->id, 'Destroy','class="btn btn-danger"'); ?></td>
+			<td width="80"><?= anchor('admin/pagos/editfactura/'.$object->id, 'Editar','class="btn btn-warning"'); ?></td>
+			<td width="80"><?= anchor('admin/pagos/destroyfactura/'.$object->id, 'Eliminar','class="btn btn-danger destroy"'); ?></td>
 		</tr><?php } ?>
 	</table>
 	
-	<?= anchor('admin/categories/create','Create','class="btn btn-primary"'); ?>
+	<?= anchor('admin/categories/create','Crear','class="btn btn-primary"'); ?>

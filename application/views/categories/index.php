@@ -9,13 +9,13 @@
     </thead>
     <tbody>
     <?php foreach ($categories as $key=>$object) { ?>
-        <tr>
+        <tr class="element">
         <td><?= $key+1 ?></td>
-        <td><?= $object->title ?></td>
+        <td class="element-title"><?= $object->title ?></td>
         <td><img src="<?= $object->icon ?>" height="40px" width="45px" title="<?= $object->icon ?>"
                  alt="<?= $object->icon ?>"></td>
         <td width="80"><?= anchor('admin/categories/edit/' . $object->id, 'Editar', 'class="btn btn-warning"'); ?></td>
-        <td width="80"><?= anchor('admin/categories/destroy/' . $object->id, 'Eliminar', 'class="btn btn-danger"'); ?></td>
+        <td width="80"><?= anchor('admin/categories/destroy/' . $object->id, 'Eliminar', 'class="btn btn-danger destroy"'); ?></td>
         </tr><?php } ?>
     </tbody>
 </table>

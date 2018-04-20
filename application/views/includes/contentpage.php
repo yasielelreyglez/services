@@ -359,12 +359,26 @@
     </nav>
 </div>
 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default cancel" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary confirm"><i class="fa fa-check"></i> Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Scripts -->
 <script src="<?= site_url("/resources/js/jquery-2.1.3.min.js") ?>"></script>
 <script src="<?= site_url("/resources/js/plugins/superfish.min.js") ?>"></script>
 <script src="<?= site_url("/resources/js/jquery.ui.min.js") ?>"></script>
 <script src="<?= site_url("/resources/js/plugins/rangeslider.min.js") ?>"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxooB5CXv3oWSzKldWJzStShRvWE8X1MA"></script>
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxooB5CXv3oWSzKldWJzStShRvWE8X1MA"></script>-->
 
 <script src="<?= site_url("/resources/js/plugins/jquery.flexslider-min.js") ?>"></script>
 
@@ -373,10 +387,12 @@
 <script src="<?= site_url("/resources/js/uou-tabs.js") ?>"></script>
 <script src="<?= site_url("/resources/js/plugins/select2.min.js") ?>"></script>
 <script src="<?= site_url("/resources/js/owl.carousel.min.js") ?>"></script>
-<script src="<?=site_url("/resources/js/gmap3.min.js") ?>"></script>
+<!--<script src="--><?//=site_url("/resources/js/gmap3.min.js") ?><!--"></script>-->
 <script src="<?= site_url("/resources/js/bootstrap.js") ?>"></script>
 <script src="<?= site_url("/resources/js/admin.js") ?>"></script>
 <script src="<?= site_url("/resources/js/scripts.js") ?>"></script>
+<script src="<?= site_url("/resources/js/jquery.validate.min.js") ?>"></script>
+<script src="<?= site_url("/resources/js/localization/messages_es.min.js") ?>"></script>
 
 </body>
 
