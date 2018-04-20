@@ -49,13 +49,13 @@ $(document).ready(function ($) {
         window.location.href = 'home/servicesbyfilter/' + $('select[name="order"]').val();
     });
 
-    var formService = $('#form-service');
-    if(formService) {
-         formService.validate();
-         $('#step1 .btn-next').on('click', function (ev) {
-             formService.valid();
-         })
-    }
+    // var formService = $('#form-service');
+    // if(formService) {
+    //      formService.validate();
+    //      $('#step1 .btn-next').on('click', function (ev) {
+    //          formService.valid();
+    //      })
+    // }
 
     $('.step-views .f1-step a').click(function (ev) {
         ev.preventDefault();
