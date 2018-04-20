@@ -775,7 +775,7 @@
 <script src="<?= site_url("/resources/js/googlemaplocal.js") ?>"></script>
 <script src="<?= site_url("/resources/js/jquery-2.1.3.min.js") ?>"></script>
 
-<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxooB5CXv3oWSzKldWJzStShRvWE8X1MA"></script>-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxooB5CXv3oWSzKldWJzStShRvWE8X1MA"></script>
 
 <script src="<?= site_url("/resources/js/plugins/superfish.min.js") ?>"></script>
 <script src="<?= site_url("/resources/js/jquery.ui.min.js") ?>"></script>
@@ -797,7 +797,6 @@
 <script src="<?= site_url("/resources/js/retina-1.1.0.min.js") ?>"></script>
 
 <script src="<?= site_url("/resources/js/scripts.js") ?>"></script>
-<script src="<?= site_url("/resources/js/bootstrap-notify.min.js") ?>"></script>
 <script src="<?= site_url("/resources/js/bootstrap-notify.min.js") ?>"></script>
 <?php if(!empty($this->session->flashdata('item'))):?>
     <?php $msg = $this->session->flashdata('item');?>
