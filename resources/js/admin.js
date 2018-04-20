@@ -24,7 +24,6 @@ $(document).ready(function ($) {
 
     $('#filter').submit(function (ev) {
         ev.preventDefault();
-        console.log($(this).find('i'));
         $(this).find('i').first().addClass('hide');
         $(this).find('i').last().removeClass('hide');
         $.post('../api/filter', $('#filter').serialize(), function (data) {
@@ -248,10 +247,8 @@ function listPositions(){
         result+="<div class='position row'><div class='col-md-9 col-xs-9'><i class='fa fa-location-arrow'></i> <span class='title'> "+value[i].title+"</span><span class='start_time_s'>"+value[i].latitude+"</span> , <span class='end_time_s'>"+value[i].longitude+"</span></div><div class='col-md-3 col-xs-3'><input type='button' value='X' class='btn btn-danger' onclick='removePosition("+i+");' /></div></div><br>";
     }
     $("#visual_positions").html(result);
-
-
-    console.log(result);
 }
+var gmarkers = [];
 function removePosition(i){
     var value = $('#positions').val(); //retrieve array
     value = JSON.parse(value);
@@ -339,6 +336,7 @@ function showFilterResult(services) {
         });
         $('#filterresultcontent .uou-accordions').uouAccordions();
         $('.flexslider').flexslider({
+            animation: "slide",
             slideshowSpeed: 10000,
             animationSpeed: 1000,
             prevText: '',
@@ -378,7 +376,6 @@ function initMap() {
     $('#addPosition').click(function (t) {
         var titulo = $("#positiontitle").val();
         if(lastPosition!=null&&titulo.length>0){
-            console.log("creando el objeto");
             var value = $('#positions').val(); //retrieve array
             value = JSON.parse(value);
             value.push(
