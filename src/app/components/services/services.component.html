@@ -19,11 +19,11 @@
                 </div>
                 <div class="listing-inner">
                     <div class="flexslider default-slider">
-                        <ul class="slides">
+                        <a [routerLink]="['service', service.id]"><ul class="slides">
                             <li><img src="{{service.thumb}}" alt=""></li>
                             <li *ngFor="let image of service.imagesList"><img src="{{image.thumb}}"
                                                                               alt=""></li>
-                        </ul>
+                        </ul></a>
                         <div class="reviews">
                             <ul [innerHTML]="result_rate(service)">
                             </ul>
@@ -53,8 +53,8 @@
                                     <!--{{service.address}}-->
                                     <!--</li>-->
 
-                                    <li><i class="fa fa-envelope-o"></i> {{service.email}}</li>
-                                    <li><i class="fa fa-globe"></i> {{service.url}}</li>
+                                    <li><a class="" href="mailto:{{service.email}}"><i class="fa fa-envelope-o"></i> {{service.email}}</a></li>
+                                    <li><a href="{{service.url}}" target="_blank"><i class="fa fa-globe"></i> {{service.url}}</a></li>
                                     <li><i class="fa fa-phone"></i> {{service.phone}}</li>
                                     <li><i class="fa fa-fax"></i> {{service.other_phone}}</li>
                                 </ul>

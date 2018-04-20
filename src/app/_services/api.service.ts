@@ -103,20 +103,20 @@ export class ApiService {
 
     filter(cities?: any, categories?: any, distance?: number, current?: any): Observable<any> {
         const currentUser = localStorage.getItem('currentUser')
-        if(currentUser != null){
+        if (currentUser != null) {
             return this.http.post(this.getBaseURL() + 'api/filter', {
-            cities,
-            categories,
-            distance,
-            current
-        },{headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)}).map((response) => {
-            if (response['services']) {
-                return response['services'];
-            } else {
-                return new Array();
-            }
-        });
-        }else{
+                cities,
+                categories,
+                distance,
+                current
+            }, {headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)}).map((response) => {
+                if (response['services']) {
+                    return response['services'];
+                } else {
+                    return new Array();
+                }
+            });
+        } else {
             return this.http.post(this.getBaseURL() + 'api/filter', {
                 cities,
                 categories,
@@ -141,9 +141,10 @@ export class ApiService {
             }
         });
     }
+
     mensajes(): Observable<any> {
         const currentUser = localStorage.getItem('currentUser');
-        return this.http.get(this.getBaseURL() + 'api/mensajes',{headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)}).map((response) => {
+        return this.http.get(this.getBaseURL() + 'api/mensajes', {headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)}).map((response) => {
             if (response['data'])
                 return response['data'];
             else {
@@ -254,7 +255,7 @@ export class ApiService {
         }
     }
 
-    markfavorite(id: number): Observable<Subcategory[]> {
+    markfavorite(id: number): Observable<any> {
         const currentUser = localStorage.getItem('currentUser');
         if (currentUser) {
             return this.http.get(this.getBaseURL() + 'api/markfavorite/' + id, {headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)}).map((response) => {
@@ -262,6 +263,54 @@ export class ApiService {
                     return response['data'];
                 else {
                     return new Array();
+                }
+            });
+        }
+        else {
+            return new Observable();
+        }
+    }
+
+    leermensaje(id: number): Observable<any> {
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            return this.http.get(this.getBaseURL() + 'api/leermensaje/' + id, {headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)}).map((response) => {
+                if (response['data'])
+                    return response;
+                else {
+                    return response['error'];
+                }
+            });
+        }
+        else {
+            return new Observable();
+        }
+    }
+
+    borrarmensaje(id: number): Observable<any> {
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            return this.http.get(this.getBaseURL() + 'api/borrarmensaje/' + id, {headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)}).map((response) => {
+                if (response['data'])
+                    return response;
+                else {
+                    return response['error'];
+                }
+            });
+        }
+        else {
+            return new Observable();
+        }
+    }
+
+    mensajesNoleidos(): Observable<any> {
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            return this.http.get(this.getBaseURL() + 'api/mensajesNoleidos/', {headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)}).map((response) => {
+                if (response['data'])
+                    return response;
+                else {
+                    return response['error'];
                 }
             });
         }
@@ -301,7 +350,6 @@ export class ApiService {
             return new Observable();
         }
     }
-
 
 
     reportComment(id: number): Observable<any> {
@@ -355,7 +403,7 @@ export class ApiService {
     rateService(id: number, rate: number, comment: string): Observable<any> {
         const currentUser = localStorage.getItem('currentUser');
         if (currentUser) {
-            return this.http.post(this.getBaseURL() + 'api/rateservice/' + id + '/' + rate, { comment }, {headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)}).map((response) => {
+            return this.http.post(this.getBaseURL() + 'api/rateservice/' + id + '/' + rate, {comment}, {headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)}).map((response) => {
                 if (response)
                     return response;
                 else {

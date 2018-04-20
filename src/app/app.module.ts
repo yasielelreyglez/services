@@ -42,6 +42,7 @@ import {ChangepasswordComponent} from './components/_modals/changepassword/chang
 import {ReportServiceComponent} from './components/_modals/reportservice/reportservice.component';
 import {MensajesComponent} from './components/mensajes/mensajes.component';
 import {Globals} from './_models/globals';
+import { DeletedialogComponent } from './components/_modals/deletedialog/deletedialog.component';
 
 @NgModule({
     declarations: [
@@ -70,7 +71,8 @@ import {Globals} from './_models/globals';
         TimesComponent,
         ReportServiceComponent,
         ChangepasswordComponent,
-        MensajesComponent
+        MensajesComponent,
+        DeletedialogComponent
     ],
     entryComponents: [
         ForgotpassComponent,
@@ -79,7 +81,8 @@ import {Globals} from './_models/globals';
         ImageComponent,
         TimesComponent,
         ReportServiceComponent,
-        ChangepasswordComponent
+        ChangepasswordComponent,
+        DeletedialogComponent
     ],
     imports: [
         BrowserAnimationsModule,

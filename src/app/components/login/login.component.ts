@@ -5,6 +5,8 @@ import {AuthService} from '../../_services/auth.service';
 import {ForgotpassComponent} from '../_modals/forgotpass/forgotpass.component';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatSnackBar} from '@angular/material';
+import {Globals} from '../../_models/globals';
+import {ApiService} from '../../_services/api.service';
 
 @Component({
     selector: 'app-login',
@@ -17,8 +19,8 @@ export class LoginComponent implements OnInit {
     hide = true;
     loginForm: FormGroup;
 
-    constructor(public dialog: MatDialog, private router: Router, private authService: AuthService,
-                private snackBar: MatSnackBar) {
+    constructor(public dialog: MatDialog, private router: Router, private authService: AuthService, private globals: Globals,
+                private snackBar: MatSnackBar, private apiServices: ApiService) {
         this.user = new User();
         this.loading = false;
     }
@@ -48,6 +50,19 @@ export class LoginComponent implements OnInit {
                 if (result === true) {
                     this.router.navigate(['']);
                     this.openSnackBar('Usuario autenticado correctamente.', 2500);
+                    this.apiServices.mensajesNoleidos().subscribe(response => {
+                        if (response['data']) {
+                            if (response['data'].length > 0) {
+                                this.globals.mensajes.next(true);
+                            }
+                            else {
+                                this.globals.mensajes.next(false);
+                            }
+                        }
+                        else {
+                            this.openSnackBar(response['error'], 2500);
+                        }
+                    });
                 } else {
                     this.loading = false;
                     this.openSnackBar(result, 2500);

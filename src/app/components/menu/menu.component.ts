@@ -24,12 +24,27 @@ export class MenuComponent implements OnInit {
         this.authServices.currentUser.subscribe(user => {
             this.loggedIn = !!user;
         });
+
+        if (this.loggedIn) {
+            this.apiServices.mensajesNoleidos().subscribe(result => {
+                if (result['data']) {
+                    if (result['data'].length > 0) {
+                        this.globals.mensajes.next(true);
+                    }
+                }
+                else {
+                    this.openSnackBar(result['error'], 2500);
+                }
+            });
+        }
+
     }
 
     logout(): void {
         this.authServices.logout();
         this.router.navigate(['']);
         this.openSnackBar('Ha cerrado la session correctamente.', 2500);
+        this.globals.mensajes.next(false);
     }
 
     openDialog(): void {
@@ -52,6 +67,7 @@ export class MenuComponent implements OnInit {
             this.router.navigate(['/search']);
         });
     }
+
 
     openSnackBar(message: string, duration: number, action?: string) {
         this.snackBar.open(message, action, {

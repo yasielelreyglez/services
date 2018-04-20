@@ -10,6 +10,7 @@ import {AuthService} from '../../_services/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import {ReportServiceComponent} from '../_modals/reportservice/reportservice.component';
+import {Globals} from '../../_models/globals';
 
 declare const google;
 declare const $: any;
@@ -50,7 +51,7 @@ export class ShowserviceComponent implements OnInit, AfterViewInit, AfterContent
     flagMap: boolean;
 
     constructor(private route: ActivatedRoute, private apiServices: ApiService,
-                public dialog: MatDialog, private authServices: AuthService, private snackBar: MatSnackBar, private zone: NgZone) {
+                public dialog: MatDialog, private globals: Globals, private authServices: AuthService, private snackBar: MatSnackBar, private zone: NgZone) {
         this.model = {};
         this.loading = false;
         this.flagMap = false;
@@ -157,6 +158,19 @@ export class ShowserviceComponent implements OnInit, AfterViewInit, AfterContent
                 // this.service = result;
                 this.openSnackBar('El servicio ha sido evaluado satisfactoriamente', 2500);
                 this.apiServices.recentVisits().subscribe(response => this.recentvisits = response);
+                this.apiServices.mensajesNoleidos().subscribe(response => {
+                    if (response['data']) {
+                        if (response['data'].length > 0) {
+                            this.globals.mensajes.next(true);
+                        }
+                        else {
+                            this.globals.mensajes.next(false);
+                        }
+                    }
+                    else {
+                        this.openSnackBar(response['error'], 2500);
+                    }
+                });
             }
         });
     }
@@ -400,6 +414,19 @@ export class ShowserviceComponent implements OnInit, AfterViewInit, AfterContent
                 this.comment = result.servicecommentsList.length;
                 this.openSnackBar('El servicio ha sido evaluado satisfactoriamente', 2500);
                 this.apiServices.recentVisits().subscribe(response => this.recentvisits = response);
+                this.apiServices.mensajesNoleidos().subscribe(response => {
+                    if (response['data']) {
+                        if (response['data'].length > 0) {
+                            this.globals.mensajes.next(true);
+                        }
+                        else {
+                            this.globals.mensajes.next(false);
+                        }
+                    }
+                    else {
+                        this.openSnackBar(response['error'], 2500);
+                    }
+                });
             }
         });
     }

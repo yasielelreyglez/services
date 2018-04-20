@@ -676,7 +676,7 @@ class Api extends REST_Controller
             $service->loadRelatedUserData($user);
             $service->loadRelatedData(null, null, site_url());
             $result["desc"] = "Evaluando al anuncio $id con $rate puntos";
-           // $service->loadRelatedData(null, null, site_url());
+            // $service->loadRelatedData(null, null, site_url());
             $result["data"] = $service;
         } else {
             $result["desc"] = "El servicio no existe";
@@ -1283,7 +1283,8 @@ class Api extends REST_Controller
         $user = $this->getCurrentUser();
         $em = $this->doctrine->em;
         $service = $em->find("\Entities\Service", $id);
-        if ($user == $service->author) {
+        if($service){
+          if ($user == $service->author) {
             $service->getServicecomments()->toArray();
             $service->getPositions()->toArray();
             $fotos = $service->getImages()->toArray();//TODO VER SI SE BORRAN LOS FICHEROS
@@ -1306,12 +1307,12 @@ class Api extends REST_Controller
             }
 
             //borrar los thumbs y los icons
-            unlink($service->getIcon());
-            unlink($service->getThumb());
+            @unlink(substr($service->getIcon(),1));
+            @unlink(substr($service->getThumb(),1));
 
             //borrar los directorios
-            rmdir($path . $id . "/thumbs");
-            rmdir($path . $id);
+            @rmdir($path . $id . "/thumbs");
+            @rmdir($path . $id);
 
             $service->getServiceusers()->toArray();
             $service->getPayments()->toArray();
@@ -1320,6 +1321,9 @@ class Api extends REST_Controller
             $em->remove($service);
             $em->flush();
             $this->set_response("OK", REST_Controller::HTTP_OK);
+        }
+        }else{
+            $this->set_response("OK", REST_Controller::HTTP_ACCEPTED);
         }
     }
 
@@ -1392,7 +1396,12 @@ class Api extends REST_Controller
             $mensajes = $em->find("Entities\Mensaje", $pos);
             $em->remove($mensajes);
             $em->flush();
+            $mensajes = $user->getMensajes()->toArray();
+            $result["data"] = $mensajes;
+        } else {
+            $result["error"] = "El usuario debe estar autenticado";
         }
+        $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
     function mensajes_get()
@@ -1410,12 +1419,20 @@ class Api extends REST_Controller
 
     function leermensaje_get($id)
     {
-        $em = $this->doctrine->em;
-        /** @var Entities\Mensaje $mensaje */
-        $mensaje = $em->find("Entities\Mensaje", $id);
-        $mensaje->setEstado(1);
-        $em->persist($mensaje);
-        $em->flush();
+        $user = $this->getCurrentUser();
+        if ($user) {
+            $em = $this->doctrine->em;
+            /** @var Entities\Mensaje $mensaje */
+            $mensaje = $em->find("Entities\Mensaje", $id);
+            $mensaje->setEstado(1);
+            $em->persist($mensaje);
+            $em->flush();
+            $mensajes = $user->getMensajes()->toArray();
+            $result["data"] = $mensajes;
+        } else {
+            $result["error"] = "El usuario debe estar autenticado";
+        }
+        $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
     // FUNCIONES CAMBIOS

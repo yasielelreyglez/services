@@ -6,7 +6,7 @@ TABLE OF CONTENT
   2. BOOTSTRAP 3.3.2
   3. FONT AWESOME 4.3.0
   4. GENERAL STYLES
-      4.1 General 
+      4.1 General
       4.2 Typography
         4.2.1 Headings 
         4.2.2 Basic Typography Styles
@@ -25069,4 +25069,12 @@ CANVAS PAGE STYLE
 }
 .c-red {
     color: #00d793 !important;
+}
+
+.listing.listing-3 .listing-grid .uou-accordions li.active .contact-info a{
+    padding: 0px;
+}
+.listing.listing-3 .listing-grid .uou-accordions li.active .contact-info a::after{
+    content: normal;
+
 }

@@ -66,11 +66,11 @@
                                                 <ul class="contact">
                                                     <li>
                                                         <h6>Correo:</h6>
-                                                        <span>{{service.email}}</span>
+                                                        <a href="mailto:{{service.email}}"><span>{{service.email}}</span></a>
                                                     </li>
                                                     <li>
                                                         <h6>Sitio web:</h6>
-                                                        <span>{{service.url}}</span>
+                                                        <a href="mailto:{{service.url}}"> <span>{{service.url}}</span></a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -258,7 +258,7 @@
                         <div class="listing-offer-content">
                             <span class="location"><i
                                     class="fa fa-map-marker"></i> {{service.citiesList[0].title}}</span>
-                            <ul class="rate" [innerHTML]="result_rate(service)">
+                            <ul class="rate" [innerHTML]="result_rate(service.globalrate)">
                             </ul>
                             <span class="count">{{service.visits}} vistas</span>
                         </div>
