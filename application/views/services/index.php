@@ -13,7 +13,7 @@
                 No hay servicios creados.
             <?php endif; ?>
             <?php foreach ($services as $object) { ?>
-                <div class="col-md-4 listing-grid listing-grid-2">
+                <div class="col-md-4 listing-grid listing-grid-2 element">
                     <div class="listing-heading">
                         <?php if ($object->professional == 1) { ?>
                             <div class="marker-ribbon">
@@ -22,7 +22,7 @@
                                 </div>
                             </div>
                         <?php } ?>
-                        <h5><?= $object->title ?></h5>
+                        <h5 class="element-title"><?= $object->title ?></h5>
                     </div>
                     <div class="listing-inner">
                         <div class="flexslider default-slider">
@@ -94,7 +94,7 @@
                     <div class="info-footer">
                         <img height="20" width="20" src="<?= $object->getSubcategories()->toArray()[0]->getIcon() ?>">
                         <h6><?= $object->getSubcategories()->toArray()[0]->getTitle() ?></h6>
-                        <a class="pull-right pl10" title="Destruir"
+                        <a class="pull-right pl10 destroy" title="Destruir"
                            href="<?= site_url('admin/services/destroy/') . $object->id ?>"><i
                                     class="fa fa-trash bookmark"></i></a>
                         <a class="pull-right pl10" title="Editar"
@@ -107,7 +107,7 @@
                 </div>
             <?php } ?>
         </div>
-        <?= anchor('admin/services/create/' . $object->id, '+', 'class="floating-button" title="Crear servicio"'); ?>
+        <?= anchor('admin/services/create/', '+', 'class="floating-button" title="Crear servicio"'); ?>
         <div class="row listview hide">
             <table class="table">
                 <thead>
@@ -129,12 +129,12 @@
                     </tr>
                 <?php endif; ?>
                 <?php foreach ($services as $key=> $object) : ?>
-                    <tr>
+                    <tr class="element">
                         <td>
                             <?= $object->id ?>
                         </td>
                         <td>
-                            <a href="<?= site_url('admin/services/show/') . $object->id ?>"> <?= $object->title ?></a>
+                            <a href="<?= site_url('admin/services/show/') . $object->id ?>" class="element-title"> <?= $object->title ?></a>
 <!--                            --><?php //if ($object->professional == 1) : ?>
 <!--                                <i class="fa fa-certificate" title="PROFESSIONAL"></i>-->
 <!--                            --><?php //endif; ?>
@@ -164,7 +164,7 @@
                             <?php endif; ?>
                         </td>
                         <td width="80"><?= anchor('admin/services/edit/' . $object->id, 'Editar', 'class="btn btn-warning"'); ?></td>
-                        <td width="80"><?= anchor('admin/services/destroy/' . $object->id, 'Eliminar', 'class="btn btn-danger"'); ?></td>
+                        <td width="80"><?= anchor('admin/services/destroy/' . $object->id, 'Eliminar', 'class="btn btn-danger destroy"'); ?></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

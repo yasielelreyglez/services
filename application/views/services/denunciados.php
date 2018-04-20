@@ -26,16 +26,16 @@
                     </tr>
                 <?php else : ?>
                     <?php foreach ($complaints as $object) : ?>
-                        <tr>
+                        <tr class="element">
                             <td>
-                                <a href="<?= site_url('admin/services/show/') . $object->getService()->id ?>"> <?= $object->getService()->getTitle() ?></a>
+                                <a href="<?= site_url('admin/services/show/') . $object->getService()->id ?>" class="element-title"> <?= $object->getService()->getTitle() ?></a>
                             </td>
                             <td><?= $object->complaint ?></td>
                             <td><?= $object->complaint_created->format('Y-m-d H:i:s') ?></td>
                             <td><?= $object->getUser()->getUsername(); ?></td>
 
-                            <td width="80"><?= anchor('admin/services/edit/' . $object->getService()->id, 'Editar servicio', 'class="btn btn-warning"'); ?></td>
-                            <td width="80"><?= anchor('admin/services/destroy/' . $object->getService()->id, 'Destruir servicio', 'class="btn btn-danger"'); ?></td>
+                            <td width="80"><?= anchor('admin/services/edit/' . $object->getService()->id, 'Editar', 'class="btn btn-warning"'); ?></td>
+                            <td width="80"><?= anchor('admin/services/destroy/' . $object->getService()->id, 'Eliminar', 'class="btn btn-danger destroy"'); ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
@@ -47,7 +47,7 @@
                 No hay servicios denunciados.
             <?php endif; ?>
             <?php foreach ($complaints as $object) : ?>
-                <div class="col-md-4 listing-grid listing-grid-2">
+                <div class="col-md-4 listing-grid listing-grid-2 element">
                     <div class="listing-heading">
                         <?php if ($object->getService()->getProfessional() == 1) { ?>
                             <div class="marker-ribbon">
@@ -56,7 +56,7 @@
                                 </div>
                             </div>
                         <?php } ?>
-                        <h5><?= $object->getService()->getTitle() ?></h5>
+                        <h5 class="element-title"><?= $object->getService()->getTitle() ?></h5>
                     </div>
                     <div class="listing-inner">
                         <div class="flexslider default-slider">
@@ -153,9 +153,9 @@
                         <img height="20" width="20"
                              src="<?= $object->getService()->getSubcategories()->toArray()[0]->getIcon() ?>">
                         <h6><?= $object->getService()->getSubcategories()->toArray()[0]->getTitle() ?></h6>
-                        <a class="pull-right pl10" title="Destruir servicio"
+                        <a class="pull-right pl10 destroy" title="Destruir servicio"
                            href="<?= site_url('admin/services/destroy/') . $object->getService()->id ?>"><i
-                                    class="fa fa-minus-square-o bookmark"></i></a>
+                                    class="fa fa-trash bookmark"></i></a>
                         <a class="pull-right pl10" title="Editar servicio"
                            href="<?= site_url('admin/services/edit/') . $object->getService()->id ?>"><i
                                     class="fa fa-edit bookmark"></i></a>

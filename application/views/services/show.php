@@ -1,4 +1,3 @@
-	<h1>Create</h1>
 	<?= form_open_multipart('api/createservice','role="form"'); ?><?php if(validation_errors() != NULL && validation_errors() != '') { ?>
 		<div class="alert alert-danger"><?= validation_errors(); ?></div><?php } ?>
 		<input type="hidden" name="id" value="<?= isset($services)?$services->id:''?>"/>

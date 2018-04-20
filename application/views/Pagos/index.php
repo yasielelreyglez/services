@@ -13,12 +13,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="row gridview">
             <?php /** @var TYPE_NAME $pagos */
             foreach ($pagos as $pago) { ?>
-                <div class="listing-ver-6">
+                <div class="listing-ver-6 element">
                     <div class="listing-heading">
                         <h5>
                             <a href='<?= site_url('admin/services/show/') . $pago->getService()->id ?>'> <?= $pago->getService()->getTitle() ?></a>
                         </h5>
-                        <a href="<?= site_url('admin/pagos/eliminar/' . $pago->id) ?>"><i class="fa fa-remove"></i></a>
+                        <a href="<?= site_url('admin/pagos/eliminar/' . $pago->id) ?>" class="destroy"><i class="fa fa-remove"></i></a>
                     </div>
                     <div class="listing-inner">
                         <?php if ($pago->getType() == 1) { ?>
@@ -62,7 +62,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         class="fa fa-credit-card-alt  "></i><?= $pago->getTypeString() ?></h6>
                             <ul class="contact">
                                 <?php if ($pago->getType() != 1) { ?>
-                                    <li><i class="fa fa-info-circle"></i> Nombre:<span><?= $pago->nombre ?></span></li>
+                                    <li><i class="fa fa-info-circle"></i> Nombre:<span class="element-title"><?= $pago->nombre ?></span></li>
                                     <li><i class="fa fa-phone"></i>Numero:<span><?= $pago->numero ?></span></li>
                                     <li><i class="fa fa-phone"></i>CVV:<span><?= $pago->cvv ?></span></li>
                                     <li><i class="fa fa-phone"></i>Caduca:<span><?= $pago->caducidad ?></span></li>
@@ -120,10 +120,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </thead>
                 <tbody>
                 <?php foreach ($pagos as $pago): ?>
-                    <tr>
+                    <tr class="element">
                         <td><?php echo $pago->id; ?></td>
                         <td>
-                            <a href="<?php echo site_url('admin/pagos/show/') . '' . $pago->id ?>"> <?php echo $pago->getNombre(); ?>                    </a>
+                            <a href="<?php echo site_url('admin/pagos/show/') . '' . $pago->id ?>" class="element-title"> <?php echo $pago->getNombre(); ?>                    </a>
                         <td>
                             <a href="<?php echo site_url('admin/services/show/') . '' . $pago->getService()->id ?>"> <?php echo $pago->getService()->getTitle(); ?>                    </a>
                         </td>
@@ -143,9 +143,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <!--            <td>--><?php //echo $pago->getPhone();?><!--</td>-->
                         <td><?php echo $pago->getStateString(); ?></td>
                         <?php if ($pago->getState() == 0): ?>
-                            <td width=\"80\"><?= anchor('admin/pagos/aceptar/' . $pago->id, 'Aceptar pago', 'class="btn btn-info"'); ?></td>
-                            <td width=\"80\"><?= anchor('admin/pagos/denegar/' . $pago->id, 'Denegar pago', 'class="btn btn-warning"'); ?></td>
-                            <td width=\"80\"><?= anchor('admin/pagos/eliminar/' . $pago->id, 'Eliminar pago', 'class="btn btn-danger"'); ?></td>
+                            <td width=\"80\"><?= anchor('admin/pagos/aceptar/' . $pago->id, 'Aceptar', 'class="btn btn-info"'); ?></td>
+                            <td width=\"80\"><?= anchor('admin/pagos/denegar/' . $pago->id, 'Denegar', 'class="btn btn-warning"'); ?></td>
+                            <td width=\"80\"><?= anchor('admin/pagos/eliminar/' . $pago->id, 'Eliminar', 'class="btn btn-danger destroy"'); ?></td>
                         <?php endif; ?>
                     </tr>
                 <?php endforeach; ?>

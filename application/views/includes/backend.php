@@ -483,7 +483,7 @@
                         <div class="row">
                             <?php if (count($mostvisited)) : ?>
                                 <?php foreach ($mostvisited as $object) : ?>
-                                    <div class="col-md-4 item">
+                                    <div class="col-md-4 item element">
                                         <div class="listing-grid listing-grid-1">
                                             <div class="listing-heading">
                                                 <?php if ($object->professional == 1) { ?>
@@ -494,7 +494,7 @@
                                                     </div>
                                                 <?php } ?>
                                                 <h5>
-                                                    <a href="<?= site_url('admin/services/show/') . $object->id ?>"><?= $object->title ?></a>
+                                                    <a href="<?= site_url('admin/services/show/') . $object->id ?>" class="element-title"><?= $object->title ?></a>
                                                 </h5>
                                             </div>
                                             <div class="listing-inner">
@@ -558,7 +558,7 @@
                                                 <div class="info-footer">
                                                     <img height="20" width="20" src="<?= $object->getSubcategories()->toArray()[0]->getIcon() ?>">
                                                     <h6><?= $object->getSubcategories()->toArray()[0]->getTitle() ?></h6>
-                                                    <a class="pull-right pl10" title="Destruir"
+                                                    <a class="pull-right pl10 destroy" title="Destruir"
                                                        href="<?= site_url('admin/services/destroy/') . $object->id ?>"><i
                                                                 class="fa fa-trash bookmark"></i></a>
                                                     <a class="pull-right pl10" title="Editar"
@@ -756,6 +756,20 @@
                     Usuario</a></li>
         </ul>
     </nav>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default cancel" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary confirm"><i class="fa fa-check"></i> Confirmar</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="<?= site_url("/resources/js/googlemaplocal.js") ?>"></script>

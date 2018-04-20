@@ -10,15 +10,15 @@
     </thead>
     <tbody>
     <?php foreach ($subcategory as $key=>$object): ?>
-        <tr>
+        <tr class="element">
         <td><?= $key+1 ?></td>
-        <td><?= $object->title ?></td>
+        <td class="element-title"><?= $object->title ?></td>
         <td><img src="<?= $object->icon ?>" height="40px" width="45px" title="<?= $object->icon ?>"
                  alt="<?= $object->icon ?>">
         </td>
         <td><?= $object->category ?></td>
         <td width="80"><?= anchor('admin/subcategory/edit/' . $object->id, 'Editar', 'class="btn btn-warning"'); ?></td>
-        <td width="80"><?= anchor('admin/subcategory/destroy/' . $object->id, 'Eliminar', 'class="btn btn-danger" method="delete"'); ?></td>
+        <td width="80"><?= anchor('admin/subcategory/destroy/' . $object->id, 'Eliminar', 'class="btn btn-danger destroy" method="delete"'); ?></td>
         </tr>
     <?php endforeach; ?>
     </tbody>

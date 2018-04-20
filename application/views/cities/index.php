@@ -8,13 +8,11 @@
         </thead>
         <tbody>
         <?php foreach ($cities as $key=>$object):?>
-            <tr>
+            <tr class="element">
             <td><?=$key+1 ?></td>
-            <td><?= $object->title ?></td>
+            <td class="element-title"><?= $object->title ?></td>
             <td width="80"><?= anchor('admin/cities/edit/'.$object->id, 'Editar','class="btn btn-warning"'); ?></td>
-            <td width="80">
-                <?=anchor('admin/cities/destroy/'.$object->id, 'Eliminar','class="btn btn-danger"'); ?>
-            </td>
+            <td width="80"><?= anchor('admin/cities/destroy/'.$object->id, 'Eliminar','class="btn btn-danger destroy"'); ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

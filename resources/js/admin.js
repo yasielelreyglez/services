@@ -47,16 +47,24 @@ $(document).ready(function ($) {
 
     $('.popular_listings button').click(function () {
         window.location.href = 'home/servicesbyfilter/' + $('select[name="order"]').val();
-    })
+    });
+
+    var formService = $('#form-service');
+    if(formService) {
+         formService.validate();
+         $('#step1 .btn-next').on('click', function (ev) {
+             formService.valid();
+         })
+    }
 
     $('.step-views .f1-step a').click(function (ev) {
         ev.preventDefault();
-        $('.step-views .f1-step').removeClass('active');
-        $(this).parent().addClass('active');
-        $('.item-step').removeClass('active');
-        console.log($('#' + $(this).attr('name')));
+        // $('.step-views .f1-step').removeClass('active');
+        // $(this).parent().addClass('active');
+        // $('.item-step').removeClass('active');
+        // console.log($('#' + $(this).attr('name')));
         //valorar calcular progresbar aqui tambien
-        $('#' + $(this).attr('name')).addClass('active');
+        // $('#' + $(this).attr('name')).addClass('active');
     });
     //agregando horarios
 
@@ -86,8 +94,6 @@ $(document).ready(function ($) {
     })
 
     $('.f1 .item-step:first').fadeIn('slow');
-
-
 
     // next step
     $('.f1 .btn-next').on('click', function() {
@@ -143,12 +149,12 @@ $(document).ready(function ($) {
         }
         $('#image_preview').removeClass("hide")
     });
-    $("#submitform").click(function(){
-        console.log("date submit joedr");
-        $( "form.f1" ).submit();
-        console.log("date submit cojo");
-        $( ".fl" ).submit();
-    });
+    // $("#submitform").click(function(){
+    //     console.log("date submit joedr");
+    //     $( "form.f1" ).submit();
+    //     console.log("date submit cojo");
+    //     $( ".fl" ).submit();
+    // });
 
     $('.card-link.delete-image').on('click', function (ev) {
         ev.preventDefault();
@@ -169,6 +175,33 @@ $(document).ready(function ($) {
         }
         $('#images_deleted').val(JSON.stringify(value));
     });
+
+    //eliminar servicio con el icono de basura
+    // $('a.destroy').on('click', function (ev) {
+    //     ev.preventDefault();
+    //     var href = ev.currentTarget.href;
+    //     var text = $(this).parents('.element').find('.element-title').text();
+    //     $('#myModal .modal-body').text('Está a punto de eliminar ' + text + '. ¿Confirma que desea eliminarlo?');
+    //     $('#myModal').modal('toggle');
+    //     $('#myModal .confirm').on('click', function () {
+    //         window.location.href = href;
+    //     });
+    // });
+    initDestroyConfirmValidation();
+
+    $('#form-service').on('submit', function (ev) {
+        ev.preventDefault();
+        $('#form-service').off('submit');
+        if ($('#images_deleted').val() && JSON.parse($('#images_deleted').val()).length) {
+            $('#myModal .modal-body').text('Está a punto de eliminar imágenes del servicio. ¿Confirma que desea eliminarlas?');
+            $('#myModal').modal('toggle');
+            $('#myModal .confirm').on('click', function () {
+                $('#form-service').trigger('submit');
+            });
+        } else {
+            $('#form-service').trigger('submit');
+        }
+    })
 });
 function getStringDays(days){
     var result= [];
@@ -305,6 +338,15 @@ function showFilterResult(services) {
             $('#filterresultcontent').append(getFilterResultElement(this));
         });
         $('#filterresultcontent .uou-accordions').uouAccordions();
+        $('.flexslider').flexslider({
+            slideshowSpeed: 10000,
+            animationSpeed: 1000,
+            prevText: '',
+            nextText: '',
+            directionNav: false,
+            smoothHeight: true
+        });
+        initDestroyConfirmValidation();
     }
     $("html, body").animate({scrollTop:$('#filterresult').offset().top - 50},800)
 }
@@ -401,10 +443,10 @@ function getFilterResultElement(service) {
     $.each(service.imagesList, function () {
         images+= '<li class="" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;"><img src="' + this.title + '" alt="" draggable="false"></li>';
     });
-    var element = '<div class="col-md-4 listing-grid listing-grid-2 item">' +
+    var element = '<div class="col-md-4 listing-grid listing-grid-2 item element">' +
         '<div class="listing-heading">' +
         prof +
-        '<h5><a href="services/show/' + service.id + '">' + service.title + '</h5>' +
+        '<h5><a href="services/show/' + service.id + '" class="element-title">' + service.title + '</h5>' +
         '</div>' +
         '<div class="listing-inner">' +
         '<div class="flexslider default-slider">' +
@@ -456,7 +498,7 @@ function getFilterResultElement(service) {
         '<div class="info-footer">' +
         '<img height="20" width="20" src="' + service.subcategoriesList[0].icon + '"> ' +
         '<h6>' + service.subcategoriesList[0].title + '</h6>' +
-        '<a class="pull-right pl10" title="Destruir" href="services/destroy/' + service.id + '">' +
+        '<a class="pull-right pl10 destroy" title="Destruir" href="services/destroy/' + service.id + '">' +
         '<i class="fa fa-trash bookmark"></i></a>' +
         '<a class="pull-right pl10" title="Editar" href="services/edit/' + service.id + '">' +
         '<i class="fa fa-edit bookmark"></i></a>' +
@@ -467,6 +509,19 @@ function getFilterResultElement(service) {
     return element;
 }
 
+function initDestroyConfirmValidation() {
+    //eliminar servicio con el icono de basura
+    $('a.destroy').on('click', function (ev) {
+        ev.preventDefault();
+        var href = ev.currentTarget.href;
+        var text = $(this).parents('.element').find('.element-title').first().text();
+        $('#myModal .modal-body').text('Está a punto de eliminar ' + text + '. ¿Confirma que desea eliminarlo?');
+        $('#myModal').modal('toggle');
+        $('#myModal .confirm').on('click', function () {
+            window.location.href = href;
+        });
+    });
+}
 
 
 
