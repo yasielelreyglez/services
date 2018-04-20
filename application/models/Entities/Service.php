@@ -720,10 +720,11 @@ namespace Entities {
 
         public function addFotos(Array $fotos, $site_url, $backend = false)
         {
-            if (!is_dir("./resources/")) {
-                if (!is_dir("./resources/services/" . $this->id . "/")) {
-                    mkdir("./resources/services/" . $this->id . "/");
-                }
+            if (!is_dir("./resources/services")) {
+                mkdir("./resources/services/");
+            }
+            if (!is_dir("./resources/services/" . $this->id . "/")) {
+                mkdir("./resources/services/" . $this->id . "/");
             }
             foreach ($fotos as $icon) {
                 $path = "./resources/services/" . $this->id . "/" . $icon['filename'];
@@ -1167,7 +1168,6 @@ namespace Entities {
         // Obtenemos la extension de la imagen
 
         $sExt = mime_content_type($sImagen);
-
         // Creamos el directorio thumbs
         if (!is_dir($sPath . 'thumbs/'))
             @mkdir($sPath . 'thumbs/', 0777, true) or die('No se ha podido crear el directorio "' . $sPath . 'thumbs/".');
