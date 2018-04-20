@@ -720,10 +720,11 @@ namespace Entities {
 
         public function addFotos(Array $fotos, $site_url, $backend = false)
         {
-            if (!is_dir("./resources/services/" . $this->id . "/")) {
-                mkdir("./resources/services/" . $this->id . "/");
+            if (!is_dir("./resources/")) {
+                if (!is_dir("./resources/services/" . $this->id . "/")) {
+                    mkdir("./resources/services/" . $this->id . "/");
+                }
             }
-
             foreach ($fotos as $icon) {
                 $path = "./resources/services/" . $this->id . "/" . $icon['filename'];
                 $save_path = "resources/services/{$this->id}/{$icon['filename']}";

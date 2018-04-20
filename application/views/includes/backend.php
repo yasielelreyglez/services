@@ -807,8 +807,8 @@
     <script>
         $.notify(
             {	// options
-                icon: 'fa fa-warning',
-                title: '<strong>Alerta!:</strong>',
+                icon: "<?php echo $msg['icon'];?>",
+                title: "<?php echo $msg['title'];?>",
                 message: '<?php echo $msg['message'];?>',
                 target: '_blank'
             },
