@@ -64,6 +64,7 @@ class Services extends CI_Controller {
         $currenSubCategories = $service->getSubcategories();
         $currenCities = $service->getCities();
         $currenImages = $service->getImages();
+        $currenPositions = $service->getPositions();
         $subcategories = $em->getRepository('Entities\Subcategory');
         $cities = $em->getRepository('Entities\City');
         $images = $em->getRepository('Entities\Image');
@@ -72,6 +73,7 @@ class Services extends CI_Controller {
         $data['currenSubCategories'] = $currenSubCategories;
         $data['currenCities'] = $currenCities;
         $data['currenImages'] = $currenImages;
+        $data['currenPositions'] = $currenPositions;
         $data['cities'] = $cities->findAll();
         $data['images'] = $images->findAll();
         $data['positions'] = $positions->findAll();
@@ -85,17 +87,17 @@ class Services extends CI_Controller {
     }
     function show($id) {
         $em= $this->doctrine->em;
-        $relacion = $em->getRepository('Entities\Subcategory');
-        $data['subcategories'] = $relacion->findAll();
-        $times = $em->getRepository('Entities\Times');
-        $data['times'] = $times->findBy(array('service' => $id));;
-
-        $data['services'] = $em->find('Entities\Service',$id);
-//        $data['times'] = $result;
+        $service = $em->getRepository('Entities\Service')->find($id);
+        $currenPositions = $service->getPositions();
+        $currenTimes = $service->getTimes();
+        $currenComments = $service->getServicecomments();
+        $data['times'] = $currenTimes;
+        $data['services'] = $service;
+        $data['positions'] = $currenPositions;
+        $data['comments'] = $currenComments;
         $data['content'] = '/services/show';
         $data["tab"]="services";
         $data["tabTitle"]="servicio";
-//        print_r($data['categories']);die;
         $this->load->view('/includes/contentpage', $data);
     }
 
