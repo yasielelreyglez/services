@@ -544,13 +544,13 @@
                                                                 <?php if ($object->address) { ?>
                                                                     <li><i class="fa fa-map-marker"></i> <?= $object->address ?></li><?php } ?>
                                                                 <?php if ($object->email) { ?>
-                                                                    <li><i class="fa fa-envelope-o"></i> <?= $object->email ?></li><?php } ?>
+                                                                    <li><i class="fa fa-envelope-o"></i><a href="mailto:<?= $object->email ?>"><?= $object->email ?></a> </li><?php } ?>
                                                                 <?php if ($object->url) { ?>
-                                                                    <li><i class="fa fa-globe"></i><?= $object->url ?></li><?php } ?>
+                                                                    <li><i class="fa fa-globe"></i><a href="<?= $object->url ?>" target="_blank"><?= $object->url ?></a> </li><?php } ?>
                                                                 <?php if ($object->phone) { ?>
-                                                                    <li><i class="fa fa-phone"></i><?= $object->phone ?></li><?php } ?>
+                                                                    <li><i class="fa fa-phone"></i><a href="tel:<?= $object->phone ?>"><?= $object->phone ?></a></li><?php } ?>
                                                                 <?php if ($object->other_phone) { ?>
-                                                                    <li><i class="fa fa-fax"></i> <?= $object->other_phone ?></li> <?php } ?>
+                                                                    <li><i class="fa fa-fax"></i><a href="tel:<?= $object->other_phone ?>"><?= $object->other_phone ?></a></li> <?php } ?>
                                                             </ul>
                                                         </div>
                                                     </li>

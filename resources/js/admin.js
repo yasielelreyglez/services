@@ -483,10 +483,10 @@ function getFilterResultElement(service) {
         '<div>' +
         '<ul class="contact-info list-unstyled mb0">' +
         '<li><i class="fa fa-map-marker"></i> ' + service.address + '</li>' +
-        '<li><i class="fa fa-envelope-o"></i> ' + service.email + '</li>' +
-        '<li><i class="fa fa-globe"></i> ' + service.url + '</li>' +
-        '<li><i class="fa fa-phone"></i> ' + service.phone + '</li>' +
-        '<li><i class="fa fa-fax"></i> ' + service.other_phone + '</li>' +
+        '<li><i class="fa fa-envelope-o"></i> <a href="mailto:' + service.email + '">' + service.email + '</a></li>' +
+        '<li><i class="fa fa-globe"></i> <a href="' + service.url + '" target="_blank">' + service.url + '</a></li>' +
+        '<li><i class="fa fa-phone"></i> <a href="tel:' + service.phone + '">' + service.phone + '</a></li>' +
+        '<li><i class="fa fa-fax"></i> <a href="tel:' + service.other_phone + '">' + service.other_phone + '</a></li>' +
         '</ul>' +
         '</div>' +
         '</li>' +

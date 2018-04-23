@@ -13,7 +13,7 @@
         <tr class="element">
             <td><?= $key+1 ?></td>
             <td class="element-title"><?= $object->username ?></td>
-            <td><?= $object->email ?></td>
+            <td><a href="mailto:<?= $object->email ?>"><?= $object->email ?></a></td>
             <?php /*<td><?= $object->created ?></td>*/ ?>
             <td>
                 <?php foreach ($object->groups as $group): ?>

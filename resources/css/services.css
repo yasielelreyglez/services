@@ -190,3 +190,7 @@ span.start_time_s {
 body.modal-open {
     padding-right: 0 !important;
 }
+
+.listing.listing-3 .listing-grid .uou-accordions li.active a:after {
+    content: none !important;
+}
