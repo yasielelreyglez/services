@@ -13,7 +13,7 @@
                 No hay servicios creados.
             <?php endif; ?>
             <?php foreach ($services as $object) { ?>
-                <div class="col-md-4 listing-grid listing-grid-2">
+                <div class="col-md-4 listing-grid listing-grid-2 element">
                     <div class="listing-heading">
                         <?php if ($object->professional == 1) { ?>
                             <div class="marker-ribbon">
@@ -22,18 +22,18 @@
                                 </div>
                             </div>
                         <?php } ?>
-                        <h5><?= $object->title ?></h5>
+                        <h5 class="element-title"><?= $object->title ?></h5>
                     </div>
                     <div class="listing-inner">
                         <div class="flexslider default-slider">
                             <ul class="slides">
                                 <li class="flex-active-slide"
                                     style="width: 100%; float: left; margin-right: -100%; position: relative; opacity:1; display: block; z-index: 2;">
-                                    <img src="<?= site_url().$object->icon ?>" alt="" draggable="false"></li>
+                                    <img src="<?= site_url() . $object->icon ?>" alt="" draggable="false"></li>
                                 <?php
                                 $images = $object->getImages()->toArray();
                                 foreach ($images as $image) {
-                                    echo '<li class="" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;"><img src="'. site_url() . $image->getTitle() . '" alt="" draggable="false"></li>';
+                                    echo '<li class="" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;"><img src="' . site_url() . $image->getTitle() . '" alt="" draggable="false"></li>';
                                 }
                                 ?>
                             </ul>
@@ -79,13 +79,21 @@
                                         <?php if ($object->address) { ?>
                                             <li><i class="fa fa-map-marker"></i> <?= $object->address ?></li><?php } ?>
                                         <?php if ($object->email) { ?>
-                                            <li><i class="fa fa-envelope-o"></i> <?= $object->email ?></li><?php } ?>
+                                            <li><i class="fa fa-envelope-o"></i><a
+                                                    href="mailto:<?= $object->email ?>"><?= $object->email ?></a>
+                                            </li><?php } ?>
                                         <?php if ($object->url) { ?>
-                                            <li><i class="fa fa-globe"></i><?= $object->url ?></li><?php } ?>
+                                            <li><i class="fa fa-globe"></i><a href="<?= $object->url ?>"
+                                                                              target="_blank"><?= $object->url ?></a>
+                                            </li><?php } ?>
                                         <?php if ($object->phone) { ?>
-                                            <li><i class="fa fa-phone"></i><?= $object->phone ?></li><?php } ?>
+                                            <li><i class="fa fa-phone"></i><a
+                                                    href="tel:<?= $object->phone ?>"><?= $object->phone ?></a>
+                                            </li><?php } ?>
                                         <?php if ($object->other_phone) { ?>
-                                            <li><i class="fa fa-fax"></i> <?= $object->other_phone ?></li> <?php } ?>
+                                            <li><i class="fa fa-fax"></i><a
+                                                        href="tel:<?= $object->other_phone ?>"><?= $object->other_phone ?></a>
+                                            </li> <?php } ?>
                                     </ul>
                                 </div>
                             </li>
@@ -94,7 +102,7 @@
                     <div class="info-footer">
                         <img height="20" width="20" src="<?= $object->getSubcategories()->toArray()[0]->getIcon() ?>">
                         <h6><?= $object->getSubcategories()->toArray()[0]->getTitle() ?></h6>
-                        <a class="pull-right pl10" title="Destruir"
+                        <a class="pull-right pl10 destroy" title="Destruir"
                            href="<?= site_url('admin/services/destroy/') . $object->id ?>"><i
                                     class="fa fa-trash bookmark"></i></a>
                         <a class="pull-right pl10" title="Editar"
@@ -107,7 +115,7 @@
                 </div>
             <?php } ?>
         </div>
-        <?= anchor('admin/services/create/' . $object->id, '+', 'class="floating-button" title="Crear servicio"'); ?>
+        <?= anchor('admin/services/create/', '+', 'class="floating-button" title="Crear servicio"'); ?>
         <div class="row listview hide">
             <table class="table">
                 <thead>
@@ -128,16 +136,17 @@
                         <td colspan="9">No hay servicios creados.</td>
                     </tr>
                 <?php endif; ?>
-                <?php foreach ($services as $key=> $object) : ?>
-                    <tr>
+                <?php foreach ($services as $key => $object) : ?>
+                    <tr class="element">
                         <td>
                             <?= $object->id ?>
                         </td>
                         <td>
-                            <a href="<?= site_url('admin/services/show/') . $object->id ?>"> <?= $object->title ?></a>
-<!--                            --><?php //if ($object->professional == 1) : ?>
-<!--                                <i class="fa fa-certificate" title="PROFESSIONAL"></i>-->
-<!--                            --><?php //endif; ?>
+                            <a href="<?= site_url('admin/services/show/') . $object->id ?>"
+                               class="element-title"> <?= $object->title ?></a>
+                            <!--                            --><?php //if ($object->professional == 1) : ?>
+                            <!--                                <i class="fa fa-certificate" title="PROFESSIONAL"></i>-->
+                            <!--                            --><?php //endif; ?>
                         </td>
                         <td>
                             <?php if ($object->address) : ?>
@@ -150,21 +159,27 @@
                         </td>
                         <td>
                             <?php if ($object->email) : ?>
-                                <?= $object->email ?>
+                                <a href="mailto:<?= $object->email ?>">
+                                    <?= $object->email ?>
+                                </a>
                             <?php endif; ?>
                         </td>
                         <td>
                             <?php if ($object->url) : ?>
-                                <?= $object->url ?>
+                                <a href="<?= $object->url ?>" target="_blank">
+                                    <?= $object->url ?>
+                                </a>
                             <?php endif; ?>
                         </td>
                         <td>
                             <?php if ($object->phone) : ?>
-                                <?= $object->phone ?>
+                                <a href="tel:<?= $object->phone ?>">
+                                    <?= $object->phone ?>
+                                </a>
                             <?php endif; ?>
                         </td>
                         <td width="80"><?= anchor('admin/services/edit/' . $object->id, 'Editar', 'class="btn btn-warning"'); ?></td>
-                        <td width="80"><?= anchor('admin/services/destroy/' . $object->id, 'Eliminar', 'class="btn btn-danger"'); ?></td>
+                        <td width="80"><?= anchor('admin/services/destroy/' . $object->id, 'Eliminar', 'class="btn btn-danger destroy"'); ?></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

@@ -483,7 +483,7 @@
                         <div class="row">
                             <?php if (count($mostvisited)) : ?>
                                 <?php foreach ($mostvisited as $object) : ?>
-                                    <div class="col-md-4 item">
+                                    <div class="col-md-4 item element">
                                         <div class="listing-grid listing-grid-1">
                                             <div class="listing-heading">
                                                 <?php if ($object->professional == 1) { ?>
@@ -494,7 +494,7 @@
                                                     </div>
                                                 <?php } ?>
                                                 <h5>
-                                                    <a href="<?= site_url('admin/services/show/') . $object->id ?>"><?= $object->title ?></a>
+                                                    <a href="<?= site_url('admin/services/show/') . $object->id ?>" class="element-title"><?= $object->title ?></a>
                                                 </h5>
                                             </div>
                                             <div class="listing-inner">
@@ -544,13 +544,13 @@
                                                                 <?php if ($object->address) { ?>
                                                                     <li><i class="fa fa-map-marker"></i> <?= $object->address ?></li><?php } ?>
                                                                 <?php if ($object->email) { ?>
-                                                                    <li><i class="fa fa-envelope-o"></i> <?= $object->email ?></li><?php } ?>
+                                                                    <li><i class="fa fa-envelope-o"></i><a href="mailto:<?= $object->email ?>"><?= $object->email ?></a> </li><?php } ?>
                                                                 <?php if ($object->url) { ?>
-                                                                    <li><i class="fa fa-globe"></i><?= $object->url ?></li><?php } ?>
+                                                                    <li><i class="fa fa-globe"></i><a href="<?= $object->url ?>" target="_blank"><?= $object->url ?></a> </li><?php } ?>
                                                                 <?php if ($object->phone) { ?>
-                                                                    <li><i class="fa fa-phone"></i><?= $object->phone ?></li><?php } ?>
+                                                                    <li><i class="fa fa-phone"></i><a href="tel:<?= $object->phone ?>"><?= $object->phone ?></a></li><?php } ?>
                                                                 <?php if ($object->other_phone) { ?>
-                                                                    <li><i class="fa fa-fax"></i> <?= $object->other_phone ?></li> <?php } ?>
+                                                                    <li><i class="fa fa-fax"></i><a href="tel:<?= $object->other_phone ?>"><?= $object->other_phone ?></a></li> <?php } ?>
                                                             </ul>
                                                         </div>
                                                     </li>
@@ -558,7 +558,7 @@
                                                 <div class="info-footer">
                                                     <img height="20" width="20" src="<?= $object->getSubcategories()->toArray()[0]->getIcon() ?>">
                                                     <h6><?= $object->getSubcategories()->toArray()[0]->getTitle() ?></h6>
-                                                    <a class="pull-right pl10" title="Destruir"
+                                                    <a class="pull-right pl10 destroy" title="Destruir"
                                                        href="<?= site_url('admin/services/destroy/') . $object->id ?>"><i
                                                                 class="fa fa-trash bookmark"></i></a>
                                                     <a class="pull-right pl10" title="Editar"
@@ -758,6 +758,20 @@
     </nav>
 </div>
 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default cancel" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary confirm"><i class="fa fa-check"></i> Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="<?= site_url("/resources/js/googlemaplocal.js") ?>"></script>
 <script src="<?= site_url("/resources/js/jquery-2.1.3.min.js") ?>"></script>
 
@@ -783,7 +797,28 @@
 <script src="<?= site_url("/resources/js/retina-1.1.0.min.js") ?>"></script>
 
 <script src="<?= site_url("/resources/js/scripts.js") ?>"></script>
-
+<script src="<?= site_url("/resources/js/bootstrap-notify.min.js") ?>"></script>
+<?php if(!empty($this->session->flashdata('item'))):?>
+    <?php $msg = $this->session->flashdata('item');?>
+    <!--div class="alert <?php echo $msg['class']?>" id="notify-id">
+        <a class="close" href="#" data-dismiss="alert">x</a>
+        <strong>Información!</strong> <?php //echo $msg['message']?>
+    </div-->
+    <script>
+        $.notify(
+            {	// options
+                icon: "<?php echo $msg['icon'];?>",
+                title: "<?php echo $msg['title'];?>",
+                message: '<?php echo $msg['message'];?>',
+                target: '_blank'
+            },
+            {
+                // settings
+                type: '<?php echo $msg['class'];?>'
+            }
+        );
+    </script>
+<?php endif;?>
 </body>
 
 <!-- Mirrored from new.uouapps.com/quick-finder/index2.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 Nov 2017 14:43:23 GMT -->

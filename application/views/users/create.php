@@ -27,6 +27,13 @@
 
     </div>
 <?php endif; ?>
+<div class="form-group">
+    <label for="ip_address">Contraseña:</label><br/>
+    <input type="hidden" required class="form-control" name="ip_address"
+           value="<?= isset($users) ? $_SERVER['HTTP_CLIENT_IP'] : ':1' ?>"/>
+
+</div>
+
 <?php //if ($this->ion_auth->is_admin()): ?>
 
     <h3><?php echo lang('edit_user_groups_heading'); ?></h3>

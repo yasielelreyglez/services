@@ -141,6 +141,7 @@ class Pagos extends CI_Controller {
         $em->persist($service);
         $em->persist($payment);
         $em->flush();
+        $this->session->set_flashdata('item', array('message'=>'Se han guardado sus cambios correctamente.', 'class'=>'success'));
         redirect('admin/pagos', 'refresh');
 
     }
@@ -208,6 +209,7 @@ class Pagos extends CI_Controller {
             $membership->setPrice($this->input->post('price', TRUE));
             $em->persist($membership);
             $em->flush($membership);
+            $this->session->set_flashdata('item', array('message'=>'Se han guardado sus cambios correctamente.', 'class'=>'success', 'icon'=>'fa fa-thumbs-up', 'title'=>"<strong>Bien!:</strong>"));
             redirect('admin/pagos/membresias', 'refresh');
         }
         $data['membership'] =	$membership;
@@ -241,10 +243,12 @@ class Pagos extends CI_Controller {
             try{
                 $em->remove($payments[0]);
                 $em->flush();
+                $this->session->set_flashdata('item', array('message'=>'El elemento ha sido eliminado correctamente.', 'class'=>'success', 'icon'=>'fa fa-warning', 'title'=>"<strong>Bien!:</strong>"));
             }catch (Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException  $exception) {
             }
         }else{
-            $data["errors"]= array("Error eliminando el elemento"=>"No se encontro el pago a eliminar");
+            $this->session->set_flashdata('item', array('message'=>"Error eliminando el elemento\"=>\"No se encontro el pago a eliminar", 'class'=>'danger'));
+//            $data["errors"]= array("Error eliminando el elemento"=>"No se encontro el pago a eliminar");
         }
 
 

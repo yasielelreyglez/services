@@ -64,6 +64,7 @@ class Services extends CI_Controller {
         $currenSubCategories = $service->getSubcategories();
         $currenCities = $service->getCities();
         $currenImages = $service->getImages();
+        $currenPositions = $service->getPositions();
         $subcategories = $em->getRepository('Entities\Subcategory');
         $cities = $em->getRepository('Entities\City');
         $images = $em->getRepository('Entities\Image');
@@ -72,6 +73,7 @@ class Services extends CI_Controller {
         $data['currenSubCategories'] = $currenSubCategories;
         $data['currenCities'] = $currenCities;
         $data['currenImages'] = $currenImages;
+        $data['currenPositions'] = $currenPositions;
         $data['cities'] = $cities->findAll();
         $data['images'] = $images->findAll();
         $data['positions'] = $positions->findAll();
@@ -85,17 +87,17 @@ class Services extends CI_Controller {
     }
     function show($id) {
         $em= $this->doctrine->em;
-        $relacion = $em->getRepository('Entities\Subcategory');
-        $data['subcategories'] = $relacion->findAll();
-        $times = $em->getRepository('Entities\Times');
-        $data['times'] = $times->findBy(array('service' => $id));;
-
-        $data['services'] = $em->find('Entities\Service',$id);
-//        $data['times'] = $result;
+        $service = $em->getRepository('Entities\Service')->find($id);
+        $currenPositions = $service->getPositions();
+        $currenTimes = $service->getTimes();
+        $currenComments = $service->getServicecomments();
+        $data['times'] = $currenTimes;
+        $data['services'] = $service;
+        $data['positions'] = $currenPositions;
+        $data['comments'] = $currenComments;
         $data['content'] = '/services/show';
         $data["tab"]="services";
         $data["tabTitle"]="servicio";
-//        print_r($data['categories']);die;
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -136,19 +138,22 @@ class Services extends CI_Controller {
             try{
                 $imageName = explode('/', $foto->getTitle());
                 $pathImage = $path . $id . "/" . $imageName[count($imageName)-1];
-                $pathThumbs = $path . $id . "/thumbs/" . $imageName[count($imageName)-1];
+                $pathThumbsImage = $path . $id . "/thumbs/" . $imageName[count($imageName)-1];
                 if(is_file($foto->getTitle())) {
                     unlink($pathImage);
-                    unlink($pathThumbs);
+                    unlink($pathThumbsImage);
                 }
             }catch (Exception $e){
                 echo $foto->getTitle();
                 print_r($e);
             }
         }
+
         //borrar los thumbs y los icons
-        unlink($service->getIcon());
-        unlink($service->getThumb());
+        if ($service->getThumb())
+            unlink('.'.$service->getThumb());
+        if ($service->getIcon())
+            unlink('.'.$service->getIcon());
 
         //borrar los directorios
         rmdir($path . $id . "/thumbs");
@@ -160,6 +165,7 @@ class Services extends CI_Controller {
         //CARGADA LA RELACION PARA DESPUES ELIMINARLAS CON EL SERVICIO
         $em->remove($service);
         $em->flush();
+        $this->session->set_flashdata('item', array('message'=>'El elemento ha sido eliminado correctamente.', 'class'=>'success', 'icon'=>'fa fa-warning', 'title'=>"<strong>Bien!:</strong>"));
         redirect('admin/services/index', 'refresh');
     }
 
@@ -197,24 +203,6 @@ class Services extends CI_Controller {
             $service->address = $this->input->post('address', TRUE);
             $service->addSubCategories($this->input->post('categories', TRUE), $em);
             $service->addCities($this->input->post('cities', TRUE), $em);
-            //si estoy editando, verificar k no de palo
-//            if($id) {
-//                $icon_old = $this->input->post('icon_old');
-//            }
-
-////            /salvando icon
-//            $config['upload_path']          = './resources/services';
-//            $config['allowed_types']        = 'gif|jpg|png';
-//            $config['max_size']             = 1000;
-//            $config['max_width']            = 9024;
-//            $config['max_height']           = 2768;
-//            $this->load->library('upload', $config);
-//            echo $icon = $this->input->post('icon');
-//            if ($this->upload->do_upload('icon')) {
-//                $data["upload_data"] = $this->upload->data();
-//                $service->setIcon(site_url('resources/services/'.$data["upload_data"]["file_name"]));
-//                $service->setThumb($data["upload_data"]["file_name"]);
-//            }
 
             //OTROS DATOS
             $service->setOtherPhone($this->input->post('other_phone', TRUE));
@@ -275,10 +263,17 @@ class Services extends CI_Controller {
                     $fotoSubir[$i]['value'] = $fotos['tmp_name'][$i];
                 }
                 if(count($fotoSubir)> 0){
-                    $service->addFotos($fotoSubir, site_url(), true);
                     //guardo la primera foto
-                    $service->setIcon('resources/services/'.$id.'/'.$fotoSubir[0]["filename"]);
+                    $pathIcon = "./resources/services/" . $fotoSubir[0]['filename'];
+                    $saveIcon = "/resources/services/" . $fotoSubir[0]['filename'];
+//                    echo move_uploaded_file($fotoSubir[0]['value'], $pathIcon);
+                    copy($fotoSubir[0]['value'], $pathIcon);
+////                    file_put_contents($pathIcon, $fotoSubir[0]['value']);
+//                    print_r($fotoSubir);
+//                    die;
+                    $service->setIcon($saveIcon);
                     $service->setThumb($fotoSubir[0]['filename']);
+                    $service->addFotos($fotoSubir, site_url(), true);
                 }
             }else{
 //                echo"NO VE LAS FOTOS";
@@ -288,19 +283,12 @@ class Services extends CI_Controller {
             $em->flush();
             $service->loadRelatedData($this->getCurrentUser(), null, site_url());
             $service->loadRelatedUserData($this->getCurrentUser());
+            $this->session->set_flashdata('item', array('message'=>'Se han guardado sus cambios correctamente.', 'class'=>'success', 'icon'=>'fa fa-thumbs-up', 'title'=>"<strong>Bien!:</strong>"));
 
 //            print_r($service);
 //            die;
             redirect('admin/services/index', 'refresh');
-
-
-
         }
-//        $data['services'] =	$this->rebuild();
-//        $data['content'] = '/services/create';
-//        $data["tab"]="services";
-//
-//        $this->load->view('/includes/contentpage', $data);
     }
 
     function rebuild() {
