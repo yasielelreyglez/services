@@ -247,7 +247,7 @@ export class ShowserviceComponent implements OnInit, AfterViewInit, AfterContent
                     });
 
                     that.markers.push(marker);
-
+                    that.map.panTo(new google.maps.LatLng(this.positions[i].latitude, this.positions[i].longitude));
                     const content = '<h6 class="tc-blue"><a>' + this.positions[i].title + '</a></h6>';
                     this.addInfoWindow(marker, content);
                 }, i * 200);
@@ -264,7 +264,7 @@ export class ShowserviceComponent implements OnInit, AfterViewInit, AfterContent
                     that.currentPosition.setPosition(latLng);
                     that.currentPosition.setIcon(that.image);
                     that.currentPosition.setMap(that.map);
-                    that.map.panTo(latLng);
+                    // that.map.panTo(latLng);
 
                     if (that.currentEnd.id !== -1)
                         that.calculateAndDisplayRoute();
