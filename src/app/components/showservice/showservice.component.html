@@ -77,7 +77,7 @@
                                                     </li>
                                                     <li>
                                                         <h6>Sitio web:</h6>
-                                                        <a href="mailto:{{service.url}}"> <span>{{service.url}}</span></a>
+                                                        <a target="_blank" href="{{service.url}}"> <span>{{service.url}}</span></a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -85,11 +85,11 @@
                                                 <ul class="contact">
                                                     <li>
                                                         <h6>Teléfono:</h6>
-                                                        <span>{{service.phone}}</span>
+                                                        <a href="tel:+593{{service.phone}}"><span>{{service.phone}}</span></a>
                                                     </li>
                                                     <li>
                                                         <h6>Télefono adicional:</h6>
-                                                        <span>{{service.other_phone}}</span>
+                                                        <a href="tel:+593{{service.other_phone}}"><span>{{service.other_phone}}</span></a>
                                                     </li>
                                                 </ul>
                                             </div>
