@@ -13,7 +13,7 @@ base_url()
 
 <head>
     <meta charset="utf-8">
-    <title>Angular App</title>
+    <title>LOSYP</title>
 
    <base href="<?php echo base_url()?>">
     <script src="<?php echo base_url()?>dist/assets/js/jquery-2.1.3.min.js"></script>
