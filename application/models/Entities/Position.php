@@ -167,4 +167,13 @@ class Position
         $obj->service = $this->getService()->getId();
         return $obj;
     }
+    function getListObjWS(){
+        $obj = new \stdClass();
+        $obj->id = $this->getId();
+        $obj->latitude = $this->getLatitude();
+        $obj->longitude = $this->getLongitude();
+        $obj->title = $this->getTitle();
+        $obj->service = $this->getService();
+        return $obj;
+    }
 }

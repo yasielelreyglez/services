@@ -288,8 +288,8 @@ function loadFilters() {
         });
 
     });
-    //$.get('../api/categories',function(data){
-    $.get('../api/allsubcategories', function (data) {
+    $.get('../api/categories',function(data){
+    // $.get('../api/allsubcategories', function (data) {
         $(data.data).each(function (pos, item) {
             var newState = new Option(item.title, item.id, false, false);
             // Append it to the select
