@@ -13,29 +13,26 @@ $week_days = array(
     <div class="listing listing-1 single-listing">
         <div class="listing-ver-1">
             <div class="listing-heading">
-                <div class="col-xs-6 col-sm-8">
+                <div class="reviews">
+                    <ul class="rate">
+                        <?php $rate = $services->getGlobalrate();
+                        for ($pos = 0; $pos < 10; $pos++) {
+                            if ($pos < $rate) {
+                                echo '<li><i class="fa fa-star "></i></li>';
+                            } else {
+                                echo ' <li><i class="fa fa-star-o"></i></li>';
+                            }
+                        }
+                        ?>
+                    </ul>
+                </div>
                     <h5><?= $services->title ?></h5>
                     <?php if ($services->professional == 1) { ?>
                         <a href="#" class="c-red"><i class="fa fa-bookmark"></i></a>
                     <?php } ?>
-                </div>
-                <div class="col-xs-6 col-sm-4">
-                    <div class="reviews">
-                        <ul class="rate">
-                            <?php $rate = $services->getGlobalrate();
-                            for ($pos = 0; $pos < 10; $pos++) {
-                                if ($pos < $rate) {
-                                    echo '<li><i class="fa fa-star "></i></li>';
-                                } else {
-                                    echo ' <li><i class="fa fa-star-o"></i></li>';
-                                }
-                            }
-                            ?>
-                        </ul>
-                        <span class="count"><?= $services->getReviews() ?> reviews</span>
-                    </div>
-                </div>
+
             </div>
+
             <div class="listing-tabs">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#basic" data-toggle="tab" aria-selected="true"><i
@@ -50,8 +47,29 @@ $week_days = array(
                     <div class="listing-inner" style="min-height: 420px;">
                         <div class="listing-content">
                             <div class="listing-content-inner">
-                                <div class="listing-content-thumbnail">
-                                    <img alt="" src="<?= site_url() . $services->icon ?>">
+&nbsp;
+<!--                                </div>-->
+                                <div class="flexslider default-slider">
+                                    <ul class="slides">
+
+                                        <?php
+                                        $images = $services->getImages()->toArray();
+                                        foreach ($images as $image) {
+                                            echo '<li class="" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;"><img src="' . site_url() . $image->getTitle() . '" alt="" draggable="false"></li>';
+                                        }
+                                        ?>
+                                    </ul>
+
+                                    <ol class="flex-control-nav flex-control-paging">
+                                        <li><a class="">1</a></li>
+                                        <li><a class="flex-active">2</a></li>
+                                        <li><a class="">3</a></li>
+                                        <li><a class="">4</a></li>
+                                    </ol>
+                                    <ul class="flex-direction-nav">
+                                        <li><a class="flex-prev" href="#"></a></li>
+                                        <li><a class="flex-next" href="#"></a></li>
+                                    </ul>
                                 </div>
                                 <div class="listing-content-description margin-description">
                                     <p><?= $services->subtitle ?></p>
@@ -118,6 +136,7 @@ $week_days = array(
                                             <span class="day">
                                                 <?php
                                                 foreach (explode(',', $time->week_days) as $key => $day) {
+                                                    echo $day;
                                                     echo $key + 1 == count(explode(',', $time->week_days)) ? $week_days[$day] : $week_days[$day] . ',';
                                                 } ?>
                                             </span>

@@ -153,7 +153,9 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
 
                     this.markers.push(marker);
 
-                    const content = '<h6 class="tc-blue">' + this.positions[i].title + '</h6>';
+                    const content = ' <a href="./service/' + this.positions[i].service.id+'" >' +
+                        '<h6 class="tc-blue">' + this.positions[i].service.title + '</h6></a>' +
+                        '<span class="tc-blue">' + this.positions[i].title + '</span>';
                     this.addInfoWindow(marker, content);
                 }, i * 200);
             }

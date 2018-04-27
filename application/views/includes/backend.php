@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Servicios-Administración</title>
+    <title>Losyp-Administración</title>
 
     <!-- Stylesheets -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,600,700%7CDroid+Serif:300,400,700,400italic">
@@ -141,7 +141,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <h1 class="block-title">Servicios</h1>
+                    <h1 class="block-title">LOSYP</h1>
                     <p class="block-secondary-title invert">Administraci&oacute;n</p>
                 </div>
                 <div class="col-md-12">

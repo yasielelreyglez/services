@@ -49,7 +49,7 @@ class Services extends CI_Controller {
         $data['subcategories'] = $subcategories->findAll();
         $data['cities'] = $cities->findAll();
         $data['images'] = $images->findAll();
-        $data['positions'] = $positions->findAll();
+        $data['positions'] = array();
         $data['days_of_weak'] = $this->days_of_weak;
         $data['content'] = '/services/create';
         $data["tab"]="services";
@@ -60,11 +60,13 @@ class Services extends CI_Controller {
     # GET /services/edit/1
     function edit($id) {
         $em= $this->doctrine->em;
-        $service = $em->getRepository('Entities\Service')->find($id);
+        /** @var \Entities\Service $service */
+        $service = $em->find("\Entities\Service", $id);
         $currenSubCategories = $service->getSubcategories();
         $currenCities = $service->getCities();
         $currenImages = $service->getImages();
-        $currenPositions = $service->getPositions();
+        $currenPositions = $service->getPositions()->toArray();
+        $currenTimes = $service->getTimes()->toArray();
         $subcategories = $em->getRepository('Entities\Subcategory');
         $cities = $em->getRepository('Entities\City');
         $images = $em->getRepository('Entities\Image');
@@ -81,6 +83,7 @@ class Services extends CI_Controller {
 		$data['services'] = $service;
 		$data['content'] = '/services/create';
         $data["tab"]="services";
+        $data["currenTimes"]=$currenTimes;
         $data["tabTitle"]="editar servicios";
 
         $this->load->view('/includes/contentpage', $data);
@@ -214,14 +217,16 @@ class Services extends CI_Controller {
             foreach ($old_positions as $old_position) {
                 $em->remove($old_position);
             }
-
+            $old_times = $service->getTimes()->toArray();
+            foreach ($old_times as $old_time) {
+                $em->remove($old_time);
+            }
             $em->flush();
 
             $service->addPositions(json_decode($positions),true);
             $service->addTimes(json_decode($this->input->post("times")),true);
             $em->persist($service);
             $em->flush();
-
             //GALERIA DE FOTOS
             //si estoy editando borro fotos anteriores
             if(isset($service->id)) {

@@ -160,20 +160,28 @@
                 <input type="button"
                        class="col-12" value="Agregar posiciones" id="addPosition"/>
                 <input type="hidden" value="[]" name="positions" id="positions"/>
-                <div id="visual_positions">
 
-                </div>
-            </div>
-            <div class="f1-buttons">
-                <button type="button" class="btn btn-previous bg-tema">Anterior</button>
-                <button type="button" class="btn btn-next bg-tema">Proximo</button>
-            </div>
-        </div>
-        <div id="step5" class="item-step ">
-            <h2>Gestión de horarios</h2>
-            <label>Días de atención</label>
-            <br/>
-            <?php foreach ($days_of_weak as $key => $day): ?>
+                <script>
+                    var jsonobj = <?php echo json_encode($currenPositions)?>;
+                  if(Array.isArray(jsonobj)){
+                      document.getElementById("positions").value = JSON.stringify(jsonobj);
+                  }
+
+              </script>
+              <div id="visual_positions">
+
+              </div>
+          </div>
+          <div class="f1-buttons">
+              <button type="button" class="btn btn-previous bg-tema">Anterior</button>
+              <button type="button" class="btn btn-next bg-tema">Proximo</button>
+          </div>
+      </div>
+      <div id="step5" class="item-step ">
+          <h2>Gestión de horarios</h2>
+          <label>Días de atención</label>
+          <br/>
+          <?php foreach ($days_of_weak as $key => $day): ?>
                 <label class="checkbox">
                     <?php
                     //                    if (isset($currentGroups))
@@ -206,6 +214,13 @@
                        value="<?= '16:00' ?>"/>
             </div>
             <input type="hidden" value="[]" name="times" id="times"/>
+            <script>
+                var jsonobjtime = <?php echo json_encode($currenTimes)?>;
+                console.log("times registrados",jsonobjtime);
+                if(Array.isArray(jsonobjtime)){
+                    document.getElementById("times").value = JSON.stringify(jsonobjtime);
+                }
+            </script>
             <input type="button" class="btn btn-info" id="add_time" value="Agregar Horario"
                    style="margin-bottom: 20px"/>
             <div id="visual_horarios">

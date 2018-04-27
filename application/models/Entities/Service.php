@@ -1057,10 +1057,14 @@ namespace Entities {
                 $poss = 0;
                 $string_week = "";
                 if ($admin) {
-                    $weekdays = $time_p->weekdays;
+                    $weekdays = $time_p->week_days;
+                    if(!is_array($weekdays)){
+                        $weekdays = explode(",",$weekdays);
+                    }
                 } else {
                     $weekdays = $time_p["weekdays"];
                 }
+                print_r($weekdays);
                 foreach ($weekdays as $weekday) {
                     if ($poss > 6) {
                         $poss = 0;
@@ -1086,6 +1090,7 @@ namespace Entities {
                 $time->setService($this);
                 $this->addTime($time);
             }
+
             return $this;
         }
 

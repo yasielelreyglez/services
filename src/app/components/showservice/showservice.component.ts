@@ -144,6 +144,25 @@ export class ShowserviceComponent implements OnInit, AfterViewInit, AfterContent
 
     ngAfterContentInit(): void {
     }
+    ngAfterViewChecked(): void {
+        if ($.fn.uouAccordions) {
+            $('.uou-accordions').uouAccordions();
+        } else {
+            console.warn('not loaded -> uou-accordions.js');
+        }
+
+        if ($.fn.flexslider) {
+            $('.default-slider').flexslider({
+                slideshowSpeed: 10000,
+                animationSpeed: 1000,
+                prevText: '',
+                nextText: ''
+            });
+        } else {
+            console.warn('not loaded -> jquery.flexslider-min.js');
+        }
+    }
+
 
 
     reportDialog(id: number): void {

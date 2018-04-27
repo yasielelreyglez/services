@@ -728,10 +728,13 @@ class Api extends REST_Controller
         $morevisitsRepo = $em->getRepository('Entities\Service');
         $morevisits = $morevisitsRepo->findBy(array(), array('visits' => 'DESC'), 5);
         $positions = array();
+        /** @var \Entities\Service $service */
         foreach ($morevisits as $service) {
+
             $posiciones = $service->getPositions();
+            /** @var \Entities\Position $posicione */
             foreach ($posiciones as $posicione) {
-                $positions[] = $posicione->getListObj();
+                $positions[] = $posicione->getListObjWS();
             }
         }
         $response["data"] = $positions;

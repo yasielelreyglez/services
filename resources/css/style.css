@@ -3046,6 +3046,9 @@ hr {
 .gm-style img {
   max-width: none;
 }
+.logo img {
+  width: 250px;
+}
 .map label,
 .gm-style label {
   display: inline;
