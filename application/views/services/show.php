@@ -136,6 +136,7 @@ $week_days = array(
                                             <span class="day">
                                                 <?php
                                                 foreach (explode(',', $time->week_days) as $key => $day) {
+                                                    echo $day;
                                                     echo $key + 1 == count(explode(',', $time->week_days)) ? $week_days[$day] : $week_days[$day] . ',';
                                                 } ?>
                                             </span>

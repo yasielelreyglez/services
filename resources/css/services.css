@@ -232,3 +232,9 @@ elemento {
 .listing .listing-ver-1 ul{
     display: inline-block;
 }
+
+.listing .listing-ver-1 .slides {
+
+    width: 100%;
+
+}

@@ -81,7 +81,7 @@ $(document).ready(function ($) {
         if(values.length>0) {
             value.push(
                 {
-                    weekdays: values,
+                    week_days: values,
                     start_time: start_time,
                     end_time: end_time
                 });
@@ -203,6 +203,9 @@ $(document).ready(function ($) {
         }
     })
 
+    if($("#times").length>0){
+        pintarHorarios();
+    }
 
 });
 function getStringDays(days){
@@ -275,7 +278,8 @@ function pintarHorarios(){
 
     var result = "";
     for(var i =0; i<value.length;i++){
-        result+="<div class='horario row'><div class='col-md-9 col-xs-9'><i class='fa fa-calendar'></i> <span class='title'> "+getStringDays(value[i].weekdays)+"</span><span class='start_time_s'>"+value[i].start_time+"</span><span class='end_time_s'>"+value[i].end_time+"</span></div><div class='col-md-3 col-xs-3'><input type='button' value='X' class='btn btn-danger' onclick='removeTime("+i+");' /></div></div><br>";
+        console.log("pintando el dia  ",value[i],value[i].week_days);
+        result+="<div class='horario row'><div class='col-md-9 col-xs-9'><i class='fa fa-calendar'></i> <span class='title'> "+getStringDays(value[i].week_days)+"</span><span class='start_time_s'>"+value[i].start_time+"</span><span class='end_time_s'>"+value[i].end_time+"</span></div><div class='col-md-3 col-xs-3'><input type='button' value='X' class='btn btn-danger' onclick='removeTime("+i+");' /></div></div><br>";
     }
     $("#visual_horarios").html(result);
 }
@@ -422,14 +426,8 @@ function initMap() {
 
     if($("#positions").length>0){
         listPositions();
-
-            // $("#test").gmap3({
-            //     marker: {
-            //         latLng: [ltn, lng],
-            //     }});
-
-
     }
+
 }
 
 var lastPosition= null;
