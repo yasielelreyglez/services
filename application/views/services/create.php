@@ -159,7 +159,13 @@
                 <br>
                 <input type="button"
                        class="col-12" value="Agregar posiciones" id="addPosition"/>
-                <input type="hidden" value="[]" name="positions" id="positions"/>
+                <input type="hidden" value="
+
+                " name="positions" id="positions"/>
+                <script>
+                    var jsonobj = <?php echo json_encode($positions)?>;
+                    document.getElementById("positions").value = JSON.stringify(jsonobj);
+                </script>
                 <div id="visual_positions">
 
                 </div>

@@ -1,3 +1,4 @@
+
 .homepage-banner .block-title {
     margin: 0;
     text-transform: uppercase;
@@ -193,4 +194,41 @@ body.modal-open {
 
 .listing.listing-3 .listing-grid .uou-accordions li.active a:after {
     content: none !important;
+}
+::-moz-placeholder {
+
+    color: #cecece;
+    opacity: 1;
+
+}
+::before, ::after {
+
+    box-sizing: border-box;
+
+}
+elemento {
+
+}
+.listing .listing-ver-1 .reviews {
+    position: absolute;
+    right: 65px;
+    top: 8px;
+    text-align: center;
+    z-index: 9999;
+}
+.listing .listing-ver-1 .reviews ul {
+    list-style: none;
+}
+.listing .listing-ver-1 .reviews ul li {
+    display: inline-block;
+}
+.listing .listing-ver-1 .reviews ul li .fa {
+    color: #feab29;
+}
+.listing .listing-ver-1 .listing-content img {
+    width: 100%;
+}
+
+.listing .listing-ver-1 ul{
+    display: inline-block;
 }

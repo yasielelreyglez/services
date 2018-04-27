@@ -1,11 +1,12 @@
+var gmarkers = [];
+var maps = {};
+var creando = true;
 $(document).ready(function ($) {
-    console.log("sige admin");
     loadFilters();
     loadCategorias();
     loadCiudades();
     //// cargando las posiciones de los mapas
     if (typeof google !== 'undefined') {
-        console.log(google);
         // the variable is defined
         var initialLocation = new google.maps.LatLng(23.13302, -82.38304);
         if($("#map_create").length>0){
@@ -201,6 +202,8 @@ $(document).ready(function ($) {
             $('#form-service').trigger('submit');
         }
     })
+
+
 });
 function getStringDays(days){
     var result= [];
@@ -246,14 +249,17 @@ function listPositions(){
     for(var i =0; i<value.length;i++){
         result+="<div class='position row'><div class='col-md-9 col-xs-9'><i class='fa fa-location-arrow'></i> <span class='title'> "+value[i].title+"</span><span class='start_time_s'>"+value[i].latitude+"</span> , <span class='end_time_s'>"+value[i].longitude+"</span></div><div class='col-md-3 col-xs-3'><input type='button' value='X' class='btn btn-danger' onclick='removePosition("+i+");' /></div></div><br>";
     }
-    $("#visual_positions").html(result);
+    $("#visual_positions").html(result)
+
+
 }
-var gmarkers = [];
+
 function removePosition(i){
     var value = $('#positions').val(); //retrieve array
     value = JSON.parse(value);
     $.each(gmarkers, function (indexInArray) {
         if (this.name == value[i].title) {
+            console.log("lo encontre",this);
             this.setMap(null);
             gmarkers.splice(indexInArray, 1);
             return;
@@ -272,10 +278,6 @@ function pintarHorarios(){
         result+="<div class='horario row'><div class='col-md-9 col-xs-9'><i class='fa fa-calendar'></i> <span class='title'> "+getStringDays(value[i].weekdays)+"</span><span class='start_time_s'>"+value[i].start_time+"</span><span class='end_time_s'>"+value[i].end_time+"</span></div><div class='col-md-3 col-xs-3'><input type='button' value='X' class='btn btn-danger' onclick='removeTime("+i+");' /></div></div><br>";
     }
     $("#visual_horarios").html(result);
-
-
-    console.log(result);
-
 }
 //llenandolos filtros
 function loadFilters() {
@@ -356,6 +358,17 @@ function initMap() {
             initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         });
     }
+
+    var value = $('#positions').val(); //retrieve array
+    value = JSON.parse(value);
+    for(var i =0; i<value.length;i++) {
+        var markPosition = new google.maps.LatLng(value[i].latitude, value[i].longitude);
+        var marker = new google.maps.Marker({
+            name: value[i].title,
+            position: markPosition,
+        });
+        gmarkers.push(marker);
+    }
     const mapOptions = {
         center: initialLocation,
         zoom: 10,
@@ -365,17 +378,24 @@ function initMap() {
         scaleControl: false,
         streetViewControl: false,
         rotateControl: true,
-        fullscreenControl: false
+        fullscreenControl: false,
+
     };
-    var maps = $("#map_create").gmap3(mapOptions);
-    console.log(maps)
+    console.log(gmarkers)
+    maps = $("#map_create").gmap3(mapOptions);
     maps.on("click",function(algo1,algo2) {
+        console.log("primer click validado");
         addMarker2(algo1,algo2);
-        google.maps.event.clearListeners(algo1, 'click');
+        // google.maps.event.clearListeners(algo1, 'click');
+        console.log("quitado evento click del mapa");
     });
+    maps.marker(gmarkers);
     $('#addPosition').click(function (t) {
         var titulo = $("#positiontitle").val();
+        console.log("va bien");
         if(lastPosition!=null&&titulo.length>0){
+            console.log("sigue bien");
+            creando = true;
             var value = $('#positions').val(); //retrieve array
             value = JSON.parse(value);
             value.push(
@@ -387,18 +407,37 @@ function initMap() {
             $('#positions').val(JSON.stringify(value));
             listPositions();
             lastPosition =null;
-            maps.on("click",function(algo1,algo2) {
-                addMarker2(algo1,algo2);
-                google.maps.event.clearListeners(algo1, 'click');
-            });
+            // maps.on("click",function(algo1,algo2) {
+            //     console.log("todo bien");
+            //     addMarker2(algo1,algo2);
+            //     google.maps.event.clearListeners(algo1, 'click');
+            // });
+            google.maps.event.clearListeners(maps, 'click');
+            console.log("asignado click event al maps",maps);
             $("#positiontitle").val('');
             $("#positiontitle").removeClass('input-error');
         }
 
     })
+
+    if($("#positions").length>0){
+        listPositions();
+
+            // $("#test").gmap3({
+            //     marker: {
+            //         latLng: [ltn, lng],
+            //     }});
+
+
+    }
 }
+
 var lastPosition= null;
+
 function addMarker2(map, location) {
+    if(creando){
+        creando = false;
+
     var lattn = location.latLng;
     lastPosition = lattn;
     var ltn = lattn.lat();
@@ -414,11 +453,9 @@ function addMarker2(map, location) {
     map.panTo(initialLocation);
     google.maps.event.addListener(marker, 'dragend', function () {
         lastPosition = marker.getPosition();
-        console.log("ueeeeoooo", lastPosition);
     });
+    }
 }
-
-
 
 function getFilterResultElement(service) {
     var prof = '', list = '';

@@ -49,7 +49,7 @@ class Services extends CI_Controller {
         $data['subcategories'] = $subcategories->findAll();
         $data['cities'] = $cities->findAll();
         $data['images'] = $images->findAll();
-        $data['positions'] = $positions->findAll();
+        $data['positions'] = array();
         $data['days_of_weak'] = $this->days_of_weak;
         $data['content'] = '/services/create';
         $data["tab"]="services";
