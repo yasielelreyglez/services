@@ -299,7 +299,7 @@
     </div>
 </div>
 
-<div class="uou-block-11a">
+<div class="uou-block-11a hide">
     <h5 class="title">Menu</h5>
     <a href="#" class="mobile-sidebar-close">&times;</a>
     <nav class="main-nav">

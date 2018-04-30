@@ -209,6 +209,19 @@ $(document).ready(function ($) {
         pintarHorarios();
     }
 
+    $('a.mobile-sidebar-toggle').on('click', function () {
+        if ($('.uou-block-11a').hasClass('hide')) {
+            $('.uou-block-11a').fadeIn();
+            $('.uou-block-11a').removeClass('hide');
+        }
+    });
+
+    $('a.mobile-sidebar-close').on('click', function () {
+        if (!$('.uou-block-11a').hasClass('hide')) {
+            $('.uou-block-11a').fadeOut();
+            $('.uou-block-11a').addClass('hide');
+        }
+    })
 });
 function getStringDays(days){
     var result= [];
