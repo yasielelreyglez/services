@@ -234,7 +234,137 @@ elemento {
 }
 
 .listing .listing-ver-1 .slides {
-
     width: 100%;
+}
 
+.showing .showrate li, .showing.listing + .advertiser-info .showrate li{
+    display: inline-block;
+    list-style-type: none;
+    color: #feab29;
+}
+
+.showing.listing {
+    padding-bottom: 30px;
+}
+
+.showing.listing .listing-ver-1 .listing-heading ul {
+    margin: 0 !important;
+}
+
+.showing.listing .listing-ver-1 .listing-tabs ul {
+    display: block !important;
+}
+
+.showing.listing  .listing-ver-1 .listing-tabs ul li.tab.active,
+.showing.listing  .listing-ver-1 .listing-tabs ul li.tab.active a {
+    border-bottom: none;
+    border-top: none;
+}
+
+.showing.listing  .listing-ver-1 .listing-tabs ul li.tab,
+.showing.listing  .listing-ver-1 .listing-tabs ul li.tab a {
+    border-top: none;
+}
+
+.showing.listing  .listing-ver-1 .listing-tabs ul li.tab:first-child,
+.showing.listing  .listing-ver-1 .listing-tabs ul li.tab:first-child a {
+    border-left: none;
+}
+
+.showing.listing  .listing-ver-1 .listing-tabs ul li.tab:last-child,
+.showing.listing  .listing-ver-1 .listing-tabs ul li.tab:last-child a {
+    border-right: none;
+}
+
+.showing.listing .listing-ver-1 .tab-content {
+    margin-top: 44px;
+    min-height: 315px;
+    background-color: #ffffff;
+}
+
+.showing.listing .listing-ver-1 .listing-inner .listing-content {
+    padding: 28px 28px 28px 28px;
+}
+
+.showing.listing .listing-ver-1 .listing-inner .listing-content .listing-content-inner .listing-content-thumbnail {
+    max-width: 325px;
+    float: left;
+    margin-bottom: 42px;
+}
+
+.showing.listing .listing-ver-1 .listing-inner .listing-content .listing-content-inner .listing-content-description {
+    padding-left: 0;
+}
+
+.showing.listing .listing-ver-1 .listing-inner .listing-content .main-title {
+    margin: 0 0 20px 0;
+}
+
+.showing.listing .listing-ver-1 .listing-inner .listing-content .contact {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.showing.listing .listing-ver-1 .listing-inner .listing-content .contact li {
+    margin-bottom: 20px;
+}
+
+.showing.listing .listing-ver-1 .listing-inner .listing-content .contact li h6 {
+    margin: 0 0 5px 0;
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.showing.listing .listing-ver-1 .listing-inner .listing-content .contact li span {
+    display: block;
+    font-size: 15px;
+}
+
+.showing.listing .listing-ver-1 .listing-inner .listing-content .schedule {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: block;
+}
+
+.showing.listing .listing-ver-1 .listing-inner .listing-content .schedule li .day {
+    width: auto !important;
+}
+
+.showing.listing .listing-ver-1 .listing-inner .listing-content .schedule li .day:after {
+    content: none !important;
+}
+
+.showing.listing + .advertiser-info .advertiser-header {
+    position: relative;
+    padding: 17px 24px;
+    background: #f0f0f0;
+}
+
+.showing.listing + .advertiser-info .advertiser-header h5 {
+    margin: 0;
+    color: #666;
+    display: inline-block;
+    font-size: 18px;
+}
+
+.showing.listing + .advertiser-info .advertiser-inner {
+    position: relative;
+    padding: 38px 46px 32px 46px;
+    background-color: #ffffff;
+}
+
+.showing.listing + .advertiser-info .advertiser-inner .ng-star-inserted{
+    width: 100%;
+}
+
+.showing.listing + .advertiser-info .advertiser-inner .ng-star-inserted h6,
+.showing.listing + .advertiser-info .advertiser-inner .ng-star-inserted ul {
+    margin: 0;
+}
+
+.showing.listing + .advertiser-info .advertiser-inner .ng-star-inserted hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

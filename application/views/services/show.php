@@ -9,71 +9,59 @@ $week_days = array(
     'Domingo',
 );
 ?>
-<div class="col-md-9">
-    <div class="listing listing-1 single-listing">
+<div class="col-xs-12">
+    <div class="listing listing-1 single-listing showing">
         <div class="listing-ver-1">
             <div class="listing-heading">
-                <div class="reviews">
-                    <ul class="rate">
-                        <?php $rate = $services->getGlobalrate();
-                        for ($pos = 0; $pos < 10; $pos++) {
-                            if ($pos < $rate) {
-                                echo '<li><i class="fa fa-star "></i></li>';
-                            } else {
-                                echo ' <li><i class="fa fa-star-o"></i></li>';
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <h5><?= $services->title ?></h5>
+                        <?php if ($services->professional == 1) { ?>
+                            <a href="#" class="c-red"><i class="fa fa-bookmark"></i></a>
+                        <?php } ?>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <ul class="showrate pull-right">
+                            <?php $rate = $services->getGlobalrate();
+                            for ($pos = 0; $pos < 10; $pos++) {
+                                if ($pos < $rate) {
+                                    echo ' <li><i class="fa fa-star "></i></li>';
+                                } else {
+                                    echo ' <li><i class="fa fa-star-o"></i></li>';
+                                }
                             }
-                        }
-                        ?>
-                    </ul>
+                            ?>
+                        </ul>
+                    </div>
                 </div>
-                    <h5><?= $services->title ?></h5>
-                    <?php if ($services->professional == 1) { ?>
-                        <a href="#" class="c-red"><i class="fa fa-bookmark"></i></a>
-                    <?php } ?>
-
             </div>
 
             <div class="listing-tabs">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#basic" data-toggle="tab" aria-selected="true"><i
+                <ul>
+                    <li class="active tab"><a href="#basic" data-toggle="tab" aria-selected="true"><i
                                     class="fa fa-info"></i></a></li>
-                    <li><a href="#moreinfo" data-toggle="tab"><i class="fa fa-plus"></i></a></li>
-                    <li><a href="#contact" data-toggle="tab"><i class="fa fa-map-marker"></i></a></li>
-                    <li><a href="#hours" data-toggle="tab"><i class="fa fa-clock-o"></i></a></li>
+                    <li class="tab"><a href="#moreinfo" data-toggle="tab"><i class="fa fa-plus"></i></a></li>
+                    <li class="tab"><a href="#contact" data-toggle="tab"><i class="fa fa-map-marker"></i></a></li>
+                    <li class="tab"><a href="#hours" data-toggle="tab"><i class="fa fa-clock-o"></i></a></li>
                 </ul>
             </div>
             <div class="tab-content">
                 <div id="basic" class="tab-pane active" role="tabpanel" aria-labelledby="home-tab">
-                    <div class="listing-inner" style="min-height: 420px;">
+                    <div class="listing-inner" style="">
                         <div class="listing-content">
                             <div class="listing-content-inner">
-&nbsp;
-<!--                                </div>-->
-                                <div class="flexslider default-slider">
-                                    <ul class="slides">
-
-                                        <?php
-                                        $images = $services->getImages()->toArray();
-                                        foreach ($images as $image) {
-                                            echo '<li class="" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;"><img src="' . site_url() . $image->getTitle() . '" alt="" draggable="false"></li>';
-                                        }
-                                        ?>
-                                    </ul>
-
-                                    <ol class="flex-control-nav flex-control-paging">
-                                        <li><a class="">1</a></li>
-                                        <li><a class="flex-active">2</a></li>
-                                        <li><a class="">3</a></li>
-                                        <li><a class="">4</a></li>
-                                    </ol>
-                                    <ul class="flex-direction-nav">
-                                        <li><a class="flex-prev" href="#"></a></li>
-                                        <li><a class="flex-next" href="#"></a></li>
-                                    </ul>
-                                </div>
-                                <div class="listing-content-description margin-description">
-                                    <p><?= $services->subtitle ?></p>
-                                    <p></p>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <div class="listing-content-thumbnail">
+                                            <img src="<?= site_url() . $services->getThumb() ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6">
+                                        <div class="listing-content-description margin-description">
+                                            <p><?= $services->subtitle ?></p>
+                                            <p><?= $services->description ?></p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -118,9 +106,11 @@ $week_days = array(
                 </div>
                 <div id="contact" class="tab-pane " role="tabpanel" aria-labelledby="contact-tab">
                     <div class="listing-inner">
-                        <div class="map">
-                            <h6>Mis ubicaciones:</h6>
-                            <div class="map-listing-04"></div>
+                        <div class="listing-content">
+                            <h6 class="main-title">Mis ubicaciones:</h6>
+                            <div class="map">
+                                <div class="map-listing-04"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -129,19 +119,24 @@ $week_days = array(
                         <div class="listing-content">
                             <h6 class="main-title">Horarios:</h6>
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-xs-12">
                                     <ul class="schedule">
                                         <?php foreach ($times as $time): ?>
                                             <li>
-                                            <span class="day">
-                                                <?php
-                                                foreach (explode(',', $time->week_days) as $key => $day) {
-                                                    echo $day;
-                                                    echo $key + 1 == count(explode(',', $time->week_days)) ? $week_days[$day] : $week_days[$day] . ',';
-                                                } ?>
-                                            </span>
-                                                <span class="hours"><?php print_r($time->start_time); ?>
-                                                    - <?php print_r($time->end_time); ?></span>
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-md-6">
+                                                        <span class="day">
+                                                            <?php
+                                                            foreach (explode(',', $time->week_days) as $key => $day) {
+                                                                echo $key + 1 == count(explode(',', $time->week_days)) ? $week_days[$day] : $week_days[$day] . ', ';
+                                                            } ?>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6">
+                                                        <span class="hours"><?php print_r($time->start_time); ?>
+                                                            - <?php print_r($time->end_time); ?></span>
+                                                    </div>
+                                                </div>
                                             </li>
                                         <?php endforeach; ?>
                                     </ul>
@@ -160,27 +155,34 @@ $week_days = array(
         <div class="advertiser-inner">
             <div class="row">
                 <div id="comments" class="ng-star-inserted">
-                    <?php foreach($comments as $comment):?>
-                    <div class="">
-                        <div>
-                            <span class="showrate"><li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star-o"></i></li> <li><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                            </span>
-                        </div>
-                        <div>
-                            <p class="tc-grei" style="word-wrap: break-word !important;">
-                               <?php echo $comment->comment;?>
-                            </p>
-                            <div>
-                                <td width="80"><?= anchor('admin/services/edit/' . $services->id, '<i class="fa fa-microphone"></i>', 'class="btn btn-danger"'); ?></td>
-                                <td width="80"><?= anchor('admin/services/edit/' . $services->id, '<i class="fa fa-check" aria-hidden="true"></i>', 'class="btn btn-success"'); ?></td>
+                    <?php foreach ($comments as $comment): ?>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <h6>
+                                    <?php echo $comment->getUser()->getUsername(); ?>
+                                </h6>
                             </div>
-                            <hr class="bc-grei">
+                            <div class="col-xs-12 col-md-6">
+                                <ul class="showrate pull-right">
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star-o"></i></li>
+                                    <li><i class="fa fa-star-o"></i></li>
+                                    <li><i class="fa fa-star-o"></i></li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-12">
+                                <p class="tc-grei" style="word-wrap: break-word !important;">
+                                    <?php echo $comment->comment; ?>
+                                </p>
+                                <div class="pull-right">
+                                    <?= anchor('admin/services/edit/' . $services->id, '<i class="fa fa-microphone"></i>', 'class="btn btn-danger"'); ?>
+                                    <?= anchor('admin/services/edit/' . $services->id, '<i class="fa fa-check" aria-hidden="true"></i>', 'class="btn btn-success"'); ?>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <?php endforeach;?>
+                        <hr class="bc-grei">
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
