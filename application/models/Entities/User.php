@@ -162,6 +162,15 @@ class User
     {
         $this->email = $email;
     }
+ public function getIp()
+    {
+        return $this->ip_address;
+    }
+
+    public function setIp($ip)
+    {
+        $this->ip_address = $ip;
+    }
 
     public function getPassword()
     {

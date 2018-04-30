@@ -30,7 +30,7 @@
 <div class="form-group">
     <label for="ip_address">Contraseña:</label><br/>
     <input type="hidden" required class="form-control" name="ip_address"
-           value="<?= isset($users) ? $_SERVER['HTTP_CLIENT_IP'] : ':1' ?>"/>
+           value="<?= isset($users) ? $_SERVER['REMOTE_ADDR'] : ':1' ?>"/>
 
 </div>
 

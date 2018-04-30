@@ -102,8 +102,24 @@ class Users extends CI_Controller
             if (null !== ($this->input->post('password', TRUE))) {
                 $user->setPassword(md5($this->input->post('password', TRUE)));
             }
-//			$user->setRole($this->input->post('role', TRUE));
-            // Only allow updating groups if user is admin
+            $user->setIp($this->input->post('ip_address', TRUE));
+
+			$user->setRole($this->input->post('role', TRUE));
+
+            $additional_data = array(
+                'first_name' => $this->input->post('first_name'),
+                'last_name' => $this->input->post('last_name'),
+                'company' => $this->input->post('company'),
+                'phone' => $this->input->post('phone'),
+            );
+            $this->ion_auth->register(
+                $user->getUsername(),
+                $user->getPassword(),
+                $user->getEmail(),
+                $additional_data
+            );
+
+//            Only allow updating groups if user is admin
             if ($this->ion_auth->is_admin()) {
                 // Update the groups user belongs to
                 $groupData = $this->input->post('groups');
@@ -118,10 +134,6 @@ class Users extends CI_Controller
 
                 }
             }
-//            print_r($this->input->post('ip_address', TRUE));
-//            die;
-            $em->persist($user);
-            $em->flush();
             $this->session->set_flashdata('item', array('message'=>'Se han guardado sus cambios correctamente.', 'class'=>'success', 'icon'=>'fa fa-thumbs-up', 'title'=>"<strong>Bien!:</strong>"));
             redirect('admin/users/index', 'refresh');
         }
