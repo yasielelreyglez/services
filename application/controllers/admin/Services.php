@@ -53,7 +53,9 @@ class Services extends CI_Controller
         $data['subcategories'] = $subcategories->findAll();
         $data['cities'] = $cities->findAll();
         $data['images'] = $images->findAll();
-        $data['positions'] = array();
+        $data['currenPositions'] = array();
+        $data['currenTimes'] = array();
+        $data['positions'] = $positions;
         $data['days_of_weak'] = $this->days_of_weak;
         $data['content'] = '/services/create';
         $data["tab"] = "services";
@@ -304,7 +306,7 @@ class Services extends CI_Controller
             $this->session->set_flashdata('item', array('message' => 'Se han guardado sus cambios correctamente.', 'class' => 'success', 'icon' => 'fa fa-thumbs-up', 'title' => "<strong>Bien!:</strong>"));
 
 //            print_r($service);
-//            die;
+            die;
             redirect('admin/services/index', 'refresh');
         }
     }
