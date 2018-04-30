@@ -339,8 +339,9 @@ function loadCategorias() {
 function loadCiudades() {
     $.get('../api/cities', function (data) {
         $(data.data).each(function (pos, city) {
+
             var elemento = '<div class="col-md-6 industry-list list-unstyled mb0">  ' +
-                '<li ><a href="click_citi()">' + city.title + '<span class="count">(' + city.servicesCount + ')</span></a></li></div>';
+                '<li ><a  href="home/servicesbycity/' + city.id + '">' + city.title + '<span class="count">(' + city.servicesCount + ')</span></a></li></div>';
             $("#listado_ciudades").append(elemento);
         });
     });

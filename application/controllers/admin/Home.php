@@ -167,6 +167,35 @@ class Home extends CI_Controller {
         $data["tabTitle"]="servicios de ".$subcategory->title;
         $this->load->view('/includes/contentpage', $data);
     }
+
+    /**
+     * @param $citi_id
+     * @param $subcategories_id
+     */
+    function servicesbycity($citi_id){
+        $em = $this->doctrine->em;
+        $subcategoriesRepo = $em->getRepository('Entities\City');
+        /** @var \Entities\City $city */
+        $city = $subcategoriesRepo->find($citi_id);
+        if ($city) {
+            $response["desc"] = "Servicios pertenecientes a la ciudad: $city->title";
+            $services = $city->getServices()->toArray();
+            foreach ($services as $service) {
+                $service->loadRelatedData();
+            }
+            $response["city"]=$city->getTitle();
+            $response["services"] = $services;
+        } else {
+            $response["desc"] = "Subcategoria no encontrada";
+        }
+
+        $data['services'] = $services;
+        $data['content'] = '/services/index';
+        $data["tab"]="services";
+        $data["tabTitle"]="servicios de ".$city->title;
+        $this->load->view('/includes/contentpage', $data);
+    }
+
     function servicesbyfilter($filter){
         $em = $this->doctrine->em;
         $servicesRepo = $em->getRepository('Entities\Service');
