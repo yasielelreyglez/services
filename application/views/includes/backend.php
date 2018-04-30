@@ -340,7 +340,7 @@
                                     </h6>
                                     <div class="listing-offer-thumbnail">
                                         <?php if (count($object->getImages()->toArray()) > 0) { ?>
-                                            <img src="<?= $object->getImages()->toArray()[0]->getTitle() ?>" alt="">
+                                            <img src="<?=  site_url() . $object->getImages()->toArray()[0]->getThumb() ?>" alt="">
                                         <?php } ?>
                                     </div>
                                     <div class="listing-offer-content">
@@ -502,12 +502,12 @@
                                                     <ul class="slides">
                                                         <li class="flex-active-slide"
                                                             style="width: 100%; float: left; margin-right: -100%; position: relative; opacity:1; display: block; z-index: 2;">
-                                                            <img src="<?= $object->icon ?>" alt="" draggable="false">
+                                                            <img src="<?=  site_url() . $object->thumb ?>" alt="" draggable="false">
                                                         </li>
                                                         <?php
                                                         $images = $object->getImages()->toArray();
                                                         foreach ($images as $image) {
-                                                            echo '<li class="" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;"><img src="' . $image->getTitle() . '" alt="" draggable="false"></li>';
+                                                            echo '<li class="" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;"><img src="' . site_url() . $image->getThumb() . '" alt="" draggable="false"></li>';
                                                         }
                                                         ?>
                                                     </ul>

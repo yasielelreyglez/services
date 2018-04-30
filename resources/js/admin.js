@@ -42,6 +42,19 @@ $(document).ready(function ($) {
             $.each(data.data, function () {
                 $('.loading_popular_listings').parent().append(getFilterResultElement(this));
             });
+            $('#filterresultcontent .uou-accordions').uouAccordions();
+            $('.loading_popular_listings').siblings('.element').find('.uou-accordions').uouAccordions();
+            if ($.fn.flexslider) {
+                $('.default-slider').flexslider({
+                    slideshowSpeed: 10000,
+                    animationSpeed: 1000,
+                    prevText: '',
+                    nextText: ''
+                });
+            } else {
+                console.warn('not loaded -> jquery.flexslider-min.js');
+            }
+            initDestroyConfirmValidation();
         });
     });
 
@@ -176,17 +189,6 @@ $(document).ready(function ($) {
         $('#images_deleted').val(JSON.stringify(value));
     });
 
-    //eliminar servicio con el icono de basura
-    // $('a.destroy').on('click', function (ev) {
-    //     ev.preventDefault();
-    //     var href = ev.currentTarget.href;
-    //     var text = $(this).parents('.element').find('.element-title').text();
-    //     $('#myModal .modal-body').text('Está a punto de eliminar ' + text + '. ¿Confirma que desea eliminarlo?');
-    //     $('#myModal').modal('toggle');
-    //     $('#myModal .confirm').on('click', function () {
-    //         window.location.href = href;
-    //     });
-    // });
     initDestroyConfirmValidation();
 
     $('#form-service').on('submit', function (ev) {
@@ -341,15 +343,16 @@ function showFilterResult(services) {
             $('#filterresultcontent').append(getFilterResultElement(this));
         });
         $('#filterresultcontent .uou-accordions').uouAccordions();
-        $('.flexslider').flexslider({
-            animation: "slide",
-            slideshowSpeed: 10000,
-            animationSpeed: 1000,
-            prevText: '',
-            nextText: '',
-            directionNav: false,
-            smoothHeight: true
-        });
+        if ($.fn.flexslider) {
+            $('.default-slider').flexslider({
+                slideshowSpeed: 10000,
+                animationSpeed: 1000,
+                prevText: '',
+                nextText: ''
+            });
+        } else {
+            console.warn('not loaded -> jquery.flexslider-min.js');
+        }
         initDestroyConfirmValidation();
     }
     $("html, body").animate({scrollTop:$('#filterresult').offset().top - 50},800)
@@ -478,13 +481,13 @@ function getFilterResultElement(service) {
     var element = '<div class="col-md-4 listing-grid listing-grid-2 item element">' +
         '<div class="listing-heading">' +
         prof +
-        '<h5><a href="services/show/' + service.id + '" class="element-title">' + service.title + '</h5>' +
+        '<h5><a href="services/show/' + service.id + '" class="element-title">' + service.title + '</a></h5>' +
         '</div>' +
         '<div class="listing-inner">' +
         '<div class="flexslider default-slider">' +
         '<ul class="slides">\n' +
         '<li class="flex-active-slide" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity:1; display: block; z-index: 2;">\n' +
-        '<img src="' + service.icon + '" alt="" draggable="false">' +
+        '<img src="' + service.thumb + '" alt="" draggable="false">' +
         '</li>\n' +
         images +
         '</ul>' +
