@@ -99,41 +99,45 @@ class Users extends CI_Controller
             }
             $user->setUsername($this->input->post('username', TRUE));
             $user->setEmail($this->input->post('email', TRUE));
+            $groupData = $this->input->post('groups');
+
             if (null !== ($this->input->post('password', TRUE))) {
                 $user->setPassword(md5($this->input->post('password', TRUE)));
             }
             $user->setIp($this->input->post('ip_address', TRUE));
 
 			$user->setRole($this->input->post('role', TRUE));
-
-            $additional_data = array(
-                'first_name' => $this->input->post('first_name'),
-                'last_name' => $this->input->post('last_name'),
-                'company' => $this->input->post('company'),
-                'phone' => $this->input->post('phone'),
-            );
-            $this->ion_auth->register(
-                $user->getUsername(),
-                $user->getPassword(),
-                $user->getEmail(),
-                $additional_data
-            );
-
+            //si estoy editando
+            if (!empty($id)) {
 //            Only allow updating groups if user is admin
-            if ($this->ion_auth->is_admin()) {
+            if ($this->ion_auth->is_admin() && !empty($id)) {
                 // Update the groups user belongs to
                 $groupData = $this->input->post('groups');
-
                 if (isset($groupData) && !empty($groupData)) {
-
                     $this->ion_auth->remove_from_group('', $id);
-
                     foreach ($groupData as $grp) {
                         $this->ion_auth->add_to_group($grp, $id);
                     }
-
                 }
             }
+                $em->persist($user);
+                $em->flush();
+            }else{
+                $additional_data = array(
+                    'first_name' => $this->input->post('first_name'),
+                    'last_name' => $this->input->post('last_name'),
+                    'company' => $this->input->post('company'),
+                    'phone' => $this->input->post('phone'),
+                );
+                $this->ion_auth->register(
+                    $user->getUsername(),
+                    $user->getPassword(),
+                    $user->getEmail(),
+                    $additional_data,
+                    $groupData
+                );
+            }
+
             $this->session->set_flashdata('item', array('message'=>'Se han guardado sus cambios correctamente.', 'class'=>'success', 'icon'=>'fa fa-thumbs-up', 'title'=>"<strong>Bien!:</strong>"));
             redirect('admin/users/index', 'refresh');
         }
