@@ -46,11 +46,13 @@ class Services extends CI_Controller
     function create()
     {
         $em = $this->doctrine->em;
+        $categories = $em->getRepository('Entities\Category');
         $subcategories = $em->getRepository('Entities\Subcategory');
         $cities = $em->getRepository('Entities\City');
         $images = $em->getRepository('Entities\Image');
         $positions = $em->getRepository('Entities\Position');
         $data['subcategories'] = $subcategories->findAll();
+        $data['categories'] = $categories->findAll();
         $data['cities'] = $cities->findAll();
         $data['images'] = $images->findAll();
         $data['currenPositions'] = array();
@@ -69,6 +71,7 @@ class Services extends CI_Controller
         $em = $this->doctrine->em;
         /** @var \Entities\Service $service */
         $service = $em->find("\Entities\Service", $id);
+        $categories = $em->getRepository('Entities\Category');
         $currenSubCategories = $service->getSubcategories();
         $currenCities = $service->getCities();
         $currenImages = $service->getImages();
@@ -79,6 +82,7 @@ class Services extends CI_Controller
         $images = $em->getRepository('Entities\Image');
         $positions = $em->getRepository('Entities\Position');
         $data['subcategories'] = $subcategories->findAll();
+        $data['categories'] = $categories->findAll();
         $data['currenSubCategories'] = $currenSubCategories;
         $data['currenCities'] = $currenCities;
         $data['currenImages'] = $currenImages;

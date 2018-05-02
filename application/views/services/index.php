@@ -100,7 +100,9 @@
                         </ul> <!-- end .uou-accordions -->
                     </div>
                     <div class="info-footer">
-                        <img height="20" width="20" src="<?= $object->getSubcategories()->toArray()[0]->getIcon() ?>">
+                        <?php if(count($object->getSubcategories()->toArray())>0): ?>
+                            <img height="20" width="20" src="<?= $object->getSubcategories()->toArray()[0]->getIcon() ?>">
+                        <?php endif ?>
                         <h6><?= $object->getSubcategories()->toArray()[0]->getTitle() ?></h6>
                         <a class="pull-right pl10 destroy" title="Destruir"
                            href="<?= site_url('admin/services/destroy/') . $object->id ?>"><i

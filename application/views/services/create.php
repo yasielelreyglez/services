@@ -67,22 +67,31 @@
                     ?>
                 </select>
             </div>
+
             <div class="form-group">
-                <label for="categories">Categorías*:</label><br/>
+                <label for="categories">Subcategoria *:</label><br/>
                 <select multiple="true" class="custom-select" name="categories[]"
                         placeholder="Escoja la categoría">
-                    <?php foreach ($subcategories as $subcategory): $selected = ''; ?>
-                        <?php if (isset($currenSubCategories)) {
-                            foreach ($currenSubCategories as $cSubcat) {
-                                if ($subcategory->id == $cSubcat->id) {
-                                    $selected = "selected ='selected'";
-                                    break;
+                    <?php /** @var \Entities\Category $category */
+                    foreach ($categories as $category) {
+                        $selected = '';
+                        echo "<optgroup label='$category->title'>";
+                        $subcats = $category->getSubcategories()->toArray();
+                        foreach ($subcats as $subcat) {
+                          if (isset($currenSubCategories)) {
+                                foreach ($currenCategories as $cat) {
+                                    if ($category->id == $cat->id) {
+                                        $selected = "selected ='selected'";
+                                        break;
+                                    }
                                 }
                             }
+                            echo "<option data-category='{$category->id}' value='$subcat->id' $selected>$subcat->title </option>";
                         }
-                        echo "<option value='$subcategory->id' $selected>$subcategory->title </option>";
+                        echo "</optgroup>";
+                    }
+
                         ?>
-                    <?php endforeach; ?>
                 </select>
             </div>
 

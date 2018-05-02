@@ -35,7 +35,9 @@
 
         <div class="uou-block-2b icons">
             <div class="container">
-                <a routerLink="/" class="logo"><img src="assets/img/logo.png" alt=""></a>
+                <a routerLink="/" class="logo">
+                    <img src="assets/img/logo.png" alt="" width="250px">
+                </a>
                 <a href="#" class="mobile-sidebar-button mobile-sidebar-toggle"><span></span></a>
 
                 <div *ngIf="loggedIn; then login else unlogin"></div>

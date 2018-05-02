@@ -52,9 +52,24 @@ $week_days = array(
                             <div class="listing-content-inner">
                                 <div class="row">
                                     <div class="col-xs-12 col-md-6">
-                                        <div class="listing-content-thumbnail">
-                                            <img src="<?= site_url() . $services->getThumb() ?>">
+                                        &nbsp;
+                                        <div class="flexslider default-slider">
+                                            &nbsp;
+                                            <ul class="slides">
+                                                &nbsp;
+                                               <?php
+                                                $images = $services->getImages()->toArray();
+                                                foreach ($images as $image) {
+                                                    echo '<li class="" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;"><img src="' .site_url() . $image->getTitle() . '" alt="" draggable="false"></li>';
+                                                }
+                                                ?>
+                                            </ul>
+                                            <ul class="flex-direction-nav">
+                                                <li><a class="flex-prev" href="#"></a></li>
+                                                <li><a class="flex-next" href="#"></a></li>
+                                            </ul>
                                         </div>
+
                                     </div>
                                     <div class="col-xs-12 col-md-6">
                                         <div class="listing-content-description margin-description">
