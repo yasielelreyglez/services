@@ -279,7 +279,7 @@ class CI_Xmlrpcs extends CI_Xmlrpc {
 			{
 				if ($this->debug === TRUE)
 				{
-					$plist .= $i.' - '.print_r(get_object_vars($parser_object->xh[$pname]['params'][$i]), TRUE).";\n";
+					$plist .= $i.' - './/print_r(get_object_vars($parser_object->xh[$pname]['params'][$i]), TRUE).";\n";
 				}
 
 				$m->addParam($parser_object->xh[$pname]['params'][$i]);

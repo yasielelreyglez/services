@@ -112,7 +112,7 @@ class Home extends CI_Controller {
             {
                 $error = array('error' => $this->upload->display_errors());
                 $this->load->view('upload_form', $error);
-                print_r($error);
+                //print_r($error);
             }
             else
             {

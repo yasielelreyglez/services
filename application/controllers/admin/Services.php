@@ -163,7 +163,7 @@ class Services extends CI_Controller
                 }
             } catch (Exception $e) {
                 echo $foto->getTitle();
-                print_r($e);
+                //print_r($e);
             }
         }
 
@@ -198,9 +198,9 @@ class Services extends CI_Controller
         if ($this->form_validation->run()) {
             $this->load->helper("file");
 //            echo '<pre>';
-//            print_r($this->input->post('thumbs', TRUE));
+//            //print_r($this->input->post('thumbs', TRUE));
 //            echo '<br>';
-//            print_r($this->input->post());
+//            //print_r($this->input->post());
 //            echo '</pre>';
 
             $id = $this->input->post('id', TRUE);
@@ -250,7 +250,7 @@ class Services extends CI_Controller
             //si estoy editando borro fotos anteriores
             if (isset($service->id)) {
                 $images_deleted = $this->input->post('images_deleted', TRUE);
-//                print_r(json_decode($images_deleted));
+//                //print_r(json_decode($images_deleted));
 //                die;
                 if (isset($images_deleted)) {
                     $images_deletedArr = json_decode($images_deleted);
@@ -270,15 +270,15 @@ class Services extends CI_Controller
                             }
                         } catch (Exception $e) {
                             echo $path;
-                            print_r($e);
+                            //print_r($e);
                         }
                     }
                 }
             }
-//            print_r($_FILES['userfile']);
+//            //print_r($_FILES['userfile']);
             $fotos = $_FILES['userfile'];
             if (count($_FILES["userfile"]["tmp_name"]) > 0 && $_FILES["userfile"]["tmp_name"][0] != null) {
-//                print_r($_FILES["userfile"]["tmp_name"]);
+//                //print_r($_FILES["userfile"]["tmp_name"]);
 //                die;
 //                echo "ENTRA A VER QUE SON MAS FOTOS";
                 $fotoSubir = array();
@@ -293,7 +293,7 @@ class Services extends CI_Controller
 //                    echo move_uploaded_file($fotoSubir[0]['value'], $pathIcon);
                     copy($fotoSubir[0]['value'], $pathIcon);
 ////                    file_put_contents($pathIcon, $fotoSubir[0]['value']);
-//                    print_r($fotoSubir);
+//                    //print_r($fotoSubir);
 //                    die;
                     $service->setIcon($saveIcon);
                     $service->setThumb($fotoSubir[0]['filename']);
@@ -309,7 +309,7 @@ class Services extends CI_Controller
             $service->loadRelatedUserData($this->getCurrentUser());
             $this->session->set_flashdata('item', array('message' => 'Se han guardado sus cambios correctamente.', 'class' => 'success', 'icon' => 'fa fa-thumbs-up', 'title' => "<strong>Bien!:</strong>"));
 
-//            print_r($service);
+//            //print_r($service);
             die;
             redirect('admin/services/index', 'refresh');
         }

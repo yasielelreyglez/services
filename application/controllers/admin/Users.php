@@ -45,7 +45,7 @@ class Users extends CI_Controller
         $data["tabTitle"] = "usuarios";
         $groups = $this->ion_auth->groups()->result_array();
         $data['groups'] = $groups;
-//        print_r($groups);die;
+//        //print_r($groups);die;
         $this->load->view('/includes/contentpage', $data);
     }
 

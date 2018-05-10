@@ -950,8 +950,8 @@ class Api extends REST_Controller
         if (!$this->upload->do_upload()) {
             $error = array('error' => $this->upload->display_errors());
             $this->load->view('upload_form', $error);
-            print_r($error);
-        } else {
+            //print_r($error);
+        }else{
             $data["upload_data"] = $this->upload->data();
         }
 //        $img = $this->input->post("image");
@@ -1219,7 +1219,7 @@ class Api extends REST_Controller
 //        $service->end_time = $this->input->post('end_time', TRUE);
 //        $subcategories = $this->input->post('subcategories', TRUE);
 ////        echo '<pre>';
-////        print_r($service);
+////        //print_r($service);
 ////        echo '</pre>';die;
 //        if (is_array($subcategories)) {
 //            foreach ($subcategories as $subcategory) {
@@ -1243,7 +1243,7 @@ class Api extends REST_Controller
         if (!$this->upload->do_upload('userfile')) {
             $error = array('error' => $this->upload->display_errors());
             $this->load->view('upload_form', $error);
-            print_r($error);
+            //print_r($error);
         } else {
             $service = new \Entities\Service();
             $data["upload_data"] = $this->upload->data();
@@ -1305,7 +1305,7 @@ class Api extends REST_Controller
                     }
                 }catch (Exception $e){
                     echo $foto->getTitle();
-                    print_r($e);
+                    //print_r($e);
                 }
             }
 

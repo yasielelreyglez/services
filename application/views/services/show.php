@@ -148,8 +148,8 @@ $week_days = array(
                                                         </span>
                                                     </div>
                                                     <div class="col-xs-12 col-md-6">
-                                                        <span class="hours"><?php print_r($time->start_time); ?>
-                                                            - <?php print_r($time->end_time); ?></span>
+                                                        <span class="hours"><?php //print_r($time->start_time); ?>
+                                                            - <?php //print_r($time->end_time); ?></span>
                                                     </div>
                                                 </div>
                                             </li>

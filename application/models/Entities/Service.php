@@ -1064,7 +1064,7 @@ namespace Entities {
                 } else {
                     $weekdays = $time_p["weekdays"];
                 }
-                print_r($weekdays);
+                //print_r($weekdays);
                 foreach ($weekdays as $weekday) {
                     if ($poss > 6) {
                         $poss = 0;
