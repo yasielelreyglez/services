@@ -22,6 +22,7 @@
     <?php echo link_tag("/resources/css/bootstrap.min.css") ?>
     <?php echo link_tag("/resources/css/style.css") ?>
     <?php echo link_tag("/resources/css/services.css") ?>
+    <?php echo link_tag("/resources/css/editor.css") ?>
 </head>
 
 <body>
@@ -395,6 +396,11 @@
 <script src="<?= site_url("/resources/js/localization/messages_es.min.js") ?>"></script>
 
 <script src="<?= site_url("/resources/js/bootstrap-notify.min.js") ?>"></script>
+<style type="text/css" src="<?=site_url('resources/css/editor.css')?>"></style>
+<script src="<?=site_url('resources/js/editor.js')?>">
+
+
+</script>
 <?php if(!empty($this->session->flashdata('item'))):?>
     <?php $msg = $this->session->flashdata('item');?>
     <!--div class="alert <?php echo $msg['class']?>" id="notify-id">
@@ -414,8 +420,14 @@
                         type: '<?php echo $msg['class'];?>'
                     }
             );
+
     </script>
 <?php endif;?>
+<script>
+    $(document).ready(function(){
+        $("#content").Editor();
+    });
+</script>
 </body>
 
 <!-- Mirrored from new.uouapps.com/quick-finder/index2.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 Nov 2017 14:43:23 GMT -->

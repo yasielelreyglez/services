@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr class="element">
                             <td><?php echo $page->id; ?></td>
                             <td><?php echo $page->title; ?></td>
-                            <td><?php echo $page->content; ?></td>
+                            <td><?php echo $page->getContent(); ?></td>
                                 <td width=\"80\"><?= anchor('admin/pagesc/ver/' . $page->id, 'Ver', 'class="btn btn-info"'); ?></td>
                                 <td width=\"80\"><?= anchor('admin/pagesc/editar/' . $page->id, 'Editar', 'class="btn btn-warning"'); ?></td>
                                 <td width=\"80\"><?= anchor('admin/pagesc/eliminar/' . $page->id, 'Eliminar', 'class="btn btn-danger destroy"'); ?></td>

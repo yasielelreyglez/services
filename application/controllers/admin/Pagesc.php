@@ -48,6 +48,36 @@ class Pagesc extends CI_Controller {
         }
         $this->load->view('/includes/contentpage', $data);
     }
+    public function editar($id){
+        $em = $this->doctrine->em;
+        /** @var \Entities\Service $service */
+        $pages = $em->find("\Entities\Pages", $id);
+
+        $data["title"] = "Paginas";
+        $data["page"] = $pages;
+        $data['content'] = '/pages/create';
+        $data["tab"]="pages";
+        $data["tabTitle"]="pages";
+        if (!$this->ion_auth->logged_in()){
+            $data["showlogin"]=true;
+        }
+        $this->load->view('/includes/contentpage', $data);
+    }
+    public function show($id){
+        $em = $this->doctrine->em;
+        /** @var \Entities\Service $service */
+        $pages = $em->find("\Entities\Pages", $id);
+
+        $data["title"] = $pages->getTitle();
+        $data["page"] = $pages;
+        $data['content'] = '/pages/show';
+        $data["tab"]="pages";
+        $data["tabTitle"]="pages";
+        if (!$this->ion_auth->logged_in()){
+            $data["showlogin"]=true;
+        }
+        $this->load->view('/includes/contentpage', $data);
+    }
 
     public function save(){
         $em = $this->doctrine->em;
@@ -64,9 +94,10 @@ class Pagesc extends CI_Controller {
             $page->setTitle( $this->input->post('title', TRUE));
             $page->setContent( $this->input->post('content', TRUE));
             $em->persist($page);
+            $em->flush();
             redirect('admin/pagesc/index', 'refresh');
         }
-        redirect('admin/pagesc/create', 'refresh');
+        redirect('admin/pagesc/index', 'refresh');
 
     }
 
