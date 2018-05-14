@@ -19,7 +19,8 @@
     <div class="container">
         <div id="step1" class="item-step active">
             <div class="form-group">
-                <input type="hidden" name="id" value="<?= isset($services) ? $services->id : '' ?>"/>
+                <input type="hidden" name="id" value="<?= /** @var \Entities\Service $services */
+                isset($services) ? $services->id : '' ?>"/>
             </div>
             <div class="form-group">
                 <label for="title">Título*:</label><br/>
@@ -47,6 +48,8 @@
                           placeholder="Descripción del servicio"
                           value="<?= isset($services) ? $services->getDescription() : '' ?>"></textarea>
             </div>
+
+            <!--CIUDADES -->
             <div class="form-group">
                 <label for="cities">Cuidades*:</label><br/>
                 <select multiple="true" class="custom-select" name="cities[]"
@@ -67,20 +70,40 @@
                     ?>
                 </select>
             </div>
-
+            <!--CATEGORIAS -->
+            <div class="form-group">
+                <label for="categories">Categoria *:</label><br/>
+                <select multiple="true" class="custom-select" name="categoriesp[]"
+                        placeholder="Escoja la categoría" id="categories">
+                    <?php
+                    foreach ($categories as $category) {
+                        $selected = '';
+                        if(isset($currenSubCategories)){
+                            foreach ($currenSubCategories as $currenSubCategory) {
+                                $catt = $currenSubCategory->getCategory();
+                                if($catt->getId() == $category->id){
+                                    $selected = 'selected';
+                                }
+                            }
+                        }
+                        echo "<option data-category='{$category->id}' value='$category->id' $selected>$category->title </option>";
+                    }
+                        ?>
+                </select>
+            </div>
+            <!--SUBCATEGORIAS -->
             <div class="form-group">
                 <label for="categories">Subcategoria *:</label><br/>
                 <select multiple="true" class="custom-select" name="categories[]"
-                        placeholder="Escoja la categoría">
-                    <?php /** @var \Entities\Category $category */
+                        placeholder="Escoja la categoría" id="subcategories">
+                    <?php
                     foreach ($categories as $category) {
                         $selected = '';
-                        echo "<optgroup label='$category->title'>";
                         $subcats = $category->getSubcategories()->toArray();
                         foreach ($subcats as $subcat) {
-                          if (isset($currenSubCategories)) {
-                                foreach ($currenCategories as $cat) {
-                                    if ($category->id == $cat->id) {
+                            if (isset($currenSubCategories)) {
+                                foreach ($currenSubCategories as $cat) {
+                                    if ($subcat->id == $cat->id) {
                                         $selected = "selected ='selected'";
                                         break;
                                     }
@@ -88,14 +111,11 @@
                             }
                             echo "<option data-category='{$category->id}' value='$subcat->id' $selected>$subcat->title </option>";
                         }
-                        echo "</optgroup>";
                     }
 
-                        ?>
+                    ?>
                 </select>
             </div>
-
-
             <div class="f1-buttons">
                 <button type="button" class="btn btn-next bg-tema">Proximo</button>
             </div>
@@ -237,7 +257,7 @@
             </div>
             <div class="f1-buttons">
                 <button type="button" class="btn btn-previous">Anterior</button>
-                <button type="submit" class="btn btn-submit  btn-primary" id="submitform">Crear</button>
+                <button type="submit" class="btn btn-submit  btn-primary" id="submitform"><?php echo $submittext ?></button>
             </div>
         </div>
     </div>

@@ -11,7 +11,7 @@
                 <img src="<?=$subcategory->icon?>" width="80px" height="70px"/>
             <?php } ?>
 
-            <input type="file" <?php if(!isset($categories)){ ?>required<?php } ?> name="userfile" id="userfile" size="20" value="<?= isset($subcategory)?$subcategory->icon:''?>"/>
+            <input type="file" <?php if(!isset($subcategory)){ ?>required<?php } ?> name="userfile" id="userfile" size="20" value="<?= isset($subcategory)?$subcategory->icon:''?>"/>
         </div>
     <div id="image_preview" style="height: 80px;width:70px;" >
 

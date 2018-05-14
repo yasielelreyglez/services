@@ -62,6 +62,7 @@ class Services extends CI_Controller
         $data['content'] = '/services/create';
         $data["tab"] = "services";
         $data["tabTitle"] = "crear servicios";
+        $data["submittext"] = "Modificar";
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -96,7 +97,7 @@ class Services extends CI_Controller
         $data["tab"] = "services";
         $data["currenTimes"] = $currenTimes;
         $data["tabTitle"] = "editar servicios";
-
+        $data["submittext"] = "Modificar";
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -117,6 +118,27 @@ class Services extends CI_Controller
         $this->load->view('/includes/contentpage', $data);
     }
 
+
+
+
+    function serviciospro(){
+        $em = $this->doctrine->em;
+        $relacion = $em->getRepository('Entities\UserService');
+
+        $criteria = new Criteria();
+        $criteria->where(Criteria::expr()->neq('complaint', null));
+        $criteria->orderBy(array("complaint_created" => "DESC"));
+        $result = $relacion->matching($criteria);
+        foreach ($result as $item) {
+            $item->getService()->getTitle();
+            $item->getUser()->getUsername();
+        }
+        $data["complaints"] = $result;
+        $data['content'] = '/services/denunciados';
+        $data["tab"] = "services";
+        $data["tabTitle"] = "servicios denunciados";
+        $this->load->view('/includes/contentpage', $data);
+    }
     /**
      *
      */
@@ -194,7 +216,7 @@ class Services extends CI_Controller
         $this->form_validation->set_rules('title', 'Title', 'required');
 //        $this->form_validation->set_rules('subtitle', 'Subtitle', 'required');
 //        $this->form_validation->set_rules('phone', 'Phone', 'required');
-
+        $id = $this->input->post('id', TRUE);
         if ($this->form_validation->run()) {
             $this->load->helper("file");
 //            echo '<pre>';
@@ -203,7 +225,7 @@ class Services extends CI_Controller
 //            //print_r($this->input->post());
 //            echo '</pre>';
 
-            $id = $this->input->post('id', TRUE);
+
             $em = $this->doctrine->em;
             if (!$id) {
                 $service = new \Entities\Service();
@@ -234,15 +256,19 @@ class Services extends CI_Controller
                 $em->remove($old_position);
             }
 
-            if ($service->getTimes())
+            if ($service->getTimes()) {
+
                 $old_times = $service->getTimes()->toArray();
 
-            foreach ($old_times as $old_time) {
-                $em->remove($old_time);
+                foreach ($old_times as $old_time) {
+                    $em->remove($old_time);
+                }
             }
             $em->flush();
-
-            $service->addPositions(json_decode($positions), true);
+            $arr = json_decode($positions);
+            if(is_array($arr)) {
+                $service->addPositions(json_decode($positions), true);
+            }
             $service->addTimes(json_decode($this->input->post("times")), true);
             $em->persist($service);
             $em->flush();
@@ -310,8 +336,12 @@ class Services extends CI_Controller
             $this->session->set_flashdata('item', array('message' => 'Se han guardado sus cambios correctamente.', 'class' => 'success', 'icon' => 'fa fa-thumbs-up', 'title' => "<strong>Bien!:</strong>"));
 
 //            //print_r($service);
-            die;
+//            die;
             redirect('admin/services/index', 'refresh');
+        }
+        else{
+            redirect("admin/services/edit/$id", 'refresh');
+            echo "NO ESTA REDIRECCIONANDO";
         }
     }
 

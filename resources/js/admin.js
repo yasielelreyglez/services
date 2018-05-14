@@ -1,11 +1,31 @@
 var gmarkers = [];
 var maps = {};
 var creando = true;
-$(document).ready(function ($) {
+var fullSelect = $("#subcategories");
+var cloned = fullSelect.clone()
+console.log("funciona");
+$(document).ready(function() {
+    console.log("funciona2");
     loadFilters();
     loadCategorias();
     loadCiudades();
+    $('#filter').submit(function (ev) {
+        console.log("COJIENDO EL EVENTO");
+        ev.preventDefault();
+        $(this).find('i').first().addClass('hide');
+        $(this).find('i').last().removeClass('hide');
+        $.post('../api/filter', $('#filter').serialize(), function (data) {
+            showFilterResult(data.services);
+            $('#filter button').find('i').last().addClass('hide');
+            $('#filter button').find('i').first().removeClass('hide');
+        });
+    });
+
+});
     //// cargando las posiciones de los mapas
+    // next step
+    console.log("deberia funcionar");
+
     if (typeof google !== 'undefined') {
         // the variable is defined
         var initialLocation = new google.maps.LatLng(23.13302, -82.38304);
@@ -23,16 +43,6 @@ $(document).ready(function ($) {
         $('.listing .row.' + $(this).attr('name')).removeClass('hide');
     });
 
-    $('#filter').submit(function (ev) {
-        ev.preventDefault();
-        $(this).find('i').first().addClass('hide');
-        $(this).find('i').last().removeClass('hide');
-        $.post('../api/filter', $('#filter').serialize(), function (data) {
-            showFilterResult(data.services);
-            $('#filter button').find('i').last().addClass('hide');
-            $('#filter button').find('i').first().removeClass('hide');
-        });
-    });
 
     $('select[name="order"]').change(function () {
         $('.popular_listings .item').remove();
@@ -106,50 +116,9 @@ $(document).ready(function ($) {
 
     })
 
-    $('.f1 .item-step:first').fadeIn('slow');
-
-    // next step
-    $('.f1 .btn-next').on('click', function() {
-        var parent_fieldset = $(this).parents('.item-step');
-        var next_step = true;
-        // navigation steps / progress steps
-        var current_active_step = $(this).parents('.f1').find('.f1-step.active');
-        var progress_line = $(this).parents('.f1').find('.f1-progress-line');
-        // fields validation
+    $('.item-step:first').fadeIn('slow');
 
 
-        if( next_step ) {
-            parent_fieldset.fadeOut(400, function() {
-                // change icons
-                current_active_step.removeClass('active').addClass('activated').next().addClass('active');
-                // progress bar
-                bar_progress(progress_line, 'right');
-                // show next step
-                $(this).next().fadeIn();
-                // scroll window to beginning of the form
-                scroll_to_class( $('.f1'), 20 );
-            });
-        }
-
-    });
-
-    // previous step
-    $('.f1 .btn-previous').on('click', function() {
-        // navigation steps / progress steps
-        var current_active_step = $(this).parents('.f1').find('.f1-step.active');
-        var progress_line = $(this).parents('.f1').find('.f1-progress-line');
-
-        $(this).parents('.item-step').fadeOut(400, function() {
-            // change icons
-            current_active_step.removeClass('active').prev().removeClass('activated').addClass('active');
-            // progress bar
-            bar_progress(progress_line, 'left');
-            // show previous step
-            $(this).prev().fadeIn();
-            // scroll window to beginning of the form
-            scroll_to_class( $('.f1'), 20 );
-        });
-    });
 
 
     $("#userfile").change(function(event){
@@ -191,19 +160,7 @@ $(document).ready(function ($) {
 
     initDestroyConfirmValidation();
 
-    $('#form-service').on('submit', function (ev) {
-        ev.preventDefault();
-        $('#form-service').off('submit');
-        if ($('#images_deleted').val() && JSON.parse($('#images_deleted').val()).length) {
-            $('#myModal .modal-body').text('Está a punto de eliminar imágenes del servicio. ¿Confirma que desea eliminarlas?');
-            $('#myModal').modal('toggle');
-            $('#myModal .confirm').on('click', function () {
-                $('#form-service').trigger('submit');
-            });
-        } else {
-            $('#form-service').trigger('submit');
-        }
-    })
+
 
     if($("#times").length>0){
         pintarHorarios();
@@ -222,7 +179,68 @@ $(document).ready(function ($) {
             $('.uou-block-11a').addClass('hide');
         }
     })
+// });
+
+$('#form-service').on('submit', function (ev) {
+    ev.preventDefault();
+    $('#form-service').off('submit');
+    if ($('#images_deleted').val() && JSON.parse($('#images_deleted').val()).length) {
+        $('#myModal .modal-body').text('Está a punto de eliminar imágenes del servicio. ¿Confirma que desea eliminarlas?');
+        $('#myModal').modal('toggle');
+        $('#myModal .confirm').on('click', function () {
+            $('#form-service').trigger('submit');
+        });
+    } else {
+        $('#form-service').trigger('submit');
+    }
+})
+
+$('.btn-next').on('click', function() {
+    console.log("click en next");
+    var parent_fieldset = $(this).parents('.item-step');
+    var next_step = true;
+    // navigation steps / progress steps
+    var current_active_step = $(this).parents('.f1').find('.f1-step.active');
+    var progress_line = $(this).parents('.f1').find('.f1-progress-line');
+    // fields validation
+
+
+    if( next_step ) {
+        parent_fieldset.fadeOut(400, function() {
+            // change icons
+            current_active_step.removeClass('active').addClass('activated').next().addClass('active');
+            // progress bar
+            bar_progress(progress_line, 'right');
+            // show next step
+            $(this).next().fadeIn();
+            // scroll window to beginning of the form
+            scroll_to_class( $('.f1'), 20 );
+        });
+    }
+
 });
+
+// previous step
+$('.f1 .btn-previous').on('click', function() {
+    // navigation steps / progress steps
+    var current_active_step = $(this).parents('.f1').find('.f1-step.active');
+    var progress_line = $(this).parents('.f1').find('.f1-progress-line');
+
+    $(this).parents('.item-step').fadeOut(400, function() {
+        // change icons
+        current_active_step.removeClass('active').prev().removeClass('activated').addClass('active');
+        // progress bar
+        bar_progress(progress_line, 'left');
+        // show previous step
+        $(this).prev().fadeIn();
+        // scroll window to beginning of the form
+        scroll_to_class( $('.f1'), 20 );
+    });
+});
+
+
+
+
 function getStringDays(days){
     var result= [];
     var textos = $('input[name="week_days[]"]').map(function(){
@@ -240,6 +258,19 @@ function removeTime(i){
     $('#times').val(JSON.stringify(value));
     pintarHorarios();
 }
+
+$("#categories").on('change',function(){
+    arre = $(this).val();
+    fullSelect.find("option").remove();
+    $(arre).each(function(a,b){
+        var options = cloned.find("option[data-category='"+b+"']").clone();
+        fullSelect.append(options);
+    });
+    $("#subcategories").select2({});
+
+    console.log($(this).val());
+});
+
 function scroll_to_class(element_class, removed_height) {
     var scroll_to = $(element_class).offset().top - removed_height;
     if($(window).scrollTop() != scroll_to) {
@@ -297,6 +328,7 @@ function pintarHorarios(){
         result+="<div class='horario row'><div class='col-md-9 col-xs-9'><i class='fa fa-calendar'></i> <span class='title'> "+getStringDays(value[i].week_days)+"</span><span class='start_time_s'>"+value[i].start_time+"</span><span class='end_time_s'>"+value[i].end_time+"</span></div><div class='col-md-3 col-xs-3'><input type='button' value='X' class='btn btn-danger' onclick='removeTime("+i+");' /></div></div><br>";
     }
     $("#visual_horarios").html(result);
+
 }
 //llenandolos filtros
 function loadFilters() {
@@ -309,7 +341,7 @@ function loadFilters() {
         });
 
     });
-    $.get('../api/categories',function(data){
+    $.get('../api/allsubcategories',function(data){
     // $.get('../api/allsubcategories', function (data) {
         $(data.data).each(function (pos, item) {
             var newState = new Option(item.title, item.id, false, false);

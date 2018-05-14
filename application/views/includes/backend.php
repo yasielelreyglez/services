@@ -163,6 +163,7 @@
                                 <div class="field custom-select-box">
                                     <select name="distance" class="custom-select"
                                             data-placeholder="Distancia" id="distancia">
+                                        <option value="0">0 Km</option>
                                         <option value="5">5 Km</option>
                                         <option value="10">10 Km</option>
                                         <option value="15">15 Km</option>
@@ -172,7 +173,7 @@
                                 </div>
                                 <div class="field custom-select-box">
                                     <select name="categories[]" class="custom-select" multiple="true"
-                                            data-placeholder="Categorias" id="categories">
+                                            data-placeholder="Sub-Categorias" id="categories">
                                     </select>
                                 </div>
                             </div>
@@ -721,7 +722,11 @@
             <li class="<?= $tab == "services" ? "active" : "" ?>"><a href="<?= site_url("admin/services") ?>"><i
                             class="fa fa-cogs"></i> Servicios </a></li>
             <li class="pl10 <?= $tab == "denunciados" ? "active" : "" ?>"><a
-                        href="<?= site_url("admin/services/denunciados") ?>">Mostrar Servicios Denunciados</a></li>
+                        href="<?= site_url("admin/services/pro") ?>">Mostrar Servicios Denunciados</a></li>
+            <li class="pl10 <?= $tab == "denunciados" ? "active" : "" ?>"><a
+                        href="<?= site_url("admin/services/nopro") ?>">Mostrar Servicios PRO</a></li>
+            <li class="pl10 <?= $tab == "denunciados" ? "active" : "" ?>"><a
+                        href="<?= site_url("admin/services/denunciados") ?>">Mostrar Servicios no PRO</a></li>
             <li class="pl10 <?= $tab == "services" ? "active" : "" ?>"><a href="<?= site_url("admin/services") ?>">Mostrar
                     Servicios Existentes</a></li>
             <li class="pl10 <?= $tab == "crearservicio" ? "active" : "" ?>"><a
