@@ -109,9 +109,9 @@
                                 }
                             }
                             echo "<option data-category='{$category->id}' value='$subcat->id' $selected>$subcat->title </option>";
+                            $selected = '';
                         }
                     }
-
                     ?>
                 </select>
             </div>
