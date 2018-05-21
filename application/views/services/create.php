@@ -45,8 +45,7 @@
             <div class="form-group">
                 <label for="phone">Descripción:</label><br/>
                 <textarea rows="3" cols="50" class="form-control" name="description"
-                          placeholder="Descripción del servicio"
-                          value="<?= isset($services) ? $services->getDescription() : '' ?>"></textarea>
+                          placeholder="Descripción del servicio"><?= isset($services) ? $services->description : '' ?></textarea>
             </div>
 
             <!--CIUDADES -->
@@ -257,7 +256,7 @@
             </div>
             <div class="f1-buttons">
                 <button type="button" class="btn btn-previous">Anterior</button>
-                <button type="submit" class="btn btn-submit  btn-primary" id="submitform"><?php echo $submittext ?></button>
+                <button type="submit" class="btn btn-submit  btn-primary" id="submitform"><?= isset($services) ? 'Modificar' : 'Crear' ?></button>
             </div>
         </div>
     </div>

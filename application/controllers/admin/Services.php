@@ -62,7 +62,6 @@ class Services extends CI_Controller
         $data['content'] = '/services/create';
         $data["tab"] = "services";
         $data["tabTitle"] = "crear servicios";
-        $data["submittext"] = "Modificar";
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -97,7 +96,6 @@ class Services extends CI_Controller
         $data["tab"] = "services";
         $data["currenTimes"] = $currenTimes;
         $data["tabTitle"] = "editar servicios";
-        $data["submittext"] = "Modificar";
         $this->load->view('/includes/contentpage', $data);
     }
 
