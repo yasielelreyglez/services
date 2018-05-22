@@ -60,7 +60,7 @@ $week_days = array(
                                                <?php
                                                 $images = $services->getImages()->toArray();
                                                 foreach ($images as $image) {
-                                                    echo '<li class="" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;"><img src="' .site_url() . $image->getTitle() . '" alt="" draggable="false"></li>';
+                                                    echo '<li class="" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;"><img src="' .site_url() . $image->getThumb() . '" alt="" draggable="false"></li>';
                                                 }
                                                 ?>
                                             </ul>
