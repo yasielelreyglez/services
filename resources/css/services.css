@@ -368,3 +368,7 @@ elemento {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.item-step .form-group textarea {
+    font-size: 15px !important;
+}
