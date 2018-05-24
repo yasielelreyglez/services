@@ -374,6 +374,47 @@ class Services extends CI_Controller
         $user = $em->find("Entities\User", $usuario);
         return $user;
     }
+    function quitarQueja($id_service, $id_user)
+    {
+        $em = $this->doctrine->em;
+        $service = $em->find("Entities\Service", $id_service);
+        $user = $em->find("Entities\User", $id_user);
+        //cargo la tupla de la queja
+        $userServiceRepo = $em->getRepository('Entities\UserService');
+
+        $criteria = new Criteria();
+//        //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
+        $expresion1 = new \Doctrine\Common\Collections\Expr\Comparison("user", \Doctrine\Common\Collections\Expr\Comparison::EQ, $user);
+        $expresion2 = new \Doctrine\Common\Collections\Expr\Comparison("service", \Doctrine\Common\Collections\Expr\Comparison::EQ, $service);
+        $criteria->where($expresion1);
+        $criteria->andWhere($expresion2);
+        $relacion = $service->getServiceusers()->matching($criteria)->toArray();
+        if (count($relacion) > 0) {
+                $obj = $relacion[0];
+            //seteo los campos
+            $obj->setComplaint();
+            $obj->setComplaintCreated();
+            $em->persist($obj);
+            $em->flush();
+            }
+//
+//        $criteria = new Criteria();
+//        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user_id", \Doctrine\Common\Collections\Expr\Comparison::EQ, $id_user);
+//        $expresion2 = new \Doctrine\Common\Collections\Expr\Comparison("service_id", \Doctrine\Common\Collections\Expr\Comparison::EQ, $id_service);
+//        $criteria->where($expresion);
+//        $criteria->andWhere($expresion2);
+//        $userServices = $userServiceRepo->matching($criteria);
+//        foreach ($userServices as $userService) {
+//            //seteo los campos
+//            $userService->setComplaint(null);
+//            $userService->setComplaintCreated(null);
+//            $em->persist($userService);
+//            $em->flush();
+//        }
+
+        redirect('admin/services/denunciados', 'refresh');
+    }
+
 }
 
 ?>

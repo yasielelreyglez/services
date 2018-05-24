@@ -35,7 +35,7 @@
                             <td><?= $object->getUser()->getUsername(); ?></td>
 
                             <td width="80"><?= anchor('admin/services/edit/' . $object->getService()->id, 'Editar', 'class="btn btn-warning"'); ?></td>
-                            <td width="80"><?= anchor('admin/services/destroy/' . $object->getService()->id, 'Eliminar', 'class="btn btn-danger destroy"'); ?></td>
+                            <td width="80"><?= anchor('admin/services/quitarQueja/' . $object->getService()->id . '/'. $object->getUser()->id , 'Eliminar', 'class="btn btn-danger destroy"'); ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>

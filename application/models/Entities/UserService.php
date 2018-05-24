@@ -148,7 +148,7 @@ class UserService
      *
      * @return UserService
      */
-    public function setComplaint($complaint)
+    public function setComplaint($complaint=null)
     {
         $this->complaint = $complaint;
 
@@ -197,7 +197,7 @@ class UserService
      *
      * @return UserService
      */
-    public function setComplaintCreated($complaintCreated)
+    public function setComplaintCreated($complaintCreated=null)
     {
         $this->complaint_created = $complaintCreated;
 
