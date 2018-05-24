@@ -20,9 +20,10 @@
             <label for="category_id">Categoría:</label><br/>
             <select type="text" class="custom-select" name="category_id" placeholder="Escoja la categoría" value="<?= isset($subcategory)?$subcategory->category_id:''?>">
                 <?php
+                $currentcat = $subcategory->getCategory()->getId();
                 foreach ($categories as $category) {
-                    $is_selected = ($subcategory->category_id==$category->id)?"selected":"";
-                    echo "<option value='$category->id' $is_selected>$category->title </option>";
+                    $is_selected = ($currentcat==$category->id)?"selected":"";
+                    echo "<option value='$category->id' $is_selected>$category->title</option>";
                 }
                 ?>
             </select>
