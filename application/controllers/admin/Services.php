@@ -106,10 +106,12 @@ class Services extends CI_Controller
         $currenPositions = $service->getPositions();
         $currenTimes = $service->getTimes();
         $currenComments = $service->getServicecomments();
+        $currenServiscesUsers = $service->getServiceusers();
         $data['times'] = $currenTimes;
         $data['services'] = $service;
         $data['positions'] = $currenPositions;
         $data['comments'] = $currenComments;
+        $data['serviscesUsers'] = $currenServiscesUsers;
         $data['content'] = '/services/show';
         $data["tab"] = "services";
         $data["tabTitle"] = "servicio";

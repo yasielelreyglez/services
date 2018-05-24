@@ -170,7 +170,7 @@ $week_days = array(
         <div class="advertiser-inner">
             <div class="row">
                 <div id="comments" class="ng-star-inserted">
-                    <?php foreach ($comments as $comment): ?>
+                    <?php foreach ($serviscesUsers as $comment): ?>
                         <div class="row">
                             <div class="col-xs-12 col-md-6">
                                 <h6>
@@ -179,22 +179,62 @@ $week_days = array(
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <ul class="showrate pull-right">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star-o"></i></li>
-                                    <li><i class="fa fa-star-o"></i></li>
-                                    <li><i class="fa fa-star-o"></i></li>
+                                    <?php $rate = $comment->getRate();
+
+                                    for ($pos = 0; $pos < 10; $pos++) {
+                                        if ($pos < $rate) {
+                                            echo '<li><i class="fa fa-star "></i></li>';
+                                        } else {
+                                            echo ' <li><i class="fa fa-star-o"></i></li>';
+                                        }
+                                    }
+                                    ?>
                                 </ul>
                             </div>
                             <div class="col-xs-12">
                                 <p class="tc-grei" style="word-wrap: break-word !important;">
-                                    <?php echo $comment->comment; ?>
+                                    <?php echo $comment->getRatecomment(); ?>
                                 </p>
                                 <div class="pull-right">
                                     <?= anchor('admin/services/edit/' . $services->id, '<i class="fa fa-microphone"></i>', 'class="btn btn-danger"'); ?>
                                     <?= anchor('admin/services/edit/' . $services->id, '<i class="fa fa-check" aria-hidden="true"></i>', 'class="btn btn-success"'); ?>
                                 </div>
                             </div>
+                        </div>
+                        <hr class="bc-grei">
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="complaint-info">
+        <div class="complaint-header">
+            <h5>Quejas</h5>
+        </div>
+        <div class="complaint-inner">
+            <div class="row">
+                <div id="complaints" class="ng-star-inserted">
+                    <?php foreach ($serviscesUsers as $serviscesUser): ?>
+                        <div class="row">
+                            <?php if($serviscesUser->getComplaint()!=null):?>
+                            <div class="col-xs-12 col-md-6">
+                                <h6>
+                                    <?php echo $serviscesUser->getUser()->getUsername(); ?>
+                                </h6>
+                                <p>
+                                    <i class="fa fa-calendar"></i><?= ($serviscesUser->getComplaintCreated()!=null)? $serviscesUser->getComplaintCreated()->format('d-M h:i'): ''; ?>
+                                </p>
+                            </div>
+                            <div class="col-xs-12">
+                                <p class="tc-grei" style="word-wrap: break-word !important;">
+                                    <?php echo $serviscesUser->getComplaint(); ?>
+                                </p>
+                                <div class="pull-right">
+                                    <?= anchor('admin/services/edit/' . $services->id, '<i class="fa fa-microphone"></i>', 'class="btn btn-danger"'); ?>
+                                    <?= anchor('admin/services/edit/' . $services->id, '<i class="fa fa-check" aria-hidden="true"></i>', 'class="btn btn-success"'); ?>
+                                </div>
+                            </div>
+                            <?php endif;?>
                         </div>
                         <hr class="bc-grei">
                     <?php endforeach; ?>
