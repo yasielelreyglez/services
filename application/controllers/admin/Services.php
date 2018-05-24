@@ -397,21 +397,6 @@ class Services extends CI_Controller
             $em->persist($obj);
             $em->flush();
             }
-//
-//        $criteria = new Criteria();
-//        $expresion = new \Doctrine\Common\Collections\Expr\Comparison("user_id", \Doctrine\Common\Collections\Expr\Comparison::EQ, $id_user);
-//        $expresion2 = new \Doctrine\Common\Collections\Expr\Comparison("service_id", \Doctrine\Common\Collections\Expr\Comparison::EQ, $id_service);
-//        $criteria->where($expresion);
-//        $criteria->andWhere($expresion2);
-//        $userServices = $userServiceRepo->matching($criteria);
-//        foreach ($userServices as $userService) {
-//            //seteo los campos
-//            $userService->setComplaint(null);
-//            $userService->setComplaintCreated(null);
-//            $em->persist($userService);
-//            $em->flush();
-//        }
-
         redirect('admin/services/denunciados', 'refresh');
     }
 
