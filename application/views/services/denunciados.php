@@ -150,12 +150,21 @@
                         </ul> <!-- end .uou-accordions -->
                     </div>
                     <div class="info-footer">
-                        <img height="20" width="20"
-                             src="<?= $object->getService()->getSubcategories()->toArray()[0]->getIcon() ?>">
-                        <h6><?= $object->getService()->getSubcategories()->toArray()[0]->getTitle() ?></h6>
-                        <a class="pull-right pl10 destroy" title="Destruir servicio"
-                           href="<?= site_url('admin/services/destroy/') . $object->getService()->id ?>"><i
-                                    class="fa fa-trash bookmark"></i></a>
+                        <?php
+                        $subcats = $object->getService()->getSubcategories()->toArray();
+                        if(is_array($subcats)&&count($subcats)>0){
+                            $subcat = $subcats[0];
+
+                        ?>
+
+                            <img height="20" width="20"
+
+                                 src="<?= $object->getService()->getSubcategories()->toArray()[0]->getIcon() ?>">
+                            <h6><?= $object->getService()->getSubcategories()->toArray()[0]->getTitle() ?></h6>
+                            <a class="pull-right pl10 destroy" title="Destruir servicio"
+                               href="<?= site_url('admin/services/destroy/') . $object->getService()->id ?>"><i
+                                        class="fa fa-trash bookmark"></i></a>
+                        <?php } ?>
                         <a class="pull-right pl10" title="Editar servicio"
                            href="<?= site_url('admin/services/edit/') . $object->getService()->id ?>"><i
                                     class="fa fa-edit bookmark"></i></a>
