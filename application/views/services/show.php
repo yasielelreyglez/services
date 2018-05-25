@@ -163,7 +163,7 @@ $week_days = array(
             </div>
         </div>
     </div>
-    <div class="advertiser-info">
+    <div class="advertiser-info comment">
         <div class="advertiser-header">
             <h5>Comentarios</h5>
         </div>
@@ -171,6 +171,7 @@ $week_days = array(
             <div class="row">
                 <div id="comments" class="ng-star-inserted">
                     <?php foreach ($serviscesUsers as $comment): ?>
+                    <?php if ($comment->getRatecomment()) : ?>
                         <div class="row">
                             <div class="col-xs-12 col-md-6">
                                 <h6>
@@ -202,21 +203,22 @@ $week_days = array(
                             </div>
                         </div>
                         <hr class="bc-grei">
+                    <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
             </div>
         </div>
     </div>
-    <div class="complaint-info">
-        <div class="complaint-header">
+    <div class="advertiser-info comment">
+        <div class="advertiser-header">
             <h5>Quejas</h5>
         </div>
-        <div class="complaint-inner">
+        <div class="advertiser-inner">
             <div class="row">
-                <div id="complaints" class="ng-star-inserted">
+                <div class="ng-star-inserted">
                     <?php foreach ($serviscesUsers as $serviscesUser): ?>
+                    <?php if($serviscesUser->getComplaint()!=null):?>
                         <div class="row">
-                            <?php if($serviscesUser->getComplaint()!=null):?>
                             <div class="col-xs-12 col-md-6">
                                 <h6>
                                     <?php echo $serviscesUser->getUser()->getUsername(); ?>
@@ -234,9 +236,9 @@ $week_days = array(
                                     <?= anchor('admin/services/edit/' . $services->id, '<i class="fa fa-check" aria-hidden="true"></i>', 'class="btn btn-success"'); ?>
                                 </div>
                             </div>
-                            <?php endif;?>
                         </div>
                         <hr class="bc-grei">
+                        <?php endif;?>
                     <?php endforeach; ?>
                 </div>
             </div>
