@@ -5,7 +5,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import {ServicePage} from "../service/service";
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-busqueda',
   templateUrl: 'busqueda.html',

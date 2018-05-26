@@ -1,19 +1,17 @@
 <ion-header>
-  <app-header [showInput]="false" [showSearch]="false" [show]="!connetionDown"></app-header>
+      <app-header [showInput]="false" [showSearch]="false" [show]="!connetionDown"></app-header>
 </ion-header>
 
 <ion-content padding>
   <ng-container *ngIf="!connetionDown; else elseTemplate">
     <ion-grid no-padding>
       <ion-row>
-
         <ion-col col-10>
-          <ion-searchbar  id="search" (keypress)="goSearch($event.keyCode)" placeholder="¿Qué estas buscando?" #search></ion-searchbar>
+          <ion-searchbar id="search" (keypress)="goSearch($event.keyCode)" placeholder="¿Qué estas buscando?" #search></ion-searchbar>
         </ion-col>
         <ion-col col-2>
           <button color="azul-claro" class="buscar-btn" ion-button icon-only (click)="buscar()">
-            <ion-icon
-              name="search"></ion-icon>
+            <ion-icon name="search"></ion-icon>
           </button>
         </ion-col>
       </ion-row>
@@ -35,14 +33,15 @@
                 <ion-row>
                   <ion-col col-12>
                     <p>Distancia: 5 km</p>
-                    <p text-wrap><span *ngFor="let cat of serv.subcategoriesList; let i = index">
-                          <ng-container *ngIf="i > 0; else elseTemplate">
-                              ,{{ cat.title}}
-                          </ng-container>
-                          <ng-template #elseTemplate>
-                              {{ cat.title}}
-                          </ng-template>
-                        </span>
+                    <p text-wrap>
+                      <span *ngFor="let cat of serv.subcategoriesList; let i = index">
+                        <ng-container *ngIf="i > 0; else elseTemplate">
+                          ,{{ cat.title}}
+                        </ng-container>
+                        <ng-template #elseTemplate>
+                          {{ cat.title}}
+                        </ng-template>
+                      </span>
                     </p>
                     <ion-rating [readOnly]="true" [numStars]="5" [value]="serv.globalrate"></ion-rating>
 
@@ -64,8 +63,7 @@
   </ng-container>
 
   <ng-template #elseTemplate>
-    <ion-label class="fs-20" text-center text-wrap>No tienes conexión a Internet. Activa el Wi-Fi o los datos móviles, y
-      vuelve a intentarlo.
+    <ion-label class="fs-20" text-center text-wrap>No tienes conexión a Internet. Activa el Wi-Fi o los datos móviles, y vuelve a intentarlo.
     </ion-label>
 
     <button color="azul-claro" ion-button block margin-bottom="2" (click)="reConnect()">
@@ -76,10 +74,9 @@
 
     <ion-label text-center color="azul-claro">Principales tendencias</ion-label>
     <ion-list>
-      <button *ngFor="let sub of subCategories" class="specific-button" text-left color="azul-claro" ion-button block
-              margin-bottom="1" (click)='openServicesPage(sub.id)'>
-        <img src="{{sub.icon}}" alt="" height="36">
-        &nbsp;{{sub.title}}
+      <button *ngFor="let sub of subCategories" class="specific-button" text-left color="azul-claro" ion-button block margin-bottom="1"
+        (click)='openServicesPage(sub.id)'>
+        <img src="{{sub.icon}}" alt="" height="36"> &nbsp;{{sub.title}}
       </button>
 
     </ion-list>
@@ -90,8 +87,7 @@
 
         </ion-col>
         <ion-col col-10>
-          <button color="azul-oscuro" float-left class="btn-text-left specific-button" ion-button block
-                  margin-bottom="2" (click)="openCategoriesPage()">
+          <button color="azul-oscuro" float-left class="btn-text-left specific-button" ion-button block margin-bottom="2" (click)="openCategoriesPage()">
             <ion-icon name="search" class="fs-25"></ion-icon>
             &nbsp;Buscar por categoria
           </button>

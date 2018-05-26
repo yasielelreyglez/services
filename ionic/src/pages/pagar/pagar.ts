@@ -9,7 +9,7 @@ import {PhotoViewer} from "@ionic-native/photo-viewer";
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-pagar',
   templateUrl: 'pagar.html',

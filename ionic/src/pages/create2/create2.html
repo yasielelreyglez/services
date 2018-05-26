@@ -1,7 +1,9 @@
 <ion-header>
 
   <ion-navbar hideBackButton>
-    <ion-title text-center>LOGO</ion-title>
+    <ion-title text-center>
+      <img alt="logo" height="40" src="assets/imgs/logo.png">
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -12,30 +14,32 @@
   </h4>
 
   <div class="progress">
-    <div class="circle done"><span class="label">1</span>
+    <div class="circle done">
+      <span class="label">1</span>
     </div>
     <span class="bar  "></span>
-    <div class="circle active"><span class="label">2</span>
+    <div class="circle active">
+      <span class="label">2</span>
     </div>
     <span class="bar "></span>
-    <div class="circle"><span class="label">3</span>
+    <div class="circle">
+      <span class="label">3</span>
     </div>
     <span class="bar"></span>
-    <div class="circle"><span class="label">4</span>
+    <div class="circle">
+      <span class="label">4</span>
     </div>
   </div>
   <hr class="hr-separador">
   <ion-grid>
 
     <ion-row>
-
       <ion-col col-12>
         <button (click)="uploadPhoto()" ion-button block icon-start>
           <ion-icon name="camera"></ion-icon>
           &nbsp; Subir foto
         </button>
       </ion-col>
-
       <ng-container *ngIf="edit; else elseTemplate">
         <ion-col col-4 *ngFor="let foto of service.imagesList; let i = index">
           <div class="block">
@@ -69,16 +73,12 @@
         <button block color="azul-claro" (click)="goToCreate1()" ion-button icon-start>
           <ion-icon name="arrow-round-back"></ion-icon>
           Anterior
-
-
         </button>
       </ion-col>
       <ion-col col-6>
         <button block color="azul-oscuro" (click)="goToCreate3()" ion-button icon-start>
-
           <ion-icon name="arrow-round-forward"></ion-icon>
           Siguiente
-
         </button>
       </ion-col>
 

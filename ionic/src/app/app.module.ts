@@ -17,7 +17,7 @@ import { ServicesPage } from '../pages/services/services';
 // import { LoginPage  } from '../pages/login/login';
 // import { SignupPage  } from '../pages/signup/signup';
 import { FavoritesPage  } from '../pages/favorites/favorites';
-// import { BusquedaPage  } from '../pages/busqueda/busqueda';
+import { BusquedaPage  } from '../pages/busqueda/busqueda';
 import { MyservicesPage  } from '../pages/myservices/myservices';
 import { ServicePage  } from '../pages/service/service';
 import { RatePage } from "../pages/rate/rate";
@@ -30,12 +30,13 @@ import { Create2Page } from "../pages/create2/create2";
 import {  TabPage} from "../pages/tab/tab";
 import {  TabMapaPage} from "../pages/tab-mapa/tab-mapa";
 import {CondicionesPage} from "../pages/condiciones/condiciones";
+// import { BuzonPage } from './../pages/buzon/buzon';
 
 
 // Componentes
-// import {AppHeaderComponent} from '../components/app-header/app-header';
-// import { IonRating } from '../components/ion-rating/ion-rating';
-// import { ServUpInfoComponent } from '../components/serv-up-info/serv-up-info';
+import {AppHeaderComponent} from '../components/app-header/app-header';
+import { IonRating } from '../components/ion-rating/ion-rating';
+import { ServUpInfoComponent } from '../components/serv-up-info/serv-up-info';
 
 //Servicios
 import { SubCategoryProvider } from '../providers/sub-category/sub-category';
@@ -56,7 +57,7 @@ import { Create4Page } from '../pages/create4/create4';
 import { PagarPage } from '../pages/pagar/pagar';
 import { FiltroModalPage } from '../pages/filtro-modal/filtro-modal';
 import { ModalDenunciaPage } from '../pages/modal-denuncia/modal-denuncia';
-import { ChangePassPage } from '../pages/change-pass/change-pass';
+// import { ChangePassPage } from '../pages/change-pass/change-pass';
 import {ModalHorarioPage} from "../pages/modal-horario/modal-horario";
 import { SocialSharing } from '@ionic-native/social-sharing';
 import {SearchPage} from "../pages/search/search";
@@ -72,14 +73,14 @@ import { Diagnostic } from '@ionic-native/diagnostic';
     CondicionesPage,
     CategoriesPage,
     SubcategoriesPage,
-    // AppHeaderComponent,
-    // IonRating,
-    // ServUpInfoComponent,
+    AppHeaderComponent,
+    IonRating,
+    ServUpInfoComponent,
     ServicesPage,
     FiltroModalPage,
     ModalHorarioPage,
     FavoritesPage,
-    // BusquedaPage,
+    BusquedaPage,
     MyservicesPage,
     ServicePage,
     RatePage,
@@ -94,7 +95,10 @@ import { Diagnostic } from '@ionic-native/diagnostic';
     PagarPage,
     TabMapaPage,
     ModalDenunciaPage,
-    ChangePassPage
+    // ChangePassPage,
+    // BuzonPage
+    // LoginPage,
+    // SignupPage
 
   ],
   imports: [
@@ -119,16 +123,16 @@ import { Diagnostic } from '@ionic-native/diagnostic';
     CondicionesPage,
     CategoriesPage,
     SubcategoriesPage,
-    // AppHeaderComponent,
-    // IonRating,
-    // ServUpInfoComponent,
+    AppHeaderComponent,
+    IonRating,
+    ServUpInfoComponent,
     ServicesPage,
     FiltroModalPage,
     // LoginPage,
     // SignupPage,
     FavoritesPage,
     ModalHorarioPage,
-    // BusquedaPage,
+    BusquedaPage,
     MyservicesPage,
      ServicePage,
     RatePage,
@@ -143,7 +147,8 @@ import { Diagnostic } from '@ionic-native/diagnostic';
     PagarPage,
     TabMapaPage,
     ModalDenunciaPage,
-    ChangePassPage
+    // ChangePassPage,
+    // BuzonPage
 
   ],
   providers: [

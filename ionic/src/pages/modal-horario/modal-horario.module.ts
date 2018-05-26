@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/* import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ModalHorarioPage } from './modal-horario';
 
@@ -11,3 +11,4 @@ import { ModalHorarioPage } from './modal-horario';
   ],
 })
 export class ModalHorarioPageModule {}
+ */

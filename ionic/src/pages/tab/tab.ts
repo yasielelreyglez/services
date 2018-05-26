@@ -10,7 +10,7 @@ import { TabMapaPage } from '../tab-mapa/tab-mapa';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-tab',
   templateUrl: 'tab.html',

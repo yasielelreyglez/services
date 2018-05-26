@@ -11,7 +11,7 @@ import {AuthProvider} from "../../providers/auth/auth";
 
 declare var google;
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-mapa',
   templateUrl: 'mapa.html',

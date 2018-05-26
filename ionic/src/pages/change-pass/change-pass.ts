@@ -9,7 +9,7 @@ import {AuthProvider} from "../../providers/auth/auth";
  * Ionic pages and navigation.
  */
 
-// @IonicPage()
+@IonicPage()
 @Component({
   selector: 'page-change-pass',
   templateUrl: 'change-pass.html'

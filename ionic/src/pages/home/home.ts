@@ -30,9 +30,9 @@ import {OpenNativeSettings} from '@ionic-native/open-native-settings';
 import {Diagnostic} from '@ionic-native/diagnostic';
 import {Geoposition} from "@ionic-native/geolocation";
 
-@IonicPage({
+/* @IonicPage({
   priority: 'high'
-})
+}) */
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'

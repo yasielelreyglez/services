@@ -10,7 +10,7 @@ import {Service} from '../../models/service';
 import {PopoverPage} from '../pop-over/pop-over';
 import {SocialSharing} from '@ionic-native/social-sharing';
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-service',
   templateUrl: 'service.html',

@@ -12,7 +12,7 @@ import {ServicesPage} from '../services/services';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-subcategories',
   templateUrl: 'subcategories.html',

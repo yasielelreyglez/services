@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/* import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ModalDenunciaPage } from './modal-denuncia';
 
@@ -11,3 +11,4 @@ import { ModalDenunciaPage } from './modal-denuncia';
   ],
 })
 export class ModalDenunciaPageModule {}
+ */

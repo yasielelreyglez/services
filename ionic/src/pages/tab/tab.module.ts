@@ -11,3 +11,4 @@ import { TabPage } from './tab';
   ],
 })
 export class TabPageModule {}
+
