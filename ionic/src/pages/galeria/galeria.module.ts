@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/* import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { GaleriaPage } from './galeria';
 
@@ -11,3 +11,4 @@ import { GaleriaPage } from './galeria';
   ],
 })
 export class GaleriaPageModule {}
+ */

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/* import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { CondicionesPage } from './condiciones';
 
@@ -11,3 +11,4 @@ import { CondicionesPage } from './condiciones';
   ],
 })
 export class CondicionesPageModule {}
+ */

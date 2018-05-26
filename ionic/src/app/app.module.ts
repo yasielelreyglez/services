@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 
+
 import { MyApp } from './app.component';
 //paginas
 import { HomePage } from '../pages/home/home';
@@ -16,7 +17,7 @@ import { ServicesPage } from '../pages/services/services';
 // import { LoginPage  } from '../pages/login/login';
 // import { SignupPage  } from '../pages/signup/signup';
 import { FavoritesPage  } from '../pages/favorites/favorites';
-import { BusquedaPage  } from '../pages/busqueda/busqueda';
+// import { BusquedaPage  } from '../pages/busqueda/busqueda';
 import { MyservicesPage  } from '../pages/myservices/myservices';
 import { ServicePage  } from '../pages/service/service';
 import { RatePage } from "../pages/rate/rate";
@@ -32,9 +33,9 @@ import {CondicionesPage} from "../pages/condiciones/condiciones";
 
 
 // Componentes
-import {AppHeaderComponent} from '../components/app-header/app-header';
-import { IonRating } from '../components/ion-rating/ion-rating';
-import { ServUpInfoComponent } from '../components/serv-up-info/serv-up-info';
+// import {AppHeaderComponent} from '../components/app-header/app-header';
+// import { IonRating } from '../components/ion-rating/ion-rating';
+// import { ServUpInfoComponent } from '../components/serv-up-info/serv-up-info';
 
 //Servicios
 import { SubCategoryProvider } from '../providers/sub-category/sub-category';
@@ -71,14 +72,14 @@ import { Diagnostic } from '@ionic-native/diagnostic';
     CondicionesPage,
     CategoriesPage,
     SubcategoriesPage,
-    AppHeaderComponent,
-    IonRating,
-    ServUpInfoComponent,
+    // AppHeaderComponent,
+    // IonRating,
+    // ServUpInfoComponent,
     ServicesPage,
     FiltroModalPage,
     ModalHorarioPage,
     FavoritesPage,
-    BusquedaPage,
+    // BusquedaPage,
     MyservicesPage,
     ServicePage,
     RatePage,
@@ -118,16 +119,16 @@ import { Diagnostic } from '@ionic-native/diagnostic';
     CondicionesPage,
     CategoriesPage,
     SubcategoriesPage,
-    AppHeaderComponent,
-    IonRating,
-    ServUpInfoComponent,
+    // AppHeaderComponent,
+    // IonRating,
+    // ServUpInfoComponent,
     ServicesPage,
     FiltroModalPage,
     // LoginPage,
     // SignupPage,
     FavoritesPage,
     ModalHorarioPage,
-    BusquedaPage,
+    // BusquedaPage,
     MyservicesPage,
      ServicePage,
     RatePage,

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/* import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { CategoriesPage } from './categories';
 // import { AppHeaderComponent } from '../../components/app-header/app-header';
@@ -17,3 +17,4 @@ import { CategoriesPage } from './categories';
   ]
 })
 export class CategoriesPageModule {}
+ */

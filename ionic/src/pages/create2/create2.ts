@@ -19,7 +19,7 @@ import {PhotoViewer} from '@ionic-native/photo-viewer';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-create2',
   templateUrl: 'create2.html',
