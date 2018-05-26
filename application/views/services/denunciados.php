@@ -35,7 +35,7 @@
                             <td><?= $object->getUser()->getUsername(); ?></td>
 
                             <td width="80"><?= anchor('admin/services/edit/' . $object->getService()->id, 'Editar', 'class="btn btn-warning"'); ?></td>
-                            <td width="80"><?= anchor('admin/services/destroy/' . $object->getService()->id, 'Eliminar', 'class="btn btn-danger destroy"'); ?></td>
+                            <td width="80"><?= anchor('admin/services/quitarQueja/' . $object->getService()->id . '/'. $object->getUser()->id , 'Eliminar', 'class="btn btn-danger destroy"'); ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
@@ -63,11 +63,11 @@
                             <ul class="slides">
                                 <li class="flex-active-slide"
                                     style="width: 100%; float: left; margin-right: -100%; position: relative; opacity:1; display: block; z-index: 2;">
-                                    <img src="<?= $object->getService()->getIcon() ?>" alt="" draggable="false"></li>
+                                    <img src="<?= site_url() . $object->getService()->getThumb() ?>" alt="" draggable="false"></li>
                                 <?php
                                 $images = $object->getService()->getImages()->toArray();
                                 foreach ($images as $image) {
-                                    echo '<li class="" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;"><img src="' . $image->getTitle() . '" alt="" draggable="false"></li>';
+                                    echo '<li class="" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;"><img src="' . site_url() .  $image->getTitle() . '" alt="" draggable="false"></li>';
                                 }
                                 ?>
                             </ul>
@@ -150,12 +150,21 @@
                         </ul> <!-- end .uou-accordions -->
                     </div>
                     <div class="info-footer">
-                        <img height="20" width="20"
-                             src="<?= $object->getService()->getSubcategories()->toArray()[0]->getIcon() ?>">
-                        <h6><?= $object->getService()->getSubcategories()->toArray()[0]->getTitle() ?></h6>
-                        <a class="pull-right pl10 destroy" title="Destruir servicio"
-                           href="<?= site_url('admin/services/destroy/') . $object->getService()->id ?>"><i
-                                    class="fa fa-trash bookmark"></i></a>
+                        <?php
+                        $subcats = $object->getService()->getSubcategories()->toArray();
+                        if(is_array($subcats)&&count($subcats)>0){
+                            $subcat = $subcats[0];
+
+                        ?>
+
+                            <img height="20" width="20"
+
+                                 src="<?= $object->getService()->getSubcategories()->toArray()[0]->getIcon() ?>">
+                            <h6><?= $object->getService()->getSubcategories()->toArray()[0]->getTitle() ?></h6>
+                            <a class="pull-right pl10 destroy" title="Destruir servicio"
+                               href="<?= site_url('admin/services/destroy/') . $object->getService()->id ?>"><i
+                                        class="fa fa-trash bookmark"></i></a>
+                        <?php } ?>
                         <a class="pull-right pl10" title="Editar servicio"
                            href="<?= site_url('admin/services/edit/') . $object->getService()->id ?>"><i
                                     class="fa fa-edit bookmark"></i></a>

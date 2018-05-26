@@ -96,7 +96,6 @@ class Services extends CI_Controller
         $data["tab"] = "services";
         $data["currenTimes"] = $currenTimes;
         $data["tabTitle"] = "editar servicios";
-
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -107,16 +106,39 @@ class Services extends CI_Controller
         $currenPositions = $service->getPositions();
         $currenTimes = $service->getTimes();
         $currenComments = $service->getServicecomments();
+        $currenServiscesUsers = $service->getServiceusers();
         $data['times'] = $currenTimes;
         $data['services'] = $service;
         $data['positions'] = $currenPositions;
         $data['comments'] = $currenComments;
+        $data['serviscesUsers'] = $currenServiscesUsers;
         $data['content'] = '/services/show';
         $data["tab"] = "services";
         $data["tabTitle"] = "servicio";
         $this->load->view('/includes/contentpage', $data);
     }
 
+
+
+
+    function serviciospro(){
+        $em = $this->doctrine->em;
+        $relacion = $em->getRepository('Entities\UserService');
+
+        $criteria = new Criteria();
+        $criteria->where(Criteria::expr()->neq('complaint', null));
+        $criteria->orderBy(array("complaint_created" => "DESC"));
+        $result = $relacion->matching($criteria);
+        foreach ($result as $item) {
+            $item->getService()->getTitle();
+            $item->getUser()->getUsername();
+        }
+        $data["complaints"] = $result;
+        $data['content'] = '/services/denunciados';
+        $data["tab"] = "services";
+        $data["tabTitle"] = "servicios denunciados";
+        $this->load->view('/includes/contentpage', $data);
+    }
     /**
      *
      */
@@ -194,7 +216,7 @@ class Services extends CI_Controller
         $this->form_validation->set_rules('title', 'Title', 'required');
 //        $this->form_validation->set_rules('subtitle', 'Subtitle', 'required');
 //        $this->form_validation->set_rules('phone', 'Phone', 'required');
-
+        $id = $this->input->post('id', TRUE);
         if ($this->form_validation->run()) {
             $this->load->helper("file");
 //            echo '<pre>';
@@ -203,7 +225,7 @@ class Services extends CI_Controller
 //            //print_r($this->input->post());
 //            echo '</pre>';
 
-            $id = $this->input->post('id', TRUE);
+
             $em = $this->doctrine->em;
             if (!$id) {
                 $service = new \Entities\Service();
@@ -234,15 +256,19 @@ class Services extends CI_Controller
                 $em->remove($old_position);
             }
 
-            if ($service->getTimes())
+            if ($service->getTimes()) {
+
                 $old_times = $service->getTimes()->toArray();
 
-            foreach ($old_times as $old_time) {
-                $em->remove($old_time);
+                foreach ($old_times as $old_time) {
+                    $em->remove($old_time);
+                }
             }
             $em->flush();
-
-            $service->addPositions(json_decode($positions), true);
+            $arr = json_decode($positions);
+            if(is_array($arr)) {
+                $service->addPositions(json_decode($positions), true);
+            }
             $service->addTimes(json_decode($this->input->post("times")), true);
             $em->persist($service);
             $em->flush();
@@ -310,8 +336,12 @@ class Services extends CI_Controller
             $this->session->set_flashdata('item', array('message' => 'Se han guardado sus cambios correctamente.', 'class' => 'success', 'icon' => 'fa fa-thumbs-up', 'title' => "<strong>Bien!:</strong>"));
 
 //            //print_r($service);
-            die;
+//            die;
             redirect('admin/services/index', 'refresh');
+        }
+        else{
+            redirect("admin/services/edit/$id", 'refresh');
+            echo "NO ESTA REDIRECCIONANDO";
         }
     }
 
@@ -344,6 +374,32 @@ class Services extends CI_Controller
         $user = $em->find("Entities\User", $usuario);
         return $user;
     }
+    function quitarQueja($id_service, $id_user)
+    {
+        $em = $this->doctrine->em;
+        $service = $em->find("Entities\Service", $id_service);
+        $user = $em->find("Entities\User", $id_user);
+        //cargo la tupla de la queja
+        $userServiceRepo = $em->getRepository('Entities\UserService');
+
+        $criteria = new Criteria();
+//        //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
+        $expresion1 = new \Doctrine\Common\Collections\Expr\Comparison("user", \Doctrine\Common\Collections\Expr\Comparison::EQ, $user);
+        $expresion2 = new \Doctrine\Common\Collections\Expr\Comparison("service", \Doctrine\Common\Collections\Expr\Comparison::EQ, $service);
+        $criteria->where($expresion1);
+        $criteria->andWhere($expresion2);
+        $relacion = $service->getServiceusers()->matching($criteria)->toArray();
+        if (count($relacion) > 0) {
+                $obj = $relacion[0];
+            //seteo los campos
+            $obj->setComplaint();
+            $obj->setComplaintCreated();
+            $em->persist($obj);
+            $em->flush();
+            }
+        redirect('admin/services/denunciados', 'refresh');
+    }
+
 }
 
 ?>

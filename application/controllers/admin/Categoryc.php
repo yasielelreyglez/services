@@ -79,7 +79,6 @@ class Categoryc extends CI_Controller {
             $categories = $categoriesRepo->findAll();
             $data["categories"]=$categories;
             $this->load->view('category/index',$data);
-
         }
     }
 }

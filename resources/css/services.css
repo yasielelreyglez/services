@@ -336,35 +336,43 @@ elemento {
     content: none !important;
 }
 
-.showing.listing + .advertiser-info .advertiser-header {
+.comment.advertiser-info {
+    margin-bottom: 30px;
+}
+
+.comment.advertiser-info .advertiser-header {
     position: relative;
     padding: 17px 24px;
     background: #f0f0f0;
 }
 
-.showing.listing + .advertiser-info .advertiser-header h5 {
+.comment.advertiser-info .advertiser-header h5 {
     margin: 0;
     color: #666;
     display: inline-block;
     font-size: 18px;
 }
 
-.showing.listing + .advertiser-info .advertiser-inner {
+.comment.advertiser-info .advertiser-inner {
     position: relative;
     padding: 38px 46px 32px 46px;
     background-color: #ffffff;
 }
 
-.showing.listing + .advertiser-info .advertiser-inner .ng-star-inserted{
+.comment.advertiser-info .advertiser-inner .ng-star-inserted{
     width: 100%;
 }
 
-.showing.listing + .advertiser-info .advertiser-inner .ng-star-inserted h6,
-.showing.listing + .advertiser-info .advertiser-inner .ng-star-inserted ul {
+.comment.advertiser-info .advertiser-inner .ng-star-inserted h6,
+.comment.advertiser-info .advertiser-inner .ng-star-inserted ul {
     margin: 0;
 }
 
-.showing.listing + .advertiser-info .advertiser-inner .ng-star-inserted hr {
+.comment.advertiser-info .advertiser-inner .ng-star-inserted hr {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.item-step .form-group textarea {
+    font-size: 15px !important;
 }
