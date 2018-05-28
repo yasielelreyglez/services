@@ -1,17 +1,29 @@
-import {Component, ViewChild, ElementRef} from '@angular/core';
-import {Events, IonicPage, NavController, NavParams, Platform, ToastController} from 'ionic-angular';
-import {Geolocation, GeolocationOptions, Geoposition, PositionError} from '@ionic-native/geolocation'
-import {FavoritesPage} from "../favorites/favorites";
-import {HttpErrorResponse} from "@angular/common/http";
-import {AuthProvider} from "../../providers/auth/auth";
-import {ServiceProvider} from "../../providers/service/service.service";
+import { Component, ViewChild, ElementRef } from "@angular/core";
+import {
+  Events,
+  IonicPage,
+  NavController,
+  NavParams,
+  Platform,
+  ToastController
+} from "ionic-angular";
+import {
+  Geolocation,
+  GeolocationOptions,
+  Geoposition,
+  PositionError
+} from "@ionic-native/geolocation";
+import { FavoritesPage } from "../favorites/favorites";
+import { HttpErrorResponse } from "@angular/common/http";
+import { AuthProvider } from "../../providers/auth/auth";
+import { ServiceProvider } from "../../providers/service/service.service";
 
 declare var google;
 
 @IonicPage()
 @Component({
-  selector: 'page-tab-mapa',
-  templateUrl: 'tab-mapa.html',
+  selector: "page-tab-mapa",
+  templateUrl: "tab-mapa.html"
 })
 export class TabMapaPage {
   options: GeolocationOptions;
@@ -20,13 +32,21 @@ export class TabMapaPage {
   watch: any;
   latLng: any;
   currentP: any;
-
-  @ViewChild('map') mapElement: ElementRef;
+  loggedIn: boolean;
+  @ViewChild("map") mapElement: ElementRef;
   map: any;
   places: Array<any>;
 
-  constructor(public toastCtrl: ToastController, public events: Events, platform: Platform, public navCtrl: NavController,
-              public navParams: NavParams, public servProv: ServiceProvider, private geolocation: Geolocation, public auth: AuthProvider) {
+  constructor(
+    public toastCtrl: ToastController,
+    public events: Events,
+    platform: Platform,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public servProv: ServiceProvider,
+    private geolocation: Geolocation,
+    public auth: AuthProvider
+  ) {
     //   if (typeof google !== 'undefined') {
     //     this.infowindow = new google.maps.InfoWindow;
     //     if (!this.latLng) {
@@ -49,24 +69,30 @@ export class TabMapaPage {
   }
 
   ionViewDidLoad() {
+    this.auth.currentUser.subscribe(user => {
+      this.loggedIn = user;
+    });
 
-    if (typeof google !== 'undefined') {
-      this.infowindow = new google.maps.InfoWindow;
+    if (typeof google !== "undefined") {
+      this.infowindow = new google.maps.InfoWindow();
       if (this.auth.getlastPosition()) {
-        this.latLng =new google.maps.LatLng(this.auth.getlastPosition().coords.latitude, this.auth.getlastPosition().coords.longitude);
-        this.addMap(this.auth.getlastPosition().coords.latitude, this.auth.getlastPosition().coords.longitude);
-      }
-      else {
-
-        this.latLng =new google.maps.LatLng(-0.22985,);
+        this.latLng = new google.maps.LatLng(
+          this.auth.getlastPosition().coords.latitude,
+          this.auth.getlastPosition().coords.longitude
+        );
+        this.addMap(
+          this.auth.getlastPosition().coords.latitude,
+          this.auth.getlastPosition().coords.longitude
+        );
+      } else {
+        this.latLng = new google.maps.LatLng(-0.22985);
         this.addMap(-0.22985, -78.52495);
       }
-    }
-    else {
+    } else {
       let toast = this.toastCtrl.create({
         message: "No hay conexion a internet",
         duration: 5000,
-        position: 'bottom',
+        position: "bottom"
       });
       toast.present();
     }
@@ -91,35 +117,48 @@ export class TabMapaPage {
     // );
   }
 
-  addMap(lat, long) {
+  openLoginPage(){
+    this.navCtrl.push("LoginPage");
+  }
 
+  addMap(lat, long) {
     let latLng = new google.maps.LatLng(lat, long);
     let mapOptions = {
       center: latLng,
       zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeControl: false,
+      fullscreenControl: false,
+      streetViewControl: false
     };
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-    this.servProv.filterService(
-      {},
-      {},
-      6,
-      {
-        latitude: lat, longitude: long
+    this.servProv
+      .filterService({}, {}, 6, {
+        latitude: lat,
+        longitude: long
       })
-      .then(data => {
+      .then(
+        data => {
           let services = data["services"];
           for (let i = 0; i < services.length; i++) {
             for (let j = 0; j < services[i].positionsList.length; j++) {
               let marker = new google.maps.Marker({
                 map: this.map,
                 animation: google.maps.Animation.DROP,
-                position: new google.maps.LatLng(services[i].positionsList[j].latitude, services[i].positionsList[j].longitude),
+                position: new google.maps.LatLng(
+                  services[i].positionsList[j].latitude,
+                  services[i].positionsList[j].longitude
+                ),
                 name: services[i].positionsList[j].title
               });
 
-              let content = "<a id='" + j + "' class='custom-marker' >" + services[i].positionsList[j].title + "</a>";
+              let content =
+                "<a id='" +
+                j +
+                "' class='custom-marker' >" +
+                services[i].positionsList[j].title +
+                "</a>";
               this.addInfoWindow(marker, content);
             }
           }
@@ -141,7 +180,6 @@ export class TabMapaPage {
   }
 
   addMarker(latLng) {
-
     this.currentP = new google.maps.Marker({
       map: this.map,
       icon: "http://www.googlemapsmarkers.com/v1/009900/",
@@ -154,29 +192,32 @@ export class TabMapaPage {
       content: content
     });
 
-
-    google.maps.event.addListener(this.currentP, 'click', () => {
+    google.maps.event.addListener(this.currentP, "click", () => {
       infoWindow.open(this.map, this.currentP);
     });
-
   }
 
   addInfoWindow(marker, content) {
-    google.maps.event.addListener(marker, 'click', () => {
+    google.maps.event.addListener(marker, "click", () => {
       this.infowindow.setContent(content);
       this.infowindow.open(this.map, marker);
       // this.openService(86);
     });
-
   }
 
   getUserPosition() {
-    this.geolocation.getCurrentPosition().then((pos) => {
-      this.latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-      this.addMap(pos.coords.latitude, pos.coords.longitude);
-    }, (err: PositionError) => {
-      console.log("error : " + err.message);
-    })
+    this.geolocation.getCurrentPosition().then(
+      pos => {
+        this.latLng = new google.maps.LatLng(
+          pos.coords.latitude,
+          pos.coords.longitude
+        );
+        this.addMap(pos.coords.latitude, pos.coords.longitude);
+      },
+      (err: PositionError) => {
+        console.log("error : " + err.message);
+      }
+    );
   }
 
   getRestaurants(latLng) {
@@ -187,7 +228,7 @@ export class TabMapaPage {
       types: ["restaurant"]
     };
     return new Promise((resolve, reject) => {
-      service.nearbySearch(request, function (results, status) {
+      service.nearbySearch(request, function(results, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           resolve(results);
         } else {
@@ -195,7 +236,6 @@ export class TabMapaPage {
         }
       });
     });
-
   }
 
   openService(id) {
@@ -210,9 +250,9 @@ export class TabMapaPage {
       name
     });
 
-    let content = "<a id='" + i + "' class='custom-marker' >" + place.name + "</a>";
+    let content =
+      "<a id='" + i + "' class='custom-marker' >" + place.name + "</a>";
     // let content = "<a onclick=\"this.bind(this.openService(86))\" class='custom-marker' >" + place.name + "</a>"
     this.addInfoWindow(marker, content);
   }
-
 }

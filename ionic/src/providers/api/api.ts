@@ -154,6 +154,7 @@ export class ApiProvider {
   //   })
   //
   // }
+
   deleteMensajes(id): Promise<any> {
     return this.http.post(this.apiBaseUrl + 'api/borrarmensaje/'+id, {id})
       .toPromise()

@@ -4,7 +4,8 @@ import {
   NavController,
   LoadingController,
   Events,
-  Platform
+  Platform,
+  AlertController
 } from "ionic-angular";
 
 import { ServiceProvider } from "../../providers/service/service.service";
@@ -30,7 +31,8 @@ export class FavoritesPage {
     public load: LoadingController,
     public events: Events,
     private photoViewer: PhotoViewer,
-    private platform: Platform
+    private platform: Platform,
+    private alertCtrl: AlertController
   ) {
     this.servProv.getServicesFavorites().then(
       data => {
@@ -68,12 +70,30 @@ export class FavoritesPage {
   }
 
   delete(id) {
-    //hacer el
-    this.servProv.diskMarkfavorite(id).then(data => {
-      this.events.publish("dismark:favorite", id);
-      this.services = this.services.filter(function(item) {
-        return item.id !== id;
-      });
+    let confirm = this.alertCtrl.create({
+      title: "¿Está seguro que desea eliminar el servicio? ",
+      message: "",
+      buttons: [
+        {
+          text: "No",
+          handler: () => {}
+        },
+        {
+          text: "Si",
+          handler: () => {
+            this.servProv
+              .diskMarkfavorite(id)
+              .then(data => {
+                this.events.publish("dismark:favorite", id);
+                this.services = this.services.filter(function(item) {
+                  return item.id !== id;
+                });
+              })
+              .catch(error => {});
+          }
+        }
+      ]
     });
+    confirm.present();
   }
 }

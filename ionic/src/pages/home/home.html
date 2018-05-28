@@ -1,5 +1,5 @@
 <ion-header>
-      <app-header [showInput]="false" [showSearch]="false" [show]="!connetionDown"></app-header>
+  <app-header [home]="loggedIn" [showInput]="false" [showSearch]="false" [show]="!connetionDown"></app-header>
 </ion-header>
 
 <ion-content padding>
@@ -26,7 +26,6 @@
               <ion-col col-4>
                 <img (tap)="viewImg(serv.icon)" [src]="serv.icon ? serv.icon : 'assets/imgs/service_img.png' ">
               </ion-col>
-
               <ion-col col-8 (tap)='openServicePage(serv.id,i)'>
                 <h2 class="serv-title ">{{serv.title }} </h2>
                 <hr class="hr-separador">
@@ -44,19 +43,13 @@
                       </span>
                     </p>
                     <ion-rating [readOnly]="true" [numStars]="5" [value]="serv.globalrate"></ion-rating>
-
                   </ion-col>
-
                 </ion-row>
-
               </ion-col>
-
             </ion-row>
-
           </ion-grid>
           <hr class="hr-separador">
         </ion-item>
-
       </ion-list>
     </ng-container>
 
@@ -96,8 +89,6 @@
 
         </ion-col>
       </ion-row>
-
     </ion-grid>
-
   </ng-template>
 </ion-content>

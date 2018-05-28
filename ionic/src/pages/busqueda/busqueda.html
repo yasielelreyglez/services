@@ -22,11 +22,11 @@
               </ng-template>
             </ion-col>
 
-            <ion-col col-8 (click)='openServicePage(serv.id,i)'>
-              <h2 class="azul-claro">{{serv.title }} </h2>
+            <ion-col col-8 >
+              <a (click)='openServicePage(serv.id,i)' class="azul-claro">{{serv.title }} </a>
               <hr class="hr-separador">
               <ion-row>
-                <ion-col col-9 style="margin-left: -10px;">
+                <ion-col (click)='openServicePage(serv.id,i)' col-9 style="margin-left: -10px;">
                   <p>Calificación: {{serv.globalrate.toFixed(1)}}/5</p>
                   <p>Distancia: {{serv.globalrate/2}} km</p>
                   <p text-wrap>Categoria: <span *ngFor="let cat of serv.subcategoriesList; let i = index">

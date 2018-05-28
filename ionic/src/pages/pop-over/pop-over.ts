@@ -55,6 +55,7 @@ export class PopoverPage implements OnInit {
     this.close();
     this.appCtrl.getActiveNavs()[0].push("LoginPage");
   }
+
   openChangePassPage(){
     this.close();
     this.appCtrl.getActiveNavs()[0].push("ChangePassPage");

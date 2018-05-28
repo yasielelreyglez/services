@@ -13,10 +13,9 @@
       <ion-item >
         <p text-wrap [class]="msg.estado == 0 ? 'sin-leer' :'leido'">{{msg.mensaje}}.</p>
       </ion-item>
-
       <ion-item-options side="right">
         <button (click)="deleteMensajes(msg.id)" ion-button icon-only color="danger">
-          <ion-icon color="" name="trash"></ion-icon>
+          <ion-icon name="trash"></ion-icon>
         </button>
       </ion-item-options>
     </ion-item-sliding>

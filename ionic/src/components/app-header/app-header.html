@@ -1,5 +1,11 @@
 <ion-navbar hideBackButton="!toggled">
   <ion-navbar>
+      <ion-buttons left>
+          <button *ngIf="home" clear ion-button icon-only (click)="openCreatePage()">
+            <ion-icon name="add"></ion-icon>
+          </button>
+
+        </ion-buttons>
     <ion-title text-center *ngIf="!toggled && !showSearch">
       <img alt="logo" height="40" src="assets/imgs/logo.png">
     </ion-title>

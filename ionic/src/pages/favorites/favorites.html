@@ -6,11 +6,11 @@
 
 
 <ion-content>
-  <ion-label text-center color="azul-claro">Mis anuncios favoritos</ion-label>
+  <ion-label text-center color="azul-claro">Mis servicios favoritos</ion-label>
   <hr class="hr-separador">
   <ion-list>
     <div *ngFor="let serv of services; let i = index" [class]="serv.professional == 1 ? 'pagado' :'no_pago'">
-      <ion-item >
+      <ion-item>
         <ion-grid>
           <ion-row>
             <ion-col col-4>
@@ -22,11 +22,11 @@
               </ng-template>
             </ion-col>
 
-            <ion-col col-8 (click)='openServicePage(serv.id,i)'>
-              <h2 class="azul-claro">{{serv.title }} </h2>
+            <ion-col col-8>
+              <a (click)='openServicePage(serv.id,i)' class="azul-claro">{{serv.title }} </a>
               <hr class="hr-separador">
               <ion-row>
-                <ion-col col-9 style="margin-left: -10px;">
+                <ion-col (click)='openServicePage(serv.id,i)' col-9 style="margin-left: -10px;">
                   <p>Calificación: {{serv.globalrate.toFixed(1)}}/10</p>
                   <p>Distancia: 5 km</p>
                 </ion-col>
@@ -36,21 +36,18 @@
                   </button>
                 </ion-col>
               </ion-row>
-              <p style="margin-left: -6px; margin-top: -10px;" text-wrap text-left>Categoria: <span
-                *ngFor="let cat of serv.subcategoriesList; let i = index">
-                                    <ng-container *ngIf="i > 0; else elseTemplate">
-                                       <!-- ,{{ cat.title}} -->
-                                    </ng-container>
-                                    <ng-template #elseTemplate>
-                                       {{ cat.title}}
-                                    </ng-template>
-                                 </span>
+              <p style="margin-left: -6px; margin-top: -10px;" text-wrap text-left>Categoria:
+                <span *ngFor="let cat of serv.subcategoriesList; let i = index">
+                  <ng-container *ngIf="i > 0; else elseTemplate">
+                    <!-- ,{{ cat.title}} -->
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    {{ cat.title}}
+                  </ng-template>
+                </span>
               </p>
-
             </ion-col>
-
           </ion-row>
-
         </ion-grid>
       </ion-item>
     </div>
