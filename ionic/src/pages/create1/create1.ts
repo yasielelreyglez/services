@@ -19,7 +19,7 @@ import {MyservicesPage} from '../myservices/myservices';
 import {SubCategoryProvider} from "../../providers/sub-category/sub-category";
 
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-create1',
   templateUrl: 'create1.html',

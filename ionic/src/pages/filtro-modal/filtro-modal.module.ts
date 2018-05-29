@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/* import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { FiltroModalPage } from './filtro-modal';
 
@@ -11,3 +11,4 @@ import { FiltroModalPage } from './filtro-modal';
   ],
 })
 export class FiltroModalPageModule {}
+ */

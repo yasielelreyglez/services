@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/* import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ComentariosPage } from './comentarios';
 
@@ -11,3 +11,4 @@ import { ComentariosPage } from './comentarios';
   ],
 })
 export class ComentariosPageModule {}
+ */

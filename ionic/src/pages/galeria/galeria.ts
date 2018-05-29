@@ -4,7 +4,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-galeria',
   templateUrl: 'galeria.html',

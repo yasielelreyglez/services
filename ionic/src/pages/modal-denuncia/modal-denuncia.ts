@@ -11,7 +11,7 @@ import { Keyboard } from '@ionic-native/keyboard';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-modal-denuncia',
   templateUrl: 'modal-denuncia.html',

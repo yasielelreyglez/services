@@ -1,12 +1,13 @@
 <ion-header>
-
   <ion-navbar hideBackButton>
     <ion-buttons left>
       <button (click)="backToHome()" ion-button icon-only color="royal">
         <ion-icon name="arrow-back"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title text-center>LOGO</ion-title>
+    <ion-title text-center>
+        <img alt="logo" height="40" src="assets/imgs/logo.png">
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -14,7 +15,7 @@
 
 <ion-content padding>
 
-  <h4 class="azul-claro">{{edit ? 'Editar Anuncio': 'Crear Anuncio' }}
+  <h4 class="azul-claro">{{edit ? 'Editar Servicio': 'Crear Servicio' }}
     <small class="crear-gris">Datos iniciales</small>
   </h4>
 
@@ -39,8 +40,8 @@
       <ion-input name="title" [(ngModel)]="service.title" placeholder="Título ..." required></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label stacked>slogan <span class="requerido"><sup>*</sup></span></ion-label>
-      <ion-input name="subtitle" maxlength="50"  [(ngModel)]="service.subtitle" placeholder="slogan..." required></ion-input>
+      <ion-label stacked>Slogan <span class="requerido"><sup>*</sup></span></ion-label>
+      <ion-input name="subtitle" maxlength="50"  [(ngModel)]="service.subtitle" placeholder="Slogan..." required></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Descripción <span class="requerido"><sup>*</sup></span></ion-label>

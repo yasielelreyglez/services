@@ -12,7 +12,7 @@ import {ApiProvider} from "../../providers/api/api";
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-info',
   templateUrl: 'info.html'

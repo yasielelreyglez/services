@@ -8,7 +8,7 @@ import {
 
 
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-rate',
   templateUrl: 'rate.html',

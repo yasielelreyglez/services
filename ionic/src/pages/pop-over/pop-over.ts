@@ -7,9 +7,8 @@ import {BusquedaPage} from '../busqueda/busqueda';
 import {AuthProvider} from  '../../providers/auth/auth';
 import { Create1Page } from "../create1/create1";
 import { ModalDenunciaPage } from '../modal-denuncia/modal-denuncia';
-import { ChangePassPage } from '../change-pass/change-pass';
-
-
+// import { ChangePassPage } from '../change-pass/change-pass';
+// import { BuzonPage } from './../buzon/buzon';
 
 @Component({
   selector: 'pop-over',
@@ -35,15 +34,18 @@ export class PopoverPage implements OnInit {
     this.tipo = this.navPar.get("tipo");
     this.id = this.navPar.get("id");
   }
+
   close() {
     this.viewCtrl.dismiss();
   }
+
   logout() {
     this.auth.logout();
     // this.navCtrl.popToRoot();
     this.close();
     this.appCtrl.getActiveNavs()[0].popToRoot();
   }
+
   denunciar(){
     this.close();
     this.appCtrl.getActiveNavs()[0].push(ModalDenunciaPage,{tipo:this.tipo ,id:this.id});
@@ -53,9 +55,10 @@ export class PopoverPage implements OnInit {
     this.close();
     this.appCtrl.getActiveNavs()[0].push("LoginPage");
   }
+
   openChangePassPage(){
     this.close();
-    this.appCtrl.getActiveNavs()[0].push(ChangePassPage);
+    this.appCtrl.getActiveNavs()[0].push("ChangePassPage");
   }
 
   openSignUpPage(){

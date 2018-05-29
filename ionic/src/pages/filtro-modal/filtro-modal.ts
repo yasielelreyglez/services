@@ -10,7 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-filtro-modal',
   templateUrl: 'filtro-modal.html',

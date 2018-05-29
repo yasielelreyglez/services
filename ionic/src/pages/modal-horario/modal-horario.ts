@@ -3,15 +3,15 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {Horario} from "../../models/horarios";
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-modal-horario',
   templateUrl: 'modal-horario.html',
 })
 export class ModalHorarioPage {
   horarios: Horario[] = [];
-  end_time: any;
-  start_time: any;
+  end_time = "17:00";
+  start_time = "08:00";
 
   week_days = [
     {title: 'Lunes', value: 0},

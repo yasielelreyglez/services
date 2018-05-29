@@ -9,7 +9,7 @@ import {SubcategoriesPage} from '../subcategories/subcategories';
 import {CategoryProvider} from '../../providers/category/category.service';
 
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-categories',
   templateUrl: 'categories.html',

@@ -11,3 +11,4 @@ import { TabMapaPage } from './tab-mapa';
   ],
 })
 export class TabMapaPageModule {}
+

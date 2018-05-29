@@ -19,7 +19,7 @@ import {PhotoViewer} from '@ionic-native/photo-viewer';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-create2',
   templateUrl: 'create2.html',
@@ -47,11 +47,11 @@ export class Create2Page {
     this.preview = "as";
     if (this.navParams.get("service").id) {
       this.edit = true;
-      this.restantes = new Array(9 - this.service.imagesList.length);
+      this.restantes = new Array(4 - this.service.imagesList.length);
 
     }
     else {
-      this.restantes = new Array(9 - this.photos.length);
+      this.restantes = new Array(4 - this.photos.length);
     }
   }
 
@@ -92,10 +92,10 @@ export class Create2Page {
       if (this.edit) {
         // this.service.imagesList.push({title: 'data:image/jpeg;base64,' + imageData});
         this.service.imagesList.push({filename: "imageData"+this.service.id+Math.floor(Math.random() * 100), filetype: "image/jpeg", value: imageData});
-        this.restantes = new Array(9 - this.service.imagesList.length);
+        this.restantes = new Array(4 - this.service.imagesList.length);
       }
       this.photos.push({filename: this.service.title.trim()+Math.floor(Math.random() * 100), filetype: "image/jpeg", value: imageData});
-      this.restantes = new Array(9 - this.photos.length);
+      this.restantes = new Array(4 - this.photos.length);
     }, (err) => {
     });
   }
@@ -118,11 +118,11 @@ export class Create2Page {
             if (this.edit) {
               this.service.dropsImages.push(this.service.imagesList[index].id);
               this.service.imagesList.splice(index, 1);
-              this.restantes = new Array(9 - this.service.imagesList.length);
+              this.restantes = new Array(4 - this.service.imagesList.length);
             } else {
               this.service.dropsImages.push(this.photos[index].id);
               this.photos.splice(index, 1);
-              this.restantes = new Array(9 - this.photos.length);
+              this.restantes = new Array(4 - this.photos.length);
             }
           }
         }

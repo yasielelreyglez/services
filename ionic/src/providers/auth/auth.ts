@@ -65,7 +65,7 @@ export class AuthProvider {
   }
 
   change_pass(old_password, new_password): Promise<any> {
-    const currentUser = localStorage.getItem('currentUser');
+    const currentUser = localStorage.getItem('ServCurrentUser');
     return this.http.post(this.api.getbaseUrl() + 'auth/change_password', {
       old_password,
       new_password

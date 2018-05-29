@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/* import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { PopoverPage } from './pop-over';
 
@@ -11,3 +11,4 @@ import { PopoverPage } from './pop-over';
   ],
 })
 export class PopoverPageModule {}
+ */

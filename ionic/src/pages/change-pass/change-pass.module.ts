@@ -11,3 +11,4 @@ import { ChangePassPage } from './change-pass';
   ],
 })
 export class ChangePassPageModule {}
+

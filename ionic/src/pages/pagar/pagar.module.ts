@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/* import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { PagarPage } from './pagar';
 
@@ -11,3 +11,4 @@ import { PagarPage } from './pagar';
   ],
 })
 export class PagarPageModule {}
+ */

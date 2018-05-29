@@ -54,7 +54,6 @@ export class MyservicesPage {
   }
 
   delete(id) {
-
     let confirm = this.alertCtrl.create({
       title: "¿Está seguro que desea eliminar el servicio? ",
       message: "",
@@ -80,8 +79,6 @@ export class MyservicesPage {
       ]
     });
     confirm.present();
-
-
   }
 
   ionViewDidLoad() {

@@ -11,7 +11,7 @@ import {Geolocation, PositionError} from "@ionic-native/geolocation";
 
 declare var google;
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-create4',
   templateUrl: 'create4.html',

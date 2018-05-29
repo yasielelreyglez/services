@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 
+
 import { MyApp } from './app.component';
 //paginas
 import { HomePage } from '../pages/home/home';
@@ -29,6 +30,7 @@ import { Create2Page } from "../pages/create2/create2";
 import {  TabPage} from "../pages/tab/tab";
 import {  TabMapaPage} from "../pages/tab-mapa/tab-mapa";
 import {CondicionesPage} from "../pages/condiciones/condiciones";
+// import { BuzonPage } from './../pages/buzon/buzon';
 
 
 // Componentes
@@ -55,7 +57,7 @@ import { Create4Page } from '../pages/create4/create4';
 import { PagarPage } from '../pages/pagar/pagar';
 import { FiltroModalPage } from '../pages/filtro-modal/filtro-modal';
 import { ModalDenunciaPage } from '../pages/modal-denuncia/modal-denuncia';
-import { ChangePassPage } from '../pages/change-pass/change-pass';
+// import { ChangePassPage } from '../pages/change-pass/change-pass';
 import {ModalHorarioPage} from "../pages/modal-horario/modal-horario";
 import { SocialSharing } from '@ionic-native/social-sharing';
 import {SearchPage} from "../pages/search/search";
@@ -93,7 +95,10 @@ import { Diagnostic } from '@ionic-native/diagnostic';
     PagarPage,
     TabMapaPage,
     ModalDenunciaPage,
-    ChangePassPage
+    // ChangePassPage,
+    // BuzonPage
+    // LoginPage,
+    // SignupPage
 
   ],
   imports: [
@@ -142,7 +147,8 @@ import { Diagnostic } from '@ionic-native/diagnostic';
     PagarPage,
     TabMapaPage,
     ModalDenunciaPage,
-    ChangePassPage
+    // ChangePassPage,
+    // BuzonPage
 
   ],
   providers: [

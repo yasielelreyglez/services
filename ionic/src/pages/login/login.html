@@ -1,61 +1,64 @@
 <ion-header>
-    <ion-navbar>
-        <ion-title text-center>
-            LOGO
-        </ion-title>
+  <ion-navbar>
+    <ion-title text-center>
+      <img alt="logo" height="40" src="assets/imgs/logo.png">
+    </ion-title>
 
-    </ion-navbar>
+  </ion-navbar>
 </ion-header>
 
 
 <ion-content padding fullscreen="true">
 
+  <ion-label text-center color="azul-claro">Autenticarse</ion-label>
+
+  <hr class="hr-separador">
+
+  <form (submit)="f.form.valid ? doLogin() : llenarCampos()" #f="ngForm">
+    <ion-list>
+
+      <ion-item>
+        <ion-label stacked>Correo electrónico</ion-label>
+        <ion-input type="email" class="form-control" name="email" [(ngModel)]="user.email" #email="ngModel" placeholder="Escriba su correo..."
+          email></ion-input>
+
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Contraseña</ion-label>
+        <ion-input [type]="showPassword ? 'text' : 'password'" class="form-control" name="password" [(ngModel)]="user.password" placeholder="Escriba su contraseña..."
+          required></ion-input>
+
+      </ion-item>
+      <!--<ion-item no-lines>-->
+      <!--<ion-label>Mostrar contraseña</ion-label>-->
+      <!--<ion-checkbox [(ngModel)]="showPassword" name="showPassword"></ion-checkbox>-->
+      <!--</ion-item>-->
+      <div padding>
+
+        <button class="btn-text-left" text-left color="azul-claro" ion-button block margin-bottom="1" margin-top="2">
+          <ion-icon name="unlock"></ion-icon>&nbsp; Iniciar sesión
+        </button>
+      </div>
 
 
-    <ion-label text-center color="azul-claro">Autenticarse</ion-label>
+    </ion-list>
+  </form>
 
-    <hr class="hr-separador">
-
-    <form (submit)="f.form.valid ? doLogin() : llenarCampos()" #f="ngForm">
-        <ion-list>
-
-            <ion-item>
-                <ion-label stacked>Correo electrónico</ion-label>
-                <ion-input type="email" class="form-control" name="email" [(ngModel)]="user.email" #email="ngModel" placeholder="Escriba su correo..." email></ion-input>
-
-            </ion-item>
-
-            <ion-item>
-                <ion-label stacked>Contraseña</ion-label>
-                <ion-input [type]="showPassword ? 'text' : 'password'" class="form-control" name="password" [(ngModel)]="user.password" placeholder="Escriba su contraseña..." required></ion-input>
-
-            </ion-item>
-            <!--<ion-item no-lines>-->
-                <!--<ion-label>Mostrar contraseña</ion-label>-->
-                <!--<ion-checkbox [(ngModel)]="showPassword" name="showPassword"></ion-checkbox>-->
-            <!--</ion-item>-->
-            <div padding>
-
-                <button class="btn-text-left" text-left color="azul-claro" ion-button block margin-bottom="1" margin-top="2">
-                    <ion-icon name="unlock"></ion-icon>&nbsp; Iniciar sesión
-                </button>
-            </div>
-
-
-        </ion-list>
-    </form>
-
-    <ion-label text-center color="azul-claro"><b>Si quieres puedes autenticarte también con:</b></ion-label>
-    <button class="btn-text-left" text-left color="azul-facebook" ion-button block margin-bottom="1">
-        <ion-icon name="face"></ion-icon>&nbsp;
-        facebook
-    </button>
-    <ion-label text-center color="azul-claro"><b>Otras opciones para ti:</b></ion-label>
-    <button (click)="showPrompt()" class="btn-text-left" text-left color="azul-oscuro" ion-button block margin-bottom="1">
-        Olvidé mi contraseña
-    </button>
-    <button (click)="goToSignup()" class="btn-text-left" text-left color="warning" ion-button block margin-bottom="1">
-     Crear una cuenta nueva
+  <ion-label text-center color="azul-claro">
+    <b>Si quieres puedes autenticarte también con:</b>
+  </ion-label>
+  <button class="btn-text-left" text-left color="azul-facebook" ion-button block margin-bottom="1">
+    <ion-icon name="facebook"></ion-icon>&nbsp; facebook
+  </button>
+  <ion-label text-center color="azul-claro">
+    <b>Otras opciones para ti:</b>
+  </ion-label>
+  <button (click)="showPrompt()" class="btn-text-left" text-left color="azul-oscuro" ion-button block margin-bottom="1">
+    Olvidé mi contraseña
+  </button>
+  <button (click)="goToSignup()" class="btn-text-left" text-left color="warning" ion-button block margin-bottom="1">
+    Crear una cuenta nueva
   </button>
 
 

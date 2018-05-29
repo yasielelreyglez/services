@@ -6,7 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { PopoverPage } from '../pop-over/pop-over';
 
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-comentarios',
   templateUrl: 'comentarios.html'

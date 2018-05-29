@@ -1,13 +1,22 @@
 <ion-navbar hideBackButton="!toggled">
+  <ion-navbar>
+      <ion-buttons left>
+          <button *ngIf="home" clear ion-button icon-only (click)="openCreatePage()">
+            <ion-icon name="add"></ion-icon>
+          </button>
 
-    <ion-navbar>
-
-        <!--<ion-title text-center *ngIf="!toggled">{{entrada}}</ion-title>-->
-        <ion-searchbar *ngIf="showInput" id="buscar" placeholder="Buscar..." [(ngModel)]="searchTerm"  (ionClear)="onCancel($event)" (ionInput)="onInput($event)" (keypress)="goSearch($event.keyCode)" (ionCancel)="toggleSearch()" ></ion-searchbar>
-        <ion-buttons end>
-            <button *ngIf="showSearch" ion-button icon-only (click)="buscar()"><ion-icon
-  name="search"></ion-icon></button>
-            <button *ngIf="showPopover" ion-button icon-only (click)="presentPopover($event)"><ion-icon
-    name="more"></ion-icon></button>
         </ion-buttons>
-    </ion-navbar>
+    <ion-title text-center *ngIf="!toggled && !showSearch">
+      <img alt="logo" height="40" src="assets/imgs/logo.png">
+    </ion-title>
+    <ion-searchbar *ngIf="showInput" id="buscar" placeholder="Buscar..." [(ngModel)]="searchTerm" (ionClear)="onCancel($event)"
+      (ionInput)="onInput($event)" (keypress)="goSearch($event.keyCode)" (ionCancel)="toggleSearch()"></ion-searchbar>
+    <ion-buttons end>
+      <button *ngIf="showSearch" ion-button icon-only (click)="buscar()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button *ngIf="showPopover" ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>

@@ -11,3 +11,4 @@ import { BusquedaPage } from './busqueda';
   ],
 })
 export class BusquedaPageModule {}
+

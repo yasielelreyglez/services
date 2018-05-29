@@ -11,7 +11,7 @@ import {ServicePage} from "../service/service";
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-search',
   templateUrl: 'search.html',

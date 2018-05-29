@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/* import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { SubcategoriesPage } from './subcategories';
 @NgModule({
@@ -10,3 +10,4 @@ import { SubcategoriesPage } from './subcategories';
   ]
 })
 export class SubcategoriesPageModule {}
+ */

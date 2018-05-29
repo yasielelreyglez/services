@@ -18,7 +18,7 @@ import {PhotoViewer} from '@ionic-native/photo-viewer';
 import {Service} from '../../models/service';
 import {FiltroModalPage} from '../filtro-modal/filtro-modal';
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: "page-services",
   templateUrl: "services.html"

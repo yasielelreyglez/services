@@ -1,7 +1,8 @@
 import {Component, OnInit, Input, Output, EventEmitter,AfterContentInit} from '@angular/core';
 import {PopoverPage} from '../../pages/pop-over/pop-over'
-import {PopoverController, ViewController} from 'ionic-angular';
+import {PopoverController, ViewController, NavController} from 'ionic-angular';
 import {AuthProvider} from '../../providers/auth/auth';
+import { Create1Page } from '../../pages/create1/create1';
 
 /**
  * Generated class for the AppHeaderComponent component.
@@ -16,6 +17,7 @@ import {AuthProvider} from '../../providers/auth/auth';
 export class AppHeaderComponent implements OnInit ,AfterContentInit{
 
 
+  @Input() home: boolean = false;
   @Input() show: boolean = true;
   @Input() showSearch: boolean = true;
   @Input() showPopover: boolean = true;
@@ -29,7 +31,9 @@ export class AppHeaderComponent implements OnInit ,AfterContentInit{
   searchTerm: any;
   items: string[];
 
-  constructor(public popCtrl: PopoverController, public auth: AuthProvider, public viewCtrl: ViewController) {
+  constructor(public popCtrl: PopoverController, public auth: AuthProvider, public viewCtrl: ViewController,
+    public navCtrl: NavController
+  ) {
   }
 
   ngOnInit() {
@@ -42,6 +46,9 @@ export class AppHeaderComponent implements OnInit ,AfterContentInit{
     this.searchTerm = this.entrada;
   }
 
+  openCreatePage(){
+    this.navCtrl.push(Create1Page);
+  }
 
   presentPopover(ev) {
     let popover = this.popCtrl.create(PopoverPage, {login: this.loggedIn, denuncia: false});

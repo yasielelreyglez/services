@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/* import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { MapaPage } from './mapa';
 
@@ -11,3 +11,4 @@ import { MapaPage } from './mapa';
   ],
 })
 export class MapaPageModule {}
+ */

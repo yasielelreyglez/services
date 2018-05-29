@@ -11,7 +11,7 @@ import {ModalHorarioPage} from "../modal-horario/modal-horario";
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-create3',
   templateUrl: 'create3.html',

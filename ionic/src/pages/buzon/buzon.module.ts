@@ -11,3 +11,4 @@ import { BuzonPage } from './buzon';
   ],
 })
 export class BuzonPageModule {}
+

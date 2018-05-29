@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/* import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { Create4Page } from './create4';
 
@@ -11,3 +11,4 @@ import { Create4Page } from './create4';
   ],
 })
 export class Create4PageModule {}
+ */
