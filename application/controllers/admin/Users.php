@@ -67,10 +67,26 @@ class Users extends CI_Controller
     # GET /users/destroy/1
     function destroy($id)
     {
-        $data['users'] = $this->Users_model->destroy($id);
-        $data['tab'] = "user";
-        $this->session->set_flashdata('item', array('message'=>'El elemento ha sido eliminado correctamente.', 'class'=>'success', 'icon'=>'fa fa-warning', 'title'=>"<strong>Bien!:</strong>"));
-        redirect('admin/users/index', 'refresh');
+        $em = $this->doctrine->em;
+        $user = $em->getRepository('Entities\User')->find($id);
+        //verificando que el usuario este limpio
+        $userService = $user->getUserservices();
+        $userComments = $user->getUsercomments();
+        $services = $user->getServices();
+        $reportComments = $user->getReportcomments();
+        $mensajes = $user->getMensajes();
+        if(!($userService && $userComments && $services && $reportComments && $mensajes)){
+            $data['users'] = $this->ion_auth->delete_user($id);
+//        $data['users'] = $this->Users_model->destroy($id);
+            $data['tab'] = "user";
+            $this->session->set_flashdata('item', array('message'=>'El elemento ha sido eliminado correctamente.', 'class'=>'success', 'icon'=>'fa fa-warning', 'title'=>"<strong>Bien!:</strong>"));
+
+        }
+        else{
+            $this->session->set_flashdata('item', array('message'=>'El elemento no ha podido ser eliminado, debe tener asociado algun servicio, comentario o queja, estos deberán ser eliminados primero.', 'class'=>'error', 'icon'=>'fa fa-warning', 'title'=>"<strong>Bien!:</strong>"));
+        }
+
+         redirect('admin/users/index', 'refresh');
     }
 
     # POST /users/save
