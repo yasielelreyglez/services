@@ -107,11 +107,20 @@ class Services extends CI_Controller
         $currenTimes = $service->getTimes();
         $currenComments = $service->getServicecomments();
         $currenServiscesUsers = $service->getServiceusers();
+//        trayendo las quejas
+        $criteria = new Criteria();
+        $expresion2 = new \Doctrine\Common\Collections\Expr\Comparison("service", \Doctrine\Common\Collections\Expr\Comparison::EQ, $service);
+        $criteria->where(Criteria::expr()->neq('complaint', null));
+        $criteria->andWhere($expresion2);
+        $criteria->orderBy(array("complaint_created" => "DESC"));
+        $currentQuejas = $service->getServiceusers()->matching($criteria);
+
         $data['times'] = $currenTimes;
         $data['services'] = $service;
         $data['positions'] = $currenPositions;
         $data['comments'] = $currenComments;
         $data['serviscesUsers'] = $currenServiscesUsers;
+        $data['complaints'] = $currentQuejas;
         $data['content'] = '/services/show';
         $data["tab"] = "services";
         $data["tabTitle"] = "servicio";

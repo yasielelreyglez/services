@@ -17,7 +17,7 @@ $week_days = array(
                     <div class="col-xs-12 col-md-6">
                         <h5><?= $services->title ?></h5>
                         <?php if ($services->professional == 1) { ?>
-                            <a href="#" class="c-red"><i class="fa fa-bookmark"></i></a>
+                            <span class="c-red" href="#">(PRO)</span>
                         <?php } ?>
                     </div>
                     <div class="col-xs-12 col-md-6">
@@ -209,6 +209,7 @@ $week_days = array(
             </div>
         </div>
     </div>
+    <>
     <div class="advertiser-info comment">
         <div class="advertiser-header">
             <h5>Quejas</h5>
@@ -216,7 +217,7 @@ $week_days = array(
         <div class="advertiser-inner">
             <div class="row">
                 <div class="ng-star-inserted">
-                    <?php foreach ($serviscesUsers as $serviscesUser): ?>
+                    <?php foreach ($complaints as $serviscesUser): ?>
                     <?php if($serviscesUser->getComplaint()!=null):?>
                         <div class="row">
                             <div class="col-xs-12 col-md-6">
