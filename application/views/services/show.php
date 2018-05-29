@@ -57,10 +57,10 @@ $week_days = array(
                                             &nbsp;
                                             <ul class="slides">
                                                 &nbsp;
-                                               <?php
+                                                <?php
                                                 $images = $services->getImages()->toArray();
                                                 foreach ($images as $image) {
-                                                    echo '<li class="" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;"><img src="' .site_url() . $image->getThumb() . '" alt="" draggable="false"></li>';
+                                                    echo '<li class="" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;"><img src="' . site_url() . $image->getThumb() . '" alt="" draggable="false"></li>';
                                                 }
                                                 ?>
                                             </ul>
@@ -170,46 +170,49 @@ $week_days = array(
         <div class="advertiser-inner">
             <div class="row">
                 <div id="comments" class="ng-star-inserted">
-                    <?php foreach ($serviscesUsers as $comment): ?>
-                    <?php if ($comment->getRatecomment()) : ?>
-                        <div class="row">
-                            <div class="col-xs-12 col-md-6">
-                                <h6>
-                                    <?php echo $comment->getUser()->getUsername(); ?>
-                                </h6>
-                            </div>
-                            <div class="col-xs-12 col-md-6">
-                                <ul class="showrate pull-right">
-                                    <?php $rate = $comment->getRate();
+                    <?php $contComment = 0;
+                    foreach ($serviscesUsers as $comment): ?>
+                        <?php if ($comment->getRatecomment()) : ?>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <h6>
+                                        <?php echo $comment->getUser()->getUsername(); ?>
+                                    </h6>
+                                </div>
+                                <div class="col-xs-12 col-md-6">
+                                    <ul class="showrate pull-right">
+                                        <?php $rate = $comment->getRate();
 
-                                    for ($pos = 0; $pos < 10; $pos++) {
-                                        if ($pos < $rate) {
-                                            echo '<li><i class="fa fa-star "></i></li>';
-                                        } else {
-                                            echo ' <li><i class="fa fa-star-o"></i></li>';
+                                        for ($pos = 0; $pos < 10; $pos++) {
+                                            if ($pos < $rate) {
+                                                echo '<li><i class="fa fa-star "></i></li>';
+                                            } else {
+                                                echo ' <li><i class="fa fa-star-o"></i></li>';
+                                            }
                                         }
-                                    }
-                                    ?>
-                                </ul>
-                            </div>
-                            <div class="col-xs-12">
-                                <p class="tc-grei" style="word-wrap: break-word !important;">
-                                    <?php echo $comment->getRatecomment(); ?>
-                                </p>
-                                <div class="pull-right">
-                                    <?= anchor('admin/services/edit/' . $services->id, '<i class="fa fa-microphone"></i>', 'class="btn btn-danger"'); ?>
-                                    <?= anchor('admin/services/edit/' . $services->id, '<i class="fa fa-check" aria-hidden="true"></i>', 'class="btn btn-success"'); ?>
+                                        ?>
+                                    </ul>
+                                </div>
+                                <div class="col-xs-12">
+                                    <p class="tc-grei" style="word-wrap: break-word !important;">
+                                        <?php echo $comment->getRatecomment(); ?>
+                                    </p>
+                                    <div class="pull-right">
+                                        <?= anchor('admin/services/edit/' . $services->id, '<i class="fa fa-microphone"></i>', 'class="btn btn-danger"'); ?>
+                                        <?= anchor('admin/services/edit/' . $services->id, '<i class="fa fa-check" aria-hidden="true"></i>', 'class="btn btn-success"'); ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <hr class="bc-grei">
-                    <?php endif; ?>
+                            <hr class="bc-grei">
+                            <?php $contComment++; endif; ?>
                     <?php endforeach; ?>
+                    <?php if (!$contComment) : ?>
+                        No hay comentarios.
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
-    <>
     <div class="advertiser-info comment">
         <div class="advertiser-header">
             <h5>Quejas</h5>
@@ -217,30 +220,33 @@ $week_days = array(
         <div class="advertiser-inner">
             <div class="row">
                 <div class="ng-star-inserted">
-                    <?php foreach ($complaints as $serviscesUser): ?>
-                    <?php if($serviscesUser->getComplaint()!=null):?>
-                        <div class="row">
-                            <div class="col-xs-12 col-md-6">
-                                <h6>
-                                    <?php echo $serviscesUser->getUser()->getUsername(); ?>
-                                </h6>
-                                <p>
-                                    <i class="fa fa-calendar"></i><?= ($serviscesUser->getComplaintCreated()!=null)? $serviscesUser->getComplaintCreated()->format('d-M h:i'): ''; ?>
-                                </p>
-                            </div>
-                            <div class="col-xs-12">
-                                <p class="tc-grei" style="word-wrap: break-word !important;">
-                                    <?php echo $serviscesUser->getComplaint(); ?>
-                                </p>
-                                <div class="pull-right">
-                                    <?= anchor('admin/services/edit/' . $services->id, '<i class="fa fa-microphone"></i>', 'class="btn btn-danger"'); ?>
-                                    <?= anchor('admin/services/edit/' . $services->id, '<i class="fa fa-check" aria-hidden="true"></i>', 'class="btn btn-success"'); ?>
+                    <?php $contComplaints = 0; foreach ($complaints as $serviscesUser): ?>
+                        <?php if ($serviscesUser->getComplaint() != null): ?>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <h6>
+                                        <?php echo $serviscesUser->getUser()->getUsername(); ?>
+                                    </h6>
+                                    <p>
+                                        <i class="fa fa-calendar"></i><?= ($serviscesUser->getComplaintCreated() != null) ? $serviscesUser->getComplaintCreated()->format('d-M h:i') : ''; ?>
+                                    </p>
+                                </div>
+                                <div class="col-xs-12">
+                                    <p class="tc-grei" style="word-wrap: break-word !important;">
+                                        <?php echo $serviscesUser->getComplaint(); ?>
+                                    </p>
+                                    <div class="pull-right">
+                                        <?= anchor('admin/services/edit/' . $services->id, '<i class="fa fa-microphone"></i>', 'class="btn btn-danger"'); ?>
+                                        <?= anchor('admin/services/edit/' . $services->id, '<i class="fa fa-check" aria-hidden="true"></i>', 'class="btn btn-success"'); ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <hr class="bc-grei">
-                        <?php endif;?>
+                            <hr class="bc-grei">
+                            <?php $contComplaints++; endif; ?>
                     <?php endforeach; ?>
+                    <?php if (!$contComplaints) : ?>
+                        No hay quejas.
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
