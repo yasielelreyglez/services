@@ -23,6 +23,13 @@ namespace Entities {
          **/
         public $title;
 
+
+        /**
+         * @Column(type="boolean")
+         * @var boolean
+         **/
+        public $enabled;
+
         /**
          * @Column(type="integer", nullable=true)
          * @var int
@@ -238,6 +245,7 @@ namespace Entities {
             $this->payments = new ArrayCollection();
             $this->globalrate = 0;
             $this->ratereviews = 0;
+            $this->enabled = 1;
         }
         //notificaciones
 
@@ -282,6 +290,16 @@ namespace Entities {
         public function getTitle()
         {
             return $this->title;
+        }
+
+        public function getEnabled()
+        {
+            return $this->enabled;
+        }
+
+        public function setEnabled($enabled)
+        {
+            $this->enabled = $enabled;
         }
 
         public function setIcon($icon)

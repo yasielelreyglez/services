@@ -248,6 +248,7 @@ class Services extends CI_Controller
             //DATOS BASICOS
             $service->setAthor($this->getCurrentUser());
             $service->title = $this->input->post('title', TRUE);
+            $service->enabled = $this->input->post('enabled', TRUE) == 'on' ? 1 : 0;
             $service->subtitle = $this->input->post('subtitle', TRUE);
             $service->phone = $this->input->post('phone', TRUE);
             $service->address = $this->input->post('address', TRUE);

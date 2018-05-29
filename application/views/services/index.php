@@ -23,6 +23,9 @@
                             </div>
                         <?php } ?>
                         <h5 class="element-title"><?= $object->title ?></h5>
+                        <i class="fa <?= $object->enabled ? 'fa-check-circle' : 'fa-circle-o' ?> pull-right"
+                           data-toggle="tooltip" data-placement="top"
+                           title="<?= $object->enabled ? 'Servicio habilitado' : 'Servicio deshabilitado' ?>"></i>
                     </div>
                     <div class="listing-inner">
                         <div class="flexslider default-slider">
@@ -100,10 +103,13 @@
                         </ul> <!-- end .uou-accordions -->
                     </div>
                     <div class="info-footer">
-                        <?php if(count($object->getSubcategories()->toArray())>0): ?>
-                            <img height="20" width="20" src="<?= $object->getSubcategories()->toArray()[0]->getIcon() ?>">
-                        <?php endif ?>
-                        <h6><?= $object->getSubcategories()->toArray()[0]->getTitle() ?></h6>
+                        <?php if (count($object->getSubcategories()->toArray()) > 0): ?>
+                            <img height="20" width="20"
+                                 src="<?= $object->getSubcategories()->toArray()[0]->getIcon() ?>">
+                            <h6><?= $object->getSubcategories()->toArray()[0]->getTitle() ?></h6>
+                        <?php else : ?>
+                            <h6>Sin clasificar</h6>
+                        <?php endif; ?>
                         <a class="pull-right pl10 destroy" title="Destruir"
                            href="<?= site_url('admin/services/destroy/') . $object->id ?>"><i
                                     class="fa fa-trash bookmark"></i></a>
@@ -156,8 +162,10 @@
                             <?php endif; ?>
                         </td>
                         <td>
-                            <img height="20" width="20"
-                                 src="<?= $object->getSubcategories()->toArray()[0]->getIcon() ?>">
+                            <?php if (count($object->getSubcategories()->toArray()) > 0): ?>
+                                <img height="20" width="20"
+                                     src="<?= $object->getSubcategories()->toArray()[0]->getIcon() ?>">
+                            <?php endif; ?>
                         </td>
                         <td>
                             <?php if ($object->email) : ?>

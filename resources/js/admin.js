@@ -524,6 +524,14 @@ function getFilterResultElement(service) {
     $.each(service.imagesList, function () {
         images+= '<li class="" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;"><img src="' + this.title + '" alt="" draggable="false"></li>';
     });
+
+    var subcategory = '';
+    if (service.subcategoriesList.length) {
+        subcategory = '<img height="20" width="20" src="' + service.subcategoriesList[0].icon + '"> ' +
+        '<h6>' + service.subcategoriesList[0].title + '</h6>';
+    } else {
+        subcategory = '<h6>Sin clasificar</h6>';
+    }
     var element = '<div class="col-md-4 listing-grid listing-grid-2 item element">' +
         '<div class="listing-heading">' +
         prof +
@@ -577,8 +585,7 @@ function getFilterResultElement(service) {
         '</ul> <!-- end .uou-accordions -->' +
         '</div>' +
         '<div class="info-footer">' +
-        '<img height="20" width="20" src="' + service.subcategoriesList[0].icon + '"> ' +
-        '<h6>' + service.subcategoriesList[0].title + '</h6>' +
+        subcategory +
         '<a class="pull-right pl10 destroy" title="Destruir" href="services/destroy/' + service.id + '">' +
         '<i class="fa fa-trash bookmark"></i></a>' +
         '<a class="pull-right pl10" title="Editar" href="services/edit/' + service.id + '">' +

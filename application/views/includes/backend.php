@@ -81,7 +81,7 @@
                                     <li><a href="<?= site_url("admin/pagos/solicitados") ?>">Pagos solicitados</a></li>
                                     <li><a href="<?= site_url("admin/pagos/activos") ?>">Pagos activos</a></li>
                                     <li><a href="<?= site_url("admin/pagos/expirados") ?>">Pagos expirados</a></li>
-                                    <li><a href="<?= site_url("admin/pagos/denegados") ?>">Pagos denegados</a></li>
+                                    <li><a href="<?= site_url("admin/pagos/denegadas") ?>">Pagos denegados</a></li>
                                     <li><a href="<?= site_url("admin/pagos/membresias") ?>">Pagos membresias</a></li>
                                 </ul>
                             </li>
@@ -118,6 +118,13 @@
                                 <ul class="demo-menu">
                                     <li><a href="<?= site_url("admin/cities") ?>">Mostrar Ciudades</a></li>
                                     <li><a href="<?= site_url("admin/cities/create") ?>">Agregar Ciudad</a></li>
+                                </ul>
+                            </li>
+                            <li class="<?= $tab == "pages" ? "active" : "" ?>">
+                                <a href="<?= site_url("admin/pagesc") ?>"><i class="fa fa-file"></i> Páginas </a>
+                                <ul class="demo-menu">
+                                    <li><a href="<?= site_url("admin/pagesc") ?>">Mostrar Páginas</a></li>
+                                    <li><a href="<?= site_url("admin/pagesc/create") ?>">Crear Página</a></li>
                                 </ul>
                             </li>
 
@@ -715,7 +722,7 @@
             <li class="pl10 <?= $tab == "expirados" ? "active" : "" ?>"><a
                         href="<?= site_url("admin/pagos/expirados") ?>">Pagos expirados</a></li>
             <li class="pl10 <?= $tab == "denegados" ? "active" : "" ?>"><a
-                        href="<?= site_url("admin/pagos/denegados") ?>">Pagos denegados</a></li>
+                        href="<?= site_url("admin/pagos/denegadas") ?>">Pagos denegados</a></li>
             <li class="pl10 <?= $tab == "membresias" ? "active" : "" ?>"><a
                         href="<?= site_url("admin/pagos/membresias") ?>">Pagos membres&iacute;as</a></li>
 
@@ -752,6 +759,13 @@
                     Ciudades</a></li>
             <li class="pl10 <?= $tab == "crearciudad" ? "active" : "" ?>"><a
                         href="<?= site_url("admin/cities/create") ?>">Agregar Ciudad</a></li>
+
+            <li class="<?= $tab == "pages" ? "active" : "" ?>"><a href="<?= site_url("admin/pagesc") ?>"><i
+                            class="fa fa-map-marker"></i> Páginas </a></li>
+            <li class="pl10 <?= $tab == "pages" ? "active" : "" ?>"><a href="<?= site_url("admin/pagesc") ?>">Mostrar
+                    Páginas</a></li>
+            <li class="pl10 <?= $tab == "crearpage" ? "active" : "" ?>"><a
+                        href="<?= site_url("admin/pagesc/create") ?>">Crear Página</a></li>
 
             <li class="<?= $tab == "user" ? "active" : "" ?>"><a href="<?= site_url("admin/users") ?>"><i
                             class="fa fa-map-marker"></i> Usuarios </a></li>

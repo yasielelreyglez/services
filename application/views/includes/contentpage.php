@@ -89,7 +89,7 @@
                                     <li><a href="<?= site_url("admin/pagos/solicitados") ?>">Pagos solicitados</a></li>
                                     <li><a href="<?= site_url("admin/pagos/activos") ?>">Pagos activos</a></li>
                                     <li><a href="<?= site_url("admin/pagos/expirados") ?>">Pagos expirados</a></li>
-                                    <li><a href="<?= site_url("admin/pagos/denegados") ?>">Pagos denegados</a></li>
+                                    <li><a href="<?= site_url("admin/pagos/denegadas") ?>">Pagos denegados</a></li>
                                     <li><a href="<?= site_url("admin/pagos/membresias") ?>">Pagos membresias</a></li>
                                 </ul>
                             </li>
@@ -120,12 +120,19 @@
                                     <li><a href="<?= site_url("admin/subcategory/create") ?>">Crear Sub-Categorias</a>
                                     </li>
                                 </ul>
-
+                            </li>
                             <li class="<?= $tab == "cities" ? "active" : "" ?>">
                                 <a href="<?= site_url("admin/cities") ?>"><i class="fa fa-map-marker"></i> Ciudades </a>
                                 <ul class="demo-menu">
                                     <li><a href="<?= site_url("admin/cities") ?>">Mostrar Ciudades</a></li>
                                     <li><a href="<?= site_url("admin/cities/create") ?>">Agregar Ciudad</a></li>
+                                </ul>
+                            </li>
+                            <li class="<?= $tab == "pages" ? "active" : "" ?>">
+                                <a href="<?= site_url("admin/pagesc") ?>"><i class="fa fa-file"></i> Páginas </a>
+                                <ul class="demo-menu">
+                                    <li><a href="<?= site_url("admin/pagesc") ?>">Mostrar Páginas</a></li>
+                                    <li><a href="<?= site_url("admin/pagesc/create") ?>">Crear Página</a></li>
                                 </ul>
                             </li>
 
@@ -316,7 +323,7 @@
             <li class="pl10 <?= $tab == "expirados" ? "active" : "" ?>"><a
                         href="<?= site_url("admin/pagos/expirados") ?>">Pagos expirados</a></li>
             <li class="pl10 <?= $tab == "denegados" ? "active" : "" ?>"><a
-                        href="<?= site_url("admin/pagos/denegados") ?>">Pagos denegados</a></li>
+                        href="<?= site_url("admin/pagos/denegadas") ?>">Pagos denegados</a></li>
             <li class="pl10 <?= $tab == "membresias" ? "active" : "" ?>"><a
                         href="<?= site_url("admin/pagos/membresias") ?>">Pagos membres&iacute;as</a></li>
 
@@ -349,6 +356,13 @@
                     Ciudades</a></li>
             <li class="pl10 <?= $tab == "crearciudad" ? "active" : "" ?>"><a
                         href="<?= site_url("admin/cities/create") ?>">Agregar Ciudad</a></li>
+
+            <li class="<?= $tab == "pages" ? "active" : "" ?>"><a href="<?= site_url("admin/pagesc") ?>"><i
+                            class="fa fa-map-marker"></i> Páginas </a></li>
+            <li class="pl10 <?= $tab == "pages" ? "active" : "" ?>"><a href="<?= site_url("admin/pagesc") ?>">Mostrar
+                    Páginas</a></li>
+            <li class="pl10 <?= $tab == "crearpage" ? "active" : "" ?>"><a
+                        href="<?= site_url("admin/pagesc/create") ?>">Crear Página</a></li>
 
             <li class="<?= $tab == "user" ? "active" : "" ?>"><a href="<?= site_url("admin/users") ?>"><i
                             class="fa fa-map-marker"></i> Usuarios </a></li>
@@ -388,7 +402,7 @@
 <script src="<?= site_url("/resources/js/uou-tabs.js") ?>"></script>
 <script src="<?= site_url("/resources/js/plugins/select2.min.js") ?>"></script>
 <script src="<?= site_url("/resources/js/owl.carousel.min.js") ?>"></script>
-<script src="<?=site_url("/resources/js/gmap3.min.js") ?>"></script>
+<script src="<? //=site_url("/resources/js/gmap3.min.js") ?>"></script>
 <script src="<?= site_url("/resources/js/bootstrap.js") ?>"></script>
 <script src="<?= site_url("/resources/js/admin.js") ?>"></script>
 <script src="<?= site_url("/resources/js/scripts.js") ?>"></script>
@@ -396,35 +410,35 @@
 <script src="<?= site_url("/resources/js/localization/messages_es.min.js") ?>"></script>
 
 <script src="<?= site_url("/resources/js/bootstrap-notify.min.js") ?>"></script>
-<style type="text/css" src="<?=site_url('resources/css/editor.css')?>"></style>
-<script src="<?=site_url('resources/js/editor.js')?>">
+<style type="text/css" src="<?= site_url('resources/css/editor.css') ?>"></style>
+<script src="<?= site_url('resources/js/editor.js') ?>">
 
 
 </script>
-<?php if(!empty($this->session->flashdata('item'))):?>
-    <?php $msg = $this->session->flashdata('item');?>
-    <!--div class="alert <?php echo $msg['class']?>" id="notify-id">
+<?php if (!empty($this->session->flashdata('item'))): ?>
+    <?php $msg = $this->session->flashdata('item'); ?>
+    <!--div class="alert <?php echo $msg['class'] ?>" id="notify-id">
         <a class="close" href="#" data-dismiss="alert">x</a>
         <strong>Información!</strong> <?php //echo $msg['message']?>
     </div-->
     <script>
-            $.notify(
-                {	// options
-                    icon: "<?php echo $msg['icon'];?>",
-                    title: "<?php echo $msg['title'];?>",
-                    message: '<?php echo $msg['message'];?>',
-                    target: '_blank'
-                    },
-                    {
-                        // settings
-                        type: '<?php echo $msg['class'];?>'
-                    }
-            );
+        $.notify(
+            {	// options
+                icon: "<?php echo $msg['icon'];?>",
+                title: "<?php echo $msg['title'];?>",
+                message: '<?php echo $msg['message'];?>',
+                target: '_blank'
+            },
+            {
+                // settings
+                type: '<?php echo $msg['class'];?>'
+            }
+        );
 
     </script>
-<?php endif;?>
+<?php endif; ?>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $("#content").Editor();
     });
 </script>

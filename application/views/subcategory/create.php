@@ -18,12 +18,18 @@
     </div>
         <div class="form-group">
             <label for="category_id">Categoría:</label><br/>
-            <select type="text" class="custom-select" name="category_id" placeholder="Escoja la categoría" value="<?= isset($subcategory)?$subcategory->category_id:''?>">
+            <select type="text" class="custom-select" required name="category_id" placeholder="Escoja la categoría" value="<?= isset($subcategory)?$subcategory->category_id:''?>">
                 <?php
-                $currentcat = $subcategory->getCategory()->getId();
-                foreach ($categories as $category) {
-                    $is_selected = ($currentcat==$category->id)?"selected":"";
-                    echo "<option value='$category->id' $is_selected>$category->title</option>";
+                if (isset($subcategory)) {
+                    $currentcat = $subcategory->getCategory()->getId();
+                    foreach ($categories as $category) {
+                        $is_selected = ($currentcat == $category->id) ? "selected" : "";
+                        echo "<option value='$category->id' $is_selected>$category->title</option>";
+                    }
+                } else {
+                    foreach ($categories as $category) {
+                        echo "<option value='$category->id'>$category->title</option>";
+                    }
                 }
                 ?>
             </select>

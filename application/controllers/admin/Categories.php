@@ -1,4 +1,6 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php use Doctrine\Common\Collections\Criteria;
+
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
  * Categories Controller.
@@ -22,7 +24,13 @@ class Categories extends CI_Controller {
 	function index() {
         $em= $this->doctrine->em;
         $categoriesRepo = $em->getRepository('Entities\Category');
-		$data['categories'] = $categoriesRepo->findAll();
+
+        $criteria = new Criteria();
+        $criteria->where(Criteria::expr()->neq('id', 1));
+        $criteria->orderBy(array("title" => "ASC"));
+        $result = $categoriesRepo->matching($criteria);
+
+		$data['categories'] = $result;
 		$data['content'] = '/categories/index';
         $data["tab"]="category";
         $data["tabTitle"]="categor&iacute;as";
@@ -39,12 +47,17 @@ class Categories extends CI_Controller {
 
 	# GET /categories/edit/1
 	function edit($id) {
-        $em= $this->doctrine->em;
-		$data['categories'] = $em->find('Entities\Category',$id);
-		$data['content'] = '/categories/create';
-        $data["tab"]="category";
-        $data["tabTitle"]="editar categor&iacute;a";
-        $this->load->view('/includes/contentpage', $data);
+        $data["tab"] = "category";
+        $data["tabTitle"] = "editar categor&iacute;a";
+	    if ($id != 1) {
+            $em = $this->doctrine->em;
+            $data['categories'] = $em->find('Entities\Category', $id);
+            $data['content'] = '/categories/create';
+            $this->load->view('/includes/contentpage', $data);
+        } else {
+            $this->session->set_flashdata('item', array('message'=>"No se encontro la categoria a eliminar", 'class'=>'danger'));
+            redirect('admin/categories/index', 'refresh');
+        }
 	}
 
 	# GET /categories/destroy/1
@@ -53,10 +66,28 @@ class Categories extends CI_Controller {
         $em= $this->doctrine->em;
         $categoriesRepo = $em->getRepository('Entities\Category');
         $categories = $categoriesRepo->findBy(array("id"=>$id));
-        if(count($categories)>0) {
+        $categorieDefault = $em->find('Entities\Category',1);
+        if(count($categories)>0 && $id != 1) {
             try{
+                $subcategoriesRepo = $em->getRepository('Entities\Subcategory');
+                $subcategories = $subcategoriesRepo->findAll();
+
+                foreach ($subcategories as $subcategory) {
+                    if ($subcategory->getCategory()->getId() == $id) {
+                        $subcategory->setCategory($categorieDefault);
+                    }
+                }
+
+                $imageName = explode('/', $categories[0]->getIcon());
+                $pathImage = "./resources/image/categories/" . $imageName[count($imageName) - 1];
+
+                if (is_file($pathImage)) {
+                    unlink($pathImage);
+                }
+
                 $em->remove($categories[0]);
                 $em->flush();
+
                 $this->session->set_flashdata('item', array('message'=>'El elemento ha sido eliminado correctamente.', 'class'=>'success', 'icon'=>'fa fa-warning', 'title'=>"<strong>Bien!:</strong>"));
                 redirect('admin/categories/index', 'refresh');
             }catch (Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException  $exception){
@@ -64,16 +95,12 @@ class Categories extends CI_Controller {
                 $url_subs =  site_url($segments);
 //                $data["errors"]= array("Subcategorias asociadas"=>"No se puede eliminar esta categoria porque existen categorias asociadas <a href='".$url_subs."' class=\"alert-link\">ver</a>");
                 $this->session->set_flashdata('item', array('message'=>"No se puede eliminar esta categoria porque existen categorias asociadas <a href='".$url_subs."' class=\"alert-link\">ver</a>", 'class'=>'danger', 'icon'=>'fa fa-warning', 'title'=>"<strong>Alerta!:</strong>"));
-                $data['categories'] = $this->Categories_model->find();
-                $data['content'] = '/categories/index';
-                $this->load->view('/includes/contentpage', $data);
+                redirect('admin/categories/index', 'refresh');
             }
         }else{
 //            $data["errors"]= array("Error eliminando el elemento"=>"No se encontro la categoria a eliminar");
             $this->session->set_flashdata('item', array('message'=>"No se encontro la categoria a eliminar", 'class'=>'danger'));
-            $data['categories'] = $this->Categories_model->find();
-            $data['content'] = '/categories/index';
-            $this->load->view('/includes/contentpage', $data);
+            redirect('admin/categories/index', 'refresh');
         }
 
 	}

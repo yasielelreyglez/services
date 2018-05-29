@@ -54,7 +54,27 @@ class Subcategory extends CI_Controller {
 	# GET /subcategory/destroy/1
 	function destroy($id) {
 //		$id = $this->uri->segment(3);
-        echo $data['subcategory'] = $this->Subcategory_model->destroy($id);
+        $em= $this->doctrine->em;
+        $subcategory = $em->find('Entities\Subcategory',$id);
+
+        if ($subcategory) {
+            try {
+
+                $imageName = explode('/', $subcategory->getIcon());
+                $pathImage = "./resources/image/subcategories/" . $imageName[count($imageName) - 1];
+
+                if (is_file($pathImage)) {
+                    unlink($pathImage);
+                }
+
+                $em->remove($subcategory);
+                $em->flush();
+            } catch (Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException  $exception) {
+                $this->session->set_flashdata('item', array('message'=>"No se puede eliminar esta subcategoria", 'class'=>'danger', 'icon'=>'fa fa-warning', 'title'=>"<strong>Alerta!:</strong>"));
+                redirect('admin/categories/index', 'refresh');
+            }
+        }
+//        $data['subcategory'] = $this->Subcategory_model->destroy($id);
         $this->session->set_flashdata('item', array('message'=>'El elemento ha sido eliminado correctamente.', 'class'=>'success', 'icon'=>'fa fa-warning', 'title'=>"<strong>Bien!:</strong>"));
         redirect('admin/subcategory/index', 'refresh');
 	}

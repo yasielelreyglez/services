@@ -77,17 +77,17 @@
                     <?php
                     foreach ($categories as $category) {
                         $selected = '';
-                        if(isset($currenSubCategories)){
+                        if (isset($currenSubCategories)) {
                             foreach ($currenSubCategories as $currenSubCategory) {
                                 $catt = $currenSubCategory->getCategory();
-                                if($catt->getId() == $category->id){
+                                if ($catt->getId() == $category->id) {
                                     $selected = 'selected';
                                 }
                             }
                         }
                         echo "<option data-category='{$category->id}' value='$category->id' $selected>$category->title </option>";
                     }
-                        ?>
+                    ?>
                 </select>
             </div>
             <!--SUBCATEGORIAS -->
@@ -116,6 +116,11 @@
                 </select>
             </div>
             <div class="f1-buttons">
+                <div class="form-group form-check pull-left">
+                    <input type="checkbox" name="enabled" class="form-control form-check-input" style="margin-left: -40px; margin-top: 5px"
+                        <?= isset($services) ? $services->enabled ? 'checked' : '' : 'checked' ?>>
+                    <label for="enabled" style="margin-left: 25px">Habilitado</label>
+                </div>
                 <button type="button" class="btn btn-next bg-tema">Proximo</button>
             </div>
         </div>
@@ -124,10 +129,11 @@
                 <div class="row">
                     <?php foreach ($currenImages as $key => $image): ?>
                         <div class="card m-3 disabled" style="width: 18rem;">
-                            <img class="card-img-top" src="<?= site_url(). $image->title ?>" alt="Card image cap">
+                            <img class="card-img-top" src="<?= site_url() . $image->title ?>" alt="Card image cap">
                             <div class="card-body align-bottom"
                                  style="height: 25px; position: absolute; right: 5px; bottom: 5px;">
-                                <a id="<?= $image->id ?>" href="#" title="Eliminar" class="card-link delete-image align-right remove-icon">
+                                <a id="<?= $image->id ?>" href="#" title="Eliminar"
+                                   class="card-link delete-image align-right remove-icon">
                                     <i class="fa fa-trash" style="color: white"></i>
                                 </a>
                             </div>
@@ -191,25 +197,25 @@
 
                 <script>
                     var jsonobj = <?php echo json_encode($currenPositions)?>;
-                  if(Array.isArray(jsonobj)){
-                      document.getElementById("positions").value = JSON.stringify(jsonobj);
-                  }
+                    if (Array.isArray(jsonobj)) {
+                        document.getElementById("positions").value = JSON.stringify(jsonobj);
+                    }
 
-              </script>
-              <div id="visual_positions">
+                </script>
+                <div id="visual_positions">
 
-              </div>
-          </div>
-          <div class="f1-buttons">
-              <button type="button" class="btn btn-previous bg-tema">Anterior</button>
-              <button type="button" class="btn btn-next bg-tema">Proximo</button>
-          </div>
-      </div>
-      <div id="step5" class="item-step ">
-          <h2>Gestión de horarios</h2>
-          <label>Días de atención</label>
-          <br/>
-          <?php foreach ($days_of_weak as $key => $day): ?>
+                </div>
+            </div>
+            <div class="f1-buttons">
+                <button type="button" class="btn btn-previous bg-tema">Anterior</button>
+                <button type="button" class="btn btn-next bg-tema">Proximo</button>
+            </div>
+        </div>
+        <div id="step5" class="item-step ">
+            <h2>Gestión de horarios</h2>
+            <label>Días de atención</label>
+            <br/>
+            <?php foreach ($days_of_weak as $key => $day): ?>
                 <label class="checkbox">
                     <?php
                     //                    if (isset($currentGroups))
@@ -244,8 +250,8 @@
             <input type="hidden" value="[]" name="times" id="times"/>
             <script>
                 var jsonobjtime = <?php echo json_encode($currenTimes)?>;
-                console.log("times registrados",jsonobjtime);
-                if(Array.isArray(jsonobjtime)){
+                console.log("times registrados", jsonobjtime);
+                if (Array.isArray(jsonobjtime)) {
                     document.getElementById("times").value = JSON.stringify(jsonobjtime);
                 }
             </script>
@@ -256,7 +262,8 @@
             </div>
             <div class="f1-buttons">
                 <button type="button" class="btn btn-previous">Anterior</button>
-                <button type="submit" class="btn btn-submit  btn-primary" id="submitform"><?= isset($services) ? 'Modificar' : 'Crear' ?></button>
+                <button type="submit" class="btn btn-submit  btn-primary"
+                        id="submitform"><?= isset($services) ? 'Modificar' : 'Crear' ?></button>
             </div>
         </div>
     </div>
