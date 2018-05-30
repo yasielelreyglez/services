@@ -4,7 +4,7 @@ var creando = true;
 var fullSelect = $("#subcategories");
 var cloned = fullSelect.clone()
 console.log("funciona");
-$(document).ready(function() {
+$(document).ready(function () {
     console.log("funciona2");
     loadFilters();
     loadCategorias();
@@ -239,7 +239,21 @@ $('.f1 .btn-previous').on('click', function() {
 });
 
 
+$('.payment-evidence').on('click', function () {
+    $('#imageZoomModal').css('display', 'block');
+    $('#img01').attr('src', $(this).attr('src'));
+});
 
+$('#imageZoomModal .close').on('click', function () {
+    $('#imageZoomModal').css('display', 'none');
+})
+
+$('#paymentDenyModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var idPayment = button.data('id');
+    var modal = $(this);
+    modal.find('.payment-id').val(idPayment);
+})
 
 function getStringDays(days){
     var result= [];
