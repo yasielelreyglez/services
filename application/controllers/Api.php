@@ -307,6 +307,7 @@ class Api extends REST_Controller
     public function service_get($id)
     {
         $em = $this->doctrine->em;
+        /** @var \Entities\Service $service */
         $service = $em->find('Entities\Service', $id);
         $user = $this->getCurrentUser();
         if ($service) {

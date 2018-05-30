@@ -67,6 +67,7 @@ export class MapaPage {
     this.service = this.navParams.get("service");
     this.cant_c = this.navParams.get("cant_c");
     this.positions = this.service.positions;
+
     //cargar mapa con posiciones
     if (typeof google !== "undefined") {
       this.loadMap();
@@ -149,8 +150,17 @@ export class MapaPage {
   }
 
   loadMap() {
+      this.positions = this.service.positionsList;
+
+      var center = new google.maps.LatLng(-0.1911519, -78.4820116);
+      if(this.positions.length>0){
+        center = new google.maps.LatLng(
+            this.positions[0].latitude,
+            this.positions[0].longitude
+        )
+      }
     let mapOptions = {
-      center: new google.maps.LatLng(23.13302, -82.38304),
+      center: center,
       disableDefaultUI: true,
       zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -162,14 +172,18 @@ export class MapaPage {
     this.directionsDisplay.setMap(this.map);
     this.directionsDisplay.setOptions({ suppressMarkers: true });
     this.positions = this.service.positionsList;
-
+    var iconmarker = "https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2.png";
+    if(this.service.subcategoriesList.length>0){
+      iconmarker = this.service.subcategoriesList[0].thumb;
+    }
     for (let i = 0; i < this.positions.length; i++) {
       let marker = new google.maps.Marker({
-        map: this.map,
-        position: new google.maps.LatLng(
-          this.positions[i].latitude,
-          this.positions[i].longitude
-        )
+          map: this.map,
+          icon: iconmarker,
+          position: new google.maps.LatLng(
+            this.positions[i].latitude,
+            this.positions[i].longitude
+          )
       });
       let content = "<h4>" + this.positions[i].title + "</h4>";
       this.addInfoWindow(marker, content);

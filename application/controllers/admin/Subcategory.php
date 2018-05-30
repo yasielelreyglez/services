@@ -99,9 +99,10 @@ class Subcategory extends CI_Controller {
             $config['max_width']            = 9024;
             $config['max_height']           = 2768;
             $this->load->library('upload', $config);
+
             if ($this->upload->do_upload('userfile')) {
                 $data["upload_data"] = $this->upload->data();
-                $subcategory->setIcon(site_url('resources/image/subcategories/'.$data["upload_data"]["file_name"]));
+                $subcategory->setIcon('resources/image/subcategories/',$data["upload_data"]["file_name"]);
             }
 			$subcategory->setTitle($this->input->post('title', TRUE));
 			$subcategory->setCategory($em->find("\Entities\Category",$this->input->post('category_id', TRUE)));

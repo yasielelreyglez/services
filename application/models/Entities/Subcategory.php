@@ -28,6 +28,12 @@ class Subcategory
     public $icon;
 
     /**
+     * @Column(type="string")
+     * @var string
+     **/
+    public $thumb;
+
+    /**
      * @Column(type="integer")
      * @var integer
      **/
@@ -65,6 +71,10 @@ class Subcategory
 
     }
 
+    public function getThumb(){
+        return $this->thumb;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -85,9 +95,12 @@ class Subcategory
         return $this->icon;
     }
 
-    public function setIcon($icon)
+    public function setIcon($path,$icon)
     {
-        $this->icon = $icon;
+//        $thumbstr = str_replace($icon,".png","_thumb.png");
+        createThumb("./".$path.$icon, 25, 25);
+        $this->icon = site_url($path.$icon);
+        $this->thumb = site_url($path."thumbs/".$icon);
     }
     /**
      * Set category
