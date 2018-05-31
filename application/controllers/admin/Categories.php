@@ -34,6 +34,11 @@ class Categories extends CI_Controller {
 		$data['content'] = '/categories/index';
         $data["tab"]="category";
         $data["tabTitle"]="categor&iacute;as";
+
+        $bannersRepo = $em->getRepository('Entities\Banner');
+        $banner = $bannersRepo->findBy(array('name' => 'categorías'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
 		$this->load->view('/includes/contentpage', $data);
 	}
 
@@ -42,6 +47,12 @@ class Categories extends CI_Controller {
 		$data['content'] = '/categories/create';
         $data["tab"]="category";
         $data["tabTitle"]="crear categor&iacute;a";
+
+        $em = $this->doctrine->em;
+        $bannersRepo = $em->getRepository('Entities\Banner');
+        $banner = $bannersRepo->findBy(array('name' => 'crear categoría'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -53,6 +64,11 @@ class Categories extends CI_Controller {
             $em = $this->doctrine->em;
             $data['categories'] = $em->find('Entities\Category', $id);
             $data['content'] = '/categories/create';
+
+            $bannersRepo = $em->getRepository('Entities\Banner');
+            $banner = $bannersRepo->findBy(array('name' => 'editar categoría'), array(), 1);
+            if (count($banner))
+                $data['banner'] = $banner[0];
             $this->load->view('/includes/contentpage', $data);
         } else {
             $this->session->set_flashdata('item', array('message'=>"No se encontro la categoria a eliminar", 'class'=>'danger'));

@@ -33,6 +33,11 @@ class Users extends CI_Controller
         foreach ($data['users'] as $k => $user) {
             $data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
         }
+
+        $bannersRepo = $em->getRepository('Entities\Banner');
+        $banner = $bannersRepo->findBy(array('name' => 'usuarios'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
 
     }
@@ -46,6 +51,12 @@ class Users extends CI_Controller
         $groups = $this->ion_auth->groups()->result_array();
         $data['groups'] = $groups;
 //        //print_r($groups);die;
+
+        $em = $this->doctrine->em;
+        $bannersRepo = $em->getRepository('Entities\Banner');
+        $banner = $bannersRepo->findBy(array('name' => 'crear usuario'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -61,6 +72,12 @@ class Users extends CI_Controller
         $currentGroups = $this->ion_auth->get_users_groups($id)->result();
         $data['groups'] = $groups;
         $data['currentGroups'] = $currentGroups;
+
+        $em = $this->doctrine->em;
+        $bannersRepo = $em->getRepository('Entities\Banner');
+        $banner = $bannersRepo->findBy(array('name' => 'servicios'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
     }
 

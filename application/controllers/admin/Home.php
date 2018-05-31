@@ -30,6 +30,11 @@ class Home extends CI_Controller {
         $lastvisited = $morevisitsRepo->findBy(array(), array('visit_at' => 'DESC'), 4);
         $mostvisited = $morevisitsRepo->findBy(array(), array('visits' => 'DESC'), 3);
 
+        $bannersRepo = $em->getRepository('Entities\Banner');
+        $banner = $bannersRepo->findBy(array('name'=>'inicio'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
+
         foreach ($lastvisited as $service) {
             $service->loadRelatedData();
         }
@@ -224,6 +229,24 @@ class Home extends CI_Controller {
         $data['content'] = '/services/index';
         $data["tab"]="services";
         $data["tabTitle"]="filtro ".$filter;
+        $this->load->view('/includes/contentpage', $data);
+    }
+
+    public function help()
+    {
+        $data['content'] = '/home/help';
+        $data["tab"]="ayuda";
+        $data["tabTitle"]="ayuda";
+        $em = $this->doctrine->em;
+        $pagesRepo = $em->getRepository('Entities\Pages');
+        $page = $pagesRepo->findBy(array('title'=>'ayuda'), array(), 1);
+        if (count($page))
+            $data['page'] = $page[0];
+
+        $bannersRepo = $em->getRepository('Entities\Banner');
+        $banner = $bannersRepo->findBy(array('name'=>'ayuda'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
     }
 }

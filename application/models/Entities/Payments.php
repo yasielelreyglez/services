@@ -77,6 +77,12 @@ class Payments
     public $state;
 
     /**
+     * @Column(type="string",nullable=true)
+     * @var string
+     **/
+    public $reason_denied;
+
+    /**
      *
      * @ManyToOne(targetEntity="Service", inversedBy="payments")
      */
@@ -176,6 +182,22 @@ class Payments
     /**
      * @return string
      */
+    public function getReasonDenied()
+    {
+        return $this->reason_denied;
+    }
+
+    /**
+     * @param string $evidence
+     */
+    public function setReasonDenied($reason)
+    {
+        $this->reason_denied = $reason;
+    }
+
+    /**
+     * @return string
+     */
     public function getCountry()
     {
         return $this->country;
@@ -252,9 +274,12 @@ class Payments
         $this->state = $state;
     }
 
-    public function denegar(){
+    public function denegar($reason = null){
         $this->setState(3);
+        if ($reason)
+            $this->setReasonDenied($reason);
     }
+
     public function autorizar(){
         $this->payed_at = new \DateTime("now");
         $membership = $this->getMembership();

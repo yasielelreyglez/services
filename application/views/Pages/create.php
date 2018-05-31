@@ -14,7 +14,7 @@
             <textarea name="content" id="content"><?= isset($page)?$page->getContent():''?></textarea>
 		</div>
 		<input type="submit" value="Guardar" class="btn btn-primary"/>
-		<?= anchor('admin/pages/index','Atras','class="btn btn-link"'); ?>
+		<?= anchor('admin/pagesc/index','Cancelar','class="btn btn-link"'); ?>
 	</form>
 
 

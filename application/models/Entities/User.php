@@ -132,7 +132,7 @@ class User
 
     public function __construct()
     {
-        $this->created = new \DateTime("now");
+        $this->created_on = new \DateTime("now");
         $this->userservices = new \Doctrine\Common\Collections\ArrayCollection();
         $this->usercomments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->services = new \Doctrine\Common\Collections\ArrayCollection();
