@@ -18,6 +18,7 @@ import { ComentariosPage } from "../comentarios/comentarios";
 import { Service } from "../../models/service";
 import { PopoverPage } from "../pop-over/pop-over";
 import { SocialSharing } from "@ionic-native/social-sharing";
+import {ApiProvider} from '../../providers/api/api';
 
 // @IonicPage()
 @Component({
@@ -64,7 +65,7 @@ export class ServicePage {
   }
   regularShare() {
     this.socialSharing.share(
-      this.service.title + "/n" + this.service.address,
+        this.servPro.getBaseUrl()+"/service/"+this.service.id,
       null,
       null,
       null

@@ -17,7 +17,9 @@ export class ServiceProvider {
   constructor(public http: HttpClient, public auth: AuthProvider, public api: ApiProvider) {
 
   }
-
+  getBaseUrl(){
+      return this.api.getbaseUrl();
+  }
   deleteService(id) {
     if (this.auth.getUser()) {
       return this.http.get(this.api.getbaseUrl() + 'api/deleteservice/' + id, {

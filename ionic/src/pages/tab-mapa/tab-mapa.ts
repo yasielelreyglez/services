@@ -11,6 +11,7 @@ import {
   Geolocation,
   GeolocationOptions,
   Geoposition,
+
   PositionError
 } from "@ionic-native/geolocation";
 import { FavoritesPage } from "../favorites/favorites";
@@ -153,12 +154,10 @@ export class TabMapaPage {
                 name: services[i].positionsList[j].title
               });
 
-              let content =
-                "<a id='" +
-                j +
-                "' class='custom-marker' >" +
-                services[i].positionsList[j].title +
-                "</a>";
+                let that = this;
+                let content = ' <a onclick="this.bind(that.openService('+services[i].id+'))" class=\'custom-marker\' >' +
+                    '<h6 class="tc-blue">' + services[i].title + '</h6></a>' +
+                    '<span class="tc-blue">' + services[i].positionsList[j].title + '</span>';
               this.addInfoWindow(marker, content);
             }
           }
@@ -188,6 +187,7 @@ export class TabMapaPage {
     });
 
     let content = "<p>This is your current position !</p>";
+
     let infoWindow = new google.maps.InfoWindow({
       content: content
     });
@@ -249,9 +249,14 @@ export class TabMapaPage {
       position: place.geometry.location,
       name
     });
+      const that2 = this;
+      let content = ' <a onclick="this.bind(that2.openService('+place.service.id+'))" class=\'custom-marker\' href="./service/' + place.service.id+'" >' +
+          '<h6 class="tc-blue">' + place.service.title + '</h6></a>' +
+          '<span class="tc-blue">' + place.title + '</span>';
+      this.addInfoWindow(marker, content);
 
-    let content =
-      "<a id='" + i + "' class='custom-marker' >" + place.name + "</a>";
+    // let content =
+    //   "<a id='" + i + "' class='custom-marker' >" + place.name + "</a>";
     // let content = "<a onclick=\"this.bind(this.openService(86))\" class='custom-marker' >" + place.name + "</a>"
     this.addInfoWindow(marker, content);
   }
