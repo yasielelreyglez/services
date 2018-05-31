@@ -75,15 +75,19 @@ class Users extends CI_Controller
         $services = $user->getServices();
         $reportComments = $user->getReportcomments();
         $mensajes = $user->getMensajes();
-        if(!($userService && $userComments && $services && $reportComments && $mensajes)){
+//        print_r($userComments[0]);
+//        die;
+
+        if(( array_key_exists(0,$userService) || array_key_exists(0,$userComments) || array_key_exists(0,$services) || array_key_exists(0,$reportComments) || array_key_exists(0,$mensajes))){
+            $this->session->set_flashdata('item', array('message'=>'El elemento no ha podido ser eliminado, debe tener asociado algun servicio, comentario o queja, estos deberán ser eliminados primero.', 'class'=>'error', 'icon'=>'fa fa-warning', 'title'=>"<strong>Bien!:</strong>"));
+
+        }
+        else{
             $data['users'] = $this->ion_auth->delete_user($id);
 //        $data['users'] = $this->Users_model->destroy($id);
             $data['tab'] = "user";
             $this->session->set_flashdata('item', array('message'=>'El elemento ha sido eliminado correctamente.', 'class'=>'success', 'icon'=>'fa fa-warning', 'title'=>"<strong>Bien!:</strong>"));
 
-        }
-        else{
-            $this->session->set_flashdata('item', array('message'=>'El elemento no ha podido ser eliminado, debe tener asociado algun servicio, comentario o queja, estos deberán ser eliminados primero.', 'class'=>'error', 'icon'=>'fa fa-warning', 'title'=>"<strong>Bien!:</strong>"));
         }
 
          redirect('admin/users/index', 'refresh');
