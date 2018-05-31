@@ -25,6 +25,11 @@ class Subcategory extends CI_Controller {
 		$data['content'] = '/subcategory/index';
         $data["tab"]="subcategory";
         $data["tabTitle"]="subcategor&iacute;as";
+
+        $bannersRepo = $em->getRepository('Entities\Banner');
+        $banner = $bannersRepo->findBy(array('name' => 'subcategorías'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -36,6 +41,11 @@ class Subcategory extends CI_Controller {
 		$data['content'] = '/subcategory/create';
         $data["tab"]="subcategory";
         $data["tabTitle"]="crear subcategor&iacute;a";
+
+        $bannersRepo = $em->getRepository('Entities\Banner');
+        $banner = $bannersRepo->findBy(array('name' => 'crear subcategoría'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -48,6 +58,11 @@ class Subcategory extends CI_Controller {
 		$data['content'] = '/subcategory/create';
         $data["tab"]="subcategory";
         $data["tabTitle"]="editar subcategor&iacute;a";
+
+        $bannersRepo = $em->getRepository('Entities\Banner');
+        $banner = $bannersRepo->findBy(array('name' => 'editar subcategoría'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
 	}
 

@@ -33,6 +33,11 @@ class Pagos extends CI_Controller
         $data["tab"] = "pagos";
         $data["tabTitle"] = "pagos";
         $data["Tipo"] = "Realizados";
+
+        $bannersRepo = $em->getRepository('Entities\Banner');
+        $banner = $bannersRepo->findBy(array('name' => 'pagos'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         if (!$this->ion_auth->logged_in()) {
             $data["showlogin"] = true;
         }
@@ -65,6 +70,11 @@ class Pagos extends CI_Controller
         $data["tab"] = "pagos";
         $data["tabTitle"] = "pagos solicitados";
         $data["Tipo"] = "solicitados";
+
+        $bannersRepo = $em->getRepository('Entities\Banner');
+        $banner = $bannersRepo->findBy(array('name' => 'pagos solicitados'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
 
     }
@@ -80,6 +90,11 @@ class Pagos extends CI_Controller
         $data["tab"] = "pagos";
         $data["tabTitle"] = "pagos activos";
         $data["Tipo"] = "activos";
+
+        $bannersRepo = $em->getRepository('Entities\Banner');
+        $banner = $bannersRepo->findBy(array('name' => 'pagos activos'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -94,6 +109,11 @@ class Pagos extends CI_Controller
         $data["tab"] = "pagos";
         $data["tabTitle"] = "pagos facturados";
         $data["Tipo"] = "activos";
+
+        $bannersRepo = $em->getRepository('Entities\Banner');
+        $banner = $bannersRepo->findBy(array('name' => 'pagos facturaciones'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -107,6 +127,11 @@ class Pagos extends CI_Controller
         $data["tab"] = "pagos";
         $data["tabTitle"] = "pagos expirados";
         $data["Tipo"] = "expirados";
+
+        $bannersRepo = $em->getRepository('Entities\Banner');
+        $banner = $bannersRepo->findBy(array('name' => 'pagos expirados'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -120,6 +145,11 @@ class Pagos extends CI_Controller
         $data["tab"] = "pagos";
         $data["tabTitle"] = "pagos denegados";
         $data["Tipo"] = "denegados";
+
+        $bannersRepo = $em->getRepository('Entities\Banner');
+        $banner = $bannersRepo->findBy(array('name' => 'pagos denegados'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -209,6 +239,11 @@ class Pagos extends CI_Controller
         $data['content'] = '/pagos/membresias';
         $data["tab"] = "pagos";
         $data["tabTitle"] = "pagos membres&iacute;as";
+
+        $bannersRepo = $em->getRepository('Entities\Banner');
+        $banner = $bannersRepo->findBy(array('name' => 'pagos membresías'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
     }
 

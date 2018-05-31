@@ -50,6 +50,7 @@
                     <?php } else { ?>
                         <li><a href="<?= site_url("admin/auth/logout") ?>">Salir</a></li>
                     <?php } ?>
+                    <li><a href="<?= site_url("admin/home/help") ?>">?</a></li>
                 </ul>
 
                 <!--                <div class="language">-->
@@ -128,19 +129,16 @@
                                     <li><a href="<?= site_url("admin/cities/create") ?>">Agregar Ciudad</a></li>
                                 </ul>
                             </li>
-                            <li class="<?= $tab == "pages" ? "active" : "" ?>">
-                                <a href="<?= site_url("admin/pagesc") ?>"><i class="fa fa-file"></i> Páginas </a>
-                                <ul class="demo-menu">
-                                    <li><a href="<?= site_url("admin/pagesc") ?>">Mostrar Páginas</a></li>
-                                    <li><a href="<?= site_url("admin/pagesc/create") ?>">Crear Página</a></li>
-                                </ul>
-                            </li>
 
-                            <li class="<?= $tab == "user" ? "active" : "" ?>">
-                                <a href="<?= site_url("admin/users") ?>"><i class="fa fa-user"></i> Usuarios </a>
+                            <li class="<?= $tab == "user" || $tab == "pages" ? "active" : "" ?>">
+                                <a><i class="fa fa-cog"></i> Administrar </a>
                                 <ul class="demo-menu">
                                     <li><a href="<?= site_url("admin/users") ?>">Mostrar Usuarios</a></li>
                                     <li><a href="<?= site_url("admin/users/create") ?>">Agregar Usuario</a></li>
+                                    <li><a href="<?= site_url("admin/pagesc") ?>">Mostrar Páginas</a></li>
+                                    <li><a href="<?= site_url("admin/pagesc/create") ?>">Crear Página</a></li>
+                                    <li><a href="<?= site_url("admin/pagesc/personalize") ?>">Personalizar</a></li>
+                                    <li><a href="<?= site_url("admin/pagesc/images") ?>">Imágenes</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -283,11 +281,11 @@
     <!--            </div>-->
     <!--        </div>-->
     <!--    </div>-->
-    <div class="subheader subheader-v2 has-bg-image" data-bg-image="<?= site_url("/resources/img/$tab-header.jpg") ?>">
+    <div class="subheader subheader-v2 has-bg-image" data-bg-image="<?= isset($banner) ? $banner->getImage() : site_url("/resources/img/$tab-header.jpg") ?>">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h1 class="block-title"><?= $tabTitle ?></h1>
+                    <h1 class="block-title"><?= isset($banner) ? $banner->getTitle() : $tabTitle ?></h1>
                     <!--                    <p class="block-secondary-title invert">We are driven by our mission</p>-->
                 </div>
             </div>
@@ -357,19 +355,14 @@
             <li class="pl10 <?= $tab == "crearciudad" ? "active" : "" ?>"><a
                         href="<?= site_url("admin/cities/create") ?>">Agregar Ciudad</a></li>
 
-            <li class="<?= $tab == "pages" ? "active" : "" ?>"><a href="<?= site_url("admin/pagesc") ?>"><i
-                            class="fa fa-map-marker"></i> Páginas </a></li>
-            <li class="pl10 <?= $tab == "pages" ? "active" : "" ?>"><a href="<?= site_url("admin/pagesc") ?>">Mostrar
-                    Páginas</a></li>
-            <li class="pl10 <?= $tab == "crearpage" ? "active" : "" ?>"><a
-                        href="<?= site_url("admin/pagesc/create") ?>">Crear Página</a></li>
-
-            <li class="<?= $tab == "user" ? "active" : "" ?>"><a href="<?= site_url("admin/users") ?>"><i
-                            class="fa fa-map-marker"></i> Usuarios </a></li>
-            <li class="pl10 <?= $tab == "user" ? "active" : "" ?>"><a href="<?= site_url("admin/users") ?>">Mostrar
-                    Usuarios</a></li>
-            <li class="pl10 <?= $tab == "crearuser" ? "active" : "" ?>"><a href="<?= site_url("admin/users/create") ?>">Agregar
-                    Usuario</a></li>
+            <li class="<?= $tab == "user" || $tab == "pages" ? "active" : "" ?>"><a><i
+                            class="fa fa-cog"></i> Administrar </a></li>
+            <li class="pl10"><a href="<?= site_url("admin/users") ?>">Mostrar Usuarios</a></li>
+            <li class="pl10"><a href="<?= site_url("admin/users/create") ?>">Agregar Usuario</a></li>
+            <li class="pl10"><a href="<?= site_url("admin/pagesc") ?>">Mostrar Páginas</a></li>
+            <li class="pl10"><a href="<?= site_url("admin/pagesc/create") ?>">Crear Página</a></li>
+            <li class="pl10"><a href="<?= site_url("admin/pagesc/personalize") ?>">Personalizar</a></li>
+            <li class="pl10"><a href="<?= site_url("admin/pagesc/images") ?>">Imágenes</a></li>
         </ul>
     </nav>
 </div>

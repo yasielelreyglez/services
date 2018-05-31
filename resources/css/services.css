@@ -456,3 +456,14 @@ elemento {
         width: 100%;
     }
 }
+
+.tab-content .tab-pane {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-top: none;
+    padding: 15px;
+}
+
+.tab-content .card-body {
+    padding: .75rem 1.25rem;
+}

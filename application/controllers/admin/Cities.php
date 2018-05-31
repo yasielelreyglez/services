@@ -25,6 +25,11 @@ class Cities extends CI_Controller {
 		$data['content'] = '/cities/index';
         $data["tab"]="cities";
         $data["tabTitle"]="ciudades";
+
+        $bannersRepo = $em->getRepository('Entities\Banner');
+        $banner = $bannersRepo->findBy(array('name' => 'ciudades'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -33,6 +38,12 @@ class Cities extends CI_Controller {
 		$data['content'] = '/cities/create';
         $data["tab"]="cities";
         $data["tabTitle"]="crear ciudad";
+
+        $em = $this->doctrine->em;
+        $bannersRepo = $em->getRepository('Entities\Banner');
+        $banner = $bannersRepo->findBy(array('name' => 'crear ciudad'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -43,6 +54,11 @@ class Cities extends CI_Controller {
 		$data['content'] = '/cities/create';
         $data["tab"]="cities";
         $data["tabTitle"]="editar ciudad";
+
+        $bannersRepo = $em->getRepository('Entities\Banner');
+        $banner = $bannersRepo->findBy(array('name' => 'editar ciudad'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
 	}
 
