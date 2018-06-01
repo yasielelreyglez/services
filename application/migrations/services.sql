@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-06-2018 a las 16:14:10
+-- Tiempo de generación: 01-06-2018 a las 17:38:37
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 7.0.9
 
@@ -19,6 +19,22 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `services`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `banners`
+--
+
+CREATE TABLE `banners` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `subtitle` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -297,15 +313,16 @@ CREATE TABLE `payments` (
   `nombre` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `numero` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `caducidad` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `cvv` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+  `cvv` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `reason_denied` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `payments`
 --
 
-INSERT INTO `payments` (`id`, `membership_id`, `service_id`, `type`, `evidence`, `country`, `phone`, `state`, `updated_at`, `created_at`, `payed_at`, `expiration_date`, `nombre`, `numero`, `caducidad`, `cvv`) VALUES
-(1, 1, 124, 1, 'http://localhost/services/resources/evidences/c2.jpg', NULL, NULL, 0, '2018-05-02 21:20:27', '2018-05-02 21:20:27', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `payments` (`id`, `membership_id`, `service_id`, `type`, `evidence`, `country`, `phone`, `state`, `updated_at`, `created_at`, `payed_at`, `expiration_date`, `nombre`, `numero`, `caducidad`, `cvv`, `reason_denied`) VALUES
+(1, 1, 124, 1, 'http://localhost/services/resources/evidences/c2.jpg', NULL, NULL, 0, '2018-05-02 21:20:27', '2018-05-02 21:20:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -602,6 +619,12 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 --
 
 --
+-- Indices de la tabla `banners`
+--
+ALTER TABLE `banners`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `categories`
 --
 ALTER TABLE `categories`
@@ -747,6 +770,11 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
+--
+-- AUTO_INCREMENT de la tabla `banners`
+--
+ALTER TABLE `banners`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `categories`
 --
