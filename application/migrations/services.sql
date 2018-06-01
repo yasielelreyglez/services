@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-06-2018 a las 17:38:37
+-- Tiempo de generación: 01-06-2018 a las 23:15:14
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 7.0.9
 
@@ -35,6 +35,45 @@ CREATE TABLE `banners` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `banners`
+--
+
+INSERT INTO `banners` (`id`, `name`, `title`, `subtitle`, `image`, `created_at`, `updated_at`) VALUES
+(1, 'inicio', 'LOSYP', 'AdministraciÃ³n', 'http://localhost/services/resources/img/homepage-banner.jpg', '2018-05-31 07:16:38', '2018-05-31 08:06:03'),
+(2, 'pagos', 'PAGOS', NULL, 'http://localhost/services/resources/img/pagos-header.jpg', '2018-05-31 07:18:50', '2018-05-31 07:18:50'),
+(3, 'pagos solicitados', 'pagos solicitados', '', 'http://localhost/services/resources/img/pagos-header.jpg', '2018-05-31 08:54:53', '2018-05-31 08:54:53'),
+(4, 'Pagos activos', 'Pagos activos', '', 'http://localhost/services/resources/img/pagos-header.jpg', '2018-05-31 08:14:23', '2018-05-31 08:14:23'),
+(5, 'Pagos expirados', 'Pagos expirados', '', 'http://localhost/services/resources/img/pagos-header.jpg', '2018-05-31 08:16:33', '2018-05-31 08:16:33'),
+(6, 'pagos denegados', 'pagos denegados', '', 'http://localhost/services/resources/img/pagos-header.jpg', '2018-05-31 09:02:49', '2018-05-31 09:02:49'),
+(7, 'pagos membresÃ­as', 'pagos membresÃ­as', '', 'http://localhost/services/resources/img/pagos-header.jpg', '2018-05-31 09:03:08', '2018-05-31 09:03:08'),
+(8, 'servicios', 'SERVICIOS', '', 'http://localhost/services/resources/img/services-header.jpg', '2018-05-31 07:21:53', '2018-05-31 08:06:09'),
+(9, 'SERVICIOS DENUNCIADOS', 'SERVICIOS DENUNCIADOS', '', 'http://localhost/services/resources/img/services-header.jpg', '2018-05-31 09:08:18', '2018-05-31 09:08:18'),
+(10, 'CREAR SERVICIOS', 'CREAR SERVICIOS', '', 'http://localhost/services/resources/img/services-header.jpg', '2018-05-31 09:08:58', '2018-05-31 09:08:58'),
+(11, 'editar servicio', 'editar servicio', '', 'http://localhost/services/resources/img/services-header.jpg', '2018-05-31 09:20:59', '2018-05-31 09:20:59'),
+(12, 'servicio', 'servicio', '', 'http://localhost/services/resources/img/services-header.jpg', '2018-05-31 09:19:40', '2018-05-31 09:19:40'),
+(13, 'categorias', 'CATEGORÃAS', NULL, 'http://localhost/services/resources/img/category-header.jpg', '2018-05-31 07:22:29', '2018-05-31 07:22:29'),
+(14, 'CREAR CATEGORÃA', 'CREAR CATEGORÃA', '', 'http://localhost/services/resources/img/category-header.jpg', '2018-05-31 09:10:14', '2018-05-31 09:10:14'),
+(15, 'subcategorias', 'SUBCATEGORÃAS', NULL, 'http://localhost/services/resources/img/subcategory-header.jpg', '2018-05-31 07:23:01', '2018-05-31 07:23:01'),
+(16, 'CREAR SUBCATEGORÃA', 'CREAR SUBCATEGORÃA', '', 'http://localhost/services/resources/img/subcategory-header.jpg', '2018-05-31 09:10:53', '2018-05-31 09:10:53'),
+(17, 'ciudades', 'CIUDADES', NULL, 'http://localhost/services/resources/img/cities-header.jpg', '2018-05-31 07:23:36', '2018-05-31 07:23:36'),
+(18, 'CREAR CIUDAD', 'CREAR CIUDAD', '', 'http://localhost/services/resources/img/cities-header.jpg', '2018-05-31 09:11:34', '2018-05-31 09:11:34'),
+(19, 'USUARIOS', 'USUARIOS', '', 'http://localhost/services/resources/img/user-header.jpg', '2018-05-31 09:12:35', '2018-05-31 09:12:35'),
+(21, 'crear usuario', 'crear usuario', '', 'http://localhost/services/resources/img/user-header.jpg', '2018-05-31 09:13:09', '2018-05-31 09:13:09'),
+(22, 'pÃ¡ginas', 'pÃ¡ginas', '', 'http://localhost/services/resources/img/profile-company-header.jpg', '2018-05-31 09:14:55', '2018-05-31 09:14:55'),
+(23, 'crear pÃ¡gina', 'crear pÃ¡gina', '', 'http://localhost/services/resources/img/profile-company-header.jpg', '2018-05-31 09:15:23', '2018-05-31 09:15:23'),
+(24, 'personalizar', 'personalizar', '', 'http://localhost/services/resources/img/blog-image-1.png', '2018-05-31 09:16:03', '2018-05-31 20:57:39'),
+(25, 'imÃ¡genes', 'imÃ¡genes', '', 'http://localhost/services/resources/img/blog-image-1.jpg', '2018-05-31 09:17:25', '2018-05-31 09:17:25'),
+(26, 'crear banner', 'crear banner', '', 'http://localhost/services/resources/img/blog-image-1.png', '2018-05-31 09:17:46', '2018-05-31 09:17:46'),
+(27, 'editar categoria', 'editar categorÃ­a', '', 'http://localhost/services/resources/img/category-header.jpg', '2018-05-31 09:21:58', '2018-05-31 09:24:21'),
+(33, 'editar subcategorÃ­a', 'editar subcategorÃ­a', '', 'http://localhost/services/resources/img/subcategory-header.jpg', '2018-05-31 09:24:50', '2018-05-31 09:24:50'),
+(34, 'editar ciudad', 'editar ciudad', '', 'http://localhost/services/resources/img/cities-header.jpg', '2018-05-31 09:27:27', '2018-05-31 09:27:27'),
+(35, 'editar usuario', 'editar usuario', '', 'http://localhost/services/resources/img/user-header.jpg', '2018-05-31 09:28:09', '2018-05-31 09:28:09'),
+(36, 'editar pÃ¡gina', 'editar pÃ¡gina', '', 'http://localhost/services/resources/img/profile-company-header.jpg', '2018-05-31 09:29:05', '2018-05-31 09:29:05'),
+(37, 'pÃ¡gina', 'pÃ¡gina', '', 'http://localhost/services/resources/img/profile-company-header.jpg', '2018-05-31 09:47:43', '2018-05-31 09:47:43'),
+(38, 'ayuda', 'ayuda', '', 'http://localhost/services/resources/img/banner-mission.jpg', '2018-05-31 11:11:49', '2018-05-31 11:11:49'),
+(41, 'administracion', 'ADMINISTRACIÃ“N', NULL, 'http://localhost/services/resources/img/blog-image-2.png', '2018-05-31 07:27:48', '2018-05-31 07:27:48');
 
 -- --------------------------------------------------------
 
@@ -774,7 +813,7 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT de la tabla `banners`
 --
 ALTER TABLE `banners`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT de la tabla `categories`
 --
