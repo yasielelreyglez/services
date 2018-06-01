@@ -83,11 +83,12 @@ export class TabMapaPage {
         );
         this.addMap(
           this.auth.getlastPosition().coords.latitude,
-          this.auth.getlastPosition().coords.longitude
+          this.auth.getlastPosition().coords.longitude,
+            this
         );
       } else {
         this.latLng = new google.maps.LatLng(-0.22985);
-        this.addMap(-0.22985, -78.52495);
+        this.addMap(-0.22985, -78.52495,this);
       }
     } else {
       let toast = this.toastCtrl.create({
@@ -122,7 +123,7 @@ export class TabMapaPage {
     this.navCtrl.push("LoginPage");
   }
 
-  addMap(lat, long) {
+  addMap(lat, long,that) {
     let latLng = new google.maps.LatLng(lat, long);
     let mapOptions = {
       center: latLng,
@@ -154,8 +155,7 @@ export class TabMapaPage {
                 name: services[i].positionsList[j].title
               });
 
-                let that = this;
-                let content = ' <a onclick="this.bind(that.openService('+services[i].id+'))" class=\'custom-marker\' >' +
+                let content = ' <a onclick="that.openService('+services[i].id+')" class=\'custom-marker\' >' +
                     '<h6 class="tc-blue">' + services[i].title + '</h6></a>' +
                     '<span class="tc-blue">' + services[i].positionsList[j].title + '</span>';
               this.addInfoWindow(marker, content);
@@ -212,7 +212,7 @@ export class TabMapaPage {
           pos.coords.latitude,
           pos.coords.longitude
         );
-        this.addMap(pos.coords.latitude, pos.coords.longitude);
+        this.addMap(pos.coords.latitude, pos.coords.longitude,this);
       },
       (err: PositionError) => {
         console.log("error : " + err.message);
@@ -249,8 +249,7 @@ export class TabMapaPage {
       position: place.geometry.location,
       name
     });
-      const that2 = this;
-      let content = ' <a onclick="this.bind(that2.openService('+place.service.id+'))" class=\'custom-marker\' href="./service/' + place.service.id+'" >' +
+      let content = ' <a onclick="this.openService('+place.service.id+')" class=\'custom-marker\' href="./service/' + place.service.id+'" >' +
           '<h6 class="tc-blue">' + place.service.title + '</h6></a>' +
           '<span class="tc-blue">' + place.title + '</span>';
       this.addInfoWindow(marker, content);
@@ -260,4 +259,8 @@ export class TabMapaPage {
     // let content = "<a onclick=\"this.bind(this.openService(86))\" class='custom-marker' >" + place.name + "</a>"
     this.addInfoWindow(marker, content);
   }
+}
+
+function openService(id){
+  console.log(id);
 }

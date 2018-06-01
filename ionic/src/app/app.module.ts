@@ -172,4 +172,6 @@ import { Diagnostic } from '@ionic-native/diagnostic';
 
     ]
 })
-export class AppModule {}
+export class AppModule {
+
+}
