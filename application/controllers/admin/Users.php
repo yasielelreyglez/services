@@ -137,7 +137,8 @@ class Users extends CI_Controller
             $groupData = $this->input->post('groups');
 
             if (null !== ($this->input->post('password', TRUE))) {
-                $user->setPassword(md5($this->input->post('password', TRUE)));
+//                $user->setPassword(md5($this->input->post('password', TRUE)));
+                $user->setPassword($this->input->post('password', TRUE));
             }
             $user->setIp($this->input->post('ip_address', TRUE));
 
@@ -164,7 +165,7 @@ class Users extends CI_Controller
                     'company' => $this->input->post('company'),
                     'phone' => $this->input->post('phone'),
                 );
-                $this->ion_auth->register(
+                $result = $this->ion_auth->register(
                     $user->getUsername(),
                     $user->getPassword(),
                     $user->getEmail(),
@@ -172,7 +173,14 @@ class Users extends CI_Controller
                     $groupData
                 );
             }
-
+            if ($result) {
+                $tokenData = array(
+                    'userid' => $result,
+                    'email' => $user->getEmail(),
+                    'role' => 1
+                );
+                $token = AUTHORIZATION::generateToken($tokenData);
+            }
             $this->session->set_flashdata('item', array('message'=>'Se han guardado sus cambios correctamente.', 'class'=>'success', 'icon'=>'fa fa-thumbs-up', 'title'=>"<strong>Bien!:</strong>"));
             redirect('admin/users/index', 'refresh');
         }
