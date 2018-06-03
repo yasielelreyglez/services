@@ -26,6 +26,12 @@ class Pages
     public $Content;
 
     /**
+     *
+     * @OneToMany(targetEntity="ConfigRegion", mappedBy="pages",cascade={"persist", "remove"})
+     */
+    protected $configregion;
+
+    /**
      * @Column(type="datetime")
      **/
     protected $created_at;

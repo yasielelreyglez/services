@@ -44,6 +44,12 @@ class Banner
     protected $image;
 
     /**
+     *
+     * @OneToMany(targetEntity="ConfigRegion", mappedBy="banners",cascade={"persist", "remove"})
+     */
+    protected $configregion;
+
+    /**
      * @Column(type="datetime")
      **/
     protected $created_at;
