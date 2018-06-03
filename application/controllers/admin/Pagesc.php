@@ -145,6 +145,23 @@ class Pagesc extends CI_Controller
             $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
     }
+    public function editBanner($id)
+    {
+        $data["title"] = "Crear banner";
+        $data['content'] = '/pages/createbanner';
+        $data["tab"] = "pages";
+        $data["tabTitle"] = "Crear banner";
+        if (!$this->ion_auth->logged_in()) {
+            $data["showlogin"] = true;
+        }
+        $em = $this->doctrine->em;
+        $banner = $em->find('Entities\Banner', $id);
+//        $banner = $bannersRepo->findBy(array('name' => 'crear banner'), array(), 1);
+//        if (count($banner))
+//            $data['banner'] = $banner[0];
+        $data['banner'] = $banner;
+        $this->load->view('/includes/contentpage', $data);
+    }
 
     public function images()
     {

@@ -7,11 +7,14 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
-
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#banners" role="tab" aria-controls="home"
            aria-selected="true">Banner</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="profile2-tab" data-toggle="tab" href="#pages" role="tab" aria-controls="profile2"
+           aria-selected="false">Pages</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" id="profile-tab" data-toggle="tab" href="#regions" role="tab" aria-controls="profile"
@@ -20,46 +23,59 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </ul>
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="banners" role="tabpanel" aria-labelledby="home-tab">
-        <?php foreach ($banners as $banner) : ?>
-            <div class="card element">
-                <div class="card-header element-title">
-                    Banner para <?= $banner->getName(); ?>
-                    <a href="<?= site_url('admin/pagesc/destroyBanner/' . $banner->getId()) ?>"
-                       class="destroy pull-right"><i
-                                class="fa fa-remove"></i></a>
-                </div>
-                <div class="card-body">
-                    <?= form_open('admin/pagesc/saveBanner', 'role="form"'); ?><?php if (validation_errors() != NULL && validation_errors() != '') { ?>
-                        <div class="alert alert-danger"><?= validation_errors(); ?></div><?php } ?>
-                    <input type="hidden" name="id" value="<?= $banner->getId(); ?>"/>
-                    <input type="hidden" name="name" value="<?= $banner->getName(); ?>"/>
-
-                    <div class="form-group">
-                        <label for="title">Título:</label><br/>
-                        <input type="text" required class="form-control" name="title" placeholder="Escriba el título"
-                               value="<?= $banner->getTitle(); ?>"/>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Título</th>
+                <th>Subtítulo</th>
+                <th>Imagen</th>
+                <th colspan="2">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($banners as $key=>$banner) { ?>
+                <tr class="element">
+                <td><?= $key+1 ?></td>
+                <td class="element-title"><?= $banner->getName() ?></td>
+                <td class="element-title"><?= $banner->getTitle() ?></td>
+                <td class="element-title"><?= $banner->getSubtitle() ?></td>
+                <td>
+                    <div class="card m-3 disabled" style="width: 18rem;">
+                        <img class="payment-evidence card-img-top"  height="40px" width="45px"  src="<?= $banner->getImage() ?>"
+                             alt="Card image cap">
                     </div>
-
-                    <div class="form-group">
-                        <label for="title">Subtítulo:</label><br/>
-                        <input type="text" class="form-control" name="subtitle" placeholder="Escriba el subtítulo"
-                               value="<?= $banner->getSubtitle(); ?>"/>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="days">Dirección para imagen de fondo:</label><br/>
-                        <input type="text" required class="form-control" name="urlimagen"
-                               placeholder="Escriba dirección para imagen de fondo"
-                               value="<?= $banner->getImage(); ?>"/>
-                    </div>
-
-                    <input type="submit" value="Guardar" class="btn btn-primary pull-right"/>
-                    </form>
-                </div>
-            </div>
-            <br>
-        <?php endforeach; ?>
-        <?= anchor('admin/pagesc/createBanner', 'Crear', 'class="btn btn-info"'); ?>
+                </td>
+                <td width="80"><?= anchor('admin/pagesc/editBanner/' . $banner->getId(), 'Editar', 'class="btn btn-warning"'); ?></td>
+                <td width="80"><?= anchor('admin/pagesc/destroyBanner/' . $banner->getId(), 'Eliminar', 'class="btn btn-danger destroy"'); ?></td>
+                </tr><?php } ?>
+            </tbody>
+        </table>
+        <?= anchor('admin/pagesc/createBanner', 'Crear', 'class="btn btn-primary"'); ?>
+    </div>
+    <div class="tab-pane fade" id="pages" role="tabpanel" aria-labelledby="profile2-tab">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Contenido</th>
+                <th colspan="2">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($pages as $key2=>$page) { ?>
+                <tr class="element">
+                <td><?= $key2+1 ?></td>
+                <td class="element-title"><?= $page->getTitle() ?></td>
+                <td class="element-title"><?= $page->getContent() ?></td>
+                <td width="80"><?= anchor('admin/pagesc/editar/' . $page->getId(), 'Editar', 'class="btn btn-warning"'); ?></td>
+                <td width="80"><?= anchor('admin/pagesc/destroy/' . $page->getId(), 'Eliminar', 'class="btn btn-danger destroy"'); ?></td>
+                </tr><?php } ?>
+            </tbody>
+        </table>
+        <?= anchor('admin/pagesc/create', 'Crear', 'class="btn btn-primary"'); ?>
     </div>
     <div class="tab-pane fade" id="regions" role="tabpanel" aria-labelledby="profile-tab">
         <div class="form-group">
@@ -83,4 +99,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </select>
         </div>
     </div>
+</div>
+
+<!-- The Modal -->
+<div id="imageZoomModal" class="modal">
+
+    <!-- Modal Caption (Image Text) -->
+    <div id="caption" style="text-align: center"></div>
+
+    <!-- The Close Button -->
+    <span class="close">&times;</span>
+
+    <!-- Modal Content (The Image) -->
+    <img class="modal-content" id="img01">
 </div>
