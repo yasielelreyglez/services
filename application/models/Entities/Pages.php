@@ -44,7 +44,6 @@ class Pages
 
     public function __construct()
     {
-        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
         $this->updated_at = new \DateTime("now");
         $this->created_at = new \DateTime("now");
     }
@@ -63,17 +62,6 @@ class Pages
     {
         $this->title = $title;
     }
-
-    /**
-     * Remove service
-     *
-     * @param \Entities\Service $service
-     */
-    public function removeService(\Entities\Service $service)
-    {
-        $this->services->removeElement($service);
-    }
-
      /**
      * @return string
      */
