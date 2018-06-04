@@ -26,10 +26,14 @@ class Cities extends CI_Controller {
         $data["tab"]="cities";
         $data["tabTitle"]="ciudades";
 
-        $bannersRepo = $em->getRepository('Entities\Banner');
-        $banner = $bannersRepo->findBy(array('name' => 'ciudades'), array(), 1);
-        if (count($banner))
-            $data['banner'] = $banner[0];
+        $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
+        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        if (count($configRegionGlobal))
+            $data['configRegionGlobal'] = $configRegionGlobal;
+
+        $configRegionHome = $configRegionRepo->findBy(array('group'=>'city'), array());
+        if (count($configRegionHome))
+            $data['configRegionHome'] = $configRegionHome;
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -40,10 +44,15 @@ class Cities extends CI_Controller {
         $data["tabTitle"]="crear ciudad";
 
         $em = $this->doctrine->em;
-        $bannersRepo = $em->getRepository('Entities\Banner');
-        $banner = $bannersRepo->findBy(array('name' => 'crear ciudad'), array(), 1);
-        if (count($banner))
-            $data['banner'] = $banner[0];
+
+        $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
+        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        if (count($configRegionGlobal))
+            $data['configRegionGlobal'] = $configRegionGlobal;
+
+        $configRegionHome = $configRegionRepo->findBy(array('group'=>'city'), array());
+        if (count($configRegionHome))
+            $data['configRegionHome'] = $configRegionHome;
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -55,10 +64,14 @@ class Cities extends CI_Controller {
         $data["tab"]="cities";
         $data["tabTitle"]="editar ciudad";
 
-        $bannersRepo = $em->getRepository('Entities\Banner');
-        $banner = $bannersRepo->findBy(array('name' => 'editar ciudad'), array(), 1);
-        if (count($banner))
-            $data['banner'] = $banner[0];
+        $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
+        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        if (count($configRegionGlobal))
+            $data['configRegionGlobal'] = $configRegionGlobal;
+
+        $configRegionHome = $configRegionRepo->findBy(array('group'=>'city'), array());
+        if (count($configRegionHome))
+            $data['configRegionHome'] = $configRegionHome;
         $this->load->view('/includes/contentpage', $data);
 	}
 

@@ -10,7 +10,8 @@
     <title>Losyp-Administración</title>
 
     <!-- Stylesheets -->
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,600,700%7CDroid+Serif:300,400,700,400italic">
+    <link rel="stylesheet"
+          href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,600,700%7CDroid+Serif:300,400,700,400italic">
     <!--    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>-->
     <?php echo link_tag("/resources/ajax/libs/select2/4.0.0/css/select2.min.css") ?>
     <?php echo link_tag("/resources/css/owl.carousel.css") ?>
@@ -30,12 +31,24 @@
                 <!--                    <li><a href="contact.html">Contacto</a></li>-->
                 <!--                    <li><a href="#">Pol&iacute;ticas</a></li>-->
                 <!--                </ul>-->
-
-                <ul class="social">
-                    <li><a href="#" class="fa fa-facebook"></a></li>
-                    <li><a href="#" class="fa fa-twitter"></a></li>
-                    <li><a href="#" class="fa fa-google-plus"></a></li>
-                </ul>
+                <?php
+                if (isset($configRegionGlobal)) {
+                    $config = null;
+                    foreach ($configRegionGlobal as $item) {
+                        if ($item->region == 'socialsTopMenu')
+                            $config = $item;
+                    }
+                }
+                ?>
+                <?php if (isset($config)): ?>
+                    <?php echo $config->page->Content; ?>
+                <?php else: ?>
+                    <ul class="social">
+                        <li><a href="#" class="fa fa-facebook"></a></li>
+                        <li><a href="#" class="fa fa-twitter"></a></li>
+                        <li><a href="#" class="fa fa-google-plus"></a></li>
+                    </ul>
+                <?php endif; ?>
 
                 <ul class="authentication">
                     <?php if (isset($showlogin) == true) { ?>
@@ -140,14 +153,23 @@
 
         </div>
     </div> <!-- edn header-navm -->
-
-    <div class="homepage-banner has-bg-image" data-bg-image="<?= isset($banner) ? $banner->getImage() : site_url("/resources/img/homepage-banner.jpg") ?>">
+    <?php
+    if (isset($configRegionHome)) {
+        $config = null;
+        foreach ($configRegionHome as $item) {
+            if ($item->region == 'homeBanner')
+                $config = $item;
+        }
+    }
+    ?>
+    <div class="homepage-banner has-bg-image"
+         data-bg-image="<?= isset($config) ? $config->banner->getImage() : site_url("/resources/img/homepage-banner.jpg") ?>">
 
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <h1 class="block-title"><?= isset($banner) ? $banner->getTitle() : 'LOSYP' ?></h1>
-                    <p class="block-secondary-title invert"><?= isset($banner) ? $banner->getSubtitle() : 'Administración' ?></p>
+                    <h1 class="block-title"><?= isset($config) ? $config->banner->getTitle() : 'LOSYP' ?></h1>
+                    <p class="block-secondary-title invert"><?= isset($config) ? $config->banner->getSubtitle() : 'Administración' ?></p>
                 </div>
                 <div class="col-md-12">
                     <form id="filter" action="<?= site_url('api/filter'); ?>" method="post">
@@ -296,7 +318,6 @@
     </div>
 
 
-
     <div class="listing-objects has-bg-image" data-bg-color="f5f5f5">
         <div class="container">
             <div id="filterresult" class="listing listing-3 listing-variation hide">
@@ -346,7 +367,8 @@
                                     </h6>
                                     <div class="listing-offer-thumbnail">
                                         <?php if (count($object->getImages()->toArray()) > 0) { ?>
-                                            <img src="<?=  site_url() . $object->getImages()->toArray()[0]->getThumb() ?>" alt="">
+                                            <img src="<?= site_url() . $object->getImages()->toArray()[0]->getThumb() ?>"
+                                                 alt="">
                                         <?php } ?>
                                     </div>
                                     <div class="listing-offer-content">
@@ -383,88 +405,104 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h4 class="section-title text-center">About The Company</h4>
-                    <div class="uou-tabs vertical">
-                        <ul class="tabs">
-                            <li class="active"><a href="#uou-tab-1v">About Us</a></li>
-                            <li><a href="#uou-tab-2v">Our Team</a></li>
-                            <li><a href="#uou-tab-3v">Our Services</a></li>
-                        </ul>
+                    <?php
+                    if (isset($configRegionGlobal)) {
+                        $config = null;
+                        foreach ($configRegionGlobal as $item) {
+                            if ($item->region == 'aboutUsRegion')
+                                $config = $item;
+                        }
+                    }
+                    ?>
+                    <?php if (isset($config)): ?>
+                        <?php echo $config->page->Content; ?>
+                    <?php else: ?>
+                        <h4 class="section-title text-center">About The Company</h4>
+                        <div class="uou-tabs vertical">
+                            <ul class="tabs">
+                                <li class="active"><a href="#uou-tab-1v">About Us</a></li>
+                                <li><a href="#uou-tab-2v">Our Team</a></li>
+                                <li><a href="#uou-tab-3v">Our Services</a></li>
+                            </ul>
 
-                        <div class="content">
-                            <div class="active" id="uou-tab-1v">
-                                <div class="col-md-5">
-                                    <img src="<?= site_url("/resources/img/about-thumbnail.png") ?>" alt=""
-                                         class="img-responsive">
+                            <div class="content">
+                                <div class="active" id="uou-tab-1v">
+                                    <div class="col-md-5">
+                                        <img src="<?= site_url("/resources/img/about-thumbnail.png") ?>" alt=""
+                                             class="img-responsive">
+                                    </div>
+                                    <div class="col-md-7">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa in placeat
+                                            voluptates omnis vel quod maiores perferendis, eaque quasi expedita,
+                                            adipisci
+                                            dolorum porro itaque quia nesciunt atque earum consequatur ex.</p>
+                                        <ul class="list-unstyled mb0">
+                                            <li>
+                                                <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                            </li>
+                                            <li><i class="fa fa-angle-right"></i><span>Mauris in erat justo.</span></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="col-md-7">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa in placeat
-                                        voluptates omnis vel quod maiores perferendis, eaque quasi expedita, adipisci
-                                        dolorum porro itaque quia nesciunt atque earum consequatur ex.</p>
-                                    <ul class="list-unstyled mb0">
-                                        <li>
-                                            <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
-                                        </li>
-                                        <li><i class="fa fa-angle-right"></i><span>Mauris in erat justo.</span></li>
-                                    </ul>
+
+                                <div id="uou-tab-2v">
+                                    <div class="col-md-5">
+                                        <img src="<?= site_url("/resources/img/about-thumbnail.png") ?>" alt=""
+                                             class="img-responsive">
+                                    </div>
+                                    <div class="col-md-7">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa in placeat
+                                            voluptates omnis vel ddquod maiores perferendis, eaque quasi expedita,
+                                            adipisci
+                                            dolorum porro itaque quia nesciunt atque earum consequatur ex.</p>
+                                        <ul class="list-unstyled mb0">
+                                            <li>
+                                                <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                            </li>
+                                            <li><i class="fa fa-angle-right"></i><span>Mauris in erat justo.</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div id="uou-tab-3v">
+                                    <div class="col-md-5">
+                                        <img src="<?= site_url("/resources/img/about-thumbnail.png") ?>" alt=""
+                                             class="img-responsive">
+                                    </div>
+                                    <div class="col-md-7">
+                                        <p>Lorem ipsuddm dolor sit amet, consectetur adipisicing elit. Ipsa in placeat
+                                            voluptates omnis vel quod maiores perferendis, eaque quasi expedita,
+                                            adipisci
+                                            dolorum porro itaque quia nesciunt atque earum consequatur ex.</p>
+                                        <ul class="list-unstyled mb0">
+                                            <li>
+                                                <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                            </li>
+                                            <li><i class="fa fa-angle-right"></i><span>Mauris in erat justo.</span></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div id="uou-tab-2v">
-                                <div class="col-md-5">
-                                    <img src="<?= site_url("/resources/img/about-thumbnail.png") ?>" alt=""
-                                         class="img-responsive">
-                                </div>
-                                <div class="col-md-7">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa in placeat
-                                        voluptates omnis vel ddquod maiores perferendis, eaque quasi expedita, adipisci
-                                        dolorum porro itaque quia nesciunt atque earum consequatur ex.</p>
-                                    <ul class="list-unstyled mb0">
-                                        <li>
-                                            <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
-                                        </li>
-                                        <li><i class="fa fa-angle-right"></i><span>Mauris in erat justo.</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div id="uou-tab-3v">
-                                <div class="col-md-5">
-                                    <img src="<?= site_url("/resources/img/about-thumbnail.png") ?>" alt=""
-                                         class="img-responsive">
-                                </div>
-                                <div class="col-md-7">
-                                    <p>Lorem ipsuddm dolor sit amet, consectetur adipisicing elit. Ipsa in placeat
-                                        voluptates omnis vel quod maiores perferendis, eaque quasi expedita, adipisci
-                                        dolorum porro itaque quia nesciunt atque earum consequatur ex.</p>
-                                    <ul class="list-unstyled mb0">
-                                        <li>
-                                            <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
-                                        </li>
-                                        <li><i class="fa fa-angle-right"></i><span>Mauris in erat justo.</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div> <!-- end .uou-tabs -->
+                        </div> <!-- end .uou-tabs -->
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -500,7 +538,8 @@
                                                     </div>
                                                 <?php } ?>
                                                 <h5>
-                                                    <a href="<?= site_url('admin/services/show/') . $object->id ?>" class="element-title"><?= $object->title ?></a>
+                                                    <a href="<?= site_url('admin/services/show/') . $object->id ?>"
+                                                       class="element-title"><?= $object->title ?></a>
                                                 </h5>
                                             </div>
                                             <div class="listing-inner">
@@ -508,7 +547,8 @@
                                                     <ul class="slides">
                                                         <li class="flex-active-slide"
                                                             style="width: 100%; float: left; margin-right: -100%; position: relative; opacity:1; display: block; z-index: 2;">
-                                                            <img src="<?=  site_url() . $object->thumb ?>" alt="" draggable="false">
+                                                            <img src="<?= site_url() . $object->thumb ?>" alt=""
+                                                                 draggable="false">
                                                         </li>
                                                         <?php
                                                         $images = $object->getImages()->toArray();
@@ -543,26 +583,39 @@
                                                     </li>
                                                     <li class="active">
 
-                                                        <a href="#"><i class="fa fa-envelope main-icon"></i> Información adicional</a>
+                                                        <a href="#"><i class="fa fa-envelope main-icon"></i> Información
+                                                            adicional</a>
                                                         <div>
                                                             <ul class="contact-info list-unstyled mb0">
 
                                                                 <?php if ($object->address) { ?>
-                                                                    <li><i class="fa fa-map-marker"></i> <?= $object->address ?></li><?php } ?>
+                                                                    <li>
+                                                                    <i class="fa fa-map-marker"></i> <?= $object->address ?>
+                                                                    </li><?php } ?>
                                                                 <?php if ($object->email) { ?>
-                                                                    <li><i class="fa fa-envelope-o"></i><a href="mailto:<?= $object->email ?>"><?= $object->email ?></a> </li><?php } ?>
+                                                                    <li><i class="fa fa-envelope-o"></i><a
+                                                                            href="mailto:<?= $object->email ?>"><?= $object->email ?></a>
+                                                                    </li><?php } ?>
                                                                 <?php if ($object->url) { ?>
-                                                                    <li><i class="fa fa-globe"></i><a href="<?= $object->url ?>" target="_blank"><?= $object->url ?></a> </li><?php } ?>
+                                                                    <li><i class="fa fa-globe"></i><a
+                                                                            href="<?= $object->url ?>"
+                                                                            target="_blank"><?= $object->url ?></a>
+                                                                    </li><?php } ?>
                                                                 <?php if ($object->phone) { ?>
-                                                                    <li><i class="fa fa-phone"></i><a href="tel:<?= $object->phone ?>"><?= $object->phone ?></a></li><?php } ?>
+                                                                    <li><i class="fa fa-phone"></i><a
+                                                                            href="tel:<?= $object->phone ?>"><?= $object->phone ?></a>
+                                                                    </li><?php } ?>
                                                                 <?php if ($object->other_phone) { ?>
-                                                                    <li><i class="fa fa-fax"></i><a href="tel:<?= $object->other_phone ?>"><?= $object->other_phone ?></a></li> <?php } ?>
+                                                                    <li><i class="fa fa-fax"></i><a
+                                                                                href="tel:<?= $object->other_phone ?>"><?= $object->other_phone ?></a>
+                                                                    </li> <?php } ?>
                                                             </ul>
                                                         </div>
                                                     </li>
                                                 </ul> <!-- end .uou-accordions -->
                                                 <div class="info-footer">
-                                                    <img height="20" width="20" src="<?= $object->getSubcategories()->toArray()[0]->getIcon() ?>">
+                                                    <img height="20" width="20"
+                                                         src="<?= $object->getSubcategories()->toArray()[0]->getIcon() ?>">
                                                     <h6><?= $object->getSubcategories()->toArray()[0]->getTitle() ?></h6>
                                                     <a class="pull-right pl10 destroy" title="Destruir"
                                                        href="<?= site_url('admin/services/destroy/') . $object->id ?>"><i
@@ -580,7 +633,8 @@
                                 <?php endforeach; ?>
                             <?php endif; ?>
                             <div class="loading_popular_listings hide">
-                                <p class="text-center" style="padding: 100px 0"><i class="fa fa-spinner fa-pulse"></i></p>
+                                <p class="text-center" style="padding: 100px 0"><i class="fa fa-spinner fa-pulse"></i>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -597,23 +651,36 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="section-title">Our Sponsors</h3>
-                    <div class="sponsors-slider">
-                        <div class="item"><img src="<?= site_url("/resources/img/sponsor_logo1_1.png") ?>" alt=""
-                                               class="img-responsive"></div>
-                        <div class="item"><img src="<?= site_url("/resources/img/sponsor_logo2_2.png") ?>" alt=""
-                                               class="img-responsive"></div>
-                        <div class="item"><img src="<?= site_url("/resources/img/sponsor_logo3_3.png") ?>" alt=""
-                                               class="img-responsive"></div>
-                        <div class="item"><img src="<?= site_url("/resources/img/sponsor_logo4_4.png") ?>" alt=""
-                                               class="img-responsive"></div>
-                        <div class="item"><img src="<?= site_url("/resources/img/sponsor_logo5_5.png") ?>" alt=""
-                                               class="img-responsive"></div>
-                        <div class="item"><img src="<?= site_url("/resources/img/sponsor_logo6_6.png") ?>" alt=""
-                                               class="img-responsive"></div>
-                        <div class="item"><img src="<?= site_url("/resources/img/sponsor_logo4_4.png") ?>" alt=""
-                                               class="img-responsive"></div>
-                    </div>
+                    <?php
+                    if (isset($configRegionGlobal)) {
+                        $config = null;
+                        foreach ($configRegionGlobal as $item) {
+                            if ($item->region == 'sponsorsRegion')
+                                $config = $item;
+                        }
+                    }
+                    ?>
+                    <?php if (isset($config)): ?>
+                        <?php echo $config->page->Content; ?>
+                    <?php else: ?>
+                        <h3 class="section-title">Our Sponsors</h3>
+                        <div class="sponsors-slider">
+                            <div class="item"><img src="<?= site_url("/resources/img/sponsor_logo1_1.png") ?>" alt=""
+                                                   class="img-responsive"></div>
+                            <div class="item"><img src="<?= site_url("/resources/img/sponsor_logo2_2.png") ?>" alt=""
+                                                   class="img-responsive"></div>
+                            <div class="item"><img src="<?= site_url("/resources/img/sponsor_logo3_3.png") ?>" alt=""
+                                                   class="img-responsive"></div>
+                            <div class="item"><img src="<?= site_url("/resources/img/sponsor_logo4_4.png") ?>" alt=""
+                                                   class="img-responsive"></div>
+                            <div class="item"><img src="<?= site_url("/resources/img/sponsor_logo5_5.png") ?>" alt=""
+                                                   class="img-responsive"></div>
+                            <div class="item"><img src="<?= site_url("/resources/img/sponsor_logo6_6.png") ?>" alt=""
+                                                   class="img-responsive"></div>
+                            <div class="item"><img src="<?= site_url("/resources/img/sponsor_logo4_4.png") ?>" alt=""
+                                                   class="img-responsive"></div>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -622,84 +689,111 @@
     <div class="uou-block-4e has-bg-image" data-bg-color="ffffff">
         <div class="container">
             <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <a href="#" class="logo"><img src="<?= site_url("/resources/img/logo.png") ?>" alt=""></a>
+                <?php
+                if (isset($configRegionGlobal)) {
+                    $config = null;
+                    foreach ($configRegionGlobal as $item) {
+                        if ($item->region == 'preFooterRegion')
+                            $config = $item;
+                    }
+                }
+                ?>
+                <?php if (isset($config)): ?>
+                    <?php echo $config->page->Content; ?>
+                <?php else: ?>
+                    <div class="col-md-3 col-sm-6">
+                        <a href="#" class="logo"><img src="<?= site_url("/resources/img/logo.png") ?>" alt=""></a>
 
-                    <ul style="background-image: url(<?= site_url("/resources/img/footer-map-bg.png") ?>);"
-                        class="contact-info has-bg-image contain"
-                        data-bg-image="<?= site_url("/resources/img/footer-map-bg.png") ?>">
-                        <li>
-                            <i class="fa fa-map-marker"></i>
-                            <address>795 Folsom Ave, Suite 600, San Francisco, CA 94107</address>
-                        </li>
+                        <ul style="background-image: url(<?= site_url("/resources/img/footer-map-bg.png") ?>);"
+                            class="contact-info has-bg-image contain"
+                            data-bg-image="<?= site_url("/resources/img/footer-map-bg.png") ?>">
+                            <li>
+                                <i class="fa fa-map-marker"></i>
+                                <address>795 Folsom Ave, Suite 600, San Francisco, CA 94107</address>
+                            </li>
 
-                        <li>
-                            <i class="fa fa-phone"></i>
-                            <a href="tel:#">(123) 456-7890</a>
-                        </li>
+                            <li>
+                                <i class="fa fa-phone"></i>
+                                <a href="tel:#">(123) 456-7890</a>
+                            </li>
 
-                        <li>
-                            <i class="fa fa-envelope"></i>
-                            <a href="mailto:#">first.last@example.com</a>
-                        </li>
-                    </ul>
-                </div>
+                            <li>
+                                <i class="fa fa-envelope"></i>
+                                <a href="mailto:#">first.last@example.com</a>
+                            </li>
+                        </ul>
+                    </div>
 
-                <div class="col-md-3 col-sm-6">
-                    <h5>Twitter Feed</h5>
+                    <div class="col-md-3 col-sm-6">
+                        <h5>Twitter Feed</h5>
 
-                    <ul class="twitter-feed">
-                        <li>
-                            RT <a href="#">@no1son</a>: Now this <a href="#">http://t.co/TSfMW1qMAW</a> is one hell of a
-                            stunning site!!! Awesome work guys <a href="#">@AIRNAUTS</a>
-                            <a href="#" class="time">May 25</a>
-                        </li>
+                        <ul class="twitter-feed">
+                            <li>
+                                RT <a href="#">@no1son</a>: Now this <a href="#">http://t.co/TSfMW1qMAW</a> is one hell
+                                of a
+                                stunning site!!! Awesome work guys <a href="#">@AIRNAUTS</a>
+                                <a href="#" class="time">May 25</a>
+                            </li>
 
-                        <li>
-                            Check out the wordpress version of Tucson - <a href="#">http://t.co/sBlU3GbapT</a>
-                            <a href="#" class="time">May 22</a>
-                        </li>
-                    </ul>
-                </div>
+                            <li>
+                                Check out the wordpress version of Tucson - <a href="#">http://t.co/sBlU3GbapT</a>
+                                <a href="#" class="time">May 22</a>
+                            </li>
+                        </ul>
+                    </div>
 
-                <div class="col-md-3 col-sm-6">
-                    <h5>Photostream</h5>
+                    <div class="col-md-3 col-sm-6">
+                        <h5>Photostream</h5>
 
-                    <ul class="photos-list">
-                        <li><img src="<?= site_url("/resources/img/photostream4.jpg") ?>" alt=""></li>
-                        <li><img src="<?= site_url("/resources/img/photostream6.jpg") ?>" alt=""></li>
-                        <li><img src="<?= site_url("/resources/img/photostream3.jpg") ?>" alt=""></li>
-                        <li><img src="<?= site_url("/resources/img/photostream2.jpg") ?>" alt=""></li>
-                        <li><img src="<?= site_url("/resources/img/photostream1.jpg") ?>" alt=""></li>
-                        <li><img src="<?= site_url("/resources/img/photostream.jpg") ?>" alt=""></li>
-                    </ul>
-                </div>
+                        <ul class="photos-list">
+                            <li><img src="<?= site_url("/resources/img/photostream4.jpg") ?>" alt=""></li>
+                            <li><img src="<?= site_url("/resources/img/photostream6.jpg") ?>" alt=""></li>
+                            <li><img src="<?= site_url("/resources/img/photostream3.jpg") ?>" alt=""></li>
+                            <li><img src="<?= site_url("/resources/img/photostream2.jpg") ?>" alt=""></li>
+                            <li><img src="<?= site_url("/resources/img/photostream1.jpg") ?>" alt=""></li>
+                            <li><img src="<?= site_url("/resources/img/photostream.jpg") ?>" alt=""></li>
+                        </ul>
+                    </div>
 
-                <div class="col-md-3 col-sm-6">
-                    <h5>Newsletter</h5>
+                    <div class="col-md-3 col-sm-6">
+                        <h5>Newsletter</h5>
 
-                    <p>Subscribe to our newsletter to receive our latest news and updates. We do not spam.</p>
+                        <p>Subscribe to our newsletter to receive our latest news and updates. We do not spam.</p>
 
-                    <form class="newsletter-form" action="#">
-                        <input placeholder="Enter your email address" type="email">
-                        <input class="btn btn-primary" value="Subscribe" type="submit">
-                    </form>
-                </div>
+                        <form class="newsletter-form" action="#">
+                            <input placeholder="Enter your email address" type="email">
+                            <input class="btn btn-primary" value="Subscribe" type="submit">
+                        </form>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
 
     <div class="uou-block-4a secondary">
         <div class="container">
-            <ul class="social-icons">
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-            </ul>
+            <?php
+            if (isset($configRegionGlobal)) {
+                $config = null;
+                foreach ($configRegionGlobal as $item) {
+                    if ($item->region == 'footerRegion')
+                        $config = $item;
+                }
+            }
+            ?>
+            <?php if (isset($config)): ?>
+                <?php echo $config->page->Content; ?>
+            <?php else: ?>
+                <ul class="social-icons">
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                </ul>
 
-            <p>Copyright © 2015 Quck Finder. All Rights reserved.</p>
+                <p>Copyright © 2015 Quck Finder. All Rights reserved.</p>
+            <?php endif; ?>
         </div>
     </div>
 </div>
@@ -800,7 +894,7 @@
 <script src="<?= site_url("/resources/js/uou-tabs.js") ?>"></script>
 <script src="<?= site_url("/resources/js/plugins/select2.min.js") ?>"></script>
 <script src="<?= site_url("/resources/js/owl.carousel.min.js") ?>"></script>
-<script src="<?=site_url("/resources/js/gmap3.min.js") ?>"></script>
+<script src="<?= site_url("/resources/js/gmap3.min.js") ?>"></script>
 
 <script src="<?= site_url("/resources/js/bootstrap.js") ?>"></script>
 <script src="<?= site_url("/resources/js/admin.js") ?>"></script>
@@ -810,9 +904,9 @@
 
 <script src="<?= site_url("/resources/js/scripts.js") ?>"></script>
 <script src="<?= site_url("/resources/js/bootstrap-notify.min.js") ?>"></script>
-<?php if(!empty($this->session->flashdata('item'))):?>
-    <?php $msg = $this->session->flashdata('item');?>
-    <!--div class="alert <?php echo $msg['class']?>" id="notify-id">
+<?php if (!empty($this->session->flashdata('item'))): ?>
+    <?php $msg = $this->session->flashdata('item'); ?>
+    <!--div class="alert <?php echo $msg['class'] ?>" id="notify-id">
         <a class="close" href="#" data-dismiss="alert">x</a>
         <strong>Información!</strong> <?php //echo $msg['message']?>
     </div-->
@@ -830,7 +924,7 @@
             }
         );
     </script>
-<?php endif;?>
+<?php endif; ?>
 </body>
 
 <!-- Mirrored from new.uouapps.com/quick-finder/index2.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 Nov 2017 14:43:23 GMT -->

@@ -35,10 +35,14 @@ class Categories extends CI_Controller {
         $data["tab"]="category";
         $data["tabTitle"]="categor&iacute;as";
 
-        $bannersRepo = $em->getRepository('Entities\Banner');
-        $banner = $bannersRepo->findBy(array('name' => 'categorías'), array(), 1);
-        if (count($banner))
-            $data['banner'] = $banner[0];
+        $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
+        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        if (count($configRegionGlobal))
+            $data['configRegionGlobal'] = $configRegionGlobal;
+
+        $configRegionHome = $configRegionRepo->findBy(array('group'=>'categories'), array());
+        if (count($configRegionHome))
+            $data['configRegionHome'] = $configRegionHome;
 		$this->load->view('/includes/contentpage', $data);
 	}
 
@@ -49,10 +53,15 @@ class Categories extends CI_Controller {
         $data["tabTitle"]="crear categor&iacute;a";
 
         $em = $this->doctrine->em;
-        $bannersRepo = $em->getRepository('Entities\Banner');
-        $banner = $bannersRepo->findBy(array('name' => 'crear categoría'), array(), 1);
-        if (count($banner))
-            $data['banner'] = $banner[0];
+
+        $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
+        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        if (count($configRegionGlobal))
+            $data['configRegionGlobal'] = $configRegionGlobal;
+
+        $configRegionHome = $configRegionRepo->findBy(array('group'=>'categories'), array());
+        if (count($configRegionHome))
+            $data['configRegionHome'] = $configRegionHome;
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -65,10 +74,14 @@ class Categories extends CI_Controller {
             $data['categories'] = $em->find('Entities\Category', $id);
             $data['content'] = '/categories/create';
 
-            $bannersRepo = $em->getRepository('Entities\Banner');
-            $banner = $bannersRepo->findBy(array('name' => 'editar categoría'), array(), 1);
-            if (count($banner))
-                $data['banner'] = $banner[0];
+            $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
+            $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+            if (count($configRegionGlobal))
+                $data['configRegionGlobal'] = $configRegionGlobal;
+
+            $configRegionHome = $configRegionRepo->findBy(array('group'=>'categories'), array());
+            if (count($configRegionHome))
+                $data['configRegionHome'] = $configRegionHome;
             $this->load->view('/includes/contentpage', $data);
         } else {
             $this->session->set_flashdata('item', array('message'=>"No se encontro la categoria a eliminar", 'class'=>'danger'));

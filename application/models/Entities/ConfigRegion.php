@@ -20,13 +20,19 @@ class ConfigRegion
      * @Id @GeneratedValue @Column(type="integer")
      * @var int
      **/
-    protected $id;
+    public $id;
 
     /**
      * @Column(type="string")
      * @var string
      **/
-    protected $region;
+    public $region;
+
+    /**
+     * @Column(type="string")
+     * @var string
+     **/
+    public $group;
 
     /**
      * Bidirectional - One-To-Many (INVERSE SIDE)

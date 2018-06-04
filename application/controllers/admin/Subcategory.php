@@ -26,10 +26,14 @@ class Subcategory extends CI_Controller {
         $data["tab"]="subcategory";
         $data["tabTitle"]="subcategor&iacute;as";
 
-        $bannersRepo = $em->getRepository('Entities\Banner');
-        $banner = $bannersRepo->findBy(array('name' => 'subcategorías'), array(), 1);
-        if (count($banner))
-            $data['banner'] = $banner[0];
+        $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
+        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        if (count($configRegionGlobal))
+            $data['configRegionGlobal'] = $configRegionGlobal;
+
+        $configRegionHome = $configRegionRepo->findBy(array('group'=>'subcategories'), array());
+        if (count($configRegionHome))
+            $data['configRegionHome'] = $configRegionHome;
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -42,10 +46,14 @@ class Subcategory extends CI_Controller {
         $data["tab"]="subcategory";
         $data["tabTitle"]="crear subcategor&iacute;a";
 
-        $bannersRepo = $em->getRepository('Entities\Banner');
-        $banner = $bannersRepo->findBy(array('name' => 'crear subcategoría'), array(), 1);
-        if (count($banner))
-            $data['banner'] = $banner[0];
+        $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
+        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        if (count($configRegionGlobal))
+            $data['configRegionGlobal'] = $configRegionGlobal;
+
+        $configRegionHome = $configRegionRepo->findBy(array('group'=>'subcategories'), array());
+        if (count($configRegionHome))
+            $data['configRegionHome'] = $configRegionHome;
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -59,10 +67,14 @@ class Subcategory extends CI_Controller {
         $data["tab"]="subcategory";
         $data["tabTitle"]="editar subcategor&iacute;a";
 
-        $bannersRepo = $em->getRepository('Entities\Banner');
-        $banner = $bannersRepo->findBy(array('name' => 'editar subcategoría'), array(), 1);
-        if (count($banner))
-            $data['banner'] = $banner[0];
+        $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
+        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        if (count($configRegionGlobal))
+            $data['configRegionGlobal'] = $configRegionGlobal;
+
+        $configRegionHome = $configRegionRepo->findBy(array('group'=>'subcategories'), array());
+        if (count($configRegionHome))
+            $data['configRegionHome'] = $configRegionHome;
         $this->load->view('/includes/contentpage', $data);
 	}
 

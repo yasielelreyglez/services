@@ -30,10 +30,14 @@ class Home extends CI_Controller {
         $lastvisited = $morevisitsRepo->findBy(array(), array('visit_at' => 'DESC'), 4);
         $mostvisited = $morevisitsRepo->findBy(array(), array('visits' => 'DESC'), 3);
 
-        $bannersRepo = $em->getRepository('Entities\Banner');
-        $banner = $bannersRepo->findBy(array('name'=>'inicio'), array(), 1);
-        if (count($banner))
-            $data['banner'] = $banner[0];
+        $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
+        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        if (count($configRegionGlobal))
+            $data['configRegionGlobal'] = $configRegionGlobal;
+
+        $configRegionHome = $configRegionRepo->findBy(array('group'=>'home'), array());
+        if (count($configRegionHome))
+            $data['configRegionHome'] = $configRegionHome;
 
         foreach ($lastvisited as $service) {
             $service->loadRelatedData();

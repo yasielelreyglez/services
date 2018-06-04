@@ -17,47 +17,47 @@ class Banner
      * @Id @GeneratedValue @Column(type="integer")
      * @var int
      **/
-    protected $id;
+    public $id;
 
     /**
      * @Column(type="string")
      * @var string
      **/
-    protected $name;
+    public $name;
 
     /**
      * @Column(type="string")
      * @var string
      **/
-    protected $title;
+    public $title;
 
     /**
      * @Column(type="string",nullable=true)
      * @var string
      **/
-    protected $subtitle;
+    public $subtitle;
 
     /**
      * @Column(type="string")
      * @var string
      **/
-    protected $image;
+    public $image;
 
     /**
      *
      * @OneToMany(targetEntity="ConfigRegion", mappedBy="banners",cascade={"persist", "remove"})
      */
-    protected $configregion;
+    public $configregion;
 
     /**
      * @Column(type="datetime")
      **/
-    protected $created_at;
+    public $created_at;
 
     /**
      * @Column(type="datetime")
      **/
-    protected $updated_at;
+    public $updated_at;
 
     public function __construct()
     {

@@ -281,7 +281,8 @@
     <!--            </div>-->
     <!--        </div>-->
     <!--    </div>-->
-    <div class="subheader subheader-v2 has-bg-image" data-bg-image="<?= isset($banner) ? $banner->getImage() : site_url("/resources/img/$tab-header.jpg") ?>">
+    <div class="subheader subheader-v2 has-bg-image"
+         data-bg-image="<?= isset($banner) ? $banner->getImage() : site_url("/resources/img/$tab-header.jpg") ?>">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
@@ -395,8 +396,13 @@
 <script src="<?= site_url("/resources/js/uou-tabs.js") ?>"></script>
 <script src="<?= site_url("/resources/js/plugins/select2.min.js") ?>"></script>
 <script src="<?= site_url("/resources/js/owl.carousel.min.js") ?>"></script>
-<script src="<?= site_url("/resources/js/gmap3.min.js") ?>"></script>
-<script src="<?= site_url("/resources/js/bootstrap.js") ?>"></script>
+<script src="<? //= site_url("/resources/js/gmap3.min.js") ?>"></script>
+
+<?php if (isset($pages) || isset($banners)) : ?>
+    <script src="<?= site_url("/resources/js/bootstrap4.min.js") ?>"></script>
+<?php else:?>
+    <script src="<?= site_url("/resources/js/bootstrap.js") ?>"></script>
+<?php endif; ?>
 <script src="<?= site_url("/resources/js/admin.js") ?>"></script>
 <script src="<?= site_url("/resources/js/scripts.js") ?>"></script>
 <script src="<?= site_url("/resources/js/jquery.validate.min.js") ?>"></script>

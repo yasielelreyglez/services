@@ -467,3 +467,7 @@ elemento {
 .tab-content .card-body {
     padding: .75rem 1.25rem;
 }
+
+.accordion h5 {
+    margin-top: 0;
+}
