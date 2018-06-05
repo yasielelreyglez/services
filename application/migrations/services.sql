@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-06-2018 a las 23:15:14
+-- Tiempo de generación: 05-06-2018 a las 22:54:57
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 7.0.9
 
@@ -132,6 +132,22 @@ CREATE TABLE `comments` (
   `created` datetime NOT NULL,
   `reportuser_id` int(11) DEFAULT NULL,
   `hided` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `configregion`
+--
+
+CREATE TABLE `configregion` (
+  `id` int(11) NOT NULL,
+  `page_id` int(11) DEFAULT NULL,
+  `banner_id` int(11) DEFAULT NULL,
+  `region` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `group` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -440,7 +456,7 @@ INSERT INTO `services` (`id`, `author_id`, `title`, `subtitle`, `phone`, `addres
 (127, 3, 'mi anuncio', 'slogando', '7575757575', 'direccion', '324234', 'admin@gmail.com', 'http://validate.com', '2018-05-10 20:08:51', 0, '2018-05-10 20:08:51', '2018-05-10 20:08:51', '/resources/services/color1.jpg', 0, 'dwerasfd  asdfeasw asdfe', 0, '/resources/services/thumbs/color1.jpg', 0, NULL, 0, 0, NULL, 0),
 (128, 3, 'mi anuncio', 'slogando', '7575757575', 'direccion', '324234', 'admin@gmail.com', 'http://validate.com', '2018-05-10 20:15:57', 2, '2018-05-10 20:15:57', '2018-05-10 20:15:57', '/resources/services/color1.jpg', 0, 'dwerasfd  asdfeasw asdfe', 0, '/resources/services/thumbs/color1.jpg', 0, '2018-05-17 17:31:55', 0, 0, NULL, 0),
 (129, 3, 'adsf', 'asdf', '34234234', 'sdaf', '344234234', 'asdf@asd', 'http://validate.com', '2018-05-11 21:56:05', 5, '2018-05-11 21:56:05', '2018-05-11 21:56:05', '/resources/services/Logo Nuevo ValCal.png', 0, 'adsfesdfawefsadf', 0, '/resources/services/thumbs/Logo Nuevo ValCal.png', 0, '2018-05-30 21:37:13', 0, 0, NULL, 0),
-(130, 3, 'crear una sub categoria', 'slogando', '23423', '1', '324324', 'asdf@asd', 'http://validate.com', '2018-05-11 22:06:37', 7, '2018-05-11 22:06:37', '2018-05-11 22:06:37', '/resources/services/Home.png', 0, 'sdfaasfasfd', 0, '/resources/services/thumbs/Home.png', 0, '2018-05-30 21:40:35', 0, 0, NULL, 0),
+(130, 3, 'crear una sub categoria', 'slogando', '23423', '1', '324324', 'asdf@asd', 'http://validate.com', '2018-05-11 22:06:37', 8, '2018-05-11 22:06:37', '2018-05-11 22:06:37', '/resources/services/Home.png', 0, 'sdfaasfasfd', 0, '/resources/services/thumbs/Home.png', 0, '2018-06-05 18:37:45', 0, 0, NULL, 0),
 (131, 3, 'Otra ciudad', 'asdf', '7575757575', 'direccion', '324324', 'asdf@asd', 'http://validate.com', '2018-05-12 22:24:41', 3, '2018-05-12 22:24:41', '2018-05-12 22:24:41', '/resources/services/Home.png', 0, 'dwdwdwddwd', 0, '/resources/services/thumbs/Home.png', 0, '2018-05-30 17:25:00', 0, 0, NULL, 0),
 (132, 3, 'buscate', 'servicio creado para probar cercania', '73138060', 'direccion del servicio', '0780', 'correo@electronico.com', 'http://direccion.del.servicio', '2018-05-30 21:46:51', 1, '2018-05-30 21:46:51', '2018-05-30 21:46:51', NULL, 0, 'esta es mi descripcion', 0, NULL, 0, '2018-05-30 21:46:55', 0, 0, NULL, 1);
 
@@ -500,7 +516,7 @@ INSERT INTO `service_user` (`user_id`, `service_id`, `favorite`, `rate`, `contac
 (3, 126, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-05-30 21:26:02'),
 (3, 128, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-05-17 17:31:56'),
 (3, 129, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-05-30 17:11:16'),
-(3, 130, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-05-30 19:22:28'),
+(3, 130, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-06-05 18:37:46'),
 (3, 131, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-05-30 17:25:00'),
 (3, 132, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-05-30 21:46:55'),
 (18, 129, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-05-30 21:37:13'),
@@ -530,7 +546,7 @@ CREATE TABLE `subcategories` (
 INSERT INTO `subcategories` (`id`, `category_id`, `title`, `icon`, `visits`, `created_at`, `updated_at`, `thumb`) VALUES
 (18, 30, 'Televisores', 'http://localhost/services/resources/image/subcategories/servicios_tecnologicos.png', 818, '2017-12-12 10:08:24', '0000-00-00 00:00:00', ''),
 (19, 30, 'Telefonos', 'http://localhost/services/resources/image/subcategories/telefonia_celular.png', 153, '2017-12-12 10:08:47', '0000-00-00 00:00:00', ''),
-(20, 31, 'Hospitales', 'http://localhost/services/resources/image/subcategories/servicios_medicos1.png', 66, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'http://localhost/services/resources/image/subcategories/thumbs/servicios_medicos1.png'),
+(20, 31, 'Hospitales', 'http://localhost/services/resources/image/subcategories/servicios_medicos1.png', 67, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'http://localhost/services/resources/image/subcategories/thumbs/servicios_medicos1.png'),
 (21, 30, 'crear una sub categoria ', 'http://localhost/services/resources/image/subcategories/BAN12.jpg', 16, '2018-03-23 22:55:39', '2018-03-23 22:55:39', ''),
 (22, 31, 'SUBCAT EDITADA', 'http://localhost/services/resources/image/subcategories/Home.png', 0, '2018-05-13 00:43:40', '2018-05-13 00:43:40', ''),
 (23, 31, 'titulo', 'http://localhost/services/resources/image/subcategories/Home1.png', 0, '2018-05-15 15:29:37', '2018-05-15 15:29:37', '');
@@ -685,6 +701,14 @@ ALTER TABLE `comments`
   ADD KEY `IDX_5F9E962A77AEE189` (`reportuser_id`);
 
 --
+-- Indices de la tabla `configregion`
+--
+ALTER TABLE `configregion`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_38774FAAC4663E4` (`page_id`),
+  ADD KEY `IDX_38774FAA684EC833` (`banner_id`);
+
+--
 -- Indices de la tabla `facturacion`
 --
 ALTER TABLE `facturacion`
@@ -830,6 +854,11 @@ ALTER TABLE `cities`
 ALTER TABLE `comments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT de la tabla `configregion`
+--
+ALTER TABLE `configregion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `facturacion`
 --
 ALTER TABLE `facturacion`
@@ -910,6 +939,13 @@ ALTER TABLE `comments`
   ADD CONSTRAINT `FK_5F9E962A77AEE189` FOREIGN KEY (`reportuser_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `FK_5F9E962AA76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `FK_5F9E962AED5CA9E6` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`);
+
+--
+-- Filtros para la tabla `configregion`
+--
+ALTER TABLE `configregion`
+  ADD CONSTRAINT `FK_38774FAA684EC833` FOREIGN KEY (`banner_id`) REFERENCES `banners` (`id`),
+  ADD CONSTRAINT `FK_38774FAAC4663E4` FOREIGN KEY (`page_id`) REFERENCES `pages` (`id`);
 
 --
 -- Filtros para la tabla `images`
