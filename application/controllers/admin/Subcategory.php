@@ -131,6 +131,14 @@ class Subcategory extends CI_Controller {
                 $data["upload_data"] = $this->upload->data();
                 $subcategory->setIcon('resources/image/subcategories/',$data["upload_data"]["file_name"]);
             }
+            $this->upload->upload_path = './resources/image/subcategories/thumbs';
+            if ($this->upload->do_upload('thumb')) {
+                $data["upload_data"] = $this->upload->data();
+                $subcategory->setThumb('resources/image/subcategories/thumbs/',$data["upload_data"]["file_name"]);
+            }else{
+                $subcategory->setThumb('resources/image/subcategories/thumbs/',"marker.png");
+            }
+
 			$subcategory->setTitle($this->input->post('title', TRUE));
 			$subcategory->setCategory($em->find("\Entities\Category",$this->input->post('category_id', TRUE)));
 			$em->persist($subcategory);

@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Observable} from 'rxjs/Observable';
 
 
 /*
@@ -28,7 +29,36 @@ export class ApiProvider {
     };
     this.user = JSON.parse(localStorage.getItem('ServCurrentUser'));
   }
+    payService(id: number, body: any): Promise<any> {
+        if (this.user) {
+            return this.http.post(this.apiBaseUrl + 'api/payservice/' + id, body, {
+                headers: new HttpHeaders().set('Authorization', this.user.token)
+            })
+                .toPromise().then((response) => {
+                    if (response['data']) {
+                        return response['data'];
+                    } else {
+                        return {error: response['error']};
+                    }
+                }
+            );
+        }
+    }
+  memberships(): Promise<any> {
+        if (this.user) {
+            return this.http.get(this.apiBaseUrl + 'api/memberships', {
+                headers: new HttpHeaders().set('Authorization', this.user.token)
+            }).toPromise().then((response) => {
+                    if (response['data']) {
+                        return response['data'];
+                    } else {
+                        return {error: 'Error en el servidor'};
+                    }
+                }
+            ).catch(this.handleError);
+        }
 
+    }
   contactservice(id): Promise<any> {
 
     if (this.user) {

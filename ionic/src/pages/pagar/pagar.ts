@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
+import { NavController, NavParams, Platform} from 'ionic-angular';
 import {PhotoViewer} from "@ionic-native/photo-viewer";
+import {ApiProvider} from '../../providers/api/api';
 
 /**
  * Generated class for the PagarPage page.
@@ -16,21 +17,43 @@ import {PhotoViewer} from "@ionic-native/photo-viewer";
 })
 export class PagarPage {
   membresia:any;
+  memberships:any;
   tipo_p:any;
   codigo:any;
   nombre_t:any;
   numero_t:any;
+  service_id:number
   private preview: string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public photoViewer: PhotoViewer,private platform: Platform) {
+  constructor(
+      public navCtrl: NavController,
+      public navParams: NavParams,
+      public photoViewer: PhotoViewer,
+      private platform: Platform,
+      public apiProv: ApiProvider) {
+      this.service_id = this.navParams.get("service");
+      this.apiProv.memberships().then((result) => {
+
+        this.memberships = result;
+          console.log(result);
+      });
   }
   pagar()
   {
-    this.navCtrl.pop().then((valor) =>{
-    });
+      this.apiProv.payService(this.service_id, {
+          membership: this.membresia,
+          type: this.tipo_p,
+          evidence: this.preview
+      }).then(result=>{
+          this.navCtrl.pop().then((valor) =>{
+
+          });}
+      );
+
   }
 
   ionViewDidLoad() {
     this.preview = "assets/imgs/service_img.png";
+
   }
   viewImg() {
     this.platform.ready().then(() => {

@@ -487,6 +487,7 @@ class Api extends REST_Controller
     public function contactservice_get($id)
     {
         $em = $this->doctrine->em;
+        /** @var \Entities\Service $service */
         $service = $em->find("Entities\Service", $id);
         $user = $this->getCurrentUser();
         if ($user) {
@@ -503,7 +504,8 @@ class Api extends REST_Controller
                 $obj->setUser($user);
             }
             $obj->setContacted(1);
-            $obj->loadRelatedData(null, null, site_url());
+
+
             $em->persist($obj);
             $em->flush();
             $this->set_response($obj, REST_Controller::HTTP_OK);
@@ -685,7 +687,29 @@ class Api extends REST_Controller
         }
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
+    //borrar como servicio visitado
+    public function removevisited_get($id){
+        $user = $this->getCurrentUser();
+        $em = $this->doctrine->em;
+        /** @var \Entities\Service $service */
+        $service = $em->find("Entities\Service", $id);
+        if ($service&&$user) {
+            $criteria = new \Doctrine\Common\Collections\Criteria();
+            $expresion = new \Doctrine\Common\Collections\Expr\Comparison("service", \Doctrine\Common\Collections\Expr\Comparison::EQ, $service);
+            $criteria = $criteria->where($expresion);
+            $relacion = $user->getUserservices()->matching($criteria)->toArray();
 
+            if (count($relacion) > 0) {
+                /** @var \Entities\UserService $userservice */
+                $userservice = array_pop($relacion);
+                $userservice->setVisited(0);
+//            $this->visit_at = new \DateTime("now");
+                $em->persist($userservice);
+                $em->flush();
+            }
+        }
+        $this->set_response($userservice, REST_Controller::HTTP_OK);
+    }
     //obtener servicios visitados
     public function myvisits_get()
     {
@@ -693,6 +717,7 @@ class Api extends REST_Controller
         $criteria = new \Doctrine\Common\Collections\Criteria();
         //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
         $expresion = new \Doctrine\Common\Collections\Expr\Comparison("visited", \Doctrine\Common\Collections\Expr\Comparison::EQ, 1);
+
         $criteria->where($expresion);
         $relacion = $user->getUserservices()->matching($criteria)->toArray();
         $result["desc"] = "Listado de los servicios marcados como favoritos por el usuario";

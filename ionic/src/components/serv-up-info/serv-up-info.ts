@@ -32,9 +32,10 @@ export class ServUpInfoComponent {
   }
 
   Llamar(number) {
+    this.api.contactservice(this.passedService.id);//MARKED AS CONTACTED BEFORE CALL
     this.callNumber.callNumber(number, true)
       .then(() => {
-        this.api.contactservice(this.passedService.id);
+          // this.api.contactservice(this.passedService.id);
       })
       .catch(() => console.log('Error launching dialer'));
   }

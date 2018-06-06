@@ -131,6 +131,17 @@ $(document).ready(function () {
         }
         $('#image_preview').removeClass("hide")
     });
+
+$("#thumb").change(function(event){
+    console.log("cambiando imagen");
+    $('#image_preview_mapa').html("");
+    var total_file=document.getElementById("thumb").files.length;
+    for(var i=0;i<total_file;i++)
+    {
+        $('#image_preview_mapa').append("<img src='"+URL.createObjectURL(event.target.files[i])+"' style='height: 25px'>");
+    }
+    $('#image_preview_mapa').removeClass("hide")
+});
     // $("#submitform").click(function(){
     //     console.log("date submit joedr");
     //     $( "form.f1" ).submit();

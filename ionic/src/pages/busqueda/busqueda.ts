@@ -88,12 +88,10 @@ export class BusquedaPage {
         {
           text: "Si",
           handler: () => {
-            /**
-             * FIXME: Yoidel eliminalo de la BD pero solo de los buscados
-             */
+              this.servProv.removeServiceVisited(id).then(() => {
             this.services = this.services.filter(function(item) {
               return item.id !== id;
-            })
+            })});
           }
         }
       ]
