@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-06-2018 a las 22:54:57
+-- Tiempo de generación: 06-06-2018 a las 22:05:53
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 7.0.9
 
@@ -449,13 +449,13 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`id`, `author_id`, `title`, `subtitle`, `phone`, `address`, `other_phone`, `email`, `url`, `created`, `visits`, `created_at`, `updated_at`, `icon`, `globalrate`, `description`, `professional`, `thumb`, `domicilio`, `visit_at`, `todopais`, `ratereviews`, `imagesList_id`, `enabled`) VALUES
-(123, 3, 'servicio desde web', 'servicio desde web', '213213', 'servicio desde web', '7777', 'admin@gmail.com', 'http://www.google.com', '2018-04-26 21:32:51', 16, '2018-04-26 21:32:51', '2018-04-26 21:32:51', '/resources/services/color1.jpg', 0, '', 1, '/resources/services/thumbs/color1.jpg', 0, '2018-05-17 17:31:49', 0, 0, NULL, 0),
+(123, 3, 'servicio desde web', 'servicio desde web', '213213', 'servicio desde web', '7777', 'admin@gmail.com', 'http://www.google.com', '2018-04-26 21:32:51', 22, '2018-04-26 21:32:51', '2018-04-26 21:32:51', '/resources/services/color1.jpg', 0, '', 1, '/resources/services/thumbs/color1.jpg', 0, '2018-06-06 11:55:31', 0, 0, NULL, 0),
 (124, 3, 'serviciodesde amin', 'serviciodesde amin', '3234234', 'serviciodesde amin', '77777778', 'correo@coje.ahi', 'http://validate.com', '2018-04-27 21:54:01', 5, '2018-04-27 21:54:01', '2018-04-27 21:54:01', '/resources/services/color3.jpg', 0, '', 0, '/resources/services/thumbs/color3.jpg', 0, '2018-05-30 21:25:54', 0, 0, NULL, 0),
 (125, 3, 'titulo2', 'slogan', '3401-2309', 'direccionando', '7777', 'yoidel86@gmail.com', 'http://validate.com', '2018-04-30 20:23:19', 0, '2018-04-30 20:23:19', '2018-04-30 20:23:19', '/resources/services/color4.jpg', 0, 'describete', 0, '/resources/services/thumbs/color4.jpg', 0, NULL, 0, 0, NULL, 0),
 (126, 3, 'mi anuncio', 'slogando', '7575757575', 'direccion', '324234', 'admin@gmail.com', 'http://validate.com', '2018-05-10 20:06:47', 1, '2018-05-10 20:06:47', '2018-05-10 20:06:47', '/resources/services/color1.jpg', 0, 'dwerasfd  asdfeasw asdfe', 0, '/resources/services/thumbs/color1.jpg', 0, '2018-05-30 21:26:02', 0, 0, NULL, 0),
 (127, 3, 'mi anuncio', 'slogando', '7575757575', 'direccion', '324234', 'admin@gmail.com', 'http://validate.com', '2018-05-10 20:08:51', 0, '2018-05-10 20:08:51', '2018-05-10 20:08:51', '/resources/services/color1.jpg', 0, 'dwerasfd  asdfeasw asdfe', 0, '/resources/services/thumbs/color1.jpg', 0, NULL, 0, 0, NULL, 0),
 (128, 3, 'mi anuncio', 'slogando', '7575757575', 'direccion', '324234', 'admin@gmail.com', 'http://validate.com', '2018-05-10 20:15:57', 2, '2018-05-10 20:15:57', '2018-05-10 20:15:57', '/resources/services/color1.jpg', 0, 'dwerasfd  asdfeasw asdfe', 0, '/resources/services/thumbs/color1.jpg', 0, '2018-05-17 17:31:55', 0, 0, NULL, 0),
-(129, 3, 'adsf', 'asdf', '34234234', 'sdaf', '344234234', 'asdf@asd', 'http://validate.com', '2018-05-11 21:56:05', 5, '2018-05-11 21:56:05', '2018-05-11 21:56:05', '/resources/services/Logo Nuevo ValCal.png', 0, 'adsfesdfawefsadf', 0, '/resources/services/thumbs/Logo Nuevo ValCal.png', 0, '2018-05-30 21:37:13', 0, 0, NULL, 0),
+(129, 3, 'adsf', 'asdf', '34234234', 'sdaf', '344234234', 'asdf@asd', 'http://validate.com', '2018-05-11 21:56:05', 7, '2018-05-11 21:56:05', '2018-05-11 21:56:05', '/resources/services/Logo Nuevo ValCal.png', 0, 'adsfesdfawefsadf', 0, '/resources/services/thumbs/Logo Nuevo ValCal.png', 0, '2018-06-06 12:38:17', 0, 0, NULL, 0),
 (130, 3, 'crear una sub categoria', 'slogando', '23423', '1', '324324', 'asdf@asd', 'http://validate.com', '2018-05-11 22:06:37', 8, '2018-05-11 22:06:37', '2018-05-11 22:06:37', '/resources/services/Home.png', 0, 'sdfaasfasfd', 0, '/resources/services/thumbs/Home.png', 0, '2018-06-05 18:37:45', 0, 0, NULL, 0),
 (131, 3, 'Otra ciudad', 'asdf', '7575757575', 'direccion', '324324', 'asdf@asd', 'http://validate.com', '2018-05-12 22:24:41', 3, '2018-05-12 22:24:41', '2018-05-12 22:24:41', '/resources/services/Home.png', 0, 'dwdwdwddwd', 0, '/resources/services/thumbs/Home.png', 0, '2018-05-30 17:25:00', 0, 0, NULL, 0),
 (132, 3, 'buscate', 'servicio creado para probar cercania', '73138060', 'direccion del servicio', '0780', 'correo@electronico.com', 'http://direccion.del.servicio', '2018-05-30 21:46:51', 1, '2018-05-30 21:46:51', '2018-05-30 21:46:51', NULL, 0, 'esta es mi descripcion', 0, NULL, 0, '2018-05-30 21:46:55', 0, 0, NULL, 1);
@@ -511,14 +511,15 @@ CREATE TABLE `service_user` (
 --
 
 INSERT INTO `service_user` (`user_id`, `service_id`, `favorite`, `rate`, `contacted`, `complaint`, `complaint_created`, `visited`, `ratecomment`, `visited_at`) VALUES
-(3, 123, NULL, NULL, NULL, 'servicio denunciado por mi', '2018-05-15 18:18:06', 1, NULL, '2018-05-17 17:31:49'),
-(3, 124, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-05-30 21:25:54'),
-(3, 126, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-05-30 21:26:02'),
-(3, 128, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-05-17 17:31:56'),
-(3, 129, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-05-30 17:11:16'),
+(3, 123, NULL, NULL, 1, 'servicio denunciado por mi', '2018-05-15 18:18:06', 1, NULL, '2018-06-06 11:54:43'),
+(3, 124, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-05-30 21:25:54'),
+(3, 126, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-05-30 21:26:02'),
+(3, 128, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-05-17 17:31:56'),
+(3, 129, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-06-06 12:38:18'),
 (3, 130, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-06-05 18:37:46'),
 (3, 131, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-05-30 17:25:00'),
 (3, 132, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-05-30 21:46:55'),
+(18, 123, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-06-06 11:55:31'),
 (18, 129, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-05-30 21:37:13'),
 (18, 130, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2018-05-30 21:40:35');
 
@@ -544,12 +545,12 @@ CREATE TABLE `subcategories` (
 --
 
 INSERT INTO `subcategories` (`id`, `category_id`, `title`, `icon`, `visits`, `created_at`, `updated_at`, `thumb`) VALUES
-(18, 30, 'Televisores', 'http://localhost/services/resources/image/subcategories/servicios_tecnologicos.png', 818, '2017-12-12 10:08:24', '0000-00-00 00:00:00', ''),
-(19, 30, 'Telefonos', 'http://localhost/services/resources/image/subcategories/telefonia_celular.png', 153, '2017-12-12 10:08:47', '0000-00-00 00:00:00', ''),
+(18, 30, 'Televisores', 'http://localhost/services/resources/image/subcategories/servicios_tecnologicos.png', 820, '2017-12-12 10:08:24', '0000-00-00 00:00:00', 'http://localhost/services/resources/image/subcategories/thumbs/marker.png'),
+(19, 30, 'Telefonos', 'http://localhost/services/resources/image/subcategories/telefonia_celular.png', 159, '2017-12-12 10:08:47', '0000-00-00 00:00:00', 'http://localhost/services/resources/image/subcategories/thumbs/marker.png'),
 (20, 31, 'Hospitales', 'http://localhost/services/resources/image/subcategories/servicios_medicos1.png', 67, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'http://localhost/services/resources/image/subcategories/thumbs/servicios_medicos1.png'),
-(21, 30, 'crear una sub categoria ', 'http://localhost/services/resources/image/subcategories/BAN12.jpg', 16, '2018-03-23 22:55:39', '2018-03-23 22:55:39', ''),
-(22, 31, 'SUBCAT EDITADA', 'http://localhost/services/resources/image/subcategories/Home.png', 0, '2018-05-13 00:43:40', '2018-05-13 00:43:40', ''),
-(23, 31, 'titulo', 'http://localhost/services/resources/image/subcategories/Home1.png', 0, '2018-05-15 15:29:37', '2018-05-15 15:29:37', '');
+(21, 30, 'crear una sub categoria ', 'http://localhost/services/resources/image/subcategories/BAN13.jpg', 24, '2018-03-23 22:55:39', '2018-03-23 22:55:39', 'http://localhost/services/resources/image/subcategories/thumbs/marker.png'),
+(22, 31, 'SUBCAT EDITADA', 'http://localhost/services/resources/image/subcategories/Home.png', 0, '2018-05-13 00:43:40', '2018-05-13 00:43:40', 'http://localhost/services/resources/image/subcategories/thumbs/marker.png'),
+(23, 31, 'titulo', 'http://localhost/services/resources/image/subcategories/Home1.png', 0, '2018-05-15 15:29:37', '2018-05-15 15:29:37', 'http://localhost/services/resources/image/subcategories/thumbs/marker.png');
 
 -- --------------------------------------------------------
 
