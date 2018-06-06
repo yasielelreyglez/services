@@ -40,9 +40,9 @@ class Categories extends CI_Controller {
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'categories'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region'=>'categoriesStarBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
 		$this->load->view('/includes/contentpage', $data);
 	}
 
@@ -59,9 +59,9 @@ class Categories extends CI_Controller {
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'categories'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region'=>'categoriesAddBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -79,10 +79,9 @@ class Categories extends CI_Controller {
             if (count($configRegionGlobal))
                 $data['configRegionGlobal'] = $configRegionGlobal;
 
-            $configRegionHome = $configRegionRepo->findBy(array('group'=>'categories'), array());
-            if (count($configRegionHome))
-                $data['configRegionHome'] = $configRegionHome;
-            $this->load->view('/includes/contentpage', $data);
+            $banner = $configRegionRepo->findBy(array('region'=>'categoriesEditBanner'), array(), 1);
+            if (count($banner))
+                $data['banner'] = $banner[0];
         } else {
             $this->session->set_flashdata('item', array('message'=>"No se encontro la categoria a eliminar", 'class'=>'danger'));
             redirect('admin/categories/index', 'refresh');
