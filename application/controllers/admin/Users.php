@@ -39,9 +39,9 @@ class Users extends CI_Controller
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'categories'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region'=>'userStarBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
 
     }
@@ -63,9 +63,9 @@ class Users extends CI_Controller
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'categories'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region'=>'userAddBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -89,9 +89,9 @@ class Users extends CI_Controller
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'categories'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region'=>'userEditBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
     }
 
