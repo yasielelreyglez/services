@@ -55,9 +55,9 @@ class Pagesc extends CI_Controller
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'personalize'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region'=>'pageAddBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -81,9 +81,9 @@ class Pagesc extends CI_Controller
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'personalize'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region'=>'pageEditBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -107,9 +107,9 @@ class Pagesc extends CI_Controller
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'personalize'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region'=>'pageShowBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -137,9 +137,9 @@ class Pagesc extends CI_Controller
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'personalize'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region'=>'personalizeStarBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -170,9 +170,9 @@ class Pagesc extends CI_Controller
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'personalize'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region'=>'bannerAddBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
     }
     public function editBanner($id)
@@ -185,11 +185,15 @@ class Pagesc extends CI_Controller
             $data["showlogin"] = true;
         }
         $em = $this->doctrine->em;
-        $banner = $em->find('Entities\Banner', $id);
-//        $banner = $bannersRepo->findBy(array('name' => 'crear banner'), array(), 1);
-//        if (count($banner))
-//            $data['banner'] = $banner[0];
-        $data['banner'] = $banner;
+
+        $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
+        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        if (count($configRegionGlobal))
+            $data['configRegionGlobal'] = $configRegionGlobal;
+
+        $banner = $configRegionRepo->findBy(array('region'=>'bannerEditBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -212,9 +216,9 @@ class Pagesc extends CI_Controller
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'personalize'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region'=>'imagenBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0];
         $this->load->view('/includes/contentpage', $data);
     }
 
