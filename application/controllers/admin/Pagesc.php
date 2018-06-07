@@ -51,7 +51,7 @@ class Pagesc extends CI_Controller
         $em = $this->doctrine->em;
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group' => 'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion' => 'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -77,7 +77,7 @@ class Pagesc extends CI_Controller
         }
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group' => 'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=> 'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -103,7 +103,7 @@ class Pagesc extends CI_Controller
         }
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group' => 'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=> 'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -133,7 +133,7 @@ class Pagesc extends CI_Controller
         }
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group' => 'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=> 'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -160,7 +160,7 @@ class Pagesc extends CI_Controller
                         $configRegion = new \Entities\ConfigRegion();
                     }
                     $configRegion->setRegion($region);
-                    $configRegion->setGroup($group);
+                    $configRegion->setGroupRegion($group);
 
                     if ($config['type'] == 'banner') {
                         $banner = $em->find("\Entities\Banner",$config['contentId']);
@@ -196,7 +196,7 @@ class Pagesc extends CI_Controller
         $em = $this->doctrine->em;
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group' => 'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=> 'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -218,7 +218,7 @@ class Pagesc extends CI_Controller
         $em = $this->doctrine->em;
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group' => 'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=> 'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -243,7 +243,7 @@ class Pagesc extends CI_Controller
         $em = $this->doctrine->em;
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group' => 'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=> 'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 

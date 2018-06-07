@@ -40,7 +40,7 @@ class Services extends CI_Controller
         $data["tabTitle"] = "servicios";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -73,7 +73,7 @@ class Services extends CI_Controller
         $data["tabTitle"] = "crear servicios";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -116,7 +116,7 @@ class Services extends CI_Controller
         $data["tabTitle"] = "editar servicios";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -153,7 +153,7 @@ class Services extends CI_Controller
         $data["tabTitle"] = "servicio";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -206,7 +206,7 @@ class Services extends CI_Controller
         $data["tabTitle"] = "servicios denunciados";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 

@@ -35,7 +35,7 @@ class Users extends CI_Controller
         }
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -59,7 +59,7 @@ class Users extends CI_Controller
         $em = $this->doctrine->em;
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -85,7 +85,7 @@ class Users extends CI_Controller
         $em = $this->doctrine->em;
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 

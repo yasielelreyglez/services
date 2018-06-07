@@ -35,7 +35,7 @@ class Pagos extends CI_Controller
         $data["Tipo"] = "Realizados";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -77,7 +77,7 @@ class Pagos extends CI_Controller
         $data["Tipo"] = "solicitados";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -101,7 +101,7 @@ class Pagos extends CI_Controller
         $data["Tipo"] = "activos";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -124,7 +124,7 @@ class Pagos extends CI_Controller
         $data["Tipo"] = "activos";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -146,7 +146,7 @@ class Pagos extends CI_Controller
         $data["Tipo"] = "expirados";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -168,7 +168,7 @@ class Pagos extends CI_Controller
         $data["Tipo"] = "denegados";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -266,7 +266,7 @@ class Pagos extends CI_Controller
         $data["tabTitle"] = "pagos membres&iacute;as";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -286,7 +286,7 @@ class Pagos extends CI_Controller
 
         $em = $this->doctrine->em;
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -305,7 +305,7 @@ class Pagos extends CI_Controller
         $data["tab"] = "pagos";
         $data["tabTitle"] = "editar membres&iacute;a";
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 

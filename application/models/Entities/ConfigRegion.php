@@ -32,7 +32,7 @@ class ConfigRegion
      * @Column(type="string")
      * @var string
      **/
-    public $group;
+    public $groupRegion;
 
     /**
      * Bidirectional - One-To-Many (INVERSE SIDE)
@@ -82,14 +82,14 @@ class ConfigRegion
         $this->updated_at = new \DateTime("now");
     }
 
-    public function getGroup()
+    public function getGroupRegion()
     {
-        return $this->group;
+        return $this->groupRegion;
     }
 
-    public function setGroup($group)
+    public function setGroupRegion($groupRegion)
     {
-        $this->group = $group;
+        $this->groupRegion = $groupRegion;
         $this->updated_at = new \DateTime("now");
     }
 

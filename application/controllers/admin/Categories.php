@@ -36,7 +36,7 @@ class Categories extends CI_Controller {
         $data["tabTitle"]="categor&iacute;as";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -55,7 +55,7 @@ class Categories extends CI_Controller {
         $em = $this->doctrine->em;
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -75,7 +75,7 @@ class Categories extends CI_Controller {
             $data['content'] = '/categories/create';
 
             $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-            $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+            $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
             if (count($configRegionGlobal))
                 $data['configRegionGlobal'] = $configRegionGlobal;
 

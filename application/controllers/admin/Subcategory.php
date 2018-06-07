@@ -27,7 +27,7 @@ class Subcategory extends CI_Controller {
         $data["tabTitle"]="subcategor&iacute;as";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -47,7 +47,7 @@ class Subcategory extends CI_Controller {
         $data["tabTitle"]="crear subcategor&iacute;a";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
@@ -68,7 +68,7 @@ class Subcategory extends CI_Controller {
         $data["tabTitle"]="editar subcategor&iacute;a";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
