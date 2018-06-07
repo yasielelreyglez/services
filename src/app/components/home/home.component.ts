@@ -145,8 +145,13 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
         if (typeof google !== 'undefined') {
             for (let i = 0; i < this.positions.length; i++) {
                 setTimeout(() => {
+                    var iconmarker = "https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2.png";
+                    if(this.positions[i].service.subcategoriesList.length > 0 ){
+                        iconmarker = this.positions[i].service.subcategoriesList[0].thumb;
+                    }
                     const marker = new google.maps.Marker({
                         map: this.map,
+                        icon : iconmarker,
                         position: new google.maps.LatLng(this.positions[i].latitude, this.positions[i].longitude),
                         animation: google.maps.Animation.DROP,
                     });
