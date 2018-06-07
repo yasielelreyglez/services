@@ -1244,7 +1244,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
                                         data-target="#collapseSeven" aria-expanded="false"
                                         aria-controls="collapseSeven">
-                                    Personalizar páginas de gestioón usuarios
+                                    Personalizar páginas de gestión usuarios
                                 </button>
                             </h5>
                         </div>
