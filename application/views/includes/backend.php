@@ -140,8 +140,6 @@
                                 <ul class="demo-menu">
                                     <li><a href="<?= site_url("admin/users") ?>">Mostrar Usuarios</a></li>
                                     <li><a href="<?= site_url("admin/users/create") ?>">Agregar Usuario</a></li>
-                                    <li><a href="<?= site_url("admin/pagesc") ?>">Mostrar Páginas</a></li>
-                                    <li><a href="<?= site_url("admin/pagesc/create") ?>">Crear Página</a></li>
                                     <li><a href="<?= site_url("admin/pagesc/personalize") ?>">Personalizar</a></li>
                                     <li><a href="<?= site_url("admin/pagesc/images") ?>">Imágenes</a></li>
                                 </ul>
@@ -856,8 +854,6 @@
                             class="fa fa-cog"></i> Administrar </a></li>
             <li class="pl10"><a href="<?= site_url("admin/users") ?>">Mostrar Usuarios</a></li>
             <li class="pl10"><a href="<?= site_url("admin/users/create") ?>">Agregar Usuario</a></li>
-            <li class="pl10"><a href="<?= site_url("admin/pagesc") ?>">Mostrar Páginas</a></li>
-            <li class="pl10"><a href="<?= site_url("admin/pagesc/create") ?>">Crear Página</a></li>
             <li class="pl10"><a href="<?= site_url("admin/pagesc/personalize") ?>">Personalizar</a></li>
             <li class="pl10"><a href="<?= site_url("admin/pagesc/images") ?>">Imágenes</a></li>
         </ul>

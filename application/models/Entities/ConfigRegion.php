@@ -32,7 +32,7 @@ class ConfigRegion
      * @Column(type="string")
      * @var string
      **/
-    public $group;
+    public $groupRegion;
 
     /**
      * Bidirectional - One-To-Many (INVERSE SIDE)
@@ -79,6 +79,39 @@ class ConfigRegion
     public function setRegion($region)
     {
         $this->region = $region;
+        $this->updated_at = new \DateTime("now");
+    }
+
+    public function getGroupRegion()
+    {
+        return $this->groupRegion;
+    }
+
+    public function setGroupRegion($groupRegion)
+    {
+        $this->groupRegion = $groupRegion;
+        $this->updated_at = new \DateTime("now");
+    }
+
+    public function getBanner()
+    {
+        return $this->banner;
+    }
+
+    public function setBanner($banner)
+    {
+        $this->banner = $banner;
+        $this->updated_at = new \DateTime("now");
+    }
+
+    public function getPage()
+    {
+        return $this->page;
+    }
+
+    public function setPage($page)
+    {
+        $this->page = $page;
         $this->updated_at = new \DateTime("now");
     }
 }

@@ -118,10 +118,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['global']['socialsTopMenu']['type']"
+                                            <input type="hidden" name="data[global][socialsTopMenu][type]"
                                                    value="page">
                                             <select class="custom-select"
-                                                    name="['global']['socialsTopMenu']['contentId']"
+                                                    name="data[global][socialsTopMenu][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -148,8 +148,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['global']['globalHelp']['type']" value="page">
-                                            <select class="custom-select" name="['global']['globalHelp']['contentId']"
+                                            <input type="hidden" name="data[global][globalHelp][type]" value="page">
+                                            <select class="custom-select" name="data[global][globalHelp][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -193,8 +193,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['home']['homeBanner']['type']" value="banner">
-                                            <select class="custom-select" name="['home']['homeBanner']['contentId']"
+                                            <input type="hidden" name="data[home][homeBanner][type]" value="banner">
+                                            <select class="custom-select" name="data[home][homeBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -221,8 +221,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['home']['homeHelp']['type']" value="page">
-                                            <select class="custom-select" name="['home']['homeHelp']['contentId']"
+                                            <input type="hidden" name="data[home][homeHelp][type]" value="page">
+                                            <select class="custom-select" name="data[home][homeHelp][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -249,8 +249,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['home']['aboutUsRegion']['type']" value="page">
-                                            <select class="custom-select" name="['home']['aboutUsRegion']['contentId']"
+                                            <input type="hidden" name="data[home][aboutUsRegion][type]" value="page">
+                                            <select class="custom-select" name="data[home][aboutUsRegion][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -277,8 +277,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['home']['sponsorsRegion']['type']" value="page">
-                                            <select class="custom-select" name="['home']['sponsorsRegion']['contentId']"
+                                            <input type="hidden" name="data[home][sponsorsRegion][type]" value="page">
+                                            <select class="custom-select" name="data[home][sponsorsRegion][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -305,10 +305,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['home']['preFooterRegion']['type']"
+                                            <input type="hidden" name="data[home][preFooterRegion][type]"
                                                    value="page">
                                             <select class="custom-select"
-                                                    name="['home']['preFooterRegion']['contentId']"
+                                                    name="data[home][preFooterRegion][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -335,8 +335,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['home']['footerRegion']['type']" value="page">
-                                            <select class="custom-select" name="['home']['footerRegion']['contentId']"
+                                            <input type="hidden" name="data[home][footerRegion][type]" value="page">
+                                            <select class="custom-select" name="data[home][footerRegion][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -378,10 +378,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['payment']['paymentStarBanner']['type']"
+                                            <input type="hidden" name="data[payment][paymentStarBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['payment']['paymentStarBanner']['contentId']"
+                                                    name="data[payment][paymentStarBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -408,10 +408,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['payment']['paymentRequestedBanner']['type']"
+                                            <input type="hidden" name="data[payment][paymentRequestedBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['payment']['paymentRequestedBanner']['contentId']"
+                                                    name="data[payment][paymentRequestedBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -438,10 +438,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['payment']['paymentEnabledBanner']['type']"
+                                            <input type="hidden" name="data[payment][paymentEnabledBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['payment']['paymentEnabledBanner']['contentId']"
+                                                    name="data[payment][paymentEnabledBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -468,10 +468,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['payment']['paymentExpiredBanner']['type']"
+                                            <input type="hidden" name="data[payment][paymentExpiredBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['payment']['paymentExpiredBanner']['contentId']"
+                                                    name="data[payment][paymentExpiredBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -498,10 +498,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['payment']['paymentDeniedBanner']['type']"
+                                            <input type="hidden" name="data[payment][paymentDeniedBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['payment']['paymentDeniedBanner']['contentId']"
+                                                    name="data[payment][paymentDeniedBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -528,10 +528,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['payment']['paymentMembresiaBanner']['type']"
+                                            <input type="hidden" name="data[payment][paymentMembresiaBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['payment']['paymentMembresiaBanner']['contentId']"
+                                                    name="data[payment][paymentMembresiaBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -558,10 +558,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['payment']['paymentMembresiaAddBanner']['type']"
+                                            <input type="hidden" name="data[payment][paymentMembresiaAddBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['payment']['paymentMembresiaAddBanner']['contentId']"
+                                                    name="data[payment][paymentMembresiaAddBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -588,10 +588,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['payment']['paymentMembresiaEditBanner']['type']"
+                                            <input type="hidden" name="data[payment][paymentMembresiaEditBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['payment']['paymentMembresiaEditBanner']['contentId']"
+                                                    name="data[payment][paymentMembresiaEditBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -618,8 +618,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['payment']['paymentHelp']['type']" value="page">
-                                            <select class="custom-select" name="['payment']['paymentHelp']['contentId']"
+                                            <input type="hidden" name="data[payment][paymentHelp][type]" value="page">
+                                            <select class="custom-select" name="data[payment][paymentHelp][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -663,10 +663,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['services']['servicesStarBanner']['type']"
+                                            <input type="hidden" name="data[services][servicesStarBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['services']['servicesStarBanner']['contentId']"
+                                                    name="data[services][servicesStarBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -693,10 +693,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['services']['servicesComplaintBanner']['type']"
+                                            <input type="hidden" name="data[services][servicesComplaintBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['services']['servicesComplaintBanner']['contentId']"
+                                                    name="data[services][servicesComplaintBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -723,10 +723,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['services']['servicesShowBanner']['type']"
+                                            <input type="hidden" name="data[services][servicesShowBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['services']['servicesShowBanner']['contentId']"
+                                                    name="data[services][servicesShowBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -753,10 +753,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['services']['servicesAddBanner']['type']"
+                                            <input type="hidden" name="data[services][servicesAddBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['services']['servicesAddBanner']['contentId']"
+                                                    name="data[services][servicesAddBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -783,10 +783,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['services']['servicesEditBanner']['type']"
+                                            <input type="hidden" name="data[services][servicesEditBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['services']['servicesEditBanner']['contentId']"
+                                                    name="data[services][servicesEditBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -813,10 +813,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['services']['servicesHelp']['type']"
+                                            <input type="hidden" name="data[services][servicesHelp][type]"
                                                    value="page">
                                             <select class="custom-select"
-                                                    name="['services']['servicesHelp']['contentId']"
+                                                    name="data[services][servicesHelp][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -858,10 +858,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['categories']['categoriesStarBanner']['type']"
+                                            <input type="hidden" name="data[categories][categoriesStarBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['categories']['categoriesStarBanner']['contentId']"
+                                                    name="data[categories][categoriesStarBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -888,10 +888,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['categories']['categoriesAddBanner']['type']"
+                                            <input type="hidden" name="data[categories][categoriesAddBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['categories']['categoriesAddBanner']['contentId']"
+                                                    name="data[categories][categoriesAddBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -918,10 +918,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['categories']['categoriesEditBanner']['type']"
+                                            <input type="hidden" name="data[categories][categoriesEditBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['categories']['categoriesEditBanner']['contentId']"
+                                                    name="data[categories][categoriesEditBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -948,10 +948,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['categories']['categoriesHelp']['type']"
+                                            <input type="hidden" name="data[categories][categoriesHelp][type]"
                                                    value="page">
                                             <select class="custom-select"
-                                                    name="['categories']['categoriesHelp']['contentId']"
+                                                    name="data[categories][categoriesHelp][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -994,10 +994,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             }
                                             ?>
                                             <input type="hidden"
-                                                   name="['subcategories']['subcategoriesStarBanner']['type']"
+                                                   name="data[subcategories][subcategoriesStarBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['subcategories']['subcategoriesStarBanner']['contentId']"
+                                                    name="data[subcategories][subcategoriesStarBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -1025,10 +1025,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             }
                                             ?>
                                             <input type="hidden"
-                                                   name="['subcategories']['subcategoriesAddBanner']['type']"
+                                                   name="data[subcategories][subcategoriesAddBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['subcategories']['subcategoriesAddBanner']['contentId']"
+                                                    name="data[subcategories][subcategoriesAddBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -1056,10 +1056,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             }
                                             ?>
                                             <input type="hidden"
-                                                   name="['subcategories']['subcategoriesEditBanner']['type']"
+                                                   name="data[subcategories][subcategoriesEditBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['subcategories']['subcategoriesEditBanner']['contentId']"
+                                                    name="data[subcategories][subcategoriesEditBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -1086,10 +1086,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['subcategories']['subcategoriesHelp']['type']"
+                                            <input type="hidden" name="data[subcategories][subcategoriesHelp][type]"
                                                    value="page">
                                             <select class="custom-select"
-                                                    name="['subcategories']['subcategoriesHelp']['contentId']"
+                                                    name="data[subcategories][subcategoriesHelp][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -1131,9 +1131,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['city']['cityStarBanner']['type']"
+                                            <input type="hidden" name="data[city][cityStarBanner][type]"
                                                    value="banner">
-                                            <select class="custom-select" name="['city']['cityStarBanner']['contentId']"
+                                            <select class="custom-select" name="data[city][cityStarBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -1160,9 +1160,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['city']['cityAddBanner']['type']"
+                                            <input type="hidden" name="data[city][cityAddBanner][type]"
                                                    value="banner">
-                                            <select class="custom-select" name="['city']['cityAddBanner']['contentId']"
+                                            <select class="custom-select" name="data[city][cityAddBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -1189,9 +1189,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['city']['cityEditBanner']['type']"
+                                            <input type="hidden" name="data[city][cityEditBanner][type]"
                                                    value="banner">
-                                            <select class="custom-select" name="['city']['cityEditBanner']['contentId']"
+                                            <select class="custom-select" name="data[city][cityEditBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -1218,8 +1218,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['city']['cityHelp']['type']" value="page">
-                                            <select class="custom-select" name="['city']['cityHelp']['contentId']"
+                                            <input type="hidden" name="data[city][cityHelp][type]" value="page">
+                                            <select class="custom-select" name="data[city][cityHelp][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -1244,7 +1244,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
                                         data-target="#collapseSeven" aria-expanded="false"
                                         aria-controls="collapseSeven">
-                                    Personalizar páginas de gestioón usuarios
+                                    Personalizar páginas de gestión usuarios
                                 </button>
                             </h5>
                         </div>
@@ -1263,9 +1263,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['user']['userStarBanner']['type']"
+                                            <input type="hidden" name="data[user][userStarBanner][type]"
                                                    value="banner">
-                                            <select class="custom-select" name="['user']['userStarBanner']['contentId']"
+                                            <select class="custom-select" name="data[user][userStarBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -1292,9 +1292,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['user']['userAddBanner']['type']"
+                                            <input type="hidden" name="data[user][userAddBanner][type]"
                                                    value="banner">
-                                            <select class="custom-select" name="['user']['userAddBanner']['contentId']"
+                                            <select class="custom-select" name="data[user][userAddBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -1321,9 +1321,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['user']['userEditBanner']['type']"
+                                            <input type="hidden" name="data[user][userEditBanner][type]"
                                                    value="banner">
-                                            <select class="custom-select" name="['user']['userEditBanner']['contentId']"
+                                            <select class="custom-select" name="data[user][userEditBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -1350,8 +1350,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['user']['userHelp']['type']" value="page">
-                                            <select class="custom-select" name="['user']['userHelp']['contentId']"
+                                            <input type="hidden" name="data[user][userHelp][type]" value="page">
+                                            <select class="custom-select" name="data[user][userHelp][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -1395,10 +1395,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['personalize']['personalizeStarBanner']['type']"
+                                            <input type="hidden" name="data[personalize][personalizeStarBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['personalize']['personalizeStarBanner']['contentId']"
+                                                    name="data[personalize][personalizeStarBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -1425,10 +1425,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['personalize']['pageAddBanner']['type']"
+                                            <input type="hidden" name="data[personalize][pageAddBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['personalize']['pageAddBanner']['contentId']"
+                                                    name="data[personalize][pageAddBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -1455,10 +1455,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['personalize']['pageShowBanner']['type']"
+                                            <input type="hidden" name="data[personalize][pageShowBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['personalize']['pageShowBanner']['contentId']"
+                                                    name="data[personalize][pageShowBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -1485,10 +1485,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['personalize']['pageEditBanner']['type']"
+                                            <input type="hidden" name="data[personalize][pageEditBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['personalize']['pageEditBanner']['contentId']"
+                                                    name="data[personalize][pageEditBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -1515,10 +1515,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['personalize']['bannerAddBanner']['type']"
+                                            <input type="hidden" name="data[personalize][bannerAddBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['personalize']['bannerAddBanner']['contentId']"
+                                                    name="data[personalize][bannerAddBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -1545,10 +1545,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['personalize']['bannerEditBanner']['type']"
+                                            <input type="hidden" name="data[personalize][bannerEditBanner][type]"
                                                    value="banner">
                                             <select class="custom-select"
-                                                    name="['personalize']['bannerEditBanner']['contentId']"
+                                                    name="data[personalize][bannerEditBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -1575,10 +1575,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['personalize']['personalizeHelp']['type']"
+                                            <input type="hidden" name="data[personalize][personalizeHelp][type]"
                                                    value="page">
                                             <select class="custom-select"
-                                                    name="['personalize']['personalizeHelp']['contentId']"
+                                                    name="data[personalize][personalizeHelp][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -1620,9 +1620,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['imagen']['imagenBanner']['type']"
+                                            <input type="hidden" name="data[imagen][imagenBanner][type]"
                                                    value="banner">
-                                            <select class="custom-select" name="['imagen']['imagenBanner']['contentId']"
+                                            <select class="custom-select" name="data[imagen][imagenBanner][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php
@@ -1649,8 +1649,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     $config = $configRegion;
                                             }
                                             ?>
-                                            <input type="hidden" name="['imagen']['imagenHelp']['type']" value="page">
-                                            <select class="custom-select" name="['imagen']['imagenHelp']['contentId']"
+                                            <input type="hidden" name="data[imagen][imagenHelp][type]" value="page">
+                                            <select class="custom-select" name="data[imagen][imagenHelp][contentId]"
                                                     placeholder="Seleccione contenido">
                                                 <option value="0">Sin seleccionar</option>
                                                 <?php

@@ -40,13 +40,13 @@ class Services extends CI_Controller
         $data["tabTitle"] = "servicios";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'services'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region'=>'servicesStarBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0]->getBanner();
 
         $this->load->view('/includes/contentpage', $data);
     }
@@ -73,13 +73,13 @@ class Services extends CI_Controller
         $data["tabTitle"] = "crear servicios";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'services'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region'=>'servicesAddBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -116,13 +116,13 @@ class Services extends CI_Controller
         $data["tabTitle"] = "editar servicios";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'services'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region'=>'servicesEditBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -153,13 +153,13 @@ class Services extends CI_Controller
         $data["tabTitle"] = "servicio";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'services'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region'=>'servicesShowBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -206,13 +206,13 @@ class Services extends CI_Controller
         $data["tabTitle"] = "servicios denunciados";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'services'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region'=>'servicesComplaintBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 

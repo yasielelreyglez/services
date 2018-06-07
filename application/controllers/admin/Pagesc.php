@@ -51,13 +51,13 @@ class Pagesc extends CI_Controller
         $em = $this->doctrine->em;
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion' => 'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'personalize'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region' => 'pageAddBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -77,13 +77,13 @@ class Pagesc extends CI_Controller
         }
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=> 'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'personalize'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region' => 'pageEditBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -103,13 +103,13 @@ class Pagesc extends CI_Controller
         }
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=> 'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'personalize'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region' => 'pageShowBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -133,24 +133,54 @@ class Pagesc extends CI_Controller
         }
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=> 'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'personalize'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region' => 'personalizeStarBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 
     public function saveConfig()
     {
-        echo '<pre>';
-        print_r($this);
-        echo '</pre>';
-        die;
         $em = $this->doctrine->em;
+        $configs = $this->input->post('data', true);
+        foreach ($configs as $key => $configGroup) {
+            $group = $key;
+            foreach ($configGroup as $k => $config) {
+                if ($config['contentId']) {
+                    $region = $k;
+                    $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
+                    $configRegion = $configRegionRepo->findBy(array('region' => $region), array(), 1);
+                    if (count($configRegion)) {
+                        $configRegion = $configRegion[0];
+                    } else {
+                        $configRegion = new \Entities\ConfigRegion();
+                    }
+                    $configRegion->setRegion($region);
+                    $configRegion->setGroupRegion($group);
 
+                    if ($config['type'] == 'banner') {
+                        $banner = $em->find("\Entities\Banner",$config['contentId']);
+                    } else {
+                        $pages = $em->find("\Entities\Pages",$config['contentId']);
+                    }
+
+                    if (isset($banner)) {
+                        $configRegion->setBanner($banner);
+                    } else {
+                        $configRegion->setPage($pages);
+                    }
+
+                    $em->persist($configRegion);
+                    $em->flush();
+                }
+            }
+        }
+        $this->session->set_flashdata('item', array('message'=>'Se han guardado sus cambios correctamente.', 'class'=>'success', 'icon'=>'fa fa-thumbs-up', 'title'=>"<strong>Bien!:</strong>"));
+        redirect('admin/pagesc/personalize', 'refresh');
     }
 
     public function createBanner()
@@ -166,15 +196,16 @@ class Pagesc extends CI_Controller
         $em = $this->doctrine->em;
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=> 'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'personalize'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region' => 'bannerAddBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
+
     public function editBanner($id)
     {
         $data["title"] = "Crear banner";
@@ -185,11 +216,15 @@ class Pagesc extends CI_Controller
             $data["showlogin"] = true;
         }
         $em = $this->doctrine->em;
-        $banner = $em->find('Entities\Banner', $id);
-//        $banner = $bannersRepo->findBy(array('name' => 'crear banner'), array(), 1);
-//        if (count($banner))
-//            $data['banner'] = $banner[0];
-        $data['banner'] = $banner;
+
+        $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=> 'global'), array());
+        if (count($configRegionGlobal))
+            $data['configRegionGlobal'] = $configRegionGlobal;
+
+        $banner = $configRegionRepo->findBy(array('region' => 'bannerEditBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -208,13 +243,13 @@ class Pagesc extends CI_Controller
         $em = $this->doctrine->em;
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=> 'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'personalize'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region' => 'imagenBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -298,12 +333,13 @@ class Pagesc extends CI_Controller
         }
     }
 
-    public function destroyBanner($id){
+    public function destroyBanner($id)
+    {
         $em = $this->doctrine->em;
         $banner = $em->find("\Entities\Banner", $id);
         $em->remove($banner);
         $em->flush();
-        $this->session->set_flashdata('item', array('message'=>'El elemento ha sido eliminado correctamente.', 'class'=>'success', 'icon'=>'fa fa-warning', 'title'=>"<strong>Bien!:</strong>"));
+        $this->session->set_flashdata('item', array('message' => 'El elemento ha sido eliminado correctamente.', 'class' => 'success', 'icon' => 'fa fa-warning', 'title' => "<strong>Bien!:</strong>"));
         redirect('admin/pagesc/personalize', 'refresh');
     }
 }

@@ -31,11 +31,11 @@ class Home extends CI_Controller {
         $mostvisited = $morevisitsRepo->findBy(array(), array('visits' => 'DESC'), 3);
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'home'), array());
+        $configRegionHome = $configRegionRepo->findBy(array('groupRegion'=>'home'), array());
         if (count($configRegionHome))
             $data['configRegionHome'] = $configRegionHome;
 

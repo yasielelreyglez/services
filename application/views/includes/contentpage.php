@@ -36,12 +36,25 @@
                 <!--                    <li><a href="contact.html">Contacto</a></li>-->
                 <!--                    <li><a href="#">Pol&iacute;ticas</a></li>-->
                 <!--                </ul>-->
+                <?php
+                if (isset($configRegionGlobal)) {
+                    $config = null;
+                    foreach ($configRegionGlobal as $item) {
+                        if ($item->region == 'socialsTopMenu')
+                            $config = $item;
+                    }
+                }
+                ?>
+                <?php if (isset($config)): ?>
+                    <?php echo $config->page->Content; ?>
+                <?php else: ?>
 
                 <ul class="social">
                     <li><a href="#" class="fa fa-facebook"></a></li>
                     <li><a href="#" class="fa fa-twitter"></a></li>
                     <li><a href="#" class="fa fa-google-plus"></a></li>
                 </ul>
+                <?php endif; ?>
 
                 <ul class="authentication">
                     <?php if (isset($showlogin) == true) { ?>
@@ -135,8 +148,6 @@
                                 <ul class="demo-menu">
                                     <li><a href="<?= site_url("admin/users") ?>">Mostrar Usuarios</a></li>
                                     <li><a href="<?= site_url("admin/users/create") ?>">Agregar Usuario</a></li>
-                                    <li><a href="<?= site_url("admin/pagesc") ?>">Mostrar Páginas</a></li>
-                                    <li><a href="<?= site_url("admin/pagesc/create") ?>">Crear Página</a></li>
                                     <li><a href="<?= site_url("admin/pagesc/personalize") ?>">Personalizar</a></li>
                                     <li><a href="<?= site_url("admin/pagesc/images") ?>">Imágenes</a></li>
                                 </ul>
@@ -360,8 +371,6 @@
                             class="fa fa-cog"></i> Administrar </a></li>
             <li class="pl10"><a href="<?= site_url("admin/users") ?>">Mostrar Usuarios</a></li>
             <li class="pl10"><a href="<?= site_url("admin/users/create") ?>">Agregar Usuario</a></li>
-            <li class="pl10"><a href="<?= site_url("admin/pagesc") ?>">Mostrar Páginas</a></li>
-            <li class="pl10"><a href="<?= site_url("admin/pagesc/create") ?>">Crear Página</a></li>
             <li class="pl10"><a href="<?= site_url("admin/pagesc/personalize") ?>">Personalizar</a></li>
             <li class="pl10"><a href="<?= site_url("admin/pagesc/images") ?>">Imágenes</a></li>
         </ul>
@@ -396,7 +405,7 @@
 <script src="<?= site_url("/resources/js/uou-tabs.js") ?>"></script>
 <script src="<?= site_url("/resources/js/plugins/select2.min.js") ?>"></script>
 <script src="<?= site_url("/resources/js/owl.carousel.min.js") ?>"></script>
-<script src="<? //= site_url("/resources/js/gmap3.min.js") ?>"></script>
+<script src="<?= site_url("/resources/js/gmap3.min.js") ?>"></script>
 
 <?php if (isset($pages) || isset($banners)) : ?>
     <script src="<?= site_url("/resources/js/bootstrap4.min.js") ?>"></script>

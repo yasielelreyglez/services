@@ -36,13 +36,13 @@ class Categories extends CI_Controller {
         $data["tabTitle"]="categor&iacute;as";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'categories'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region'=>'categoriesStarBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0]->getBanner();
 		$this->load->view('/includes/contentpage', $data);
 	}
 
@@ -55,13 +55,13 @@ class Categories extends CI_Controller {
         $em = $this->doctrine->em;
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $configRegionHome = $configRegionRepo->findBy(array('group'=>'categories'), array());
-        if (count($configRegionHome))
-            $data['configRegionHome'] = $configRegionHome;
+        $banner = $configRegionRepo->findBy(array('region'=>'categoriesAddBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -75,14 +75,13 @@ class Categories extends CI_Controller {
             $data['content'] = '/categories/create';
 
             $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-            $configRegionGlobal = $configRegionRepo->findBy(array('group'=>'global'), array());
+            $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
             if (count($configRegionGlobal))
                 $data['configRegionGlobal'] = $configRegionGlobal;
 
-            $configRegionHome = $configRegionRepo->findBy(array('group'=>'categories'), array());
-            if (count($configRegionHome))
-                $data['configRegionHome'] = $configRegionHome;
-            $this->load->view('/includes/contentpage', $data);
+            $banner = $configRegionRepo->findBy(array('region'=>'categoriesAddBanner'), array(), 1);
+            if (count($banner))
+                $data['banner'] = $banner[0]->getBanner();
         } else {
             $this->session->set_flashdata('item', array('message'=>"No se encontro la categoria a eliminar", 'class'=>'danger'));
             redirect('admin/categories/index', 'refresh');
