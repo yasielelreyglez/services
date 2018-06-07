@@ -136,7 +136,7 @@ export class TabMapaPage {
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     this.servProv
-      .filterService({}, {}, 6, {
+      .filterService({}, {}, 100, {
         latitude: lat,
         longitude: long
       })
@@ -144,6 +144,10 @@ export class TabMapaPage {
         data => {
           let services = data["services"];
           for (let i = 0; i < services.length; i++) {
+              var iconmarker = "https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2.png";
+              if(services[i].subcategoriesList.length>0){
+                  iconmarker = services[i].subcategoriesList[0].thumb;
+              }
             for (let j = 0; j < services[i].positionsList.length; j++) {
               let marker = new google.maps.Marker({
                 map: this.map,
@@ -152,6 +156,7 @@ export class TabMapaPage {
                   services[i].positionsList[j].latitude,
                   services[i].positionsList[j].longitude
                 ),
+                  icon:iconmarker,
                 name: services[i].positionsList[j].title
               });
 
