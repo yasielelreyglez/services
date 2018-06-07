@@ -1186,14 +1186,15 @@ class Api extends REST_Controller
         //GALERIA DE FOTOS
         $fotos = $this->post('gallery', TRUE);
         if (count($fotos) > 0) {
-            $service->addFotos($fotos, base_url());
+            if($fotos[0]['filename']) {
+                $service->addFotos($fotos, base_url());
 
-            $path = "./resources/services/" . $fotos[0]['filename'];
-            $save = "/resources/services/" . $fotos[0]['filename'];
-            file_put_contents($path, base64_decode($fotos[0]['value']));
-            $service->setIcon($save);
-            $service->setThumb($fotos[0]['filename']);
-
+                $path = "./resources/services/" . $fotos[0]['filename'];
+                $save = "/resources/services/" . $fotos[0]['filename'];
+                file_put_contents($path, base64_decode($fotos[0]['value']));
+                $service->setIcon($save);
+                $service->setThumb($fotos[0]['filename']);
+            }
         }
 
 
