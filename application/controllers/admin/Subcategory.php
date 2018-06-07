@@ -33,7 +33,7 @@ class Subcategory extends CI_Controller {
 
         $banner = $configRegionRepo->findBy(array('region'=>'subcategoriesStarBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -53,7 +53,7 @@ class Subcategory extends CI_Controller {
 
         $banner = $configRegionRepo->findBy(array('region'=>'subcategoriesAddBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -74,7 +74,7 @@ class Subcategory extends CI_Controller {
 
         $banner = $configRegionRepo->findBy(array('region'=>'subcategoriesEditBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
 	}
 

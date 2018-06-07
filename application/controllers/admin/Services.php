@@ -46,7 +46,7 @@ class Services extends CI_Controller
 
         $banner = $configRegionRepo->findBy(array('region'=>'servicesStarBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
 
         $this->load->view('/includes/contentpage', $data);
     }
@@ -79,7 +79,7 @@ class Services extends CI_Controller
 
         $banner = $configRegionRepo->findBy(array('region'=>'servicesAddBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -122,7 +122,7 @@ class Services extends CI_Controller
 
         $banner = $configRegionRepo->findBy(array('region'=>'servicesEditBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -159,7 +159,7 @@ class Services extends CI_Controller
 
         $banner = $configRegionRepo->findBy(array('region'=>'servicesShowBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -212,7 +212,7 @@ class Services extends CI_Controller
 
         $banner = $configRegionRepo->findBy(array('region'=>'servicesComplaintBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 

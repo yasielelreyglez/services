@@ -42,7 +42,7 @@ class Categories extends CI_Controller {
 
         $banner = $configRegionRepo->findBy(array('region'=>'categoriesStarBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
 		$this->load->view('/includes/contentpage', $data);
 	}
 
@@ -61,7 +61,7 @@ class Categories extends CI_Controller {
 
         $banner = $configRegionRepo->findBy(array('region'=>'categoriesAddBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -79,9 +79,9 @@ class Categories extends CI_Controller {
             if (count($configRegionGlobal))
                 $data['configRegionGlobal'] = $configRegionGlobal;
 
-            $banner = $configRegionRepo->findBy(array('region'=>'categoriesEditBanner'), array(), 1);
+            $banner = $configRegionRepo->findBy(array('region'=>'categoriesAddBanner'), array(), 1);
             if (count($banner))
-                $data['banner'] = $banner[0];
+                $data['banner'] = $banner[0]->getBanner();
         } else {
             $this->session->set_flashdata('item', array('message'=>"No se encontro la categoria a eliminar", 'class'=>'danger'));
             redirect('admin/categories/index', 'refresh');

@@ -81,4 +81,37 @@ class ConfigRegion
         $this->region = $region;
         $this->updated_at = new \DateTime("now");
     }
+
+    public function getGroup()
+    {
+        return $this->group;
+    }
+
+    public function setGroup($group)
+    {
+        $this->group = $group;
+        $this->updated_at = new \DateTime("now");
+    }
+
+    public function getBanner()
+    {
+        return $this->banner;
+    }
+
+    public function setBanner($banner)
+    {
+        $this->banner = $banner;
+        $this->updated_at = new \DateTime("now");
+    }
+
+    public function getPage()
+    {
+        return $this->page;
+    }
+
+    public function setPage($page)
+    {
+        $this->page = $page;
+        $this->updated_at = new \DateTime("now");
+    }
 }

@@ -33,7 +33,7 @@ class Cities extends CI_Controller {
 
         $banner = $configRegionRepo->findBy(array('region'=>'cityStarBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -52,7 +52,7 @@ class Cities extends CI_Controller {
 
         $banner = $configRegionRepo->findBy(array('region'=>'cityAddBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
 	}
 
@@ -71,7 +71,7 @@ class Cities extends CI_Controller {
 
         $banner = $configRegionRepo->findBy(array('region'=>'cityEditBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
 	}
 

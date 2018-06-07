@@ -41,7 +41,7 @@ class Pagos extends CI_Controller
 
         $banner = $configRegionRepo->findBy(array('region'=>'paymentStarBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
 
         if (!$this->ion_auth->logged_in()) {
             $data["showlogin"] = true;
@@ -83,7 +83,7 @@ class Pagos extends CI_Controller
 
         $banner = $configRegionRepo->findBy(array('region'=>'paymentRequestedBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
 
     }
@@ -107,7 +107,7 @@ class Pagos extends CI_Controller
 
         $banner = $configRegionRepo->findBy(array('region'=>'paymentEnabledBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -130,7 +130,7 @@ class Pagos extends CI_Controller
 
         $banner = $configRegionRepo->findBy(array('region'=>'paymentStarBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -152,7 +152,7 @@ class Pagos extends CI_Controller
 
         $banner = $configRegionRepo->findBy(array('region'=>'paymentExpiredBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -174,7 +174,7 @@ class Pagos extends CI_Controller
 
         $banner = $configRegionRepo->findBy(array('region'=>'paymentDeniedBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -272,7 +272,7 @@ class Pagos extends CI_Controller
 
         $banner = $configRegionRepo->findBy(array('region'=>'paymentMembresiaBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -292,7 +292,7 @@ class Pagos extends CI_Controller
 
         $banner = $configRegionRepo->findBy(array('region'=>'paymentMembresiaAddBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 
@@ -311,7 +311,7 @@ class Pagos extends CI_Controller
 
         $banner = $configRegionRepo->findBy(array('region'=>'paymentMembresiaEditBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 
