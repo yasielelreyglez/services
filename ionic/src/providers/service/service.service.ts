@@ -143,6 +143,17 @@ export class ServiceProvider {
       ).catch(this.handleError);
   }
 
+  removeServiceVisited(id): Promise<Object> {
+      return this.http.get(this.api.getbaseUrl() + 'api/removevisited/' + id, {
+          headers: new HttpHeaders().set('Authorization', this.auth.getUser().token)
+      })
+          .toPromise()
+          .then(
+              (response) => {
+                  return response;
+              }
+          ).catch(this.handleError);
+  }
   getServicesVisited(): Promise<Object> {
     return this.http.get(this.api.getbaseUrl() + 'api/myvisits', {
       headers: new HttpHeaders().set('Authorization', this.auth.getUser().token)

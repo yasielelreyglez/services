@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import { IonicPage, NavParams } from "ionic-angular";
+import {  NavParams } from "ionic-angular";
 
 import { Geolocation, Geoposition } from "@ionic-native/geolocation";
 import { Position } from "../../models/position";
@@ -42,36 +42,39 @@ export class MapaPage {
     public events: Events
   ) {}
 
-  ionViewDidEnter() {}
+  ionViewDidEnter() {
+
+      this.service = this.navParams.get("service");
+      this.cant_c = this.navParams.get("cant_c");
+      this.positions = this.service.positions;
+
+      //cargar mapa con posiciones
+      if (typeof google !== "undefined") {
+          this.loadMap();
+      }
+  }
 
   ionViewDidLoad() {
-    if (this.auth.getLatitud() != null) {
-      this.latitude = this.auth.getLatitud();
-      this.longitude = this.auth.getLongitud();
-      this.havePosition = true;
-    }
-    if (typeof google !== "undefined") {
-      this.getLocation(this.latitude, this.longitude);
-    }
-    this.auth.currentPosition.subscribe(
-      (data: Geoposition) => {
-        this.havePosition = true;
-        this.latitude = data.coords.latitude;
-        this.longitude = data.coords.longitude;
-      },
-      (error: Geoposition) => {
-        // alert(error);
+      if (this.auth.getLatitud() != null) {
+          this.latitude = this.auth.getLatitud();
+          this.longitude = this.auth.getLongitud();
+          this.havePosition = true;
       }
-    );
-    this.wacthed = false;
-    this.service = this.navParams.get("service");
-    this.cant_c = this.navParams.get("cant_c");
-    this.positions = this.service.positions;
+      if (typeof google !== "undefined") {
+          this.getLocation(this.latitude, this.longitude);
+      }
+      this.auth.currentPosition.subscribe(
+          (data: Geoposition) => {
+              this.havePosition = true;
+              this.latitude = data.coords.latitude;
+              this.longitude = data.coords.longitude;
+          },
+          (error: Geoposition) => {
+              // alert(error);
+          }
+      );
+      this.wacthed = false;
 
-    //cargar mapa con posiciones
-    if (typeof google !== "undefined") {
-      this.loadMap();
-    }
   }
 
   actualZoom(that) {

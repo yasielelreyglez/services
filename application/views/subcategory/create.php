@@ -10,12 +10,21 @@
             <?php if(isset($subcategory)){ ?>
                 <img src="<?=$subcategory->icon?>" width="80px" height="70px"/>
             <?php } ?>
-
+            <div id="image_preview" class="hide" style="height: 80px;width:70px;" >
+            </div>
             <input type="file" <?php if(!isset($subcategory)){ ?>required<?php } ?> name="userfile" id="userfile" size="20" value="<?= isset($subcategory)?$subcategory->icon:''?>"/>
         </div>
-    <div id="image_preview" style="height: 80px;width:70px;" >
-
+    <div class="form-group">
+        <label for="icon">Icono Mapa:</label><br/>
+        <?php if(isset($subcategory)){ ?>
+            <img src="<?=$subcategory->thumb?>" width="25px" height="25px"/>
+        <?php } ?>
+        <div id="image_preview_mapa" class="hide" style="height: 25px;width:25px;" >
+        </div>
+        <input type="file" <?php if(!isset($subcategory)){ ?>required<?php } ?> name="thumb" id="thumb" size="20" value="<?= isset($subcategory)?$subcategory->thumb:''?>"/>
     </div>
+
+
         <div class="form-group">
             <label for="category_id">Categoría:</label><br/>
             <select type="text" class="custom-select" required name="category_id" placeholder="Escoja la categoría" value="<?= isset($subcategory)?$subcategory->category_id:''?>">

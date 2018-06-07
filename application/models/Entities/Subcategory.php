@@ -97,10 +97,11 @@ class Subcategory
 
     public function setIcon($path,$icon)
     {
-//        $thumbstr = str_replace($icon,".png","_thumb.png");
-        createThumb("./".$path.$icon, 25, 25);
         $this->icon = site_url($path.$icon);
-        $this->thumb = site_url($path."thumbs/".$icon);
+    }
+    public function setThumb($path,$icon)
+    {
+        $this->thumb = site_url($path.$icon);
     }
     /**
      * Set category
