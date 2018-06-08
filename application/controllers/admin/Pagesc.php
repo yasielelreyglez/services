@@ -216,6 +216,8 @@ class Pagesc extends CI_Controller
             $data["showlogin"] = true;
         }
         $em = $this->doctrine->em;
+        $bannerEdit = $em->find('Entities\Banner', $id);
+        $data['bannerEdit'] = $bannerEdit;
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
         $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=> 'global'), array());
