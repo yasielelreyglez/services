@@ -82,6 +82,8 @@ class Categories extends CI_Controller {
             $banner = $configRegionRepo->findBy(array('region'=>'categoriesAddBanner'), array(), 1);
             if (count($banner))
                 $data['banner'] = $banner[0]->getBanner();
+
+            $this->load->view('/includes/contentpage', $data);
         } else {
             $this->session->set_flashdata('item', array('message'=>"No se encontro la categoria a eliminar", 'class'=>'danger'));
             redirect('admin/categories/index', 'refresh');
