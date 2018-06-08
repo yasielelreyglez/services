@@ -187,7 +187,7 @@ class Users extends CI_Controller
                     $groupData
                 );
             }
-            if ($result) {
+            if (isset($result)) {
                 $tokenData = array(
                     'userid' => $result,
                     'email' => $user->getEmail(),
