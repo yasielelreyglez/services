@@ -108,6 +108,7 @@
                                     <li><a href="<?= site_url("admin/services") ?>">Mostrar Servicios Existentes</a>
                                     </li>
                                     <li><a href="<?= site_url("admin/services/create") ?>">Crear Servicio</a></li>
+                                    <li><a href="<?= site_url("admin/services/commentsReported") ?>">Comentarios denuciados</a></li>
                                 </ul>
                             </li>
                             <li class="<?= $tab == "category" ? "active" : "" ?>">
@@ -828,6 +829,8 @@
                     Servicios Existentes</a></li>
             <li class="pl10 <?= $tab == "crearservicio" ? "active" : "" ?>"><a
                         href="<?= site_url("admin/services/create") ?>">Crear Servicio</a></li>
+            <li class="pl10 <?= $tab == "crearservicio" ? "active" : "" ?>"><a
+                        href="<?= site_url("admin/services/commentsReported") ?>">Comentarios denuciados</a></li>
 
             <li class="<?= $tab == "category" ? "active" : "" ?>"><a href="<?= site_url("admin/categories") ?>"><i
                             class="fa fa-tag"></i> Categorias</a></li>

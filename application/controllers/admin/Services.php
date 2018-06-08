@@ -40,11 +40,11 @@ class Services extends CI_Controller
         $data["tabTitle"] = "servicios";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion' => 'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $banner = $configRegionRepo->findBy(array('region'=>'servicesStarBanner'), array(), 1);
+        $banner = $configRegionRepo->findBy(array('region' => 'servicesStarBanner'), array(), 1);
         if (count($banner))
             $data['banner'] = $banner[0]->getBanner();
 
@@ -73,11 +73,11 @@ class Services extends CI_Controller
         $data["tabTitle"] = "crear servicios";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion' => 'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $banner = $configRegionRepo->findBy(array('region'=>'servicesAddBanner'), array(), 1);
+        $banner = $configRegionRepo->findBy(array('region' => 'servicesAddBanner'), array(), 1);
         if (count($banner))
             $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
@@ -116,11 +116,11 @@ class Services extends CI_Controller
         $data["tabTitle"] = "editar servicios";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion' => 'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $banner = $configRegionRepo->findBy(array('region'=>'servicesEditBanner'), array(), 1);
+        $banner = $configRegionRepo->findBy(array('region' => 'servicesEditBanner'), array(), 1);
         if (count($banner))
             $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
@@ -153,20 +153,19 @@ class Services extends CI_Controller
         $data["tabTitle"] = "servicio";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion' => 'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $banner = $configRegionRepo->findBy(array('region'=>'servicesShowBanner'), array(), 1);
+        $banner = $configRegionRepo->findBy(array('region' => 'servicesShowBanner'), array(), 1);
         if (count($banner))
             $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 
 
-
-
-    function serviciospro(){
+    function serviciospro()
+    {
         $em = $this->doctrine->em;
         $relacion = $em->getRepository('Entities\UserService');
 
@@ -184,6 +183,7 @@ class Services extends CI_Controller
         $data["tabTitle"] = "servicios denunciados";
         $this->load->view('/includes/contentpage', $data);
     }
+
     /**
      *
      */
@@ -206,14 +206,61 @@ class Services extends CI_Controller
         $data["tabTitle"] = "servicios denunciados";
 
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
-        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion' => 'global'), array());
         if (count($configRegionGlobal))
             $data['configRegionGlobal'] = $configRegionGlobal;
 
-        $banner = $configRegionRepo->findBy(array('region'=>'servicesComplaintBanner'), array(), 1);
+        $banner = $configRegionRepo->findBy(array('region' => 'servicesComplaintBanner'), array(), 1);
         if (count($banner))
             $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
+    }
+
+    function commentsReported()
+    {
+        $em = $this->doctrine->em;
+        $commentsRepo = $em->getRepository('Entities\Comments');
+        $criteria = new Criteria();
+        $criteria->where(Criteria::expr()->neq('reportuser', null));
+        $commentsReported = $commentsRepo->matching($criteria);
+
+        $data["commentsReported"] = $commentsReported;
+        $data['content'] = '/services/commentsreported';
+        $data["tab"] = "services";
+        $data["tabTitle"] = "comentarios denunciados";
+
+        $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion' => 'global'), array());
+        if (count($configRegionGlobal))
+            $data['configRegionGlobal'] = $configRegionGlobal;
+
+        $banner = $configRegionRepo->findBy(array('region' => 'commentsReported'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0]->getBanner();
+        $this->load->view('/includes/contentpage', $data);
+    }
+
+    function removeComentReport($id)
+    {
+        $em = $this->doctrine->em;
+        $commentReported = $em->find("\Entities\Comments", $id);
+
+        $commentReported->setReportuser(null);
+        $em->persist($commentReported);
+        $em->flush();
+        $this->session->set_flashdata('item', array('message' => 'El reporte ha sido eliminado correctamente.', 'class' => 'success', 'icon' => 'fa fa-warning', 'title' => "<strong>Bien!:</strong>"));
+        redirect('admin/services/commentsReported', 'refresh');
+    }
+
+    function destroyComment($id)
+    {
+        $em = $this->doctrine->em;
+        $commentReported = $em->find("\Entities\Comments", $id);
+
+        $em->remove($commentReported);
+        $em->flush();
+        $this->session->set_flashdata('item', array('message' => 'El comentario ha sido eliminado correctamente.', 'class' => 'success', 'icon' => 'fa fa-warning', 'title' => "<strong>Bien!:</strong>"));
+        redirect('admin/services/commentsReported', 'refresh');
     }
 
     # GET /services/destroy/1
@@ -321,7 +368,7 @@ class Services extends CI_Controller
             }
             $em->flush();
             $arr = json_decode($positions);
-            if(is_array($arr)) {
+            if (is_array($arr)) {
                 $service->addPositions(json_decode($positions), true);
             }
             $service->addTimes(json_decode($this->input->post("times")), true);
@@ -393,8 +440,7 @@ class Services extends CI_Controller
 //            //print_r($service);
 //            die;
             redirect('admin/services/index', 'refresh');
-        }
-        else{
+        } else {
             redirect("admin/services/edit/$id", 'refresh');
             echo "NO ESTA REDIRECCIONANDO";
         }
@@ -429,6 +475,7 @@ class Services extends CI_Controller
         $user = $em->find("Entities\User", $usuario);
         return $user;
     }
+
     function quitarQueja($id_service, $id_user)
     {
         $em = $this->doctrine->em;
@@ -445,13 +492,13 @@ class Services extends CI_Controller
         $criteria->andWhere($expresion2);
         $relacion = $service->getServiceusers()->matching($criteria)->toArray();
         if (count($relacion) > 0) {
-                $obj = $relacion[0];
+            $obj = $relacion[0];
             //seteo los campos
             $obj->setComplaint();
             $obj->setComplaintCreated();
             $em->persist($obj);
             $em->flush();
-            }
+        }
         redirect('admin/services/denunciados', 'refresh');
     }
 
