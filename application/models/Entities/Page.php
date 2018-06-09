@@ -5,7 +5,7 @@ namespace Entities;
  * @Entity
  * @Table(name="pages")
  */
-class Pages
+class Page
 {
     /**
      * @Id @GeneratedValue @Column(type="integer")
@@ -27,9 +27,9 @@ class Pages
 
     /**
      *
-     * @OneToMany(targetEntity="ConfigRegion", mappedBy="pages",cascade={"persist", "remove"})
+     * @OneToMany(targetEntity="ConfigRegion", mappedBy="page",cascade={"persist", "remove"})
      */
-    protected $configregion;
+    public $configregion;
 
     /**
      * @Column(type="datetime")

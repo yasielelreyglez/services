@@ -37,7 +37,7 @@ class ConfigRegion
     /**
      * Bidirectional - One-To-Many (INVERSE SIDE)
      *
-     * @ManyToOne(targetEntity="Pages", inversedBy="configregion")
+     * @ManyToOne(targetEntity="Page", inversedBy="configregion")
      */
     public $page;
     public $pageList;

@@ -45,7 +45,7 @@ class Banner
 
     /**
      *
-     * @OneToMany(targetEntity="ConfigRegion", mappedBy="banners",cascade={"persist", "remove"})
+     * @OneToMany(targetEntity="ConfigRegion", mappedBy="banner",cascade={"persist", "remove"})
      */
     public $configregion;
 
