@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h1 class="text-center">{{edit ? 'Editar anuncio:' : 'Crear anuncio:'}}</h1>
+                <h1 class="text-center">{{edit ? 'Editar servicio:' : 'Crear servicio:'}}</h1>
 
                 <mat-horizontal-stepper [linear]="false" (selectionChange)="onChangeTab($event)">
                     <mat-step [stepControl]="firstForm">
@@ -37,7 +37,7 @@
                                    required>
 
                             <label for="description">Descripción *</label>
-                            <textarea id="description" placeholder="Descripción del anuncio" name="description"
+                            <textarea id="description" placeholder="Descripción del servicio" name="description"
                                       [formControl]="firstForm.controls['description']"
                                       [(ngModel)]="service.description" required minlength="250"></textarea>
                             <label for="cities">Ciudades *</label>
