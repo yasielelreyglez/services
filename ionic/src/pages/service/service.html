@@ -4,13 +4,11 @@
 </ion-header>
 
 <ion-content padding>
-  <serv-up-info [passedService]="passedService" [cantComentarios]="cant_c"
-                (rateService)="rateService($event)"></serv-up-info>
+  <serv-up-info [passedService]="passedService" [cantComentarios]="cant_c" (rateService)="rateService($event)"></serv-up-info>
   <ion-grid>
     <ion-row>
       <ion-col col-6 style="padding-left: 0">
-
-        <ion-label *ngIf="passedService.description" text-center color="azul-claro">
+        <ion-label text-wrap *ngIf="passedService.description" text-center color="azul-claro">
           {{passedService.description}}
         </ion-label>
       </ion-col>
@@ -18,8 +16,7 @@
         <button color="azul-oscuro" (click)="regularShare()" ion-button small icon-only>
           <ion-icon name="share"></ion-icon>
         </button>
-        <button *ngIf="loggedIn" color="azul-oscuro" (click)="toogleFavorite(passedService.id)" ion-button small
-                icon-only>
+        <button *ngIf="loggedIn" color="azul-oscuro" (click)="toogleFavorite(passedService.id)" ion-button small icon-only>
           <ion-icon name="heart" [color]="passedService.favorite ? 'favorite_on' : 'favorite_off'"></ion-icon>
         </button>
         <button (click)="presentPopover($event)" style="padding: 0 5px;" ion-button color="danger" small icon-only>
@@ -33,20 +30,20 @@
   <ion-grid>
     <ion-row>
       <ion-col col-6 (click)="openInfo()">
-        <img height="85%" width="85%" src="assets/imgs/informacion.png"/>
+        <img height="85%" width="85%" src="assets/imgs/informacion.png" />
       </ion-col>
 
       <ion-col text-right col-6 (click)="openMapa()">
-        <img height="85%" width="85%" src="assets/imgs/mapa.png"/>
+        <img height="85%" width="85%" src="assets/imgs/mapa.png" />
       </ion-col>
 
 
       <ion-col col-6 (click)="openComentarios()">
-        <img height="85%" width="85%" src="assets/imgs/comentarios.png"/>
+        <img height="85%" width="85%" src="assets/imgs/comentarios.png" />
       </ion-col>
 
       <ion-col text-right *ngIf="passedService.professional == 1 " col-6 (click)="openGaleria()">
-        <img height="85%" width="85%" src="assets/imgs/imagenes.png"/>
+        <img height="85%" width="85%" src="assets/imgs/imagenes.png" />
       </ion-col>
 
     </ion-row>

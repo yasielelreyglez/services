@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from "@angular/core";
+import { Component, ViewChild, ElementRef, NgZone } from "@angular/core";
 import {
   Events,
   IonicPage,
@@ -11,17 +11,18 @@ import {
   Geolocation,
   GeolocationOptions,
   Geoposition,
-
   PositionError
 } from "@ionic-native/geolocation";
 import { FavoritesPage } from "../favorites/favorites";
 import { HttpErrorResponse } from "@angular/common/http";
 import { AuthProvider } from "../../providers/auth/auth";
 import { ServiceProvider } from "../../providers/service/service.service";
+import { ServicePage } from "../service/service";
+import { MyservicesPage } from "./../myservices/myservices";
 
 declare var google;
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: "page-tab-mapa",
   templateUrl: "tab-mapa.html"
@@ -46,7 +47,8 @@ export class TabMapaPage {
     public navParams: NavParams,
     public servProv: ServiceProvider,
     private geolocation: Geolocation,
-    public auth: AuthProvider
+    public auth: AuthProvider,
+    private ngZone: NgZone
   ) {
     //   if (typeof google !== 'undefined') {
     //     this.infowindow = new google.maps.InfoWindow;
@@ -84,11 +86,11 @@ export class TabMapaPage {
         this.addMap(
           this.auth.getlastPosition().coords.latitude,
           this.auth.getlastPosition().coords.longitude,
-            this
+          this
         );
       } else {
         this.latLng = new google.maps.LatLng(-0.22985);
-        this.addMap(-0.22985, -78.52495,this);
+        this.addMap(-0.22985, -78.52495, this);
       }
     } else {
       let toast = this.toastCtrl.create({
@@ -119,11 +121,11 @@ export class TabMapaPage {
     // );
   }
 
-  openLoginPage(){
+  openLoginPage() {
     this.navCtrl.push("LoginPage");
   }
 
-  addMap(lat, long,that) {
+  addMap(lat, long, that) {
     let latLng = new google.maps.LatLng(lat, long);
     let mapOptions = {
       center: latLng,
@@ -144,10 +146,11 @@ export class TabMapaPage {
         data => {
           let services = data["services"];
           for (let i = 0; i < services.length; i++) {
-              var iconmarker = "https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2.png";
-              if(services[i].subcategoriesList.length>0){
-                  iconmarker = services[i].subcategoriesList[0].thumb;
-              }
+            var iconmarker =
+              "https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2.png";
+            if (services[i].subcategoriesList.length > 0) {
+              iconmarker = services[i].subcategoriesList[0].thumb;
+            }
             for (let j = 0; j < services[i].positionsList.length; j++) {
               let marker = new google.maps.Marker({
                 map: this.map,
@@ -156,13 +159,18 @@ export class TabMapaPage {
                   services[i].positionsList[j].latitude,
                   services[i].positionsList[j].longitude
                 ),
-                  icon:iconmarker,
-                name: services[i].positionsList[j].title
+                icon: iconmarker,
+                name: services[i].positionsList[j].title,
+                datosServicio: JSON.stringify(services[i])
               });
 
-                let content = ' <a onclick="that.openService('+services[i].id+')" class=\'custom-marker\' >' +
-                    '<h6 class="tc-blue">' + services[i].title + '</h6></a>' +
-                    '<span class="tc-blue">' + services[i].positionsList[j].title + '</span>';
+              let content ='<a class="custom-marker" >' +
+                '<h6 class="tc-blue">' +
+                services[i].title +
+                "</h6></a>" +
+                '<span class="tc-blue">' +
+                services[i].positionsList[j].title +
+                "</span> <p><small><strong>doble click navega al servicio</strong></small></p>";
               this.addInfoWindow(marker, content);
             }
           }
@@ -191,22 +199,31 @@ export class TabMapaPage {
       position: latLng
     });
 
-    let content = "<p>This is your current position !</p>";
+    let content = "<p>Su posición actual!</p>";
 
     let infoWindow = new google.maps.InfoWindow({
       content: content
     });
 
     google.maps.event.addListener(this.currentP, "click", () => {
+      // console.log(this.currentP);
       infoWindow.open(this.map, this.currentP);
     });
   }
 
   addInfoWindow(marker, content) {
+    google.maps.event.addListener(marker, "dblclick", () => {
+       this.ngZone.run(() => {
+        this.navCtrl.push(ServicePage, {
+          serviceId: JSON.parse(marker['datosServicio'])['id'],
+          service: JSON.parse(marker['datosServicio'])
+        });
+       });
+    });
+
     google.maps.event.addListener(marker, "click", () => {
       this.infowindow.setContent(content);
-      this.infowindow.open(this.map, marker);
-      // this.openService(86);
+        this.infowindow.open(this.map, marker);
     });
   }
 
@@ -217,7 +234,7 @@ export class TabMapaPage {
           pos.coords.latitude,
           pos.coords.longitude
         );
-        this.addMap(pos.coords.latitude, pos.coords.longitude,this);
+        this.addMap(pos.coords.latitude, pos.coords.longitude, this);
       },
       (err: PositionError) => {
         console.log("error : " + err.message);
@@ -242,11 +259,7 @@ export class TabMapaPage {
       });
     });
   }
-
-  openService(id) {
-    this.navCtrl.push(FavoritesPage);
-  }
-
+  /*
   createMarker(place, i) {
     let marker = new google.maps.Marker({
       map: this.map,
@@ -254,18 +267,24 @@ export class TabMapaPage {
       position: place.geometry.location,
       name
     });
-      let content = ' <a onclick="this.openService('+place.service.id+')" class=\'custom-marker\' href="./service/' + place.service.id+'" >' +
-          '<h6 class="tc-blue">' + place.service.title + '</h6></a>' +
-          '<span class="tc-blue">' + place.title + '</span>';
-      this.addInfoWindow(marker, content);
+    let content =
+      ' <a onclick="openService(' +
+      place.service.id +
+      ")\" class='custom-marker' href=\"./service/" +
+      place.service.id +
+      '" >' +
+      '<h6 class="tc-blue">' +
+      place.service.title +
+      "</h6></a>" +
+      '<span class="tc-blue">' +
+      place.title +
+      "</span>";
+    this.addInfoWindow(marker, content);
 
     // let content =
     //   "<a id='" + i + "' class='custom-marker' >" + place.name + "</a>";
     // let content = "<a onclick=\"this.bind(this.openService(86))\" class='custom-marker' >" + place.name + "</a>"
     this.addInfoWindow(marker, content);
-  }
+  } */
 }
 
-function openService(id){
-  console.log(id);
-}
