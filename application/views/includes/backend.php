@@ -57,6 +57,8 @@
                     <?php } else { ?>
                         <li><a href="<?= site_url("admin/auth/logout") ?>">Salir</a></li>
                     <?php } ?>
+                    <li style="border-right: 1px solid #dbdbdb;padding-right: 5px;margin-right: 5px;"><a
+                                href="<?= site_url("admin/home/termsconditions") ?>">Términos y condiciones</a></li>
                     <li><a href="<?= site_url("admin/home/help") ?>">?</a></li>
                 </ul>
 
@@ -108,7 +110,8 @@
                                     <li><a href="<?= site_url("admin/services") ?>">Mostrar Servicios Existentes</a>
                                     </li>
                                     <li><a href="<?= site_url("admin/services/create") ?>">Crear Servicio</a></li>
-                                    <li><a href="<?= site_url("admin/services/commentsReported") ?>">Comentarios denuciados</a></li>
+                                    <li><a href="<?= site_url("admin/services/commentsReported") ?>">Comentarios
+                                            denuciados</a></li>
                                 </ul>
                             </li>
                             <li class="<?= $tab == "category" ? "active" : "" ?>">
@@ -894,7 +897,7 @@
 <script src="<?= site_url("/resources/js/uou-tabs.js") ?>"></script>
 <script src="<?= site_url("/resources/js/plugins/select2.min.js") ?>"></script>
 <script src="<?= site_url("/resources/js/owl.carousel.min.js") ?>"></script>
-<script src="<?= site_url("/resources/js/gmap3.min.js") ?>"></script>
+<script src="<? //= site_url("/resources/js/gmap3.min.js") ?>"></script>
 
 <script src="<?= site_url("/resources/js/bootstrap.js") ?>"></script>
 <script src="<?= site_url("/resources/js/admin.js") ?>"></script>

@@ -63,6 +63,8 @@
                     <?php } else { ?>
                         <li><a href="<?= site_url("admin/auth/logout") ?>">Salir</a></li>
                     <?php } ?>
+                    <li style="border-right: 1px solid #dbdbdb;padding-right: 5px;margin-right: 5px;"><a
+                                href="<?= site_url("admin/home/termsconditions") ?>">Términos y condiciones</a></li>
                     <li><a href="<?= site_url("admin/home/help") ?>">?</a></li>
                 </ul>
 
