@@ -173,6 +173,9 @@ class Position
         $obj->latitude = $this->getLatitude();
         $obj->longitude = $this->getLongitude();
         $obj->title = $this->getTitle();
+        $subList =  $this->getService()->getSubcategories()->toArray();
+        if(count($subList)>0)
+            $obj->icon = $subList[0]->getThumb();
         $obj->service = $this->getService();
         return $obj;
     }

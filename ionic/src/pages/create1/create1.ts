@@ -4,7 +4,7 @@ import {
   NavController,
   Platform,
   NavParams, LoadingController,
-
+  Select
 } from "ionic-angular";
 
 import {ViewChild} from '@angular/core';
@@ -36,7 +36,8 @@ export class Create1Page {
   public CValue: String;
   private subCategories: any;
   private loading: any;
-
+  @ViewChild('subCategoriesS') subCategoriesS: Select;
+  @ViewChild('C') C: Select;
 
   constructor(public subCat: SubCategoryProvider, public navParams: NavParams, public navCtrl: NavController,
               public load: LoadingController,
@@ -59,6 +60,9 @@ export class Create1Page {
         (subCat) => {
           this.subCategories = subCat['data'];
           this.loading.dismiss();
+          setTimeout(() => {
+            this.subCategoriesS.open();
+         },15);
         }
       ).catch(
       (error) => {
@@ -77,6 +81,9 @@ export class Create1Page {
     else {
       this.service.cities = [];
     }
+  }
+  onCancel(){
+    this.C.open();
   }
 
   backToHome() {

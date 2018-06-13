@@ -84,7 +84,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-select  required multiple="true" name="subCategories" [(ngModel)]="service.categories"
+      <ion-select (ionCancel)="onCancel()" #subCategoriesS required multiple="true" name="subCategories" [(ngModel)]="service.categories"
                   placeholder="Selecciona la subcategoria">
         <ion-option *ngFor="let c of subCategories" [value]="c.id">{{c.title}}</ion-option>
       </ion-select>

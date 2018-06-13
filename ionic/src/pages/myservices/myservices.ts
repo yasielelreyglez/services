@@ -6,7 +6,7 @@ import {PhotoViewer} from '@ionic-native/photo-viewer';
 import {Create1Page} from '../create1/create1';
 import {PagarPage} from '../pagar/pagar';
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-myservices',
   templateUrl: 'myservices.html',
