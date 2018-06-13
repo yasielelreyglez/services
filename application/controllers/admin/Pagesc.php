@@ -176,6 +176,16 @@ class Pagesc extends CI_Controller
 
                     $em->persist($configRegion);
                     $em->flush();
+                } else {
+                    $region = $k;
+                    $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
+                    $configRegion = $configRegionRepo->findBy(array('region' => $region), array(), 1);
+                    if (count($configRegion)) {
+                        $configRegion = $configRegion[0];
+
+                        $em->remove($configRegion);
+                        $em->flush();
+                    }
                 }
             }
         }
