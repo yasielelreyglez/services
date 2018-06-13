@@ -139,6 +139,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
+                                            <label>Banner de la ayuda:</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <?php
+                                            foreach ($configRegions as $configRegion) {
+                                                if ($configRegion->getRegion() == 'helpBanner')
+                                                    $config = $configRegion;
+                                            }
+                                            ?>
+                                            <input type="hidden" name="data[global][helpBanner][type]"
+                                                   value="banner">
+                                            <select class="custom-select"
+                                                    name="data[global][helpBanner][contentId]"
+                                                    placeholder="Seleccione contenido">
+                                                <option value="0">Sin seleccionar</option>
+                                                <?php
+                                                foreach ($banners as $banner) {
+                                                    $selected = '';
+                                                    if (isset($config) && $banner->id == $config->banner->id)
+                                                        $selected = 'selected';
+                                                    echo "<option value='$banner->id' " . $selected . ">$banner->name </option>";
+                                                }
+                                                $config = null;
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-6">
                                             <label>Contenido global de la ayuda:</label>
                                         </div>
                                         <div class="col-md-6">

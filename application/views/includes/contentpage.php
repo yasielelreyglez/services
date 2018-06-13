@@ -37,8 +37,8 @@
                 <!--                    <li><a href="#">Pol&iacute;ticas</a></li>-->
                 <!--                </ul>-->
                 <?php
+                $config = null;
                 if (isset($configRegionGlobal)) {
-                    $config = null;
                     foreach ($configRegionGlobal as $item) {
                         if ($item->region == 'socialsTopMenu')
                             $config = $item;

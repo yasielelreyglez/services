@@ -32,8 +32,8 @@
                 <!--                    <li><a href="#">Pol&iacute;ticas</a></li>-->
                 <!--                </ul>-->
                 <?php
+                $config = null;
                 if (isset($configRegionGlobal)) {
-                    $config = null;
                     foreach ($configRegionGlobal as $item) {
                         if ($item->region == 'socialsTopMenu')
                             $config = $item;
@@ -153,11 +153,12 @@
         </div>
     </div> <!-- edn header-navm -->
     <?php
+    $config = null;
     if (isset($configRegionHome)) {
-        $config = null;
         foreach ($configRegionHome as $item) {
-            if ($item->region == 'homeBanner')
+            if ($item->region == 'homeBanner') {
                 $config = $item;
+            }
         }
     }
     ?>
@@ -405,9 +406,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <?php
-                    if (isset($configRegionGlobal)) {
-                        $config = null;
-                        foreach ($configRegionGlobal as $item) {
+                    $config = null;
+                    if (isset($configRegionHome)) {
+                        foreach ($configRegionHome as $item) {
                             if ($item->region == 'aboutUsRegion')
                                 $config = $item;
                         }
@@ -651,9 +652,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <?php
-                    if (isset($configRegionGlobal)) {
-                        $config = null;
-                        foreach ($configRegionGlobal as $item) {
+                    $config = null;
+                    if (isset($configRegionHome)) {
+                        foreach ($configRegionHome as $item) {
                             if ($item->region == 'sponsorsRegion')
                                 $config = $item;
                         }
@@ -689,9 +690,9 @@
         <div class="container">
             <div class="row">
                 <?php
-                if (isset($configRegionGlobal)) {
-                    $config = null;
-                    foreach ($configRegionGlobal as $item) {
+                $config = null;
+                if (isset($configRegionHome)) {
+                    foreach ($configRegionHome as $item) {
                         if ($item->region == 'preFooterRegion')
                             $config = $item;
                     }
@@ -772,9 +773,9 @@
     <div class="uou-block-4a secondary">
         <div class="container">
             <?php
-            if (isset($configRegionGlobal)) {
-                $config = null;
-                foreach ($configRegionGlobal as $item) {
+            $config = null;
+            if (isset($configRegionHome)) {
+                foreach ($configRegionHome as $item) {
                     if ($item->region == 'footerRegion')
                         $config = $item;
                 }

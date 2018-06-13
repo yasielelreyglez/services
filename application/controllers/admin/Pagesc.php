@@ -339,6 +339,12 @@ class Pagesc extends CI_Controller
     {
         $em = $this->doctrine->em;
         $banner = $em->find("\Entities\Banner", $id);
+        $configRegions = $banner->configregion;
+        if (count($configRegions)) {
+            foreach ($configRegions as $configRegion) {
+                $configRegion->setBanner(null);
+            }
+        }
         $em->remove($banner);
         $em->flush();
         $this->session->set_flashdata('item', array('message' => 'El elemento ha sido eliminado correctamente.', 'class' => 'success', 'icon' => 'fa fa-warning', 'title' => "<strong>Bien!:</strong>"));
@@ -349,6 +355,12 @@ class Pagesc extends CI_Controller
     {
         $em = $this->doctrine->em;
         $page = $em->find("\Entities\Page", $id);
+        $configRegions = $page->configregion;
+        if (count($configRegions)) {
+            foreach ($configRegions as $configRegion) {
+                $configRegion->setPage(null);
+            }
+        }
         $em->remove($page);
         $em->flush();
         $this->session->set_flashdata('item', array('message' => 'El elemento ha sido eliminado correctamente.', 'class' => 'success', 'icon' => 'fa fa-warning', 'title' => "<strong>Bien!:</strong>"));

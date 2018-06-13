@@ -7,4 +7,15 @@
  */
 ?>
 
-<?= isset($page) ? $page->getContent() : '' ?>
+<?php
+$config = null;
+if (isset($configRegionGlobal)) {
+    foreach ($configRegionGlobal as $item) {
+        if ($item->region == 'globalHelp')
+            $config = $item;
+    }
+}
+?>
+<?php if (isset($config)): ?>
+    <?php echo $config->page->Content; ?>
+<?php endif; ?>
