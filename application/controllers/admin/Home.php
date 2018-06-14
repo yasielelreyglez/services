@@ -242,15 +242,35 @@ class Home extends CI_Controller {
         $data["tab"]="ayuda";
         $data["tabTitle"]="ayuda";
         $em = $this->doctrine->em;
-        $pagesRepo = $em->getRepository('Entities\Pages');
-        $page = $pagesRepo->findBy(array('title'=>'ayuda'), array(), 1);
-        if (count($page))
-            $data['page'] = $page[0];
 
-        $bannersRepo = $em->getRepository('Entities\Banner');
-        $banner = $bannersRepo->findBy(array('name'=>'ayuda'), array(), 1);
+        $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
+        if (count($configRegionGlobal))
+            $data['configRegionGlobal'] = $configRegionGlobal;
+
+        $bannersRepo = $em->getRepository('Entities\ConfigRegion');
+        $banner = $bannersRepo->findBy(array('region'=>'helpBanner'), array(), 1);
         if (count($banner))
-            $data['banner'] = $banner[0];
+            $data['banner'] = $banner[0]->getBanner();
+        $this->load->view('/includes/contentpage', $data);
+    }
+
+    public function termsconditions()
+    {
+        $data['content'] = '/home/termsconditions';
+        $data["tab"]="términos y condiciones";
+        $data["tabTitle"]="términos y condiciones";
+        $em = $this->doctrine->em;
+
+        $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
+        if (count($configRegionGlobal))
+            $data['configRegionGlobal'] = $configRegionGlobal;
+
+        $bannersRepo = $em->getRepository('Entities\ConfigRegion');
+        $banner = $bannersRepo->findBy(array('region'=>'termsConditionsBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0]->getBanner();
         $this->load->view('/includes/contentpage', $data);
     }
 }

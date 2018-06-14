@@ -25,7 +25,7 @@ class Pagesc extends CI_Controller
     {
         $em = $this->doctrine->em;
         $data["title"] = "Paginas";
-        $pagesRepo = $em->getRepository('Entities\Pages');
+        $pagesRepo = $em->getRepository('Entities\Page');
         $pages = $pagesRepo->findAll();
         $data["pages"] = $pages;
         $data['content'] = '/pages/index';
@@ -65,7 +65,7 @@ class Pagesc extends CI_Controller
     {
         $em = $this->doctrine->em;
         /** @var \Entities\Service $service */
-        $pages = $em->find("\Entities\Pages", $id);
+        $pages = $em->find("\Entities\Page", $id);
 
         $data["title"] = "Paginas";
         $data["page"] = $pages;
@@ -91,7 +91,7 @@ class Pagesc extends CI_Controller
     {
         $em = $this->doctrine->em;
         /** @var \Entities\Service $service */
-        $pages = $em->find("\Entities\Pages", $id);
+        $pages = $em->find("\Entities\Page", $id);
 
         $data["title"] = $pages->getTitle();
         $data["page"] = $pages;
@@ -119,7 +119,7 @@ class Pagesc extends CI_Controller
         $bannersRepo = $em->getRepository('Entities\Banner');
         $banners = $bannersRepo->findAll();
         $data["banners"] = $banners;
-        $pagesRepo = $em->getRepository('Entities\Pages');
+        $pagesRepo = $em->getRepository('Entities\Page');
         $pages = $pagesRepo->findAll();
         $data["pages"] = $pages;
         $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
@@ -165,7 +165,7 @@ class Pagesc extends CI_Controller
                     if ($config['type'] == 'banner') {
                         $banner = $em->find("\Entities\Banner",$config['contentId']);
                     } else {
-                        $pages = $em->find("\Entities\Pages",$config['contentId']);
+                        $pages = $em->find("\Entities\Page",$config['contentId']);
                     }
 
                     if (isset($banner)) {
@@ -176,6 +176,16 @@ class Pagesc extends CI_Controller
 
                     $em->persist($configRegion);
                     $em->flush();
+                } else {
+                    $region = $k;
+                    $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
+                    $configRegion = $configRegionRepo->findBy(array('region' => $region), array(), 1);
+                    if (count($configRegion)) {
+                        $configRegion = $configRegion[0];
+
+                        $em->remove($configRegion);
+                        $em->flush();
+                    }
                 }
             }
         }
@@ -291,17 +301,17 @@ class Pagesc extends CI_Controller
 
         if ($this->form_validation->run()) {
             if (!$id) {
-                $page = new \Entities\Pages();
+                $page = new \Entities\Page();
             } else {
-                $page = $em->find('Entities\Pages', $id);
+                $page = $em->find('Entities\Page', $id);
             }
             $page->setTitle($this->input->post('title', TRUE));
             $page->setContent($this->input->post('content', TRUE));
             $em->persist($page);
             $em->flush();
-            redirect('admin/pagesc/index', 'refresh');
+            redirect('admin/pagesc/personalize', 'refresh');
         }
-        redirect('admin/pagesc/index', 'refresh');
+        redirect('admin/pagesc/personalize', 'refresh');
 
     }
 
@@ -339,7 +349,29 @@ class Pagesc extends CI_Controller
     {
         $em = $this->doctrine->em;
         $banner = $em->find("\Entities\Banner", $id);
+        $configRegions = $banner->configregion;
+        if (count($configRegions)) {
+            foreach ($configRegions as $configRegion) {
+                $configRegion->setBanner(null);
+            }
+        }
         $em->remove($banner);
+        $em->flush();
+        $this->session->set_flashdata('item', array('message' => 'El elemento ha sido eliminado correctamente.', 'class' => 'success', 'icon' => 'fa fa-warning', 'title' => "<strong>Bien!:</strong>"));
+        redirect('admin/pagesc/personalize', 'refresh');
+
+    }
+    public function destroy($id)
+    {
+        $em = $this->doctrine->em;
+        $page = $em->find("\Entities\Page", $id);
+        $configRegions = $page->configregion;
+        if (count($configRegions)) {
+            foreach ($configRegions as $configRegion) {
+                $configRegion->setPage(null);
+            }
+        }
+        $em->remove($page);
         $em->flush();
         $this->session->set_flashdata('item', array('message' => 'El elemento ha sido eliminado correctamente.', 'class' => 'success', 'icon' => 'fa fa-warning', 'title' => "<strong>Bien!:</strong>"));
         redirect('admin/pagesc/personalize', 'refresh');
