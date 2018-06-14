@@ -27,6 +27,8 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
     @ViewChild('map') mapElement: ElementRef;
     map: any;
     latLng: any;
+    latitude:number;
+    longitude: number;
     positions: any;
     infoWindow: any;
     markers: any;
@@ -36,6 +38,8 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
                 private authServices: AuthService) {
         if (typeof google !== 'undefined') {
             this.latLng = new google.maps.LatLng(-0.1911519, -78.4820116);
+            this.latitude = -0.1911519;
+            this.longitude = -78.4820116;
             this.infoWindow = new google.maps.InfoWindow;
             this.markers = new Array();
         }
@@ -43,14 +47,44 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
 
     ngOnInit() {
         window.scrollTo(0, 0);
+        const that = this;
         this.apiServices.moreVisits().subscribe(result => this.morevisits = result);
         this.apiServices.recentVisits().subscribe(result => this.recentvisits = result);
         this.apiServices.categoriesLoaded().subscribe(result => this.categories = result);
+
         this.apiServices.mvPositions().subscribe(result => {
             this.positions = result;
             if (typeof google !== 'undefined') {
                 this.initMap();
                 this.addPositions(this);
+                //agregando marcador del centro
+                setTimeout(() => {
+
+
+                    const marker = new google.maps.Marker({
+                        map: this.map,
+                        icon : "assets/icon/location.png",
+                        draggable: true,
+
+                        position: this.latLng,
+                        animation: google.maps.Animation.DROP,
+                    });
+
+                    this.markers.push(marker);
+
+                    const content = 'marcador centro mapa';
+                    this.addInfoWindow(marker, content);
+                    google.maps.event.addListener(marker, 'dragend', function () {
+                        this.latitude = marker.getPosition().lat();
+                        this.longitude = marker.getPosition().lng();
+                        this.map.panTo(marker.getPosition());
+                        that.filtrar(marker);
+
+                    });
+                    that.filtrar(marker);
+                },  200);
+
+
             }
         });
 
@@ -76,7 +110,46 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
             items: 6
         });
     }
+    filtrar(marker:any):void{
+        this.apiServices.filter({}, {}, 100, {
+            latitude: marker.getPosition().lat(),
+            longitude: marker.getPosition().lng()}
+        ).subscribe(result => {
+            this.addServicePositions(result);
+        });
+    }
+    addServicePositions(result: any): void {
+        var services = result;
+        console.log("agregando posiciones filtrado",result);
 
+        for (let i = 0; i < services.length; i++) {
+            var iconmarker =
+                "https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2.png";
+            if (services[i].subcategoriesList.length > 0) {
+                iconmarker = services[i].subcategoriesList[0].thumb;
+            }
+            for (let j = 0; j < services[i].positionsList.length; j++) {
+                let marker = new google.maps.Marker({
+                    map: this.map,
+                    animation: google.maps.Animation.DROP,
+                    position: new google.maps.LatLng(
+                        services[i].positionsList[j].latitude,
+                        services[i].positionsList[j].longitude
+                    ),
+                    icon: iconmarker,
+                    name: services[i].positionsList[j].title,
+                    datosServicio: JSON.stringify(services[i])
+                });
+                this.markers.push(marker);
+
+                const content = ' <a href="./service/' + services[i].id+'" >' +
+                    '<h6 class="tc-blue">' + services[i].title + '</h6></a>' +
+                    '<span class="tc-blue">' + services[i].positionsList[j].title + '</span>';
+                this.addInfoWindow(marker, content);
+
+            }
+        }
+    }
     ngAfterContentChecked(): void {
         if ($.fn.uouAccordions) {
             $('.uou-accordions').uouAccordions();
@@ -138,36 +211,37 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
                 fullscreenControl: false
             };
             this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
         }
     }
 
-    addPositions(that: any) {
+    addPositions(positions) {
         if (typeof google !== 'undefined') {
-            for (let i = 0; i < this.positions.length; i++) {
+            for (let i = 0; i < positions.length; i++) {
                 setTimeout(() => {
                     var iconmarker = "https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2.png";
-                    if(this.positions[i].icon != null) {
-                       iconmarker = this.positions[i].icon;
+                    if(positions[i].icon != null){
+                       iconmarker = positions[i].icon;
                     }
                     const marker = new google.maps.Marker({
                         map: this.map,
                         icon : iconmarker,
-                        position: new google.maps.LatLng(this.positions[i].latitude, this.positions[i].longitude),
+                        position: new google.maps.LatLng(positions[i].latitude, positions[i].longitude),
                         animation: google.maps.Animation.DROP,
                     });
 
                     this.markers.push(marker);
 
-                    const content = ' <a href="./service/' + this.positions[i].service.id+'" >' +
-                        '<h6 class="tc-blue">' + this.positions[i].service.title + '</h6></a>' +
-                        '<span class="tc-blue">' + this.positions[i].title + '</span>';
+                    const content = ' <a href="./service/' + positions[i].service.id+'" >' +
+                        '<h6 class="tc-blue">' + positions[i].service.title + '</h6></a>' +
+                        '<span class="tc-blue">' + positions[i].title + '</span>';
                     this.addInfoWindow(marker, content);
                 }, i * 200);
             }
 
-            // navigator.geolocation.getCurrentPosition(function (position) {
-            //     console.log(position);
-            // })
+            navigator.geolocation.getCurrentPosition(function (position) {
+                console.log(position);
+            });
 
             // if (window.navigator.geolocation) {
             //     window.navigator.geolocation.watchPosition(function (position) {
@@ -201,6 +275,7 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
     }
 
     ngAfterViewChecked(): void {
+
     }
 
     result_rate(service) {
@@ -216,6 +291,9 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
         return result;
     }
 
+    filterMap(){
+        this
+    }
     filter() {
         const selectCit = $('#filterCit').select2('val');
         const selectSub = $('#filterSub').select2('val');

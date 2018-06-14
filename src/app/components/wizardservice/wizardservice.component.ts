@@ -100,46 +100,6 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
                 filetype: null,
                 value: null,
                 id: null
-            },
-            {
-                position: false,
-                src: 'assets/service_img.png',
-                filename: null,
-                filetype: null,
-                value: null,
-                id: null
-            },
-            {
-                position: false,
-                src: 'assets/service_img.png',
-                filename: null,
-                filetype: null,
-                value: null,
-                id: null
-            },
-            {
-                position: false,
-                src: 'assets/service_img.png',
-                filename: null,
-                filetype: null,
-                value: null,
-                id: null
-            },
-            {
-                position: false,
-                src: 'assets/service_img.png',
-                filename: null,
-                filetype: null,
-                value: null,
-                id: null
-            },
-            {
-                position: false,
-                src: 'assets/service_img.png',
-                filename: null,
-                filetype: null,
-                value: null,
-                id: null
             }];
 
         this.moreImage = true;
@@ -435,8 +395,8 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     }
 
     moreImageGalery() {
-        let count = 9;
-        for (let i = 0; i < 9; i++) {
+        let count = 4;
+        for (let i = 0; i < 4; i++) {
             const current = this.previews[i];
             if (current.position) {
                 count--;
@@ -456,7 +416,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
             const file = event.target.files[0];
             reader.readAsDataURL(file);
             reader.onload = () => {
-                for (let i = 0; i < 9; i++) {
+                for (let i = 0; i < 4; i++) {
                     const current = this.previews[i];
                     if (!current.position) {
                         current.position = true;
@@ -504,7 +464,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         if (this.previews.length > 0) {
 
             this.service.gallery = new Array();
-            for (let i = 0; i < 9; i++) {
+            for (let i = 0; i < 4; i++) {
                 const current = this.previews[i];
                 if (current.position && isNull(current.id)) {
                     this.service.gallery.push({
