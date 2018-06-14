@@ -85,9 +85,11 @@ export class FavoritesPage {
               .diskMarkfavorite(id)
               .then(data => {
                 this.events.publish("dismark:favorite", id);
-                this.services = this.services.filter(function(item) {
-                  return item.id !== id;
-                });
+                setTimeout(() => {
+                  this.services = this.services.filter(function(item) {
+                    return item.id !== id;
+                  });
+                }, 10);
               })
               .catch(error => {});
           }

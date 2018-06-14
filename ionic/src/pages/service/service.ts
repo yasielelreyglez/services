@@ -65,7 +65,7 @@ export class ServicePage {
   }
   regularShare() {
     this.socialSharing.share(
-        this.servPro.getBaseUrl()+"/service/"+this.service.id,
+        this.servPro.getBaseUrl()+"service/"+this.service.id,
       null,
       null,
       null

@@ -77,8 +77,8 @@ export class ModalHorarioPage {
       days: this.tempDay
     });
     this.tempDay = [];
-    this.end_time = null;
-    this.start_time = null;
+    this.end_time = "17:00";
+    this.start_time = "08:00";
   }
 
   deleteHorario(pos: number) {

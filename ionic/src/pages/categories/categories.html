@@ -3,18 +3,16 @@
 </ion-header>
 
 <ion-content padding>
-
-    <!-- <ion-label text-center color="azul-claro">Categorias</ion-label>
+  <!-- <ion-label text-center color="azul-claro">Categorias</ion-label>
 
     <hr class="hr-separador"> -->
-
-    <ion-grid>
-        <ion-row align-items-center>
-            <ion-col align-self-stretch col-4 text-center *ngFor="let cat of categories">
-                <img src="{{cat.icon}}" (click)="openSubcategories(cat.id,cat.title)"/>
-                <a class="tamanno" text-wrap (click)="openSubcategories(cat.id,cat.title)">{{cat.title}}</a>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+  <ion-grid>
+    <ion-row align-items-center>
+      <ion-col align-self-center col-4 text-center *ngFor="let cat of categories">
+        <img src="{{cat.icon}}" (click)="openSubcategories(cat.id,cat.title)"/>
+        <p><a class="tamanno" text-wrap (click)="openSubcategories(cat.id,cat.title)">{{cat.title}}</a></p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>

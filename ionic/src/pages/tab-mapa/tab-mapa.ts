@@ -170,7 +170,7 @@ export class TabMapaPage {
                 "</h6></a>" +
                 '<span class="tc-blue">' +
                 services[i].positionsList[j].title +
-                "</span> <p><small><strong>doble click navega al servicio</strong></small></p>";
+                "</span> <p><small><strong>Doble clic en el ícono para abrir</strong></small></p>";
               this.addInfoWindow(marker, content);
             }
           }
@@ -194,7 +194,7 @@ export class TabMapaPage {
   addMarker(latLng) {
     this.currentP = new google.maps.Marker({
       map: this.map,
-      icon: "http://www.googlemapsmarkers.com/v1/009900/",
+      icon: "assets/icon/location.png",
       animation: google.maps.Animation.DROP,
       position: latLng
     });

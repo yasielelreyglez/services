@@ -1,32 +1,33 @@
-import {Component} from '@angular/core';
+import { Component } from "@angular/core";
 import {
   IonicPage,
   NavController,
   Platform,
-  NavParams, LoadingController,
-  Select
+  NavParams,
+  LoadingController,
+  Select,
+  ToastController
 } from "ionic-angular";
 
-import {ViewChild} from '@angular/core';
-import {ApiProvider} from '../../providers/api/api';
-import {Create2Page} from '../create2/create2';
-import {City} from '../../models/city';
-import {HttpErrorResponse} from '@angular/common/http';
-import {sendService} from '../../models/sendService';
-import {PhotoViewer} from '@ionic-native/photo-viewer';
-import {ServicesPage} from '../services/services';
-import {MyservicesPage} from '../myservices/myservices';
-import {SubCategoryProvider} from "../../providers/sub-category/sub-category";
-
+import { ViewChild } from "@angular/core";
+import { ApiProvider } from "../../providers/api/api";
+import { Create2Page } from "../create2/create2";
+import { City } from "../../models/city";
+import { HttpErrorResponse } from "@angular/common/http";
+import { sendService } from "../../models/sendService";
+import { PhotoViewer } from "@ionic-native/photo-viewer";
+import { ServicesPage } from "../services/services";
+import { MyservicesPage } from "../myservices/myservices";
+import { SubCategoryProvider } from "../../providers/sub-category/sub-category";
 
 // @IonicPage()
 @Component({
-  selector: 'page-create1',
-  templateUrl: 'create1.html',
+  selector: "page-create1",
+  templateUrl: "create1.html"
 })
 export class Create1Page {
   edit: boolean = false;
-  @ViewChild('formu') f;
+  @ViewChild("formu") f;
   preview: any;
   service: sendService;
   cities: City[];
@@ -36,17 +37,21 @@ export class Create1Page {
   public CValue: String;
   private subCategories: any;
   private loading: any;
-  @ViewChild('subCategoriesS') subCategoriesS: Select;
-  @ViewChild('C') C: Select;
+  @ViewChild("subCategoriesS") subCategoriesS: Select;
+  @ViewChild("C") C: Select;
 
-  constructor(public subCat: SubCategoryProvider, public navParams: NavParams, public navCtrl: NavController,
-              public load: LoadingController,
-              public api: ApiProvider,
-              public photoViewer: PhotoViewer, private platform: Platform) {
+  constructor(
+    public subCat: SubCategoryProvider,
+    public navParams: NavParams,
+    public navCtrl: NavController,
+    public load: LoadingController,
+    public api: ApiProvider,
+    public photoViewer: PhotoViewer,
+    private platform: Platform,
+    public toastCtrl: ToastController
+  ) {
     this.service = new sendService();
     this.loadSelect();
-
-
   }
 
   onChangeCategory(CValue) {
@@ -55,34 +60,31 @@ export class Create1Page {
     });
     this.loading.present();
 
-    this.subCat.getsubcategories(CValue)
-      .then(
-        (subCat) => {
-          this.subCategories = subCat['data'];
-          this.loading.dismiss();
-          setTimeout(() => {
-            this.subCategoriesS.open();
-         },15);
-        }
-      ).catch(
-      (error) => {
-        this. loading.dismiss();
-      }
-    );
+    this.subCat
+      .getsubcategories(CValue)
+      .then(subCat => {
+        this.subCategories = subCat["data"];
+        this.loading.dismiss();
+        setTimeout(() => {
+          this.subCategoriesS.open();
+        }, 15);
+      })
+      .catch(error => {
+        this.loading.dismiss();
+      });
   }
 
   allClickedCities() {
     if (this.allCities) {
       this.service.cities = [];
       for (let i = 0; i < this.cities.length; i++) {
-        this.service.cities.push(this.cities[i].id)
+        this.service.cities.push(this.cities[i].id);
       }
-    }
-    else {
+    } else {
       this.service.cities = [];
     }
   }
-  onCancel(){
+  onCancel() {
     this.C.open();
   }
 
@@ -92,7 +94,6 @@ export class Create1Page {
     } else {
       this.navCtrl.popTo(ServicesPage);
     }
-
   }
 
   loadSelect() {
@@ -102,15 +103,12 @@ export class Create1Page {
     this.api.getCities().then(
       data => {
         this.cities = data["data"];
-        this.api.allCategories().then(
-          data => {
-            this.categories = data["data"];
-            // this. loading.dismiss();
-          }
-        );
+        this.api.allCategories().then(data => {
+          this.categories = data["data"];
+          // this. loading.dismiss();
+        });
       },
-      (err: HttpErrorResponse) => {
-      }
+      (err: HttpErrorResponse) => {}
     );
   }
 
@@ -120,7 +118,11 @@ export class Create1Page {
       this.edit = true;
       this.service = this.navParams.get("service");
       let citiesId = [];
-      for (let i = 0; i < this.navParams.get("service").citiesList.length; i++) {
+      for (
+        let i = 0;
+        i < this.navParams.get("service").citiesList.length;
+        i++
+      ) {
         citiesId.push(this.navParams.get("service").citiesList[i].id);
       }
       this.service.cities = citiesId;
@@ -129,15 +131,19 @@ export class Create1Page {
       this.onChangeCategory(this.category);
 
       let subcategoriesId = [];
-      for (let i = 0; i < this.navParams.get("service").subcategoriesList.length; i++) {
-        subcategoriesId.push(this.navParams.get("service").subcategoriesList[i].id);
+      for (
+        let i = 0;
+        i < this.navParams.get("service").subcategoriesList.length;
+        i++
+      ) {
+        subcategoriesId.push(
+          this.navParams.get("service").subcategoriesList[i].id
+        );
       }
       this.service.categories = subcategoriesId;
-      if (this.service.icon)
-        this.preview = this.service.icon;
+      if (this.service.icon) this.preview = this.service.icon;
     }
   }
-
 
   viewImg() {
     this.platform.ready().then(() => {
@@ -148,10 +154,15 @@ export class Create1Page {
   goToCreate2() {
     if (this.f.form.valid) {
       this.navCtrl.push(Create2Page, {
-        service: this.service, //paso el service
+        service: this.service //paso el service
       });
+    } else {
+      let toast = this.toastCtrl.create({
+        message: "Campos incompletos para avanzar",
+        duration: 2000,
+        position: "bottom"
+      });
+      toast.present();
     }
   }
 }
-
-

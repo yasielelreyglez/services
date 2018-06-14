@@ -2,7 +2,7 @@
 
   <ion-navbar hideBackButton>
     <ion-title text-center>
-        <img alt="logo" height="40" src="assets/imgs/logo.png">
+      <img alt="logo" height="40" src="assets/imgs/logo.png">
     </ion-title>
   </ion-navbar>
 
@@ -13,26 +13,28 @@
     <small class="crear-gris">Info adicional</small>
   </h4>
   <div class="progress">
-    <div class="circle done"><span class="label">1</span>
+    <div class="circle done">
+      <span class="label">1</span>
     </div>
     <span class="bar  "></span>
-    <div class="circle done "><span class="label">2</span>
+    <div class="circle done ">
+      <span class="label">2</span>
     </div>
     <span class="bar "></span>
-    <div class="circle active"><span class="label">3</span>
+    <div class="circle active">
+      <span class="label">3</span>
     </div>
     <span class="bar"></span>
-    <div class="circle"><span class="label">4</span>
+    <div class="circle">
+      <span class="label">4</span>
     </div>
   </div>
   <hr class="hr-separador">
 
   <form #formu="ngForm">
-
     <ion-item>
       <ion-label stacked>Teléfono adicional</ion-label>
-      <ion-input type="tel" name="other_phone" [(ngModel)]="service.other_phone"
-                 placeholder="Teléfono adicional ..."></ion-input>
+      <ion-input type="tel" name="other_phone" [(ngModel)]="service.other_phone" placeholder="Teléfono adicional ..."></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Correo electrónico</ion-label>
@@ -41,16 +43,13 @@
     <ion-item>
       <ion-label stacked>Dirección web</ion-label>
       <ion-input type="url" name="web" [(ngModel)]="service.url" placeholder="Dirección web..."></ion-input>
-
     </ion-item>
-
   </form>
 
   <ion-grid>
     <ion-row>
       <ion-col col-12>
-        <button (click)="addHorario()" color="azul-claro" ion-button block
-                margin-bottom="1" margin-top="2">
+        <button (click)="addHorario()" color="azul-claro" ion-button block margin-bottom="1" margin-top="2">
           Gestión de horarios
         </button>
       </ion-col>
@@ -59,16 +58,12 @@
         <button block color="azul-claro" (click)="goToCreate2()" ion-button icon-start>
           <ion-icon name="arrow-round-back"></ion-icon>
           Anterior
-
-
         </button>
       </ion-col>
       <ion-col col-6>
         <button [disabled]="!formu.form.valid" block color="azul-oscuro" (click)="goToCreate4()" ion-button icon-start>
-
           <ion-icon name="arrow-round-forward"></ion-icon>
           Siguiente
-
         </button>
       </ion-col>
 
