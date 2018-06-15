@@ -150,6 +150,7 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
             }
         }
     }
+
     ngAfterContentChecked(): void {
         if ($.fn.uouAccordions) {
             $('.uou-accordions').uouAccordions();
