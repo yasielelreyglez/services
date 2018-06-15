@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
 
                     const marker = new google.maps.Marker({
                         map: this.map,
-                        icon : "assets/icon/location.png",
+                        icon : "assets/img/location.png",
                         draggable: true,
 
                         position: this.latLng,
