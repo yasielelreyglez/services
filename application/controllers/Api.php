@@ -257,8 +257,11 @@ class Api extends REST_Controller
         //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
         $expresion = new \Doctrine\Common\Collections\Expr\Comparison("title", \Doctrine\Common\Collections\Expr\Comparison::CONTAINS, $query);
         $expresion2 = new \Doctrine\Common\Collections\Expr\Comparison("subtitle", \Doctrine\Common\Collections\Expr\Comparison::CONTAINS, $query);
+//        $expresion3 = new \Doctrine\Common\Collections\Expr\Comparison("title", 'ENDS_WITH', $query);
+
         $criteria->where($expresion);
         $criteria->orWhere($expresion2);
+//        $criteria->orWhere($expresion3);
 
         $respuesta = $serviceRepo->matching($criteria);
         foreach ($respuesta as $service) {

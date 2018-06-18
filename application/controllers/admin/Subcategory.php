@@ -110,11 +110,13 @@ class Subcategory extends CI_Controller {
 	function save() {
 		$this->form_validation->set_rules('title', 'Title', 'required');
 		if ($this->form_validation->run()) {
+		    $is_new= false;
             $id = $this->input->post('id', TRUE);
             $em = $this->doctrine->em;
             if($id){
                 $subcategory = $em->find("\Entities\Subcategory",$id);
             }else{
+                $is_new = true;
                 $subcategory = new \Entities\Subcategory();
 
             }
@@ -136,7 +138,9 @@ class Subcategory extends CI_Controller {
                 $data["upload_data"] = $this->upload->data();
                 $subcategory->setThumb('resources/image/subcategories/thumbs/',$data["upload_data"]["file_name"]);
             }else{
-                $subcategory->setThumb('resources/image/subcategories/thumbs/',"marker.png");
+                if($is_new) {
+                    $subcategory->setThumb('resources/image/subcategories/thumbs/', "marker.png");
+                }
             }
 
 			$subcategory->setTitle($this->input->post('title', TRUE));

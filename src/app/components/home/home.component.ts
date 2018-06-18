@@ -293,9 +293,9 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, A
     }
 
     filterMap(){
-        this
+
     }
-    filter() {
+    filter(){
         const selectCit = $('#filterCit').select2('val');
         const selectSub = $('#filterSub').select2('val');
         const selectDis = $('#filterDis').val();

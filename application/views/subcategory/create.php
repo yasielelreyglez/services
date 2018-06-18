@@ -21,7 +21,8 @@
         <?php } ?>
         <div id="image_preview_mapa" class="hide" style="height: 25px;width:25px;" >
         </div>
-        <input type="file" <?php if(!isset($subcategory)){ ?>required<?php } ?> name="thumb" id="thumb" size="20" value="<?= isset($subcategory)?$subcategory->thumb:''?>"/>
+<!--        <?php if(!isset($subcategory)){ ?>required<?php } ?>-->
+        <input type="file"  name="thumb" id="thumb" size="20" value="<?= isset($subcategory)?$subcategory->thumb:''?>"/>
     </div>
 
 
