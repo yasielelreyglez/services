@@ -26,16 +26,30 @@ class User
     public $email;
 
     /**
-     * @Column(type="string")
+     * @Column(type="string",nullable=true)
      * @var string
      **/
     protected $password;
 
     /**
-     * @Column(type="string")
+     * @Column(type="string",nullable=true)
      * @var string
      **/
     protected $ip_address;
+
+    //id del telefono del cliente
+    /**
+     * @Column(type="string")
+     * @var string
+     **/
+    public $phone_id;
+
+    //sistema operativo del telefono
+    /**
+     * @Column(type="string")
+     * @var string
+     **/
+    public $phone_so;
 
     /**
      * @Column(type="string")
@@ -57,6 +71,12 @@ class User
      * @Column(type="datetime")
      **/
     protected $last_login;
+
+    /**
+     * @Column(type="integer")
+     * @var integer
+     **/
+    protected $is_facebook;
 
     /**
      * @Column(type="integer")
@@ -137,6 +157,7 @@ class User
         $this->usercomments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->services = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
 
     public function getId()
     {
@@ -399,6 +420,54 @@ class User
         $mensaje->mensaje=$cuerpo;
         $this->addMensajeCreado($mensaje);
         return $mensaje;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhoneId()
+    {
+        return $this->phone_id;
+    }
+
+    /**
+     * @param string $phone_id
+     */
+    public function setPhoneId($phone_id)
+    {
+        $this->phone_id = $phone_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhoneSo()
+    {
+        return $this->phone_so;
+    }
+
+    /**
+     * @param string $phone_so
+     */
+    public function setPhoneSo($phone_so)
+    {
+        $this->phone_so = $phone_so;
+    }
+
+    /**
+     * @return int
+     */
+    public function getisFacebook()
+    {
+        return $this->is_facebook;
+    }
+
+    /**
+     * @param int $is_facebook
+     */
+    public function setIsFacebook($is_facebook)
+    {
+        $this->is_facebook = $is_facebook;
     }
 
 }

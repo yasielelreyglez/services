@@ -1468,6 +1468,29 @@ class Api extends REST_Controller
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
+    /**
+     *
+     */
+    function updatephone_post(){
+        /** @var \Entities\User $user */
+        $user = $this->getCurrentUser();
+        if($user) {
+            $em = $this->doctrine->em;
+            $phone_id = $this->post('phone_id', TRUE);
+            $phone_os = $this->post('phone_os', TRUE);
+            if($phone_id){
+                $user->setPhoneId($phone_id);
+            }
+            if($phone_os){
+                $user->setPhoneSo($phone_os);
+            }
+            $em->persist($user);
+            $em->flush();
+            $this->set_response($user, REST_Controller::HTTP_OK);
+        }else{
+            $this->set_response("Debe autenticarse", REST_Controller::HTTP_UNAUTHORIZED);
+        }
+    }
     // FUNCIONES CAMBIOS
     function mensajesNoleidos_get()
     {

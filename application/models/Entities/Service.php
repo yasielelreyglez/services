@@ -65,7 +65,11 @@ namespace Entities {
          **/
         public $phone;
 
-
+        /**
+         * @Column(type="string",nullable:true)
+         * @var string
+         **/
+        public $whatsapp;
         /**
          * @Column(type="string",nullable=true)
          * @var string
@@ -505,6 +509,8 @@ namespace Entities {
         {
             return $this->end_time;
         }
+
+
 
         /**
          * Set created
@@ -1176,6 +1182,22 @@ namespace Entities {
         {
             createThumb("./resources/services/$thumb", 700, 500);
             $this->thumb = "/resources/services/thumbs/$thumb";
+        }
+
+        /**
+         * @return string
+         */
+        public function getWhatsapp()
+        {
+            return $this->whatsapp;
+        }
+
+        /**
+         * @param string $whatsapp
+         */
+        public function setWhatsapp($whatsapp)
+        {
+            $this->whatsapp = $whatsapp;
         }
     }
 
