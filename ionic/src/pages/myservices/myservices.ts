@@ -105,8 +105,11 @@ export class MyservicesPage {
 
   }
 
-  pagar() {
-    this.navCtrl.push(PagarPage);
+  pagarServicio(id,titulo) {
+    this.navCtrl.push(PagarPage, {
+      id: id,
+      name: titulo
+    });
   }
 
   editService(serv) {
