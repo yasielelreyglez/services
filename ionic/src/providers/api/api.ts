@@ -151,7 +151,28 @@ export class ApiProvider {
         }
       ).catch(this.handleError);
   }
-
+    getService(id): Promise<Object> {
+        if (this.user.token) {
+            return this.http.get(this.apiBaseUrl + 'api/service/' + id, {
+                headers: new HttpHeaders().set('Authorization', this.user.token)
+            })
+                .toPromise()
+                .then(
+                    (response) => {
+                        return response;
+                    }
+                ).catch(this.handleError);
+        }
+        else {
+            return this.http.get(this.apiBaseUrl + 'api/service/' + id)
+                .toPromise()
+                .then(
+                    (response) => {
+                        return response;
+                    }
+                ).catch(this.handleError);
+        }
+    }
   reportComment(id, data) {
     return this.http.get(this.apiBaseUrl + 'api/reportcomment/' + id, {
       headers: new HttpHeaders().set('Authorization', this.user.token)

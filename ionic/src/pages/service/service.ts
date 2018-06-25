@@ -48,8 +48,10 @@ export class ServicePage {
     this.passedService = this.navParams.get("service");
     // si recibo el id del servicio
     this.servPro.getService(this.navParams.get("serviceId")).then(data => {
+
       this.response = data;
       this.service = data["data"];
+
       this.passedService.servicecommentsList = this.service.servicecommentsList
         ? this.service.servicecommentsList
         : [];

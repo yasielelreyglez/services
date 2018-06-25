@@ -360,7 +360,7 @@ class User
      * @return Mensaje
      */
     public function notificarComentario(Service $servicio){
-        return $this->sendMessageTo($this,"Comentario recibido","Se realizo un nuevo comentario sobre su anuncio {$servicio->getTitle()}");
+        return $this->sendMessageTo($this,$servicio,"Comentario recibido","Se realizo un nuevo comentario sobre su anuncio {$servicio->getTitle()}");
     }
 
     /**
@@ -368,21 +368,21 @@ class User
      * @return Mensaje
      */
     public function notificarDenuncia(Service $servicio){
-        return $this->sendMessageTo($this,"Denuncia recibida","El anuncio {$servicio->getTitle()} ha sido denunciado");
+        return $this->sendMessageTo($this,$servicio,"Denuncia recibida","El anuncio {$servicio->getTitle()} ha sido denunciado");
     }
     /**
      * @param Service $servicio
      * @return Mensaje
      */
     public function notificarBloqueo(Service $servicio){
-        return $this->sendMessageTo($this,"Servicio bloqueado","El anuncio {$servicio->getTitle()} ha sido bloqueado");
+        return $this->sendMessageTo($this,$servicio,"Servicio bloqueado","El anuncio {$servicio->getTitle()} ha sido bloqueado");
     }
     /**
      * @param Service $servicio
      * @return Mensaje
      */
     public function notificarPagoAceptado(Service $servicio){
-        return $this->sendMessageTo($this,"Pago aceptado","El pago sobre el anuncio {$servicio->getTitle()} ha sido aceptado");
+        return $this->sendMessageTo($this,$servicio,"Pago aceptado","El pago sobre el anuncio {$servicio->getTitle()} ha sido aceptado");
     }
     /**
      * @param User $destinatario
@@ -390,11 +390,12 @@ class User
      * @param String $cuerpo
      * @return Mensaje
      */
-    public function sendMessageTo(User $destinatario,$titulo="title",$cuerpo=""){
+    public function sendMessageTo(User $destinatario,Service $servicio,$titulo="title",$cuerpo=""){
         $mensaje = new Mensaje();
         $mensaje->setAuthor($this);
         $mensaje->setDestinatario($destinatario);
         $mensaje->setTitle($titulo);
+        $mensaje->setService($servicio);
         $mensaje->mensaje=$cuerpo;
         $this->addMensajeCreado($mensaje);
         return $mensaje;

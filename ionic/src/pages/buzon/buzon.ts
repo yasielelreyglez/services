@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {ApiProvider} from "../../providers/api/api";
 import {HttpErrorResponse} from "@angular/common/http";
+import {ServicePage} from '../service/service';
 
 /**
  * Generated class for the BuzonPage page.
@@ -35,7 +36,19 @@ export class BuzonPage {
   ionViewDidLoad() {
 
   }
+    verServicio(id){
+        this.api.getService(id).then(data => {
+            let service = data["data"];
+            console.log("servicio obtenido")
+            console.log(service)
+            this.navCtrl.push(ServicePage, {
+                service: service, //paso el service
+                serviceId: id, //si paso el id del servicio para la peticion
+                parentPage: this
+            });
+        });
 
+    }
   deleteMensajes(id) {
     this.api.deleteMensajes(id).then(
       respose=>{

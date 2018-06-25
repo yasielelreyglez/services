@@ -40,7 +40,10 @@ class Mensaje
     protected $updated_at;
 
 
-
+    /**
+     * @ManyToOne(targetEntity="Service", inversedBy="mensajes")
+     */
+    public $service;
 
     /**
      * @ManyToOne(targetEntity="User", inversedBy="mensajesc")
@@ -61,6 +64,9 @@ class Mensaje
 
     public function setAuthor(User $user){
         $this->author = $user;
+    }
+    public function setService(Service $service){
+        $this->service = $service;
     }
 
     public function setDestinatario(User $user){

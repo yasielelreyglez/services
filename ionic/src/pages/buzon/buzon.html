@@ -9,9 +9,10 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item-sliding *ngFor="let msg of mensajes">
+    <ion-item-sliding *ngFor="let msg of mensajes; let i = index" >
       <ion-item >
         <p text-wrap [class]="msg.estado == 0 ? 'sin-leer' :'leido'">{{msg.mensaje}}.</p>
+        <a *ngIf="msg.service != null " (click)="verServicio(msg.service.id)">ver</a>
       </ion-item>
       <ion-item-options side="right">
         <button (click)="deleteMensajes(msg.id)" ion-button icon-only color="danger">

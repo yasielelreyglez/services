@@ -280,6 +280,28 @@ class User extends \Entities\User implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function getIp()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIp', []);
+
+        return parent::getIp();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setIp($ip)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setIp', [$ip]);
+
+        return parent::setIp($ip);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getPassword()
     {
 
@@ -544,12 +566,12 @@ class User extends \Entities\User implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function sendMessageTo(\Entities\User $destinatario, $titulo = 'title', $cuerpo = '')
+    public function sendMessageTo(\Entities\User $destinatario, \Entities\Service $servicio, $titulo = 'title', $cuerpo = '')
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'sendMessageTo', [$destinatario, $titulo, $cuerpo]);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'sendMessageTo', [$destinatario, $servicio, $titulo, $cuerpo]);
 
-        return parent::sendMessageTo($destinatario, $titulo, $cuerpo);
+        return parent::sendMessageTo($destinatario, $servicio, $titulo, $cuerpo);
     }
 
 }

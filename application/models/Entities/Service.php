@@ -143,6 +143,11 @@ namespace Entities {
         public $author;
 
         /**
+         * One User has Many UserService.
+         * @OneToMany(targetEntity="Mensaje", mappedBy="service",cascade={"persist"})
+         */
+        private $mensajes;
+        /**
          * Bidirectional - One-To-Many (INVERSE SIDE)
          *
          * @OneToMany(targetEntity="Position", mappedBy="service",cascade={"persist", "remove"})
@@ -205,9 +210,7 @@ namespace Entities {
         private $images;
 
 
-        /**
-         * @ManyToOne(targetEntity="User", inversedBy="mensajes")
-         */
+
 
         public $imagesList;
         /////DATOS RELACIONADOS CON EL USUARIO
@@ -565,7 +568,15 @@ namespace Entities {
         {
             return $this->positions;
         }
-
+        /**
+         * Get mensajes
+         *
+         * @return \Doctrine\Common\Collections\Collection<Mensaje>
+         */
+        public function getMensajes()
+        {
+            return $this->mensates;
+        }
         /**
          * Add position
          *
