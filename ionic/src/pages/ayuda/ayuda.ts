@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 
 /**
  * Generated class for the AyudaPage page.
@@ -10,16 +10,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-ayuda',
-  templateUrl: 'ayuda.html',
+  selector: "page-ayuda",
+  templateUrl: "ayuda.html"
 })
 export class AyudaPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  msg = "";
+  msgAdmin = "";
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AyudaPage');
   }
 
+  mensajeAdmin() {
+    this.msgAdmin = "mailto:info@losyp.com?subject=DesdeLosyp&body=" + this.msg;
+  }
 }
