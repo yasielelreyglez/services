@@ -17,7 +17,7 @@ export class ServUpInfoComponent {
   @Input() cantComentarios: number = 0;
   @Output() rateService: EventEmitter<any> = new EventEmitter<any>();
   loggedIn: boolean;
-
+  msg = "https://api.whatsapp.com/send?phone=593";
 
   constructor(public api: ApiProvider, public auth: AuthProvider,
               private callNumber: CallNumber,
@@ -29,6 +29,9 @@ export class ServUpInfoComponent {
 
   ngAfterViewInit() {
     this.loggedIn = this.auth.isLoggedIn();
+    let base = this.api.getbaseUrl();
+    this.msg = this.msg + this.passedService.phone + "&text=Hola! estoy interesado en tu servicio "+ this.passedService.title +  ". Lo ví en LOSYP " + base +"service/"+this.passedService.id;
+
   }
 
   Llamar(number) {

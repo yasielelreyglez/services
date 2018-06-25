@@ -1,10 +1,14 @@
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import {  NavParams } from "ionic-angular";
+import { NavParams, ToastController } from "ionic-angular";
 
 import { Geolocation, Geoposition } from "@ionic-native/geolocation";
 import { Position } from "../../models/position";
 import { Events } from "ionic-angular";
 import { AuthProvider } from "../../providers/auth/auth";
+import {
+  LaunchNavigator,
+  LaunchNavigatorOptions
+} from "@ionic-native/launch-navigator";
 
 declare var google;
 
@@ -39,10 +43,15 @@ export class MapaPage {
     public navParams: NavParams,
     public auth: AuthProvider,
     private geolocation: Geolocation,
-    public events: Events
+    public events: Events,
+    private launchNavigator: LaunchNavigator,
+    public toastCtrl: ToastController
   ) {}
 
   ionViewDidEnter() {
+    this.service = this.navParams.get("service");
+    this.cant_c = this.navParams.get("cant_c");
+    this.positions = this.service.positions;
 
       this.service = this.navParams.get("service");
       this.cant_c = this.navParams.get("cant_c");
@@ -96,6 +105,24 @@ export class MapaPage {
     };
   }
 
+  // para lanzar el maps
+  launchMaps(p) {
+    let toast = this.toastCtrl.create({
+      message: "Iniciando Google Maps, por favor espere.",
+      duration: 2000,
+      position: "bottom"
+    });
+    toast.present();
+    let options: LaunchNavigatorOptions = {
+      app: this.launchNavigator.APP.GOOGLE_MAPS
+    };
+    this.launchNavigator
+      .navigate([p.latitude, p.longitude], options)
+      .then(
+        success => console.log("Launched navigator"),
+        error => console.log("Error launching navigator", error)
+      );
+  }
   // mostrar ruta entre 2 puntos
   calculateAndDisplayRoute(p) {
     this.destino = p;
@@ -153,15 +180,15 @@ export class MapaPage {
   }
 
   loadMap() {
-      this.positions = this.service.positionsList;
+    this.positions = this.service.positionsList;
 
-      var center = new google.maps.LatLng(-0.1911519, -78.4820116);
-      if(this.positions.length>0){
-        center = new google.maps.LatLng(
-            this.positions[0].latitude,
-            this.positions[0].longitude
-        )
-      }
+    var center = new google.maps.LatLng(-0.1911519, -78.4820116);
+    if (this.positions.length > 0) {
+      center = new google.maps.LatLng(
+        this.positions[0].latitude,
+        this.positions[0].longitude
+      );
+    }
     let mapOptions = {
       center: center,
       disableDefaultUI: true,
@@ -206,7 +233,7 @@ export class MapaPage {
       this.map.setZoom(15);
       this.currentP = new google.maps.Marker({
         map: this.map,
-        icon: "http://www.googlemapsmarkers.com/v1/009900/",
+        icon: "assets/icon/location.png",
         position: this.latLng
       });
       let content = "<h4>Mi posición</h4>";

@@ -49,7 +49,7 @@
           </button>
         </ion-col>
         <ion-col col-6>
-          <a *ngIf="passedService.phone" icon-left color="secondary" ion-button block target="_blank" href="https://api.whatsapp.com/send?phone=0995114030&text=Texto del mensaje">
+          <a *ngIf="passedService.phone" icon-left color="secondary" ion-button block target="_blank" [href]="msg">
             <ion-icon name="logo-whatsapp"></ion-icon>
             Mensaje
           </a>

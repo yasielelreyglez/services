@@ -46,6 +46,8 @@ import { AuthProvider } from '../providers/auth/auth';
 import { ApiProvider } from '../providers/api/api';
 
 // native
+// import { FCM } from "@ionic-native/fcm";
+import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { Keyboard } from '@ionic-native/keyboard';
 import { File } from '@ionic-native/file';
 import { Camera } from '@ionic-native/camera';
@@ -63,6 +65,8 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import {SearchPage} from "../pages/search/search";
 import { OpenNativeSettings } from '@ionic-native/open-native-settings';
 import { Diagnostic } from '@ionic-native/diagnostic';
+// import { NotificacionesPushProvider } from '../providers/notificaciones-push/notificaciones-push';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -162,12 +166,15 @@ import { Diagnostic } from '@ionic-native/diagnostic';
     OpenNativeSettings,
     Diagnostic,
     Geolocation,
+    LaunchNavigator,
+    // FCM,
     PhotoViewer,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SubCategoryProvider,
     CategoryProvider,
     ServiceProvider,
     AuthProvider,
+    // NotificacionesPushProvider,
     ApiProvider
 
     ]
