@@ -8,17 +8,17 @@
 
 
 <ion-content padding>
-  <ion-list>
-    <ion-item-sliding *ngFor="let msg of mensajes; let i = index" >
-      <ion-item >
-        <p text-wrap [class]="msg.estado == 0 ? 'sin-leer' :'leido'">{{msg.mensaje}}.</p>
-        <a *ngIf="msg.service != null " (click)="verServicio(msg.service.id)">ver</a>
-      </ion-item>
-      <ion-item-options side="right">
-        <button (click)="deleteMensajes(msg.id)" ion-button icon-only color="danger">
+  <ion-list no-padding>
+    <ion-item *ngFor="let msg of mensajes; let i = index">
+      <span text-wrap [class]="msg.estado == 0 ? 'sin-leer' :'leido'">{{msg.mensaje}}.</span>
+      <ion-buttons item-end  no-padding no-margin>
+        <button no-margin [disabled]="msg.service == null" clear small ion-button icon-only (click)="verServicio(msg.service.id)">
+          <ion-icon name="eye"></ion-icon>
+        </button>
+        <button no-margin (click)="deleteMensajes(msg.id)" clear small ion-button icon-only color="danger">
           <ion-icon name="trash"></ion-icon>
         </button>
-      </ion-item-options>
-    </ion-item-sliding>
+      </ion-buttons>
+    </ion-item>
   </ion-list>
 </ion-content>
