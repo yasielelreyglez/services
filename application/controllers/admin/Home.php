@@ -250,8 +250,12 @@ class Home extends CI_Controller {
 
         $bannersRepo = $em->getRepository('Entities\ConfigRegion');
         $banner = $bannersRepo->findBy(array('region'=>'helpBanner'), array(), 1);
-        if (count($banner))
+        if (count($banner)) {
+            echo "CARGO UN BANNDER";
             $data['banner'] = $banner[0]->getBanner();
+        }else{
+            echo "no cargo banners";
+        }
         $this->load->view('/includes/contentpage', $data);
     }
 

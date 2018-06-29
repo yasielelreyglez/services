@@ -1,3 +1,5 @@
+import {UniqueDeviceID} from '@ionic-native/unique-device-id';
+
 export class User {
   name: string
   email: string;
@@ -5,4 +7,6 @@ export class User {
   confirmpassword: string;
   username:string;
   id:string;
+  phoneid:string;
+  phoneos:string;
 }

@@ -66,7 +66,7 @@ namespace Entities {
         public $phone;
 
         /**
-         * @Column(type="string",nullable:true)
+         * @Column(type="string",nullable=true)
          * @var string
          **/
         public $whatsapp;

@@ -116,7 +116,7 @@ export class AuthProvider {
 
   // regista y autentica al usuario si todo sale bien
   signUp(user: User): Promise<any> {
-    const body = JSON.stringify({name: user.name, email: user.email, password: user.password});
+    const body = JSON.stringify(user);
     return this.http.post(this.api.getbaseUrl() + 'auth/register', body)
       .toPromise()
       .then(

@@ -20,6 +20,11 @@ class User
     public $username;
 
     /**
+     * @Column(type="string",nullable=true)
+     * @var string
+     **/
+    public $name;
+    /**
      * @Column(type="string")
      * @var string
      **/
@@ -381,6 +386,7 @@ class User
      * @return Mensaje
      */
     public function notificarComentario(Service $servicio){
+
         return $this->sendMessageTo($this,$servicio,"Comentario recibido","Se realizo un nuevo comentario sobre su anuncio {$servicio->getTitle()}");
     }
 
@@ -419,6 +425,12 @@ class User
         $mensaje->setService($servicio);
         $mensaje->mensaje=$cuerpo;
         $this->addMensajeCreado($mensaje);
+        $em = $this->doctrine->em;
+        $em->persist($mensaje);
+        $em->flush();
+        //pushing notification
+        $this->load->library('send_notification');
+        $this->send_notification->send($this->getPhoneId(),$this->getPhoneSo,array("id"=>$mensaje->getId(),"text"=>$mensaje->mensaje));
         return $mensaje;
     }
 

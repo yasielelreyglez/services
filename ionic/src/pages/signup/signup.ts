@@ -21,6 +21,8 @@ export class SignupPage {
     public toastCtrl: ToastController, public load: LoadingController,
     public auth: AuthProvider ) {
       this.user = new User();
+      this.user.phoneid = "id de prueba de telefono";
+      this.user.phoneos="android";
       this.condiciones = false;
   }
 

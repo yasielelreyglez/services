@@ -43,6 +43,8 @@
                         if ($item->region == 'socialsTopMenu')
                             $config = $item;
                     }
+                }else{
+                    echo "ESTO NO SE ENTERO";
                 }
                 ?>
                 <?php if (isset($config)): ?>

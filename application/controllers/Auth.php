@@ -142,11 +142,15 @@ class Auth extends REST_Controller
             $password = $values->password;
 
             $additional_data = array(
-                'first_name' => $values->name
-//                'last_name' => $this->input->post('last_name'),
-//                'company' => $this->input->post('company'),
-//                'phone' => $this->input->post('phone'),
+                'name' => $values->name
+
             );
+            if(isset($values->phoneid)){
+                $additional_data["phone_id"]=$values->phoneid;
+            }
+            if(isset($values->phoneso)){
+                $additional_data["phone_so"]=$values->phoneso;
+            }
             $result = $this->ion_auth->register($identity, $password, $email, $additional_data);
             if ($result) {
                 $tokenData = array(
