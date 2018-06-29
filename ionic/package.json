@@ -35,6 +35,8 @@
     "@ionic-native/status-bar": "^4.5.2",
     "@ionic-native/unique-device-id": "^4.9.0",
     "@ionic/storage": "2.0.1",
+    "@ionic-native/fcm": "^4.9.0",
+    "cordova-plugin-fcm": "^2.1.2",
     "call-number": "^1.0.1",
     "com-sarriaroman-photoviewer": "^1.1.11",
     "cordova-android": "~6.3.0",

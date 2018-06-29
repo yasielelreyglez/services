@@ -29,6 +29,23 @@ export class ApiProvider {
     };
     this.user = JSON.parse(localStorage.getItem('ServCurrentUser'));
   }
+
+  updateDeviceID(deviceID, os) {
+    return this.http
+      .post(
+        this.apiBaseUrl + "api/updatephone_post",
+        { phone_id: deviceID, phone_os: os },
+        {
+          headers: new HttpHeaders().set("Authorization", this.user.token)
+        }
+      )
+      .toPromise()
+      .then(response => {
+        return response["data"];
+      })
+      .catch(this.handleError);
+  }
+
     payService(id: number, body: any): Promise<any> {
         if (this.user) {
             return this.http.post(this.apiBaseUrl + 'api/payservice/' + id, body, {
