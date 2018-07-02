@@ -1,4 +1,4 @@
-import {UniqueDeviceID} from '@ionic-native/unique-device-id';
+// import {UniqueDeviceID} from '@ionic-native/unique-device-id';
 
 export class User {
   name: string

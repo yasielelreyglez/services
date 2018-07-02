@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "558570591380",
+    "firebase_url": "https://losyp-ec.firebaseio.com",
+    "project_id": "losyp-ec",
+    "storage_bucket": "losyp-ec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:558570591380:android:00e462c593fe975b",
+        "android_client_info": {
+          "package_name": "com.losyp.ecuador"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "558570591380-7svlu1lkc3kt0f29d0mctjb6f96a6ota.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.losyp.ecuador",
+            "certificate_hash": "de57830a4c9f06b6f8b1a4dc2a62810773e1e19d"
+          }
+        },
+        {
+          "client_id": "558570591380-uaqc4l6t7kj01j6u53gls7jtjb48rkmn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQJBu4h03OioW9FolA9emNw8uzUrf6O1o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "558570591380-uaqc4l6t7kj01j6u53gls7jtjb48rkmn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "558570591380-3ipunp1n9jvh2ch5hvrl0cev1ha06vrp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.losyp.ecuador"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
