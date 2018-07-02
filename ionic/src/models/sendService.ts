@@ -42,5 +42,6 @@ export class sendService {
   imagesList	:Imagen[];
   subcategoriesList: any[];
   timesList: any[];
+  whatsapp:boolean;
 }
 

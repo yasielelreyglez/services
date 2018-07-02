@@ -1,6 +1,6 @@
 {
   "/services/*": {
-    "target": "http://localhost",
+    "target": "http://localhost/",
     "secure": "false",
     "logLevel": "debug"
   }

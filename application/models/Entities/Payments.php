@@ -80,7 +80,7 @@ class Payments
      * @Column(type="string",nullable=true)
      * @var string
      **/
-    public $reason_denied;
+    public $reason;
 
     /**
      *
@@ -182,17 +182,17 @@ class Payments
     /**
      * @return string
      */
-    public function getReasonDenied()
+    public function getReason()
     {
-        return $this->reason_denied;
+        return $this->reason;
     }
 
     /**
      * @param string $evidence
      */
-    public function setReasonDenied($reason)
+    public function setReason($reason)
     {
-        $this->reason_denied = $reason;
+        $this->reason = $reason;
     }
 
     /**
@@ -277,10 +277,11 @@ class Payments
     public function denegar($reason = null){
         $this->setState(3);
         if ($reason)
-            $this->setReasonDenied($reason);
+            $this->setReason($reason);
     }
 
-    public function autorizar(){
+
+    public function autorizar($reason){
         $this->payed_at = new \DateTime("now");
         $membership = $this->getMembership();
         $days = $membership->getDays();
@@ -289,6 +290,8 @@ class Payments
         $actual->add($interval);
         $this->expiration_date = $actual;
         $this->setState(1);
+        if ($reason)
+            $this->setReason($reason);
     }
 
     /**

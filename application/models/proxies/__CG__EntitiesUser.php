@@ -36,7 +36,7 @@ class User extends \Entities\User implements \Doctrine\ORM\Proxy\Proxy
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = ['username' => NULL, 'email' => NULL];
+    public static $lazyPropertiesDefaults = ['username' => NULL, 'name' => NULL, 'email' => NULL, 'phone_id' => NULL, 'phone_so' => NULL];
 
 
 
@@ -46,7 +46,7 @@ class User extends \Entities\User implements \Doctrine\ORM\Proxy\Proxy
      */
     public function __construct($initializer = null, $cloner = null)
     {
-        unset($this->username, $this->email);
+        unset($this->username, $this->name, $this->email, $this->phone_id, $this->phone_so);
 
         $this->__initializer__ = $initializer;
         $this->__cloner__      = $cloner;
@@ -108,10 +108,10 @@ class User extends \Entities\User implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'username', 'email', 'password', 'ip_address', 'remember_code', 'salt', 'created_on', 'last_login', 'active', 'role', '' . "\0" . 'Entities\\User' . "\0" . 'userservices', '' . "\0" . 'Entities\\User' . "\0" . 'mensajesc', '' . "\0" . 'Entities\\User' . "\0" . 'mensajes', '' . "\0" . 'Entities\\User' . "\0" . 'usercomments', '' . "\0" . 'Entities\\User' . "\0" . 'reportcomments', 'forgotten_password_code', 'forgotten_password_time', 'services'];
+            return ['__isInitialized__', 'id', 'username', 'name', 'email', 'password', 'ip_address', 'phone_id', 'phone_so', 'remember_code', 'salt', 'created_on', 'last_login', 'is_facebook', 'active', 'role', '' . "\0" . 'Entities\\User' . "\0" . 'userservices', '' . "\0" . 'Entities\\User' . "\0" . 'mensajesc', '' . "\0" . 'Entities\\User' . "\0" . 'mensajes', '' . "\0" . 'Entities\\User' . "\0" . 'usercomments', '' . "\0" . 'Entities\\User' . "\0" . 'reportcomments', 'forgotten_password_code', 'forgotten_password_time', 'services'];
         }
 
-        return ['__isInitialized__', 'id', 'password', 'ip_address', 'remember_code', 'salt', 'created_on', 'last_login', 'active', 'role', '' . "\0" . 'Entities\\User' . "\0" . 'userservices', '' . "\0" . 'Entities\\User' . "\0" . 'mensajesc', '' . "\0" . 'Entities\\User' . "\0" . 'mensajes', '' . "\0" . 'Entities\\User' . "\0" . 'usercomments', '' . "\0" . 'Entities\\User' . "\0" . 'reportcomments', 'forgotten_password_code', 'forgotten_password_time', 'services'];
+        return ['__isInitialized__', 'id', 'password', 'ip_address', 'remember_code', 'salt', 'created_on', 'last_login', 'is_facebook', 'active', 'role', '' . "\0" . 'Entities\\User' . "\0" . 'userservices', '' . "\0" . 'Entities\\User' . "\0" . 'mensajesc', '' . "\0" . 'Entities\\User' . "\0" . 'mensajes', '' . "\0" . 'Entities\\User' . "\0" . 'usercomments', '' . "\0" . 'Entities\\User' . "\0" . 'reportcomments', 'forgotten_password_code', 'forgotten_password_time', 'services'];
     }
 
     /**
@@ -133,7 +133,7 @@ class User extends \Entities\User implements \Doctrine\ORM\Proxy\Proxy
                 }
             };
 
-            unset($this->username, $this->email);
+            unset($this->username, $this->name, $this->email, $this->phone_id, $this->phone_so);
         }
     }
 
@@ -555,12 +555,12 @@ class User extends \Entities\User implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function notificarPagoAceptado(\Entities\Service $servicio)
+    public function notificarPagoAceptado(\Entities\Service $servicio, $reason)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'notificarPagoAceptado', [$servicio]);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'notificarPagoAceptado', [$servicio, $reason]);
 
-        return parent::notificarPagoAceptado($servicio);
+        return parent::notificarPagoAceptado($servicio, $reason);
     }
 
     /**
@@ -572,6 +572,72 @@ class User extends \Entities\User implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'sendMessageTo', [$destinatario, $servicio, $titulo, $cuerpo]);
 
         return parent::sendMessageTo($destinatario, $servicio, $titulo, $cuerpo);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getPhoneId()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPhoneId', []);
+
+        return parent::getPhoneId();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setPhoneId($phone_id)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPhoneId', [$phone_id]);
+
+        return parent::setPhoneId($phone_id);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getPhoneSo()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPhoneSo', []);
+
+        return parent::getPhoneSo();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setPhoneSo($phone_so)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPhoneSo', [$phone_so]);
+
+        return parent::setPhoneSo($phone_so);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getisFacebook()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getisFacebook', []);
+
+        return parent::getisFacebook();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setIsFacebook($is_facebook)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setIsFacebook', [$is_facebook]);
+
+        return parent::setIsFacebook($is_facebook);
     }
 
 }

@@ -438,6 +438,9 @@ class Api extends REST_Controller
             $em->persist($mensaje);
             $em->persist($obj);
             $em->flush();
+            $this->load->library('send_notification');
+            $this->send_notification->send($mensaje->getDestinatario()->getPhoneId(),$mensaje->getDestinatario()->getPhoneSo(),array("text"=>$mensaje->getMensaje(),"id"=>$mensaje->getId()));
+
             $service->loadRelatedData(null, null, site_url());
 
             $result["data"] = $service;
@@ -476,6 +479,9 @@ class Api extends REST_Controller
             $em->persist($mensaje);
             $em->persist($obj);
             $em->flush();
+            $this->load->library('send_notification');
+            $this->send_notification->send($mensaje->getDestinatario()->getPhoneId(),$mensaje->getDestinatario()->getPhoneSo(),array("text"=>$mensaje->getMensaje(),"id"=>$mensaje->getId()));
+
             $service->loadRelatedData(null, null, site_url());
 
             $result["data"] = $service;
@@ -676,8 +682,12 @@ class Api extends REST_Controller
             $em->flush();
             $service = $service->calculateGlobalRate();
             $autor = $service->getAuthor();
-            $autor->notificarComentario($service);
+            $mensaje = $autor->notificarComentario($service);
             $em->persist($obj);
+            $em->persist($mensaje);
+            $this->load->library('send_notification');
+            $this->send_notification->send($mensaje->getDestinatario()->getPhoneId(),$mensaje->getDestinatario()->getPhoneSo(),array("text"=>$mensaje->getMensaje(),"id"=>$mensaje->getId()));
+
             $em->flush();
             $service->loadRelatedUserData($user);
             $service->loadRelatedData(null, null, site_url());
@@ -1136,6 +1146,7 @@ class Api extends REST_Controller
         $service->subtitle = $this->post('subtitle', TRUE);
         $service->phone = $this->post('phone', TRUE);
         $service->address = $this->post('address', TRUE);
+        $service->whatsapp = $this->post('whatsapp', TRUE);
         $service->addSubCategories($this->post('categories', TRUE), $em);
         $service->addCities($this->post('cities', TRUE), $em);
         $icon = $this->post('icon');

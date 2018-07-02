@@ -72,6 +72,13 @@ class Mensaje
     public function setDestinatario(User $user){
         $this->destinatario = $user;
     }
+
+    /**
+     * @return  User
+     */
+    public function getDestinatario(){
+       return $this->destinatario;
+    }
     public function getId()
     {
         return $this->id;
@@ -81,7 +88,10 @@ class Mensaje
     {
         return $this->title;
     }
-
+    public function getMensaje()
+    {
+        return $this->mensaje;
+    }
     public function setTitle($title)
     {
         $this->title = $title;

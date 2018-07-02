@@ -1,5 +1,6 @@
 <?php
 namespace Entities;
+use Send_notification;
 
 /**
  * @Entity
@@ -408,8 +409,23 @@ class User
      * @param Service $servicio
      * @return Mensaje
      */
-    public function notificarPagoAceptado(Service $servicio){
-        return $this->sendMessageTo($this,$servicio,"Pago aceptado","El pago sobre el anuncio {$servicio->getTitle()} ha sido aceptado");
+    public function notificarPagoAceptado(Service $servicio,$reason){
+        $motivo = "";
+        if(isset($reason)){
+            $motivo = $reason;
+        }
+        return $this->sendMessageTo($this,$servicio,"Pago aceptado","El pago sobre el anuncio {$servicio->getTitle()} ha sido aceptado,".$motivo);
+    }
+    /**
+     * @param Service $servicio
+     * @return Mensaje
+     */
+    public function notificarPagoDenegado(Service $servicio,$reason){
+        $motivo = "";
+        if(isset($reason)){
+            $motivo = $reason;
+        }
+        return $this->sendMessageTo($this,$servicio,"Pago denegado","El pago sobre el anuncio {$servicio->getTitle()} ha sido denegado,".$motivo);
     }
     /**
      * @param User $destinatario
@@ -425,13 +441,9 @@ class User
         $mensaje->setService($servicio);
         $mensaje->mensaje=$cuerpo;
         $this->addMensajeCreado($mensaje);
-        $em = $this->doctrine->em;
-        $em->persist($mensaje);
-        $em->flush();
-        //pushing notification
-        $this->load->library('send_notification');
-        $this->send_notification->send($this->getPhoneId(),$this->getPhoneSo,array("id"=>$mensaje->getId(),"text"=>$mensaje->mensaje));
-        return $mensaje;
+               //pushing notification
+        //@todo Ver como cargar send notification
+         return $mensaje;
     }
 
     /**

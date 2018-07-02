@@ -267,6 +267,13 @@ $('#paymentDenyModal').on('show.bs.modal', function (event) {
     modal.find('.payment-id').val(idPayment);
 });
 
+$('#paymentAceptedModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var idPayment = button.data('id');
+    var modal = $(this);
+    modal.find('.payment-id').val(idPayment);
+});
+
 $('.nav-tabs .nav-link').on('click', function () {
     if (!$(this).hasClass('active')) {
         $('.nav-tabs .nav-link').removeClass('active');

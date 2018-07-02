@@ -36,7 +36,7 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = ['title' => NULL, 'professional' => NULL, 'icon' => NULL, 'thumb' => NULL, 'description' => NULL, 'subtitle' => NULL, 'phone' => NULL, 'address' => NULL, 'other_phone' => NULL, 'email' => NULL, 'url' => NULL, 'visits' => NULL, 'times' => NULL, 'domicilio' => NULL, 'visit_at' => NULL, 'todopais' => NULL, 'author' => NULL, 'globalrate' => NULL, 'ratereviews' => NULL, 'imagesList' => NULL];
+    public static $lazyPropertiesDefaults = ['title' => NULL, 'enabled' => NULL, 'professional' => NULL, 'icon' => NULL, 'thumb' => NULL, 'description' => NULL, 'subtitle' => NULL, 'phone' => NULL, 'whatsapp' => NULL, 'address' => NULL, 'other_phone' => NULL, 'email' => NULL, 'url' => NULL, 'visits' => NULL, 'times' => NULL, 'domicilio' => NULL, 'visit_at' => NULL, 'todopais' => NULL, 'author' => NULL, 'globalrate' => NULL, 'ratereviews' => NULL];
 
 
 
@@ -46,7 +46,7 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
      */
     public function __construct($initializer = null, $cloner = null)
     {
-        unset($this->title, $this->professional, $this->icon, $this->thumb, $this->description, $this->subtitle, $this->phone, $this->address, $this->other_phone, $this->email, $this->url, $this->visits, $this->times, $this->domicilio, $this->visit_at, $this->todopais, $this->author, $this->globalrate, $this->ratereviews, $this->imagesList);
+        unset($this->title, $this->enabled, $this->professional, $this->icon, $this->thumb, $this->description, $this->subtitle, $this->phone, $this->whatsapp, $this->address, $this->other_phone, $this->email, $this->url, $this->visits, $this->times, $this->domicilio, $this->visit_at, $this->todopais, $this->author, $this->globalrate, $this->ratereviews);
 
         $this->__initializer__ = $initializer;
         $this->__cloner__      = $cloner;
@@ -108,10 +108,10 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'title', 'professional', 'icon', 'thumb', 'description', 'subtitle', 'phone', 'address', 'other_phone', 'email', 'url', 'visits', 'times', 'timesList', 'domicilio', 'created', 'created_at', 'visit_at', 'updated_at', 'todopais', 'author', 'positions', 'positionsList', 'minorDistance', 'cities', 'citiesList', 'subcategories', 'subcategoriesList', 'serviceusers', 'globalrate', 'ratereviews', 'servicecomments', 'servicecommentsList', '' . "\0" . 'Entities\\Service' . "\0" . 'images', 'imagesList', 'visited', 'visited_at', 'contacted', 'complain', 'favorite', 'rated', 'payments'];
+            return ['__isInitialized__', 'id', 'title', 'enabled', 'professional', 'icon', 'thumb', 'description', 'subtitle', 'phone', 'whatsapp', 'address', 'other_phone', 'email', 'url', 'visits', 'times', 'timesList', 'domicilio', 'created', 'created_at', 'visit_at', 'updated_at', 'todopais', 'author', '' . "\0" . 'Entities\\Service' . "\0" . 'mensajes', 'positions', 'positionsList', 'minorDistance', 'cities', 'citiesList', 'subcategories', 'subcategoriesList', 'serviceusers', 'globalrate', 'ratereviews', 'servicecomments', 'servicecommentsList', '' . "\0" . 'Entities\\Service' . "\0" . 'images', 'imagesList', 'visited', 'visited_at', 'contacted', 'complain', 'favorite', 'rated', 'payments'];
         }
 
-        return ['__isInitialized__', 'id', 'timesList', 'created', 'created_at', 'updated_at', 'positions', 'positionsList', 'minorDistance', 'cities', 'citiesList', 'subcategories', 'subcategoriesList', 'serviceusers', 'servicecomments', 'servicecommentsList', '' . "\0" . 'Entities\\Service' . "\0" . 'images', 'visited', 'visited_at', 'contacted', 'complain', 'favorite', 'rated', 'payments'];
+        return ['__isInitialized__', 'id', 'timesList', 'created', 'created_at', 'updated_at', '' . "\0" . 'Entities\\Service' . "\0" . 'mensajes', 'positions', 'positionsList', 'minorDistance', 'cities', 'citiesList', 'subcategories', 'subcategoriesList', 'serviceusers', 'servicecomments', 'servicecommentsList', '' . "\0" . 'Entities\\Service' . "\0" . 'images', 'imagesList', 'visited', 'visited_at', 'contacted', 'complain', 'favorite', 'rated', 'payments'];
     }
 
     /**
@@ -133,7 +133,7 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
                 }
             };
 
-            unset($this->title, $this->professional, $this->icon, $this->thumb, $this->description, $this->subtitle, $this->phone, $this->address, $this->other_phone, $this->email, $this->url, $this->visits, $this->times, $this->domicilio, $this->visit_at, $this->todopais, $this->author, $this->globalrate, $this->ratereviews, $this->imagesList);
+            unset($this->title, $this->enabled, $this->professional, $this->icon, $this->thumb, $this->description, $this->subtitle, $this->phone, $this->whatsapp, $this->address, $this->other_phone, $this->email, $this->url, $this->visits, $this->times, $this->domicilio, $this->visit_at, $this->todopais, $this->author, $this->globalrate, $this->ratereviews);
         }
     }
 
@@ -254,12 +254,12 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function notificarPagoAceptado()
+    public function notificarPagoAceptado($reason)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'notificarPagoAceptado', []);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'notificarPagoAceptado', [$reason]);
 
-        return parent::notificarPagoAceptado();
+        return parent::notificarPagoAceptado($reason);
     }
 
     /**
@@ -286,6 +286,28 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTitle', []);
 
         return parent::getTitle();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getEnabled()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEnabled', []);
+
+        return parent::getEnabled();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setEnabled($enabled)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEnabled', [$enabled]);
+
+        return parent::setEnabled($enabled);
     }
 
     /**
@@ -561,6 +583,17 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPositions', []);
 
         return parent::getPositions();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getMensajes()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMensajes', []);
+
+        return parent::getMensajes();
     }
 
     /**
@@ -1034,6 +1067,28 @@ class Service extends \Entities\Service implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setThumb', [$thumb]);
 
         return parent::setThumb($thumb);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getWhatsapp()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getWhatsapp', []);
+
+        return parent::getWhatsapp();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setWhatsapp($whatsapp)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setWhatsapp', [$whatsapp]);
+
+        return parent::setWhatsapp($whatsapp);
     }
 
 }

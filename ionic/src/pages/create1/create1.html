@@ -88,7 +88,7 @@
       <ion-label>Teléfono tiene WhatsApp
         <ion-icon name="logo-whatsapp"></ion-icon>
       </ion-label>
-      <ion-checkbox color="secondary" name="whatsapp" [(ngModel)]="service.whatsapp" #Swhatsapp="ngModel"></ion-checkbox>
+      <ion-checkbox color="secondary" name="whatsapp" [(ngModel)]="service.whatsapp" (ionChange)="whatsappClicked()" #whatsapp="ngModel"></ion-checkbox>
     </ion-item>
 
     <ion-label class="azul-claro label-centro" text-center>Ubicación</ion-label>

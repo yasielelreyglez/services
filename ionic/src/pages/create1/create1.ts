@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import {
-  IonicPage,
   NavController,
   Platform,
   NavParams,
@@ -73,7 +72,9 @@ export class Create1Page {
         this.loading.dismiss();
       });
   }
-
+  whatsappClicked(){
+    console.log(this.service);
+  }
   allClickedCities() {
     if (this.allCities) {
       this.service.cities = [];

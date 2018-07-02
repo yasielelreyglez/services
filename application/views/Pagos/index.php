@@ -16,7 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="listing-ver-6 element">
                     <div class="listing-heading">
                         <h5>
-                            <a href='<?= site_url('admin/services/show/') . $pago->getService()->id ?>'> <?= $pago->getService()->getTitle() ?></a>
+                            <a  href='<?= site_url('admin/services/show/') . $pago->getService()->id ?>'> <?= $pago->getService()->getTitle() ?></a>
                         </h5>
                         <a href="<?= site_url('admin/pagos/eliminar/' . $pago->id) ?>" class="destroy"><i
                                     class="fa fa-remove"></i></a>
@@ -119,8 +119,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php if ($pago->getState() == 0) : ?>
                                 <h6 class="title-tags">Acciones:</h6>
                                 <ul class="list-inline">
-                                    <li class="btn btn-medium btn-transparent-primary"><?= anchor('admin/pagos/aceptar/' . $pago->id, 'Aceptar pago', 'class="btn btn-info" method="get"') ?></li>
-                                    <li class="btn btn-medium btn-transparent-invert"><?= anchor('#', 'Denegar pago', 'class="btn btn-warning deny-payment" data-toggle="modal" data-target="#paymentDenyModal" data-id="' . $pago->id . '"') ?></li>
+                                    <li class="btn btn-medium btn-transparent-primary accept-pay"><?= anchor('#' , 'Aceptar pago', 'class="btn btn-info accept-payment" data-toggle="modal" data-target="#paymentAceptedModal" data-id="' . $pago->id . '"'); ?></li>
+                                    <li class="btn btn-medium btn-transparent-invert"><?= anchor('#', 'Denegar pago', 'class="btn btn-warning deny-payment denegar-pago" data-toggle="modal" data-target="#paymentDenyModal" data-id="' . $pago->id . '"') ?></li>
                                 </ul>
                             <?php endif; ?>
                         </div>
@@ -168,7 +168,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <!--            <td>--><?php //echo $pago->getPhone();?><!--</td>-->
                         <td><?php echo $pago->getStateString(); ?></td>
                         <?php if ($pago->getState() == 0): ?>
-                            <td width=\"80\"><?= anchor('admin/pagos/aceptar/' . $pago->id, 'Aceptar', 'class="btn btn-info"'); ?></td>
+
+                            <td width=\"80\"><?= anchor('#' , 'Aceptar', 'class="btn btn-info accept-payment data-toggle="modal" data-target="#paymentAceptedModal" data-id="\' . $pago->id . \'"\'"'); ?></td>
                             <td width=\"80\"><?= anchor('#', 'Denegar', 'class="btn btn-warning deny-payment" data-toggle="modal" data-target="#paymentDenyModal" data-id="' . $pago->id . '"') ?></td>
                             <td width=\"80\"><?= anchor('admin/pagos/eliminar/' . $pago->id, 'Eliminar', 'class="btn btn-danger destroy"'); ?></td>
                         <?php endif; ?>
@@ -219,6 +220,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                 <button type="submit" form="form-deny-payment" class="btn btn-primary">Denagar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="paymentAceptedModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Aceptar pago</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <?= form_open_multipart('admin/pagos/accept/', array('role' => 'form', 'class' => 'f1', 'id' => 'form-accept-payment')); ?><?php if (validation_errors() != NULL && validation_errors() != '') { ?>
+                    <div class="alert alert-danger"><?= validation_errors(); ?></div><?php } ?>
+                <div class="form-group">
+                    <input class="form-control payment-id" type="hidden" name="id" value="">
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Motivo:</label>
+                    <textarea class="form-control" required name="reason" id="reason" placeholder="Motivo"
+                              style="min-height: 100px; font-size: 15px;"></textarea>
+                </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" form="form-accept-payment" class="btn btn-primary">Aceptar</button>
+            </div>
+                </form>
             </div>
         </div>
     </div>

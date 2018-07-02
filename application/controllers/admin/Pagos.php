@@ -16,6 +16,8 @@ class Pagos extends CI_Controller
         $this->load->helper('url_helper');
         $this->load->helper('html');
         $this->load->library('ion_auth');
+        $this->load->library('send_notification');
+
         if (!$this->ion_auth->is_admin()) {
             // redirect them to the login page
             redirect('admin/auth/login', 'refresh');
@@ -62,6 +64,28 @@ class Pagos extends CI_Controller
         $data["Tipo"] = "revisión";
         $this->load->view('/includes/contentpage', $data);
 
+    }
+    //@todo paginar peticion poner titulo y banner correspondiente
+    public function todos(){
+        $em = $this->doctrine->em;
+        $paymentsRepo = $em->getRepository('Entities\Payments');
+        $payments = $paymentsRepo->findAll(array('state' => 'ASC'));
+        $data["pagos"] = $payments;
+        $data["title"] = "Pagos";
+        $data['content'] = '/pagos/index';
+        $data["tab"] = "pagos";
+        $data["tabTitle"] = "TODOS LOS PAGOS";
+        $data["Tipo"] = "solicitados";
+
+        $configRegionRepo = $em->getRepository('Entities\ConfigRegion');
+        $configRegionGlobal = $configRegionRepo->findBy(array('groupRegion'=>'global'), array());
+        if (count($configRegionGlobal))
+            $data['configRegionGlobal'] = $configRegionGlobal;
+
+        $banner = $configRegionRepo->findBy(array('region'=>'paymentRequestedBanner'), array(), 1);
+        if (count($banner))
+            $data['banner'] = $banner[0]->getBanner();
+        $this->load->view('/includes/contentpage', $data);
     }
 
     public function solicitados()
@@ -187,6 +211,38 @@ class Pagos extends CI_Controller
         $data["tabTitle"] = "show pagos";
         $this->load->view('/includes/contentpage', $data);
     }
+    public function accept()
+    {
+        $this->form_validation->set_rules('reason', 'Reason', 'required');
+        $id = $this->input->post('id', TRUE);
+        if ($this->form_validation->run()) {
+            if ($id) {
+                $em = $this->doctrine->em;
+                /** @var \Entities\Payments $payment */
+                $payment = $em->find("\Entities\Payments", $id);
+                $reasson = $this->input->post('reason', TRUE);
+                $payment->autorizar($reasson);
+                /** @var \Entities\Service $service */
+                $service = $payment->getService();
+                $mensaje = $service->notificarPagoAceptado($reasson);
+                $em->persist($mensaje);
+                $em->persist($payment);
+                $em->flush();
+                //@TODO VERIFICAR ENVIO DE NOTIFICACION_PUSH
+                $this->send_notification->send($mensaje->getDestinatario()->getPhoneId(),$mensaje->getDestinatario()->getPhoneSo(),array("text"=>$mensaje->getMensaje(),"id"=>$mensaje->getId()));
+
+                $this->session->set_flashdata('item', array('message' => 'Pago aceptado.', 'class' => 'success', 'icon' => 'fa fa-thumbs-up', 'title' => "<strong>Bien!:</strong>"));
+                redirect('admin/pagos', 'refresh');
+
+            } else {
+                $this->session->set_flashdata('item', array('message' => 'No se ha seleccionado pago para denegar.', 'class' => 'warning', 'icon' => 'fa fa-warning', 'title' => "<strong>Alerta!:</strong>"));
+                redirect("admin/pagos/solicitados", 'refresh');
+            }
+        } else {
+            $this->session->set_flashdata('item', array('message' => 'Para denegar un pago debe introducir un motivo.', 'class' => 'warning', 'icon' => 'fa fa-warning', 'title' => "<strong>Alerta!:</strong>"));
+            redirect("admin/pagos/solicitados", 'refresh');
+        }
+    }
 
     public function aceptar($id)
     {
@@ -227,12 +283,19 @@ class Pagos extends CI_Controller
         if ($this->form_validation->run()) {
             if ($id) {
                 $em = $this->doctrine->em;
+                /** @var \Entities\Payments $payment */
                 $payment = $em->find("\Entities\Payments", $id);
 
                 $payment->denegar($this->input->post('reason', TRUE));
+
                 $em->persist($payment);
                 $em->flush();
 
+                $service = $payment->getService();
+                $mensaje = $service->notificarPagoDenegado($this->input->post('reason', TRUE));
+                $em->persist($mensaje);
+                $em->flush();
+                $this->send_notification->send($mensaje->getDestinatario()->getPhoneId(),$mensaje->getDestinatario()->getPhoneSo(),array("text"=>$mensaje->getMensaje(),"id"=>$mensaje->getId()));
                 $this->session->set_flashdata('item', array('message' => 'Pago denegado.', 'class' => 'success', 'icon' => 'fa fa-thumbs-up', 'title' => "<strong>Bien!:</strong>"));
                 redirect('admin/pagos', 'refresh');
 

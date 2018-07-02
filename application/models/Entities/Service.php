@@ -66,8 +66,8 @@ namespace Entities {
         public $phone;
 
         /**
-         * @Column(type="string",nullable=true)
-         * @var string
+         * @Column(type="boolean",nullable=true)
+         * @var bool
          **/
         public $whatsapp;
         /**
@@ -283,9 +283,14 @@ namespace Entities {
         /**
          * @return Mensaje
          */
-        public function notificarPagoAceptado()
+        public function notificarPagoAceptado($reason)
         {
-            return $this->getAuthor()->notificarPagoAceptado($this);
+            return $this->getAuthor()->notificarPagoAceptado($this,$reason);
+
+        }
+        public function notificarPagoDenegado($reason)
+        {
+            return $this->getAuthor()->notificarPagoDenegado($this,$reason);
 
         }
 

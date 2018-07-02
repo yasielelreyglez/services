@@ -24,6 +24,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     previews: any;
     previewvalue: string;
     service: Service;
+    whatsapp: boolean;
     moreImage: boolean;
     positiontitle: string;
     cities: City[];
@@ -40,6 +41,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
     dropsImages: any;
     citiesList: any;
     loading: boolean;
+
 
     @ViewChild('map') mapElement: ElementRef;
     map: any;
@@ -67,7 +69,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
         this.service.description = '';
         this.service.categories = new Array();
         this.service.cities = new Array();
-
+        this.service.whatsapp = false;
         this.previews = [
             {
                 position: false,
@@ -161,6 +163,7 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
                 this.apiServices.service(params['id']).subscribe(result => {
                     this.edit = true;
                     this.service = result.data;
+                    this.whatsapp = this.service.whatsapp;
                     if (this.service.icon)
                         this.previewvalue = this.service.icon;
 
@@ -213,7 +216,6 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
                     this.positions = result.data.positionsList;
                     if (this.positions.length > 0)
                         this.addPositions();
-
                 });
             }
         });
@@ -457,10 +459,13 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
 
 
     }
-
+changWhatsapp() {
+        this.service.whatsapp = !this.whatsapp
+    }
 
     finishFunction() {
         this.loading = true;
+        console.log(this.service)
         if (this.previews.length > 0) {
 
             this.service.gallery = new Array();

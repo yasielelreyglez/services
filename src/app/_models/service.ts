@@ -4,6 +4,7 @@ export class Service {
     description: string;
     subtitle: string;
     phone: string;
+    whatsapp: any;
     address: string;
     icon: string | any;
     cities: any[];

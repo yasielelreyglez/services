@@ -24,8 +24,8 @@
                                    type="text"
                                    [(ngModel)]="service.subtitle"
                                    [formControl]="firstForm.controls['subtitle']"
-                                   required>
-                            <label for="address">Dirección *</label>
+                                   required>                            <label for="address">Dirección *</label>
+
                             <input id="address" autofocus placeholder="Escribe tu dirección" name="address" type="text"
                                    [(ngModel)]="service.address"
                                    [formControl]="firstForm.controls['address']"
@@ -36,6 +36,16 @@
                                    [formControl]="firstForm.controls['phone']"
                                    required>
 
+                            <label for="whatsapp">Teléfono tiene WhatsApp</label>
+                           <mat-checkbox id="whatsapp"  name="whatsapp"
+                                          [(ngModel)]="whatsapp"
+
+                                         (click)="changWhatsapp()"
+                                         required >
+
+
+</mat-checkbox>
+                            <br>
                             <label for="description">Descripción *</label>
                             <textarea id="description" placeholder="Descripción del servicio" name="description"
                                       [formControl]="firstForm.controls['description']"
