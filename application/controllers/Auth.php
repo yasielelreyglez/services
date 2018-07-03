@@ -34,7 +34,7 @@ class Auth extends REST_Controller
     public function token_get()
     {
         $tokenData = array();
-        $tokenData['id'] = 1; //TODO: Replace with data for token
+        $tokenData['id'] = 1; //TODO: Replace fith data for token
 
         $output['token'] = AUTHORIZATION::generateToken($tokenData);
         $this->set_response($output, REST_Controller::HTTP_OK);
@@ -186,14 +186,13 @@ class Auth extends REST_Controller
                 } else {
                     $this->ion_auth->set_error('forgot_password_email_not_found');
                 }
-
                 $this->session->set_flashdata('message', $this->ion_auth->errors());
-              $result["error"] =$this->ion_auth->errors();
+                $result["error"] =$this->ion_auth->errors();
             }
             // run the forgotten password method to email an activation code to the user
             $forgotten = $this->ion_auth->forgotten_password($identity->{$this->config->item('identity', 'ion_auth')});
 
-            if ($forgotten) {
+            if ($forgotten){
                 // if there were no errors
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
                 $this->set_response($forgotten, REST_Controller::HTTP_OK);

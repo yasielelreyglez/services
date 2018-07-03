@@ -1534,6 +1534,17 @@ class Api extends REST_Controller
     }
 
 
+    //PAGINAS DINAMICAS
+    public function pagebytitle_get($name){
+        $em = $this->doctrine->em;
+        $pagesRepo = $em->getRepository('Entities\Page');
+        $pages = $pagesRepo->findBy(array('title' => $name), array(), 1);
+        $result = "";
+        if(count($pages)>0){
+            $result = $pages[0];
+        }
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
     //METODOS DE PRUEBA
     public function users_get()
     {
