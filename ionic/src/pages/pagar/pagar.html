@@ -80,13 +80,13 @@
           <ion-col col-6>
             <ion-item no-lines>
               <ion-label stacked>Caducidad</ion-label>
-              <ion-datetime displayFormat="MM/YY" pickerFormat="MM YYYY" placeholder="MM/AA"></ion-datetime>
+              <ion-datetime min="1956" max="2038-12-31" [(ngModel)]="expire" displayFormat="MM/YY" pickerFormat="MM YYYY" placeholder="MM/AA"></ion-datetime>
             </ion-item>
           </ion-col>
           <ion-col col-6>
             <ion-item no-lines>
               <ion-label stacked>CVV</ion-label>
-              <ion-input ></ion-input>
+              <ion-input  name="cvv_t" [(ngModel)]="cvv_t" ></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>

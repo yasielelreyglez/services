@@ -22,6 +22,8 @@ export class PagarPage {
   codigo:any;
   nombre_t:any;
   numero_t:any;
+  cvv_t:any;
+  expire:any;
   service_id:number
   private preview: string;
   constructor(
@@ -30,7 +32,7 @@ export class PagarPage {
       public photoViewer: PhotoViewer,
       private platform: Platform,
       public apiProv: ApiProvider) {
-      this.service_id = this.navParams.get("service");
+      this.service_id = this.navParams.get("id");
       this.apiProv.memberships().then((result) => {
 
         this.memberships = result;
@@ -39,15 +41,30 @@ export class PagarPage {
   }
   pagar()
   {
-      this.apiProv.payService(this.service_id, {
-          membership: this.membresia,
-          type: this.tipo_p,
-          evidence: this.preview
-      }).then(result=>{
-          this.navCtrl.pop().then((valor) =>{
+      if(this.tipo_p==1){
+          this.apiProv.payService(this.service_id, {
+              membership: this.membresia,
+              type: this.tipo_p,
+              evidence: this.preview
+          }).then(result=>{
+              this.navCtrl.pop().then((valor) =>{
 
-          });}
-      );
+              });}
+          );
+      }else{
+          this.apiProv.payServiceOnline(this.service_id, {
+              name: this.nombre_t,
+              number: this.numero_t,
+              type: this.tipo_p,
+              cvv: this.cvv_t,
+              expire:this.expire,
+              membership:this.membresia
+          }).then(result=>{
+              this.navCtrl.pop().then((valor) =>{
+
+              });}
+          );
+      }
 
   }
 
