@@ -249,7 +249,7 @@ class Api extends REST_Controller
     }
 
 //LISTADO DE SERVICIOS QUE COINCIDEN CON LA BUSQUEDA POR TEXTO
-    public function searchService_get($query)
+    public function searchService_get($query="")
     {
         $em = $this->doctrine->em;
         $serviceRepo = $em->getRepository('Entities\Service');

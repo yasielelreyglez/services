@@ -845,6 +845,11 @@ namespace Entities {
             $this->imagesList = [];
             if ($this->getProfessional()) {
                 $this->imagesList = $this->getImages()->toArray();
+                foreach ($this->imagesList as $item) {
+                    $item->title = site_url($item->title);
+                    $item->thumb = site_url($item->thumb);
+                }
+
             } else {
                 $image = new Image();
                 $image->setTitle($site_url . $this->getIcon());

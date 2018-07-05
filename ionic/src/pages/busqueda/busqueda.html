@@ -38,7 +38,7 @@
                                     </ng-template>
                                  </span>
                   </p>
-                  <p>Visualización: 2017-02-25</p>
+                  <p>Visualización: {{serv.visit_at.date.substring(0,10)}}</p>
                   <ng-container *ngIf="serv.contacted==1; else contactSetion">
                     <div class="text-center fw-600 contact-section bc-green">
                       <p>Contactado</p>
