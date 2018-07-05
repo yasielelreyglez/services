@@ -6,6 +6,7 @@ import {SubCategoryProvider} from '../../providers/sub-category/sub-category';
 import {AuthProvider} from '../../providers/auth/auth';
 import {ServiceProvider} from "../../providers/service/service.service";
 import {ApiProvider} from "../../providers/api/api";
+import { NotificacionesPushProvider } from './../../providers/notificaciones-push/notificaciones-push';
 
 // Paginas
 import {PopoverPage} from '../pop-over/pop-over';
@@ -60,7 +61,8 @@ export class HomePage {
               public servProv: ServiceProvider,
               private photoViewer: PhotoViewer,
               public keyboard: Keyboard,
-              public navParams: NavParams, public splashScreen: SplashScreen, public platform: Platform, statusBar: StatusBar,) {
+              public navParams: NavParams, public splashScreen: SplashScreen, public platform: Platform, statusBar: StatusBar,
+              private push: NotificacionesPushProvider) {
 
 
 
@@ -127,6 +129,8 @@ export class HomePage {
           },
         (error: Geoposition) => { alert(error); },
       );
+      this.push.subcribe();
+
     });
   }
 

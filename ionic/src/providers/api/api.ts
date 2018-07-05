@@ -33,7 +33,7 @@ export class ApiProvider {
   updateDeviceID(deviceID, os) {
     return this.http
       .post(
-        this.apiBaseUrl + "api/updatephone_post",
+        this.apiBaseUrl + "api/updatephone",
         { phone_id: deviceID, phone_os: os },
         {
           headers: new HttpHeaders().set("Authorization", this.user.token)
