@@ -239,11 +239,28 @@ export class ApiProvider {
   // }
 
   deleteMensajes(id): Promise<any> {
-    return this.http.post(this.apiBaseUrl + 'api/borrarmensaje/'+id, {id})
+    return this.http.get(this.apiBaseUrl + 'api/borrarmensaje/'+id,
+    {
+      headers: new HttpHeaders().set("Authorization", this.user.token)
+    })
       .toPromise()
       .then(
         (response) => {
-          return !!response['status'];
+          return !response['status'];
+
+        }
+      ).catch(this.handleError);
+  }
+
+  leerMensajes(id): Promise<any> {
+    return this.http.get(this.apiBaseUrl + 'api/leermensaje/'+id,
+    {
+      headers: new HttpHeaders().set("Authorization", this.user.token)
+    })
+      .toPromise()
+      .then(
+        (response) => {
+          return !response['status'];
 
         }
       ).catch(this.handleError);
