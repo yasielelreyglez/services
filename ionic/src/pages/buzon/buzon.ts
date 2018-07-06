@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {ApiProvider} from "../../providers/api/api";
-import {HttpErrorResponse} from "@angular/common/http";
-import {ServicePage} from '../service/service';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { ApiProvider } from "../../providers/api/api";
+import { HttpErrorResponse } from "@angular/common/http";
+import { ServicePage } from "../service/service";
 
 /**
  * Generated class for the BuzonPage page.
@@ -13,53 +13,62 @@ import {ServicePage} from '../service/service';
 
 @IonicPage()
 @Component({
-  selector: 'page-buzon',
-  templateUrl: 'buzon.html',
+  selector: "page-buzon",
+  templateUrl: "buzon.html"
 })
 export class BuzonPage {
-
   mensajes: any;
 
-  constructor(public api: ApiProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public api: ApiProvider,
+    public navCtrl: NavController,
+    public navParams: NavParams
+  ) {}
+
+  ionViewDidLoad() {
+    this.buscarMensajes();
+  }
+
+  buscarMensajes() {
     this.api.mensajes().then(
       data => {
         this.mensajes = data;
       },
       (err: HttpErrorResponse) => {
         if (err.error instanceof Error) {
-          console.log(err)
+          console.log(err);
         }
       }
     );
   }
 
-  ionViewDidLoad() {
-
+  servicioLeido(idMsg) {
+    this.api.leerMensajes(idMsg).then(data => {
+      if (data) this.buscarMensajes();
+    });
   }
-    verServicio(id){
-        this.api.getService(id).then(data => {
-            let service = data["data"];
-            console.log("servicio obtenido")
-            console.log(service)
-            this.navCtrl.push(ServicePage, {
-                service: service, //paso el service
-                serviceId: id, //si paso el id del servicio para la peticion
-                parentPage: this
-            });
-        });
 
-    }
-  deleteMensajes(id) {
-    this.api.deleteMensajes(id).then(
-      respose=>{
-        if (respose)
-          this.mensajes = this.mensajes.filter(function (item) {
-            return item.id !== id;
-          });
-        else
-          console.log("error");
+  verServicio(id, idMsg, estado) {
+    this.api.getService(id).then(data => {
+      let service = data["data"];
+      if (estado == "0") {
+        this.servicioLeido(idMsg);
       }
-    );
+      this.navCtrl.push(ServicePage, {
+        service: service, //paso el service
+        serviceId: id, //si paso el id del servicio para la peticion
+        parentPage: this
+      });
+    });
+  }
 
+  deleteMensajes(id) {
+    this.api.deleteMensajes(id).then(respose => {
+      if (respose)
+        this.mensajes = this.mensajes.filter(function(item) {
+          return item.id !== id;
+        });
+      else console.log("error");
+    });
   }
 }

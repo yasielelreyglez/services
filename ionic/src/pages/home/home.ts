@@ -129,7 +129,7 @@ export class HomePage {
           },
         (error: Geoposition) => { alert(error); },
       );
-      this.push.subcribe();
+      // this.push.subcribe();
 
     });
   }
