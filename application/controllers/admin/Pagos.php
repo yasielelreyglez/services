@@ -12,7 +12,6 @@ class Pagos extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Entities\Payments');
         $this->load->helper('url_helper');
         $this->load->helper('html');
         $this->load->library('ion_auth');
