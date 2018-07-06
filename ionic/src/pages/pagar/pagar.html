@@ -99,7 +99,35 @@
 
     </div>
 
+    <button (click)="mostrarPagos()"></button>
 
+    <div *ngIf="mostrandopago">
 
+      <ion-label color="azul-claro">Subir evidencia de pago</ion-label>
+      <p>000000000000</p>
+      <ion-label color="azul-claro">Banco Metropolitano</ion-label>
+      <p>RUC:758469521485</p>
+      <ion-grid>
+        <ion-row align-items-center>
+          <ion-col col-12>
+            <ion-label>Subir evidencia de pago</ion-label>
+            <img style="max-height: 150px;" (tap)="viewImg(preview)" src="{{preview}}"/>
+          </ion-col>
+          <ion-col col-12>
+            <button  padding block ion-button icon-left>
+              <ion-icon name="cloud-upload"></ion-icon>
+              Cargar foto
+            </button>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+
+      <div padding>
+        <button (click)="pagar()" class="btn-text-left" text-left color="azul-clarp" ion-button block margin-bottom="1" margin-top="2">
+          Notificar pago
+        </button>
+      </div>
+    </div>
   </ion-list>
 </ion-content>

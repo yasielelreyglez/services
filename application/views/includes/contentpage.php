@@ -44,7 +44,7 @@
                             $config = $item;
                     }
                 }else{
-                    echo "ESTO NO SE ENTERO";
+
                 }
                 ?>
                 <?php if (isset($config)): ?>

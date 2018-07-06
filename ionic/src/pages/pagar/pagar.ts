@@ -24,6 +24,7 @@ export class PagarPage {
   numero_t:any;
   cvv_t:any;
   expire:any;
+  mostrandopago:boolean;
   service_id:number
   private preview: string;
   constructor(
@@ -33,12 +34,16 @@ export class PagarPage {
       private platform: Platform,
       public apiProv: ApiProvider) {
       this.service_id = this.navParams.get("id");
+
       this.apiProv.memberships().then((result) => {
 
         this.memberships = result;
           console.log(result);
       });
   }
+    mostrarPagos(){
+        this.mostrandopago = !this.mostrandopago;
+    }
   pagar()
   {
       if(this.tipo_p==1){
