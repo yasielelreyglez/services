@@ -1,3 +1,4 @@
+import { ApiProvider } from './../../providers/api/api';
 import { Component,OnInit } from '@angular/core';
 import { ViewController,NavController,NavParams ,App} from 'ionic-angular';
 // import {SignupPage} from '../signup/signup';
@@ -20,12 +21,14 @@ export class PopoverPage implements OnInit {
   denuncia: any;
   loggedIn: boolean;
   public loading: any;
+  cantMensajesNoLeidos = 0;
   constructor(
     public navPar: NavParams,
     public auth: AuthProvider,
     public viewCtrl: ViewController,
     public navCtrl: NavController,
-    public appCtrl: App
+    public appCtrl: App,
+    public api: ApiProvider
    ) {
   }
   ngOnInit() {
@@ -33,6 +36,15 @@ export class PopoverPage implements OnInit {
     this.denuncia = this.navPar.get("denuncia");
     this.tipo = this.navPar.get("tipo");
     this.id = this.navPar.get("id");
+    setTimeout(() => {
+      if(this.loggedIn){
+        this.api.mensajesNoLeidos().then(result=>{
+          if (result['data'] && result['data'].length > 0) {
+                this.cantMensajesNoLeidos = result['data'].length;
+          }
+        })
+      }
+    }, 100);
   }
 
   close() {

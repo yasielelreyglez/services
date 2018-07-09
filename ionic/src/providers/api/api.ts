@@ -232,6 +232,19 @@ export class ApiProvider {
       ).catch(this.handleError);
   }
 
+  mensajesNoLeidos() {
+    if(!this.user)
+      this.user = JSON.parse(localStorage.getItem('ServCurrentUser'));
+    return this.http.get(this.apiBaseUrl + 'api/mensajesNoleidos', {
+      headers: new HttpHeaders().set('Authorization', this.user.token)
+    })
+      .toPromise()
+      .then(
+        (response) => {
+          return response;
+        }
+      ).catch(this.handleError);
+  }
 
   mensajes() {
     return this.http.get(this.apiBaseUrl + 'api/mensajes', {
