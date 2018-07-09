@@ -65,7 +65,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import {SearchPage} from "../pages/search/search";
 import { OpenNativeSettings } from '@ionic-native/open-native-settings';
 import { Diagnostic } from '@ionic-native/diagnostic';
-import { NotificacionesPushProvider } from '../providers/notificaciones-push/notificaciones-push';
+// import { NotificacionesPushProvider } from '../providers/notificaciones-push/notificaciones-push';
 
 @NgModule({
   declarations: [
@@ -174,7 +174,7 @@ import { NotificacionesPushProvider } from '../providers/notificaciones-push/not
     CategoryProvider,
     ServiceProvider,
     AuthProvider,
-    NotificacionesPushProvider,
+    // NotificacionesPushProvider,
     ApiProvider
 
     ]

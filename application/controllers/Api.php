@@ -1076,6 +1076,8 @@ class Api extends REST_Controller
             $em->flush();
             $service->getPayments()->toArray();
             $service->loadRelatedData($user);
+            $payment->nservice = $service->getTitle();
+            $payment->idService = $service->getId();
             $data["data"] = $payment;
         } else {
             $data["error"] = "El usuario actual no tiene permiso para pagar este servicio";
