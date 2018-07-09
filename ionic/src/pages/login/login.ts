@@ -33,6 +33,16 @@ export class LoginPage {
 
   }
 
+  loginFacebook(){
+    let toast = this.toastCtrl.create({
+      message: "Pronto estaremos conectados con Facebook!",
+      duration: 5000,
+      position: 'bottom',
+      showCloseButton: true,
+      closeButtonText: "Cerrar"
+    });
+    toast.present();
+  }
 
   showPrompt() {
     let prompt = this.alertCtrl.create({
