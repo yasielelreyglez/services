@@ -17,7 +17,7 @@ class Payments
      *
      * @ManyToOne(targetEntity="Membership", inversedBy="payments")
      */
-    protected $membership;
+    public $membership;
 
     /**  1-evidencia 2-en linea
      * @Column(type="integer")
@@ -95,7 +95,7 @@ class Payments
     /**
      * @Column(type="datetime")
      **/
-    protected $created_at;
+    public $created_at;
 
     /**
      * @Column(type="datetime",nullable=true)

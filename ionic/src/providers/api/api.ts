@@ -76,7 +76,22 @@ export class ApiProvider {
                 );
         }
     }
-  memberships(): Promise<any> {
+    pagosrealizados(id:number): Promise<any> {
+        if (this.user) {
+            return this.http.get(this.apiBaseUrl + 'api/userpays/'+id, {
+                headers: new HttpHeaders().set('Authorization', this.user.token)
+            }).toPromise().then((response) => {
+                    if (response['data']) {
+                        return response['data'];
+                    } else {
+                        return {error: 'Error en el servidor'};
+                    }
+                }
+            ).catch(this.handleError);
+        }
+
+    }
+    memberships(): Promise<any> {
         if (this.user) {
             return this.http.get(this.apiBaseUrl + 'api/memberships', {
                 headers: new HttpHeaders().set('Authorization', this.user.token)
@@ -91,7 +106,7 @@ export class ApiProvider {
         }
 
     }
-  contactservice(id): Promise<any> {
+    contactservice(id): Promise<any> {
 
     if (this.user) {
       return this.http.get(this.apiBaseUrl + 'api/contactservice/' + id, {

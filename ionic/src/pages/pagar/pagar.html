@@ -99,35 +99,52 @@
 
     </div>
 
-    <button (click)="mostrarPagos()"></button>
+    <button class="fs-10" (click)='mostrarPagos()' color="azul-claro" ion-button block
+            small icon-left>
+      <ion-icon name="checkmark"></ion-icon>
+      Ver Pagos Realizados
+    </button>
+
+
 
     <div *ngIf="mostrandopago">
+      <ion-label color="azul-claro">Pagos Realizados</ion-label>
+      <ion-list>
+        <div *ngFor="let pago of pagos; let i = index" [class]="pago.state == 0 ? 'pagado' :'no_pago'">
+          <ion-item>
+            <ion-grid>
+              <ion-row align-items-start>
+                <ion-col col-3>
+                  <img (tap)="viewImg(pago.evidence)" [src]="pago.evidence ?  + pago.evidence : 'assets/imgs/service_img.png' ">
+                </ion-col>
+                <ion-col col-9>
+                  <div> Pago {{getPaymentType(pago.type)}} del servicio {{pago.nservice}}<br>
 
-      <ion-label color="azul-claro">Subir evidencia de pago</ion-label>
-      <p>000000000000</p>
-      <ion-label color="azul-claro">Banco Metropolitano</ion-label>
-      <p>RUC:758469521485</p>
-      <ion-grid>
-        <ion-row align-items-center>
-          <ion-col col-12>
-            <ion-label>Subir evidencia de pago</ion-label>
-            <img style="max-height: 150px;" (tap)="viewImg(preview)" src="{{preview}}"/>
-          </ion-col>
-          <ion-col col-12>
-            <button  padding block ion-button icon-left>
-              <ion-icon name="cloud-upload"></ion-icon>
-              Cargar foto
-            </button>
-          </ion-col>
+                    <label>
+                      Membresia:
+                    </label>
+                    {{pago.membership.title}}
+                    <br>
+                    <label>
+                      Precio:
+                    </label>
+                    {{pago.membership.price}}$
+                    <br>
+                    <div *ngIf="pago.type==2">
+                      <label>Tarjeta:</label>{{getTarjetaValues(pago)}}
+                    </div>
+                    <label>Estado:</label>{{getPaymentState(pago.state)}} &nbsp;<label>Fecha:</label>{{ pago.created_at.date | date: 'd/M/y' }}
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
 
-        </ion-row>
-      </ion-grid>
 
-      <div padding>
-        <button (click)="pagar()" class="btn-text-left" text-left color="azul-clarp" ion-button block margin-bottom="1" margin-top="2">
-          Notificar pago
-        </button>
-      </div>
+
+          </ion-item>
+        </div>
+      </ion-list>
+
     </div>
   </ion-list>
 </ion-content>

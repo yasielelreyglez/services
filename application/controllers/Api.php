@@ -1016,6 +1016,30 @@ class Api extends REST_Controller
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
+    public function userpays_get(){
+        $user = $this->getCurrentUser();
+        $pagosRealizados = [];
+        if($user){
+            $services = $user->getServices();
+            /** @var \Entities\Service $service */
+            foreach ($services as $service){
+                $pagosRealizados = array_merge($pagosRealizados,$service->getPayments()->toArray());
+
+            }
+            foreach ($pagosRealizados as $pago){
+                /** @var \Entities\Payments $pago */
+                $pago->nservice = $pago->getService()->getTitle();
+                $pago->idService = $pago->getService()->getId();
+                $pago->getMembership()->getTitle();
+            }
+        }else{
+            $pagosRealizados[]="no encontrado el usuario ";
+        }
+        $result["desc"] = "Listado de pagos realizados";
+        $result["data"] = $pagosRealizados;
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
+
     public function payservice_post($id)
     {
 
@@ -1052,7 +1076,7 @@ class Api extends REST_Controller
             $em->flush();
             $service->getPayments()->toArray();
             $service->loadRelatedData($user);
-            $data["data"] = $service;
+            $data["data"] = $payment;
         } else {
             $data["error"] = "El usuario actual no tiene permiso para pagar este servicio";
         }
@@ -1392,7 +1416,7 @@ class Api extends REST_Controller
     }
 
     /**
-     * @return Entities/User
+     * @return \Entities\User
      */
     function getCurrentUser()
     {
