@@ -111,7 +111,7 @@
       <ion-label color="azul-claro">Pagos Realizados</ion-label>
       <ion-list>
         <div *ngFor="let pago of pagos; let i = index" [class]="pago.state == 0 ? 'pagado' :'no_pago'">
-          <ion-item>
+          <ion-item text-wrap>
             <ion-grid>
               <ion-row align-items-start>
                 <ion-col col-3>
