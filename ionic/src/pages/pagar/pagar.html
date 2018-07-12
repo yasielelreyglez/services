@@ -46,10 +46,10 @@
         <ion-row align-items-center>
           <ion-col col-12>
             <ion-label>Subir evidencia de pago</ion-label>
-            <img style="max-height: 150px;" (tap)="viewImg(preview)" src="{{preview}}"/>
+            <img style="max-height: 150px;" (tap)="viewImg(preview.value)" src="{{preview.value}}"/>
           </ion-col>
           <ion-col col-12>
-            <button  padding block ion-button icon-left>
+            <button (click)="uploadPhoto()"  padding block ion-button icon-left>
               <ion-icon name="cloud-upload"></ion-icon>
               Cargar foto
             </button>

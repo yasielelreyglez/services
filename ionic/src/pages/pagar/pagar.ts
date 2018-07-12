@@ -1,7 +1,9 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, Platform, ToastController} from 'ionic-angular';
+import {ActionSheetController, NavController, NavParams, Platform, ToastController} from 'ionic-angular';
 import {PhotoViewer} from '@ionic-native/photo-viewer';
 import {ApiProvider} from '../../providers/api/api';
+import {sendGalery} from '../../models/sendService';
+import {Camera, CameraOptions} from '@ionic-native/camera';
 
 /**
  * Generated class for the PagarPage page.
@@ -27,12 +29,14 @@ export class PagarPage {
     mostrandopago: boolean;
     service_id: number;
     pagos: any;
-    private preview: string;
+    public preview: sendGalery;
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public photoViewer: PhotoViewer,
                 private platform: Platform,
+                public actionSheetCtrl: ActionSheetController,
+                private camera: Camera,
                 public toastCtrl: ToastController,
                 public apiProv: ApiProvider) {
         this.service_id = this.navParams.get('id');
@@ -75,7 +79,7 @@ export class PagarPage {
     }
     pagar() {
         if (this.tipo_p == 1) {
-          if (this.preview == undefined || this.preview == "assets/imgs/service_img.png") this.mostrarMsg("Favor adjuntar evidencia");
+          if (this.preview == undefined || this.preview.value == "assets/imgs/service_img.png") this.mostrarMsg("Favor adjuntar evidencia");
           else
             this.apiProv.payService(this.service_id, {
                 membership: this.membresia,
@@ -116,13 +120,13 @@ export class PagarPage {
     }
 
     ionViewDidLoad() {
-        this.preview = 'assets/imgs/service_img.png';
+        this.preview.value = 'assets/imgs/service_img.png';
 
     }
 
     viewImg() {
         this.platform.ready().then(() => {
-            this.photoViewer.show(this.preview);
+            this.photoViewer.show(this.preview.value);
         });
     }
     mostrarMsg(msg){
@@ -132,5 +136,43 @@ export class PagarPage {
         position: "bottom"
       });
       toast.present();
+    }
+    getImage(source) {
+        const options: CameraOptions = {
+            quality: 100,
+            destinationType: this.camera.DestinationType.DATA_URL,
+            sourceType: source,
+            allowEdit:true,
+        };
+        this.camera.getPicture(options).then((imageData) => {
+
+
+            this.preview = {filename: "evidences"+Math.floor(Math.random() * 100), filetype: "image/jpeg", value: imageData};
+        }, (err) => {
+        });
+    }
+    uploadPhoto() {
+        let actionSheet = this.actionSheetCtrl.create({
+            title: 'Seleccione la imagen',
+            buttons: [
+                {
+                    text: 'Cargar desde el almacenamiento',
+                    handler: () => {
+                        this.getImage(this.camera.PictureSourceType.PHOTOLIBRARY);
+                    }
+                },
+                {
+                    text: 'Usar la Camara',
+                    handler: () => {
+                        this.getImage(this.camera.PictureSourceType.CAMERA);
+                    }
+                },
+                {
+                    text: 'Cancelar',
+                    role: 'cancel'
+                }
+            ]
+        });
+        actionSheet.present();
     }
 }
