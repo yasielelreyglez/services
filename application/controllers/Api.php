@@ -1363,6 +1363,7 @@ class Api extends REST_Controller
     {
         $user = $this->getCurrentUser();
         $em = $this->doctrine->em;
+        /** @var \Entities\Service $service */
         $service = $em->find("\Entities\Service", $id);
         if($service){
           if ($user == $service->author) {
@@ -1395,7 +1396,7 @@ class Api extends REST_Controller
 
             $service->getServiceusers()->toArray();
             $service->getPayments()->toArray();
-            $service->detachMessage($em);
+            $service->detachMessages($em);
             //CARGADA LA RELACION PARA DESPUES ELIMINARLAS CON EL SERVICIO
             $em->remove($service);
             $em->flush();
