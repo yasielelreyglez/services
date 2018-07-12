@@ -64,11 +64,14 @@ export class NotificacionesPushProvider {
 
   subcribe() {
     this.auht.currentUser.subscribe(user => {
-      this.checkTokenMovil();
+      if (user){
+        this.checkTokenMovil();
         this.pushSetup();
         this.deviceRefreshToken();
-        if (user && user["rol"] == "admin") this.adminSubcribe();
-        else this.adminUnsubcribe();
+        if (user["rol"] == "admin") this.adminSubcribe();
+       // else this.adminUnsubcribe();
+      }
+
     });
   }
 
@@ -77,13 +80,6 @@ export class NotificacionesPushProvider {
       localStorage.set("device_id", deviceID);
       this.api.updateDeviceID(deviceID, this.getOS()).then(resp => {
         localStorage.setItem("device_id", deviceID);
-        let toast = this.toastCtrl.create({
-          message: deviceID,
-          duration: 15000,
-          position: "bottom",
-          showCloseButton: true
-        });
-        toast.present();
       });
     });
   }

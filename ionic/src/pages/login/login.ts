@@ -10,6 +10,7 @@ import {
 import {User} from '../../models/user';
 import {AuthProvider} from '../../providers/auth/auth';
 import {HomePage} from '../home/home';
+import { NotificacionesPushProvider } from '../../providers/notificaciones-push/notificaciones-push';
 
 // import { SignupPage } from '../signup/signup';
 
@@ -27,6 +28,7 @@ export class LoginPage {
               public authService: AuthProvider,
               public toastCtrl: ToastController,
               public load: LoadingController,
+              public push: NotificacionesPushProvider,
               public alertCtrl: AlertController) {
     this.user = new User();
 
@@ -115,6 +117,7 @@ export class LoginPage {
       .then(result => {
         if (result === true) {
           this.loading.dismiss();
+          this.push.subcribe();
           this.navCtrl.setRoot(HomePage);
           //  this.navCtrl.pop();
         } else {
