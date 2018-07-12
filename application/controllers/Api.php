@@ -599,16 +599,23 @@ class Api extends REST_Controller
         $em = $this->doctrine->em;
 
         $user = $this->getCurrentUser();
-        $relacion = $user->getServices()->toArray();
-        $result["desc"] = "Listado de los servicios creados por el usuario";
-        $result["data"] = array();
-        foreach ($relacion as $service) {
-            $service->loadRelatedData(null, null, site_url());
-            $service->loadRelatedUserData($user);
-            $result["data"][] = $service;
+        if($user){
+            $relacion = $user->getServices()->toArray();
+            $result["desc"] = "Listado de los servicios creados por el usuario";
+            $result["data"] = array();
+            /** @var \Entities\Service $service */
+            foreach ($relacion as $service) {
+                $service->loadRelatedData($user, null, site_url());
+                $service->loadRelatedUserData($user);
+                $result["data"][] = $service;
+            }
+            $result["data"] = $relacion;
+            $this->set_response($result, REST_Controller::HTTP_OK);
+        }else{
+            $result["desc"] = "Listado de los servicios creados por el usuario";
+            $result["error"] = "debe autenticarse";
+            $this->set_response($result, REST_Controller::HTTP_UNAUTHORIZED);
         }
-        $result["data"] = $relacion;
-        $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
     //calificar un servicio
@@ -1158,10 +1165,12 @@ class Api extends REST_Controller
             $this->load->helper("file");
             foreach ($eliminadas as $eliminada) {
                 $image = $em->find("\Entities\Image", $eliminada);
-                $path = "./resources/services/" . $id . "/" . $image->getTitle();
-                delete_files($path);
-                $em->remove($image);
-                $em->flush();
+                if($image) {
+                    $path = "./resources/services/" . $id . "/" . $image->getTitle();
+                    delete_files($path);
+                    $em->remove($image);
+                    $em->flush();
+                }
             }
         } else {
             $service = new \Entities\Service();
@@ -1228,13 +1237,15 @@ class Api extends REST_Controller
         if (count($fotos) > 0) {
             if($fotos[0]['filename']) {
                 $service->addFotos($fotos, base_url());
-
-                $path = "./resources/services/" . $fotos[0]['filename'];
-                $save = "/resources/services/" . $fotos[0]['filename'];
-                file_put_contents($path, base64_decode($fotos[0]['value']));
-                $service->setIcon($save);
-                $service->setThumb($fotos[0]['filename']);
             }
+        }
+        $FinalImages = $service->getImages()->toArray();
+        if(count($FinalImages)>0){
+            $service->setIcon($FinalImages[0]->title);
+            $service->setThumb($FinalImages[0]->thumb);
+        }else{
+            $service->setIcon(null);
+            $service->setThumb(null);
         }
 
 

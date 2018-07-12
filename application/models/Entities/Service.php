@@ -785,7 +785,7 @@ namespace Entities {
                 }
                 $image = new Image();
                 $image->setTitle($save_path);
-                createThumb($path, 700, 500);
+                @createThumb($path, 700, 500);
                 $image->setThumb($save_thumb);
 
                 $this->addImage($image);
@@ -850,19 +850,25 @@ namespace Entities {
             }
             $this->citiesList = $this->getCities()->toArray();
             $this->imagesList = [];
-            if ($this->getProfessional()) {
+            if ($this->getProfessional()||$user == $this->author) {
                 $this->imagesList = $this->getImages()->toArray();
                 foreach ($this->imagesList as $item) {
                     $item->title = site_url($item->title);
                     $item->thumb = site_url($item->thumb);
                 }
-
+                if(count($this->imagesList)>0) {
+                    $this->setIcon($this->imagesList[0]->title);
+                    $this->thumb = $this->imagesList[0]->thumb;
+                }
             } else {
+                $images = $this->getImages()->toArray();
                 $image = new Image();
-                $image->setTitle($site_url . $this->getIcon());
-                $image->setThumb($site_url . $this->getThumb());
-                $this->imagesList = [];
-                $this->imagesList[] = $image;
+                if(count($images)>0) {
+                    $image->setTitle($site_url .$images[0]->title);
+                    $image->thumb = $images[0]->thumb;
+                    $this->imagesList = [];
+                    $this->imagesList[] = $image;
+                }
             }
             $this->positionsList = $this->getPositions()->toArray();
             $times = $this->getTimes();

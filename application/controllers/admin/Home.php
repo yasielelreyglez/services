@@ -39,6 +39,7 @@ class Home extends CI_Controller {
         if (count($configRegionHome))
             $data['configRegionHome'] = $configRegionHome;
 
+        /** @var \Entities\Service $service */
         foreach ($lastvisited as $service) {
             $service->loadRelatedData();
         }

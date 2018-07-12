@@ -423,14 +423,20 @@ class Services extends CI_Controller
 ////                    file_put_contents($pathIcon, $fotoSubir[0]['value']);
 //                    //print_r($fotoSubir);
 //                    die;
-                    $service->setIcon($saveIcon);
-                    $service->setThumb($fotoSubir[0]['filename']);
+
                     $service->addFotos($fotoSubir, site_url(), true);
                 }
             } else {
 //                echo"NO VE LAS FOTOS";
             }
-
+            $FinalImages = $service->getImages()->toArray();
+            if(count($FinalImages)>0){
+                $service->setIcon($FinalImages[0]->title);
+                $service->setThumb($FinalImages[0]->thumb);
+            }else{
+                $service->setIcon(null);
+                $service->setThumb(null);
+            }
             $em->persist($service);
             $em->flush();
             $service->loadRelatedData($this->getCurrentUser(), null, site_url());
