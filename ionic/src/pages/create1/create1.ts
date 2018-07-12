@@ -65,16 +65,16 @@ export class Create1Page {
         this.subCategories = subCat["data"];
         this.loading.dismiss();
         setTimeout(() => {
+          this.category = CValue;
           this.subCategoriesS.open();
-        }, 15);
+          this.C.close();
+        }, 1);
       })
       .catch(error => {
         this.loading.dismiss();
       });
   }
-  whatsappClicked(){
-    console.log(this.service);
-  }
+
   allClickedCities() {
     if (this.allCities) {
       this.service.cities = [];
@@ -113,6 +113,18 @@ export class Create1Page {
     );
   }
 
+  textoSubcategoria(subId){
+    if (this.subCategories){
+      for (let i = 0; i < this.subCategories.length; i++) {
+        if(this.subCategories[i].id == subId) return this.subCategories[i].title;
+      }
+    }
+  }
+
+  establecerCategoria(){
+    this.C.open();
+  }
+
   ionViewDidLoad() {
     this.preview = "assets/imgs/service_img.png";
     if (this.navParams.get("service")) {
@@ -128,8 +140,14 @@ export class Create1Page {
       }
       this.service.cities = citiesId;
       this.category = this.service.subcategoriesList[0].category.id;
-
-      this.onChangeCategory(this.category);
+      this.subCat
+      .getsubcategories(this.category)
+      .then(subCat => {
+        this.subCategories = subCat["data"];
+      })
+      .catch(error => {
+        this.loading.dismiss();
+      });
 
       let subcategoriesId = [];
       for (

@@ -109,20 +109,33 @@
       <ion-checkbox name="allCities" [(ngModel)]="allCities" (ionChange)="allClickedCities()" color="dark"></ion-checkbox>
     </ion-item>
 
-    <ion-label class="azul-claro label-centro" text-center>Categorías</ion-label>
-
-    <ion-item>
-      <ion-select required #C (ionChange)="onChangeCategory(C.value)" name="category" [(ngModel)]="category" placeholder="Selecciona la categoria">
-        <ion-option *ngFor="let c of categories" [value]="c.id">{{c.title}}</ion-option>
+    <ion-item hidden>
+      <ion-select okText="" cancelText="" required #C  name="category" [(ngModel)]="category" placeholder="Selecciona la categoria">
+        <ion-option *ngFor="let c of categories" (ionSelect)="onChangeCategory(c.id)" [value]="c.id">{{c.title}}</ion-option>
       </ion-select>
     </ion-item>
 
-    <ion-item>
-      <ion-select (ionCancel)="onCancel()" #subCategoriesS required multiple="true" name="subCategories" [(ngModel)]="service.categories"
+    <ion-item hidden>
+      <ion-select okText="Ok" cancelText="Atras" (ionCancel)="onCancel()" #subCategoriesS required multiple="true" name="subCategories" [(ngModel)]="service.categories"
         placeholder="Selecciona la subcategoria">
         <ion-option *ngFor="let c of subCategories" [value]="c.id">{{c.title}}</ion-option>
       </ion-select>
     </ion-item>
+    <ion-row text-wrap>
+      <button outline block ion-button (click)="establecerCategoria()">Establecer Categoria</button>
+      <ion-col col-6>
+        <ion-label >Categorías</ion-label>
+        <div *ngFor="let cat of categories">
+          <p *ngIf="cat.id==category">{{cat.title}}</p>
+        </div>
+      </ion-col>
+      <ion-col col-6>
+        <ion-label>Sub-Categorías</ion-label>
+        <div *ngFor="let subId of service.categories">
+          <p>{{textoSubcategoria(subId)}}</p>
+        </div>
+      </ion-col>
+    </ion-row>
 
 
     <!--<ion-item>-->
