@@ -10,8 +10,9 @@ import {
 import {User} from '../../models/user';
 import {AuthProvider} from '../../providers/auth/auth';
 import {HomePage} from '../home/home';
-import { NotificacionesPushProvider } from '../../providers/notificaciones-push/notificaciones-push';
-
+import { TabPage } from '../tab/tab';
+// import { NotificacionesPushProvider } from '../../providers/notificaciones-push/notificaciones-push';
+// import { FCM } from "@ionic-native/fcm";
 // import { SignupPage } from '../signup/signup';
 
 @IonicPage()
@@ -28,7 +29,8 @@ export class LoginPage {
               public authService: AuthProvider,
               public toastCtrl: ToastController,
               public load: LoadingController,
-              public push: NotificacionesPushProvider,
+              // public push: NotificacionesPushProvider,
+              // public fcm: FCM,
               public alertCtrl: AlertController) {
     this.user = new User();
 
@@ -117,8 +119,9 @@ export class LoginPage {
       .then(result => {
         if (result === true) {
           this.loading.dismiss();
-          this.push.subcribe();
-          this.navCtrl.setRoot(HomePage);
+          // this.push.forceUpdateMovilId();
+          // this.push.subcribe();
+          this.navCtrl.push(TabPage);
           //  this.navCtrl.pop();
         } else {
           let toast = this.toastCtrl.create({
