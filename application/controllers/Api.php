@@ -1360,7 +1360,6 @@ class Api extends REST_Controller
             $fotos = $service->getImages()->toArray();//TODO VER SI SE BORRAN LOS FICHEROS
             $this->load->helper("file");
             $path = "./resources/services/";
-
             foreach ($fotos as $foto) {
                 try{
                     $imageName = explode('/', $foto->getTitle());
@@ -1375,7 +1374,6 @@ class Api extends REST_Controller
                     //print_r($e);
                 }
             }
-
             //borrar los thumbs y los icons
             @unlink(substr($service->getIcon(),1));
             @unlink(substr($service->getThumb(),1));
@@ -1386,7 +1384,7 @@ class Api extends REST_Controller
 
             $service->getServiceusers()->toArray();
             $service->getPayments()->toArray();
-
+            $service->detachMessage($em);
             //CARGADA LA RELACION PARA DESPUES ELIMINARLAS CON EL SERVICIO
             $em->remove($service);
             $em->flush();

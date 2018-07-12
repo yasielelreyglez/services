@@ -13,6 +13,7 @@ import {ShowserviceComponent} from './components/showservice/showservice.compone
 import {WizardserviceComponent} from './components/wizardservice/wizardservice.component';
 import {PayserviceComponent} from './components/payservice/payservice.component';
 import {MensajesComponent} from './components/mensajes/mensajes.component';
+import {AyudaComponent} from './components/ayuda/ayuda.component';
 
 const routes: Routes = [
     {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -36,6 +37,7 @@ const routes: Routes = [
     {path: 'myservices/service/:id', component: ShowserviceComponent, canActivate: [AuthGuard]},
     {path: 'createservice', component: WizardserviceComponent, canActivate: [AuthGuard]},
     {path: 'mensajes', component: MensajesComponent, canActivate: [AuthGuard]},
+    {path: 'ayuda', component: AyudaComponent, canActivate: [AuthGuard]},
 
 
     // otherwise redirect to home

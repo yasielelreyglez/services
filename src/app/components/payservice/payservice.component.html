@@ -2,7 +2,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h1 class="text-center">Pagar servicio</h1>
+
+                    <h1 class="text-center">Pagar servicio</h1>
 
                 <div class="field custom-select-box">
                     <label for="membership">Membresía</label>
@@ -23,6 +24,7 @@
 
                 <div *ngIf="model.type === 1; then evidence else line"></div>
                 <br>
+
 
             </div>
         </div>
@@ -55,6 +57,7 @@
                  alt="">
         </div>
     </div>
+
 </ng-template>
 
 
@@ -92,4 +95,38 @@
         </div>
     </div>
 
+
 </ng-template>
+<div class="container">
+    <h2 class="text-center">Pagos Realizados</h2>
+    <div class="row" >
+        <div *ngFor="let pago of pagos; let i = index">
+            <div class="row">
+
+                    <div class="col-md-3">
+                        <img (tap)="viewImg(pago.evidence)" [src]="pago.evidence?pago.evidence:'assets/imgs/service_img.png'">
+                    </div>
+                    <div class="col-md-9">
+                        <div> Pago {{getPaymentType(pago.type)}} del servicio {{pago.nservice}}<br>
+
+                            <label>
+                                Membresia:
+                            </label>
+                            {{pago.membership.title}}
+                            <br>
+                            <label>
+                                Precio:
+                            </label>
+                            {{pago.membership.price}}$
+                            <br>
+                            <div *ngIf="pago.type==2">
+                                <label>Tarjeta:</label>{{getTarjetaValues(pago)}}
+                            </div>
+                            <label>Estado:</label>{{getPaymentState(pago.state)}} &nbsp;<label>Fecha:</label>{{ pago.created_at.date | date: 'd/M/y' }}
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+</div>

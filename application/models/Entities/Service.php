@@ -263,7 +263,14 @@ namespace Entities {
         {
             return $this->getAuthor()->notificarComentario($this);
         }
-
+        public function detachMessages($em){
+            $mensajes = $this->getMensajes();
+            /** @var Mensaje $mensaje */
+            foreach ($mensajes as $mensaje) {
+                $mensaje->service = null;
+                $em->persist($mensaje);
+            }
+        }
         /**
          * @return Mensaje
          */
@@ -586,7 +593,7 @@ namespace Entities {
          */
         public function getMensajes()
         {
-            return $this->mensates;
+            return $this->mensajes;
         }
         /**
          * Add position

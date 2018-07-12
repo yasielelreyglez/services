@@ -41,6 +41,8 @@ import { TimesComponent } from './components/_modals/times/times.component';
 import {ChangepasswordComponent} from './components/_modals/changepassword/changepassword.component';
 import {ReportServiceComponent} from './components/_modals/reportservice/reportservice.component';
 import {MensajesComponent} from './components/mensajes/mensajes.component';
+import {AyudaComponent} from './components/ayuda/ayuda.component';
+
 import {Globals} from './_models/globals';
 import { DeletedialogComponent } from './components/_modals/deletedialog/deletedialog.component';
 
@@ -72,7 +74,8 @@ import { DeletedialogComponent } from './components/_modals/deletedialog/deleted
         ReportServiceComponent,
         ChangepasswordComponent,
         MensajesComponent,
-        DeletedialogComponent
+        DeletedialogComponent,
+        AyudaComponent
     ],
     entryComponents: [
         ForgotpassComponent,

@@ -467,7 +467,23 @@ export class ApiService {
         }
     }
 
-    memberships(): Observable<any> {
+    pagosrealizados(): Observable<any> {
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            return this.http.get(this.getBaseURL() + 'api/userpays/'+0, {
+                headers: new HttpHeaders().set('Authorization',JSON.parse(currentUser).token)
+            }).map((response) =>  {
+                    if (response['data']) {
+                        return response['data'];
+                    } else {
+                        return {error: 'Error en el servidor'};
+                    }
+                }
+            );
+        }
+
+    }
+    memberships(): Observable<any>{
         const currentUser = localStorage.getItem('currentUser');
         if (currentUser) {
             return this.http.get(this.getBaseURL() + 'api/memberships', {headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)}).map((response) => {

@@ -1,0 +1,38 @@
+<!--
+  Generated template for the AyudaPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<div>
+  <div>
+    <h1>Ayuda</h1>
+  </div>
+
+</div>
+
+
+<div class="content">
+  <h4 text-center>Mensaje al Administrador</h4>
+  <div class="row">
+    <textarea rows="4" (ionChange)='mensajeAdmin()' [(ngModel)]="msg"></textarea>
+  </div>
+  <div text-center *ngIf="msg.length > 3; else disableButton">
+    <a offset-md-4 col-md-4 ion-button [href]="msgAdmin" block>Mensaje al Administrador</a>
+  </div>
+  <ng-template text-center #disableButton>
+    <a offset-md-4 col-md-4 ion-button block>Mensaje al Administrador</a>
+  </ng-template>
+
+  <div>
+    <div>
+      <button ion-button full>
+        <i class="fa fa-home" name="home"></i>Ayuda</button>
+    </div>
+    <div>
+      <button>
+        Ayuda 2
+      </button>
+    </div>
+  </div>
+</div>

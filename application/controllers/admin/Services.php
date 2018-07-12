@@ -302,7 +302,7 @@ class Services extends CI_Controller
 
         $service->getServiceusers()->toArray();
         $service->getPayments()->toArray();
-
+        $service->detachMessages($em);
         //CARGADA LA RELACION PARA DESPUES ELIMINARLAS CON EL SERVICIO
         $em->remove($service);
         $em->flush();

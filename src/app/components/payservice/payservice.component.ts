@@ -17,6 +17,7 @@ export class PayserviceComponent implements OnInit {
     type: any;
     previewvalue: string;
     id: number;
+    pagos:any;
     memberships: any;
 
 
@@ -44,6 +45,13 @@ export class PayserviceComponent implements OnInit {
             if (!result.error)
                 this.memberships = result;
             this.error = result.error;
+        });
+        this.apiServices.pagosrealizados().subscribe(result => {
+            if (result.error) {
+                this.error = result.error;
+            } else {
+                this.pagos = result;
+            }
         });
 
         // this.createForm();
@@ -79,7 +87,25 @@ export class PayserviceComponent implements OnInit {
             };
         }
     }
-
+    getPaymentType(tipo:any){
+        if(tipo==1){
+            return "por evidencia";
+        }else{
+            return "en linea"
+        }
+    }
+    getTarjetaValues(pago:any){
+        return pago.nombre+"("+pago.numero+")";
+    }
+    getPaymentState(state:any){
+        if(state==0){
+            return "sin aprobar";
+        }else if(state==1){
+            return "aprobado";
+        }else{
+            return "denegado";
+        }
+    }
     payEvidence() {
         console.log(this.model.membership);
         console.log(this.model.type);
