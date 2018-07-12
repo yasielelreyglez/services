@@ -216,7 +216,7 @@ export class Create4Page {
 
   deletePosition(pos: number) {
     let confirm = this.alertCtrl.create({
-      title: "¿Está seguro que desea eliminar el servicio? ",
+      title: "¿Está seguro que desea eliminar la ubicación? ",
       message: "",
       buttons: [
         {
