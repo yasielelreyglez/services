@@ -887,9 +887,7 @@ namespace Entities {
             if ($user) {
                 $this->loadRelatedUserData($user);
             }
-            $this->icon = $site_url . $this->icon;
-            $this->thumb = $site_url . $this->thumb;
-        }
+         }
 
         //relacionar la info con el usuario y salvarlo en la bd
         public function relateUserData($user, $em)
