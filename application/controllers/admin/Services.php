@@ -432,10 +432,10 @@ class Services extends CI_Controller
             $FinalImages = $service->getImages()->toArray();
             if(count($FinalImages)>0){
                 $service->setIcon($FinalImages[0]->title);
-                $service->setThumb($FinalImages[0]->thumb);
+                $service->thumb = $FinalImages[0]->thumb;
             }else{
                 $service->setIcon(null);
-                $service->setThumb(null);
+                $service->thumb = null;
             }
             $em->persist($service);
             $em->flush();
