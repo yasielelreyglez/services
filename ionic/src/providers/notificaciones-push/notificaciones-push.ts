@@ -24,6 +24,12 @@ export class NotificacionesPushProvider {
     return os;
   }
 
+  forceUpdateMovilId() {
+    this.fcm.getToken().then(deviceID => {
+      this.api.updateDeviceID(deviceID, this.getOS()).then(resp => {});
+    });
+  }
+
   checkTokenMovil() {
     this.fcm.getToken().then(deviceID => {
       if (localStorage.getItem("device_id") != deviceID) {
@@ -64,20 +70,18 @@ export class NotificacionesPushProvider {
 
   subcribe() {
     this.auht.currentUser.subscribe(user => {
-      if (user){
+      if (user) {
         this.checkTokenMovil();
         this.pushSetup();
         this.deviceRefreshToken();
         if (user["rol"] == "admin") this.adminSubcribe();
-       // else this.adminUnsubcribe();
+        // else this.adminUnsubcribe();
       }
-
     });
   }
 
   deviceRefreshToken() {
     this.fcm.onTokenRefresh().subscribe(deviceID => {
-      localStorage.set("device_id", deviceID);
       this.api.updateDeviceID(deviceID, this.getOS()).then(resp => {
         localStorage.setItem("device_id", deviceID);
       });

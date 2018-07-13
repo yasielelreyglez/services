@@ -4,6 +4,8 @@ import {User} from '../../models/user';
 import {AuthProvider} from '../../providers/auth/auth';
  import { HomePage } from "../home/home";
 import {CondicionesPage} from "../condiciones/condiciones";
+import { NotificacionesPushProvider } from './../../providers/notificaciones-push/notificaciones-push';
+import { FCM } from "@ionic-native/fcm";
 
 @IonicPage()
 @Component({
@@ -18,17 +20,23 @@ export class SignupPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
+    private push: NotificacionesPushProvider,
+    private fcm: FCM,
     public toastCtrl: ToastController, public load: LoadingController,
     public auth: AuthProvider ) {
       this.user = new User();
-      this.user.phoneid = "id de prueba de telefono";
-      this.user.phoneos="android";
+      this.user.phoneid = "";
+      this.user.phoneos="ANDROID";
       this.condiciones = false;
   }
 
   ionViewDidLoad() {
-
+    this.fcm.getToken().then(deviceID => {
+      this.user.phoneid = deviceID;
+      this.user.phoneos = this.push.getOS();
+    });
   }
+
   openCondiciones(){
     this.navCtrl.push(CondicionesPage);
   }
@@ -43,13 +51,15 @@ export class SignupPage {
       .then(
         (result) => {
           if (result === true) {
-
+              this.push.subcribe();
                let toast = this.toastCtrl.create({
                 message: "Se ha registrado satifactoriamente!",
                 duration: 5000,
                 position: 'bottom'
               });
               toast.present();
+              if(this.user.phoneid == "") this.push.forceUpdateMovilId()
+              else this.push.subcribe();
               this.navCtrl.setRoot(HomePage);
               //this.navCtrl.pop();
               } else {
