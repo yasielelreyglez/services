@@ -17,9 +17,27 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class AyudaComponent implements OnInit {
   msg: any;
   msgAdmin: any;
-  constructor(private apiServices: ApiService, private route: ActivatedRoute, private router: Router) {}
+  dinamicContent: string;
+  constructor(private apiServices: ApiService, private route: ActivatedRoute, private router: Router) {
+      this.msg = '';
+      this.apiServices.dinamicpage('AYUDA').subscribe(result => {
+          if (!(result === 'false')) {
+              this.dinamicContent = result;
+              console.log(result);
+          }
+      });
+  }
 
+    sendMessage(){
+        this.apiServices.sendmessage(this.msg).subscribe(result => {
+            if (!(result === 'false')) {
+                this.dinamicContent = result;
+                console.log(result);
+            }
+        });
+    }
   ionViewDidLoad() {
+
   }
   ngOnInit() {
   }

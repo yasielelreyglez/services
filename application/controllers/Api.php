@@ -1571,6 +1571,12 @@ class Api extends REST_Controller
 
 
     //PAGINAS DINAMICAS
+    public function sendmessage_post(){
+        $factura->nombre = $this->post('msg', TRUE);
+        mailto("info@losyp.com","Contacto desde la aplicacion",)
+        $this->set_response($result, REST_Controller::HTTP_OK);
+    }
+
     public function pagebytitle_get($name){
         $em = $this->doctrine->em;
         $pagesRepo = $em->getRepository('Entities\Page');

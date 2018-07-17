@@ -467,6 +467,32 @@ export class ApiService {
         }
     }
 
+    sendmessage(msg: string): Observable<any> {
+        // const body = JSON.stringify(service);
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            return this.http.post(this.getBaseURL() + 'api/sendmessage', {'msg': msg }, {headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)}).map(response => {
+                return response;
+            });
+        } else {
+            return new Observable();
+        }
+    }
+    dinamicpage(title): Observable<string> {
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            return this.http.get(this.getBaseURL() + 'api/pagebytitle/' + title, {
+                headers: new HttpHeaders().set('Authorization', JSON.parse(currentUser).token)
+            }).map((response) =>  {
+                    if (response['Content']) {
+                        return response['Content'];
+                    } else {
+                        return 'false' ;
+                    }
+                }
+            );
+        }
+    }
     pagosrealizados(): Observable<any> {
         const currentUser = localStorage.getItem('currentUser');
         if (currentUser) {
