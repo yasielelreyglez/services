@@ -229,7 +229,7 @@ export class MapaPage {
         resp.coords.latitude,
         resp.coords.longitude
       );
-      this.map.setCenter(this.latLng);
+      // this.map.setCenter(this.latLng);
       this.map.setZoom(15);
       this.currentP = new google.maps.Marker({
         map: this.map,

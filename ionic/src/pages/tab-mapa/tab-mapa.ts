@@ -197,7 +197,7 @@ export class TabMapaPage {
     this.currentP = new google.maps.Marker({
       map: this.map,
       icon: "assets/icon/location.png",
-      animation: google.maps.Animation.DROP,
+      animation: google.maps.Animation.BOUNCE,
       position: latLng
     });
 
@@ -206,6 +206,9 @@ export class TabMapaPage {
     let infoWindow = new google.maps.InfoWindow({
       content: content
     });
+      setTimeout(()=>  {
+          this.currentP.setAnimation(null);
+      }, 9000);
 
     google.maps.event.addListener(this.currentP, "click", () => {
       // console.log(this.currentP);
