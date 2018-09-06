@@ -388,7 +388,7 @@ class User
      */
     public function notificarComentario(Service $servicio){
 
-        return $this->sendMessageTo($this,$servicio,"Comentario recibido","Se realizo un nuevo comentario sobre su anuncio {$servicio->getTitle()}");
+        return $this->sendMessageTo($this,$servicio,"Comentario recibido","Se realizo un comentario sobre su servicio {$servicio->getTitle()}");
     }
 
     /**
@@ -396,14 +396,14 @@ class User
      * @return Mensaje
      */
     public function notificarDenuncia(Service $servicio){
-        return $this->sendMessageTo($this,$servicio,"Denuncia recibida","El anuncio {$servicio->getTitle()} ha sido denunciado");
+        return $this->sendMessageTo($this,$servicio,"Denuncia recibida","Se realizó una denuncia sobre su servicio {$servicio->getTitle()}");
     }
     /**
      * @param Service $servicio
      * @return Mensaje
      */
     public function notificarBloqueo(Service $servicio){
-        return $this->sendMessageTo($this,$servicio,"Servicio bloqueado","El anuncio {$servicio->getTitle()} ha sido bloqueado");
+        return $this->sendMessageTo($this,$servicio,"Servicio bloqueado","Ha sido bloqueado su servicio {$servicio->getTitle()}");
     }
     /**
      * @param Service $servicio
@@ -414,7 +414,8 @@ class User
         if(isset($reason)){
             $motivo = $reason;
         }
-        return $this->sendMessageTo($this,$servicio,"Pago aceptado","El pago sobre el anuncio {$servicio->getTitle()} ha sido aceptado,".$motivo);
+        return $this->sendMessageTo($this,$servicio,"Pago aceptado","Ha sido aceptado el pago sobre el servicio {$servicio->getTitle()}");
+        // return $this->sendMessageTo($this,$servicio,"Pago aceptado","Ha sido aceptado el pago sobre el servicio {$servicio->getTitle()}".$motivo);
     }
     /**
      * @param Service $servicio
@@ -425,7 +426,8 @@ class User
         if(isset($reason)){
             $motivo = $reason;
         }
-        return $this->sendMessageTo($this,$servicio,"Pago denegado","El pago sobre el anuncio {$servicio->getTitle()} ha sido denegado,".$motivo);
+        return $this->sendMessageTo($this,$servicio,"Pago denegado","Ha sido denegado el pago sobre el servicio {$servicio->getTitle()}");
+        // return $this->sendMessageTo($this,$servicio,"Pago denegado","El pago sobre el anuncio {$servicio->getTitle()} ha sido denegado,".$motivo);
     }
     /**
      * @param User $destinatario
