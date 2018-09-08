@@ -29,6 +29,20 @@ export class BuzonPage {
     this.buscarMensajes();
   }
 
+  inicioM(msg: string) {
+    if (msg.split("servicio")[0]){
+      return msg.split("servicio")[0] + "servicio ";
+    }
+    return msg;
+  }
+
+  finM(msg: string) {
+    if (msg.split("servicio")[1]){
+      return msg.split("servicio")[1];
+    }
+    return "";
+  }
+
   buscarMensajes() {
     this.api.mensajes().then(
       data => {
