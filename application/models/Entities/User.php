@@ -115,6 +115,7 @@ class User
     /**
      * One User has Many UserService.
      * @OneToMany(targetEntity="Mensaje", mappedBy="destinatario",cascade={"persist"})
+	 * @OrderBy({"id" = "DESC"})
      */
     private $mensajes;
 
@@ -220,6 +221,10 @@ class User
     public function getCreated()
     {
         return $this->created;
+	}
+	public function getName()
+    {
+        return $this->name;
     }
     /**
      * Add userservice

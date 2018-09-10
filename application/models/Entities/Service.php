@@ -660,14 +660,19 @@ namespace Entities {
          */
         public function addSubCategories(array $subcategories, $em)
         {
-            $actuales = $this->getSubcategories()->toArray();
+			$actuales = $this->getSubcategories();
+			foreach($actuales as $sub){
+				$this->removeSubcategory($sub);
+			}
+
+			// if(count($actuales) > 0){
+			// 	foreach ($acual as $actuales){
+			// 		$this->removeSubcategory($acual);
+			// 	}
+			// }
             foreach ($subcategories as $subcategory_id) {
                 $subcategory = $em->find('\Entities\Subcategory', $subcategory_id);
-                if (!in_array($subcategory, $actuales)) {
-                    if ($subcategory) {
-                        $this->addSubCategory($subcategory);
-                    }
-                }
+				$this->addSubCategory($subcategory);
             }
             return $this;
         }
@@ -864,6 +869,8 @@ namespace Entities {
                 $images = $this->getImages()->toArray();
                 $image = new Image();
                 if(count($images)>0) {
+					$this->setIcon($site_url .$images[0]->title);
+                    $this->thumb = $site_url .$images[0]->thumb;
                     $image->setTitle($site_url .$images[0]->title);
                     $image->thumb = $images[0]->thumb;
                     $this->imagesList = [];

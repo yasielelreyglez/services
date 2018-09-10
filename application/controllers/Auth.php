@@ -112,6 +112,11 @@ class Auth extends REST_Controller
                 $output["token"] = $token;
                 $output["email"] = $email;
                 $output["role"] = $user->getRole();
+				$output["name"] = $user->getName();
+				if($user->getisFacebook())
+					$output["loginProvider"] = "FACEBOOK";
+				else
+					$output["loginProvider"] = "EMAIL";
                 echo json_encode($output);
                 return;
             } else {
@@ -161,7 +166,11 @@ class Auth extends REST_Controller
                 $token = AUTHORIZATION::generateToken($tokenData);
                 $output["token"] = $token;
                 $output["email"] = $email;
-                $output["role"] = 1;
+				$output["role"] = 1;
+				if($user->getisFacebook())
+					$output["loginProvider"] = "FACEBOOK";
+				else
+					$output["loginProvider"] = "EMAIL";
                 echo json_encode($output);
             } else {
                 $output["error"] = "El usuario no pudo ser creado";

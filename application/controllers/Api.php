@@ -441,7 +441,7 @@ class Api extends REST_Controller
             $this->load->library('send_notification');
             $this->send_notification->send($mensaje->getDestinatario()->getPhoneId(),$mensaje->getDestinatario()->getPhoneSo(),array("text"=>$mensaje->getMensaje(),"id"=>$mensaje->getId()));
 
-            $service->loadRelatedData(null, null, site_url());
+            $service->loadRelatedData($user, null, site_url());
 
             $result["data"] = $service;
         } else {
@@ -482,7 +482,7 @@ class Api extends REST_Controller
             $this->load->library('send_notification');
             $this->send_notification->send($mensaje->getDestinatario()->getPhoneId(),$mensaje->getDestinatario()->getPhoneSo(),array("text"=>$mensaje->getMensaje(),"id"=>$mensaje->getId()));
 
-            $service->loadRelatedData(null, null, site_url());
+            $service->loadRelatedData($user, null, site_url());
 
             $result["data"] = $service;
         } else {
@@ -543,7 +543,7 @@ class Api extends REST_Controller
         $em->persist($obj);
         $em->flush();
         $result["desc"] = "Marcado como favorito el servicio {$service->getTitle()}";
-        $service->loadRelatedData(null, null, site_url());
+        $service->loadRelatedData($user, null, site_url());
         $result["data"] = $service;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
@@ -566,7 +566,7 @@ class Api extends REST_Controller
         $em->persist($obj);
         $em->flush();
         $result["desc"] = "Desmarcado como favorito el servicio {$service->getTitle()}";
-        $service->loadRelatedData(null, null, site_url());
+        $service->loadRelatedData($user, null, site_url());
         $result["data"] = $service;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
@@ -584,7 +584,7 @@ class Api extends REST_Controller
         $result["data"] = array();
         foreach ($relacion as $servicerel) {
             $service_obj = $servicerel->getService();
-            $service_obj->loadRelatedData(null, null, site_url());
+            $service_obj->loadRelatedData($user, null, site_url());
             $result["test"] = $service_obj->loadRelatedUserData($user);
             $result["data"][] = $service_obj;
         }
@@ -745,7 +745,7 @@ class Api extends REST_Controller
         foreach ($relacion as $servicerel) {
             $service_obj = $servicerel->getService();
             $service_obj->loadRelatedUserData($user);
-            $service_obj->loadRelatedData(null, null, site_url());
+            $service_obj->loadRelatedData($user, null, site_url());
             $result["data"][] = $service_obj;
         }
 
@@ -1171,7 +1171,7 @@ class Api extends REST_Controller
                     $em->remove($image);
                     $em->flush();
                 }
-            }
+			}
         } else {
             $service = new \Entities\Service();
         }
@@ -1182,7 +1182,7 @@ class Api extends REST_Controller
         $service->phone = $this->post('phone', TRUE);
         $service->address = $this->post('address', TRUE);
         $service->whatsapp = $this->post('whatsapp', TRUE);
-        $service->addSubCategories($this->post('categories', TRUE), $em);
+        $service->addSubCategories($this->post('categories', TRUE), $em); 
         $service->addCities($this->post('cities', TRUE), $em);
         $icon = $this->post('icon');
         if ($icon) {
@@ -1573,7 +1573,7 @@ class Api extends REST_Controller
     //PAGINAS DINAMICAS
     public function sendmessage_post(){
         $factura->nombre = $this->post('msg', TRUE);
-        mailto("info@losyp.com","Contacto desde la aplicacion",)
+        // mailto("info@losyp.com","Contacto desde la aplicacion");
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
