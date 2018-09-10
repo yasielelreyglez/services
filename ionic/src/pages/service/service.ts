@@ -51,6 +51,7 @@ export class ServicePage {
 
       this.response = data;
       this.service = data["data"];
+      this.passedService = this.service;
 
       this.passedService.servicecommentsList = this.service.servicecommentsList
         ? this.service.servicecommentsList

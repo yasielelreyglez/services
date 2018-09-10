@@ -1,3 +1,4 @@
+import { User } from './../../models/user';
 import { ApiProvider } from './../../providers/api/api';
 import { Component,OnInit } from '@angular/core';
 import { ViewController,NavController,NavParams ,App} from 'ionic-angular';
@@ -20,6 +21,7 @@ export class PopoverPage implements OnInit {
   id: any;
   denuncia: any;
   loggedIn: boolean;
+  user: any;
   public loading: any;
   cantMensajesNoLeidos = 0;
   constructor(
@@ -32,6 +34,7 @@ export class PopoverPage implements OnInit {
    ) {
   }
   ngOnInit() {
+    this.user = this.api.getUser();
     this.loggedIn = this.navPar.get("login");
     this.denuncia = this.navPar.get("denuncia");
     this.tipo = this.navPar.get("tipo");

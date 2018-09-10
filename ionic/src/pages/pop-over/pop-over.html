@@ -8,16 +8,14 @@
 <ng-template #elseTemplate>
   <ion-list *ngIf="!loggedIn">
     <button ion-item (click)="openLoginPage()">
-      <ion-icon class="fs-20" name="unlock"></ion-icon>&nbsp;
-      Autenticarse
+      <ion-icon class="fs-20" name="unlock"></ion-icon>&nbsp; Autenticarse
     </button>
     <button ion-item (click)="openSignUpPage()">
       <i class="fs-20 fa fa-list-alt" aria-hidden="true"></i>
       &nbsp; Registrarse
     </button>
     <button ion-item (click)="openAyuda()">
-      <ion-icon class="fs-20" name="help-circle"></ion-icon>&nbsp;
-      Ayuda
+      <ion-icon class="fs-20" name="help-circle"></ion-icon>&nbsp; Ayuda
     </button>
 
   </ion-list>
@@ -45,8 +43,14 @@
     <button ion-item (click)="openAyuda()">
       <ion-icon class="fs-20" name="help-circle"></ion-icon>&nbsp; Ayuda
     </button>
-    <button ion-item (click)="logout()">
+    <button ion-item no-lines (click)="logout()">
       <ion-icon class="fs-20" name="lock"></ion-icon> &nbsp;Cerrar sesión
     </button>
+    <ion-item *ngIf="user" no-padding no-margin>
+      <h3>Usuario: {{user['email']}}</h3>
+      <h3>Autenticado con: {{user['loginProvider']}}</h3>
+      <h3>{{user['name']}}</h3>
+    </ion-item>
+
   </ion-list>
 </ng-template>

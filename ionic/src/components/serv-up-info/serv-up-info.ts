@@ -43,6 +43,10 @@ export class ServUpInfoComponent {
       .catch(() => console.log('Error launching dialer'));
   }
 
+  ponerContactado(){
+    this.api.contactservice(this.passedService.id);//MARKED AS CONTACTED BEFORE CALL
+  }
+
   openRate(id, rated) {
     const profileModal = this.modalCtrl.create(RatePage, {rated: rated});
     profileModal.onDidDismiss(data => {

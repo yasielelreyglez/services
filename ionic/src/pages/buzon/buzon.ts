@@ -30,15 +30,15 @@ export class BuzonPage {
   }
 
   inicioM(msg: string) {
-    if (msg.split("servicio")[0]){
-      return msg.split("servicio")[0] + "servicio ";
+    if (msg.split("sobre su servicio")[0]){
+      return msg.split("sobre su servicio")[0] + "sobre su servicio ";
     }
     return msg;
   }
 
   finM(msg: string) {
-    if (msg.split("servicio")[1]){
-      return msg.split("servicio")[1];
+    if (msg.split("sobre su servicio")[1]){
+      return msg.split("sobre su servicio")[1];
     }
     return "";
   }

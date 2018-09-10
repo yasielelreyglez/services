@@ -27,7 +27,7 @@
     </ion-item>
     <ion-item>
         <ion-label>Categorias </ion-label>
-        <ion-select required multiple="true" name="categories" [(ngModel)]="filter_category" placeholder="Selecciona una ciudad">
+        <ion-select required multiple="true" name="categories" [(ngModel)]="filter_category" placeholder="Selecciona una categoria">
             <ion-option *ngFor="let c of categories" [value]="c.id">{{c.title}}</ion-option>
         </ion-select>
     </ion-item>

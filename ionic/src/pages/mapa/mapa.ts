@@ -91,7 +91,7 @@ export class MapaPage {
       that.zoom = that.map.getZoom();
     };
   }
-
+/*
   showDistance(event) {
     return function(response, status) {
       if (status == "OK") {
@@ -103,7 +103,7 @@ export class MapaPage {
         // alert("Error: " + status);
       }
     };
-  }
+  }*/
 
   // para lanzar el maps
   launchMaps(p) {
@@ -248,14 +248,14 @@ export class MapaPage {
           )
         );
       }
-      this.distanceM.getDistanceMatrix(
+     /* this.distanceM.getDistanceMatrix(
         {
           origins: [this.latLng],
           destinations: this.destinos,
           travelMode: "DRIVING"
         },
-        this.showDistance(this.events)
-      );
+         this.showDistance(this.events)
+      );*/
     });
   }
 

@@ -14,7 +14,7 @@ import {Geolocation, Geoposition} from "@ionic-native/geolocation";
 
 @Injectable()
 export class AuthProvider {
-  public currentUser = new BehaviorSubject(false);
+  public currentUser = new BehaviorSubject<any>(false);
   public currentPosition = null;
   public lastPosition = null;
   latitud = null;
@@ -52,12 +52,16 @@ export class AuthProvider {
             return false;
           }
           else {
-            localStorage.setItem('ServCurrentUser', JSON.stringify({
-              email: user.email,
+            let userD = {
+              email: response['email'],
               token: response['token'],
-              rol: response['role']
-            }));
-            this.currentUser.next(true);
+              rol: response['role'],
+              name: response['name'],
+              loginProvider: response['loginProvider']
+            }
+            localStorage.setItem('ServCurrentUser', JSON.stringify(userD));
+            this.currentUser.next(userD);
+            this.api.updateUser();
           }
           return true;
         }
@@ -73,7 +77,6 @@ export class AuthProvider {
       .toPromise()
       .then(
         (response) => {
-          console.log(response);
           if (response['error']) {
             return false;
           }
@@ -125,12 +128,16 @@ export class AuthProvider {
             return false;
           }
           else {
-            localStorage.setItem('ServCurrentUser', JSON.stringify({
-              email: user.email,
+            let userD = {
+              email: response["email"],
               token: response['token'],
-              rol: response['role']
-            }));
-            this.currentUser.next(true);
+              rol: response['role'],
+              name: response['name'],
+              loginProvider: response['loginProvider']
+            };
+            localStorage.setItem('ServCurrentUser', JSON.stringify(userD));
+            this.currentUser.next(userD);
+            this.api.updateUser();
             return true;
           }
 
@@ -144,10 +151,11 @@ export class AuthProvider {
     return user ? JSON.parse(user) : false;
   }
 
-
   logout(): void {
     localStorage.removeItem('ServCurrentUser');
     this.currentUser.next(false);
+    this.api.updateUser();
+
   }
 
   isLoggedIn(): boolean {

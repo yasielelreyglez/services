@@ -15,12 +15,23 @@
 
 <ion-content padding>
   <p *ngIf="noFound">No hay resultados </p>
+  <ion-grid>
+    <ion-row>
+        <ion-col col-7>
+          <ion-label text-center color="azul-claro"> Filtrar</ion-label>
+        </ion-col>
+        <ion-col col-5 text-right>
+          <button ion-button (click)="filterServices()">
+            <ion-icon class="fs-20" color="secondary" *ngIf="filtro" name="checkmark"></ion-icon> &nbsp;&nbsp;Filtro</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   <ion-list>
     <div *ngFor="let serv of services; let i = index" [class]="serv.professional == 1 ? 'pagado' :'no_pago'">
     <ion-item >
       <ion-grid>
         <ion-row>
-          <ion-col col-4>
+          <ion-col style="background-color: white" col-4>
             <img (tap)="viewImg(serv.icon)" [src]="serv.icon ? serv.icon : 'assets/imgs/service_img.png' ">
           </ion-col>
 
@@ -50,7 +61,7 @@
         </ion-row>
 
       </ion-grid>
-      <hr class="hr-separador">
+      <!-- <hr class="hr-separador"> -->
     </ion-item>
     </div>
   </ion-list>

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, LoadingController, ViewController, App, AlertController} from "ionic-angular";
+import {IonicPage, NavController, LoadingController, ViewController, App, AlertController, ToastController} from "ionic-angular";
 import {ServiceProvider} from '../../providers/service/service.service';
 import {ServicePage} from '../service/service';
 import {PhotoViewer} from '@ionic-native/photo-viewer';
@@ -21,6 +21,7 @@ export class MyservicesPage {
 
   constructor(public viewCtrl: ViewController,
               public navCtrl: NavController,
+              public toastCtrl: ToastController,
               public appCtrl: App,
               public servProv: ServiceProvider, private photoViewer: PhotoViewer,
               public load: LoadingController, private alertCtrl: AlertController) {
@@ -106,10 +107,18 @@ export class MyservicesPage {
   }
 
   pagarServicio(id,titulo) {
-    this.navCtrl.push(PagarPage, {
-      id: id,
-      name: titulo
+    let toast = this.toastCtrl.create({
+      message: "La forma de pago esta siendo modificada, estamos trabajando!",
+      duration: 5000,
+      position: 'bottom',
+      showCloseButton: true,
+      closeButtonText: "Cerrar"
     });
+    toast.present();
+    // this.navCtrl.push(PagarPage, {
+    //   id: id,
+    //   name: titulo
+    // });
   }
 
   editService(serv) {

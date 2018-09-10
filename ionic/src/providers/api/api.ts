@@ -11,8 +11,8 @@ import {Observable} from 'rxjs/Observable';
 */
 @Injectable()
 export class ApiProvider {
-  // private apiBaseUrl = 'http://159.89.228.158/services/';
-  public apiBaseUrl = 'http://localhost/services/';
+  private apiBaseUrl = 'http://159.89.228.158/services/';
+  // public apiBaseUrl = 'http://localhost/services/';
   // private apiBaseUrl = 'http://192.168.0.103/services/';
   public days: object;
   user: any;
@@ -27,7 +27,7 @@ export class ApiProvider {
       5: "Sábado",
       6: "Domingo"
     };
-    this.user = JSON.parse(localStorage.getItem('ServCurrentUser'));
+    this.updateUser();
   }
 
   updateDeviceID(deviceID, os) {
@@ -44,6 +44,14 @@ export class ApiProvider {
         return response["data"];
       })
       .catch(this.handleError);
+  }
+
+  updateUser(){
+    this.user = JSON.parse(localStorage.getItem('ServCurrentUser'));
+  }
+
+  getUser(){
+    return this.user;
   }
 
     payService(id: number, body: any): Promise<any> {
@@ -233,9 +241,8 @@ export class ApiProvider {
   }
 
   mensajesNoLeidos() {
-    if(!this.user)
-      this.user = JSON.parse(localStorage.getItem('ServCurrentUser'));
-    return this.http.get(this.apiBaseUrl + 'api/mensajesNoleidos', {
+    if(this.user)
+      return this.http.get(this.apiBaseUrl + 'api/mensajesNoleidos', {
       headers: new HttpHeaders().set('Authorization', this.user.token)
     })
       .toPromise()

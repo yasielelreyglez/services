@@ -114,11 +114,11 @@ export class Create1Page {
   }
 
   textoSubcategoria(subId){
-    if (this.subCategories){
-      for (let i = 0; i < this.subCategories.length; i++) {
-        if(this.subCategories[i].id == subId) return this.subCategories[i].title;
-      }
-    }
+     if (this.subCategories){
+       for (let i = 0; i < this.subCategories.length; i++) {
+         if(this.subCategories[i].id == subId) return this.subCategories[i].title;
+       }
+     }
   }
 
   establecerCategoria(){

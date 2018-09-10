@@ -1,68 +1,70 @@
 <ion-header>
-    <app-header (searchValue)="getSearchValue($event)"></app-header>
+  <app-header (searchValue)="getSearchValue($event)"></app-header>
 </ion-header>
 
 
 <ion-content padding>
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Actualizando...">
-        </ion-refresher-content>
-    </ion-refresher>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Actualizando...">
+    </ion-refresher-content>
+  </ion-refresher>
 
-    <ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-7>
+        <ion-label text-center color="azul-claro">{{services.length}} Resultados</ion-label>
+
+      </ion-col>
+      <ion-col col-5 text-right>
+        <button ion-button (click)="filterServices()">
+          <ion-icon class="fs-20" color="secondary" *ngIf="filtro" name="checkmark"></ion-icon> &nbsp;&nbsp;Filtro</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <hr class="hr-separador">
+
+  <ion-list>
+    <div *ngFor="let serv of services; let i = index" [class]="serv.professional == 1 ? 'pagado' :'no_pago'">
+      <ion-item>
         <ion-row>
-            <ion-col col-7>
-                <ion-label text-center color="azul-claro">{{services.length}} Resultados</ion-label>
+          <ion-col col-4 style="background-color: white">
+            <img (tap)="viewImg(serv.icon)" [src]="serv.icon ? serv.icon : 'assets/imgs/service_img.png' ">
+          </ion-col>
 
-            </ion-col>
-            <ion-col col-5 text-right>
-                <button ion-button (click)="filterServices()"> <ion-icon class="fs-20" color="secondary" *ngIf="filtro" name="checkmark"></ion-icon> &nbsp;&nbsp;Filtro</button>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-
-    <hr class="hr-separador">
-
-    <ion-list>
-      <div *ngFor="let serv of services; let i = index" [class]="serv.professional == 1 ? 'pagado' :'no_pago'">
-        <ion-item >
-            <ion-grid>
-                <ion-row>
-                    <ion-col col-4>
-                        <img (tap)="viewImg(serv.icon)" [src]="serv.icon ? serv.icon : 'assets/imgs/service_img.png' ">
-                    </ion-col>
-
-                    <ion-col col-8 (click)='openServicePage(serv.id,i)'>
-                        <h2 class="serv-title ">{{serv.title }} </h2>
-                        <div class="text-center fw-600 serv-pro" *ngIf="serv.professional === 1">
-                            <p class="texto" style>PRO</p>
-                        </div>
-                        <hr class="hr-separador">
-                        <ion-row>
-                            <ion-col col-12>
-                                <p>Distancia: 5 km</p>
-                                <p text-wrap><span *ngFor="let cat of serv.subcategoriesList; let i = index">
-                  <ng-container *ngIf="i > 0; else elseTemplate">
-                      ,{{ cat.title}}
-                  </ng-container>
-                  <ng-template #elseTemplate>
-                      {{ cat.title}}
-                  </ng-template>
-                </span>
-                                </p>
-                                <ion-rating [readOnly]="true" [numStars]="5" [value]="serv.globalrate"></ion-rating>
-                                <p text-wrap><span >{{serv.visits }} Vistas</span></p>
-                            </ion-col>
-
-                        </ion-row>
-
-                    </ion-col>
-
-                </ion-row>
-
-            </ion-grid>
+          <ion-col col-8 (click)='openServicePage(serv.id,i)'>
+            <h2 class="serv-title ">{{serv.title }} </h2>
+            <div class="text-center fw-600 serv-pro" *ngIf="serv.professional === 1">
+              <p class="texto" style>PRO</p>
+            </div>
             <hr class="hr-separador">
-        </ion-item>
-      </div>
-    </ion-list>
+            <ion-row>
+              <ion-col col-12>
+                <p>Distancia: 5 km</p>
+                <p text-wrap>
+                  <span *ngFor="let cat of serv.subcategoriesList; let i = index">
+                    <ng-container *ngIf="i > 0; else elseTemplate">
+                      ,{{ cat.title}}
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                      {{ cat.title}}
+                    </ng-template>
+                  </span>
+                </p>
+                <ion-rating [readOnly]="true" [numStars]="5" [value]="serv.globalrate"></ion-rating>
+                <p text-wrap>
+                  <span>{{serv.visits }} Vistas</span>
+                </p>
+              </ion-col>
+
+            </ion-row>
+
+          </ion-col>
+
+        </ion-row>
+
+        <!-- <hr class="hr-separador"> -->
+      </ion-item>
+    </div>
+  </ion-list>
 </ion-content>

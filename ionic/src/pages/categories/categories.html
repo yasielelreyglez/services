@@ -8,7 +8,7 @@
     <hr class="hr-separador"> -->
   <ion-grid>
     <ion-row align-items-center>
-      <ion-col align-self-center col-4 text-center *ngFor="let cat of categories">
+      <ion-col align-self-center col-4 text-center style="background-color: white" *ngFor="let cat of categories">
         <img src="{{cat.icon}}" (click)="openSubcategories(cat.id,cat.title)"/>
         <p><a class="tamanno" text-wrap (click)="openSubcategories(cat.id,cat.title)">{{cat.title}}</a></p>
       </ion-col>

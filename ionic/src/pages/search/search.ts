@@ -1,8 +1,14 @@
-import {Component} from '@angular/core';
-import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
-import {HttpErrorResponse} from "@angular/common/http";
-import {ServiceProvider} from "../../providers/service/service.service";
-import {ServicePage} from "../service/service";
+import { Component } from "@angular/core";
+import {
+  IonicPage,
+  ToastController,
+  LoadingController,
+  NavController,
+  NavParams
+} from "ionic-angular";
+import { HttpErrorResponse } from "@angular/common/http";
+import { ServiceProvider } from "../../providers/service/service.service";
+import { ServicePage } from "../service/service";
 
 /**
  * Generated class for the SearchPage page.
@@ -13,18 +19,23 @@ import {ServicePage} from "../service/service";
 
 // @IonicPage()
 @Component({
-  selector: 'page-search',
-  templateUrl: 'search.html',
+  selector: "page-search",
+  templateUrl: "search.html"
 })
 export class SearchPage {
-
   busqueda: any;
   loading: any;
   private services: any;
   private noFound: boolean;
 
-  constructor( public servProv: ServiceProvider,private load: LoadingController,public navCtrl: NavController, public navParams: NavParams) {
-     this.busqueda = this.navParams.get("buscar");
+  constructor(
+    public servProv: ServiceProvider,
+    public toastCtrl: ToastController,
+    private load: LoadingController,
+    public navCtrl: NavController,
+    public navParams: NavParams
+  ) {
+    this.busqueda = this.navParams.get("buscar");
   }
 
   SearchValue(value) {
@@ -37,7 +48,7 @@ export class SearchPage {
   openServicePage(id, index) {
     this.navCtrl.push(ServicePage, {
       service: this.services[index], //paso el service
-      serviceId: id,  //si paso el id del servicio para la peticion
+      serviceId: id //si paso el id del servicio para la peticion
     });
   }
 
@@ -48,7 +59,7 @@ export class SearchPage {
     this.loading.present();
     this.servProv.getServiceBySearch(query).then(
       data => {
-        this.services = data['data'];
+        this.services = data["data"];
         this.noFound = this.services.length == 0;
         this.loading.dismiss();
       },
@@ -58,8 +69,18 @@ export class SearchPage {
         } else {
           this.loading.dismiss();
         }
-      });
+      }
+    );
   }
 
-
+  filterServices() {
+    let toast = this.toastCtrl.create({
+      message: "estamos trabajando en este cambio!",
+      duration: 5000,
+      position: "bottom",
+      showCloseButton: true,
+      closeButtonText: "Cerrar"
+    });
+    toast.present();
+  }
 }

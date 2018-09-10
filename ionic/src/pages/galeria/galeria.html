@@ -13,7 +13,7 @@
     </ion-label>
     <ion-grid>
         <ion-row>
-            <ion-col col-4 *ngFor="let imagen of galeria">
+            <ion-col style="background-color: white" col-4 *ngFor="let imagen of galeria">
                 <img (tap)="viewImg(imagen.title)" style="min-width: 100%;min-height: 100%" src="{{ imagen.title}}">
             </ion-col>
             <p class="fs-20" *ngIf="!havePhoto">No hay galeria </p>

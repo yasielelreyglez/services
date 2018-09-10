@@ -108,13 +108,14 @@ export class Create4Page {
     this.service.positions = this.positions;
     this.servProv.createFullService(this.service).then(
       data => {
-        console.log(data);
-        this.navCtrl.setRoot(HomePage);
+        setTimeout(() => {
+          this.navCtrl.push(ServicePage, {
+            service: data, //paso el service
+            serviceId: data.id //si paso el id del servicio para la peticion
+          });
+        }, 0);
+        this.navCtrl.popToRoot();
         loading.dismiss();
-        this.navCtrl.push(ServicePage, {
-          service: data, //paso el service
-          serviceId: data.id //si paso el id del servicio para la peticion
-        });
       },
       (err: HttpErrorResponse) => {
         console.log("error en el servidor");

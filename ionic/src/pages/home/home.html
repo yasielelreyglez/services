@@ -23,7 +23,7 @@
         <ion-item *ngFor="let serv of services; let i = index">
           <ion-grid>
             <ion-row>
-              <ion-col col-4>
+              <ion-col col-4 style="background-color: white">
                 <img (tap)="viewImg(serv.icon)" [src]="serv.icon ? serv.icon : 'assets/imgs/service_img.png' ">
               </ion-col>
               <ion-col col-8 (tap)='openServicePage(serv.id,i)'>
