@@ -14,7 +14,7 @@ import {ServicesPage} from '../services/services';
 import {CategoriesPage} from '../categories/categories';
 import 'rxjs/add/operator/map';
 // componetes ionic
-import {IonicPage, PopoverController, NavController, AlertController,} from 'ionic-angular';
+import {IonicPage, PopoverController, NavController, AlertController, ModalController, LoadingController,} from 'ionic-angular';
 import {
   NavParams,
   Keyboard,
@@ -30,6 +30,7 @@ import {SearchPage} from "../search/search";
 import {OpenNativeSettings} from '@ionic-native/open-native-settings';
 import {Diagnostic} from '@ionic-native/diagnostic';
 import {Geoposition} from "@ionic-native/geolocation";
+import {FiltroModalPage} from '../filtro-modal/filtro-modal';
 
 /* @IonicPage({
   priority: 'high'
@@ -39,86 +40,110 @@ import {Geoposition} from "@ionic-native/geolocation";
   templateUrl: 'home.html'
 })
 export class HomePage {
-  subCategories = [];
-  services = [];
-  para: any;
-  connetionDown: boolean;
-  loggedIn: boolean;
-  noFound: boolean;
-
-  busqueda: boolean;
-  @ViewChild('search') search;
-
-
-  constructor(private alertCtrl: AlertController,
-              private openNativeSettings: OpenNativeSettings,
-              private diagnostic: Diagnostic,
-              public auth: AuthProvider,
-              private popoverCtrl: PopoverController,
-              public subCat: SubCategoryProvider,
-              public navCtrl: NavController,
-              public api: ApiProvider,
-              public servProv: ServiceProvider,
-              private photoViewer: PhotoViewer,
-              public keyboard: Keyboard,
-              public navParams: NavParams, public splashScreen: SplashScreen, public platform: Platform, statusBar: StatusBar,
-              // private push: NotificacionesPushProvider
-  ) {
+    subCategories = [];
+    services = [];
+    para: any;
+    connetionDown: boolean;
+    filtro: boolean;
+    loggedIn: boolean;
+    noFound: boolean;
+    filter_city: any = [];
+    filter_category: any = [];
+    busqueda: boolean;
+    @ViewChild('search') search;
 
 
+    constructor(public modalCtrl: ModalController,
+                private alertCtrl: AlertController,
+                private openNativeSettings: OpenNativeSettings,
+                private diagnostic: Diagnostic,
+                public auth: AuthProvider,
+                private popoverCtrl: PopoverController,
+                public load: LoadingController,
+                public subCat: SubCategoryProvider,
+                public navCtrl: NavController,
+                public api: ApiProvider,
+                public servProv: ServiceProvider,
+                private photoViewer: PhotoViewer,
+                public keyboard: Keyboard,
+                public navParams: NavParams, public splashScreen: SplashScreen, public platform: Platform, statusBar: StatusBar,
+                // private push: NotificacionesPushProvider
+    ) {
 
-    this.platform.ready().then(() => {
-      // this.auth.currentPosition.subscribe(
-      //   (data: Geoposition) => {
-      //     console.log(data.coords);
-      //   },
-      //   (error: Geoposition) => {
-      //     alert(error);
-      //   },
-      // );
 
-      // if(this.diagnostic.isLocationAuthorized())
-      // {
-      //   alert("isLocationAvailable");
-      // }
-      // else{
-      //   alert("no esta avaliable");
-      // }
-      // if (this.diagnostic.isLocationAvailable() && this.diagnostic.isLocationEnabled()) {
-      //   // this.openNativeSettings.open('location');
-      //   this.diagnostic.switchToLocationSettings();
-      // }
-      //statusBar.hide();
-      //statusBar.backgroundColorByHexString('#ffffff');
-      this.platform.registerBackButtonAction((readySource) => {
-        if (this.navCtrl.canGoBack()) {
-          this.navCtrl.pop();
-        }
-        else {
-          this.exitApp();
-        }
 
-      });
+      this.platform.ready().then(() => {
+        // this.auth.currentPosition.subscribe(
+        //   (data: Geoposition) => {
+        //     console.log(data.coords);
+        //   },
+        //   (error: Geoposition) => {
+        //     alert(error);
+        //   },
+        // );
 
-      this.subCat.topSubcategories().then(
-        data => {
-          this.subCategories = data['data'];
-          this.splashScreen.hide();
-          this.connetionDown = false;
-        },
-        (err: HttpErrorResponse) => {
-          if (err.error instanceof Error) {
-            this.connetionDown = true;
-            this.splashScreen.hide();
-          } else {
-            this.connetionDown = true;
-            this.splashScreen.hide();
+        // if(this.diagnostic.isLocationAuthorized())
+        // {
+        //   alert("isLocationAvailable");
+        // }
+        // else{
+        //   alert("no esta avaliable");
+        // }
+        // if (this.diagnostic.isLocationAvailable() && this.diagnostic.isLocationEnabled()) {
+        //   // this.openNativeSettings.open('location');
+        //   this.diagnostic.switchToLocationSettings();
+        // }
+        //statusBar.hide();
+        //statusBar.backgroundColorByHexString('#ffffff');
+        this.platform.registerBackButtonAction((readySource) => {
+          if (this.navCtrl.canGoBack()) {
+            this.navCtrl.pop();
           }
-        });
-    });
-  }
+          else {
+            this.exitApp();
+          }
 
-  ionViewDidLoad() {
+        });
+
+        this.subCat.topSubcategories().then(
+          data => {
+            this.subCategories = data['data'];
+            this.splashScreen.hide();
+            this.connetionDown = false;
+          },
+          (err: HttpErrorResponse) => {
+            if (err.error instanceof Error) {
+              this.connetionDown = true;
+              this.splashScreen.hide();
+            } else {
+              this.connetionDown = true;
+              this.splashScreen.hide();
+            }
+          });
+      });
+    }
+
+    filterServices(){
+        const profileModal = this.modalCtrl.create(FiltroModalPage, {
+            filter_city: this.filter_city,
+            filter_category: this.filter_category,
+        });
+        profileModal.onDidDismiss(data => {
+            this.filter_city = data.filter_city;
+            this.filter_category = data.filter_category;
+            if (data.clear != undefined) {
+                this.deleteFilter();
+            }
+            console.log(data.filter_category);
+            if (data.filter_category != undefined || data.filter_city != undefined ){
+                this.buscar();
+            }
+        });
+
+        profileModal.present();
+    }
+
+    ionViewDidLoad() {
 
     this.platform.ready().then(() => {
       this.auth.currentUser.subscribe(user => {
@@ -135,23 +160,23 @@ export class HomePage {
     });
   }
 
-  ionViewDidEnter() {
+    ionViewDidEnter() {
     if (this.navParams.get('connetionDown')) {
       this.connetionDown = true;
     }
   }
 
-  ionViewWillEnter() {
+    ionViewWillEnter() {
     this.search.value = "";
   }
 
-  viewImg(img) {
+    viewImg(img) {
     this.platform.ready().then(() => {
       this.photoViewer.show(img);
     });
   }
 
-  exitApp() {
+    exitApp() {
     let confirm = this.alertCtrl.create({
       title: "¿Desea salir de la aplicación? ",
       message: "",
@@ -172,13 +197,22 @@ export class HomePage {
     confirm.present();
   }
 
-  buscar() {
-    this.navCtrl.push(SearchPage, {
-      buscar: this.search.value
-    });
+    buscar() {
+        this.navCtrl.push(SearchPage, {
+          buscar: this.search.value,
+            filter_city: this.filter_city,
+            filter_category: this.filter_category
+        });
   }
 
-  goSearch(keyCode) {
+    deleteFilter() {
+        // this.filtro = false;
+        // this.filter_city = [];
+        // this.filter_category = [];
+        // this.filter_distance = 0;
+    }
+
+    goSearch(keyCode) {
     if (keyCode === 13) {
       this.navCtrl.push(SearchPage, {
         buscar: this.search.value
@@ -186,73 +220,73 @@ export class HomePage {
     }
   }
 
-  openServicePage(id, index) {
-    this.navCtrl.push(ServicePage, {
-      service: this.services[index], //paso el service
-      serviceId: id,  //si paso el id del servicio para la peticion
-      parentPage: this
-    });
+    openServicePage(id, index) {
+      this.navCtrl.push(ServicePage, {
+        service: this.services[index], //paso el service
+        serviceId: id,  //si paso el id del servicio para la peticion
+        parentPage: this
+      });
   }
 
-  delete(chip: Element) {
-    chip.remove();
-  }
+    delete(chip: Element) {
+      chip.remove();
+    }
 
-  presentPopover(ev) {
-    let popover = this.popoverCtrl.create(PopoverPage);
-    popover.present({
-      ev: ev,
+    presentPopover(ev) {
+      let popover = this.popoverCtrl.create(PopoverPage);
+      popover.present({
+        ev: ev,
 
-    });
-  }
+      });
+    }
 
-  openCategoriesPage() {
-    this.navCtrl.push(CategoriesPage)
-  }
+    openCategoriesPage() {
+      this.navCtrl.push(CategoriesPage)
+    }
 
-  openServicesPage(id) {
-    // this.api.test().then(
-    //   () => {
-    this.navCtrl.push(ServicesPage, {
-      subCatId: id
-    });
-    // },
-    // (err: HttpErrorResponse) => {
-    //   // no hay conexion
-    //     this.connetionDown = true;
-    // });
+    openServicesPage(id) {
+      // this.api.test().then(
+      //   () => {
+      this.navCtrl.push(ServicesPage, {
+        subCatId: id
+      });
+      // },
+      // (err: HttpErrorResponse) => {
+      //   // no hay conexion
+      //     this.connetionDown = true;
+      // });
 
-  }
+    }
 
-  reConnect() {
-    this.subCat.topSubcategories()
-      .then(
-        (cat) => {
-          this.busqueda = false;
-          this.connetionDown = false;
-          this.subCategories = cat['data'];
+    reConnect() {
+      this.subCat.topSubcategories()
+        .then(
+          (cat) => {
+            this.busqueda = false;
+            this.connetionDown = false;
+            this.subCategories = cat['data'];
+          }
+        ).catch(
+        (error) => {
+          this.connetionDown = true;
         }
-      ).catch(
-      (error) => {
-        this.connetionDown = true;
+      );
+    }
+
+    toogleFavorite(index, id) {
+      if (this.services[index].favorite == 1) {
+        this.servProv.diskMarkfavorite(id).then(
+          data => {
+            this.services[index].favorite = 0;
+          });
       }
-    );
-  }
+      else {
+        this.servProv.markfavorite(id).then(
+          data => {
+            this.services[index].favorite = 1;
+          });
+      }
 
-  toogleFavorite(index, id) {
-    if (this.services[index].favorite == 1) {
-      this.servProv.diskMarkfavorite(id).then(
-        data => {
-          this.services[index].favorite = 0;
-        });
     }
-    else {
-      this.servProv.markfavorite(id).then(
-        data => {
-          this.services[index].favorite = 1;
-        });
-    }
-
-  }
 }
 

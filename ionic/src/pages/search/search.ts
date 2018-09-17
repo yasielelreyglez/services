@@ -24,6 +24,8 @@ import { ServicePage } from "../service/service";
 })
 export class SearchPage {
   busqueda: any;
+    filter_city: any = [];
+    filter_category: any = [];
   loading: any;
   private services: any;
   private noFound: boolean;
@@ -36,13 +38,15 @@ export class SearchPage {
     public navParams: NavParams
   ) {
     this.busqueda = this.navParams.get("buscar");
+    this.filter_category = this.navParams.get("filter_category");
+    this.filter_city = this.navParams.get("filter_city");
   }
 
   SearchValue(value) {
-    this.searchServices(value);
+    this.searchServices(value,null,null);
   }
   ionViewDidLoad() {
-    this.searchServices(this.busqueda);
+    this.searchServices(this.busqueda,this.filter_category,this.filter_city);
   }
 
   openServicePage(id, index) {
@@ -52,14 +56,14 @@ export class SearchPage {
     });
   }
 
-  searchServices(query) {
+  searchServices(query,category,cities) {
     this.loading = this.load.create({
       content: "Buscando..."
     });
     this.loading.present();
-    this.servProv.getServiceBySearch(query).then(
+    this.servProv.filterService(cities,category,{},query).then(
       data => {
-        this.services = data["data"];
+        this.services = data["services"];
         this.noFound = this.services.length == 0;
         this.loading.dismiss();
       },

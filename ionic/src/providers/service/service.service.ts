@@ -20,6 +20,7 @@ export class ServiceProvider {
   getBaseUrl(){
       return this.api.getbaseUrl();
   }
+
   deleteService(id) {
     if (this.auth.getUser()) {
       return this.http.get(this.api.getbaseUrl() + 'api/deleteservice/' + id, {
@@ -154,6 +155,7 @@ export class ServiceProvider {
               }
           ).catch(this.handleError);
   }
+
   getServicesVisited(): Promise<Object> {
     return this.http.get(this.api.getbaseUrl() + 'api/myvisits', {
       headers: new HttpHeaders().set('Authorization', this.auth.getUser().token)
@@ -237,8 +239,9 @@ export class ServiceProvider {
       ).catch(this.handleError);
   }
 
-  filterService(cities, categories, distance, current) {
-    return this.http.post(this.api.getbaseUrl() + 'api/filter', {cities, categories,distance,current})
+  filterService(cities, categories, current,query) {
+      let distance = 0;
+    return this.http.post(this.api.getbaseUrl() + 'api/filter', {cities, categories,distance,current,query})
       .toPromise()
       .then(
         (response) => {

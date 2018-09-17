@@ -27,7 +27,6 @@ export class FiltroModalPage {
   }
 
   ionViewDidLoad() {
-    this.filter_distance = this.navParams.get("filter_distance");
     this.filter_category =this.navParams.get("filter_category");
     this.filter_city =this.navParams.get("filter_city");
   }
@@ -36,7 +35,6 @@ export class FiltroModalPage {
     let data = {
       'filter_city': this.filter_city,
       'filter_category': this.filter_category,
-      'filter_distance': this.filter_distance
     };
     this.viewCtrl.dismiss(data);
   }

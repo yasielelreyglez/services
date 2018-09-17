@@ -390,20 +390,27 @@ class Api extends REST_Controller
             $services = $this->filterByDistance($distance, $current_position, $filtered, $services);
             $filtered = true;
         }
-
+        $query = $this->post("query", true);
         if (!$filtered) {
-            $em = $this->doctrine->em;
-            $services_repo = $em->getRepository('Entities\Service');
-            $services = $services_repo->findAll();
+            if($query) {
+                return $this->searchService_get($query);
+            }else {
+                $em = $this->doctrine->em;
+                $services_repo = $em->getRepository('Entities\Service');
+                $services = $services_repo->findAll();
+            }
         }
         $services_a = array();
+        /** @var \Entities\Service $service */
         foreach ($services as $service) {
             if (!array_key_exists($service->getId(), $services_a)) {
-                $service->loadRelatedData($user, null, site_url());
-                if ($user) {
-                    $service->loadRelatedUserData($user);
+                if(($query&&strpos($service->getTitle(), $query) !== false )||!$query){
+                    $service->loadRelatedData($user, null, site_url());
+                    if ($user) {
+                        $service->loadRelatedUserData($user);
+                    }
+                    $services_a[$service->getId()] = $service;
                 }
-                $services_a[$service->getId()] = $service;
             }
         }
         $result["services"] = array_values($services_a);
