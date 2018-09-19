@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {LoadingController} from 'ionic-angular';
 import {SubCategoryProvider} from '../../providers/sub-category/sub-category';
 import {ServicesPage} from '../services/services';
+import { SearchPage } from './../search/search';
 
 
 /**
@@ -62,6 +63,16 @@ export class SubcategoriesPage {
         return (item.title.toLowerCase().indexOf(value.toLowerCase()) > -1);
       })
     }
+  }
+
+  openSubcategoriesBusqueda(catId, title){
+    this.navCtrl.push(SearchPage, {
+      buscar: "",
+        filter_city: [],
+        filter_category: [catId],
+        categoriaFija: true,
+        subCategoriaTitutlo: title
+    });
   }
 
   // abre la vista de los servicios asociados a la categoria en dada

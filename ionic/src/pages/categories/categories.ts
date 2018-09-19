@@ -25,7 +25,7 @@ export class CategoriesPage {
               public load: LoadingController,
               public popCtrl: PopoverController,) {
 
-    const loading = this.load.create();
+    let loading = this.load.create();
     loading.present();
     category.getcategories()
       .then(

@@ -52,7 +52,8 @@ export class ServicesPage {
       let index = this.services.findIndex(this.findServById, id);
       this.services[index].favorite = 0;
     });
-    this.servicesBySubCat(navParams.get("subCatId"));
+    this.subCatId = navParams.get("subCatId")
+    this.servicesBySubCat(this.subCatId);
     // this.loadSelect();
     // });
 

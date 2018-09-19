@@ -21,6 +21,7 @@ export class FiltroModalPage {
   filter_distance=0;
   filter_category: any="";
   filter_city: any="";
+  categoriaFija = false;
 
   constructor( public api: ApiProvider,public viewCtrl: ViewController,public navCtrl: NavController, public navParams: NavParams) {
     this.loadSelect();
@@ -29,6 +30,7 @@ export class FiltroModalPage {
   ionViewDidLoad() {
     this.filter_category =this.navParams.get("filter_category");
     this.filter_city =this.navParams.get("filter_city");
+    this.categoriaFija =this.navParams.get("categoriaFija") ? this.navParams.get("categoriaFija"): false;
   }
 
   filtrar() {
@@ -40,6 +42,10 @@ export class FiltroModalPage {
   }
   close() {
     let data = {'close': true};
+/*     let data = {
+      'filter_city': this.filter_city,
+      'filter_category': this.filter_category,
+    }; */
     this.viewCtrl.dismiss(data);
   }
   clearFilter() {
