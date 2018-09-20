@@ -1,6 +1,5 @@
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import {
-  IonicPage,
   NavController,
   NavParams,
   LoadingController,
@@ -10,14 +9,12 @@ import { sendService } from "../../models/sendService";
 import { ServiceProvider } from "../../providers/service/service.service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Position } from "../../models/position";
-import { HomePage } from "../home/home";
 import { ServicePage } from "../service/service";
 import { AuthProvider } from "../../providers/auth/auth";
-import { Geolocation, PositionError } from "@ionic-native/geolocation";
+import { Geolocation } from "@ionic-native/geolocation";
 
 declare var google;
 
-// @IonicPage()
 @Component({
   selector: "page-create4",
   templateUrl: "create4.html"

@@ -204,7 +204,9 @@ export class ServicesPage {
     const profileModal = this.modalCtrl.create(FiltroModalPage, {
       filter_city: this.filter_city,
       filter_category: this.filter_category,
+        hide_category: true,
     });
+
     profileModal.onDidDismiss(data => {
       this.filter_city = data.filter_city;
       this.filter_category = data.filter_category;
@@ -223,7 +225,7 @@ export class ServicesPage {
             longitude: this.auth.getLongitud()
           },null)
             .then(data => {
-                this.services = data["services"];
+                this.services = data["data"];
                 loading.dismiss();
               },
               (err: HttpErrorResponse) => {
@@ -241,7 +243,7 @@ export class ServicesPage {
             longitude: -82.33370029999999
           },null)
             .then(data => {
-                this.services = data["services"];
+                this.services = data["data"];
                 loading.dismiss();
               },
               (err: HttpErrorResponse) => {

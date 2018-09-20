@@ -1,14 +1,15 @@
 import { Component } from "@angular/core";
 import {
-  IonicPage,
-  ToastController,
-  LoadingController,
-  NavController,
-  NavParams
-} from "ionic-angular";
+    IonicPage,
+    ToastController,
+    LoadingController,
+    NavController,
+    NavParams, ModalController
+} from 'ionic-angular';
 import { HttpErrorResponse } from "@angular/common/http";
 import { ServiceProvider } from "../../providers/service/service.service";
 import { ServicePage } from "../service/service";
+import {FiltroModalPage} from '../filtro-modal/filtro-modal';
 
 /**
  * Generated class for the SearchPage page.
@@ -31,6 +32,7 @@ export class SearchPage {
   private noFound: boolean;
 
   constructor(
+      public modalCtrl: ModalController,
     public servProv: ServiceProvider,
     public toastCtrl: ToastController,
     private load: LoadingController,
@@ -43,7 +45,7 @@ export class SearchPage {
   }
 
   SearchValue(value) {
-    this.searchServices(value,null,null);
+    this.searchServices(value,this.filter_category,this.filter_city);
   }
   ionViewDidLoad() {
     this.searchServices(this.busqueda,this.filter_category,this.filter_city);
@@ -63,8 +65,10 @@ export class SearchPage {
     this.loading.present();
     this.servProv.filterService(cities,category,{},query).then(
       data => {
-        this.services = data["services"];
-        this.noFound = this.services.length == 0;
+        this.services = data["data"];
+        if(this.services != undefined) {
+            this.noFound = this.services.length == 0;
+        }
         this.loading.dismiss();
       },
       (err: HttpErrorResponse) => {
@@ -77,14 +81,41 @@ export class SearchPage {
     );
   }
 
-  filterServices() {
-    let toast = this.toastCtrl.create({
-      message: "estamos trabajando en este cambio!",
-      duration: 5000,
-      position: "bottom",
-      showCloseButton: true,
-      closeButtonText: "Cerrar"
-    });
-    toast.present();
-  }
+    filterServices(){
+        const profileModal = this.modalCtrl.create(FiltroModalPage, {
+            filter_city: this.filter_city,
+            filter_category: this.filter_category,
+        });
+        profileModal.onDidDismiss(data => {
+            this.filter_city = data.filter_city;
+            this.filter_category = data.filter_category;
+            if (data.clear != undefined) {
+                this.deleteFilter();
+            }
+            console.log(data.filter_category);
+            if (data.filter_category != undefined || data.filter_city != undefined ){
+                this.searchServices(this.busqueda,this.filter_category,this.filter_city);
+            }
+        });
+
+        profileModal.present();
+    }
+    deleteFilter() {
+        this.filter_category = [];
+        this.filter_city = [];
+        // this.filtro = false;
+        // this.filter_city = [];
+        // this.filter_category = [];
+        // this.filter_distance = 0;
+    }
+  // filterServices() {
+  //   let toast = this.toastCtrl.create({
+  //     message: "estamos trabajando en este cambio!",
+  //     duration: 5000,
+  //     position: "bottom",
+  //     showCloseButton: true,
+  //     closeButtonText: "Cerrar"
+  //   });
+  //   toast.present();
+  // }
 }

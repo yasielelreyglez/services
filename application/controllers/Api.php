@@ -356,7 +356,7 @@ class Api extends REST_Controller
         if ($current_position && $distance) {
             $services = $this->filterByDistance($distance, $current_position, $filtered, $services);
         }
-        $result["services"] = $services;
+        $result["data"] = $services;
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 
@@ -413,7 +413,7 @@ class Api extends REST_Controller
                 }
             }
         }
-        $result["services"] = array_values($services_a);
+        $result["data"] = array_values($services_a);
         $this->set_response($result, REST_Controller::HTTP_OK);
     }
 

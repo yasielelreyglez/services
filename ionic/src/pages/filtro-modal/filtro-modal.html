@@ -21,20 +21,21 @@
         <ion-label>Ciudades
         </ion-label>
 
-        <ion-select required multiple="true" name="cities" [(ngModel)]="filter_city" placeholder="Selecciona una ciudad">
+        <ion-select required multiple="true" name="cities" [(ngModel)]="filter_city" placeholder="Selecciona una ciudad" (ionChange)="changeFilter()">
             <ion-option *ngFor="let c of cities" [value]="c.id">{{c.title}}</ion-option>
         </ion-select>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="!hide_category||hide_category==undefined">
         <ion-label>Categorias </ion-label>
-        <ion-select required multiple="true" name="categories" [(ngModel)]="filter_category" placeholder="Selecciona una categoria">
+        <ion-select required multiple="true" name="categories" [(ngModel)]="filter_category" placeholder="Selecciona una categoria" (ionChange)="changeFilter()">
             <ion-option *ngFor="let c of categories" [value]="c.id">{{c.title}}</ion-option>
         </ion-select>
     </ion-item>
     <ion-grid>
         <ion-row>
             <ion-col col-6>
-                <button [disabled]="filter_category.length ==0 && filter_city.length ==0  && filter_distance ==0" (click)="filtrar()" ion-button block>Filtrar</button>
+
+                <button [disabled]="filter_disabled" (click)="filtrar()" ion-button block>Filtrar</button>
             </ion-col>
             <ion-col col-6>
                 <button (click)="clearFilter()" ion-button block>Limpiar</button>
