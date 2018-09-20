@@ -129,6 +129,7 @@ export class HomePage {
             filter_category: this.filter_category,
         });
         profileModal.onDidDismiss(data => {
+          if (data && !data["close"]) {
             this.filter_city = data.filter_city;
             this.filter_category = data.filter_category;
             if (data.clear != undefined) {
@@ -138,6 +139,7 @@ export class HomePage {
             if (data.filter_category != undefined || data.filter_city != undefined ){
                 this.buscar();
             }
+          }
         });
 
         profileModal.present();
@@ -206,10 +208,10 @@ export class HomePage {
   }
 
     deleteFilter() {
-        // this.filtro = false;
-        // this.filter_city = [];
-        // this.filter_category = [];
-        // this.filter_distance = 0;
+         this.filtro = false;
+         this.filter_city = [];
+         this.filter_category = [];
+        //  this.filter_distance = 0;
     }
 
     goSearch(keyCode) {
@@ -244,12 +246,19 @@ export class HomePage {
       this.navCtrl.push(CategoriesPage)
     }
 
-    openServicesPage(id) {
+    openServicesPage(id, title) {
+      this.navCtrl.push(SearchPage, {
+        buscar: "",
+          filter_city: [],
+          filter_category: [id],
+          categoriaFija: true,
+          subCategoriaTitutlo: title
+      });
       // this.api.test().then(
       //   () => {
-      this.navCtrl.push(ServicesPage, {
-        subCatId: id
-      });
+      // this.navCtrl.push(ServicesPage, {
+      //   subCatId: id
+      // });
       // },
       // (err: HttpErrorResponse) => {
       //   // no hay conexion

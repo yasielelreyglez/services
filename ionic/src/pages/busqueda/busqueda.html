@@ -27,8 +27,9 @@
               <hr class="hr-separador">
               <ion-row>
                 <ion-col (click)='openServicePage(serv.id,i)' col-9 style="margin-left: -10px;">
+                  <p>Veces Visitado: {{serv['visits']}}</p>
                   <p>Calificación: {{serv.globalrate.toFixed(1)}}/5</p>
-                  <p>Distancia: {{serv.globalrate/2}} km</p>
+                  <!-- <p>Distancia: {{serv.globalrate/2}} km</p> -->
                   <p text-wrap>Categoria: <span *ngFor="let cat of serv.subcategoriesList; let i = index">
                                     <ng-container *ngIf="i > 0; else elseTemplate">
                                        ,{{ cat.title}}
@@ -38,7 +39,7 @@
                                     </ng-template>
                                  </span>
                   </p>
-                  <p>Visualización: {{serv.visit_at.date.substring(0,10)}}</p>
+                  <p *ngIf="serv['visit_at']">Visitado el: {{serv.visit_at.date.substring(0,10)}}</p>
                   <ng-container *ngIf="serv.contacted==1; else contactSetion">
                     <div class="text-center fw-600 contact-section bc-green">
                       <p>Contactado</p>

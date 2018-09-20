@@ -6,7 +6,7 @@
   <ng-container *ngIf="!connetionDown; else elseTemplate">
     <ion-grid no-padding>
       <ion-row>
-        <ion-col col-8>
+        <ion-col col-10>
           <ion-searchbar id="search" (keypress)="goSearch($event.keyCode)" placeholder="¿Qué estas buscando?" #search></ion-searchbar>
         </ion-col>
         <ion-col col-2>
@@ -14,11 +14,11 @@
             <ion-icon name="search"></ion-icon>
           </button>
         </ion-col>
-        <ion-col col-2>
+<!--         <ion-col col-2>
           <button block  color="azul-claro"  class="buscar-btn" ion-button icon-only (click)="filterServices()">
             <ion-icon name="funnel" ></ion-icon>
           </button>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
     </ion-grid>
 
@@ -36,7 +36,6 @@
                 <hr class="hr-separador">
                 <ion-row>
                   <ion-col col-12>
-                    <p>Distancia: 5 km</p>
                     <p text-wrap>
                       <span *ngFor="let cat of serv.subcategoriesList; let i = index">
                         <ng-container *ngIf="i > 0; else elseTemplate">
@@ -73,7 +72,7 @@
     <ion-label text-center color="azul-claro">Principales tendencias</ion-label>
     <ion-list>
       <button *ngFor="let sub of subCategories" class="specific-button" text-left color="azul-claro" ion-button block margin-bottom="1"
-        (click)='openServicesPage(sub.id)'>
+        (click)='openServicesPage(sub.id, sub.title)'>
         <img src="{{sub.icon}}" alt="" height="36"> &nbsp;{{sub.title}}
       </button>
 
