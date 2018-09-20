@@ -63,7 +63,7 @@ export class SearchPage {
       content: "Buscando..."
     });
     this.loading.present();
-    this.servProv.filterService(cities,category,{},query).then(
+    this.servProv.filterService(cities,category,0,{},query).then(
       data => {
         this.services = data["data"];
         if(this.services != undefined) {

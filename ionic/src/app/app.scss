@@ -12,6 +12,7 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
 .progress {
   margin: 5px auto;
   text-align: center;
@@ -182,4 +183,7 @@ ion-modal ion-backdrop {
 ion-select {
   max-width: 80%;
   padding: 0 !important;
+}
+.tab-button{
+  min-height: 3.6rem!important;
 }

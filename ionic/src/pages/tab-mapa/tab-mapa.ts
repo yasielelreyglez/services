@@ -143,10 +143,10 @@ export class TabMapaPage {
       .filterService({}, {}, 100, {
         latitude: lat,
         longitude: long
-      })
+      },"")
       .then(
         data => {
-          let services = data["services"];
+          let services = data["data"];
           for (let i = 0; i < services.length; i++) {
             var iconmarker =
               "https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2.png";

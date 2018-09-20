@@ -441,15 +441,15 @@ class Api extends REST_Controller
             }
             $obj->setComplaint($queja);
             $obj->setComplaintCreated(new DateTime("now"));
+//            $mensaje2 = $user->notificarDenunciante($service);
             $mensaje = $service->notificarDenuncia();
+//            $em->persist($mensaje2);
             $em->persist($mensaje);
             $em->persist($obj);
             $em->flush();
             $this->load->library('send_notification');
             $this->send_notification->send($mensaje->getDestinatario()->getPhoneId(),$mensaje->getDestinatario()->getPhoneSo(),array("text"=>$mensaje->getMensaje(),"id"=>$mensaje->getId()));
-
             $service->loadRelatedData($user, null, site_url());
-
             $result["data"] = $service;
         } else {
             $result["error"] = 'Debe estar autenticado para realizar esta acción';
@@ -1736,7 +1736,7 @@ class Api extends REST_Controller
             foreach ($services_filtered as $service) {
                 $posiciones = $service->getPositions();
                 foreach ($posiciones as $posicion) {
-                    $posicion = new \Entities\Position();
+                    /** @var \Entities\Position $posicion */
                     if ($posicion->isInRange($distance, $current_position)) {
                         $result_position[] = $service;
                         break;

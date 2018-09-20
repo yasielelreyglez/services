@@ -221,7 +221,7 @@ export class ServicesPage {
         });
         loading.present();
         if (this.auth.getLongitud() != null) {
-          this.servProv.filterService(this.filter_city, this.filter_category, {
+          this.servProv.filterService(this.filter_city, this.filter_category,0, {
             latitude: this.auth.getLatitud(),
             longitude: this.auth.getLongitud()
           },null)
@@ -239,7 +239,7 @@ export class ServicesPage {
             );
 
         } else {
-          this.servProv.filterService(this.filter_city, this.filter_category, {
+          this.servProv.filterService(this.filter_city, this.filter_category, 0,{
             latitude: 23.106131899999998,
             longitude: -82.33370029999999
           },null)

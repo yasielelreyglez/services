@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
+import {EqualValidator} from '../_directive/validate-password.directive';
 
 
 import { MyApp } from './app.component';
@@ -99,6 +100,7 @@ import { Diagnostic } from '@ionic-native/diagnostic';
     PagarPage,
     TabMapaPage,
     ModalDenunciaPage,
+      EqualValidator,
     // ChangePassPage,
     // BuzonPage
     // LoginPage,

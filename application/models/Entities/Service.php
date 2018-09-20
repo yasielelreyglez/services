@@ -263,6 +263,7 @@ namespace Entities {
         {
             return $this->getAuthor()->notificarComentario($this);
         }
+
         public function detachMessages($em){
             $mensajes = $this->getMensajes();
             /** @var Mensaje $mensaje */

@@ -70,6 +70,15 @@ export class MyservicesPage {
             this.servProv.deleteService(id).then(
               (response) => {
                 this.services = this.services.filter(service => service.id !== id);
+                  let toast = this.toastCtrl.create({
+                          message: "Servicio eliminado correctamente",
+                          duration: 5000,
+                          position: "bottom",
+                          showCloseButton: true,
+                          closeButtonText: "Cerrar",
+                        });
+                        toast.present();
+
               }
             ).catch(
               (error) => {

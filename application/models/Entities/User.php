@@ -407,6 +407,13 @@ class User
      * @param Service $servicio
      * @return Mensaje
      */
+    public function notificarDenunciante(Service $servicio){
+        return $this->sendMessageTo($this,$servicio,"Denuncia Enviada","Usted realizó una denuncia sobre el servicio {$servicio->getTitle()}");
+    }
+    /**
+     * @param Service $servicio
+     * @return Mensaje
+     */
     public function notificarBloqueo(Service $servicio){
         return $this->sendMessageTo($this,$servicio,"Servicio bloqueado","Ha sido bloqueado su servicio {$servicio->getTitle()}");
     }

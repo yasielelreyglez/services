@@ -91,7 +91,8 @@ class Auth extends REST_Controller
 
     public function login_post()
     {
-        $values = json_decode($this->post()[0]);
+        $post_Val = $this->post();
+        $values = json_decode($post_Val[0]);
 //        $user_agent = $this->input->get_request_header('User-Agent', FALSE);
         $email = $values->email;
         $password = $values->password;
@@ -111,6 +112,10 @@ class Auth extends REST_Controller
                 $token = AUTHORIZATION::generateToken($tokenData);
                 $output["token"] = $token;
                 $output["email"] = $email;
+                if($user->getisFacebook())
+					$output["loginProvider"] = "FACEBOOK";
+				else
+					$output["loginProvider"] = "EMAIL";
                 $output["role"] = $user->getRole();
 				$output["name"] = $user->getName();
 				if($user->getisFacebook())
@@ -130,6 +135,8 @@ class Auth extends REST_Controller
             return;
         }
     }
+
+
 
     public function register_post()
     {
@@ -167,10 +174,10 @@ class Auth extends REST_Controller
                 $output["token"] = $token;
                 $output["email"] = $email;
 				$output["role"] = 1;
-				if($user->getisFacebook())
-					$output["loginProvider"] = "FACEBOOK";
-				else
-					$output["loginProvider"] = "EMAIL";
+//				if($user->getisFacebook())
+//					$output["loginProvider"] = "FACEBOOK";
+//				else
+//					$output["loginProvider"] = "EMAIL";
                 echo json_encode($output);
             } else {
                 $output["error"] = "El usuario no pudo ser creado";

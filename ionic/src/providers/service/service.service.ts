@@ -239,8 +239,7 @@ export class ServiceProvider {
       ).catch(this.handleError);
   }
 
-  filterService(cities, categories, current,query) {
-      let distance = 0;
+  filterService(cities, categories, distance,current,query) {
     return this.http.post(this.api.getbaseUrl() + 'api/filter', {cities, categories,distance,current,query})
       .toPromise()
       .then(
