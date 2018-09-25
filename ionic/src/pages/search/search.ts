@@ -45,7 +45,8 @@ export class SearchPage {
   }
 
   SearchValue(value) {
-    this.searchServices(value,this.filter_category,this.filter_city);
+      this.busqueda = value;
+    this.searchServices(this.busqueda,this.filter_category,this.filter_city);
   }
   ionViewDidLoad() {
     this.searchServices(this.busqueda,this.filter_category,this.filter_city);
@@ -91,6 +92,7 @@ export class SearchPage {
             this.filter_category = data.filter_category;
             if (data.clear != undefined) {
                 this.deleteFilter();
+
             }
             console.log(data.filter_category);
             if (data.filter_category != undefined || data.filter_city != undefined ){
@@ -103,6 +105,7 @@ export class SearchPage {
     deleteFilter() {
         this.filter_category = [];
         this.filter_city = [];
+        this.searchServices(this.busqueda,this.filter_category,this.filter_city);
         // this.filtro = false;
         // this.filter_city = [];
         // this.filter_category = [];
