@@ -418,15 +418,20 @@ export class WizardserviceComponent implements OnInit, AfterViewInit {
             const file = event.target.files[0];
             reader.readAsDataURL(file);
             reader.onload = () => {
+
                 for (let i = 0; i < 4; i++) {
                     const current = this.previews[i];
-                    if (!current.position) {
-                        current.position = true;
-                        current.src = reader.result;
-                        current.filename = file.name;
-                        current.filetype = file.type;
-                        current.value = reader.result.split(',')[1];
-                        break;
+                    if ( file.size > 2000000 ) {
+                        this.openSnackBar('Tamaño excedido( 2 MB ), recortar imagen o utilizar otra', 2500);
+                    }else {
+                        if (!current.position) {
+                            current.position = true;
+                            current.src = reader.result;
+                            current.filename = file.name;
+                            current.filetype = file.type;
+                            current.value = reader.result.split(',')[1];
+                            break;
+                        }
                     }
                 }
                 this.moreImageGalery();

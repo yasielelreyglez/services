@@ -27,7 +27,7 @@ export class ChangePassPage {
       result=>{
         if (result){
           let toast = this.toastCtrl.create({
-            message: "Contraseña cambiada ",
+            message: "Contraseña cambiada exitosamente",
             duration: 5000,
             position: 'bottom',
           });
@@ -39,7 +39,7 @@ export class ChangePassPage {
         }
         else {
           let toast = this.toastCtrl.create({
-            message: "Las contraseñas no coinciden",
+            message: "Contraseña almacenada en el servidor no coincide con la ingresada",
             duration: 5000,
             position: 'bottom',
           });

@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {
   IonicPage,
   NavController,
+    ToastController,
   NavParams,
   ViewController,
   ActionSheetController,
@@ -35,7 +36,7 @@ export class Create2Page {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
-              public actionSheetCtrl: ActionSheetController,
+              public actionSheetCtrl: ActionSheetController,   public toastCtrl: ToastController,
               private camera: Camera, public photoViewer: PhotoViewer, private alertCtrl: AlertController,) {
     this.service = this.navParams.get("service");
     this.service.gallery = [];
@@ -89,13 +90,22 @@ export class Create2Page {
     };
     this.camera.getPicture(options).then((imageData) => {
 
-      if (this.edit) {
-        // this.service.imagesList.push({title: 'data:image/jpeg;base64,' + imageData});
-        this.service.imagesList.push({filename: "imageData"+this.service.id+Math.floor(Math.random() * 100), filetype: "image/jpeg", value: imageData});
-        this.restantes = new Array(4 - this.service.imagesList.length);
+      if(imageData.size>2000000){
+          let toast = this.toastCtrl.create({
+              message: "Tamaño excedido( 2 MB ), recortar imagen o utilizar otra",
+              duration: 2000,
+              position: "bottom"
+          });
+          toast.present();
+      }else{
+        if (this.edit) {
+          // this.service.imagesList.push({title: 'data:image/jpeg;base64,' + imageData});
+          this.service.imagesList.push({filename: "imageData"+this.service.id+Math.floor(Math.random() * 100), filetype: "image/jpeg", value: imageData});
+          this.restantes = new Array(4 - this.service.imagesList.length);
+        }
+        this.photos.push({filename: this.service.title.trim()+Math.floor(Math.random() * 100), filetype: "image/jpeg", value: imageData});
+        this.restantes = new Array(4 - this.photos.length);
       }
-      this.photos.push({filename: this.service.title.trim()+Math.floor(Math.random() * 100), filetype: "image/jpeg", value: imageData});
-      this.restantes = new Array(4 - this.photos.length);
     }, (err) => {
     });
   }

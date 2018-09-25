@@ -441,9 +441,9 @@ class Api extends REST_Controller
             }
             $obj->setComplaint($queja);
             $obj->setComplaintCreated(new DateTime("now"));
-//            $mensaje2 = $user->notificarDenunciante($service);
+            $mensaje2 = $user->notificarDenunciante($service);
             $mensaje = $service->notificarDenuncia();
-//            $em->persist($mensaje2);
+            $em->persist($mensaje2);
             $em->persist($mensaje);
             $em->persist($obj);
             $em->flush();
@@ -586,6 +586,7 @@ class Api extends REST_Controller
         //AQUI TODAS LAS EXPRESIONES POR LAS QUE SE PUEDE BUSCAR CON TEXTO
         $expresion = new \Doctrine\Common\Collections\Expr\Comparison("favorite", \Doctrine\Common\Collections\Expr\Comparison::EQ, 1);
         $criteria->where($expresion);
+        $criteria->orderBy(array("visited_at"=>"DESC"));
         $relacion = $user->getUserservices()->matching($criteria)->toArray();
         $result["desc"] = "Listado de los servicios marcados como favoritos por el usuario";
         $result["data"] = array();

@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { ServicePage } from "../service/service";
+import {ServiceProvider} from '../../providers/service/service.service';
 
 /**
  * Generated class for the AyudaPage page.
@@ -16,7 +18,12 @@ import { IonicPage, NavController, NavParams } from "ionic-angular";
 export class AyudaPage {
   msg = "";
   msgAdmin = "";
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  preguntas = ""
+  politicas = ""
+  constructor(public navCtrl: NavController, public navParams: NavParams,public servProv: ServiceProvider) {
+      this.preguntas = this.servProv.getBaseUrl()+"faq";
+      this.politicas = this.servProv.getBaseUrl()+"politicas";
+  }
 
   ionViewDidLoad() {
   }

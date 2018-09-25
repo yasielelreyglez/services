@@ -14,6 +14,8 @@ import {WizardserviceComponent} from './components/wizardservice/wizardservice.c
 import {PayserviceComponent} from './components/payservice/payservice.component';
 import {MensajesComponent} from './components/mensajes/mensajes.component';
 import {AyudaComponent} from './components/ayuda/ayuda.component';
+import {FaqComponent} from './components/faq/faq.component';
+import {PoliticaComponent} from './components/politica/politica.component';
 
 const routes: Routes = [
     {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -37,7 +39,9 @@ const routes: Routes = [
     {path: 'myservices/service/:id', component: ShowserviceComponent, canActivate: [AuthGuard]},
     {path: 'createservice', component: WizardserviceComponent, canActivate: [AuthGuard]},
     {path: 'mensajes', component: MensajesComponent, canActivate: [AuthGuard]},
-    {path: 'ayuda', component: AyudaComponent, canActivate: [AuthGuard]},
+    {path: 'ayuda', component: AyudaComponent},
+    {path: 'faq', component: FaqComponent},
+    {path: 'politica', component: PoliticaComponent},
 
 
     // otherwise redirect to home

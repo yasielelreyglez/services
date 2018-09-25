@@ -455,6 +455,13 @@
 <script>
     $(document).ready(function () {
         $("#content").Editor();
+        $("#content").Editor( "setText",$("#content").val())
+        $( "#save" ).on('click',function( event ) {
+            console.log("verificando envio");
+            event.preventDefault();
+            $("#content").val($("#content").Editor( "getText"));
+            $( "#page_form" ).submit();
+        });
     });
 </script>
 </body>
