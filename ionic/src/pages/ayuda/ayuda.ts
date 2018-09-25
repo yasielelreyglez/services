@@ -18,8 +18,10 @@ import {ServiceProvider} from '../../providers/service/service.service';
 export class AyudaPage {
   msg = "";
   msgAdmin = "";
-  preguntas = ""
-  politicas = ""
+  preguntas = "faq.losyp.com";
+  terminos = "terminos.losyp.com";
+  politicas= "certificacion.losyp.com";
+
   constructor(public navCtrl: NavController, public navParams: NavParams,public servProv: ServiceProvider) {
       this.preguntas = this.servProv.getBaseUrl()+"faq";
       this.politicas = this.servProv.getBaseUrl()+"politicas";
