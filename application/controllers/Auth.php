@@ -146,7 +146,7 @@ class Auth extends REST_Controller
         $email = $values->email;
         $users = $userRepo->findBy(array("email" => $email));
         if (count($users) > 0) {
-            $output["error"] = "Ya existe un usuario con este correo";
+            $output["error"] = "Ese email ya está en uso, prueba recuperar tu contraseña";
             echo json_encode($output);
         } else {
             $email = strtolower($email);

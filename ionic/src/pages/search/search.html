@@ -41,7 +41,7 @@
             <ion-row>
               <ion-col col-12>
                   <p *ngIf="serv['visits']">Veces Visitado: {{serv['visits']}}</p>
-                  <p *ngIf="serv['visit_at']">Visitado el: {{serv.visit_at.date.substring(0,10)}}</p>
+                  <p *ngIf="serv['visit_at']">Última visita: {{serv.visit_at.date.substring(0,10)}}</p>
                   <p text-wrap><span *ngFor="let cat of serv.subcategoriesList; let i = index">
                           <ng-container *ngIf="i > 0; else elseTemplate">
                               ,{{ cat.title}}

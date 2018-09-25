@@ -30,7 +30,7 @@ export class FiltroModalPage {
   ionViewDidLoad() {
     this.filter_category =this.navParams.get("filter_category");
     this.filter_city =this.navParams.get("filter_city");
-    this.hide_category =this.navParams.get("hide_category");
+    this.hide_category =this.navParams.get("hide_category")? this.navParams.get("hide_category"):false;
     this.changeFilter();
   }
 

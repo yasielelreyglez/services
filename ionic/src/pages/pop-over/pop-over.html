@@ -47,9 +47,9 @@
       <ion-icon class="fs-20" name="lock"></ion-icon> &nbsp;Cerrar sesión
     </button>
     <ion-item *ngIf="user" no-padding no-margin>
-      <h3>Usuario: {{user['email']}}</h3>
-      <h3>Autenticado con: {{user['loginProvider']}}</h3>
       <h3>{{user['name']}}</h3>
+      <h3>Autenticado con: {{user['loginProvider']}}</h3>
+      <h5><small>Usuario: {{user['email']}}</small></h5>
     </ion-item>
 
   </ion-list>

@@ -64,7 +64,7 @@ export class SignupPage {
               //this.navCtrl.pop();
               } else {
                 let toast = this.toastCtrl.create({
-                  message: "Ya ese email esta en uso",
+                  message: "Ese email ya está en uso, prueba recuperar tu contraseña",
                   duration: 5000,
                   position: 'top'
                 });

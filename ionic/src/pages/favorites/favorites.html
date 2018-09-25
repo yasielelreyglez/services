@@ -28,7 +28,7 @@
               <ion-row>
                 <ion-col (click)='openServicePage(serv.id,i)' col-9 style="margin-left: -10px;">
                     <p *ngIf="serv['visits']">Veces Visitado: {{serv['visits']}}</p>
-                    <p *ngIf="serv['visit_at']">Visitado el: {{serv.visit_at.date.substring(0,10)}}</p>
+                    <p *ngIf="serv['visit_at']">Última visita: {{serv.visit_at.date.substring(0,10)}}</p>
 
                     <p>Calificación: {{serv.globalrate.toFixed(1)}}/10</p>
                 </ion-col>
