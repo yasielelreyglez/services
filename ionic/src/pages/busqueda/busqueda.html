@@ -39,7 +39,7 @@
                                     </ng-template>
                                  </span>
                   </p>
-                  <p *ngIf="serv['visit_at']">Visitado el: {{serv.visit_at.date.substring(0,10)}}</p>
+                  <p *ngIf="serv['visit_at']">Última visita: {{serv.visit_at.date.substring(0,10)}}</p>
                   <ng-container *ngIf="serv.contacted==1; else contactSetion">
                     <div class="text-center fw-600 contact-section bc-green">
                       <p>Contactado</p>

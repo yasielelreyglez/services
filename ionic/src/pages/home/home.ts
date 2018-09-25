@@ -251,7 +251,7 @@ export class HomePage {
         buscar: "",
           filter_city: [],
           filter_category: [id],
-          categoriaFija: true,
+          hide_category: true,
           subCategoriaTitutlo: title
       });
       // this.api.test().then(

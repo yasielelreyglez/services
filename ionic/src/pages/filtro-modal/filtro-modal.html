@@ -25,9 +25,9 @@
             <ion-option *ngFor="let c of cities" [value]="c.id">{{c.title}}</ion-option>
         </ion-select>
     </ion-item>
-    <ion-item *ngIf="!hide_category||hide_category==undefined">
+    <ion-item>
         <ion-label>Categorias </ion-label>
-        <ion-select required multiple="true" name="categories" [(ngModel)]="filter_category" placeholder="Selecciona una categoria" (ionChange)="changeFilter()">
+        <ion-select [disabled]="hide_category" required multiple="true" name="categories" [(ngModel)]="filter_category" placeholder="Selecciona una categoria" (ionChange)="changeFilter()">
             <ion-option *ngFor="let c of categories" [value]="c.id">{{c.title}}</ion-option>
         </ion-select>
     </ion-item>

@@ -70,7 +70,7 @@ export class SubcategoriesPage {
       buscar: "",
         filter_city: [],
         filter_category: [catId],
-        categoriaFija: true,
+        hide_category: true,
         subCategoriaTitutlo: title
     });
   }
