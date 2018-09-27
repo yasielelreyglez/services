@@ -14,11 +14,14 @@
 
 
 <ion-content padding>
-  <p *ngIf="noFound">No hay resultados </p>
+  <div *ngIf="noFound">
+    <p>Ups! Tu búsqueda actual no muestra resultados! </p>
+    <p *ngIf="!subCategoriaTitutlo">Prueba buscar por categorías, es más fácil y divertido!</p>
+  </div>
   <ion-grid>
     <ion-row>
         <ion-col col-7>
-          <ion-label *ngIf="subCategoriaTitutlo" text-center color="azul-claro">Subcategoria {{ subCategoriaTitutlo }}</ion-label>
+          <ion-label *ngIf="subCategoriaTitutlo" text-center color="azul-claro">Subcategoria <p text-wrap>{{ subCategoriaTitutlo }}</p></ion-label>
         </ion-col>
         <ion-col col-5 text-right>
           <button ion-button (click)="filterServices()">
@@ -28,7 +31,7 @@
     </ion-grid>
   <ion-list>
     <div *ngFor="let serv of services; let i = index" [class]="serv.professional == 1 ? 'pagado' :'no_pago'">
-    <ion-item >
+    <ion-item no-padding>
       <ion-grid>
         <ion-row>
           <ion-col style="background-color: white" col-4>

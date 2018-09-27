@@ -30,6 +30,7 @@ export class SearchPage {
   loading: any;
   private services: any;
   private noFound: boolean;
+  subCategoriaTitutlo: string;
 
   constructor(
       public modalCtrl: ModalController,
@@ -42,6 +43,7 @@ export class SearchPage {
     this.busqueda = this.navParams.get("buscar");
     this.filter_category = this.navParams.get("filter_category");
     this.filter_city = this.navParams.get("filter_city");
+    this.subCategoriaTitutlo = this.navParams.get("subCategoriaTitutlo")
   }
 
   SearchValue(value) {
@@ -60,36 +62,43 @@ export class SearchPage {
   }
 
   searchServices(query,category,cities) {
-    this.loading = this.load.create({
+    let loading = this.load.create({
       content: "Buscando..."
     });
-    this.loading.present();
+    loading.present();
     this.servProv.filterService(cities,category,0,{},query).then(
       data => {
+        loading.dismiss();
         this.services = data["data"];
         if(this.services != undefined) {
             this.noFound = this.services.length == 0;
         }
-        this.loading.dismiss();
       },
       (err: HttpErrorResponse) => {
         if (err.error instanceof Error) {
-          this.loading.dismiss();
+          loading.dismiss();
         } else {
-          this.loading.dismiss();
+          loading.dismiss();
         }
       }
-    );
+    ).catch(err=>{
+      console.log(err);
+      loading.dismiss();
+    });
   }
 
     filterServices(){
         const profileModal = this.modalCtrl.create(FiltroModalPage, {
             filter_city: this.filter_city,
             filter_category: this.filter_category,
+            subCategoriaTitutlo: this.subCategoriaTitutlo
         });
         profileModal.onDidDismiss(data => {
+          if (data && !data["close"]) {
             this.filter_city = data.filter_city;
+          if(this.subCategoriaTitutlo == undefined){
             this.filter_category = data.filter_category;
+          }
             if (data.clear != undefined) {
                 this.deleteFilter();
 
@@ -98,12 +107,16 @@ export class SearchPage {
             if (data.filter_category != undefined || data.filter_city != undefined ){
                 this.searchServices(this.busqueda,this.filter_category,this.filter_city);
             }
+          }
         });
 
         profileModal.present();
     }
+
     deleteFilter() {
+      if(this.subCategoriaTitutlo == undefined){
         this.filter_category = [];
+      }
         this.filter_city = [];
         this.searchServices(this.busqueda,this.filter_category,this.filter_city);
         // this.filtro = false;

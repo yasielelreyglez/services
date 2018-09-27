@@ -18,13 +18,13 @@ import {ServiceProvider} from '../../providers/service/service.service';
 export class AyudaPage {
   msg = "";
   msgAdmin = "";
-  preguntas = "faq.losyp.com";
-  terminos = "terminos.losyp.com";
-  politicas= "certificacion.losyp.com";
+  preguntas = "http://faq.losyp.com";
+  terminos = "http://terminos.losyp.com";
+  politicas= "http://certificacion.losyp.com";
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public servProv: ServiceProvider) {
-      this.preguntas = this.servProv.getBaseUrl()+"faq";
-      this.politicas = this.servProv.getBaseUrl()+"politicas";
+      // this.preguntas = this.servProv.getBaseUrl()+"faq";
+      // this.politicas = this.servProv.getBaseUrl()+"politicas";
   }
 
   ionViewDidLoad() {

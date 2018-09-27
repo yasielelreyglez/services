@@ -9,10 +9,10 @@
     <ion-row>
       <ion-col col-7 col-md-8 style="padding-left: 0">
         <ion-label text-wrap *ngIf="passedService.description" ion-text color="dark">
-          {{passedService.description}}
+          <em>{{passedService.subtitle}}</em>
         </ion-label>
       </ion-col>
-      <ion-col col-5 col-md-4 text-right no-padding>
+      <ion-col col-5 col-md-4 text-right padding-top>
         <button color="azul-oscuro" (click)="regularShare()" ion-button small icon-only>
           <ion-icon name="share"></ion-icon>
         </button>
