@@ -6,15 +6,18 @@
                     <form (ngSubmit)="searchQuery()">
                         <input type="text" id="query" class="pull-left" style="margin-bottom: 0; width: 60%; margin-top: 1px;"
                                placeholder="Buscar" [(ngModel)]="query" name="query">
+                        <div class="btn btn-transparent-invert" style="height: 36px; border: 1px solid #dbdbdb;;margin-top: 1px;padding-top: 4px;">
+                            <i _ngcontent-c1="" class="fa fa-search"></i>
+                        </div>
                     </form>
                 </div>
                 <div class="col-md-6">
 
                     <ul class="social">
                         <li><a routerLink="/ayuda" class="fa fa-question"></a></li>
-                        <li><a href="#" class="fa fa-facebook"></a></li>
-                        <li><a href="#" class="fa fa-twitter"></a></li>
-                        <li><a href="#" class="fa fa-google-plus"></a></li>
+                        <li><a href="http://www.facebook.com/losypco/" class="fa fa-facebook"></a></li>
+                        <li><a href="http://www.instragram.com/losypco/" class="fa fa-instagram"></a></li>
+                        <li><a href="mailto:losypco@gmail.com" class="fa fa-envelope"></a></li>
                     </ul>
                     <ul *ngIf="!loggedIn" class="authentication">
                         <li><a routerLink="/login">Iniciar sesión</a></li>

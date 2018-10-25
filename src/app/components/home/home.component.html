@@ -101,10 +101,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h3>Looking for something?<br> let us help you.</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem ad eius consequatur nulla
-                    commodi inventore mollitia esse totam minima error, doloremque placeat deleniti suscipit, ipsam
-                    maxime.</p>
+                <h3>QUE SERVICIO NECESITAS?</h3>
+                <p>Prueba LOSYP BETA, intenta buscar rápidamente por categoría.
+                    Por el momento hay pocos anuncios, pero creemos que con personas como tú vamos a seguir creciendo!
+                </p>
             </div>
             <div class="col-md-12">
                 <div class="map-search">
@@ -113,21 +113,6 @@
                     <!--</div>-->
                     <div class="map-search-fields">
                         <div class="field custom-select-box">
-                            <select id="filterCit" name="cities" class="custom-select" multiple="true"
-                                    data-placeholder="Ciudades">
-                                <option *ngFor="let city of cities" value="{{city.id}}">{{city.title}}</option>
-                            </select>
-                        </div>
-                        <div class="field custom-select-box">
-                            <select id="filterDis" name="distance" class="custom-select" data-placeholder="Distancia">
-                                <option value="5">5 km</option>
-                                <option value="10">10 km</option>
-                                <option value="15">15 km</option>
-                                <option value="20">20 km</option>
-                                <option value="25">25 km</option>
-                            </select>
-                        </div>
-                        <div class="field custom-select-box">
                             <select id="filterSub" name="subcategories" class="custom-select" multiple="true"
                                     data-placeholder="Subcategorías">
                                 <option *ngFor="let subcategory of subcategories" value="{{subcategory.id}}">
@@ -135,12 +120,20 @@
                                 </option>
                             </select>
                         </div>
+                        <div class="field custom-select-box">
+                            <select id="filterCit" name="cities" class="custom-select" multiple="true"
+                                    data-placeholder="Ciudades">
+                                <option *ngFor="let city of cities" value="{{city.id}}">{{city.title}}</option>
+                            </select>
+                        </div>
+                        <div class="field custom-select-box">
+                            <button class="btn btn-medium btn-primary" (click)="filter()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                Filtrar &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </button>
+                        </div>
+
                     </div>
-                    <div class="search-button">
-                        <button class="btn btn-medium btn-primary" (click)="filter()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            Filtrar &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        </button>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -228,76 +221,32 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h4 class="section-title text-center">About The Company</h4>
-                <div class="uou-tabs vertical">
-                    <ul class="tabs">
-                        <li class="active"><a href="#uou-tab-1v">About Us</a></li>
-                        <li><a href="#uou-tab-2v">Our Team</a></li>
-                        <li><a href="#uou-tab-3v">Our Services</a></li>
-                    </ul>
-
+                <h4 class="section-title text-center">Conocenos</h4>
                     <div class="content">
-                        <div class="active" id="uou-tab-1v">
                             <div class="col-md-5">
                                 <img src="assets/img/about-thumbnail.png" alt="" class="img-responsive">
                             </div>
                             <div class="col-md-7">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa in placeat voluptates
-                                    omnis vel quod maiores perferendis, eaque quasi expedita, adipisci dolorum porro
-                                    itaque quia nesciunt atque earum consequatur ex.</p>
+                                <p>Te ha pasado que buscas recomendaciones de servicios y no has recibido lo que esperabas? Hemos tomado esta iniciativa para cambiar la forma de buscar servicios.
+                                    Tenemos para ti:
+                                </p>
                                 <ul class="list-unstyled mb0">
-                                    <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                    <li><i class="fa fa-angle-right"></i><span>Un servicio fácil y sencillo de búsqueda
+</span>
                                     </li>
-                                    <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                    <li><i class="fa fa-angle-right"></i><span>Una APP muy fácil de utilizar</span>
                                     </li>
-                                    <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
+                                    <li><i class="fa fa-angle-right"></i><span>Una base de datos que crece día a día
+</span>
                                     </li>
-                                    <li><i class="fa fa-angle-right"></i><span>Mauris in erat justo.</span></li>
+                                    <li><i class="fa fa-angle-right"></i><span>Sistema de calificación
+</span></li>
+                                    <li><i class="fa fa-angle-right"></i><span>Mapa interactivo
+</span></li>
                                 </ul>
                             </div>
-                        </div>
+                          </div>
 
-                        <div id="uou-tab-2v">
-                            <div class="col-md-5">
-                                <img src="assets/img/about-thumbnail.png" alt="" class="img-responsive">
-                            </div>
-                            <div class="col-md-7">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa in placeat voluptates
-                                    omnis vel ddquod maiores perferendis, eaque quasi expedita, adipisci dolorum porro
-                                    itaque quia nesciunt atque earum consequatur ex.</p>
-                                <ul class="list-unstyled mb0">
-                                    <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
-                                    </li>
-                                    <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
-                                    </li>
-                                    <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
-                                    </li>
-                                    <li><i class="fa fa-angle-right"></i><span>Mauris in erat justo.</span></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div id="uou-tab-3v">
-                            <div class="col-md-5">
-                                <img src="assets/img/about-thumbnail.png" alt="" class="img-responsive">
-                            </div>
-                            <div class="col-md-7">
-                                <p>Lorem ipsuddm dolor sit amet, consectetur adipisicing elit. Ipsa in placeat
-                                    voluptates omnis vel quod maiores perferendis, eaque quasi expedita, adipisci
-                                    dolorum porro itaque quia nesciunt atque earum consequatur ex.</p>
-                                <ul class="list-unstyled mb0">
-                                    <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
-                                    </li>
-                                    <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
-                                    </li>
-                                    <li><i class="fa fa-angle-right"></i><span>Nam nec tellus a odio tincidunt</span>
-                                    </li>
-                                    <li><i class="fa fa-angle-right"></i><span>Mauris in erat justo.</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- end .uou-tabs -->
             </div>
         </div>
     </div>
@@ -405,34 +354,6 @@
                 <!--<div class="toggle-button text-center">-->
                 <!--<button class="btn btn-medium btn-primary">Ver todos</button>-->
                 <!--</div>-->
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="sponsors sponsors-2 has-bg-image" data-bg-image="assets/img/banner-mission.jpg" data-bg-color="00D793"
-     style="background-color: #00D793; background-image: url('assets/img/banner-mission.jpg')"
-     data-bg-opacity=".20">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="section-title">Our Sponsors</h3>
-                <div class="sponsors-slider">
-                    <div class="item"><img src="assets/img/sponsor_logo1_1.png" alt="" class="img-responsive">
-                    </div>
-                    <div class="item"><img src="assets/img/sponsor_logo2_2.png" alt="" class="img-responsive">
-                    </div>
-                    <div class="item"><img src="assets/img/sponsor_logo3_3.png" alt="" class="img-responsive">
-                    </div>
-                    <div class="item"><img src="assets/img/sponsor_logo4_4.png" alt="" class="img-responsive">
-                    </div>
-                    <div class="item"><img src="assets/img/sponsor_logo5_5.png" alt="" class="img-responsive">
-                    </div>
-                    <div class="item"><img src="assets/img/sponsor_logo6_6.png" alt="" class="img-responsive">
-                    </div>
-                    <div class="item"><img src="assets/img/sponsor_logo4_4.png" alt="" class="img-responsive">
-                    </div>
-                </div>
             </div>
         </div>
     </div>
