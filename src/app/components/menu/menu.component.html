@@ -6,7 +6,7 @@
                     <form (ngSubmit)="searchQuery()">
                         <input type="text" id="query" class="pull-left" style="margin-bottom: 0; width: 60%; margin-top: 1px;"
                                placeholder="Buscar" [(ngModel)]="query" name="query">
-                        <div class="btn btn-transparent-invert" style="height: 36px; border: 1px solid #dbdbdb;;margin-top: 1px;padding-top: 4px;">
+                        <div class="btn btn-transparent-invert" style="height: 36px; border: 1px solid #dbdbdb;;margin-top: 1px;padding-top: 4px;" (click)="searchQuery()">
                             <i _ngcontent-c1="" class="fa fa-search"></i>
                         </div>
                     </form>
