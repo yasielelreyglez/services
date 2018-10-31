@@ -253,10 +253,16 @@ export class ShowservicesComponent implements OnInit, AfterViewInit, AfterViewCh
         window.scrollTo(0, 0);
         const selectSub = new Array();
         const selectCit = new Array();
-        const sub = this.elRef.nativeElement.querySelectorAll('.subcategories:checked');
+        let sub = this.elRef.nativeElement.querySelectorAll('.subcategories:checked');
+        const cat = this.elRef.nativeElement.querySelectorAll('.categories:checked');
+        if ( sub.length === 0 && cat.length > 0 ) {
+            sub = this.elRef.nativeElement.querySelectorAll('.subcategories');
+        }
+
         sub.forEach(function (item) {
             selectSub.push($(item).attr('id'));
         });
+
 
         const cit = this.elRef.nativeElement.querySelectorAll('.cities:checked');
         cit.forEach(function (item) {

@@ -11,7 +11,7 @@
                             <!--<span class="title" style="max-width: 70%;">{{allCat ? 'Desmarcar todas' : 'Marcar todas'}}</span>-->
                             <!--</li>-->
                             <li *ngFor="let category of categories">
-                                <input type="checkbox" [checked]="allCat" id="{{category.id}}"
+                                <input  class="categories"  type="checkbox" [checked]="allCat" id="{{category.id}}"
                                        (change)="onCheckCategory(category.id)">
                                 <span class="title" style="max-width: 70%;">{{category.title}}</span>
                                 <span class="count">{{category.servicesCount}}</span>
