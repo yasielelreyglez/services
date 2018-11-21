@@ -66,11 +66,12 @@
 
                                 <label for="categories">Sub-Categoria *</label>
                                 <select id="categories" name="categories" class="custom-select" multiple="true"
-                                        required>
+                                        required disabled>
                                     <option *ngFor="let category of categories" value="{{category.id}}">
                                         {{category.title}}
                                     </option>
-                                </select></div>
+                                </select>
+                            </div>
                             <div *ngIf="edit"><label for="categedit">Categoria *</label>
                                 <select id="categedit" name="categedit" class="custom-select"
                                         style="margin-bottom: 15px;"
